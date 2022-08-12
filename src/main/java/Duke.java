@@ -11,11 +11,11 @@ public class Duke {
         exit();
     }
 
-    public static void exit(){
+    private static void exit(){
         System.out.println(" Bye! Hope to see you again soon :)");
     }
 
-    public static void greetings(){
+    private static void greetings(){
         System.out.println(" Hello! I'm Duke\n" + " What can I do for you?");
     }
 }
