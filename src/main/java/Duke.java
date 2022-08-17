@@ -1,7 +1,7 @@
 public class Duke {
     public static void printLines(int n) {
         // to print those lines
-        for (int i = 0; i < n; i ++) {
+        for (int i = 0; i < n; i++) {
             System.out.print("_");
         }
         System.out.println("");
