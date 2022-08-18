@@ -10,6 +10,12 @@ public class Duke {
         System.out.println(greeting);
     }
     public static void main(String[] args) {
+        String logo = "   _____                .__   \n" +
+                "  /  _  \\ ___  ___ ____ |  |  \n" +
+                " /  /_\\  \\\\  \\/  // __ \\|  |  \n" +
+                "/    |    \\>    <\\  ___/|  |__\n" +
+                "\\____|__  /__/\\_ \\\\___  >____/\n";
+        System.out.println(logo);
         greetUser();
     }
 }
