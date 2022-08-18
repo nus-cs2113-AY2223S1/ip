@@ -21,6 +21,22 @@ public class Duke {
                 + "____________________________________________________________";
         System.out.println(message);
     }
+
+    public static void addToList(String[] tasks, String curr, int taskCount){
+        tasks[taskCount] = curr;
+        String acknowledgement = "____________________________________________________________" + System.lineSeparator()
+                + "added: " + curr + System.lineSeparator()
+                + "____________________________________________________________" + System.lineSeparator();
+        System.out.println(acknowledgement);
+    }
+
+    public static void printList(String[] tasks, int taskCount){
+        System.out.println("____________________________________________________________");
+        for(int i = 0; i < taskCount; i++){
+            System.out.println((i+1) + ". " + tasks[i]);
+        }
+        System.out.println("____________________________________________________________");
+    }
     public static void main(String[] args) {
         String logo = "   _____                .__   \n" +
                 "  /  _  \\ ___  ___ ____ |  |  \n" +
@@ -30,6 +46,8 @@ public class Duke {
         System.out.println(logo);
         greetUser();
         Scanner input = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int taskCount = 0;
         boolean exit = false;
         while(!exit){
             String curr = input.nextLine();
@@ -37,8 +55,12 @@ public class Duke {
                 exit = true;
                 sayByeToUser();
             }
+            else if(curr.equals("list")){
+                printList(tasks, taskCount);
+            }
             else{
-                echoToUser(curr);
+                addToList(tasks, curr, taskCount);
+                taskCount++;
             }
         }
     }
