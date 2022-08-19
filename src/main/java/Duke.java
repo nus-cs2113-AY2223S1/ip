@@ -14,6 +14,8 @@ public class Duke {
     };
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
+    private static ListManager listManager = new ListManager();
+
     public static void displayMessage(String[] lines) {
         System.out.println(INDENT + HORIZONTAL_RULE);
         for (String line : lines) {
@@ -23,13 +25,17 @@ public class Duke {
     }
 
     public static void displayMessage(String line) {
-        System.out.println(INDENT + HORIZONTAL_RULE);
-        System.out.println(INDENT + " " + line);
-        System.out.println(INDENT + HORIZONTAL_RULE);
+        displayMessage(line.split("\n"));
     }
 
     public static void processInput(String input) {
-        displayMessage(input);
+        // command types: read, return, list
+        if (input.startsWith("list")) {
+            displayMessage(listManager.toString());
+        } else {
+            listManager.addItem(input);
+            displayMessage("added: " + input);
+        }
     }
 
     public static void main(String[] args) {
