@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Duke {
 
     //Zhou Zhou
@@ -12,7 +13,14 @@ public class Duke {
     }
 
     public static void bye() {
-        System.out.println("Have a great day!");
+        line();
+        System.out.println("Please don't go :(");
+        line();
+    }
+
+    public static void echo(String input) {
+        line();
+        System.out.println(input);
         line();
     }
     public static void main(String[] args) {
@@ -23,8 +31,12 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greet();
-
-
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        while (!input.equals("bye")) {
+            echo(input);
+            input = in.nextLine();
+        }
         bye();
     }
 }
