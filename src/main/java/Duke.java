@@ -2,16 +2,20 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void printWithFormat(String input) {
+    /**
+     * Formats messages to be printed on the terminal
+     * @param input String Message to be formatted
+     */
+    public static void formatAndPrint(String input) {
         String output = "";
         String[] split = input.split("\n");
-        String line = "    ____________________________________________________________";
-        System.out.println(line);
+
+        System.out.println("    ____________________________________________________________");
         for (String string: split) {
             output = output.concat( "     " + string + "\n");
         }
         System.out.print(output);
-        System.out.println(line);
+        System.out.println("    ____________________________________________________________");
     }
 
 
@@ -22,18 +26,18 @@ public class Duke {
 
         output = "Hello! I'm DuckyMoMo\n"
                 + "What can I do for you?";
-        printWithFormat(output);
+        formatAndPrint(output);
 
         input = sc.nextLine();
         while (true) {
             String[] arguments = input.split("[ \t]+");
 
             switch (arguments[0]) {
-            case "bye" :
-                printWithFormat("Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            case "bye":
+                formatAndPrint("Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 return;
             case "list":
-                output = taskManager.getTasks();
+                output = taskManager.getAllTasks();
                 break;
             case "mark":
                 output = taskManager.markTask(Integer.parseInt(arguments[1]));
@@ -43,8 +47,9 @@ public class Duke {
                 break;
             default:
                 output = taskManager.addTask(input);
+                break;
             }
-            printWithFormat(output);
+            formatAndPrint(output);
 
             input = sc.nextLine();
         }
