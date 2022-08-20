@@ -19,49 +19,50 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    public static void markDone(ArrayList<Task> tasks, String command, boolean isDone) {
+        int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
+        tasks.get(taskIndex).setStatus(isDone);
+
+        System.out.println("    ____________________________________________________________");
+        if (isDone == true) {
+            System.out.println("    Subarashi! Good job in completing your task, Nobita:");
+        } else {
+            System.out.println("    Gambate Nobita, complete it soon! Don't procrastinate:");
+        }
+        System.out.println("    \uD83D\uDC49 [" + tasks.get(taskIndex).getStatusIcon() +
+                "] " + tasks.get(taskIndex).getDescription());
+        System.out.println("    ____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         printGreeting();
-        Scanner in = new Scanner(System.in);
         String command;
+        Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (true) {
             command = in.nextLine();
-            if (command.equals("list")) {
-                System.out.println("    ____________________________________________________________");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println("    \uD83D\uDC49 " + (i+1) + ".[" + tasks.get(i).getStatusIcon() + "] " +tasks.get(i).getDescription());
-                }
-                System.out.println("    ____________________________________________________________");
-            }
-            else if (command.equals("bye")) {
+            if (command.equals("bye")) {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    Sayonara. Hope to see you again soon! ✪");
                 System.out.println("    ____________________________________________________________");
                 break;
-            }
-            else if (command.startsWith("unmark ")) {
+            } else if (command.equals("list")) {
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Gambate Nobita, complete it soon! Don't procrastinate:");
-                command = command.replaceAll("[^0-9]", "");
-                int taskNumber = Integer.parseInt(command) - 1;
-                tasks.get(taskNumber).setDone(false);
-                System.out.println("    \uD83D\uDC49 [" + tasks.get(taskNumber).getStatusIcon() + "] " + tasks.get(taskNumber).getDescription());
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println("    \uD83D\uDC49 " + (i + 1) + ".[" + tasks.get(i).getStatusIcon()
+                            + "] " + tasks.get(i).getDescription());
+                }
                 System.out.println("    ____________________________________________________________");
-            }
-            else if (command.startsWith("mark ")) {
+            } else if (command.startsWith("mark ")) {
+                markDone(tasks, command, true);
+            } else if (command.startsWith("unmark ")) {
+                markDone(tasks, command, false);
+            } else {
+                Task task = new Task(command);
+                tasks.add(task);
+
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Subarashi! Good job in completing your task, Nobita:");
-                command = command.replaceAll("[^0-9]", "");
-                int taskNumber = Integer.parseInt(command) - 1;
-                tasks.get(taskNumber).setDone(true);
-                System.out.println("    \uD83D\uDC49 [" + tasks.get(taskNumber).getStatusIcon() + "] " + tasks.get(taskNumber).getDescription());
-                System.out.println("    ____________________________________________________________");
-            }
-            else {
-                System.out.println("    ____________________________________________________________");
-                Task t = new Task(command);
-                tasks.add(t);
                 System.out.println("    Added task: " + command);
                 System.out.println("    ____________________________________________________________");
             }
