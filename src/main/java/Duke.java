@@ -24,7 +24,7 @@ public class Duke {
         tasks.get(taskIndex).setStatus(isDone);
 
         System.out.println("    ____________________________________________________________");
-        if (isDone == true) {
+        if (isDone) {
             System.out.println("    Subarashi! Good job in completing your task, Nobita:");
         } else {
             System.out.println("    Gambate Nobita, complete it soon! Don't procrastinate:");
@@ -38,7 +38,7 @@ public class Duke {
         printGreeting();
         String command;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             command = in.nextLine();
