@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -32,23 +33,55 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
+    /**
+     * Prints all tasks in list to standard out.
+     *
+     * @param tasks List of tasks.
+     */
+    public static void printTasks(ArrayList<String> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            int taskNumber = i + 1;
+            String task = tasks.get(i);
+            System.out.println(taskNumber + ". " + task);
+        }
+    }
+
+    /**
+     * Adds a task to list of tasks.
+     *
+     * @param tasks List of tasks.
+     * @param task  Task to add.
+     */
+    public static void addTask(ArrayList<String> tasks, String task) {
+        tasks.add(task);
+        System.out.println("added: " + task);
+    }
+
     public static void main(String[] args) {
         printLogo();
         System.out.println(HORIZONTAL_LINE);
         printGreetingMessage();
         System.out.println(HORIZONTAL_LINE);
 
+        ArrayList<String> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println();
             String input = scanner.nextLine();
+
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(HORIZONTAL_LINE);
+                printTasks(tasks);
+                System.out.println(HORIZONTAL_LINE);
+            } else {
+                System.out.println(HORIZONTAL_LINE);
+                addTask(tasks, input);
+                System.out.println(HORIZONTAL_LINE);
             }
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println(input);
-            System.out.println(HORIZONTAL_LINE);
         }
+        scanner.close();
 
         System.out.println(HORIZONTAL_LINE);
         printGoodbyeMessage();
