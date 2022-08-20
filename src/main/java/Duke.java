@@ -15,17 +15,30 @@ public class Duke {
     public static void echoUser() {
         Scanner in = new Scanner(System.in);
         String command = "";
+        String[] tasks = new String[100];
+        int taskCounter = 0;
         do {
             command = in.nextLine();
             drawLine();
             if (command.equals("bye")) {
+                System.out.println("Bye. Hope to see you again!");
+                drawLine();
                 break;
             }
-            System.out.println(command);
-            drawLine();
+            else if (command.equals("list")) {
+                for (int i = 1; i <= taskCounter; ++i) {
+                    System.out.println(i + ". " + tasks[i-1]);
+                }
+                drawLine();
+            }
+            else {
+                tasks[taskCounter] = command;
+                taskCounter++;
+                System.out.println("added: " + command);
+                drawLine();
+            }
         } while (command != "bye");
-        System.out.println("Bye. Hope to see you again!");
-        drawLine();
+
     }
 
     public static void main(String[] args) {
