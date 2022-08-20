@@ -7,12 +7,12 @@ public class Duke {
      * @param input String Message to be formatted
      */
     public static void formatAndPrint(String input) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         String[] split = input.split("\n");
 
         System.out.println("    ____________________________________________________________");
         for (String string: split) {
-            output = output.concat( "     " + string + "\n");
+            output.append(String.format("     %s\n", string));
         }
         System.out.print(output);
         System.out.println("    ____________________________________________________________");
