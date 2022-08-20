@@ -19,21 +19,14 @@ public class Duke {
         line();
     }
 
-    public static void echo(String input) {
-        line();
-        System.out.println("added: " + input);
-        line();
-    }
-
     static Task[] Tasks = new Task[100];
 
-    public static void listAllItems() {
-        line();
-        for(int taskNumber = 0; taskNumber < Task.getTasksCount(); taskNumber++) {
-            System.out.println((taskNumber + 1) + ". " + Tasks[taskNumber].getName());
+    public static void listAllTasks() {
+        for (int taskNumber = 0; taskNumber < Task.getTasksCount(); taskNumber++) {
+            Tasks[taskNumber].listTask();
         }
-        line();
     }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -45,15 +38,31 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            if(input.equals("list")) {
-                listAllItems();
-            }
-            else {
+            line();
+            String[] words = input.split(" ");
+            switch (words[0]) {
+            case "list":
+                listAllTasks();
+                break;
+            case "mark":
+                if((Integer.parseInt(words[1]) > 0) && (Integer.parseInt(words[1]) <= Task.getTasksCount())) {
+                    Tasks[Integer.parseInt(words[1]) - 1].markAsDone();
+                }
+                break;
+            case "unmark":
+                if((Integer.parseInt(words[1]) > 0) && (Integer.parseInt(words[1]) <= Task.getTasksCount())) {
+                    Tasks[Integer.parseInt(words[1]) - 1].markAsNotDone();
+                }
+                break;
+            default:
                 Tasks[Task.getTasksCount()] = new Task(input);
-                echo(input);
+                System.out.println("added: " + input);
+                break;
             }
+            line();
             input = in.nextLine();
         }
+        line();
         bye();
     }
 }
