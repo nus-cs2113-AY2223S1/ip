@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Duke {
 
     //Zhou Zhou
@@ -20,7 +21,17 @@ public class Duke {
 
     public static void echo(String input) {
         line();
-        System.out.println(input);
+        System.out.println("added: " + input);
+        line();
+    }
+
+    static Task[] Tasks = new Task[100];
+
+    public static void listAllItems() {
+        line();
+        for(int taskNumber = 0; taskNumber < Task.getTasksCount(); taskNumber++) {
+            System.out.println((taskNumber + 1) + ". " + Tasks[taskNumber].getName());
+        }
         line();
     }
     public static void main(String[] args) {
@@ -34,7 +45,13 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            echo(input);
+            if(input.equals("list")) {
+                listAllItems();
+            }
+            else {
+                Tasks[Task.getTasksCount()] = new Task(input);
+                echo(input);
+            }
             input = in.nextLine();
         }
         bye();
