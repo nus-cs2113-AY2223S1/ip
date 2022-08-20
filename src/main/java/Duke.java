@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    static String[] tasks = new String[100];
+    static int currTask = -1;
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -10,7 +13,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greet();
-        echo();
+        processInput();
     }
 
     public static void printLine(){
@@ -28,13 +31,23 @@ public class Duke {
         printLine();
     }
 
-    public static void echo(){
+    public static void processInput(){
         Scanner scanner = new Scanner(System.in);
         String input = "";
         input = scanner.nextLine();
         while(!input.equals("bye")){
             printLine();
-            System.out.println("\t" + input);
+            if(input.equals("list")){
+                if(currTask == -1)
+                    System.out.println("\tNothing in list right now!");
+                for(int i = 0; i <= currTask; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+            }
+            else{
+                tasks[++currTask] = input;
+                System.out.println("\tadded: " + input);
+            }
             printLine();
             input = scanner.nextLine();
         }
