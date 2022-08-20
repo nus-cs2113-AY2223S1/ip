@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String[] tasks = new String[100];
-    static int currTask = -1;
+    static Task[] tasks = new Task[100];
+    static int totalNumberOfTasks = -1;
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -38,14 +38,46 @@ public class Duke {
         while(!input.equals("bye")){
             printLine();
             if(input.equals("list")){
-                if(currTask == -1)
+                if(totalNumberOfTasks == -1){
                     System.out.println("\tNothing in list right now!");
-                for(int i = 0; i <= currTask; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    input = scanner.nextLine();
+                    continue;
+                }
+                System.out.println("\tHere are the tasks in your list: ");
+                for(int i = 0; i <= totalNumberOfTasks; i++) {
+                    System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+                }
+            }
+            else if(input.split(" ")[0].equals("mark")){
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                if(taskNumber > totalNumberOfTasks || taskNumber < 0){
+                    System.out.println("\tInvalid input! Please key in an existing task number!");
+                }
+                else if(tasks[taskNumber].isDone()){
+                    System.out.println("\tThis task has already been marked as done!");
+                }
+                else{
+                    System.out.println("\tNice! I've marked this task as done: ");
+                    tasks[taskNumber].markAsDone();
+                    System.out.println("\t  " + tasks[taskNumber]);
+                }
+            }
+            else if(input.split(" ")[0].equals("unmark")){
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                if(taskNumber > totalNumberOfTasks || taskNumber < 0){
+                    System.out.println("\tInvalid input! Please key in an existing task number!");
+                }
+                else if(!tasks[taskNumber].isDone()){
+                    System.out.println("\tThis task has already been marked as not done!");
+                }
+                else{
+                    System.out.println("\tOK, I've marked this task as not done yet: ");
+                    tasks[taskNumber].markAsUndone();
+                    System.out.println("\t  " + tasks[taskNumber]);
                 }
             }
             else{
-                tasks[++currTask] = input;
+                tasks[++totalNumberOfTasks] = new Task(input);
                 System.out.println("\tadded: " + input);
             }
             printLine();
