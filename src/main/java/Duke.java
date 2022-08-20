@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Duke {
 
     public static void greetUser(){
@@ -9,12 +10,6 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    public static void echoToUser(String curr){
-        String greeting = "____________________________________________________________" + System.lineSeparator()
-                + curr + System.lineSeparator()
-                + "____________________________________________________________" + System.lineSeparator();
-        System.out.println(greeting);
-    }
     public static void sayByeToUser(){
         String message = "____________________________________________________________" + System.lineSeparator()
                 + "Goodbye. Hope to see you again soon!" + System.lineSeparator()
@@ -22,21 +17,6 @@ public class Duke {
         System.out.println(message);
     }
 
-    public static void addToList(String[] tasks, String curr, int taskCount){
-        tasks[taskCount] = curr;
-        String acknowledgement = "____________________________________________________________" + System.lineSeparator()
-                + "added: " + curr + System.lineSeparator()
-                + "____________________________________________________________" + System.lineSeparator();
-        System.out.println(acknowledgement);
-    }
-
-    public static void printList(String[] tasks, int taskCount){
-        System.out.println("____________________________________________________________");
-        for(int i = 0; i < taskCount; i++){
-            System.out.println((i+1) + ". " + tasks[i]);
-        }
-        System.out.println("____________________________________________________________");
-    }
     public static void main(String[] args) {
         String logo = "   _____                .__   \n" +
                 "  /  _  \\ ___  ___ ____ |  |  \n" +
@@ -46,8 +26,7 @@ public class Duke {
         System.out.println(logo);
         greetUser();
         Scanner input = new Scanner(System.in);
-        String[] tasks = new String[100];
-        int taskCount = 0;
+        TaskManager TaskManager1 = new TaskManager();
         boolean exit = false;
         while(!exit){
             String curr = input.nextLine();
@@ -56,11 +35,25 @@ public class Duke {
                 sayByeToUser();
             }
             else if(curr.equals("list")){
-                printList(tasks, taskCount);
+                TaskManager1.listTasks();
             }
             else{
-                addToList(tasks, curr, taskCount);
-                taskCount++;
+                String[] text = curr.split(" ");
+                if(text[0].equals("mark")){
+                    int taskNumber = Integer.parseInt(text[1]);
+                    TaskManager1.markAsDone(taskNumber);
+                }
+                else if(text[0].equals("unmark")){
+                    int taskNumber = Integer.parseInt(text[1]);
+                    TaskManager1.markAsUndone(taskNumber);
+                }
+                else{
+                    String task = "";
+                    for(String word : text){
+                        task = task + " " + word;
+                    }
+                    TaskManager1.addTask(task);
+                }
             }
         }
     }
