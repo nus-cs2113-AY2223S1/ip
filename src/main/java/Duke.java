@@ -107,25 +107,21 @@ public class Duke {
 
             if (input.equals("bye")) {
                 break;
-            } else if (input.equals("list")) {
-                System.out.println(HORIZONTAL_LINE);
+            }
+
+            System.out.println(HORIZONTAL_LINE);
+            if (input.equals("list")) {
                 printTasks(tasks);
-                System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(input.replace("mark", "").trim());
-                System.out.println(HORIZONTAL_LINE);
                 markTaskAsCompleted(tasks, taskNumber);
-                System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(input.replace("unmark", "").trim());
-                System.out.println(HORIZONTAL_LINE);
                 markTaskAsUncompleted(tasks, taskNumber);
-                System.out.println(HORIZONTAL_LINE);
             } else {
-                System.out.println(HORIZONTAL_LINE);
                 addTask(tasks, input);
-                System.out.println(HORIZONTAL_LINE);
             }
+            System.out.println(HORIZONTAL_LINE);
         }
         scanner.close();
 
