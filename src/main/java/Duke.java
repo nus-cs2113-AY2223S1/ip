@@ -1,3 +1,6 @@
+import java.util.Locale;
+import java.util.Scanner;
+
 public class Duke {
 
     public static void separateLine() {
@@ -20,8 +23,21 @@ public class Duke {
         separateLine();
     }
 
+
+    public static void echo() {
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        while (!line.toUpperCase().equals("BYE")) {
+            separateLine();
+            System.out.println(line);
+            separateLine();
+            line = in.nextLine();
+        }
+        bye();
+    }
+
     public static void main(String[] args) {
         greet();
-        bye();
+        echo();
     }
 }
