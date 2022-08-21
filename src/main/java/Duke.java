@@ -1,6 +1,16 @@
 public class Duke {
+    public static Display window = new Display();
     public static void main(String[] args) {
-        Display window = new Display();
-        window.print("Good morning! \n1. The quick brown fox jumps over the lazy dooooooooooooooooooooooooooooooooog. But there's still more in store for you lmao \n2. Hi \n3. Milk");
+        window.print("Hey, welcome!\nWhat would you like to do today?");
+        while(!echo().toLowerCase().equals("bye")){
+
+        }
+        window.print("Alright, see you around then!");
     }
+    private static String echo(){
+        String input = window.getInput();
+        window.print(input);
+        return input;
+    }
+
 }

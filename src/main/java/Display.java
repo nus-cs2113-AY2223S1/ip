@@ -1,11 +1,15 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Display {
     private List<String> textRows;
     private static final int MAX_WIDTH = 80; //default: 80
     private static final int TEXTBOX_HORIZONTAL_POSITION = 46;
     private static final int TEXTBOX_VERTICAL_POSITION = 20;
+
+    private static Scanner reader = new Scanner(System.in);
     public Display() {
         String chris =
             //@@author Chris Johnson-reused
@@ -46,6 +50,7 @@ public class Display {
         Dialog textbox = new Dialog(text, MAX_WIDTH, TEXTBOX_HORIZONTAL_POSITION);
         int rowIndex = 0;
         int textboxIndex = 0;
+        clearScreen();
         for (String row : textRows) {
             rowIndex++;
             if (rowIndex < TEXTBOX_VERTICAL_POSITION && rowIndex >= TEXTBOX_VERTICAL_POSITION - textbox.getHeight()){
@@ -54,5 +59,26 @@ public class Display {
             }
             System.out.println(row);
         }
+    }
+
+    //@@author Abishek Kashyap-reused
+    //Code reused from https://stackoverflow.com/a/38365871
+    //with minor modifications
+    private static void clearScreen(){
+        //Clears Screen in java
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException | InterruptedException ex) {}
+    }
+    //@@author
+
+    public String getInput(){
+        System.out.println("");
+        System.out.println("What would you like to do?");
+        System.out.print("INPUT:    ");
+        return reader.nextLine();
     }
 }
