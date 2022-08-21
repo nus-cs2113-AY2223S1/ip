@@ -7,11 +7,13 @@ public class Dialog {
     private int maxRowLength;
     private int height;
     private int width;
-    private List<String> textRows = new ArrayList<String>();
-    private List<String> textBox = new ArrayList<String>();
+    private List<String> textRows;
+    private List<String> textBox;
 
     public Dialog(String text, int consoleWidth, int boxHorizontalPosition) {
-        this.maxRowLength = consoleWidth - boxHorizontalPosition - this.HORIZONTAL_PADDING*2 - 2;
+        textRows = new ArrayList<String>();
+        textBox = new ArrayList<String>();
+        maxRowLength = consoleWidth - boxHorizontalPosition - this.HORIZONTAL_PADDING*2 - 2;
         for (String row : text.split("\n")) {
             if (row.length() > maxRowLength) {
                 String bufferString = "";
@@ -21,8 +23,10 @@ public class Dialog {
                     if (word.length() > maxRowLength){
                         word = indent + (bufferString.isEmpty() ? bufferString : bufferString.trim() + " ") + word;
                         bufferString = generateIndent(indentLength);
-                        for (int i = 0; i < word.length(); i += maxRowLength) {
+                        int i = 0;
+                        while (i < word.length()) {
                             textRows.add(indent + word.substring(i, Math.min(word.length(), i + maxRowLength - indentLength)));
+                            i += maxRowLength - indentLength;
                             indentLength = INDENT_SIZE;
                             indent = generateIndent(INDENT_SIZE);
                             bufferString = indent;
