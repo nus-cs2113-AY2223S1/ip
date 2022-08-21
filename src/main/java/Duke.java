@@ -1,10 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-
     private static final String HORIZONTAL_LINE = "______________________________";
-    private static String[] list;
-    private static int numTasks;
 
     private static void printIntroduction() {
         final String INTRODUCTION =
@@ -22,56 +19,50 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(EXIT);
         System.out.println(HORIZONTAL_LINE);
+        System.out.println();
     }
 
-    private static void handleInput() {
+    private static void handleInput(TaskManager taskManager) {
         Scanner in = new Scanner(System.in);
         String input;
 
         final String EXIT_PHRASE = "bye";
         final String LIST_PHRASE = "list";
+        final String MARK_PHRASE = "mark";
+        final String UNMARK_PHRASE = "unmark";
 
         while (true) {
             input = in.nextLine();
 
             if (input.equals(EXIT_PHRASE)) {
                 break;
-            } else if (input.equals(LIST_PHRASE)) {
-                printList();
             } else {
-                addToList(input);
+                System.out.println(HORIZONTAL_LINE);
+
+                if (input.equals(LIST_PHRASE)) {
+                    taskManager.printList();
+                } else if (input.startsWith(MARK_PHRASE)) {
+                    int taskNum = Integer.parseInt(input.substring(MARK_PHRASE.length() + 1));
+                    taskManager.markTask(taskNum - 1);
+                } else if (input.startsWith(UNMARK_PHRASE)) {
+                    int taskNum = Integer.parseInt(input.substring(UNMARK_PHRASE.length() + 1));
+                    taskManager.unmarkTask(taskNum - 1);
+                } else {
+                    taskManager.addTask(input);
+                }
+
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println();
             }
         }
-    }
 
-    private static void addToList(String text) {
-        final String ADD_PHRASE = "added: ";
-
-        list[numTasks] = text;
-        numTasks += 1;
-
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(ADD_PHRASE + text);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private static void printList() {
-        System.out.println(HORIZONTAL_LINE);
-
-        for (int i = 0; i < numTasks; i += 1) {
-            System.out.println(Integer.toString(i + 1) + ". " + list[i]);
-        }
-
-        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
-        final int MAX_NUM_OF_TASKS = 100;
-        list = new String[MAX_NUM_OF_TASKS];
-        numTasks = 0;
+        TaskManager taskManager = new TaskManager();
 
         printIntroduction();
-        handleInput();
+        handleInput(taskManager);
         printExit();
     }
 }
