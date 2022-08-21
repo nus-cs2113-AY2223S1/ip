@@ -2,11 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String greeting = "Hello! I'm Timmy\n What can I do for you?\n \n";
-
-        System.out.println(greeting);
+        final String GREETING = "Hello! I'm Timmy\n What can I do for you?\n \n";
+        final String GOODBYE = "Bye. Hope to see you again soon\n";
 
         TaskManager myManager = new TaskManager();
+
+        System.out.println(GREETING);
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -27,7 +28,7 @@ public class Duke {
             input = in.nextLine();
         }
 
-        System.out.println("Bye. Hope to see you again soon\n");
+        System.out.println(GOODBYE);
     }
 }
 
