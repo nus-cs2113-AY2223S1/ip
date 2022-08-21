@@ -25,7 +25,6 @@ public class Duke {
 
     private static void greet(){
         window.print("Good morning!\nWhat would you like to do today?");
-        //window.print("Added jog a looooooooooooooooooooooot\" to your list.");
     }
 
     private static void exit(){

@@ -68,7 +68,7 @@ public class Dialog {
         textBox.add("/=" + vertical);
     }
 
-    public String generateIndent(int indentsize){
+    public static String generateIndent(int indentsize){
         String indent = "";
         for (int i = 0; i < indentsize; i++) {
             indent += " ";

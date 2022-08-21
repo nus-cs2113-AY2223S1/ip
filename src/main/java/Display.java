@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -50,10 +51,19 @@ public class Display {
         Dialog textbox = new Dialog(text, MAX_WIDTH, TEXTBOX_HORIZONTAL_POSITION);
         int rowIndex = 0;
         int textboxIndex = 0;
+        int textboxUpperBounds = TEXTBOX_VERTICAL_POSITION - textbox.getHeight();
+        int textboxLowerBounds = TEXTBOX_VERTICAL_POSITION;
+
+        List<String> outputTextRows = extendScreen(textRows, textboxUpperBounds);
+
+        if (outputTextRows.size() != textRows.size()){
+            textboxLowerBounds += -textboxUpperBounds + 1;
+            textboxUpperBounds = 0;
+        }
         clearScreen();
-        for (String row : textRows) {
+        for (String row : outputTextRows) {
             rowIndex++;
-            if (rowIndex < TEXTBOX_VERTICAL_POSITION && rowIndex >= TEXTBOX_VERTICAL_POSITION - textbox.getHeight()){
+            if (rowIndex < textboxLowerBounds && rowIndex >= textboxUpperBounds){
                 row = row.substring(0, TEXTBOX_HORIZONTAL_POSITION) + textbox.getTextBox().get(textboxIndex);
                 textboxIndex++;
             }
@@ -74,7 +84,16 @@ public class Display {
         } catch (IOException | InterruptedException ex) {}
     }
     //@@author
-
+    public List<String> extendScreen(List<String> inputRows, int difference){
+        List<String> outputRows = new ArrayList<String>();
+        if (difference < 0) {
+            for (int i = 0; i >= difference; i--){
+                outputRows.add(0, Dialog.generateIndent(MAX_WIDTH));
+            }
+        }
+        outputRows.addAll(inputRows);
+        return outputRows;
+    }
     public String getInput(){
         System.out.println("");
         System.out.println("What would you like to do?");
