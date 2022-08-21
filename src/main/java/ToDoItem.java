@@ -4,6 +4,7 @@ public class ToDoItem {
 
     public ToDoItem(String text) {
         this.text = text.trim();
+        isDone = false;
     }
 
     public String toString() {
