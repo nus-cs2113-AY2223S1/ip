@@ -1,22 +1,22 @@
 public class Task {
     private String description;
-    private boolean completion;
+    private boolean isCompleted;
 
     public Task(String description) {
         this.description = description;
-        this.completion = false;
+        this.isCompleted = false;
     }
 
     public String getStatus() {
-        if (completion) {
+        if (isCompleted) {
             return "X";
         } else {
             return " ";
         }
     }
 
-    public void setCompletion(boolean completion) {
-        this.completion = completion;
+    public void setCompletion(boolean isComplete) {
+        this.isCompleted = isComplete;
     }
 
     public String getDescription() {
