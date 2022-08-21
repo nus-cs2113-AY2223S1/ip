@@ -15,7 +15,7 @@ public class Duke {
     public static void echoUser() {
         Scanner in = new Scanner(System.in);
         String command = "";
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCounter = 0;
         do {
             command = in.nextLine();
@@ -26,13 +26,33 @@ public class Duke {
                 break;
             }
             else if (command.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i <= taskCounter; ++i) {
-                    System.out.println(i + ". " + tasks[i-1]);
+                    System.out.println(i + ". [" + (tasks[i-1].isDone() ? "X] " : " ] ")+ tasks[i-1].getTaskName());
                 }
                 drawLine();
             }
+            else if (command.contains("unmark")) {
+                command = command.trim();
+                String[] words = command.split(" ");
+                int taskId = Integer.parseInt(words[1]);
+                tasks[taskId-1].setDone(false);
+                System.out.println("Okay, I've marked this task as not done yet:");
+                System.out.println("[ ] " + tasks[taskId-1].getTaskName());
+                drawLine();
+            }
+            else if (command.contains("mark")) {
+                command = command.trim();
+                String[] words = command.split(" ");
+                int taskId = Integer.parseInt(words[1]);
+                tasks[taskId-1].setDone(true);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[X] " + tasks[taskId-1].getTaskName());
+                drawLine();
+            }
             else {
-                tasks[taskCounter] = command;
+                Task task = new Task(command, false);
+                tasks[taskCounter] = task;
                 taskCounter++;
                 System.out.println("added: " + command);
                 drawLine();
