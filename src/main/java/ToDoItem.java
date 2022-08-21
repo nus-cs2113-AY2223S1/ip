@@ -2,27 +2,28 @@ public class ToDoItem {
     private String text;
     private boolean isDone;
 
-    public ToDoItem(String text) {
+    public ToDoItem (String text) {
         this.text = text.trim();
         isDone = false;
     }
 
-    public String toString() {
+    public String toString () {
         return "[" + getStatusIcon() + "] " + text;
     }
 
-    public String getText(){
+    public String getText () {
         return text;
     }
-    public String getStatusIcon(){
+
+    public String getStatusIcon () {
         return isDone ? "⬤" : " ";
     }
 
-    public boolean isDone() {
+    public boolean isDone () {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone (boolean isDone) {
+        this.isDone = isDone;
     }
 }
