@@ -9,9 +9,27 @@ public class Duke {
         inputs = scanner.nextLine();
         while(!inputs.equals("bye") ) {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            splitInputs = inputs.split(" ");
+            splitInputs = inputs.split(" ", 2);
             if(inputs.equals("list")){
                 doPrintlist();
+            }
+            else if(splitInputs[0].equals("mark")){
+                if(Integer.parseInt(splitInputs[1]) > list.size()){
+                    System.out.println("There is no task with index " + splitInputs[1]);
+                }
+                else {
+                    list.get(Integer.parseInt(splitInputs[1]) - 1).setDone(true);
+                    doPrintlist();
+                }
+            }
+            else if(splitInputs[0].equals("unmark")){
+                if(Integer.parseInt(splitInputs[1]) > list.size()){
+                    System.out.println("There is no task with index " + splitInputs[1]);
+                }
+                else {
+                    list.get(Integer.parseInt(splitInputs[1]) - 1).setDone(false);
+                    doPrintlist();
+                }
             }
             else {
                 System.out.println("\t Added: " + inputs);
@@ -32,9 +50,12 @@ public class Duke {
         }
 
         public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
+            return (isDone ? "X" : "O"); // mark done task with X
         }
 
+        public void setDone(boolean isMark) {
+            isDone = isMark;
+        }
     }
 
     public static void doPrintlist() {
