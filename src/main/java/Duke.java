@@ -16,6 +16,16 @@ public class Duke {
             else if (input.equalsIgnoreCase("list")) {
                 window.print(toDoList.toString());
             }
+            else if (stringContains(input, "mark")){
+                int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                toDoList.mark(itemIndex);
+                window.print("Marked task \"" + toDoList.getTextOfItem(itemIndex) + "\" as done.");
+            }
+            else if (stringContains(input,"unmark")){
+                int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                toDoList.unmark(itemIndex);
+                window.print("Marked task \"" + toDoList.getTextOfItem(itemIndex) + "\" as not yet done.");
+            }
             else {
                 toDoList.addItem(input);
                 window.print("Added \"" + input.trim() + "\" to your list.");
@@ -29,5 +39,9 @@ public class Duke {
 
     private static void exit(){
         window.print("Alright, see you around then!");
+    }
+
+    private static boolean stringContains(String input, String substring){
+        return input.split(" ")[0].equalsIgnoreCase(substring);
     }
 }

@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dialog {
-    private final int HORIZONTAL_PADDING = 6;
+    private final int HORIZONTAL_PADDING = 3;
     private final int INDENT_SIZE = 3;
-    private int maxRowLength;
+    private final int maxRowLength;
     private int height;
     private int width;
     private List<String> textRows;
