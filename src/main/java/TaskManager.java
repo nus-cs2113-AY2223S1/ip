@@ -22,18 +22,18 @@ public class TaskManager {
     }
 
     public void markTask(int num) {
+        // note that num here is zero-index
         tasks[num].setDone();
 
         System.out.println("Completed! The following task is marked as done:");
-        System.out.println(
-                "[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
+        System.out.println("[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
     }
 
     public void unmarkTask(int num) {
+        // note that num here is zero-index
         tasks[num].setUndone();
 
         System.out.println("Oh no! The following task is marked as undone:");
-        System.out.println(
-                "[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
+        System.out.println("[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
     }
 }

@@ -34,11 +34,13 @@ public class Duke {
         while (true) {
             input = in.nextLine();
 
+            // handle exit
             if (input.equals(EXIT_PHRASE)) {
                 break;
             } else {
                 System.out.println(HORIZONTAL_LINE);
 
+                // handle list, mark, unmark, add
                 if (input.equals(LIST_PHRASE)) {
                     taskManager.printList();
                 } else if (input.startsWith(MARK_PHRASE)) {

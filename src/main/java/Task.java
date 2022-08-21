@@ -23,7 +23,8 @@ public class Task {
         this.isDone = false;
     }
 
+    // mark done task with X
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 }
