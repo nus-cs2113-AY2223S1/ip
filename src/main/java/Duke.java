@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,12 +15,19 @@ public class Duke {
             "Type something in, dude.";
     static final String BYE = "Catch you later, dude.";
 
+    static List<String> tasks = new ArrayList<>();
+
     public static void runCommand(String command) {
         if (command.startsWith("bye")) {
             System.out.println(BYE);
             System.exit(0);
+        } else if (command.startsWith("list")) {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+            }
         } else {
-            System.out.println(command);
+            tasks.add(command);
+            System.out.println("added: " + command);
         }
     }
 
