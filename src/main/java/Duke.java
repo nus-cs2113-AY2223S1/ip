@@ -24,7 +24,7 @@ public class Duke {
     public static void main(String[] args) {
         Task[] tasks = new Task[101];
         int taskIndex = 1;
-        String inData ;
+        String inData;
         Scanner scan = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -63,8 +63,6 @@ public class Duke {
                             System.out.println("added: " + tasks[taskIndex - 1].description);
                             System.out.println("____________________________________________________________");
                         }
-
-//                        System.out.println("Invalid unmark command");
                     }
                 } else if (arr[0].equals("mark")) {
                     //check if arr[1] is a number
@@ -86,7 +84,7 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                         }
                     }
-                }else {
+                } else {
                     if (taskIndex < 101) {
                         tasks[taskIndex] = new Task(inData);
                         taskIndex += 1;
@@ -100,7 +98,6 @@ public class Duke {
                     //If input equals to "bye", exit the while-loop
                     break;
                 } else {
-//                    addTasking(tasks, inData, taskIndex);
                     if (taskIndex < 101) {
                         //If the number of elements within task[] is within 100, continue to add items to task[].
                         tasks[taskIndex] = new Task(inData);
