@@ -15,19 +15,37 @@ public class Duke {
             "Type something in, dude.";
     static final String BYE = "Catch you later, dude.";
 
-    static List<String> tasks = new ArrayList<>();
+    static List<Task> tasks = new ArrayList<>();
 
     public static void runCommand(String command) {
-        if (command.startsWith("bye")) {
+        String[] args = command.split(" ");
+        switch (args[0]) {
+        case "bye":
             System.out.println(BYE);
             System.exit(0);
-        } else if (command.startsWith("list")) {
+        case "list":
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                Task task = tasks.get(i);
+                System.out.printf("%d.[%s] %s\n", i + 1, (task.isDone() ? "X" : " "), task.getDescription());
             }
-        } else {
-            tasks.add(command);
+            break;
+        case "mark":
+        case "unmark": {
+            boolean isDone = args[0].equals("mark");
+            int taskIndex = Integer.parseInt(args[1]) - 1; // add code to handle oob, missing argument
+
+            Task task = tasks.get(taskIndex);
+            task.setDone(isDone);
+            System.out.println("Okay, dude, I've marked this task as " + (isDone ? "done" : "not done yet") + ": ");
+            System.out.println(task.getDescription());
+            break;
+        }
+        default: {
+            Task task = new Task(command);
+            tasks.add(task);
             System.out.println("added: " + command);
+            break;
+        }
         }
     }
 
