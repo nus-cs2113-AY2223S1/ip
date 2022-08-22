@@ -23,6 +23,7 @@ public class Duke {
         case "bye":
             System.out.println(BYE);
             System.exit(0);
+            // no break needed, the code has already exited
         case "list":
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
