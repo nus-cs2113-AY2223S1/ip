@@ -1,53 +1,46 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void greet(){
-        String entryBanner = "____________________________________________________________\n"
-                + "Hello! I'm Duke\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________";
-        System.out.println(entryBanner);
-    }
-    public static void add(String userInput){
-        String echoReply = "____________________________________________________________\n"
-                + "added: " + userInput + "\n"
-                + "____________________________________________________________";
-        System.out.println(echoReply);
-    }
-    public static void list(String[] inputList, int count){
-        String listing = "____________________________________________________________\n";
-        for(int i=0; i<count; ++i){
-            listing += String.format("%d. %s\n", i+1, inputList[i]);
-        }
-        listing += "____________________________________________________________";
-        System.out.println(listing);
-    }
-    public static void quit(){
-        String exitBanner = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
-        System.out.println(exitBanner);
-    }
     public static void main(String[] args) {
-        greet();
+        Menu dukeMenu = new Menu();
         String userInput = "";
         Scanner in = new Scanner(System.in);
-        String[] listings = new String[100];
-        int count = 0;
 
+        dukeMenu.greet();
         while(!userInput.equals("bye")) {
             userInput = in.nextLine();
-            switch (userInput) {
+            String[] inputParts = userInput.split(" ");
+            switch (inputParts[0]) {
             case "list":
-                list(listings, count);
+                dukeMenu.list();
+                break;
+            case "mark":
+                if(inputParts.length == 2){
+                    try{
+                        dukeMenu.mark(Integer.parseInt(inputParts[1]));
+                    }catch (NumberFormatException e) {
+                        dukeMenu.showErrorMessage();
+                    }
+                }else{
+                    dukeMenu.showErrorMessage();
+                }
+                break;
+            case "unmark":
+                if(inputParts.length == 2){
+                    try{
+                        dukeMenu.unmark(Integer.parseInt(inputParts[1]));
+                    }catch (NumberFormatException e) {
+                        dukeMenu.showErrorMessage();
+                    }
+                }else{
+                    dukeMenu.showErrorMessage();
+                }
                 break;
             case "bye":
-                quit();
+                dukeMenu.quit();
                 break;
             default:
-                listings[count] = userInput;
-                add(userInput);
-                count++;
+                dukeMenu.addTask(userInput);
                 break;
             }
         }
