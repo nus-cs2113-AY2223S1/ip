@@ -27,19 +27,19 @@ public class Menu {
     public void list(){
         String output = "____________________________________________________________\n"
                 + "Here are the tasks in your list:\n";
-        for(int i=0; i<this.taskCount; ++i){
+        for(int i=0; i<this.taskCount; i++){
             output += String.format("%d.[%s] %s\n", i+1, this.tasks[i].getStatusIcon(), this.tasks[i].getTaskName());
         }
         output += "____________________________________________________________";
         System.out.println(output);
     }
 
-    public void mark(int tasksIndex){
-        if(tasksIndex > 0 && tasksIndex <= this.taskCount){
-            this.tasks[tasksIndex-1].setDone(true);
+    public void mark(int taskIndex){
+        if(taskIndex > 0 && taskIndex <= this.taskCount){
+            this.tasks[taskIndex-1].setDone(true);
             String output = "____________________________________________________________\n"
                     + "Nice! I've marked this task as done:\n"
-                    + "\t[X] " + this.tasks[tasksIndex-1].getTaskName() + "\n"
+                    + "\t[X] " + this.tasks[taskIndex-1].getTaskName() + "\n"
                     + "____________________________________________________________";
             System.out.println(output);
         }else{
@@ -48,12 +48,12 @@ public class Menu {
 
     }
 
-    public void unmark(int tasksIndex){
-        if(tasksIndex > 0 && tasksIndex <= this.taskCount) {
-            this.tasks[tasksIndex - 1].setDone(false);
+    public void unmark(int taskIndex){
+        if(taskIndex > 0 && taskIndex <= this.taskCount) {
+            this.tasks[taskIndex - 1].setDone(false);
             String output = "____________________________________________________________\n"
                     + "OK, I've marked this task as not done yet:\n"
-                    + "[ ] " + this.tasks[tasksIndex - 1].getTaskName() + "\n"
+                    + "[ ] " + this.tasks[taskIndex - 1].getTaskName() + "\n"
                     + "____________________________________________________________";
             System.out.println(output);
         }else{

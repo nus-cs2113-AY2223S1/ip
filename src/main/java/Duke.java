@@ -18,7 +18,7 @@ public class Duke {
                 if(inputParts.length == 2){
                     try{
                         dukeMenu.mark(Integer.parseInt(inputParts[1]));
-                    }catch (NumberFormatException e) {
+                    }catch (NumberFormatException exception) {
                         dukeMenu.showErrorMessage();
                     }
                 }else{
@@ -29,7 +29,7 @@ public class Duke {
                 if(inputParts.length == 2){
                     try{
                         dukeMenu.unmark(Integer.parseInt(inputParts[1]));
-                    }catch (NumberFormatException e) {
+                    }catch (NumberFormatException exception) {
                         dukeMenu.showErrorMessage();
                     }
                 }else{
