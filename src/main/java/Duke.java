@@ -18,15 +18,32 @@ public class Duke {
                 + "__________________________________________________ \n";
 
         System.out.println(intro);
+        String[] inputs = new String[100];
+        int itemCount = 0;
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (input.equals("bye") == false){
-            System.out.println(input);
-            in = new Scanner(System.in);
-            input = in.nextLine();
+            if (input.equals("list") == false){
+                inputs[itemCount] = input;
+                itemCount++;
+                System.out.println("added– "+ input);
+                in = new Scanner(System.in);
+                input = in.nextLine();
+            }
+            else{
+                for (int index =0; index < itemCount; index++){
+                    System.out.println(Integer.toBinaryString(index) + " " + inputs[index]);
+                }
+                in = new Scanner(System.in);
+                input = in.nextLine();
+            }
+
         }
 
         System.out.println("Bye. Hope to see you again soon! \n");
 
     }
 }
+
+
+
