@@ -5,6 +5,7 @@ public class Duke {
         String lines = "__________________________________________________";
         System.out.println(lines);
     } // more compact compared to previous version in Level-0
+
     public static void main(String[] args) {
 
         printLines();
@@ -12,7 +13,9 @@ public class Duke {
         System.out.println("What can I do for you?");
         printLines();
 
+        int count = 0; // how many items in array
         String input;
+        String[] tasks = new String[100];
         boolean state = true;
         Scanner sc = new Scanner(System.in);
         while (state) {
@@ -22,9 +25,17 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 printLines();
                 state = false;
-            } else {
+            }   else if (input.equals("list")) {
                 printLines();
-                System.out.println(input);
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                printLines();
+            }   else {
+                tasks[count] = input;
+                count++;
+                printLines();
+                System.out.println("added: " + input);
                 printLines();
             }
         }
