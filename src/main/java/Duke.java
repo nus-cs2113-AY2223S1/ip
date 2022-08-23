@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
 
 public class Duke {
     public static void printLines() {
@@ -15,9 +14,10 @@ public class Duke {
 
         int count = 0; // how many items in array
         String input;
-        Task[] tasks = new Task[100];
         boolean state = true;
+        Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
+
         while (state) {
             input = in.nextLine();
             if (input.equals("bye")) {
@@ -36,15 +36,15 @@ public class Duke {
                 String[] words = input.split(" ");
                 printLines();
                 if (words[0].equals("mark")) {
-                    tasks[Integer.parseInt(words[1])].markAsDone();
+                    tasks[Integer.parseInt(words[1]) - 1].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  [" + tasks[Integer.parseInt(words[1])].getStatusIcon()
-                            + "] " + tasks[Integer.parseInt(words[1])].getDescription());
+                    System.out.println("  [" + tasks[Integer.parseInt(words[1]) - 1].getStatusIcon()
+                            + "] " + tasks[Integer.parseInt(words[1]) - 1].getDescription());
                 } else if (words[0].equals("unmark")) {
-                    tasks[Integer.parseInt(words[1])].unmarkAsDone();
+                    tasks[Integer.parseInt(words[1]) - 1].unmarkAsDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  [" + tasks[Integer.parseInt(words[1])].getStatusIcon()
-                            + "] " + tasks[Integer.parseInt(words[1])].getDescription());
+                    System.out.println("  [" + tasks[Integer.parseInt(words[1]) - 1].getStatusIcon()
+                            + "] " + tasks[Integer.parseInt(words[1]) - 1].getDescription());
                 } else {
                     tasks[count] = new Task(input);
                     count++;
