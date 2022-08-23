@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 
 public class Duke {
     public static void printLines() {
@@ -9,17 +10,16 @@ public class Duke {
     public static void main(String[] args) {
 
         printLines();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?");
         printLines();
 
         int count = 0; // how many items in array
         String input;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         boolean state = true;
-        Scanner sc = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         while (state) {
-            input = sc.nextLine();
+            input = in.nextLine();
             if (input.equals("bye")) {
                 printLines();
                 System.out.println("Bye. Hope to see you again soon!");
@@ -28,14 +28,29 @@ public class Duke {
             }   else if (input.equals("list")) {
                 printLines();
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon()
+                            + "] " + tasks[i].getDescription());
                 }
                 printLines();
             }   else {
-                tasks[count] = input;
-                count++;
+                String[] words = input.split(" ");
                 printLines();
-                System.out.println("added: " + input);
+                if (words[0].equals("mark")) {
+                    tasks[Integer.parseInt(words[1])].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  [" + tasks[Integer.parseInt(words[1])].getStatusIcon()
+                            + "] " + tasks[Integer.parseInt(words[1])].getDescription());
+                } else if (words[0].equals("unmark")) {
+                    tasks[Integer.parseInt(words[1])].unmarkAsDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  [" + tasks[Integer.parseInt(words[1])].getStatusIcon()
+                            + "] " + tasks[Integer.parseInt(words[1])].getDescription());
+                } else {
+                    tasks[count] = new Task(input);
+                    count++;
+                    // System.out.println(count); // debug line
+                    System.out.println("Added: " + input);
+                }
                 printLines();
             }
         }
