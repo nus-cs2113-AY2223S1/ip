@@ -13,30 +13,61 @@ public class Duke {
         String intro = "__________________________________________________ \n"
                 + "  Hello! I'm Peach  \n"
                 + "  What can I do for you? \n"
-                + "__________________________________________________ \n"
-                + "  Bye. Hope to see you again soon! \n"
                 + "__________________________________________________ \n";
 
         System.out.println(intro);
-        String[] inputs = new String[100];
+        Task[] inputs = new Task[100];
         int itemCount = 0;
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (input.equals("bye") == false){
-            if (input.equals("list") == false){
-                inputs[itemCount] = input;
+            System.out.println("__________________________________________________ \n");
+            if (input.equals("list")){
+                System.out.println("Here are the tasks in your list:");
+                for (int index =0; index < itemCount; index++){
+                    System.out.println(Integer.toString(index +1) + " " + inputs[index].description);
+                }
+                System.out.println("__________________________________________________ \n");
+            }
+
+            else if (input.contains("unmark")){
+                System.out.println("Okiii... This task has been marked as not done yet");
+                int taskNumber = Integer.parseInt(input.substring(input.indexOf("unmark ") + 7));
+                if (taskNumber < itemCount){
+                    inputs[taskNumber].markAsUndone();
+                    System.out.println(inputs[taskNumber].description);
+                }
+                else{
+                    System.out.println("Sorryyy!!! The index is out of bound!");
+                }
+
+                System.out.println("__________________________________________________ \n");
+            }
+
+            else if (input.contains("mark")){
+                System.out.println("Okiii... This task has been marked as done");
+                int taskNumber = Integer.parseInt(input.substring(input.indexOf("mark ")+ 5));
+                if (taskNumber < itemCount) {
+                    inputs[taskNumber].markAsDone();
+                    System.out.println(inputs[taskNumber].description);
+                }
+                else{
+                    System.out.println("Sorryyy!!! The index is out of bound!");
+                }
+                System.out.println("__________________________________________________ \n");
+
+            }
+
+            else{
+                input = "[ ] " + input;
+                inputs[itemCount] = new Task(input);
                 itemCount++;
                 System.out.println("added– "+ input);
-                in = new Scanner(System.in);
-                input = in.nextLine();
+                System.out.println("__________________________________________________ \n");
             }
-            else{
-                for (int index =0; index < itemCount; index++){
-                    System.out.println(Integer.toBinaryString(index) + " " + inputs[index]);
-                }
-                in = new Scanner(System.in);
-                input = in.nextLine();
-            }
+
+            in = new Scanner(System.in);
+            input = in.nextLine();
 
         }
 
