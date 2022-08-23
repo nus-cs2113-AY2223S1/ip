@@ -1,15 +1,33 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+    public static ArrayList<String> list = new ArrayList<String>();
+
     public static void handleInput() {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        if (!line.equals("bye")) {
-            System.out.println("        ____________________________________________");
-            System.out.println("        " + line);
-            System.out.println("        ____________________________________________");
+        if (line.equals("bye")) {
+            return;
+        } else {
+            switch (line) {
+            case "list":
+                System.out.println("        ____________________________________________");
+                for (int i = 1; i <= list.size(); i += 1) {
+                    System.out.println("        " + i + ". " + list.get(i-1));
+                }
+                System.out.println("        ____________________________________________");
+                break;
+            default:
+                list.add(line);
+                System.out.println("        ____________________________________________");
+                System.out.println("        " + line);
+                System.out.println("        ____________________________________________");
+                break;
+            }
+
             handleInput();
         }
 
