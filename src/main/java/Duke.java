@@ -6,7 +6,7 @@ public class Duke {
         Scanner cmd = new Scanner(System.in);
         Task[] list = new Task[100];
         int cnt = 0;
-        Boolean last = false;
+        Boolean isLast = false;
 
         System.out.println(line + " Hello! I'm Tommy\n" + " What can I do for you?\n" + line);
 
@@ -18,18 +18,16 @@ public class Duke {
                 int index = Integer.parseInt(a) - 1;
                 list[index].setUnDone();
                 System.out.println(line + " OK, I've marked this task as not done yet:");
-                System.out.println("  [" +list[index].getStatusIcon() + "]" + list[index].description);
+                System.out.println("  [" + list[index].getStatusIcon() + "]" + list[index].description);
                 System.out.println(line);
-            }
-            else if (foo.contains("mark")) {
+            } else if (foo.contains("mark")) {
                 String a = foo.substring(5);
                 int index = Integer.parseInt(a) - 1;
                 list[index].setDone();
                 System.out.println(line + "Nice! I've marked this task as done:");
                 System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
                 System.out.println(line);
-            }
-            else {
+            } else {
                 switch (foo) {
                 case "list":
                     System.out.println(line);
@@ -43,7 +41,7 @@ public class Duke {
                     System.out.println(line + " blah\n" + line);
                     break;
                 case "bye":
-                    last = true;
+                    isLast = true;
                     break;
                 default:
                     list[cnt] = new Task(foo);
@@ -52,7 +50,7 @@ public class Duke {
                     break;
                 }
             }
-        } while (!last);
+        } while (!isLast);
 
         System.out.println(line + " Bye. Hope to see you again soon!\n" + line);
     }
