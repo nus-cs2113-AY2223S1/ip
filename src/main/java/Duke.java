@@ -1,14 +1,16 @@
 package main.java;
 
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duke {
 
     private static String[][] list;
-    private static int listNum = 0;
+    private static int listNum;
+    private static Scanner scanner;
+    private static String indent;
+    private static String hLine;
+
 
     public static void main(String[] args) {
 
@@ -18,18 +20,22 @@ public class Duke {
         //Print introduction to Duke
         introduction();
 
-        //Re-iterate what the user types
+        //Re-iterate what the user types, store in list, and unmark / mark
 
-        list = new String[100][2];
         while (!respondToUser()) {
         }
 
+        //If the user exits, salute them goodbye
         goodbye();
 
     }
 
     private static void init() {
         scanner = new Scanner(System.in);
+        list = new String[100][2];
+        listNum = 0;
+        indent = "\n    ";
+        hLine = indent + "-------------------------------------------";
     }
 
     private static void introduction() {
@@ -48,6 +54,8 @@ public class Duke {
         String input = scanner.nextLine();
         String inputType = input.toLowerCase();
         boolean exit = false;
+
+        //Based on what the user types, either exit, list, mark, unmark, or add to list
         switch (inputType) {
             case "bye":
                 exit = true;
@@ -78,11 +86,11 @@ public class Duke {
                         System.out.print(indent + "Trying to " + type + " an item that is too small? Failed.");
                     } else {
                         switch (type) {
-                        case "Mark":
-                            list[index][1] = "X";
-                            break;
-                        default:
-                             list[index][1] = " ";
+                            case "Mark":
+                                list[index][1] = "X";
+                                break;
+                            default:
+                                list[index][1] = " ";
                         }
                         System.out.print(indent + "Success! Printing your updated list:");
                         printList();
@@ -91,6 +99,8 @@ public class Duke {
                     System.out.println(hLine + "\n");
 
                 } else {
+
+                    //Add a new item to the list
                     System.out.println(hLine + indent + "added: " + input + hLine + "\n");
                     String[] newItem = {input, " "};
                     list[listNum] = newItem;
@@ -120,7 +130,5 @@ public class Duke {
         System.out.println(goodbye);
     }
 
-    private static Scanner scanner;
-    private static String indent = "\n    ";
-    private static String hLine = indent + "-------------------------------------------";
+
 }
