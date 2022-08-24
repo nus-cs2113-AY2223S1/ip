@@ -17,15 +17,16 @@ public class Duke {
     }
 
     public static String ask() {
-        System.out.print(">>> ");
         return in.nextLine();
     }
 
     public static void list() {
+        System.out.println("========================LIST=======================");
         for (int i = 0; i < Task.numberOfTasks; i++) {
             System.out.print(Integer.toString(i+1) + ".");
             toDoList[i].printTask();
         }
+        System.out.println("===================================================");
     }
 
     public static void add(String line) {
@@ -71,7 +72,7 @@ public class Duke {
     //========================================= MAIN ========================//
     public static void main(String[] args) {
         String line;
-        System.out.println(logo);
+//        System.out.println(logo);
 
         //Increment Level 0
         System.out.println("===================================================");
