@@ -34,8 +34,15 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        /*
+         * array storing the Task objects.
+         */
+
         Task[] tasks = new Task[101];
-        /**/
+
+        /*
+         * stores the number of words in the user's string input.
+         */
         int numOfWords = 0;
 
         int taskIndex = 1;
@@ -55,7 +62,7 @@ public class Duke {
                 }
                 System.out.println("____________________________________________________________");
 
-            } else if ( numOfWords == 2) { /* check if the user input has 2 words before checking for commands "mark" and "unmark" */
+            } else if (numOfWords == 2) { /* check if the user input has 2 words before checking for commands "mark" and "unmark" */
                 String[] arr = inData.split(" ");
                 if (arr[0].equals("unmark")) { /* checks if user input has entered "unmark" as the first word */
                     if (checkIsNumeric(arr[1])) { /* check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking */
