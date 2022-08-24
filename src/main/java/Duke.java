@@ -5,26 +5,32 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String input;
+        String[] list = new String[100];
+        int index = 0;
         Scanner in = new Scanner(System.in);
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
         printLine();
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
         printLine();
         while(in.hasNextLine()) {
-            input = in.nextLine();
-            boolean isSame = input.equals("bye");
-            if (isSame) {
+            String input = in.nextLine();
+            if (input.equals("bye")) {
                 printLine();
                 break;
             }
-            printLine();
-            System.out.println(input);
-            printLine();
+            else if (input.equals("list")) {
+                printLine();
+                for (int i = 0; i < index; i++) {
+                    System.out.println(i + ". " + list[i]);
+                }
+                printLine();
+            }
+            else {
+                list[index] = input;
+                index++;
+                printLine();
+                System.out.println("added: " + input);
+                printLine();
+            }
         }
 
         System.out.println("Bye. Hope to see you again soon!");
