@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -23,13 +24,26 @@ public class Duke {
         System.out.println(linebreak);
     }
 
-    static void echo(String line) {
+    static void storeList(ArrayList<String> List,String text) {
         System.out.println(linebreak);
-        System.out.println(line);
+        List.add(text);
+        System.out.println("added: "+text);
+        System.out.println(linebreak);
+    }
+
+    static void printList(ArrayList<String> List) {
+        System.out.println(linebreak);
+        int count =1;
+        for (String text:List) {
+            System.out.println(String.valueOf(count)+". "+text);
+            count++;
+        }
         System.out.println(linebreak);
     }
 
     public static void main(String[] args) {
+        ArrayList<String> List = new ArrayList<String>();
+
         startSession();
 
         String line;
@@ -37,7 +51,12 @@ public class Duke {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            echo(line);
+            if (line.equals("list")) {
+                printList(List);
+            }
+            else {
+                storeList(List,line);
+            }
             line = in.nextLine();
         }
 
