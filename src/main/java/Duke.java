@@ -9,6 +9,9 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String convStart = dukeLogo + "Hello! I'm Duke\n" + "What can I do for you?";
         String convEnd= "Bye. Hope to see you again soon!";
+
+        ListDuke list = new ListDuke();
+
         printOutput(convStart);
 
         String lineInput;
@@ -17,8 +20,12 @@ public class Duke {
             lineInput = in.nextLine();
             if (lineInput.equals("bye")) {
                 break;
+            } else if (lineInput.equals("list")) {
+                printOutput(list.getInputLists());
+            } else {
+                list.setInputLists(lineInput);
+                printOutput("added: " + lineInput);
             }
-            printOutput(lineInput);
         }
 
         printOutput(convEnd);
