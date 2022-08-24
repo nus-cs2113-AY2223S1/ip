@@ -1,8 +1,11 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+
+    private static ArrayList<String> list;
 
     public static void main(String[] args) {
 
@@ -14,6 +17,7 @@ public class Duke {
 
         //Re-iterate what the user types
 
+        list = new ArrayList<String>();
         while (!respondToUser()) {
         }
 
@@ -38,10 +42,20 @@ public class Duke {
 
 
     private static boolean respondToUser() {
-        String input = scanner.next();
+        String input = scanner.nextLine();
         boolean exit = input.toLowerCase().equals("bye");
+        boolean returnList = input.toLowerCase().equals("list");
         if (!exit) {
-            System.out.println(hLine + indent + input + hLine + "\n");
+            if (returnList) {
+                System.out.print(hLine);
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.print(indent + (i + 1) + ". " + list.get(i));
+                }
+                System.out.println(hLine + "\n");
+            } else {
+                System.out.println(hLine + indent + "added: " + input + hLine + "\n");
+                list.add(input);
+            }
         }
         return exit;
     }
