@@ -1,5 +1,12 @@
 public class Task {
+    /*
+    * a string storing the user's tasking.
+    * */
     protected String description;
+    /*
+     * a boolean variable tracking the completeness of the tasking.
+     */
+
     protected boolean isDone;
 
     public Task(String description) {
