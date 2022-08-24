@@ -12,35 +12,37 @@ public class Duke {
 
 
     //========================================= GLOBAL METHOD ========================//
-    public static void echo(String line){ //Echo user input
+    public static void echo(String line) { //Echo user input
         System.out.println(line);
     }
 
-    public static String ask(){
+    public static String ask() {
         System.out.print(">>> ");
         String a;
         return a = in.nextLine();
     }
-    public static void list(){
-        for(int i = 0; i < Task.numberOfTasks; i++){
-            System.out.print(i+1);
-            System.out.print(". "+toDoList[i].getStatusIcon()+" ");
+
+    public static void list() {
+        for (int i = 0; i < Task.numberOfTasks; i++) {
+            System.out.print(i + 1);
+            System.out.print(". " + toDoList[i].getStatusIcon() + " ");
             System.out.println(toDoList[i].description);
         }
     }
-    public static void add(String line){
+
+    public static void add(String line) {
         toDoList[Task.numberOfTasks] = new Task(line);
         System.out.print("Add: ");
         echo(line);
     }
 
-    public static void mark(String line){
+    public static void mark(String line) {
         String[] parseArg = line.split(" ");
         int index = Integer.parseInt(parseArg[1]);
-        if (parseArg[0].equalsIgnoreCase("mark")){
-            toDoList[index-1].isDone = true;
+        if (parseArg[0].equalsIgnoreCase("mark")) {
+            toDoList[index - 1].isDone = true;
         } else {
-            toDoList[index-1].isDone = false;
+            toDoList[index - 1].isDone = false;
         }
         list();
     }
@@ -61,13 +63,13 @@ public class Duke {
         System.out.println("What do you want to do with the to do list?");
         System.out.println("===================================================");
 
-        while(true){
+        while (true) {
             line = ask();
             if (line.toLowerCase().contains("bye")) { // If there is any bye, exit!
                 break;
-            } else if (line.equalsIgnoreCase("list")){
+            } else if (line.equalsIgnoreCase("list")) {
                 list();
-            } else if (line.toLowerCase().contains("mark")){
+            } else if (line.toLowerCase().contains("mark")) {
                 mark(line);
             } else {
                 add(line);

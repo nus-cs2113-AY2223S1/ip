@@ -3,13 +3,13 @@ public class Task {
     public String description;
     public boolean isDone;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numberOfTasks ++;
+        numberOfTasks++;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); //Mark done with X
     }
 
