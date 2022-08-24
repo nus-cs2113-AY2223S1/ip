@@ -22,6 +22,18 @@ public class Duke {
                 break;
             } else if (lineInput.equals("list")) {
                 printOutput(list.getInputLists());
+            } else if (lineInput.startsWith("mark ")) {
+                int itemNo = Integer.parseInt(lineInput.split(" ")[1]);
+                list.markCompleted(itemNo, true);
+                String message = "Nice! I've marked this task as done: \n"
+                        + list.getItemFromList(itemNo);
+                printOutput(message);
+            } else if (lineInput.startsWith("unmark ")) {
+                int itemNo = Integer.parseInt(lineInput.split(" ")[1]);
+                list.markCompleted(itemNo, false);
+                String message = "OK, I've marked this task as not done yet: \n"
+                        + list.getItemFromList(itemNo);
+                printOutput(message);
             } else {
                 list.setInputLists(lineInput);
                 printOutput("added: " + lineInput);
@@ -29,7 +41,6 @@ public class Duke {
         }
 
         printOutput(convEnd);
-
     }
 
     private static void printOutput(String message) {
