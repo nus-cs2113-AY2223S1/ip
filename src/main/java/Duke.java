@@ -1,13 +1,20 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    /**
+     * Returns a string with formatted user inputs.
+     *
+     * @param inputs list of user input.
+     * @return Formatted string to print
+     */
     public static String formatList(Task[] inputs) {
         String formattedString = "____________________________________________________________\n";
-        for (int x = 0; x < inputs.length; x++) {
-            if (inputs[x] == null) {
+        for (int i = 0; i < inputs.length; i++) {
+            if (inputs[i] == null) {
                 break;
             }
-            formattedString += (x+1) + ".[" + inputs[x].getStatusIcon() + "] " + inputs[x].getDescription() + "\n";
+            formattedString += (i+1) + ".[" + inputs[i].getStatusIcon() + "] " + inputs[i].getDescription() + "\n";
         }
         formattedString += "____________________________________________________________\n";
         return formattedString;
@@ -41,13 +48,14 @@ public class Duke {
                 Task t = inputs[input - 1];
                 t.markAsNotDone();
                 System.out.println("____________________________________________________________\n" +
-                        "OK, I've marked this task as not done yet: \n  [" + t.getStatusIcon() + "] " + t.getDescription() +
+                        "OK, I've marked this task as not done yet: \n  ["
+                        + t.getStatusIcon() + "] " + t.getDescription() +
                         "\n____________________________________________________________\n");
             } else {
                 System.out.println(
                         "____________________________________________________________\nadded: " +
-                                line + "\n" +
-                                "____________________________________________________________\n");
+                        line + "\n" +
+                        "____________________________________________________________\n");
                 inputs[index] = new Task(line);
                 index++;
             }
