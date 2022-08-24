@@ -16,7 +16,7 @@ public class ListDuke {
     public String getInputLists() {
         String output = "";
         for (int i = 0; i < inputLists.size(); i++) {
-            output += Integer.toString(i + 1) + ". " + printItemFromList(i + 1);
+            output += Integer.toString(i + 1) + ". " + getItemFromList(i + 1);
         }
         return output;
     }
