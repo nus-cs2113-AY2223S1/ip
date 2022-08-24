@@ -5,7 +5,7 @@ public class ListDuke {
 
     public String getItemFromList(int n) {
         String output = "\t[";
-        if (inputLists.get(n-1).getCompleted()){
+        if (inputLists.get(n-1).hasCompleted()){
             output += "X] ";
         } else {
             output += " ] ";
