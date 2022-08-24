@@ -14,7 +14,7 @@ public class TaskList {
 
     public String getTaskDescription(int n){
         String taskDescriptionOutput = "  [";
-        if (taskList.get(n-1).getIsDone() == true){
+        if (taskList.get(n-1).getIsDone()){
             taskDescriptionOutput += "X] ";
         } else {
             taskDescriptionOutput += "] ";
@@ -26,8 +26,8 @@ public class TaskList {
     // Display taskList
     public String getTaskList(){
         String listOutput = "";
-        for (int i = 1; i <= taskList.size(); i++) {
-            listOutput += Integer.toString(i);
+        for (int i = 0; i < taskList.size(); i++) {
+            listOutput += Integer.toString(i + 1);
             listOutput += " .";
             listOutput += getTaskDescription(i + 1);
         }
