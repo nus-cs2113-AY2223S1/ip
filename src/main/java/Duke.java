@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static void printList(String[] task){
+        int taskIndex = 0;
+        while(task[taskIndex] != null){
+            System.out.println(task[taskIndex]);
+            taskIndex++;
+        }
+    }
+    
     public static void main(String[] args) {
 
         String logo = "    ,---,                        ,-.            \n"
@@ -27,9 +35,21 @@ public class Duke {
         Scanner in = new Scanner(System.in);    //create object that reads input
         command = in.nextLine();                //read input
 
-        //Echo
+        //Echo -> Add
+        String[] task = new String[100];
+        int taskIndex = 0;
         while(!command.equals("bye")){
-            System.out.println(command);
+            if(command.equals("list")){
+                printList(task);
+            }
+            else {
+                //Add only if input is not blank
+                if(!command.isBlank()) {
+                    System.out.println("added: " + command);
+                    task[taskIndex] = (taskIndex + 1) + ". " + command;
+                    taskIndex++;
+                }
+            }
             command = in.nextLine();
         }
 
