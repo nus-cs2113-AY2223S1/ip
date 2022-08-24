@@ -27,11 +27,11 @@ public class Duke {
         greetUser();
         Scanner input = new Scanner(System.in);
         TaskManager TaskManager1 = new TaskManager();
-        boolean exit = false;
-        while(!exit){
+        boolean isFinished = false; //variable to indicate if the program should be terminated
+        while(!isFinished){
             String curr = input.nextLine();
             if(curr.equals("bye")){
-                exit = true;
+                isFinished = true;
                 sayByeToUser();
             }
             else if(curr.equals("list")){
