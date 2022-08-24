@@ -18,21 +18,42 @@ public class Duke {
 
     public static String ask() {
         System.out.print(">>> ");
-        String a;
-        return a = in.nextLine();
+        return in.nextLine();
     }
 
     public static void list() {
         for (int i = 0; i < Task.numberOfTasks; i++) {
-            System.out.print(i + 1);
+            System.out.print(Integer.toString(i+1) + ".");
             toDoList[i].printTask();
         }
     }
 
     public static void add(String line) {
-        toDoList[Task.numberOfTasks] = new Task(line);
-        System.out.print("Add: ");
-        echo(line);
+        String newTaskType = line.split(" ")[0];
+        if (!(newTaskType.equalsIgnoreCase("todo") || newTaskType.equalsIgnoreCase("deadline") || newTaskType.equalsIgnoreCase("event"))) {
+            System.out.println("Please indicate task type: todo/deadline/event");
+        } else {
+            String[] taskDescriptor = line.replace(newTaskType, "").trim().split("/");
+            switch (newTaskType.toLowerCase()) {
+            case "todo":
+                toDoList[Task.numberOfTasks] = new Todo(taskDescriptor[0]);
+                break;
+            case "deadline":
+                toDoList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
+                break;
+            case "event":
+                toDoList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
+                break;
+            default:
+                break;
+            }
+            System.out.println("===================================================");
+            System.out.println("Got it! You just add a new Task");
+            System.out.print("\t");
+            toDoList[Task.numberOfTasks - 1].printTask();
+            System.out.println("Number of tasks in the list: " + Integer.toString(Task.numberOfTasks));
+            System.out.println("===================================================");
+        }
     }
 
     public static void mark(String line) {
