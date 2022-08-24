@@ -8,11 +8,13 @@ public class Duke {
 //        System.out.println("Hello from\n" + logo);
 
         String GREETING = "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
+                " Hello! I'm Weng\n" +
+                " What can I do for ya?\n" +
                 "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
+                " Bye. Hope to cya again soon!\n" +
                 "____________________________________________________________";
         System.out.println("\n" + GREETING);
+
+
     }
 }
