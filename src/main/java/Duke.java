@@ -25,8 +25,7 @@ public class Duke {
     public static void list() {
         for (int i = 0; i < Task.numberOfTasks; i++) {
             System.out.print(i + 1);
-            System.out.print(". " + toDoList[i].getStatusIcon() + " ");
-            System.out.println(toDoList[i].description);
+            toDoList[i].printTask();
         }
     }
 
