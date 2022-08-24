@@ -10,9 +10,9 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
 
-//        String[] toDoList = new String[100];
+        int id = 1;
 
-        List<String> toDoList = new ArrayList<String>();
+        List<Task> tasks = new ArrayList<Task>();
         do {
             line = in.nextLine();
             if (line.equals("bye")) {
@@ -20,16 +20,21 @@ public class Duke {
                 return;
             }
 
-            if (line.equals("list")) {
+            if (line.equals("list")) {  // list out the items
                 System.out.println("\t_____________________");
-                for (int i = 1; i <= toDoList.size(); i += 1) {
-                    System.out.println("\t" + i + ": " + toDoList.get(i - 1));
+                System.out.println("\tHere are the tasks in your list:");
+                for (Task task : tasks) {
+                    System.out.println("\t" + task.id + "." + task.getStatusIcon() + task.description);
+
                 }
+
                 System.out.println("\t_____________________\n");
             } else {
-                toDoList.add(line);
+                Task t = new Task(line, id);
+                id += 1;
+                tasks.add(t);
                 System.out.println("\t_____________________");
-                System.out.println("\t" + "added: " + line);
+                System.out.println("\t" + "added: " + t.description);
                 System.out.println("\t_____________________\n");
             }
 
