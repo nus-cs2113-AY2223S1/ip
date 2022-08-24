@@ -1,47 +1,52 @@
 import java.util.Scanner;
 
 public class Duke {
-    // Duke Global values
+    //========================================= GLOBAL VARIABLES ========================//
     static Scanner in = new Scanner(System.in);
     static String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    static String[] toDoList = new String[100];
+    static Task[] toDoList = new Task[100];
 
 
-    // Duke Function
+    //========================================= GLOBAL METHOD ========================//
     public static void echo(String line){ //Echo user input
         System.out.println(line);
     }
 
     public static String ask(){
-        System.out.print("User input: ");
+        System.out.print(">>> ");
         String a;
         return a = in.nextLine();
     }
     public static void list(){
-        for(int i = 0; i <= toDoList.length; i++){
-            if(toDoList[i] != null){
-                System.out.print(i+1);
-                System.out.println(". " + toDoList[i]);
-            } else {
-                break;
-            }
+        for(int i = 0; i < Task.numberOfTasks; i++){
+            System.out.print(i+1);
+            System.out.print(". "+toDoList[i].getStatusIcon()+" ");
+            System.out.println(toDoList[i].description);
         }
     }
     public static void add(String line){
-        for(int i = 0; i <= toDoList.length; i++){
-            if(toDoList[i] == null){
-                toDoList[i] = line;
-                break;
-            }
-        }
+        toDoList[Task.numberOfTasks] = new Task(line);
         System.out.print("Add: ");
         echo(line);
     }
 
+    public static void mark(String line){
+        String[] parseArg = line.split(" ");
+        int index = Integer.parseInt(parseArg[1]);
+        if (parseArg[0].equalsIgnoreCase("mark")){
+            toDoList[index-1].isDone = true;
+        } else {
+            toDoList[index-1].isDone = false;
+        }
+        list();
+    }
+
+
+    //========================================= MAIN ========================//
     public static void main(String[] args) {
         String line;
         System.out.println(logo);
@@ -62,6 +67,8 @@ public class Duke {
                 break;
             } else if (line.equalsIgnoreCase("list")){
                 list();
+            } else if (line.toLowerCase().contains("mark")){
+                mark(line);
             } else {
                 add(line);
             }
