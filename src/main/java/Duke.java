@@ -70,6 +70,18 @@ public class Duke {
             if(parsedInput[0].equals("bye")) {
                 loop = false;
                 break;
+            } else if (parsedInput[0].equals("list")) {
+                printFormattedMessage(list.getTaskList());
+            } else if (parsedInput[0].equals("mark")){
+                // mark item as complete
+                list.setMarkAsCompleted(Integer.parseInt(parsedInput[1]), true);
+                String markOutput = list.getTaskDescription(Integer.parseInt(parsedInput[1]));
+                printFormattedMessage("Nice! I've marked this task as done:\n" + markOutput);
+            } else if (parsedInput[0].equals("unmark")) {
+                // mark item as incomplete
+                list.setMarkAsCompleted(Integer.parseInt(parsedInput[1]), false);
+                String unmarkOutput = list.getTaskDescription(Integer.parseInt(parsedInput[1]));
+                printFormattedMessage("OK, I've marked this task as not done yet:\n" + unmarkOutput);
             } else {
                 list.addNewTask(input);
                 printFormattedMessage("added: " + input + "\n");
