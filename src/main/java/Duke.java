@@ -9,7 +9,7 @@ public class Duke {
         public Task(String description) { // initiating an instance
             this.description = description;
             this.isDone = false;
-            
+
         }
     
         public String getStatusIcon() {
@@ -45,82 +45,59 @@ public class Duke {
         String inData = scan.nextLine();
 
         // Processing input - 1st time
-        Vector<Task> ToDoList = new Vector<>();
+        Vector<Task> tasks = new Vector<>();
+        
         if (inData.equals("bye")){
             System.out.println(" \n Bye. Hope to see you again soon!");
-        }
-        else if (inData.equals("list")){
-            for (Task task:ToDoList){
+        } else if (inData.equals("list")){
+            for (Task task:tasks){
                 System.out.println("Here are the tasks in your list: \n" 
-                                    + (ToDoList.indexOf(task) + 1) 
-                                    + "." + "[" + task.getStatusIcon() + "] " + task.getDescription());
-                
+                                    + (tasks.indexOf(task) + 1) 
+                                    + "." + "[" + task.getStatusIcon() + "] " 
+                                    + task.getDescription());   
             }
-        }
-
-        
-        else{
+        } else{
             Task t = new Task(inData);
-            ToDoList.add(t);
+            tasks.add(t);
             System.out.println("added: " + t.getDescription());
         }
 
-        
         // Processing input - loop
         Boolean isBye = false;
+
         while (!isBye) {
+
             inData = scan.nextLine();
             
             if (inData.equals("bye")){
                 isBye = true;
                 System.out.println(" \n Bye. Hope to see you again soon!");
-            }
-            else if (inData.equals("list")){
-                for (Task task:ToDoList){
+            } else if (inData.equals("list")){
+                for (Task task:tasks){
                     System.out.println("Here are the tasks in your list: \n" 
-                                        + (ToDoList.indexOf(task) + 1) 
-                                        + "." + "[" + task.getStatusIcon() + "] " + task.getDescription());
-                    
+                                        + (tasks.indexOf(task) + 1) 
+                                        + "." + "[" + task.getStatusIcon() + "] " 
+                                        + task.getDescription());
                 }
-            }
-
-
-            else if (inData.contains("mark") && !inData.contains("unmark")){
+            } else if (inData.contains("mark") && !inData.contains("unmark")){
                 int inDataIndex = Integer.parseInt(inData.substring(5));
                 inDataIndex--;
-                ToDoList.get(inDataIndex).markAsDone();
-                Task task = ToDoList.get(inDataIndex);
-                System.out.println("Nice! I've marked this task as done: \n" + "[" + task.getStatusIcon() + "] " + task.getDescription());
-            }
-
-            else if (inData.contains("unmark")){
+                tasks.get(inDataIndex).markAsDone();
+                Task task = tasks.get(inDataIndex);
+                System.out.println("Nice! I've marked this task as done: \n" + "[" 
+                + task.getStatusIcon() + "] " + task.getDescription());
+            } else if (inData.contains("unmark")){
                 int inDataIndex = Integer.parseInt(inData.substring(7));
                 inDataIndex--;
-                ToDoList.get(inDataIndex).markAsNotDone();
-                Task task = ToDoList.get(inDataIndex);
-                System.out.println("OK, I've marked this task as not done yet: \n" + "[" + task.getStatusIcon() + "] " + task.getDescription());
-            }
-
-
-            else{
+                tasks.get(inDataIndex).markAsNotDone();
+                Task task = tasks.get(inDataIndex);
+                System.out.println("OK, I've marked this task as not done yet: \n" + "[" 
+                + task.getStatusIcon() + "] " + task.getDescription());
+            } else{
                 Task t = new Task(inData);
-                ToDoList.add(t);
+                tasks.add(t);
                 System.out.println("added: " + t.getDescription());
             }
-
-
-        }
-
-        
-       
-
-
-
-        
-    
-    
-    
-    
-        
+        }  
     }
 }
