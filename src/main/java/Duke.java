@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo = "  ____                 _     \n" +
@@ -7,7 +7,6 @@ public class Duke {
                 " |  __/  __/ (_| | (__| | | |\n" +
                 " |_|   \\___|\\__,_|\\___|_| |_|\n" +
                 "                             ";
-
         System.out.println(logo);
 
         String intro = "__________________________________________________ \n"
@@ -24,13 +23,11 @@ public class Duke {
             System.out.println("__________________________________________________ \n");
             if (input.equals("list")){
                 System.out.println("Here are the tasks in your list:");
-                for (int index =0; index < itemCount; index++){
-                    System.out.println(Integer.toString(index +1) + " " + inputs[index].description);
+                for (int i = 0; i < itemCount; i++){
+                    System.out.println(Integer.toString(i +1) + " " + inputs[i].description);
                 }
                 System.out.println("__________________________________________________ \n");
-            }
-
-            else if (input.contains("unmark")){
+            } else if (input.contains("unmark")){
                 System.out.println("Okiii... This task has been marked as not done yet");
                 int taskNumber = Integer.parseInt(input.substring(input.indexOf("unmark ") + 7));
                 if (taskNumber < itemCount){
@@ -42,9 +39,7 @@ public class Duke {
                 }
 
                 System.out.println("__________________________________________________ \n");
-            }
-
-            else if (input.contains("mark")){
+            } else if (input.contains("mark")){
                 System.out.println("Okiii... This task has been marked as done");
                 int taskNumber = Integer.parseInt(input.substring(input.indexOf("mark ")+ 5));
                 if (taskNumber < itemCount) {
@@ -56,9 +51,7 @@ public class Duke {
                 }
                 System.out.println("__________________________________________________ \n");
 
-            }
-
-            else{
+            } else{
                 input = "[ ] " + input;
                 inputs[itemCount] = new Task(input);
                 itemCount++;
