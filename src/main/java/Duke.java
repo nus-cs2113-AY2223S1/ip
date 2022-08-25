@@ -22,9 +22,16 @@ public class Duke {
     public static void addItem(String input) {
         textList[numberOfTexts] = input;
         System.out.println("added: " + input);
+        numberOfTexts++;
         printHorizontalLine();
     }
 
+    public static void printTextList() {
+        for (int i = 0; i < numberOfTexts; i++) {
+            System.out.println((i+1) + ". " + textList[i]);
+        }
+        printHorizontalLine();
+    }
     public static void main(String[] args) {
         Duke duke = new Duke();
         printGreeting();
@@ -36,8 +43,11 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 printHorizontalLine();
                 break;
+            } else if (input.equals("list")) {
+                printTextList();
+            } else {
+                duke.addItem(input);
             }
-            duke.addItem(input);
         }
     }
 }
