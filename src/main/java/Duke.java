@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static String[] list = new String[100];
+    public static Task[] list = new Task[100];
     public static int position = 0;
 
     public static void printDivider() {
@@ -24,22 +24,45 @@ public class Duke {
         printDivider();
     }
 
-    public static void addToList(String line) {
-        list[position] = line;
+    public static void addToList(Task currentTask) {
+        list[position] = currentTask;
         position++;
 
         printDivider();
-        System.out.println("    added: " + line);
+        System.out.println("    added: " + currentTask.description);
         System.out.println();
         printDivider();
     }
 
     public static void printList() {
         printDivider();
+        System.out.println("    Here are the tasks in your list:");
         for (int i = 0; i < position; i++) {
-            System.out.println("    " + String.valueOf(i + 1) + ". " + list[i]);
+            System.out.println("    " + String.valueOf(i + 1) + ".[" + list[i].getStatusIcon() + "] " + list[i].description);
         }
         System.out.println();
+        printDivider();
+    }
+
+    public static void markAsDone(String index) {
+        Task currentTask = list[Integer.parseInt(index) - 1];
+        currentTask.markAsDone();
+
+        printDivider();
+        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("      [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+        System.out.println("");
+        printDivider();
+    }
+
+    public static void markAsUndone(String index) {
+        Task currentTask = list[Integer.parseInt(index) - 1];
+        currentTask.markAsUndone();
+
+        printDivider();
+        System.out.println("    OK, I've marked this task as not done yet:");
+        System.out.println("      [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+        System.out.println("");
         printDivider();
     }
 
@@ -54,10 +77,18 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             }
-            if (userInput.equals("list")) {
-                printList();
+            String words[] = userInput.split(" ");
+            if (words[0].equals("mark")) {
+                markAsDone(words[1]);
+            } else if (words[0].equals("unmark")) {
+                markAsUndone(words[1]);
             } else {
-                addToList(userInput);
+                Task task = new Task(userInput);
+                if (userInput.equals("list")) {
+                    printList();
+                } else {
+                    addToList(task);
+                }
             }
         }
 
