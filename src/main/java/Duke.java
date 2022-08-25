@@ -2,6 +2,34 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Duke {
+    public class Task {
+        protected String description;
+        protected boolean isDone;
+    
+        public Task(String description) { // initiating an instance
+            this.description = description;
+            this.isDone = false;
+            
+        }
+    
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+    
+        public void markAsDone(){
+            this.isDone = true;
+        }
+
+        public void markAsNotDone(){
+            this.isDone = false;
+        }
+
+        public String getDescription(){
+            return this.description;
+        }
+    }
+
+    // Driver code
     public static void main(String[] args) {
         // Greeting message
         String logo = " ____        _        \n"
@@ -17,21 +45,24 @@ public class Duke {
         String inData = scan.nextLine();
 
         // Processing input - 1st time
-        Vector<String> ToDoList = new Vector<>();
+        Vector<Task> ToDoList = new Vector<>();
         if (inData.equals("bye")){
             System.out.println(" \n Bye. Hope to see you again soon!");
         }
         else if (inData.equals("list")){
-            for (String item:ToDoList){
-                System.out.println((ToDoList.indexOf(item) + 1) + ". " + item);
+            for (Task task:ToDoList){
+                System.out.println("Here are the tasks in your list: \n" 
+                                    + (ToDoList.indexOf(task) + 1) 
+                                    + "." + "[" + task.getStatusIcon() + "] " + task.getDescription());
                 
             }
-            
         }
+
         
         else{
-            ToDoList.add(inData);
-            System.out.println("added: " + inData);
+            Task t = new Task(inData);
+            ToDoList.add(t);
+            System.out.println("added: " + t.getDescription());
         }
 
         
@@ -45,15 +76,36 @@ public class Duke {
                 System.out.println(" \n Bye. Hope to see you again soon!");
             }
             else if (inData.equals("list")){
-                for (String item:ToDoList){
-                    System.out.println((ToDoList.indexOf(item) + 1) + ". " + item);
+                for (Task task:ToDoList){
+                    System.out.println("Here are the tasks in your list: \n" 
+                                        + (ToDoList.indexOf(task) + 1) 
+                                        + "." + "[" + task.getStatusIcon() + "] " + task.getDescription());
                     
                 }
             }
 
+
+            else if (inData.contains("mark") && !inData.contains("unmark")){
+                int inDataIndex = Integer.parseInt(inData.substring(5));
+                inDataIndex--;
+                ToDoList.get(inDataIndex).markAsDone();
+                Task task = ToDoList.get(inDataIndex);
+                System.out.println("Nice! I've marked this task as done: \n" + "[" + task.getStatusIcon() + "] " + task.getDescription());
+            }
+
+            else if (inData.contains("unmark")){
+                int inDataIndex = Integer.parseInt(inData.substring(7));
+                inDataIndex--;
+                ToDoList.get(inDataIndex).markAsNotDone();
+                Task task = ToDoList.get(inDataIndex);
+                System.out.println("OK, I've marked this task as not done yet: \n" + "[" + task.getStatusIcon() + "] " + task.getDescription());
+            }
+
+
             else{
-                ToDoList.add(inData);
-                System.out.println("added: " + inData);
+                Task t = new Task(inData);
+                ToDoList.add(t);
+                System.out.println("added: " + t.getDescription());
             }
 
 
