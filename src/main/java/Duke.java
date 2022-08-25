@@ -4,7 +4,7 @@ public class Duke {
 
     /**
      * Formats messages to be printed on the terminal
-     * @param input String Message to be formatted
+     * @param input Message to be formatted
      */
     public static void formatAndPrint(String input) {
         StringBuilder output = new StringBuilder();
@@ -45,8 +45,21 @@ public class Duke {
             case "unmark":
                 output = taskManager.unmarkTask(Integer.parseInt(arguments[1]));
                 break;
+            case "todo":
+                output = taskManager.addToDo(input.substring("todo ".length()));
+                break;
+            case "deadline":
+                String description = input.substring("deadline ".length(), input.indexOf("/by") - 1);
+                String by = input.substring(input.indexOf("/by") + "/by ".length());
+                output = taskManager.addDeadline(description, by);
+                break;
+            case "event":
+                description =  input.substring("event ".length(), input.indexOf("/at") - 1);
+                String at = input.substring(input.indexOf("/at") + "/at ".length());
+                output = taskManager.addEvent(description, at);
+                break;
             default:
-                output = taskManager.addTask(input);
+                output = "Not a valid input";
                 break;
             }
             formatAndPrint(output);

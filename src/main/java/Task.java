@@ -1,9 +1,9 @@
 /**
- * Represents a Task
+ * Represents a Task object
  */
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Constructor for task
@@ -14,6 +14,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns name of task
+     * @return String name of task
+     */
     public String getDescription() {
         return description;
     }
@@ -24,6 +28,15 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns formatted information of the task instance
+     * @return String Formatted information of the task instance
+     */
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(),this.description);
     }
 
     /**
