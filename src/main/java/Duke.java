@@ -26,33 +26,55 @@ public class Duke {
     }
 
     public static void addItem(Task input) {
-        taskList[taskSize] = input;
-        System.out.println("added: " + input.description);
         taskSize++;
+        taskList[taskSize] = input;
+    }
+
+    public static void printAddItemText(Task input){
+        System.out.println("added: " + input.description);
         printHorizontalLine();
     }
 
-    public static void printTextList() {
+    public static void printTaskList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskSize; i++) {
-            System.out.println((i+1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+        for (int i = 1; i < taskSize + 1; i++) {
+            System.out.println(i + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
         }
         printHorizontalLine();
     }
+
+    public static void markTask(int taskNumber){
+        taskList[taskNumber].setDone(true);
+    }
+
+    public static void printMarkTaskText(int taskNumber){
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].description);
+        printHorizontalLine();
+    }
+
     public static void main(String[] args) {
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
         while (true) {
             input = in.nextLine();
-            Task newTask = new Task(input);
-            if (input.equals("bye")) {
+            String[] inputWords = input.split("\\s+");
+            if (inputWords.length == 1 && inputWords[0].equals("bye")) {
                 printExitText();
                 break;
-            } else if (input.equals("list")) {
-                printTextList();
-            } else {
+            } else if (inputWords.length == 1 && inputWords[0].equals("list")) {
+                printTaskList();
+            } else if (inputWords[0].equals("mark")) {
+                int taskNumber =  Integer.parseInt(inputWords[1]);
+                System.out.println(taskSize);
+                markTask(taskNumber);
+                printMarkTaskText(taskNumber);
+            }
+            else{
+                Task newTask = new Task(input);
                 addItem(newTask);
+                printAddItemText(newTask);
             }
         }
     }
