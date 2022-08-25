@@ -1,5 +1,8 @@
 import java.util.Scanner;
+import java.util.Arrays;
 public class Duke {
+    private static String[] textList = new String[100];
+    private static int numberOfTexts = 0;
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
@@ -16,7 +19,14 @@ public class Duke {
         printHorizontalLine();
     }
 
+    public static void addItem(String input) {
+        textList[numberOfTexts] = input;
+        System.out.println("added: " + input);
+        printHorizontalLine();
+    }
+
     public static void main(String[] args) {
+        Duke duke = new Duke();
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
@@ -27,7 +37,7 @@ public class Duke {
                 printHorizontalLine();
                 break;
             }
-            echo(input);
+            duke.addItem(input);
         }
     }
 }
