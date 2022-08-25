@@ -1,39 +1,25 @@
 import java.util.Scanner;
-public class Duke {
-    public static void printLine () {
-        System.out.println("____________________________________________________________");
-    }
 
+public class Duke {
     public static void main(String[] args) {
-        String[] list = new String[100];
-        int index = 0;
+        TaskList list = new TaskList();
         Scanner in = new Scanner(System.in);
-        printLine();
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
-        printLine();
-        while(in.hasNextLine()) {
+        list.start();
+        while (in.hasNextLine()) {
             String input = in.nextLine();
             if (input.equals("bye")) {
-                printLine();
+                list.end();
                 break;
-            }
-            else if (input.equals("list")) {
-                printLine();
-                for (int i = 0; i < index; i++) {
-                    System.out.println(i + ". " + list[i]);
-                }
-                printLine();
+            } else if (input.equals("list")) {
+                list.printList();
+            } else if (input.contains("unmark")) {
+                list.unmarkStatus(input);
+            } else if (input.contains("mark")) {
+                list.markStatus(input);
             }
             else {
-                list[index] = input;
-                index++;
-                printLine();
-                System.out.println("added: " + input);
-                printLine();
+                list.addTask(input);
             }
         }
-
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
     }
 }
