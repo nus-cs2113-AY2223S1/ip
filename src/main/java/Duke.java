@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.*;
 public class Duke {
     public static void main(String[] args) {
@@ -12,8 +14,17 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you");
         String a = in.nextLine();
+        ArrayList<String> list = new ArrayList<>();
         while(!a.equals("bye")){
-            System.out.println(a);
+            if(a.equals("list")){
+                for(int i = 1; i <= list.size(); i++){
+                    System.out.println(i+". "+list.get(i-1));
+                }
+            }
+            else {
+                list.add(a);
+                System.out.println("added: "+a);
+            }
             a = in.nextLine();
         }
         System.out.println();
