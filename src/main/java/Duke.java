@@ -15,7 +15,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void printExitText(){
+    public static void printExitText() {
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
@@ -47,18 +47,24 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void markTask(int taskNumber, boolean done){
-        taskList[taskNumber].setDone(done);
-    }
-
-    public static void printMarkTaskText(int taskNumber) {
-        String status = taskList[taskNumber].getStatusIcon();
-        if (status == "X") {
-            System.out.println("Nice! I've marked this task as done:");
+    public static void printMarkTaskText(int taskNumber, String command, boolean isDone) {
+        String previousIcon = taskList[taskNumber].getStatusIcon();
+        if (previousIcon == "X") {
+            if (isDone) {
+                System.out.println("This task has already been marked!");
+            } else {
+                System.out.println("OK, I've marked this task as not done yet:");
+            }
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            if (!isDone) {
+                System.out.println("This task has already been unmarked!");
+            } else {
+                System.out.println("Nice! I've marked this task as done:");
+            }
         }
-        System.out.println("[" + status + "] " + taskList[taskNumber].description);
+        taskList[taskNumber].setDone(isDone);
+        String newIcon = taskList[taskNumber].getStatusIcon();
+        System.out.println("[" + newIcon + "] " + taskList[taskNumber].description);
         printHorizontalLine();
     }
 
@@ -76,12 +82,10 @@ public class Duke {
                 printTaskList();
             } else if (inputWords[0].equals("mark")) {
                 int taskNumber =  Integer.parseInt(inputWords[1]);
-                markTask(taskNumber, true);
-                printMarkTaskText(taskNumber);
+                printMarkTaskText(taskNumber, "mark", true);
             }else if (inputWords[0].equals("unmark")) {
                 int taskNumber =  Integer.parseInt(inputWords[1]);
-                markTask(taskNumber, false);
-                printMarkTaskText(taskNumber);
+                printMarkTaskText(taskNumber, "unmark", false);
             }
             else {
                 Task newTask = new Task(input);
