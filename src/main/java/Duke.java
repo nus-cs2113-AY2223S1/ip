@@ -15,6 +15,11 @@ public class Duke {
         printHorizontalLine();
     }
 
+    public static void printExitText(){
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
+    }
+
     public static void echo(String input) {
         System.out.println(input);
         printHorizontalLine();
@@ -42,8 +47,7 @@ public class Duke {
             input = in.nextLine();
             Task newTask = new Task(input);
             if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                printHorizontalLine();
+                printExitText();
                 break;
             } else if (input.equals("list")) {
                 printTextList();
