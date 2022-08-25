@@ -20,7 +20,7 @@ public class Duke {
             System.out.println("---------------------------------------------------");
             System.out.print("You: ");
             String response_str = response.nextLine();
-            if (!response_str.equals("Bye")){
+            if (!response_str.equals("bye")){
                 System.out.println("---------------------------------------------------");
                 System.out.println("Duke: " + response_str);
             } else {
