@@ -1,5 +1,7 @@
+import java.util.Scanner;
 public class Duke {
-    public static void main(String[] args) {
+
+    public static void greetUser(){
         /*
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -10,7 +12,29 @@ public class Duke {
         */
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+    }
 
-        System.out.println("Bye. Hope to see you again soon!");
+    public static void echo(String userInput){
+        System.out.println(userInput);
+    }
+
+    public static boolean toExit(String userInput) {
+        if (userInput.equals("bye")){
+            System.out.println("Bye!!!! See you again :D");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        greetUser();
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.nextLine();
+
+        while(!toExit(userInput)){
+            echo(userInput);
+            userInput = sc.nextLine();
+        }
     }
 }
