@@ -3,6 +3,7 @@ public class Task {
     protected boolean isDone;
 
     protected int id;
+
     public Task(String description, int id) {
         this.description = description;
         this.isDone = false;
@@ -14,6 +15,18 @@ public class Task {
             return "[X] ";
         } else {
             return "[ ] ";
+        }
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDone(boolean done) {
+        if (done == false) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
         }
     }
 }
