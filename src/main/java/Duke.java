@@ -1,32 +1,19 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
 
     /**
-     * Returns a String array of saveData cutting off
-     * the NULL elements that have not been filled
-     *
-     * @param dataToStore A String array that stores the data
-     * @param userInput The input of the user
-     * @param indexData To index the element of the String array dataToStore
-     * @return A String array of saveData
-     */
-    public static String[] saveData(String[] dataToStore, String userInput, int indexData){
-        dataToStore[indexData] = userInput;
-        System.out.println("\t added: " + userInput);
-        return Arrays.copyOf(dataToStore, indexData + 1);
-    }
-
-    /**
      * Prints out a list of save data from the user inputs
      *
-     * @param dataOfInputs A String array of the saved data
+     * @param assignment task that is created by OOP
+     * @param indexTask index the Task array given by the variable assignment
      */
-    public static void printList(String[] dataOfInputs){
+    public static void printList(Task[] assignment, int indexTask){
         int numberOrder = 1;
-        for(String data: dataOfInputs){
-            System.out.println("\t " + numberOrder + ". " + data);
+        for(int i = 0; i < indexTask; i++) {
+            System.out.println("\t " + numberOrder + ".["
+                    + assignment[i].getStatusIcon() + "] "
+                    + assignment[i].description);
             numberOrder++;
         }
     }
@@ -47,26 +34,56 @@ public class Duke {
 
         String userInput;
         Scanner in = new Scanner(System.in);
-        String[] dataToStore = new String[100];
-        String[] dataList = new String[]{};
-        int indexData = 0;
+        Task[] assignment = new Task[100];
+        int indexTask = 0;
 
         do{
             //Enable user to enter text
             userInput = in.nextLine();
             System.out.print("\t" + lineDivider);
+            String[] splitUserInput = userInput.split(" ");
 
-            if(!userInput.equals("bye")) {
-                if(!userInput.equals("list")) {
-                    dataList = saveData(dataToStore, userInput, indexData);
-                    indexData++;
-                }
-                else{
-                    printList(dataList);
-                }
-            }
+            if(!splitUserInput[0].equals("bye")) {
+                if(!splitUserInput[0].equals("list")
+                        && !splitUserInput[0].equals("mark")
+                        && !splitUserInput[0].equals("unmark")) {
+                    assignment[indexTask] = new Task(userInput);
+                    System.out.println("\t added: " + assignment[indexTask].description);
+                    indexTask++;
+                } else if (splitUserInput[0].equals("list")) {
+                    printList(assignment, indexTask);
+                } else if (splitUserInput[0].equals("mark")) {
+                    int markIndex = Integer.parseInt(splitUserInput[1]) - 1;
+                    //To handle a case where user tries to mark a task that has not been specified
+                    try {
+                        assignment[markIndex].markAsDone();
+                    }
 
-            else{
+                    catch(NullPointerException e) {
+                        System.out.println("\t You are trying to mark a task that has not been specified!");
+                        System.out.println("\t" + lineDivider);
+                        continue;
+                    }
+
+                    System.out.println("\t Awesome! I've marked this task as done:");
+                    System.out.println("\t\t [" + assignment[markIndex].getStatusIcon()
+                            + "] " + assignment[markIndex].description);
+                } else { //If the splitUserInput[0] is equals to "unmark"
+                    int unmarkIndex = Integer.parseInt(splitUserInput[1]) - 1;
+                    //To handle a case where user tries to unmark a task that has not been specified
+                    try {
+                        assignment[unmarkIndex].unmarkAsDone();
+                    }
+                    catch(NullPointerException e) {
+                        System.out.println("\t You are trying to unmark a task that has not been specified!");
+                        System.out.println("\t" + lineDivider);
+                        continue;
+                    }
+                    System.out.println("\t Awesome! I've marked this task as not done yet:");
+                    System.out.println("\t\t [" + assignment[unmarkIndex].getStatusIcon()
+                            + "] " + assignment[unmarkIndex].description);
+                }
+            } else{
                 System.out.println("\t Bye. Hope to see you again soon!");
             }
 
