@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Duke {
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -10,7 +11,23 @@ public class Duke {
         printHorizontalLine();
     }
 
+    public static void echo(String input) {
+        System.out.println(input);
+        printHorizontalLine();
+    }
+
     public static void main(String[] args) {
         printGreeting();
+        String input;
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            input = in.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                printHorizontalLine();
+                break;
+            }
+            echo(input);
+        }
     }
 }
