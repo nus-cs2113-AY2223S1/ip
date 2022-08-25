@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -14,13 +15,18 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
+        String[] list = new String[100];
+        int listCount = 0;
         request:
         while(true){
             line = in.nextLine();
             switch (line) {
             case "list":
                 System.out.println("    ____________________________________________________________");
-                System.out.println("     list");
+//                System.out.println(Arrays.toString(Arrays.copyOfRange(list, 0, listCount)));
+                for(int i = 0; i < listCount; i++){
+                    System.out.println("     " + (i+1) + ". " + list[i]);
+                }
                 System.out.println("    ____________________________________________________________");
                 break;
             case "blah":
@@ -34,6 +40,11 @@ public class Duke {
                 System.out.println("    ____________________________________________________________");
                 break request;
             default:
+                list[listCount] = line;
+                listCount ++;
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     added: " + line);
+                System.out.println("    ____________________________________________________________");
                 break;
             }
         }
