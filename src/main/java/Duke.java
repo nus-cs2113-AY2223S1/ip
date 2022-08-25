@@ -36,9 +36,13 @@ public class Duke {
     }
 
     public static void printTaskList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i < taskSize + 1; i++) {
-            System.out.println(i + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+        if (taskSize == 0) {
+            System.out.println("There is nothing on your list!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 1; i < taskSize + 1; i++) {
+                System.out.println(i + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+            }
         }
         printHorizontalLine();
     }
