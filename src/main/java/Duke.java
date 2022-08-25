@@ -14,20 +14,34 @@ public class Duke {
         System.out.println("Duke: Hello! What can I do for you today?");
 
         boolean exit = false;
-        //Echo
         Scanner response = new Scanner(System.in);
+        String[] lst = new String[100]; 
+        int lst_counter = 0;
+
         while (exit == false){
             System.out.println("---------------------------------------------------");
             System.out.print("You: ");
             String response_str = response.nextLine();
-            if (!response_str.equals("bye")){
-                System.out.println("---------------------------------------------------");
-                System.out.println("Duke: " + response_str);
-            } else {
-                exit = true;
-                System.out.println("---------------------------------------------------");
-                System.out.println("Duke: Goodbye!");
-                System.out.println("---------------------------------------------------");
+            switch (response_str) {
+                case ("list"):
+                    System.out.println("---------------------------------------------------");
+                    System.out.println("Listing: " + response_str);
+                    for (int i=0; i<lst_counter; i++){
+                        System.out.println((i + 1) + ": " + lst[i]);
+                    }
+                    break;
+                case ("bye"):
+                    exit = true;
+                    System.out.println("---------------------------------------------------");
+                    System.out.println("Duke: Goodbye!");
+                    System.out.println("---------------------------------------------------");
+                    break;
+                default: //Add to list
+                    System.out.println("---------------------------------------------------");
+                    System.out.println("Added: " + response_str);
+                    lst[lst_counter] = response_str;
+                    lst_counter++;
+                    break;
             }
         }
     }
