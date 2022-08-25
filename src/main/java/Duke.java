@@ -50,21 +50,24 @@ public class Duke {
                 System.out.println("Here are the tasks for today: ");
                 for (int i = 0; i < dukeList.size(); i++) {
                     System.out.println(dukeList.get(i).number + ": [" + printCheck(dukeList.get(i)) + "] " +
-                                        dukeList.get(i).description);
+                            dukeList.get(i).description);
                 }
             } else if (line.startsWith("mark")) {
-                //find the number of the line
                 int itemNumber = Integer.parseInt(line.split(" ")[1]) -1;
-                // find number of line in arraylist
                 Task toBeChanged = dukeList.get(itemNumber);
-                //change the bool
-                toBeChanged.isDone = toBeChanged.markAsDone(toBeChanged);
+                if (toBeChanged.isDone) {
+                    System.out.println("The task has already been completed! Try doing another task now :)");
+                } else {
+                    toBeChanged.isDone = toBeChanged.markAsDone(toBeChanged);
+                }
             } else if (line.startsWith("unmark")) {
                 int itemNumber = Integer.parseInt(line.split(" ")[1]) -1;
-                // find number of line in arraylist
                 Task toBeChanged = dukeList.get(itemNumber);
-                //change the bool
-                toBeChanged.isDone = toBeChanged.markAsUndone(toBeChanged);
+                if (toBeChanged.isDone) {
+                    toBeChanged.isDone = toBeChanged.markAsUndone(toBeChanged);
+                } else {
+                    System.out.println("The task hasn't been completed. Do it soon :(");
+                }
             } else {
                 System.out.println("added: " + line);
                 Task t = new Task(line);
