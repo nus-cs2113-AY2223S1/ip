@@ -1,18 +1,18 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class Duke {
+public class Bloom {
     public static void drawLine() {    //print underscore symbol 50 times
         System.out.println("__________________________________________________");
     }
 
     public static void welcomeUser() {
         drawLine();
-        System.out.println("Hello! I'm Alpiit");
+        System.out.println("Hello! I'm Bloom");
         System.out.println("What can I do for you?");
         drawLine();
     }
 
-    public static void echoUser() {
+    public static void executeUserCommands() {
         Scanner in = new Scanner(System.in);
         String command = "";
         Task[] tasks = new Task[100];
@@ -62,13 +62,17 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+//        String logo = " ____        _        \n"
+//                + "|  _ \\ _   _| | _____ \n"
+//                + "| | | | | | | |/ / _ \\\n"
+//                + "| |_| | |_| |   <  __/\n"
+//                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo =  " _____ __    _____ _____ _____\n"
+                     + "| __  |  |  |     |     |     |\n"
+                     + "| __ -|  |__|  |  |  |  | | | |\n"
+                     + "|_____|_____|_____|_____|_|_|_|\n";
         System.out.println("Hello from\n" + logo);
         welcomeUser();
-        echoUser();
+        executeUserCommands();
     }
 }

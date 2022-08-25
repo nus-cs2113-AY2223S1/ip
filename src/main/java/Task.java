@@ -2,10 +2,6 @@ public class Task {
     private String taskName;
     private boolean isDone;
 
-    public Task() {
-
-    }
-
     public Task(String taskName, boolean isDone) {
         setTaskName(taskName);
         setDone(isDone);
