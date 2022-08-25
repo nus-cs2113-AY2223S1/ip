@@ -57,9 +57,7 @@ public class Duke {
                     //To handle a case where user tries to mark a task that has not been specified
                     try {
                         assignment[markIndex].markAsDone();
-                    }
-
-                    catch(NullPointerException e) {
+                    } catch(NullPointerException e) {
                         System.out.println("\t You are trying to mark a task that has not been specified!");
                         System.out.println("\t" + lineDivider);
                         continue;
@@ -74,8 +72,7 @@ public class Duke {
                     //To handle a case where user tries to unmark a task that has not been specified
                     try {
                         assignment[unmarkIndex].unmarkAsDone();
-                    }
-                    catch(NullPointerException e) {
+                    } catch(NullPointerException e) {
                         System.out.println("\t You are trying to unmark a task that has not been specified!");
                         System.out.println("\t" + lineDivider);
                         continue;
