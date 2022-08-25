@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String[] items = new String[100];
-    private static int itemsCount = 0;
+    private static Task[] tasks = new Task[100];
+    private static int tasksCount = 0;
     private static void greet() {
         String message = "Hello! I'm Ever\n" +
                 "What can I do for you?";
@@ -12,12 +12,12 @@ public class Duke {
         String message = "Bye. Hope to see you again soon!";
         System.out.println(message);
     }
-    private static void addItem(String item) {
-        items[itemsCount++] = item;
+    private static void addTask(String description) {
+        tasks[tasksCount++] = new Task(description);
     }
-    private static void listItems() {
-        for (int i = 0; i < itemsCount; i++) {
-            System.out.printf("%d. %s\n", i + 1, items[i]);
+    private static void listTasks() {
+        for (int i = 0; i < tasksCount; i++) {
+            System.out.printf("%d. %s\n", i + 1, tasks[i].getPrintTaskString());
         }
     }
     public static void main(String[] args) {
@@ -38,13 +38,22 @@ public class Duke {
         while (true) {
             System.out.print(">> ");
             inputMessage = scanner.nextLine();
+            String[] inputWords = inputMessage.split(" ");
             if (inputMessage.equals("bye")) {
                 break;
             } else if (inputMessage.equals("list")){
-                listItems();
+                listTasks();
+            } else if (inputWords[0].equals("mark")) {
+                int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+                tasks[taskIndex].markAsDone();
+                System.out.printf("Marked as done: %s\n", tasks[taskIndex].getPrintTaskString());
+            } else if (inputWords[0].equals("unmark")) {
+                int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+                tasks[taskIndex].unmarkDone();
+                System.out.printf("Unmarked done: %s\n", tasks[taskIndex].getPrintTaskString());
             } else {
-                addItem(inputMessage);
-                System.out.println("Item \"" + inputMessage + "\" added");
+                addTask(inputMessage);
+                System.out.println("Task \"" + inputMessage + "\" added");
             }
         }
 
