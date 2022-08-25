@@ -30,12 +30,11 @@ public class Duke {
     public static void printTextList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskSize; i++) {
-            System.out.println((i+1) + ". " + taskList[i].description);
+            System.out.println((i+1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
         }
         printHorizontalLine();
     }
     public static void main(String[] args) {
-        Duke duke = new Duke();
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
@@ -49,7 +48,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 printTextList();
             } else {
-                duke.addItem(newTask);
+                addItem(newTask);
             }
         }
     }
