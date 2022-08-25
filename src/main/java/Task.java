@@ -1,5 +1,7 @@
 public class Task {
+    /** Represent the individual task that the user input */
     protected String description;
+    /** To check if the task is mark as done or not for each individual task */
     protected boolean isDone;
 
     public Task(String description) {

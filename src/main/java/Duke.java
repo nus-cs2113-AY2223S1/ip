@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Duke {
 
     /**
-     * Prints out a list of save data from the user inputs
+     * Prints out a list of the tasks saved from the user inputs
      *
-     * @param assignment task that is created by OOP
+     * @param assignment variable that is created using the class Task
      * @param indexTask index the Task array given by the variable assignment
      */
     public static void printList(Task[] assignment, int indexTask){
@@ -37,7 +37,7 @@ public class Duke {
         Task[] assignment = new Task[100];
         int indexTask = 0;
 
-        do{
+        do {
             //Enable user to enter text
             userInput = in.nextLine();
             System.out.print("\t" + lineDivider);
@@ -68,7 +68,8 @@ public class Duke {
                     System.out.println("\t Awesome! I've marked this task as done:");
                     System.out.println("\t\t [" + assignment[markIndex].getStatusIcon()
                             + "] " + assignment[markIndex].description);
-                } else { //If the splitUserInput[0] is equals to "unmark"
+                } else {
+                    //If the splitUserInput[0] is equals to "unmark"
                     int unmarkIndex = Integer.parseInt(splitUserInput[1]) - 1;
                     //To handle a case where user tries to unmark a task that has not been specified
                     try {
@@ -83,7 +84,7 @@ public class Duke {
                     System.out.println("\t\t [" + assignment[unmarkIndex].getStatusIcon()
                             + "] " + assignment[unmarkIndex].description);
                 }
-            } else{
+            } else {
                 System.out.println("\t Bye. Hope to see you again soon!");
             }
 
