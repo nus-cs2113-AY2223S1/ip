@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     // static variables
-    private static String[] taskList = new String[100];
+    private static Task[] taskList = new Task[100];
     private static int taskCounter = 0;
 
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
@@ -11,17 +11,28 @@ public class Duke {
     public static void main(String[] args) {
         greet();
         Scanner input = new Scanner(System.in);
-        String command = input.nextLine();
+        String line = input.nextLine();
+        String command = line.split(" ")[0];
         while (!command.matches("bye")) {
             switch (command) {
             case "list":
                 listTasks();
                 break;
+            case "mark":
+                int index = Integer.parseInt(line.split(" ")[1]) - 1;
+                markTask(taskList[index]);
+                break;
+            case "unmark":
+                index = Integer.parseInt(line.split(" ")[1]) - 1;
+                unmarkTask(taskList[index]);
+                break;
             default:
-                addTask(command);
+                Task task = new Task(line);
+                addTask(task);
                 break;
             }
-            command = input.nextLine();
+            line = input.nextLine();
+            command = line.split(" ")[0];
         }
         exit(); 
     }
@@ -46,19 +57,55 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void addTask(String task) {
+    public static void addTask(Task task) {
         taskList[taskCounter] = task;
         taskCounter += 1;
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("added: " + task);
+        System.out.println("added: " + task.name);
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void listTasks() {
         System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; ++i) {
-            System.out.println(i + 1 + ". " + taskList[i]);
+            Task task = taskList[i];
+            System.out.println(i + 1 + ".[" + task.getStatusIcon() + "] " + task.name);
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void markTask(Task task) {
+        System.out.println(HORIZONTAL_LINE);
+        task.isDone = true;
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[" + task.getStatusIcon() + "] " + task.name);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void unmarkTask(Task task) {
+        System.out.println(HORIZONTAL_LINE);
+        task.isDone = false;
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("[" + task.getStatusIcon() + "] " + task.name);
+        System.out.println(HORIZONTAL_LINE);
+    }
+}
+
+public class Task {
+    protected String name;
+    protected boolean isDone;
+
+    public Task(String name) {
+        this.name = name;
+        this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        if (this.isDone) {
+            return "X";
+        } else {
+            return " ";
+        }
     }
 }
