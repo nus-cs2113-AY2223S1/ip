@@ -1,6 +1,10 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+
+    static ArrayList<String> taskList = new ArrayList<String>(0);
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         newLine();
@@ -9,7 +13,12 @@ public class Duke {
         String input = getInput(in);
         newLine();
         while (!input.equals("bye")){
-            echo(input);
+            if (input.equals("list")){
+                printTaskList(taskList);
+            } else {
+                echo(input);
+                taskList.add(input);
+            }
             input = getInput(in);
             newLine();
         }
@@ -18,8 +27,16 @@ public class Duke {
         newLine();
     }
 
+    private static void printTaskList(ArrayList<String> taskList){
+        for (int i = 0; i < taskList.size(); i++){
+            int listIndex = i+1;
+            System.out.println(" "+listIndex+". "+taskList.get(i));
+        }
+        newLine();
+    }
+
     private static void echo(String input){
-        System.out.println(" " + input);
+        System.out.println(" added: " + input);
         newLine();
     }
     private static String getInput(Scanner in){
