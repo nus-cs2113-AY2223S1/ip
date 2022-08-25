@@ -62,13 +62,11 @@ public class Duke {
 
         System.out.println("Please enter your taskList command: (send 'bye' to exit) ");
         Scanner in = new Scanner(System.in);
-        boolean loop = true;
         while (true) {
             String input = in.nextLine();
             String[] parsedInput = input.split("\\s+");
 
             if(parsedInput[0].equals("bye")) {
-                loop = false;
                 break;
             } else if (parsedInput[0].equals("list")) {
                 printFormattedMessage(list.getTaskList());
