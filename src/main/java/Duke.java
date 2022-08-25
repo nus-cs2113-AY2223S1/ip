@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static String[] list = new String[100];
+    public static int position = 0;
+
     public static void printDivider() {
         System.out.println("    ----------------------------------------------------");
     }
@@ -21,9 +24,21 @@ public class Duke {
         printDivider();
     }
 
-    public static void echoMessage(String line) {
+    public static void addToList(String line) {
+        list[position] = line;
+        position++;
+
         printDivider();
-        System.out.println("    " + line);
+        System.out.println("    added: " + line);
+        System.out.println();
+        printDivider();
+    }
+
+    public static void printList() {
+        printDivider();
+        for (int i = 0; i < position; i++) {
+            System.out.println("    " + String.valueOf(i + 1) + ". " + list[i]);
+        }
         System.out.println();
         printDivider();
     }
@@ -32,13 +47,18 @@ public class Duke {
         printGreeting();
 
         String userInput = "";
+
         while (!userInput.equals("bye")) {
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
             if (userInput.equals("bye")) {
                 break;
             }
-            echoMessage(userInput);
+            if (userInput.equals("list")) {
+                printList();
+            } else {
+                addToList(userInput);
+            }
         }
 
         printExitMessage();
