@@ -30,7 +30,7 @@ public class Duke {
         taskList[taskSize] = input;
     }
 
-    public static void printAddItemText(Task input){
+    public static void printAddItemText(Task input) {
         System.out.println("added: " + input.description);
         printHorizontalLine();
     }
@@ -47,8 +47,7 @@ public class Duke {
         taskList[taskNumber].setDone(done);
     }
 
-    public static void printMarkTaskText(int taskNumber){
-
+    public static void printMarkTaskText(int taskNumber) {
         String status = taskList[taskNumber].getStatusIcon();
         if (status == "X") {
             System.out.println("Nice! I've marked this task as done:");
@@ -58,7 +57,6 @@ public class Duke {
         System.out.println("[" + status + "] " + taskList[taskNumber].description);
         printHorizontalLine();
     }
-
 
     public static void main(String[] args) {
         printGreeting();
@@ -81,7 +79,7 @@ public class Duke {
                 markTask(taskNumber, false);
                 printMarkTaskText(taskNumber);
             }
-            else{
+            else {
                 Task newTask = new Task(input);
                 addItem(newTask);
                 printAddItemText(newTask);
