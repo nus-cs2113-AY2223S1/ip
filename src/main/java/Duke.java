@@ -1,4 +1,15 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static void greet() {
+        String message = "Hello! I'm Ever\n" +
+                "What can I do for you?";
+        System.out.println(message);
+    }
+    private static void exit() {
+        String message = "Bye. Hope to see you again soon!";
+        System.out.println(message);
+    }
     public static void main(String[] args) {
         String logo = " ________      ________ _____  \n" +
                 "|  ____\\ \\    / /  ____|  __ \\ \n" +
@@ -8,10 +19,21 @@ public class Duke {
                 "|______|   \\/   |______|_|  \\_\\";
         System.out.println(logo);
 
-        String greeting = " Hello! I'm Ever\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!";
-        System.out.println(greeting);
+        greet();
+
+        /* Get input from user */
+        Scanner scanner = new Scanner(System.in);
+        String inputMessage = "";
+
+        while (true) {
+            System.out.print(">> ");
+            inputMessage = scanner.nextLine();
+            if (inputMessage.equals("bye")) {
+                break;
+            }
+            System.out.println(inputMessage);
+        }
+
+        exit();
     }
 }
