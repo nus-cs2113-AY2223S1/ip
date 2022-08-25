@@ -24,25 +24,44 @@ public class Duke {
         System.out.println(linebreak);
     }
 
-    static void storeList(ArrayList<String> List,String text) {
+    static void storeTasks(ArrayList<Task> Tasks, String text) {
         System.out.println(linebreak);
-        List.add(text);
-        System.out.println("added: "+text);
+        Task newTask = new Task(text);
+        Tasks.add(newTask);
+        System.out.println("added: " + text);
         System.out.println(linebreak);
     }
 
-    static void printList(ArrayList<String> List) {
+    static void printTasks(ArrayList<Task> Tasks) {
         System.out.println(linebreak);
-        int count =1;
-        for (String text:List) {
-            System.out.println(String.valueOf(count)+". "+text);
+        int count = 1;
+        for (Task i : Tasks) {
+            System.out.println(String.valueOf(count) + "." + "[" + i.getStatusIcon() + "] " + i.getDescription());
             count++;
         }
         System.out.println(linebreak);
     }
 
+    static void markTasks(ArrayList<Task> Tasks, String text) {
+        System.out.println(linebreak);
+        System.out.println("I've marked this task as done, now what?:");
+        String[] result = text.split(" ");
+        Tasks.get(Integer.valueOf(result[1]) - 1).setDone();
+        System.out.println("[" + Tasks.get(Integer.valueOf(result[1]) - 1).getStatusIcon() + "] " + Tasks.get(Integer.valueOf(result[1]) - 1).getDescription());
+        System.out.println(linebreak);
+    }
+
+    static void unmarkTasks(ArrayList<Task> Tasks, String text) {
+        System.out.println(linebreak);
+        System.out.println("I've marked this task as not done, get working!:");
+        String[] result = text.split(" ");
+        Tasks.get(Integer.valueOf(result[1]) - 1).setNotDone();
+        System.out.println("[" + Tasks.get(Integer.valueOf(result[1]) - 1).getStatusIcon() + "] " + Tasks.get(Integer.valueOf(result[1]) - 1).getDescription());
+        System.out.println(linebreak);
+    }
+
     public static void main(String[] args) {
-        ArrayList<String> List = new ArrayList<String>();
+        ArrayList<Task> Tasks = new ArrayList<Task>();
 
         startSession();
 
@@ -51,11 +70,14 @@ public class Duke {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                printList(List);
-            }
-            else {
-                storeList(List,line);
+            if (line.length() > 3 && line.substring(0, 4).equals("mark")) {
+                markTasks(Tasks, line);
+            } else if (line.length() > 4 && line.substring(0, 6).equals("unmark")) {
+                unmarkTasks(Tasks, line);
+            } else if (line.equals("list")) {
+                printTasks(Tasks);
+            } else {
+                storeTasks(Tasks, line);
             }
             line = in.nextLine();
         }
