@@ -5,29 +5,34 @@ public class Duke {
     private boolean isActive = true;
     private Task[] tasks = new Task[100];
     private int taskCount = 0;
+
     private void greet() {
         String greetMessage = "Hello! I'm Banana\n"
                 + "How can I help you?";
         reply(greetMessage);
     }
+
     private void bye() {
         String byeMessage = "Good bye. Hope to see you again soon!";
         reply(byeMessage);
     }
-    private void reply (String message) {
+
+    private void reply(String message) {
         // Split this string to easily indent new line when replying
         String[] messageArray = message.split("\n");
         System.out.println("*************************************************************");
-        for (String item: messageArray) {
+        for (String item : messageArray) {
             //
             System.out.print("      ");
             System.out.print(item + '\n');
         }
         System.out.println("*************************************************************");
     }
+
     private void confirmAdd(String task) {
         this.reply("I added one task to your list: " + task);
     }
+
     private void printList(Task[] tasks) {
         int i = 0;
         if (tasks[0] == null) {
@@ -52,6 +57,7 @@ public class Duke {
                     + " " + tasks[num].taskInfo());
         }
     }
+
     private void markUndone(int num) {
         if (!tasks[num].isDone()) {
             reply("This task was marked undone before:\n"
@@ -62,10 +68,11 @@ public class Duke {
                     + " " + tasks[num].taskInfo());
         }
     }
+
     private void parseMessage(String message) {
         //split the input to get the command
         String[] cmdArray = message.split(" ");
-        switch(cmdArray[0]) {
+        switch (cmdArray[0]) {
         case "bye":
             this.bye();
             this.isActive = false;
@@ -90,11 +97,12 @@ public class Duke {
             }
             break;
         default:
-            tasks[taskCount] = new Task(taskCount+1, message);
+            tasks[taskCount] = new Task(taskCount + 1, message);
             taskCount++;
             this.confirmAdd(message);
         }
     }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.greet();
