@@ -3,13 +3,10 @@ public class Duke {
 
     public static Task[] tasks = new Task[100];
     public static int numTasks = 0;
+
     public static void listTasks(){
         for(int i = 0; i < numTasks; i++){
-            if(tasks[i].getDone()) {
-                System.out.println((i + 1) + ".[X] " + tasks[i].getTask());
-            } else {
-                System.out.println((i + 1) + ".[ ] " + tasks[i].getTask());
-            }
+            System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() +"] " + tasks[i].getTask());
         }
     }
 
@@ -20,20 +17,22 @@ public class Duke {
     }
 
     public static void setTask(int whichTask, boolean done){
-        tasks[whichTask].setDone(done);
+        final String MESSAGE_DONE = "Nice! I've marked this task as done:";
+        final String MESSAGE_NOT_DONE = "OK, I've marked this task as not done yet:";
+        tasks[whichTask].setStatus(done);
 
         if(done){
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(MESSAGE_DONE);
             System.out.println("\t[X] " + tasks[whichTask].getTask());
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(MESSAGE_NOT_DONE);
             System.out.println("\t[ ] " + tasks[whichTask].getTask());
         }
     }
 
     public static void processUserInput(String userInput){
-        String[] splitedInput = userInput.split(" ");
-        String command = splitedInput[0];
+        String[] splitInput = userInput.split(" ");
+        String command = splitInput[0];
 
         switch (command){
         case("list"):
@@ -41,10 +40,10 @@ public class Duke {
             break;
         case("mark"):
             //assume input of length 2
-            setTask(Integer.parseInt(splitedInput[1]) - 1,true);
+            setTask(Integer.parseInt(splitInput[1]) - 1,true);
             break;
         case("unmark"):
-            setTask(Integer.parseInt(splitedInput[1]) - 1, false);
+            setTask(Integer.parseInt(splitInput[1]) - 1, false);
             break;
         default:
             addTask(userInput);
@@ -60,6 +59,25 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         */
+
+        final String LOGO = "\n" +
+        "     _________________________________________\n" +
+        "   /  _____________________________________   \\ \n" +
+        "   | |                                     |  | \n" +
+        "   | |  C:\\> Initiating programme_         |  | \n" +
+        "   | |                                     |  | \n" +
+        "   | |                                     |  | \n" +
+        "   | |                                     |  | \n" +
+        "   | |                                     |  | \n" +
+        "   | |                                     |  | \n" +
+        "   | |_____________________________________|  | \n" +
+        "    \\_____________________________________/ \n" +
+        "       \\________________________________/ \n" +
+        "        _________________________________ \n" +
+        "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ \n" +
+        "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
+
+        System.out.println(LOGO);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
