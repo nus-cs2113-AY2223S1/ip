@@ -11,6 +11,7 @@ public class Duke {
         String[] list = new String[100];
         String[] status = new String[100];
         int length = 0;
+        
         while(!val.equals("bye")){
             System.out.println("____________________________________________________________");
             if(val.equals("list")){
