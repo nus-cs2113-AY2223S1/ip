@@ -1,16 +1,22 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final String LOGO = " ________      ________ _____  \n" +
+            "|  ____\\ \\    / /  ____|  __ \\ \n" +
+            "| |__   \\ \\  / /| |__  | |__) |\n" +
+            "|  __|   \\ \\/ / |  __| |  _  / \n" +
+            "| |____   \\  /  | |____| | \\ \\ \n" +
+            "|______|   \\/   |______|_|  \\_\\";
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
     private static void greet() {
-        String message = "Hello! I'm Ever\n" +
+        String MESSAGE = "Hello! I'm Ever\n" +
                 "What can I do for you?";
-        System.out.println(message);
+        System.out.println(MESSAGE);
     }
     private static void exit() {
-        String message = "Bye. Hope to see you again soon!";
-        System.out.println(message);
+        String MESSAGE = "Bye. Hope to see you again soon!";
+        System.out.println(MESSAGE);
     }
     private static void addTask(String description) {
         tasks[tasksCount++] = new Task(description);
@@ -21,19 +27,14 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        String logo = " ________      ________ _____  \n" +
-                "|  ____\\ \\    / /  ____|  __ \\ \n" +
-                "| |__   \\ \\  / /| |__  | |__) |\n" +
-                "|  __|   \\ \\/ / |  __| |  _  / \n" +
-                "| |____   \\  /  | |____| | \\ \\ \n" +
-                "|______|   \\/   |______|_|  \\_\\";
-        System.out.println(logo);
+
+        System.out.println(LOGO);
 
         greet();
 
         /* Get input from user */
         Scanner scanner = new Scanner(System.in);
-        String inputMessage = "";
+        String inputMessage;
 
         while (true) {
             System.out.print(">> ");
