@@ -3,6 +3,10 @@ public class Task {
     private String name;
     private boolean status;
 
+    public Task() {
+        this("");
+    }
+
     public Task(String name) {
         this.name = name;
         this.status = false;
@@ -10,9 +14,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s\n",
-                this.isDone() ? "X" : " ",
-                this.getName());
+        return String.format("[%s] %s", this.isDone() ? "X" : " ", this.getName());
     }
 
     public String getName() {
