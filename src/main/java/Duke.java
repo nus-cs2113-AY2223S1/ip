@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 public class Duke {
 
     private static String[][] list;
-    private static int listNum;
+    private static int listIndex;
     private static Scanner scanner;
-    private static String indent;
-    private static String hLine;
+    private static String INDENT = "\n    ";
+    private static String H_LINE = INDENT + "-------------------------------------------";
 
 
     public static void main(String[] args) {
@@ -33,9 +33,7 @@ public class Duke {
     private static void init() {
         scanner = new Scanner(System.in);
         list = new String[100][2];
-        listNum = 0;
-        indent = "\n    ";
-        hLine = indent + "-------------------------------------------";
+        listIndex = 0;
     }
 
     private static void introduction() {
@@ -45,7 +43,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String introText = "\n    Hello! I'm Duke\n    What can I do for you?";
-        String introduction = logo + hLine + introText + hLine + "\n";
+        String introduction = logo + H_LINE + introText + H_LINE + "\n";
         System.out.println(introduction);
     }
 
@@ -53,17 +51,17 @@ public class Duke {
     private static boolean respondToUser() {
         String input = scanner.nextLine();
         String inputType = input.toLowerCase();
-        boolean exit = false;
+        boolean shouldExit = false;
 
         //Based on what the user types, either exit, list, mark, unmark, or add to list
         switch (inputType) {
             case "bye":
-                exit = true;
+                shouldExit = true;
                 break;
             case "list":
-                System.out.print(hLine);
+                System.out.print(H_LINE);
                 printList();
-                System.out.println(hLine + "\n");
+                System.out.println(H_LINE + "\n");
                 break;
             default:
 
@@ -76,14 +74,14 @@ public class Duke {
                 //if the item is to be marked or unmarked, follow the correct steps to extract the index
                 if (matchesMark || matchesUnmark) {
                     String type = matchesMark ? "Mark" : "Unmark";
-                    System.out.print(hLine + indent + type + "ing...");
+                    System.out.print(H_LINE + INDENT + type + "ing...");
                     int markIndex = matchesMark ? 4 : 6;
                     String number = input.substring(markIndex).replaceAll(" ", "");
                     int index = Integer.valueOf(number) - 1;
-                    if (index >= listNum) {
-                        System.out.print(indent + "Trying to " + type + " an item outside of list length? Failed.");
+                    if (index >= listIndex) {
+                        System.out.print(INDENT + "Trying to " + type + " an item outside of list length? Failed.");
                     } else if (index < 0) {
-                        System.out.print(indent + "Trying to " + type + " an item that is too small? Failed.");
+                        System.out.print(INDENT + "Trying to " + type + " an item that is too small? Failed.");
                     } else {
                         switch (type) {
                             case "Mark":
@@ -92,41 +90,41 @@ public class Duke {
                             default:
                                 list[index][1] = " ";
                         }
-                        System.out.print(indent + "Success! Printing your updated list:");
+                        System.out.print(INDENT + "Success! Printing your updated list:");
                         printList();
                     }
 
-                    System.out.println(hLine + "\n");
+                    System.out.println(H_LINE + "\n");
 
                 } else {
 
                     //Add a new item to the list
-                    System.out.println(hLine + indent + "added: " + input + hLine + "\n");
+                    System.out.println(H_LINE + INDENT + "added: " + input + H_LINE + "\n");
                     String[] newItem = {input, " "};
-                    list[listNum] = newItem;
-                    listNum++;
+                    list[listIndex] = newItem;
+                    listIndex++;
                 }
 
 
         }
-        return exit;
+        return shouldExit;
     }
 
     private static void printList() {
-        if (listNum == 0) {
-            System.out.print(indent + "Nothing to see here! Type to add to your list.");
+        if (listIndex == 0) {
+            System.out.print(INDENT + "Nothing to see here! Type to add to your list.");
             return;
         }
-        for (int i = 0; i < listNum; i++) {
+        for (int i = 0; i < listIndex; i++) {
             String item = list[i][0];
             String checked = list[i][1];
-            System.out.print(indent + (i + 1) + ".[" + checked + "] " + item);
+            System.out.print(INDENT + (i + 1) + ".[" + checked + "] " + item);
         }
     }
 
     private static void goodbye() {
         String goodbyeText = "\n    Bye. Hope to see you again soon!";
-        String goodbye = hLine + goodbyeText + hLine;
+        String goodbye = H_LINE + goodbyeText + H_LINE;
         System.out.println(goodbye);
     }
 
