@@ -25,33 +25,39 @@ public class Duke {
                 break;
 
             case "mark":
-                Task tempTaskDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(), list.get(Integer.parseInt(line[1])-1).isDone());
+                Task tempTaskDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(),
+                        list.get(Integer.parseInt(line[1])-1).isDone());
                 tempTaskDone.setDone(true);
                 list.set(Integer.parseInt(line[1])-1, tempTaskDone);
 
                 String markDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
                 System.out.println("        ____________________________________________");
                 System.out.println("        Nice! I've marked this task as done:");
-                System.out.println("            " + markDone + " " + list.get(Integer.parseInt(line[1])-1).getTaskName());
+                System.out.println("            " + markDone + " " +
+                        list.get(Integer.parseInt(line[1])-1).getTaskName());
                 System.out.println("        ____________________________________________");
                 break;
 
             case "unmark":
-                Task tempTaskNotDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(), list.get(Integer.parseInt(line[1])-1).isDone());
+                Task tempTaskNotDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(),
+                        list.get(Integer.parseInt(line[1])-1).isDone());
                 tempTaskNotDone.setDone(false);
                 list.set(Integer.parseInt(line[1])-1, tempTaskNotDone);
 
                 String unmarkDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
                 System.out.println("        ____________________________________________");
                 System.out.println("        Ok. I've marked this task as not done yet:");
-                System.out.println("            " + unmarkDone + " " + list.get(Integer.parseInt(line[1])-1).getTaskName());
+                System.out.println("            " + unmarkDone + " " +
+                        list.get(Integer.parseInt(line[1])-1).getTaskName());
                 System.out.println("        ____________________________________________");
                 break;
 
             default:
-                list.add(new Task(Arrays.toString(line).replace(",", "").replace("[", "").replace("]", "")));
+                list.add(new Task(Arrays.toString(line).replace(",", "")
+                        .replace("[", "").replace("]", "")));
                 System.out.println("        ____________________________________________");
-                System.out.println("        " + Arrays.toString(line).replace(",", "").replace("[", "").replace("]", ""));
+                System.out.println("        " + Arrays.toString(line).replace(",", "")
+                        .replace("[", "").replace("]", ""));
                 System.out.println("        ____________________________________________");
                 break;
             }
