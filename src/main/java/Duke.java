@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Duke {
 
-    private static String[][] list;
+    private static Task[] taskList;
     private static int listIndex;
     private static Scanner scanner;
     private static String INDENT = "\n    ";
@@ -32,7 +32,7 @@ public class Duke {
 
     private static void init() {
         scanner = new Scanner(System.in);
-        list = new String[100][2];
+        taskList = new Task[100];
         listIndex = 0;
     }
 
@@ -64,7 +64,6 @@ public class Duke {
                 System.out.println(H_LINE + "\n");
                 break;
             default:
-
                 //create patterns for checking both mark and unmark
                 Pattern markPattern = Pattern.compile("^mark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
                 boolean matchesMark = markPattern.matcher(input).find();
@@ -85,10 +84,10 @@ public class Duke {
                     } else {
                         switch (type) {
                             case "Mark":
-                                list[index][1] = "X";
+                                taskList[index].mark();
                                 break;
                             default:
-                                list[index][1] = " ";
+                                taskList[index].unmark();
                         }
                         System.out.print(INDENT + "Success! Printing your updated list:");
                         printList();
@@ -100,8 +99,8 @@ public class Duke {
 
                     //Add a new item to the list
                     System.out.println(H_LINE + INDENT + "added: " + input + H_LINE + "\n");
-                    String[] newItem = {input, " "};
-                    list[listIndex] = newItem;
+                    Task task = new Task(input);
+                    taskList[listIndex] = task;
                     listIndex++;
                 }
 
@@ -116,9 +115,8 @@ public class Duke {
             return;
         }
         for (int i = 0; i < listIndex; i++) {
-            String item = list[i][0];
-            String checked = list[i][1];
-            System.out.print(INDENT + (i + 1) + ".[" + checked + "] " + item);
+            Task task = taskList[i];
+            System.out.print(INDENT + (i + 1) + ".[" + task.getMark() + "] " + task.getDescription());
         }
     }
 
