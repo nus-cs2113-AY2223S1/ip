@@ -20,9 +20,20 @@ public class Duke {
         System.out.println(greeting);
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
+        String[] tasks = new String[100];
+        int idx = 0;
         while(!command.equals("bye")){
             System.out.println("------------------------------------------------\n");
-            System.out.println(command);
+            if (command.equals("list")) {
+                for (int i = 0; i < idx; i++) {
+                    System.out.print(i+1);
+                    System.out.println(": " + tasks[i]);
+                }
+            } else {
+                tasks[idx] = command;
+                idx++;
+                System.out.println("added: " + command);
+            }
             System.out.println("------------------------------------------------\n");
             command = in.nextLine();
         }
