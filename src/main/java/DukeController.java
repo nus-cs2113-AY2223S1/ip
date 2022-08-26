@@ -14,7 +14,7 @@ public class DukeController {
         printNewLine();
     }
 
-    public void add(String input){
+    public void addTask(String input){
         System.out.println(" added: " + input);
         Task newTask = new Task(input);
         taskList.add(newTask);

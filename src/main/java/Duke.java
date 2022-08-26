@@ -16,7 +16,7 @@ public class Duke {
                 int index = Integer.parseInt(input.substring(7));
                 dukeController.unmarkTask(index);
             } else {
-                dukeController.add(input);
+                dukeController.addTask(input);
             }
 
         }
