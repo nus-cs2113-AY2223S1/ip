@@ -1,6 +1,30 @@
 import java.util.Scanner;
 public class Duke {
 
+    public static String[] tasks = new String[100];
+    public static int numTasks = 0;
+    public static void listTasks(){
+        for(int i = 0; i < numTasks; i++){
+            System.out.println((i+1) + ". " + tasks[i]);
+        }
+    }
+
+    public static void addTask(String newTask){
+        tasks[numTasks] = newTask;
+        System.out.println("added: " + newTask);
+        numTasks += 1;
+    }
+
+    public static void executeUserCommand(String command){
+        switch (command){
+        case("list"):
+            listTasks();
+            break;
+        default:
+            addTask(command);
+            break;
+        }
+    }
     public static void greetUser(){
         /*
         String logo = " ____        _        \n"
@@ -14,16 +38,11 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void echo(String userInput){
-        System.out.println(userInput);
-    }
-
     public static boolean toExit(String userInput) {
         if (userInput.equals("bye")){
             System.out.println("Bye!!!! See you again :D");
             return true;
         }
-
         return false;
     }
 
@@ -33,7 +52,7 @@ public class Duke {
         String userInput = sc.nextLine();
 
         while(!toExit(userInput)){
-            echo(userInput);
+            executeUserCommand(userInput);
             userInput = sc.nextLine();
         }
     }
