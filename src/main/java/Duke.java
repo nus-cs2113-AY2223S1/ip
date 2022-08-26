@@ -23,6 +23,7 @@ public class Duke {
                 }
                 System.out.println("        ____________________________________________");
                 break;
+
             case "mark":
                 Task tempTaskDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(), list.get(Integer.parseInt(line[1])-1).isDone());
                 tempTaskDone.setDone(true);
@@ -33,8 +34,8 @@ public class Duke {
                 System.out.println("        Nice! I've marked this task as done:");
                 System.out.println("            " + markDone + " " + list.get(Integer.parseInt(line[1])-1).getTaskName());
                 System.out.println("        ____________________________________________");
-
                 break;
+
             case "unmark":
                 Task tempTaskNotDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(), list.get(Integer.parseInt(line[1])-1).isDone());
                 tempTaskNotDone.setDone(false);
@@ -45,8 +46,8 @@ public class Duke {
                 System.out.println("        Ok. I've marked this task as not done yet:");
                 System.out.println("            " + unmarkDone + " " + list.get(Integer.parseInt(line[1])-1).getTaskName());
                 System.out.println("        ____________________________________________");
-
                 break;
+
             default:
                 list.add(new Task(Arrays.toString(line).replace(",", "").replace("[", "").replace("]", "")));
                 System.out.println("        ____________________________________________");
