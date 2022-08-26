@@ -17,7 +17,7 @@ public class ListManager {
     }
 
     public void addItem(String item) {
-        items.add(new Task(item));
+        items.add(TaskFactory.createTask(item));
     }
 
     public void markDone(int index) {
@@ -36,9 +36,7 @@ public class ListManager {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < items.size(); i++) {
-            sb.append(String.format("%d.%s",
-                    i + 1,
-                    items.get(i)));
+            sb.append(String.format("%d.%s\n", i + 1, items.get(i)));
         }
         return sb.toString();
     }

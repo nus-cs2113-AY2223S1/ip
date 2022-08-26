@@ -3,15 +3,9 @@ import java.util.Scanner;
 public class Duke {
     private static final String INDENT = "    ";
     private static final String HORIZONTAL_RULE = "____________________________________________________________\n";
-    private static final String DUKE_LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String[] GREETING = {
-            "Hello! I'm Duke",
-            "What can I do for you?"
-    };
+    private static final String DUKE_LOGO = "" + " ____        _        \n" + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n" + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String[] GREETING = { "Hello! I'm Duke", "What can I do for you?" };
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
     private static ListManager listManager = new ListManager();
@@ -35,13 +29,12 @@ public class Duke {
         } else if (input.startsWith("mark")) {
             int index = Integer.parseInt(input.substring("mark".length()).trim());
             listManager.markDone(index);
-            displayMessage(String.format("Nice! I've marked this task as done:\n %s",
-                    listManager.getItem(index)));
+            displayMessage(String.format("Nice! I've marked this task as done:\n %s", listManager.getItem(index)));
         } else if (input.startsWith("unmark")) {
             int index = Integer.parseInt(input.substring("unmark".length()).trim());
             listManager.markUndone(index);
-            displayMessage(String.format("OK, I've marked this task as not done yet:\n %s",
-                    listManager.getItem(index)));
+            displayMessage(
+                    String.format("OK, I've marked this task as not done yet:\n %s", listManager.getItem(index)));
         } else {
             listManager.addItem(input);
             displayMessage("added: " + input);
@@ -57,7 +50,7 @@ public class Duke {
             if (input.equals("bye")) {
                 break;
             }
-            processInput(input);
+            processInput(input.trim());
         }
         displayMessage(EXIT_MESSAGE);
         scanner.close();
