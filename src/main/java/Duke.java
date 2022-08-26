@@ -16,18 +16,31 @@ public class Duke {
 
         Communication.greet();
         Scanner sc = new Scanner(System.in);
-
-
-
-
-
-
-
-
-
         boolean exit = false;
+        String[] inputs;
+        int TaskIndex;
+        Task currTask;
+
+
+
+
+
         while (!exit){
             String inputString = sc.nextLine();
+            inputs = inputString.split(" "); // split
+            if (inputs[0].equals("mark")){
+                inputString = "mark";
+            }
+            else if (inputs[0].equals("unmark")){
+                inputString = "unmark";
+            }
+
+
+
+
+
+
+
             if (inputString.equals("bye")){
                 exit = true;
                 Communication.bye();
@@ -46,6 +59,18 @@ public class Duke {
                 ListOfTasks.add(new Task("return book"));
                 System.out.println("added: return book");
 
+            }
+            else if (inputString.equals("mark")){
+                TaskIndex = Integer.parseInt(inputs[1]);// task no + task
+                currTask = ListOfTasks.get(TaskIndex-1);
+                Communication.mark(currTask);
+
+
+            }
+            else if (inputString.equals("unmark")){
+                TaskIndex = Integer.parseInt(inputs[1]);
+                currTask = ListOfTasks.get(TaskIndex-1);
+                Communication.unmark(currTask);
             }
             else{
                 Communication.copy(inputString);
