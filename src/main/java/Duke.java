@@ -39,20 +39,21 @@ public class Duke {
             }
             else{
                 String[] text = curr.split(" ");
-                if(text[0].equals("mark")){
+                String type = text[0];
+                if(type.equals("mark")){
                     int taskNumber = Integer.parseInt(text[1]);
                     TaskManager1.markAsDone(taskNumber);
                 }
-                else if(text[0].equals("unmark")){
+                else if(type.equals("unmark")){
                     int taskNumber = Integer.parseInt(text[1]);
                     TaskManager1.markAsUndone(taskNumber);
                 }
                 else{
                     String task = "";
-                    for(String word : text){
-                        task = task + " " + word;
+                    for(int i = 1; i < text.length; i++){
+                        task = task + " " + text[i];
                     }
-                    TaskManager1.addTask(task);
+                    TaskManager1.addTask(type, task);
                 }
             }
         }
