@@ -12,14 +12,14 @@ public class TaskList {
     public TaskList(){
     }
 
-    public String getTaskDescription(int n){
+    public String getTaskDescription(int serialNumber){
         String taskDescriptionOutput = "  [";
-        if (taskList.get(n-1).getIsDone()){
+        if (taskList.get(serialNumber - 1).getIsDone()){
             taskDescriptionOutput += "X] ";
         } else {
             taskDescriptionOutput += "] ";
         }
-        taskDescriptionOutput += taskList.get(n-1).getTaskDescription() + "\n";
+        taskDescriptionOutput += taskList.get(serialNumber -1).getTaskDescription() + "\n";
         return taskDescriptionOutput;
     }
 
