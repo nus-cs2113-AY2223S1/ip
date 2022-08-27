@@ -17,11 +17,6 @@ public class Bloom {
         drawLine();
     }
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
         String logo =  " _____ __    _____ _____ _____\n"
                      + "| __  |  |  |     |     |     |\n"
                      + "| __ -|  |__|  |  |  |  | | | |\n"
