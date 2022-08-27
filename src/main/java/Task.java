@@ -11,14 +11,8 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void markAsDone() {
-        this.isDone = true;
-        System.out.println("Add mark: " + this.description + " [X]");
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.description;
     }
-
-    public void removeMark() {
-        this.isDone = false;
-        System.out.println("Remove mark: " + this.description + " [ ]");
-    }
-
 }

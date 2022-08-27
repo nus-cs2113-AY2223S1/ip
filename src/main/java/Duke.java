@@ -21,8 +21,12 @@ public class Duke {
                 myManager.markAsDone(input);
             } else if (input.startsWith("unmark")) {
                 myManager.removeMark(input);
-            } else {
-                myManager.addTask(input);
+            } else if (input.startsWith("todo")){
+                myManager.addTodo(input);
+            } else if (input.startsWith("deadline")) {
+                myManager.addDeadline(input);
+            } else if (input.startsWith("event")) {
+                myManager.addEvent(input);
             }
             System.out.println();
             input = in.nextLine();
