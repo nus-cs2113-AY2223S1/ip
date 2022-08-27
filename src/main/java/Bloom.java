@@ -8,6 +8,9 @@ public class Bloom {
         System.out.println("Hello! I'm Bloom, your personal task manager.");
         System.out.println();
         System.out.println("Here are the available commands: ");
+        System.out.println("todo <task name> -- add task (todo)");
+        System.out.println("deadline <taskname> /by <date and/or time> -- add task (deadline)");
+        System.out.println("event <taskname> /at <date and/or time period -- add task (event)");
         System.out.println("list -- to list current tasks");
         System.out.println("mark <task number> -- to mark the respective task as completed");
         System.out.println("unmark <task number> -- to unmark the respective task as not completed");
