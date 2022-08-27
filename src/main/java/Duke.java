@@ -1,104 +1,118 @@
 import java.util.Scanner;
 
 public class Duke {
+    //========================================= GLOBAL CONSTANT ========================//
+    private static final int MAXIMUM_NUMBER_OF_TASKS = 100;
+
+    private static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!";
+    private static final String MESSAGE_HELLO = "Hello! I'm a chatbot Duke made by Than Duc Huy\n" +
+            "Type the command to start interacting with Duke";
+    private static final String MESSAGE_COMMAND_LISTS = "Supported commands: list, mark, todo, deadline, event, bye";
+    private static final String MESSAGE_HORIZONTAL_LINE = "===================================================";
+
+
     //========================================= GLOBAL VARIABLES ========================//
     static Scanner in = new Scanner(System.in);
-    static String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    static Task[] toDoList = new Task[100];
+    static Task[] tasksList = new Task[MAXIMUM_NUMBER_OF_TASKS];
+    static boolean isRunning = true;
 
 
+    //========================================= MAIN ========================//
+    public static void main(String[] args) {
+        helloMessage();
+        while (isRunning) {
+            parseCommand();
+        }
+    }
+
+    private static void parseCommand() {
+        String line = in.nextLine();
+        String lowerCaseLine = line.toLowerCase();
+        if (lowerCaseLine.contains("bye")) {
+            exit();
+        } else if (lowerCaseLine.contains("list")) {
+            list();
+        } else if (lowerCaseLine.contains("mark")) {
+            mark(line);
+        } else if (lowerCaseLine.contains("todo") || lowerCaseLine.contains("deadline") || lowerCaseLine.contains("event")) {
+            add(line);
+        } else {
+            unknownCommandMessage();
+        }
+    }
     //========================================= GLOBAL METHOD ========================//
-    public static void echo(String line) { //Echo user input
-        System.out.println(line);
+
+    private static void exit() {
+        isRunning = false;
+        exitMessage();
     }
 
-    public static String ask() {
-        return in.nextLine();
+    private static void unknownCommandMessage() {
+        System.out.println("Please indicate task type: todo/deadline/event");
     }
 
-    public static void list() {
+    private static void list() {
         System.out.println("========================LIST=======================");
         for (int i = 0; i < Task.numberOfTasks; i++) {
-            System.out.print(Integer.toString(i+1) + ".");
-            toDoList[i].printTask();
+            System.out.print((i + 1) + ".");
+            tasksList[i].printTask();
         }
         System.out.println("===================================================");
     }
 
-    public static void add(String line) {
+    private static void add(String line) {
         String newTaskType = line.split(" ")[0];
-        if (!(newTaskType.equalsIgnoreCase("todo") || newTaskType.equalsIgnoreCase("deadline") || newTaskType.equalsIgnoreCase("event"))) {
-            System.out.println("Please indicate task type: todo/deadline/event");
-        } else {
-            String[] taskDescriptor = line.replace(newTaskType, "").trim().split("/");
-            switch (newTaskType.toLowerCase()) {
-            case "todo":
-                toDoList[Task.numberOfTasks] = new Todo(taskDescriptor[0]);
-                break;
-            case "deadline":
-                toDoList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
-                break;
-            case "event":
-                toDoList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
-                break;
-            default:
-                break;
-            }
-            System.out.println("===================================================");
-            System.out.println("Got it! You just add a new Task");
-            System.out.print("\t");
-            toDoList[Task.numberOfTasks - 1].printTask();
-            System.out.println("Number of tasks in the list: " + Integer.toString(Task.numberOfTasks));
-            System.out.println("===================================================");
+        String[] taskDescriptor = line.replace(newTaskType, "").trim().split("/");
+        switch (newTaskType.toLowerCase()) {
+        case "todo":
+            tasksList[Task.numberOfTasks] = new Todo(taskDescriptor[0]);
+            break;
+        case "deadline":
+            tasksList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
+            break;
+        case "event":
+            tasksList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
+            break;
+        default:
+            break;
         }
+        addTaskMessage();
+    }
+
+    private static void addTaskMessage() {
+        drawHorizontal();
+        System.out.println("Got it! You just add a new Task");
+        System.out.print("\t");
+        tasksList[Task.numberOfTasks - 1].printTask();
+        System.out.println("Number of tasks in the list: " + Task.numberOfTasks);
+        drawHorizontal();
     }
 
     public static void mark(String line) {
         String[] parseArg = line.split(" ");
         int index = Integer.parseInt(parseArg[1]);
         if (parseArg[0].equalsIgnoreCase("mark")) {
-            toDoList[index - 1].isDone = true;
+            tasksList[index - 1].isDone = true;
         } else {
-            toDoList[index - 1].isDone = false;
+            tasksList[index - 1].isDone = false;
         }
         list();
     }
 
+    private static void exitMessage() {
+        System.out.println(MESSAGE_EXIT);
+        drawHorizontal();
+    }
 
-    //========================================= MAIN ========================//
-    public static void main(String[] args) {
-        String line;
-//        System.out.println(logo);
+    private static void drawHorizontal() {
+        System.out.println(MESSAGE_HORIZONTAL_LINE);
+    }
 
-        //Increment Level 0
-        System.out.println("===================================================");
-        System.out.println("Hello! I'm Duke made by Than Duc Huy");
-        System.out.println("Instruction on how to use Duke");
-        System.out.println("> Type anything to add to to-do list");
-        System.out.println("> Type \"list\" to list all the tasks");
-        System.out.println("> Type \"bye\" to exit");
-        System.out.println("What do you want to do with the to do list?");
-        System.out.println("===================================================");
-
-        while (true) {
-            line = ask();
-            if (line.toLowerCase().contains("bye")) { // If there is any bye, exit!
-                break;
-            } else if (line.equalsIgnoreCase("list")) {
-                list();
-            } else if (line.toLowerCase().contains("mark")) {
-                mark(line);
-            } else {
-                add(line);
-            }
-        }
-
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("===================================================");
+    private static void helloMessage() {
+        drawHorizontal();
+        System.out.println(MESSAGE_HELLO);
+        System.out.println(MESSAGE_COMMAND_LISTS);
+        drawHorizontal();
     }
 
 }
