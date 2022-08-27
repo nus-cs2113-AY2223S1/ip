@@ -1,68 +1,49 @@
-import java.util.Scanner;
-
 public class Duke {
 
     //Zhou Zhou
-    public static void line() {
-        System.out.println("------------------------------");
-    }
 
-    public static void greet() {
-        line();
-        System.out.println("Hi! I'm Slave Kai, Zhou Zhou's 256IQ bot\nHow can I help you?");
-        line();
-    }
-
-    public static void bye() {
-        line();
-        System.out.println("Please don't go :(");
-        line();
-    }
-
-    static Task[] Tasks = new Task[100];
-
-    public static void listAllTasks() {
-        for (int taskNumber = 0; taskNumber < Task.getTasksCount(); taskNumber++) {
-            Tasks[taskNumber].listTask();
-        }
-    }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        greet();
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
+        UI console = new UI();
+        TaskManager taskManager = new TaskManager();
+        String input = console.input();
         while (!input.equals("bye")) {
-            line();
             String[] words = input.split(" ");
+            String arguments = input.substring(words[0].length());
             switch (words[0]) {
+            case "help":
+                UI.response(Command.HELP);
+                break;
             case "list":
-                listAllTasks();
+                UI.response(Command.LIST);
+
                 break;
             case "mark":
-                if((Integer.parseInt(words[1]) > 0) && (Integer.parseInt(words[1]) <= Task.getTasksCount())) {
-                    Tasks[Integer.parseInt(words[1]) - 1].markAsDone();
-                }
+                TaskManager.markAsDone(Integer.parseInt(arguments.trim()));
+                UI.response(Command.MARK, TaskManager.Tasks[Integer.parseInt(arguments.trim())].listTask());
                 break;
             case "unmark":
-                if((Integer.parseInt(words[1]) > 0) && (Integer.parseInt(words[1]) <= Task.getTasksCount())) {
-                    Tasks[Integer.parseInt(words[1]) - 1].markAsNotDone();
-                }
+                TaskManager.markAsNotDone(Integer.parseInt(arguments.trim()));
+                UI.response(Command.UNMARK, TaskManager.Tasks[Integer.parseInt(arguments.trim())].listTask());
+                break;
+            case "todo":
+                TaskManager.addTask(Command.TODO, arguments.trim());
+                UI.response(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
+                break;
+            case "event":
+                TaskManager.addTask(Command.EVENT, arguments.trim());
+                UI.response(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
+                break;
+            case "deadline":
+                TaskManager.addTask(Command.DEADLINE, arguments.trim());
+                UI.response(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
                 break;
             default:
-                Tasks[Task.getTasksCount()] = new Task(input);
-                System.out.println("added: " + input);
+                UI.response(Command.INVALID);
                 break;
             }
-            line();
-            input = in.nextLine();
+            input = console.input();
         }
-        line();
-        bye();
+        UI.response(Command.BYE);
     }
 }

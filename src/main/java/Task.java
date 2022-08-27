@@ -2,14 +2,12 @@ public class Task {
 
     private int taskNumber;
     private String name;
-    private boolean done;
-    private static int tasksCount = 0;
+    private boolean isDone;
 
     public Task(String name) {
-        tasksCount++;
-        setTaskNumber(tasksCount);
+        setTaskNumber(TaskManager.getTasksCount());
         setName(name);
-        this.done = false;
+        this.isDone = false;
     }
 
     public void setTaskNumber(int taskNumber) {
@@ -24,31 +22,33 @@ public class Task {
         return name;
     }
 
-    public static int getTasksCount() {
-        return tasksCount;
-    }
-
     public void markAsDone() {
-        this.done = true;
-        System.out.println("Well done. I've marked this task as done:");
+        this.isDone = true;
         listTask();
     }
 
     public void markAsNotDone() {
-        this.done = false;
-        System.out.println("Boo! I've marked this task as not done yet:");
+        this.isDone = false;
         listTask();
     }
 
-    public char doneIcon() {
-        if(this.done) {
+    public char taskType() {
+        return '-';
+    }
+
+    private char doneIcon() {
+        if(this.isDone) {
             return 'X';
         }
         return ' ';
     }
 
-    public void listTask() {
-        System.out.println(this.taskNumber + ".[" + doneIcon() + "] " + this.name);
+    public String taskDescription() {
+        return this.name;
+    }
+
+    public String listTask() {
+        return String.format("%d.[%c][%c] %s", this.taskNumber, taskType(), doneIcon(), taskDescription());
     }
 
 }
