@@ -19,6 +19,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns number of tasks in task manager.
+     */
     public int getNumTasks() {
         return tasks.size();
     }
