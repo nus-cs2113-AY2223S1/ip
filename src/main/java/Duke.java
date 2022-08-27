@@ -3,19 +3,17 @@ import java.util.Scanner;
 
 public class Duke {
     public static void printGreeting() {
-        String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣴⣶⣶⣶⣶⣶⠶⣶⣤⣤⣀⠀⠀⠀⠀⠀⠀ \n"
-                + "⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⠁⠀⢀⠈⢿⢀⣀⠀⠹⣿⣿⣿⣦⣄⠀\n"
-                + "⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⠿⠀⠀⣟⡇⢘⣾⣽⠀⠀⡏⠉⠙⢛⣿⣷⡖⠀\n"
-                + "⠀⠀⠀⠀⠀⣾⣿⣿⡿⠿⠷⠶⠤⠙⠒⠀⠒⢻⣿⣿⡷⠋⠀⠴⠞⠋⠁⢙⣿⣄ \n"
-                + "⠀⠀⠀⠀⢸⣿⣿⣯⣤⣤⣤⣤⣤⡄⠀⠀⠀⠀⠉⢹⡄⠀⠀⠀⠛⠛⠋⠉⠹⡇ \n"
-                + "⠀⠀⠀⠀⢸⣿⣿⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣼⣇⣀⣀⣀⣛⣛⣒⣲⢾⡷ \n"
-                + "⢀⠤⠒⠒⢼⣿⣿⠶⠞⢻⣿⣿;i⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣼⠃\n"
-                + "⢮⠀⠀⠀⠀⣿⣿⣆⠀⠀⠻⣿⡿⠛⠉⠉⠁⠀⠉⠉⠛⠿⣿⣿⠟⠁⠀⣼⠃\n"
-                + "⠈⠓⠶⣶⣾⣿⣿⣿⣧⡀⠀⠈⠒⢤⣀⣀⡀⠀⠀⣀⣀⡠⠚⠁⠀⢀⡼⠃\n"
-                + "⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣷⣤⣤⣤⣤⣭⣭⣭⣭⣭⣥⣤⣤⣤⣴⣟⠁\n";
+        String logo = "*******     *******   *******       **\n"
+                + "/**////**   **/////** /**////**     ****\n"
+                + "/**    /** **     //**/**   /**    **//**\n"
+                + "/**    /**/**      /**/*******    **  //**\n"
+                + "/**    /**/**      /**/**///**   **********\n"
+                + "/**    ** //**     ** /**  //** /**//////**\n"
+                + "/*******   //*******  /**   //**/**     /**\n"
+                + "///////     ///////   //     // //      //\n";
 
         System.out.println("    ____________________________________________________________");
-        System.out.println(logo + "\n    Kon'nichiwa! Doraemon desu ≧◉◡◉≦\n    What can I do for you?");
+        System.out.println(logo + "\n    Kon'nichiwa! Doraemon desu.\n    What can I do for you?");
         System.out.println("    ____________________________________________________________");
     }
 
@@ -51,7 +49,7 @@ public class Duke {
         } else {
             System.out.println("    Gambate Nobita, complete it soon! Don't procrastinate:");
         }
-        System.out.println("    \uD83D\uDC49 " + tasks.get(taskIndex).getTaskDetails());
+        System.out.println("     " + tasks.get(taskIndex).getTaskDetails());
         System.out.println("    ____________________________________________________________");
     }
 
@@ -69,7 +67,7 @@ public class Duke {
             switch (command) {
             case BYE:
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Sayonara. Hope to see you again soon! ✪");
+                System.out.println("    Sayonara. Hope to see you again soon!");
                 System.out.println("    ____________________________________________________________");
                 isLoop = false;
                 break;
@@ -92,8 +90,8 @@ public class Duke {
                 tasks.add(todo);
 
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. ᘛ⁐̤ᕐᐷ Here's your new task:");
-                System.out.println("    \uD83D\uDC49 " + todo.getTaskDetails());
+                System.out.println("    Nobita, wake up. Here's your new task:");
+                System.out.println("     " + todo.getTaskDetails());
                 System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
                 System.out.println("    ____________________________________________________________");
                 break;
@@ -105,8 +103,8 @@ public class Duke {
                 tasks.add(deadline);
 
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. ᘛ⁐̤ᕐᐷ Here's your new task:");
-                System.out.println("    \uD83D\uDC49 " + deadline.getTaskDetails());
+                System.out.println("    Nobita, wake up. Here's your new task:");
+                System.out.println("     " + deadline.getTaskDetails());
                 System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
                 System.out.println("    ____________________________________________________________");
                 break;
@@ -119,8 +117,8 @@ public class Duke {
                 tasks.add(event);
 
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. ᘛ⁐̤ᕐᐷ Here's your new task:");
-                System.out.println("    \uD83D\uDC49 " + event.getTaskDetails());
+                System.out.println("    Nobita, wake up. Here's your new task:");
+                System.out.println("     " + event.getTaskDetails());
                 System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
                 System.out.println("    ____________________________________________________________");
                 break;
