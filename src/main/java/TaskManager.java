@@ -2,21 +2,26 @@ public class TaskManager {
     private static final int MAX_NUM_OF_TASKS = 100;
     private Task[] tasks = new Task[MAX_NUM_OF_TASKS];
 
-    public void addTask(String text) {
-        final String ADD_PHRASE = "added: ";
+    public void addTask(String type, String input) {
+        final String ADD_PHRASE_START = "added: ";
+        // add one because newTask has not been created yet
+        final String ADD_PHRASE_END = "Now you have " + Integer.toString(Task.getTaskCount() + 1)
+                + " task(s) in the list.";
 
-        Task newTask = new Task(text);
+        Parser parser = new Parser();
+
+        Task newTask = parser.parseInput(type, input);
 
         // change to zero-index
         tasks[Task.getTaskCount() - 1] = newTask;
 
-        System.out.println(ADD_PHRASE + text);
+        System.out.println(ADD_PHRASE_START + newTask);
+        System.out.println(ADD_PHRASE_END);
     }
 
     public void printList() {
         for (int i = 0; i < Task.getTaskCount(); i += 1) {
-            System.out.println(Integer.toString(i + 1) + ".[" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].description);
+            System.out.println(Integer.toString(i + 1) + ". " + tasks[i]);
         }
     }
 
@@ -25,7 +30,7 @@ public class TaskManager {
         tasks[num].setDone();
 
         System.out.println("Completed! The following task is marked as done:");
-        System.out.println("[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
+        System.out.println(tasks[num]);
     }
 
     public void unmarkTask(int num) {
@@ -33,6 +38,6 @@ public class TaskManager {
         tasks[num].setUndone();
 
         System.out.println("Oh no! The following task is marked as undone:");
-        System.out.println("[" + tasks[num].getStatusIcon() + "] " + tasks[num].getDescription());
+        System.out.println(tasks[num]);
     }
 }

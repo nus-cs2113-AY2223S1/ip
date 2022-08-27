@@ -35,4 +35,9 @@ public class Task {
     public static int getTaskCount() {
         return taskCount;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }

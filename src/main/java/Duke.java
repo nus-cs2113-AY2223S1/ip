@@ -30,6 +30,9 @@ public class Duke {
         final String LIST_PHRASE = "list";
         final String MARK_PHRASE = "mark";
         final String UNMARK_PHRASE = "unmark";
+        final String TODO_PHRASE = "todo";
+        final String DEADLINE_PHRASE = "deadline";
+        final String EVENT_PHRASE = "event";
 
         while (true) {
             input = in.nextLine();
@@ -49,8 +52,14 @@ public class Duke {
                 } else if (input.startsWith(UNMARK_PHRASE)) {
                     int taskNum = Integer.parseInt(input.substring(UNMARK_PHRASE.length() + 1));
                     taskManager.unmarkTask(taskNum - 1);
+                } else if (input.startsWith(TODO_PHRASE)) {
+                    taskManager.addTask(TODO_PHRASE, input);
+                } else if (input.startsWith(DEADLINE_PHRASE)) {
+                    taskManager.addTask(DEADLINE_PHRASE, input);
+                } else if (input.startsWith(EVENT_PHRASE)) {
+                    taskManager.addTask(EVENT_PHRASE, input);
                 } else {
-                    taskManager.addTask(input);
+                    taskManager.addTask("", input);
                 }
 
                 System.out.println(HORIZONTAL_LINE);
