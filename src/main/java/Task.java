@@ -1,11 +1,13 @@
-public class Task {
-    private String description;
-    private boolean isComplete;
+public abstract class Task {
+    protected String description;
+    protected boolean isComplete;
 
     public Task(String description) {
         this.description = description;
         this.isComplete = false;
     }
+
+    abstract void print();
 
     public String getDescription() {
         return description;

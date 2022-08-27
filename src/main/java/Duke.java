@@ -57,17 +57,63 @@ public class Duke {
                 break;
             }
 
+            String[] inputArray = input.split(" ", 2);
+            String command = inputArray[0];
+            String argument;
+            if (inputArray.length == 2) {
+                argument = inputArray[1];
+            } else {
+                argument = "";
+            }
+
             printLineSeparator();
-            if (input.equals("list")) {
+            if (command.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+
                 taskManager.printTasks();
-            } else if (input.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(input.replace("mark", "").trim());
+            } else if (command.equals("todo")) {
+                System.out.println("Got it. I've added this task:");
+
+                Todo todo = new Todo(argument);
+                taskManager.addTask(todo);
+                todo.print();
+
+                int numTasks = taskManager.getNumTasks();
+                System.out.println("Now you have " + numTasks + " tasks in the list.");
+            } else if (command.equals("deadline")) {
+                System.out.println("Got it. I've added this task:");
+
+                String[] argumentArray = argument.split("/by");
+                String description = argumentArray[0].trim();
+                String by = argumentArray[1].trim();
+
+                Deadline deadline = new Deadline(description, by);
+                taskManager.addTask(deadline);
+                deadline.print();
+
+                int numTasks = taskManager.getNumTasks();
+                System.out.println("Now you have " + numTasks + " tasks in the list.");
+            } else if (command.equals("event")) {
+                System.out.println("Got it. I've added this task:");
+
+                String[] argumentArray = argument.split("/at");
+                String description = argumentArray[0].trim();
+                String at = argumentArray[1].trim();
+
+                Event event = new Event(description, at);
+                taskManager.addTask(event);
+                event.print();
+
+                int numTasks = taskManager.getNumTasks();
+                System.out.println("Now you have " + numTasks + " tasks in the list.");
+            } else if (command.equals("mark")) {
+                int taskNumber = Integer.parseInt(argument);
                 taskManager.markTaskAsCompleted(taskNumber);
-            } else if (input.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(input.replace("unmark", "").trim());
+            } else if (command.equals("unmark")) {
+                int taskNumber = Integer.parseInt(argument);
                 taskManager.markTaskAsUncompleted(taskNumber);
             } else {
-                taskManager.addTask(input);
+                System.out.println();
             }
             printLineSeparator();
         }

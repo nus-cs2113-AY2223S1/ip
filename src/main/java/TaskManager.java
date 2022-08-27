@@ -13,27 +13,23 @@ public class TaskManager {
     public void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             int taskNumber = i + 1;
+            System.out.print(taskNumber + ".");
             Task task = tasks.get(i);
-            String message = taskNumber + ".[";
-            if (task.isComplete()) {
-                message += "X";
-            } else {
-                message += " ";
-            }
-            message += "] " + task.getDescription();
-            System.out.println(message);
+            task.print();
         }
+    }
+
+    public int getNumTasks() {
+        return tasks.size();
     }
 
     /**
      * Adds a task to list of tasks.
      *
-     * @param description Task to add.
+     * @param task Task to add.
      */
-    public void addTask(String description) {
-        Task task = new Task(description);
+    public void addTask(Task task) {
         tasks.add(task);
-        System.out.println("added: " + description);
     }
 
     /**
