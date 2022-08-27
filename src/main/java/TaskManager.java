@@ -2,40 +2,68 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private int tasksCount = 0;
 
+    public void printAcknowledgement(){
+        String acknowledgement = "____________________________________________________________\n"
+                + "Got it. I've added this task: \n"
+                + " " + tasks[tasksCount].toString();
+        System.out.println(acknowledgement);
+        this.tasksCount++;
+        System.out.println("Now you have " + this.tasksCount + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void handleTaskWithTime(String type, String description){
+        String[] text = description.split(" ");
+        String task = text[0]; //initialise with first word of task
+        int indexOfTime = 0;
+        for(int i = 1; i < text.length; i++){ //start loop from second word of task
+            if(text[i].contains("/")){
+                indexOfTime = i;
+                break;
+            }
+            task = task + " " + text[i];
+        }
+        indexOfTime++;
+        String time = "";
+        for(int i = indexOfTime; i < text.length; i++){
+            time = time + " " + text[i];
+        }
+        if(type.equals("deadline")){
+            tasks[tasksCount] = new Deadline(task, time);
+        }
+        else if(type.equals("event")){
+            tasks[tasksCount] = new Event(task, time);
+        }
+    }
+
     public void addTask(String type, String description){
         if(type.equals("todo")){
             tasks[tasksCount] = new Todo(description);
         }
         else{
-            String[] text = description.split(" ");
-            String task = "";
-            int indexOfTime = 0;
-            for(int i = 0; i < text.length; i++){
-                if(text[i].contains("/")){
-                    indexOfTime = i;
-                    break;
-                }
+            this.handleTaskWithTime(type, description);
+        }
+        this.printAcknowledgement();
+    }
+
+    public void handleInput(String curr){
+        String[] text = curr.split(" ");
+        String type = text[0];
+        if(type.equals("mark")){
+            int taskNumber = Integer.parseInt(text[1]);
+            this.markAsDone(taskNumber);
+        }
+        else if(type.equals("unmark")){
+            int taskNumber = Integer.parseInt(text[1]);
+            this.markAsUndone(taskNumber);
+        }
+        else{
+            String task = text[1]; //initialise with first word of task
+            for(int i = 2; i < text.length; i++){ //start loop from second word of task
                 task = task + " " + text[i];
             }
-            indexOfTime++;
-            String time = "";
-            for(int i = indexOfTime; i < text.length; i++){
-                time = time + " " + text[i];
-            }
-            if(type.equals("deadline")){
-                tasks[tasksCount] = new Deadline(task, time);
-            }
-            else if(type.equals("event")){
-                tasks[tasksCount] = new Event(task, time);
-            }
+            this.addTask(type, task);
         }
-        String acknowledgement = "____________________________________________________________" + System.lineSeparator()
-                + "Got it. I've added this task: " + System.lineSeparator()
-                + " " + tasks[tasksCount].toString() + System.lineSeparator();
-        System.out.println(acknowledgement);
-        tasksCount++;
-        System.out.println("Now you have " + tasksCount + " tasks in the list.");
-        System.out.println("____________________________________________________________");
     }
 
     public void listTasks(){
@@ -51,7 +79,7 @@ public class TaskManager {
         int taskIndex = taskNumber - 1;
         tasks[taskIndex].isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[X] " + tasks[taskIndex].description);
+        System.out.println(tasks[taskIndex].toString());
         System.out.println("____________________________________________________________");
     }
 
@@ -59,7 +87,7 @@ public class TaskManager {
         int taskIndex = taskNumber - 1;
         tasks[taskIndex].isDone = false;
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[] " + tasks[taskIndex].description);
+        System.out.println(tasks[taskIndex].toString());
         System.out.println("____________________________________________________________");
     }
 }
