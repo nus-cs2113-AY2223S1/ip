@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String HORIZONTAL_LINE = "____________________________________________________________";
-
     /**
      * Prints logo to standard out.
      */
@@ -14,6 +12,14 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+    }
+
+    /**
+     * Prints line separator to standard out.
+     */
+    public static void printLineSeparator() {
+        String lineSeperator = "____________________________________________________________";
+        System.out.println(lineSeperator);
     }
 
     /**
@@ -95,9 +101,9 @@ public class Duke {
 
     public static void main(String[] args) {
         printLogo();
-        System.out.println(HORIZONTAL_LINE);
+        printLineSeparator();
         printGreetingMessage();
-        System.out.println(HORIZONTAL_LINE);
+        printLineSeparator();
 
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -109,7 +115,7 @@ public class Duke {
                 break;
             }
 
-            System.out.println(HORIZONTAL_LINE);
+            printLineSeparator();
             if (input.equals("list")) {
                 printTasks(tasks);
             } else if (input.startsWith("mark")) {
@@ -121,12 +127,12 @@ public class Duke {
             } else {
                 addTask(tasks, input);
             }
-            System.out.println(HORIZONTAL_LINE);
+            printLineSeparator();
         }
         scanner.close();
 
-        System.out.println(HORIZONTAL_LINE);
+        printLineSeparator();
         printGoodbyeMessage();
-        System.out.println(HORIZONTAL_LINE);
+        printLineSeparator();
     }
 }
