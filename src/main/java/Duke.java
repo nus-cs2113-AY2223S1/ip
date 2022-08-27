@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,8 +17,8 @@ public class Duke {
      * Prints line separator to standard out.
      */
     public static void printLineSeparator() {
-        String lineSeperator = "____________________________________________________________";
-        System.out.println(lineSeperator);
+        String lineSeparator = "____________________________________________________________";
+        System.out.println(lineSeparator);
     }
 
     /**
@@ -40,72 +39,15 @@ public class Duke {
     }
 
     /**
-     * Prints all tasks in list to standard out.
-     *
-     * @param tasks List of tasks.
+     * Initializes application and starts the interaction with user.
      */
-    public static void printTasks(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            int taskNumber = i + 1;
-            Task task = tasks.get(i);
-            String message = taskNumber + ".[";
-            if (task.isComplete()) {
-                message += "X";
-            } else {
-                message += " ";
-            }
-            message += "] " + task.getDescription();
-            System.out.println(message);
-        }
-    }
-
-    /**
-     * Adds a task to list of tasks.
-     *
-     * @param tasks List of tasks.
-     * @param description Task to add.
-     */
-    public static void addTask(ArrayList<Task> tasks, String description) {
-        Task task = new Task(description);
-        tasks.add(task);
-        System.out.println("added: " + description);
-    }
-
-    /**
-     * Marks a task from list as completed.
-     *
-     * @param tasks List of tasks.
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks(ArrayList)}.
-     */
-    public static void markTaskAsCompleted(ArrayList<Task> tasks, int taskNumber) {
-        int index = taskNumber - 1;
-        tasks.get(index).setComplete(true);
-        String taskDescription = tasks.get(index).getDescription();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + taskDescription);
-    }
-
-    /**
-     * Marks a task from list as uncompleted.
-     *
-     * @param tasks List of tasks.
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks(ArrayList)}.
-     */
-    public static void markTaskAsUncompleted(ArrayList<Task> tasks, int taskNumber) {
-        int index = taskNumber - 1;
-        tasks.get(index).setComplete(false);
-        String taskDescription = tasks.get(index).getDescription();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + taskDescription);
-    }
-
     public static void main(String[] args) {
         printLogo();
         printLineSeparator();
         printGreetingMessage();
         printLineSeparator();
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskManager taskManager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println();
@@ -117,15 +59,15 @@ public class Duke {
 
             printLineSeparator();
             if (input.equals("list")) {
-                printTasks(tasks);
+                taskManager.printTasks();
             } else if (input.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(input.replace("mark", "").trim());
-                markTaskAsCompleted(tasks, taskNumber);
+                taskManager.markTaskAsCompleted(taskNumber);
             } else if (input.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(input.replace("unmark", "").trim());
-                markTaskAsUncompleted(tasks, taskNumber);
+                taskManager.markTaskAsUncompleted(taskNumber);
             } else {
-                addTask(tasks, input);
+                taskManager.addTask(input);
             }
             printLineSeparator();
         }
