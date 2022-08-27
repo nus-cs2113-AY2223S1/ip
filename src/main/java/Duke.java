@@ -1,7 +1,9 @@
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
+
+    public static final int MAX_TASK = 100;
+
     public static void main(String[] args) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm Duke");
@@ -10,7 +12,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[MAX_TASK];
         request:
         while(true){
             line = in.nextLine();
