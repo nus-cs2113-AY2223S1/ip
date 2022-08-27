@@ -36,7 +36,7 @@ public class TaskManager {
     }
 
     /**
-     * Marks a task from list as completed.
+     * Marks a task as completed.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
      */
@@ -49,7 +49,7 @@ public class TaskManager {
     }
 
     /**
-     * Marks a task from list as uncompleted.
+     * Marks a task as uncompleted.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
      */
