@@ -18,4 +18,8 @@ public class Task {
     public void setStatus(Boolean isDone) {
         this.isDone = isDone;
     }
+
+    public String getTaskDetails() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }
