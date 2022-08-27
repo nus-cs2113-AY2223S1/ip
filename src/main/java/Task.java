@@ -37,7 +37,7 @@ public class Task {
     }
 
     private char doneIcon() {
-        if(this.isDone) {
+        if (this.isDone) {
             return 'X';
         }
         return ' ';

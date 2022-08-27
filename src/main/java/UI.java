@@ -42,7 +42,20 @@ public class UI {
             }
             break;
         case HELP:
-            System.out.println("You asked for help, but I don't feel like helping ;p");
+            System.out.println("You asked for help, but I don't feel like helping ;p\n" +
+                    "Maybe try saying the magic word?");
+            break;
+        case PLEASE:
+            System.out.println("Slave Kai is glad to help! \n" +
+                    "Available commands: \n" +
+                    "help - to try asking for help\n" +
+                    "please - to actually get help\n" +
+                    "list - to list all tasks\n" +
+                    "mark {task number} - to mark that task as done\n" +
+                    "unmark {task number} - to mark that task as not done\n" +
+                    "todo {description} - to add a new todo task\n" +
+                    "event {description} /{event time} - to add a new event task\n" +
+                    "deadline {description} /{deadline time} - to add a new deadline task");
             break;
         case BYE:
             System.out.println("Please don't go :(");

@@ -6,7 +6,7 @@ public class Duke {
     public static void main(String[] args) {
         UI console = new UI();
         TaskManager taskManager = new TaskManager();
-        String input = console.input();
+        String input = UI.input();
         while (!input.equals("bye")) {
             String[] words = input.split(" ");
             String arguments = input.substring(words[0].length());
@@ -14,9 +14,11 @@ public class Duke {
             case "help":
                 UI.response(Command.HELP);
                 break;
+            case "please":
+                UI.response(Command.PLEASE);
+                break;
             case "list":
                 UI.response(Command.LIST);
-
                 break;
             case "mark":
                 TaskManager.markAsDone(Integer.parseInt(arguments.trim()));
@@ -42,7 +44,7 @@ public class Duke {
                 UI.response(Command.INVALID);
                 break;
             }
-            input = console.input();
+            input = UI.input();
         }
         UI.response(Command.BYE);
     }
