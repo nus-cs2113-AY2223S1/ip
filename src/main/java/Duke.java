@@ -1,39 +1,50 @@
 import java.util.*;
 public class Duke {
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static ArrayList<Task> lists = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String inputs;
         String[] splitInputs;
         doGreetings();
         inputs = scanner.nextLine();
-        while(!inputs.equals("bye") ) {
+        while(!(inputs.equalsIgnoreCase("bye"))) {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            splitInputs = inputs.split(" ", 2);
+            splitInputs = inputs.split(" ");
             if(inputs.equals("list")){
-                doPrintlist();
+                doPrintlists();
             }
-            else if(splitInputs[0].equals("mark")){
-                if(Integer.parseInt(splitInputs[1]) > list.size()){
+            else if(splitInputs[0].equalsIgnoreCase("mark")){
+                if(splitInputs.length == 1){
+                    System.out.println("No index given to mark");
+                }
+                else if(Integer.parseInt(splitInputs[1]) > lists.size()){
                     System.out.println("There is no task with index " + splitInputs[1]);
                 }
                 else {
-                    list.get(Integer.parseInt(splitInputs[1]) - 1).setDone(true);
-                    doPrintlist();
+                    lists.get(Integer.parseInt(splitInputs[1]) - 1).setDone(true);
+                    doPrintlists();
                 }
             }
-            else if(splitInputs[0].equals("unmark")){
-                if(Integer.parseInt(splitInputs[1]) > list.size()){
+            else if(splitInputs[0].equalsIgnoreCase("unmark")){
+                if(splitInputs.length == 1){
+                    System.out.println("No index given to unmark");
+                }
+                else if(Integer.parseInt(splitInputs[1]) > lists.size()){
                     System.out.println("There is no task with index " + splitInputs[1]);
                 }
                 else {
-                    list.get(Integer.parseInt(splitInputs[1]) - 1).setDone(false);
-                    doPrintlist();
+                    lists.get(Integer.parseInt(splitInputs[1]) - 1).setDone(false);
+                    doPrintlists();
                 }
+            }
+            else if(splitInputs[0].equalsIgnoreCase("todo") || splitInputs[0].equalsIgnoreCase("event") || splitInputs[0].equalsIgnoreCase("deadline")){
+                lists.add(new Task(splitInputs));
+                System.out.println("\t Added: ");
+                lists.get(lists.size() - 1).doPrint();
+                System.out.println("\t There are currently " + lists.size() + " task(s) in the list :)");
             }
             else {
-                System.out.println("\t Added: " + inputs);
-                list.add(new Task(inputs));
+                System.out.println("Sorry I do not understand your command :(");
             }
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             inputs = scanner.nextLine();
@@ -41,26 +52,56 @@ public class Duke {
         doExit();
     }
     public static class Task {
-        protected String description;
+        protected String description = "";
+
+        protected String deadline = "";
+
+        protected char taskType;
+
         protected boolean isDone;
 
-        public Task(String description) {
-            this.description = description;
+        public Task(String[] splitInputs) {
+            int i = 1;
+            this.taskType = Character.toUpperCase(splitInputs[0].charAt(0));
+            while(i < splitInputs.length && !(splitInputs[i].contains("at") || splitInputs[i].contains("by"))){
+                this.description += splitInputs[i++];
+                this.description += " ";
+            }
+            i += 1;
+            while(i < splitInputs.length){
+                this.deadline += splitInputs[i++];
+                this.deadline += " ";
+            }
+
             this.isDone = false;
         }
 
         public String getStatusIcon() {
-            return (isDone ? "X" : "O"); // mark done task with X
+            return (isDone ? "X" : " "); // mark done task with X
         }
 
         public void setDone(boolean isMark) {
             isDone = isMark;
         }
+
+        public void doPrint(){
+            System.out.print("\t [" + this.taskType + "]" +
+                    "[" + this.getStatusIcon() + "] " +
+                    this.description + "    ");
+            if(taskType == 'D') {
+                System.out.print("by : ");
+            }
+            if(taskType == 'E'){
+                System.out.print("at : ");
+            }
+            System.out.println(deadline);
+        }
     }
 
-    public static void doPrintlist() {
-        for (int i = 0; i < list.size();i++) {
-            System.out.println(i+1 + ": " + " [" + list.get(i).getStatusIcon() + "] " + list.get(i).description );
+    public static void doPrintlists() {
+        for (int i = 0; i < lists.size();i++) {
+            System.out.print(i+1 + ": ");
+            lists.get(i).doPrint();
         }
     }
 
