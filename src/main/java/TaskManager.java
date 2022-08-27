@@ -1,16 +1,14 @@
 public class TaskManager {
     private static final int MAX_NUM_OF_TASKS = 100;
-    private Task[] tasks = new Task[MAX_NUM_OF_TASKS];
+    private static Task[] tasks = new Task[MAX_NUM_OF_TASKS];
 
-    public void addTask(String type, String input) {
+    public static void addTask(String type, String input) {
         final String ADD_PHRASE_START = "added: ";
         // add one because newTask has not been created yet
-        final String ADD_PHRASE_END = "Now you have " + Integer.toString(Task.getTaskCount() + 1)
-                + " task(s) in the list.";
+        final String ADD_PHRASE_END =
+                "There are " + Integer.toString(Task.getTaskCount() + 1) + " task(s) in your list.";
 
-        Parser parser = new Parser();
-
-        Task newTask = parser.parseInput(type, input);
+        Task newTask = Parser.parseTask(type, input);
 
         // change to zero-index
         tasks[Task.getTaskCount() - 1] = newTask;
@@ -19,25 +17,27 @@ public class TaskManager {
         System.out.println(ADD_PHRASE_END);
     }
 
-    public void printList() {
+    public static void printList() {
         for (int i = 0; i < Task.getTaskCount(); i += 1) {
             System.out.println(Integer.toString(i + 1) + ". " + tasks[i]);
         }
     }
 
-    public void markTask(int num) {
-        // note that num here is zero-index
-        tasks[num].setDone();
+    public static void markTask(String input) {
+        int taskNum = Parser.parseTaskNumber(InputManager.MARK_PHRASE, input);
+
+        tasks[taskNum].setDone();
 
         System.out.println("Completed! The following task is marked as done:");
-        System.out.println(tasks[num]);
+        System.out.println(tasks[taskNum]);
     }
 
-    public void unmarkTask(int num) {
-        // note that num here is zero-index
-        tasks[num].setUndone();
+    public static void unmarkTask(String input) {
+        int taskNum = Parser.parseTaskNumber(InputManager.UNMARK_PHRASE, input);
+
+        tasks[taskNum].setUndone();
 
         System.out.println("Oh no! The following task is marked as undone:");
-        System.out.println(tasks[num]);
+        System.out.println(tasks[taskNum]);
     }
 }

@@ -8,7 +8,7 @@ ______________________________
 
 ______________________________
 added: [ ] read book
-Now you have 1 task(s) in the list.
+There are 1 task(s) in your list.
 ______________________________
 
 ______________________________
@@ -35,7 +35,7 @@ ______________________________
 
 ______________________________
 added: [ ] return book
-Now you have 2 task(s) in the list.
+There are 2 task(s) in your list.
 ______________________________
 
 ______________________________
@@ -65,7 +65,7 @@ ______________________________
 
 ______________________________
 added: [T][ ] borrow book
-Now you have 3 task(s) in the list.
+There are 3 task(s) in your list.
 ______________________________
 
 ______________________________
@@ -98,7 +98,7 @@ ______________________________
 
 ______________________________
 added: [D][ ] return book (by: Sunday)
-Now you have 4 task(s) in the list.
+There are 4 task(s) in your list.
 ______________________________
 
 ______________________________
@@ -134,7 +134,7 @@ ______________________________
 
 ______________________________
 added: [E][ ] project meeting (at: Mon 2-4pm)
-Now you have 5 task(s) in the list.
+There are 5 task(s) in your list.
 ______________________________
 
 ______________________________
@@ -173,7 +173,7 @@ ______________________________
 
 ______________________________
 added: [D][ ] do homework (by: no idea :-p)
-Now you have 6 task(s) in the list.
+There are 6 task(s) in your list.
 ______________________________
 
 ______________________________
