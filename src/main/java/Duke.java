@@ -3,14 +3,14 @@ import java.util.Scanner;
 
 public class Duke {
     public static void printGreeting() {
-        String logo = "*******     *******   *******       **\n"
-                + "/**////**   **/////** /**////**     ****\n"
-                + "/**    /** **     //**/**   /**    **//**\n"
-                + "/**    /**/**      /**/*******    **  //**\n"
-                + "/**    /**/**      /**/**///**   **********\n"
-                + "/**    ** //**     ** /**  //** /**//////**\n"
-                + "/*******   //*******  /**   //**/**     /**\n"
-                + "///////     ///////   //     // //      //\n";
+        String logo = "    *******     *******   *******       **\n"
+                + "    /**////**   **/////** /**////**     ****\n"
+                + "    /**    /** **     //**/**   /**    **//**\n"
+                + "    /**    /**/**      /**/*******    **  //**\n"
+                + "    /**    /**/**      /**/**///**   **********\n"
+                + "    /**    ** //**     ** /**  //** /**//////**\n"
+                + "    /*******   //*******  /**   //**/**     /**\n"
+                + "    ///////     ///////   //     // //      //\n";
 
         System.out.println("    ____________________________________________________________");
         System.out.println(logo + "\n    Kon'nichiwa! Doraemon desu.\n    What can I do for you?");
@@ -18,25 +18,25 @@ public class Duke {
     }
 
     public static Command getCommand(String line) {
-       Command command;
-       if (line.equals("bye")) {
-           command = Command.BYE;
-       } else if (line.equals("list")) {
-           command = Command.LIST;
-       } else if (line.startsWith("mark "))  {
-           command = Command.MARK;
-       } else if (line.startsWith("unmark ")) {
-           command = Command.UNMARK;
-       } else if (line.startsWith("todo ")) {
-           command = Command.TODO;
-       } else if (line.startsWith("deadline ")) {
-           command = Command.DEADLINE;
-       } else if (line.startsWith("event ")) {
-           command = Command.EVENT;
-       } else {
-           command = Command.EMPTY;
-       }
-       return command;
+        Command command;
+        if (line.equals("bye")) {
+            command = Command.BYE;
+        } else if (line.equals("list")) {
+            command = Command.LIST;
+        } else if (line.startsWith("mark ")) {
+            command = Command.MARK;
+        } else if (line.startsWith("unmark ")) {
+            command = Command.UNMARK;
+        } else if (line.startsWith("todo ")) {
+            command = Command.TODO;
+        } else if (line.startsWith("deadline ")) {
+            command = Command.DEADLINE;
+        } else if (line.startsWith("event ")) {
+            command = Command.EVENT;
+        } else {
+            command = Command.EMPTY;
+        }
+        return command;
     }
 
     public static void markDone(ArrayList<Task> tasks, String line, boolean isDone) {
@@ -49,7 +49,15 @@ public class Duke {
         } else {
             System.out.println("    Gambate Nobita, complete it soon! Don't procrastinate:");
         }
-        System.out.println("     " + tasks.get(taskIndex).getTaskDetails());
+        System.out.println("    * " + tasks.get(taskIndex).getTaskDetails());
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void printNewTask(String taskDetails, int numberOfTasks) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Nobita, wake up. Here's your new task:");
+        System.out.println("    * " + taskDetails);
+        System.out.println("    Now you have " + numberOfTasks + " tasks in Doraemon's 4D pocket.");
         System.out.println("    ____________________________________________________________");
     }
 
@@ -88,39 +96,24 @@ public class Duke {
             case TODO:
                 Todo todo = new Todo(line.substring(5));
                 tasks.add(todo);
-
-                System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. Here's your new task:");
-                System.out.println("     " + todo.getTaskDetails());
-                System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
-                System.out.println("    ____________________________________________________________");
+                printNewTask(todo.getTaskDetails(), tasks.size());
                 break;
             case DEADLINE:
                 newLine = line.substring(9);
                 description = newLine.split(" /by ")[0];
-                String dueBy = newLine.split( " /by ")[1];
+                String dueBy = newLine.split(" /by ")[1];
                 Deadline deadline = new Deadline(description, dueBy);
                 tasks.add(deadline);
-
-                System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. Here's your new task:");
-                System.out.println("     " + deadline.getTaskDetails());
-                System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
-                System.out.println("    ____________________________________________________________");
+                printNewTask(deadline.getTaskDetails(), tasks.size());
                 break;
             case EVENT:
                 newLine = line.substring(6);
                 description = newLine.split(" /at ")[0];
-                String startTime = (newLine.split( " /at ")[1]).split("-")[0];
-                String endTime = (newLine.split( " /at ")[1]).split("-")[1];
+                String startTime = (newLine.split(" /at ")[1]).split("-")[0];
+                String endTime = (newLine.split(" /at ")[1]).split("-")[1];
                 Event event = new Event(description, startTime, endTime);
                 tasks.add(event);
-
-                System.out.println("    ____________________________________________________________");
-                System.out.println("    Nobita, wake up. Here's your new task:");
-                System.out.println("     " + event.getTaskDetails());
-                System.out.println("    Now you have " + tasks.size() + " tasks in Doraemon's 4D pocket.");
-                System.out.println("    ____________________________________________________________");
+                printNewTask(event.getTaskDetails(), tasks.size());
                 break;
             default:
                 System.out.println("    ____________________________________________________________");
