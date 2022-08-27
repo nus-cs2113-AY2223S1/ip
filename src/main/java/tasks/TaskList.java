@@ -1,21 +1,23 @@
+package tasks;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class that keeps track of each To-Do item added to the program.
  */
-public class ToDoList {
+public class TaskList {
     /** list containing item */
-    private final List<ToDoItem> items;
+    private final List<Task> items;
 
     /** count of number of items in list */
     private int itemCount = 0;
 
     /**
-     * Constructor that initializes list of To-Do items.
+     * Constructor that initializes list of task items.
      */
-    public ToDoList() {
-        items = new ArrayList<ToDoItem>();
+    public TaskList() {
+        items = new ArrayList<Task>();
     }
 
     /**
@@ -24,8 +26,8 @@ public class ToDoList {
      * @param item item to be added
      * @return returns the <b>0-based</b> index of the added item
      */
-    public int addItem(String item) {
-        items.add(new ToDoItem(item));
+    public int addItem(Task item) {
+        items.add(item);
         return ++itemCount - 1;
     }
 
@@ -40,8 +42,11 @@ public class ToDoList {
         int itemCounter = 1;
 
         // append each item to string (with attached prefix and line break)
-        for (ToDoItem item : items) {
+        for (Task item : items) {
             String prefix = itemCounter++ + ". ";
+            if (Integer.toString(itemCounter - 1).length() == 1) {
+                outputString.append("0");
+            }
             outputString.append(prefix).append(item).append("\n");
         }
 
@@ -76,4 +81,9 @@ public class ToDoList {
     public String getTextOfItem(int index) {
         return items.get(index).getText();
     }
+
+    public int getItemCount() {
+        return itemCount;
+    }
+
 }

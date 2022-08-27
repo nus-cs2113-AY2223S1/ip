@@ -1,28 +1,30 @@
+package UI;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DialogBox class to indent and wrap a given snippet of text and enclose a box around it.
+ * UI.DialogBox class to indent and wrap a given snippet of text and enclose a box around it.
  * Variable height depending on size of the given string of text.
  */
 public class DialogBox {
     /** Character to use for each indent */
-    public static final char INDENT_CHARACTER = ' ';
+    private static final char INDENT_CHARACTER = ' ';
 
     /** Character to use for the top and bottom line in box */
-    public static final char LINE_HORIZONTAL_CHARACTER = '=';
+    private static final char LINE_HORIZONTAL_CHARACTER = '=';
 
     /** Character to use for the left and right wall of box */
-    public static final char LINE_VERTICAL_CHARACTER = '|';
+    private static final char LINE_VERTICAL_CHARACTER = '|';
 
     /** Spacing between text and horizontal walls of dialog box */
     private static final int HORIZONTAL_PADDING = 3;
 
     /** Size of each indentation */
-    private static final int INDENT_SIZE = 3;
+    private static final int INDENT_SIZE = 4;
 
     /** Maximum row width. Based on calculations done with desired console width, horizontal position and padding */
-    private final int MAX_ROW_WIDTH;
+    private static int MAX_ROW_WIDTH;
 
     /** Text of the box expressed as a list of strings */
     private final List<String> textBoxRows;
@@ -34,7 +36,7 @@ public class DialogBox {
     private boolean isFirstLine = true;
 
     /**
-     * Constructor for DialogBox class. Calculates the max possible width of the box
+     * Constructor for UI.DialogBox class. Calculates the max possible width of the box
      * and formats text to be indented, wrapped and then boxed in with lines.
      *
      * @param text                  text of the box to be formatted
@@ -59,6 +61,28 @@ public class DialogBox {
             indent += indentCharacter;
         }
         return indent;
+    }
+
+    /**
+     * Right-aligns text with reference to text box width by adding spaces
+     * to the front.
+     *
+     * @param text string of text to be aligned
+     * @return aligned string, or nothing if text is empty
+     */
+    public static String rightAlign(String text) {
+        if (text.isEmpty()) {
+            // Nothing to align if text is empty.
+            // Avoids an extra line break
+            return "";
+        } else if (text.length() >= MAX_ROW_WIDTH) {
+            // No need to align (or add a line break) if
+            //text is longer than the max width
+            return " " + text;
+        } else {
+            return "\n" + generateIndent(MAX_ROW_WIDTH - text.length(), ' ')
+                    + text;
+        }
     }
 
     /**

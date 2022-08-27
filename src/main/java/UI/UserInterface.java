@@ -1,3 +1,5 @@
+package UI;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,32 +39,32 @@ public class UserInterface {
             //ASCII Art reused from https://asciiart.website/index.php?art=people/chris%20johnson
             //with minor modifications
             "                   ,X#N#####;.                      \n" +
-                    "                p####Q#@@@##8##s;                   \n" +
-                    "             p#         #   @ ####QNp@.,            \n" +
-                    "           ,#     88bb## # @     #####@@            \n" +
-                    "          p##@ @8'      ` ^\"\"\"T\"T8b88###            \n" +
-                    "         b#  ##8*                      ##           \n" +
-                    "         ###@#8G                    .: b#@          \n" +
-                    "         ###$vfG                    GG b##          \n" +
-                    "        bN#@$Sl*                   ^GG:S##          \n" +
-                    "        #NQGS\"                     GGGGN#G          \n" +
-                    "        S##$!*  ppS####s;,         ^Gpll@Q          \n" +
-                    "        ###9   `'oG\\\"###89   pQ#####s.Gb#G          \n" +
-                    "        G#QGo:* Tb7778bo\"*  p@5#@@Qs|#Gb@#          \n" +
-                    "        |GG!       '`  ' *  bb#G ^b#@3{b#\\          \n" +
-                    "        /pGG!:              G^       CG#@@          \n" +
-                    "         ^GGG      v? ;     p9$,     pG#@           \n" +
-                    "          f: .  pl  GG+b#;pN#8lGG,  pS@G'           \n" +
-                    "           GG * b\"##ss,  ^\"^GGQSGblGGl@             \n" +
-                    "           GG:C! .  Go., ^ ^D#57^7 #1               \n" +
-                    "            lG G)   ;     GGGQlG\"p#@                \n" +
-                    "          NGb#j    + ^G;GGpSS#3pN#@                 \n" +
-                    "  ,wmM####@GGb##;G       '^GGGQ#@`                  \n" +
-                    "######### @GGCG###;;.      pS###@#s,                \n" +
-                    "######### @GGGGGGG#######N######   ####s,.          \n" +
-                    "##########@G GGGGG GGGG########     ##@####s,       \n" +
-                    "###########S.   GG  CGGS#######   #  # ########s,   \n" +
-                    "##### ######;G   ^'' ~^GGSGGQ#   # #   ############,";
+            "                p####Q#@@@##8##s;                   \n" +
+            "             p#         #   @ ####QNp@.,            \n" +
+            "           ,#     88bb## # @     #####@@            \n" +
+            "          p##@ @8'      ` ^\"\"\"T\"T8b88###            \n" +
+            "         b#  ##8*                      ##           \n" +
+            "         ###@#8G                    .: b#@          \n" +
+            "         ###$vfG                    GG b##          \n" +
+            "        bN#@$Sl*                   ^GG:S##          \n" +
+            "        #NQGS\"                     GGGGN#G          \n" +
+            "        S##$!*  ppS####s;,         ^Gpll@Q          \n" +
+            "        ###9   `'oG\\\"###89   pQ#####s.Gb#G          \n" +
+            "        G#QGo:* Tb7778bo\"*  p@5#@@Qs|#Gb@#          \n" +
+            "        |GG!       '`  ' *  bb#G ^b#@3{b#\\          \n" +
+            "        /pGG!:              G^       CG#@@          \n" +
+            "         ^GGG      v? ;     p9$,     pG#@           \n" +
+            "          f: .  pl  GG+b#;pN#8lGG,  pS@G'           \n" +
+            "           GG * b\"##ss,  ^\"^GGQSGblGGl@             \n" +
+            "           GG:C! .  Go., ^ ^D#57^7 #1               \n" +
+            "            lG G)   ;     GGGQlG\"p#@                \n" +
+            "          NGb#j    + ^G;GGpSS#3pN#@                 \n" +
+            "  ,wmM####@GGb##;G       '^GGGQ#@`                  \n" +
+            "######### @GGCG###;;.      pS###@#s,                \n" +
+            "######### @GGGGGGG#######N######   ####s,.          \n" +
+            "##########@G GGGGG GGGG########     ##@####s,       \n" +
+            "###########S.   GG  CGGS#######   #  # ########s,   \n" +
+            "##### ######;G   ^'' ~^GGSGGQ#   # #   ############,";
     //@@author
 
     /** ASCII art from {@link UserInterface#ASCII_ART} expressed as a list of strings, where each row is a string */
@@ -132,8 +134,8 @@ public class UserInterface {
      */
     public static List<String> extendScreen(int difference) {
         List<String> outputRows = new ArrayList<>();
-        if (difference < 0) {
-            // If there is overflow (difference is negative)
+        if (difference <= 0) {
+            // If there is overflow (difference is negative or 0)
             // Add (-difference) number of empty rows to outputRows
             for (int i = 0; i >= difference; i--) {
                 outputRows.add(0, DialogBox.generateIndent(MAX_WIDTH, ' '));
@@ -153,6 +155,6 @@ public class UserInterface {
         System.out.println();
         System.out.println("What would you like to do?");
         System.out.print("INPUT:    ");
-        return READER.nextLine();
+        return READER.nextLine().trim();
     }
 }
