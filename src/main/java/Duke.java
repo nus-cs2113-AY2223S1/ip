@@ -33,6 +33,16 @@ public class Duke {
         return words.length;
     }
 
+    public static void printNumOfTasks(int numOfTasks) {
+        if (numOfTasks == 0) {
+            System.out.println("There are no tasks");
+        } else if (numOfTasks == 1) {
+            System.out.println("There is only 1 task!");
+        } else {
+            System.out.println("There are " + numOfTasks + " tasks left :( ");
+        }
+    }
+
     public static void main(String[] args) {
         /*
          * array storing the Task objects.
@@ -43,7 +53,7 @@ public class Duke {
         /*
          * stores the number of words in the user's string input.
          */
-        int numOfWords = 0;
+        int numOfWords;
 
         int taskIndex = 1;
         String inData;
@@ -55,79 +65,105 @@ public class Duke {
         while (true) { /* continuously receive user input */
             inData = scan.nextLine();
             numOfWords = getNumOfWords(inData);
+
             if (inData.equals("list")) { /* print entire list if input is equal to "list" */
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 1; i < taskIndex; i += 1) {
-                    System.out.println(i + ". " + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                if (taskIndex == 1) {
+                    printNumOfTasks(0);
+                } else {
+                    for (int i = 1; i < taskIndex; i += 1) {
+                            System.out.println(i + ". " + tasks[i].printList());
+                    }
                 }
                 System.out.println("____________________________________________________________");
 
-            } else if (numOfWords == 2) { /* check if the user input has 2 words before checking for commands "mark" and "unmark" */
+            } else if (numOfWords >= 2) { /* check if the user input has 2 words before checking for commands "mark" and "unmark" */
+
                 String[] arr = inData.split(" ");
-                if (arr[0].equals("unmark")) { /* checks if user input has entered "unmark" as the first word */
+
+                if (numOfWords == 2 && arr[0].equals("unmark")) { /* checks if user input has entered "unmark" as the first word */
                     if (checkIsNumeric(arr[1])) { /* check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking */
                         int unmarkedIndex = Integer.parseInt(arr[1]);
                         if ((unmarkedIndex > 0) && (unmarkedIndex < taskIndex)) { /* checks if the user input command is within the current bound of the tasks array. */
                             tasks[unmarkedIndex].setDone(false);
                             System.out.println("OK, I've marked this task as not done yet:");
-                            System.out.println("[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
+                            System.out.println("[" + tasks[unmarkedIndex].getTaskType() + "]" + "[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
                         } else {
                             System.out.println("Invalid unmark command");
                         }
-                    } else { /* add a new tasking */
-                        if (taskIndex < 101) {
-                            tasks[taskIndex] = new Task(inData);
-                            taskIndex += 1;
-                            System.out.println("____________________________________________________________");
-                            System.out.println("added: " + tasks[taskIndex - 1].description);
-                            System.out.println("____________________________________________________________");
-                        }
+                    } else {
+                        System.out.println("Invalid unmark command");
                     }
-                } else if (arr[0].equals("mark")) { /* checks if user input has entered "mark" as the first word. */
+
+                } else if (numOfWords == 2 && arr[0].equals("mark")) { /* checks if user input has entered "mark" as the first word. */
                     if (checkIsNumeric(arr[1])) {
                         int markedIndex = Integer.parseInt(arr[1]);
                         if ((markedIndex > 0) && (markedIndex < taskIndex)) { /* checks if the user input command is within the current bound of the tasks array. */
                             tasks[markedIndex].setDone(true);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("[" + tasks[markedIndex].getStatusIcon() + "] " + tasks[markedIndex].getDescription());
+                            System.out.println("[" + tasks[markedIndex].getTaskType() + "]" + "[" + tasks[markedIndex].getStatusIcon() + "] " + tasks[markedIndex].getDescription());
                         } else {
                             System.out.println("Invalid mark command");
                         }
-                    } else { /* add a new tasking */
-                        if (taskIndex < 101) { /* prevents the insertion of new tasks into the tasks array */
-                            tasks[taskIndex] = new Task(inData);
-                            taskIndex += 1;
-                            System.out.println("____________________________________________________________");
-                            System.out.println("added: " + tasks[taskIndex - 1].description);
-                            System.out.println("____________________________________________________________");
-                        }
+                    } else {
+                        System.out.println("Invalid mark command");
                     }
-                } else { /* add a new tasking */
-                    if (taskIndex < 101) { /* prevents the insertion of new tasks into the tasks array */
-                        tasks[taskIndex] = new Task(inData);
+                } else if (taskIndex < 101) {
+                    // Synthesized array after removing the command input.
+                    StringBuilder synthesizedArr = new StringBuilder();
+                    for (int i = 1; i < numOfWords; i += 1) {
+                        synthesizedArr.append(arr[i]).append(" ");
+                    }
+                    String taskDescription = synthesizedArr.toString();
+
+                    if (arr[0].equals("todo")) {
+                        tasks[taskIndex] = new Todo(taskDescription);
+                        tasks[taskIndex].setTaskType("T");
+                        System.out.println(tasks[taskIndex]);
+                        printNumOfTasks(taskIndex);
                         taskIndex += 1;
-                        System.out.println("____________________________________________________________");
-                        System.out.println("added: " + tasks[taskIndex - 1].description);
-                        System.out.println("____________________________________________________________");
+
+                    } else if (arr[0].equals("deadline")) {
+                        // find "/" break point before processing the description and the deadline
+                        String deadline = taskDescription;
+                        if (taskDescription.contains("/by")) {
+                            //update taskDescription and deadline
+                            String[] tempArray = taskDescription.split("/by");
+                            taskDescription = tempArray[0];
+                            deadline = tempArray[1];
+                        }
+                        tasks[taskIndex] = new Deadline(taskDescription, deadline);
+                        tasks[taskIndex].setTaskType("D");
+
+                        System.out.println(tasks[taskIndex]);
+                        printNumOfTasks(taskIndex);
+                        taskIndex += 1;
+                    } else if (arr[0].equals("event")) {
+                        String eventPeriod = taskDescription;
+                        if (taskDescription.contains("/at")) {
+                            //update taskDescription and deadline
+                            String[] tempArray = taskDescription.split("/at");
+                            taskDescription = tempArray[0];
+                            eventPeriod = tempArray[1];
+                        }
+                        tasks[taskIndex] = new Event(taskDescription, eventPeriod);
+                        tasks[taskIndex].setTaskType("E");
+                        System.out.println(tasks[taskIndex]);
+                        printNumOfTasks(taskIndex);
+                        taskIndex += 1;
                     }
                 }
             } else {
                 if (inData.equals("bye")) { /* exits the while loop if the user inputs is equal to "bye" */
                     break;
-                } else { /* add a new tasking */
-                    if (taskIndex < 101) { /* prevents the insertion of new tasks into the tasks array */
-                        tasks[taskIndex] = new Task(inData);
-                        taskIndex += 1;
-                        System.out.println("____________________________________________________________");
-                        System.out.println("added: " + tasks[taskIndex - 1].description);
-                        System.out.println("____________________________________________________________");
-                    }
+                } else {
+                    System.out.println("Invalid command!!!!!");
                 }
             }
         }
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+
     }
 }
-
