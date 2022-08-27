@@ -1,48 +1,53 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static String[] splitInput(String userInput) {
+        String[] split = userInput.split(" ", 2);
+        if (split.length == 1) {
+            return new String[]{split[0], ""};
+        }
+        return split;
+    }
+
+    public static void executeInstruction(Menu dukeMenu, String instruction, String inputValue) {
+        switch (instruction) {
+        case "list":
+            dukeMenu.list();
+            break;
+        case "mark":
+            dukeMenu.mark(inputValue);
+            break;
+        case "unmark":
+            dukeMenu.unmark(inputValue);
+            break;
+        case "bye":
+            dukeMenu.quit();
+            break;
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            dukeMenu.addTask(instruction, inputValue);
+            break;
+        default:
+            dukeMenu.displayErrorMessage();
+            break;
+        }
+    }
+
     public static void main(String[] args) {
         Menu dukeMenu = new Menu();
-        String userInput = "";
+        String userInput = "", instruction = "", inputValue = "";
         Scanner in = new Scanner(System.in);
 
         dukeMenu.greet();
-        while(!userInput.equals("bye")) {
+        while (!instruction.equals("bye")) {
             userInput = in.nextLine();
-            String[] inputParts = userInput.split(" ");
-            switch (inputParts[0]) {
-            case "list":
-                dukeMenu.list();
-                break;
-            case "mark":
-                if(inputParts.length == 2){
-                    try{
-                        dukeMenu.mark(Integer.parseInt(inputParts[1]));
-                    }catch (NumberFormatException exception) {
-                        dukeMenu.showErrorMessage();
-                    }
-                }else{
-                    dukeMenu.showErrorMessage();
-                }
-                break;
-            case "unmark":
-                if(inputParts.length == 2){
-                    try{
-                        dukeMenu.unmark(Integer.parseInt(inputParts[1]));
-                    }catch (NumberFormatException exception) {
-                        dukeMenu.showErrorMessage();
-                    }
-                }else{
-                    dukeMenu.showErrorMessage();
-                }
-                break;
-            case "bye":
-                dukeMenu.quit();
-                break;
-            default:
-                dukeMenu.addTask(userInput);
-                break;
-            }
+            String[] split = splitInput(userInput);
+            instruction = split[0];
+            inputValue = split[1];
+            executeInstruction(dukeMenu, instruction, inputValue);
         }
     }
 }
