@@ -10,7 +10,7 @@ public class List {
     }
 
     public Task findTask(int index) {
-        return list.get(index-1);
+        return list.get(index - 1);
     }
 
     public int getSize() {
@@ -33,7 +33,7 @@ public class List {
     public String toString() {
         StringBuilder listString = new StringBuilder((list.size() == 0 ? "There is nothing in your list right now" : "Here are " + list.size() + " tasks in your list:"));
         int index = 1;
-        for (Task task: list) {
+        for (Task task : list) {
             listString.append('\n').append("   ").append(index++).append(". ").append(task);
         }
         return String.valueOf(listString);
