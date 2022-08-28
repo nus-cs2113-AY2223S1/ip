@@ -1,9 +1,12 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
+    protected String deadline;
 
-    public Task(String description) {
+    public Task(String type, String description) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
     }
 

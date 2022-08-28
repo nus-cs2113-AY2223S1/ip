@@ -12,6 +12,12 @@ public class Duke {
 
         do {
             String foo = cmd.nextLine();
+            String[] arr = foo.split(" ",2);
+            String first = arr[0];
+            String second = null;
+            if (arr.length > 1) {
+                second = arr[1];
+            }
 
             if (foo.contains("unmark")) {
                 String a = foo.substring(7);
@@ -28,12 +34,46 @@ public class Duke {
                 System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
                 System.out.println(line);
             } else {
-                switch (foo) {
+                switch (first) {
+                case "todo":
+                    list[cnt] = new Task("T",second);
+                    System.out.println(line + " Got it. I've added this task:");
+                    System.out.println("  [T][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
+                    cnt++;
+                    System.out.println(" Now you have " + cnt + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                case "deadline":
+                    String arr2[] = second.split("/by",2);
+                    String desc = arr2[0];
+                    String deadline = arr2[1];
+                    list[cnt] = new Task("D",desc);
+                    list[cnt].deadline = deadline;
+                    System.out.println(line + " Got it. I've added this task:");
+                    System.out.print("  [D][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
+                    System.out.println(" (by: " + deadline + ")");
+                    cnt++;
+                    System.out.println(" Now you have " + cnt + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                case "event":
+                    String event[] = second.split("/at",2);
+                    String name = event[0];
+                    String time = event[1];
+                    list[cnt] = new Task("E",name);
+                    list[cnt].deadline = time;
+                    System.out.println(line + " Got it. I've added this task:");
+                    System.out.print("  [E][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
+                    System.out.println(" (at: " + time + ")");
+                    cnt++;
+                    System.out.println(" Now you have " + cnt + " tasks in the list.");
+                    System.out.println(line);
+                    break;
                 case "list":
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < cnt; i++) {
-                        System.out.println((i + 1) + ".[" + list[i].getStatusIcon() + "]" + list[i].description);
+                        System.out.println((i+1) + ".[" + list[i].type + "][" + list[i].getStatusIcon() + "]" + list[i].description);
                     }
                     System.out.println(line);
                     break;
@@ -44,9 +84,6 @@ public class Duke {
                     isLast = true;
                     break;
                 default:
-                    list[cnt] = new Task(foo);
-                    cnt++;
-                    System.out.println(line + "added: " + foo + "\n" + line);
                     break;
                 }
             }
