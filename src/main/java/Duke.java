@@ -2,24 +2,26 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void markAsDone(Task[] task, int markIndex){
-        task[markIndex].setDone(true);
+    public static void markAsDone(Task[] tasks, int markIndex) {
+        tasks[markIndex].setDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [" + task[markIndex].getStatusIcon() + "] " + task[markIndex].getDescription());
+        System.out.print("  [" + tasks[markIndex].getStatusIcon() + "] ");
+        System.out.println(tasks[markIndex].getDescription());
     }
 
-    public static void markAsUndone(Task[] task, int unmarkIndex){
-        task[unmarkIndex].setDone(false);
+    public static void markAsUndone(Task[] tasks, int unmarkIndex) {
+        tasks[unmarkIndex].setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [" + task[unmarkIndex].getStatusIcon() + "] " + task[unmarkIndex].getDescription());
+        System.out.print("  [" + tasks[unmarkIndex].getStatusIcon() + "] ");
+        System.out.println(tasks[unmarkIndex].getDescription());
     }
 
-    public static void printList(Task[] task){
+    public static void printList(Task[] tasks) {
         System.out.println("Here are the tasks in your list:");
         int taskIndex = 0;
-        while(task[taskIndex] != null){
-            System.out.println((taskIndex + 1) + ". [" + task[taskIndex].getStatusIcon() +"] "
-                    + task[taskIndex].getDescription());
+        while (tasks[taskIndex] != null) {
+            System.out.print((taskIndex + 1) + ". [" + tasks[taskIndex].getStatusIcon() +"] ");
+            System.out.println(tasks[taskIndex].getDescription());
             taskIndex++;
         }
     }
@@ -51,27 +53,27 @@ public class Duke {
         command = in.nextLine();                //read input
 
         //Add
-        Task[] task = new Task[100];
+        Task[] tasks = new Task[100];
         int taskIndex = 0;
-        while(!command.equals("bye")){
-            if(command.equals("list")){
-                printList(task);
+        while (!command.equals("bye")) {
+            if (command.equals("list")) {
+                printList(tasks);
             } else if (command.contains("unmark")) {
                 command = command.trim();
                 command = command.substring(6);
                 command = command.trim();
                 int unmarkIndex = Integer.parseInt(command) - 1;
-                markAsUndone(task, unmarkIndex);
+                markAsUndone(tasks, unmarkIndex);
             } else if (command.contains("mark")) {
                 command = command.trim();
                 command = command.substring(4);
                 command = command.trim();
                 int markIndex = Integer.parseInt(command) - 1;
-                markAsDone(task, markIndex);
+                markAsDone(tasks, markIndex);
             } else {
                 //Add only if input is not blank
-                if(!command.isBlank()) {
-                    task[taskIndex] = new Task(command);
+                if (!command.isBlank()) {
+                    tasks[taskIndex] = new Task(command);
                     System.out.println("added: " + command);
                     taskIndex++;
                 }
