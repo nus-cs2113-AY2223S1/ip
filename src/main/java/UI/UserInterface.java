@@ -112,6 +112,8 @@ public class UserInterface {
             textBoxUpperBounds = 0;
         }
         clearScreen();
+        // add some empty space at the top of the window for aesthetic reasons
+        System.out.println();
 
         // replace text at bounds with text box at specified position
         for (String row : outputTextRows) {
