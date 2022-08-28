@@ -13,17 +13,43 @@ public class Duke {
                 task.print(), listSize);
     }
 
-    public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public  static  void todo(String line, String[] words) {
+        if (words.length >= 2) {
+            String task = line.substring(line.indexOf(' ') + 1);
+            Todo todo = new Todo(task);
+            addTask(todo);
+        } else {
+            System.out.println("Usage: todo <task>");
+        }
+    }
+
+    public static void deadline(String line) {
+        try {
+            String task = line.substring(line.indexOf(' ')+1, line.indexOf("/by")-1);
+            String date = line.substring(line.indexOf("/by")+4);
+            Deadline deadline = new Deadline(task, date);
+            addTask(deadline);
+        } catch (StringIndexOutOfBoundsException ex) {
+            System.out.println("Usage: deadline <task> /by <date>");
+        }
+    }
+
+    public static void event(String line) {
+        try {
+            String task = line.substring(line.indexOf(' ')+1, line.indexOf("/at")-1);
+            String date = line.substring(line.indexOf("/at")+4);
+            Event event = new Event(task, date);
+            addTask(event);
+        } catch (StringIndexOutOfBoundsException ex) {
+            System.out.println("Usage: event <task> /at <date>");
+        }
     }
 
     public static void list() {
         if (listSize > 0) {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < listSize; i++) {
-                System.out.printf("%d. %s\n",
-                        i + 1, taskList[i].print());
+                System.out.printf("%d. %s\n", i + 1, taskList[i].print());
             }
         } else {
             System.out.println("No items in list! Type something to add to list.");
@@ -69,32 +95,13 @@ public class Duke {
         }
     }
 
-    public  static  void todo(String line) {
-        String task = line.substring(line.indexOf(' ')+1);
-        Todo todo = new Todo(task);
-        addTask(todo);
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
     }
 
-    public static void deadline(String line) {
-        try {
-            String task = line.substring(line.indexOf(' ')+1, line.indexOf("/by")-1);
-            String date = line.substring(line.indexOf("/by")+4);
-            Deadline deadline = new Deadline(task, date);
-            addTask(deadline);
-        } catch (StringIndexOutOfBoundsException ex) {
-            System.out.println("Usage: deadline <task> /by <date>");
-        }
-    }
-
-    public static void event(String line) {
-        try {
-            String task = line.substring(line.indexOf(' ')+1, line.indexOf("/at")-1);
-            String date = line.substring(line.indexOf("/at")+4);
-            Event event = new Event(task, date);
-            addTask(event);
-        } catch (StringIndexOutOfBoundsException ex) {
-            System.out.println("Usage: event <task> /at <date>");
-        }
+    public static void bye() {
+        System.out.println("Bye. Hope to see you again soon!");
+        printLine();
     }
 
     public static void main(String[] args) {
@@ -102,31 +109,22 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         // Greet user
-        System.out.println("____________________________________________________________\n" +
-                "Hello! I'm Duke\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n");
+        printLine();
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        printLine();
 
         // Wait for input
         while (true) {
             line = in.nextLine();
-            System.out.println("____________________________________________________________");
+            printLine();
             if (line.equals("bye")) {
                 bye();
                 break;
-            } else if (line.equals("list")) {
-                list();
             } else if (!line.equals("")) {
                 String[] words = line.split("\\s+");
                 switch (words[0]) {
-                case "mark":
-                    mark(true, words);
-                    break;
-                case "unmark":
-                    mark(false, words);
-                    break;
                 case "todo":
-                    todo(line);
+                    todo(line, words);
                     break;
                 case "deadline":
                     deadline(line);
@@ -134,9 +132,18 @@ public class Duke {
                 case "event":
                     event(line);
                     break;
+                case "list":
+                    list();
+                    break;
+                case "mark":
+                    mark(true, words);
+                    break;
+                case "unmark":
+                    mark(false, words);
+                    break;
                 }
             }
-            System.out.println("____________________________________________________________");
+            printLine();
         }
     }
 }
