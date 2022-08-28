@@ -1,7 +1,6 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
 public class Duke {
+    static TaskManager tasks = new TaskManager();
     public static void main(String[] args) {
        /*
        String logo = " ____        _        \n"
@@ -20,39 +19,26 @@ public class Duke {
         );
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
-        ArrayList<String> list_items = new ArrayList<String>();
-        int noOfItems = 0;
+        int taskNum = 0;
 
 
         do {
-            String read = sc.nextLine();
+            String command = sc.nextLine();
 
-            if(read.equals("bye")){
+            if(command.equals("bye")){
                 isFinished = true;
-            } else if (read.equals("list")) {
-                int i = 1;
-                System.out.println(
-                        "____________________________________________________________"
-                );
-                Iterator<String> itr = list_items.iterator();
-                while(itr.hasNext()) {
-                    System.out.println(
-                            + i + ". " + itr.next()
-                    );
-                    i++;
-                }
-                System.out.println(
-                        "____________________________________________________________\n"
-                );
+            } else if(command.startsWith("mark")){
+                taskNum = Integer.parseInt(command.substring(command.length()-1));
+                tasks.markTask(taskNum);
+            } else if(command.startsWith("unmark")){
+                taskNum = Integer.parseInt(command.substring(command.length()-1));
+                tasks.unmarkTask(taskNum);
+            } else if(command.equals("list")){ // list
+                tasks.printList();
+            } else{
+                tasks.addTask(command);
             }
-            else{
-                list_items.add(read);
-                noOfItems ++;
-                System.out.println("____________________________________________________________\n"
-                        + read + "\n"
-                        + "____________________________________________________________\n"
-                );
-            }
+
         }while(isFinished != true);
         System.out.println("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon! \n"
