@@ -26,6 +26,7 @@ public class Duke {
         String markOrUnmark = command.split(" ")[0];
         int taskNumber = Integer.parseInt(command.split(" ")[1]);
         tasks[taskNumber - 1].setStatusIcon(markOrUnmark);
+        tasks[taskNumber - 1].printTask(taskNumber - 1);
     }
 
     public static void addTask(String command, int index) {

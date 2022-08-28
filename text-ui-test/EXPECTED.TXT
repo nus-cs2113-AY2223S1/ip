@@ -37,4 +37,4 @@ You now have 5 tasks.
 3. [E][ ] project meeting (at: Aug 6th 2-4pm)
 4. [T][X] join sports club
 5. [T][ ] borrow book
-Bye Bye!
+Bye bye!
