@@ -7,14 +7,20 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Get status of list item if it is done or undone
+     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
+    /**
+     * Mark an item as not done
+     */
     public void markAsNotDone(){
         this.isDone = false;
         System.out.println(
-                "____________________________________________________________\n"
+                Duke.PRINT_LINE
                         +"OK, I've marked this task as not done yet:\n"
                         + "[ ] "
                         + description
@@ -22,10 +28,13 @@ public class Task {
         );
     }
 
+    /**
+     * Mark an item as done
+     */
     public void markAsDone(){
         this.isDone = true;
         System.out.println(
-                "____________________________________________________________\n"
+                Duke.PRINT_LINE
                         +"Nice! I've marked this task as done:\n"
                         + "[X] "
                         + description

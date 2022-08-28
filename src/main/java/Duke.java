@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Duke {
     static TaskManager tasks = new TaskManager();
+    static String PRINT_LINE = "____________________________________________________________\n";
     public static void main(String[] args) {
        /*
        String logo = " ____        _        \n"
@@ -12,10 +13,10 @@ public class Duke {
         */
 
         System.out.println(
-                "____________________________________________________________\n" +
+                PRINT_LINE +
                         " Hello! I'm Duke\n" +
                         " What can I do for you?\n" +
-                        "____________________________________________________________\n"
+                        PRINT_LINE
         );
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
@@ -40,9 +41,10 @@ public class Duke {
             }
 
         }while(isFinished != true);
-        System.out.println("____________________________________________________________\n"
+        System.out.println(
+                PRINT_LINE
                 + "Bye. Hope to see you again soon! \n"
-                + "____________________________________________________________\n"
+                + PRINT_LINE
         );
     }
 }
