@@ -4,6 +4,7 @@ public class Task {
 
     public Task(String task) {
         this.task = task;
+        System.out.println("Got it. I added to the list.");
     }
 
     public String getTask() {
@@ -20,5 +21,9 @@ public class Task {
         } else {
             isDone = false;
         }
+    }
+
+    public void printTask(int index) {
+        System.out.println((index + 1) + ".[" + getStatusIcon() + "] " + getTask());
     }
 }

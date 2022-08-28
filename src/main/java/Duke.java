@@ -36,7 +36,7 @@ public class Duke {
             // If user select list, show all the task
             if (command.equals("list")) {
                 for (int i = 0; i < index; i += 1) {
-                    System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getTask());
+                    tasks[i].printTask(i);
                 }
             } else if (!command.equals("bye")) {
                 // If the command is not 'list' and 'bye', then it should be an 'add','mark' or 'unmark' command
@@ -47,15 +47,22 @@ public class Duke {
                     // unmarked before printing it out in the specified format
                     int taskNumber = Integer.parseInt(command.split(" ")[1]);
                     tasks[taskNumber - 1].setStatusIcon(command.split(" ")[0]);
-                    System.out.println("  [" + tasks[taskNumber - 1].getStatusIcon() + "] " +
-                            tasks[taskNumber - 1].getTask());
+                    tasks[taskNumber - 1].printTask(taskNumber - 1);
                 } else {
                     // If the command does not contain mark or unmark, then it should be an 'add' operation
                     // Create a new task and append the index by 1.
                     // The index would indicate when the iteration would stop.
-                    tasks[index] = new Task(command);
-                    System.out.println("added: " + command);
+
+                    if (command.contains("todo")) {
+                        tasks[index] = new Todo(command);
+                    } else if (command.contains("event")) {
+                        tasks[index] = new Event(command);
+                    } else {
+                        tasks[index] = new Deadline(command);
+                    }
+
                     index += 1;
+                    System.out.println("You now have " + index + " tasks.");
                 }
 
             }
