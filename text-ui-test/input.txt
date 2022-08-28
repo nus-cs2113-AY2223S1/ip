@@ -1,0 +1,36 @@
+list
+this command is unrecognizable ^^
+todo watch lecture
+list
+deadline Level-4 CS2113 /by Mon 28th Aug
+list
+mark 2
+list
+event Orbital Splashdown /at Wed 24th Aug
+list
+mark 1
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+deadline Java Coding Exercises /by tonight
+list
+todo go buy some grocery
+todo go to the gym
+list
+mark 6
+list
+event Meeting with friend /at Utown 9pm
+list
+mark 5
+list
+unmark 5
+list
+event Weekly project meeting /at Mon 11am-1pm
+list
+mark 7
+list
+another unrecognizable input
+bye
