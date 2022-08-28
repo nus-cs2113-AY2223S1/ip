@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-
+    private static Task[] tasks = new Task[100];
 
 
     public static void showWelcomeMessage() {
@@ -22,16 +22,17 @@ public class Duke {
         System.out.println(logo);
         System.out.println("Harrlo! This is Wilson. What do you want?");
     }
-    public static void markOrUnmarkTask(Task[] tasks, String command) {
+    public static void markOrUnmarkTask(String command) {
         String markOrUnmark = command.split(" ")[0];
         int taskNumber = Integer.parseInt(command.split(" ")[1]);
         tasks[taskNumber - 1].setStatusIcon(markOrUnmark);
     }
 
-    public static void addTask(String command, Task[] tasks, int index) {
+    public static void addTask(String command, int index) {
         boolean isTodo = command.contains("todo");
         boolean isEvent = command.contains("event");
         boolean isDeadline = command.contains("deadline");
+
 
         if (isTodo) {
             tasks[index] = new Todo(command.replace("todo ", ""));
@@ -41,20 +42,19 @@ public class Duke {
             tasks[index] = new Deadline(command.replace("deadline ", ""));
         }
 
-        index += 1;
-        if (index > 1) {
-            System.out.println("You now have " + index + " tasks.");
+        int numOfItem = index + 1;
+        // If index is more than 0, means there is more than 1 element inside
+        if (numOfItem > 1) {
+            System.out.println("You now have " + numOfItem + " tasks.");
         } else {
-            System.out.println("You now have " + index + " task.");
+            System.out.println("You now have " + numOfItem + " task.");
         }
-
     }
     public static void farewellMessage() {
         System.out.println("Bye bye!");
     }
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
         int index = 0;
         String command = "";
         boolean isList = command.contains("list");
@@ -84,10 +84,12 @@ public class Duke {
                     tasks[i].printTask(i);
                 }
             } else if (isMarkedOrUnmarked) {
-                markOrUnmarkTask(tasks, command);
+                markOrUnmarkTask(command);
             } else if (isAdd) {
-                addTask(command, tasks, index);
+                addTask(command, index);
+                index += 1;
             }
+
 
         } while (!isGoodbye);
         // Goodbye message
