@@ -27,4 +27,8 @@ public class Task {
         return isDone;
     }
 
+    public String toString() {
+        char done = isDone ? 'X' : ' ';
+        return "[T][" + done + "] " + this.getTaskName();
+    }
 }
