@@ -24,4 +24,9 @@ public class Task {
         this.isDone = done;
     }
 
+    public String print() {
+        String s = new String("[" + this.getStatusIcon() + "] " + this.getDescription());
+        return s;
+    }
+
 }
