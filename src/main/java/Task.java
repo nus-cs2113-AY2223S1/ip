@@ -24,6 +24,6 @@ public class Task {
     }
 
     public void printTask(int index) {
-        System.out.println((index + 1) + ".[" + getStatusIcon() + "] " + getTask());
+        System.out.println((index + 1) + ". [" + getStatusIcon() + "] " + getTask());
     }
 }

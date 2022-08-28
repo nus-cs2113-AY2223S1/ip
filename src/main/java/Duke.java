@@ -54,15 +54,20 @@ public class Duke {
                     // The index would indicate when the iteration would stop.
 
                     if (command.contains("todo")) {
-                        tasks[index] = new Todo(command);
+                        tasks[index] = new Todo(command.replace("todo ", ""));
                     } else if (command.contains("event")) {
-                        tasks[index] = new Event(command);
-                    } else {
-                        tasks[index] = new Deadline(command);
+                        tasks[index] = new Event(command.replace("event ", ""));
+                    } else if (command.contains("deadline")){
+                        tasks[index] = new Deadline(command.replace("deadline ", ""));
                     }
 
                     index += 1;
-                    System.out.println("You now have " + index + " tasks.");
+                    if (index > 1) {
+                        System.out.println("You now have " + index + " tasks.");
+                    } else {
+                        System.out.println("You now have " + index + " task.");
+                    }
+
                 }
 
             }
