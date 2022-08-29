@@ -17,6 +17,7 @@ public class Duke {
     private static void showSeparator() {
         System.out.println("===================================================");
     }
+
     private static void showWelcomeMsg() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
