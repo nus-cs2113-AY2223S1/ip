@@ -1,8 +1,14 @@
-public class Event extends Task{
+public class Event extends Todo {
     protected String at;
 
+    public Event(String command, Character lastChar) {
+        super(command, lastChar);
+        int atStartIdx = command.indexOf('/') + 4;
+        setAt(command.substring(atStartIdx));
+    }
+
     public String getAt() {
-        return at;
+        return this.at;
     }
 
     public void setAt(String at) {
@@ -16,12 +22,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + " (at: " + at + ")";
-    }
-
-    public Event(String command, Character lastChar) {
-        super(command, lastChar);
-        int byStartIdx = command.indexOf('/') + 4;
-        this.at = command.substring(byStartIdx);
+        return super.toString() + " (at: " + getAt() + ")";
     }
 }

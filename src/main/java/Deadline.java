@@ -1,13 +1,20 @@
-public class Deadline extends Task{
+public class Deadline extends Todo {
     protected String by;
 
+    public Deadline(String command, Character lastChar) {
+        super(command, lastChar);
+        int byStartIdx = command.indexOf('/') + 4;
+        setBy(command.substring(byStartIdx));
+    }
+
     public String getBy() {
-        return by;
+        return this.by;
     }
 
     public void setBy(String by) {
         this.by = by;
     }
+
     @Override
     public String getTypeIcon() {
         return "[D]";
@@ -15,20 +22,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
-    }
-
-    /*public Deadline(String command) {
-        int DescStartIdx = command.indexOf(' ') + 1;
-        int DescEndIdx = command.indexOf('/');
-        String description = command.substring(DescStartIdx,DescEndIdx);
-        this.description = description;
-        this.isDone = false;
-    }*/
-
-    public Deadline(String command, Character lastChar) {
-        super(command, lastChar);
-        int byStartIdx = command.indexOf('/') + 4;
-        this.by = command.substring(byStartIdx);
+        return super.toString() + " (by: " + getBy() + ")";
     }
 }

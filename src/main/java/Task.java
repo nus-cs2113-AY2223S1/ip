@@ -3,32 +3,20 @@ public class Task {
     protected boolean isDone;
 
     public Task() {
-        this.description = null;
-        this.isDone = false;
-    }
-    public Task(String command, Character lastChar) {
-        int DescStartIdx = command.indexOf(' ') + 1;
-        String description;
-        if(lastChar.equals(' ')){
-            description = command.substring(DescStartIdx);
-        } else {
-            int DescEndIdx = command.indexOf('/');
-            description = command.substring(DescStartIdx,DescEndIdx);
-        }
-        this.description = description;
-        this.isDone = false;
-    }
-    public String getTypeIcon() {
-        return "[T]"; // mark done task with X
-    }
-    public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] "); // mark done task with X
+        setDescription(null);
+        setDone(false);
     }
 
-    //...
+    public String getTypeIcon() {
+        return "[T]";
+    }
+
+    public String getStatusIcon() {
+        return (this.isDone ? "[X] " : "[ ] "); // mark done task with X
+    }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -36,7 +24,7 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        isDone = done;
+        this.isDone = done;
     }
 
     @Override
@@ -44,7 +32,8 @@ public class Task {
         return this.getTypeIcon() + this.getStatusIcon()
                 + this.getDescription();
     }
-    public void markDone(boolean done){
+
+    public void markDone(boolean done) {
         setDone(done);
         if (done) {
             System.out.println("Nice! I've marked this task as done:");
