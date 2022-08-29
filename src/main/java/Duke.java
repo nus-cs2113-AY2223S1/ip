@@ -124,6 +124,7 @@ public class Duke {
             default:
                 // probably an exception/bad input  - leave for the future
                 System.out.println("ERROR!");
+                break;
             }   // putting this switch statement into another function causes some variables to not be incremented
             printLines();
         }
