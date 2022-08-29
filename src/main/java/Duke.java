@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     static TaskManager taskManager = new TaskManager();
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -32,40 +33,77 @@ public class Duke {
     }
 
     public static void processInput() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+        String input = acceptInput();
+        String command = retrieveCommand(input);
+        String parameters = retrieveParameters(input);
+        String description, deadline;
+        int taskNumber;
+        while (!command.equals("bye")) {
             printLine();
-            String command = input.split(" ")[0];
-            if (input.equals("list")) {
+            switch (command) {
+            case "list":
                 taskManager.listTasks();
-            } else if (command.equals("mark")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                break;
+            case "mark":
+                taskNumber = retrieveTaskNumber(parameters);
                 taskManager.markTaskAsDone(taskNumber);
-            } else if (command.equals("unmark")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                break;
+            case "unmark":
+                taskNumber = retrieveTaskNumber(parameters);
                 taskManager.markTaskAsUndone(taskNumber);
-            } else if (command.equals("todo")) {
-                taskManager.addTask(new Todo(input.split(" ", 2)[1]));
-            } else if(command.equals("deadline")){
-                String parameters = input.split(" ", 2)[1];
-                String description = parameters.split(" /by ")[0];
-                String deadline = parameters.split(" /by ")[1];
+                break;
+            case "todo":
+                taskManager.addTask(new Todo(parameters));
+                break;
+            case "deadline": {
+                description = retrieveTaskDescription(parameters, TaskManager.DEADLINE_SEPERATOR);
+                deadline = retrieveTime(parameters, TaskManager.DEADLINE_SEPERATOR);
                 taskManager.addTask(new Deadline(description, deadline));
+                break;
             }
-            else if(command.equals("event")){
-                String parameters = input.split(" ", 2)[1];
-                String description = parameters.split(" /at ")[0];
-                String deadline = parameters.split(" /at ")[1];
+            case "event": {
+                description = retrieveTaskDescription(parameters, TaskManager.EVENT_SEPERATOR);
+                deadline = retrieveTime(parameters, TaskManager.EVENT_SEPERATOR);
                 taskManager.addTask(new Event(description, deadline));
+                break;
             }
-            else{
+            default: //catch-all to prevent abrupt errors
                 taskManager.addTask(new Task(input));
+                break;
             }
             printLine();
-            input = scanner.nextLine();
+            input = acceptInput();
+            command = retrieveCommand(input);
+            parameters = retrieveParameters(input);
         }
         exit();
+    }
+
+    public static int retrieveTaskNumber(String input) {
+        return Integer.parseInt(input) - 1;
+    }
+
+    public static String retrieveParameters(String input) {
+        String[] parsed = input.split(" ", 2);
+        if (parsed.length > 1)
+            return parsed[1];
+        else return "";
+    }
+
+    public static String retrieveTime(String parameters, String separator) {
+        return parameters.split(separator)[1];
+    }
+
+    public static String retrieveTaskDescription(String parameters, String separator) {
+        return parameters.split(separator)[0];
+    }
+
+    public static String acceptInput() {
+        return scanner.nextLine();
+    }
+
+    public static String retrieveCommand(String input) {
+        return input.split(" ")[0];
     }
 
     public static void exit() {
