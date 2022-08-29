@@ -13,6 +13,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String line = input.nextLine();
         String command = line.split(" ")[0];
+
         while (!command.matches("bye")) {
             switch (command) {
             case "list":
@@ -26,6 +27,17 @@ public class Duke {
                 index = Integer.parseInt(line.split(" ")[1]) - 1;
                 unmarkTask(taskList[index]);
                 break;
+            case "todo":
+                addTaskSpecial(line, "todo");
+                break;
+            case "deadline":
+                addTaskSpecial(line, "deadline");
+                break;
+            case "event":
+                addTaskSpecial(line, "event");
+                break;
+                
+
             default:
                 Task task = new Task(line);
                 addTask(task);
@@ -37,6 +49,7 @@ public class Duke {
         exit(); 
     }
 
+    // Method to greet user when they enter Duke
     public static void greet() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Duke");
@@ -45,18 +58,21 @@ public class Duke {
         
     }
 
+    // Method to print the same command as user input
     public static void echo(String command) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(command);
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Function to exit out of Duke
     public static void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Method to add normal tasks
     public static void addTask(Task task) {
         taskList[taskCounter] = task;
         taskCounter += 1;
@@ -65,16 +81,18 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Method to list tasks
     public static void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; ++i) {
             Task task = taskList[i];
-            System.out.println(i + 1 + ".[" + task.getStatusIcon() + "] " + task.name);
+            System.out.println(task.toString());
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Method to mark a task as done
     public static void markTask(Task task) {
         System.out.println(HORIZONTAL_LINE);
         task.isDone = true;
@@ -83,11 +101,51 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Method to unmark task as undone
     public static void unmarkTask(Task task) {
         System.out.println(HORIZONTAL_LINE);
         task.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[" + task.getStatusIcon() + "] " + task.name);
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    // Method to add todo, deadline and event tasks
+    public static void addTaskSpecial(String name, String type) {
+        String divider = "/";
+        switch (type) {
+        case "todo":
+            Todo todoTask = new Todo(name);
+            taskList[taskCounter] = todoTask;
+            taskCounter += 1;
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(todoTask.toString());
+            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case "deadline":
+            String deadlineDate = name.substring(name.indexOf(divider) + 3, name.length());
+            Deadline deadlineTask = new Deadline(name, deadlineDate);
+            taskList[taskCounter] = deadlineTask;
+            taskCounter += 1;
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(deadlineTask.toString());
+            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        case "event":
+            String eventDate = name.substring(name.indexOf(divider) + 3, name.length());
+            Event eventTask = new Event(name, eventDate);
+            taskList[taskCounter] = eventTask;
+            taskCounter += 1;
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(eventTask.toString());
+            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+            System.out.println(HORIZONTAL_LINE);
+            break;
+        }
     }
 }
