@@ -13,7 +13,6 @@ public class Task {
         return taskCount;
     }
 
-
     public void echo() {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + getTaskInfo());
@@ -22,15 +21,15 @@ public class Task {
     public String getTaskInfo() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-
-    public void markAsDone() {
-        isDone = true;
-    }
-    public void markAsUnDone() {
-        isDone = false;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }

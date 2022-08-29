@@ -6,6 +6,6 @@ public class Event extends Task{
     }
     @Override
     public String getTaskInfo() {
-        return "[D]" + super.getTaskInfo() + " (at: " + this.time + ")";
+        return "[E]" + super.getTaskInfo() + " (at: " + this.time + ")";
     }
 }
