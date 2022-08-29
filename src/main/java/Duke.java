@@ -12,8 +12,13 @@ public class Duke {
 
         System.out.println(logo);
         showWelcomeMsg();
-        showEchoMsg();
+        readUserCmd();
     }
+
+    private static final String ENDCMD = "bye";
+    private static final int MAX_TASK  = 100  ;
+    private static int taskCount       = 0    ;
+    private static String[] tasks = new String[MAX_TASK];
 
     private static void showSeparator() {
         System.out.println("===================================================");
@@ -31,16 +36,40 @@ public class Duke {
         showSeparator();
     }
 
-    private static void showEchoMsg() {
+    private static void readUserCmd() {
         Scanner sc = new Scanner(System.in);
         String input = new String();
-        input = sc.next();
-        String endCommand = "bye";
-        while (!input.equals(endCommand)) {
-            System.out.println(input + "~~~");
-            showSeparator();
-            input = sc.next();
+        input = sc.nextLine();
+        while (!input.equals(ENDCMD)) {
+            switch (input) {
+            case "list":
+                listTask();
+                break;
+            default:
+                addTask(input);
+            }
+            input = sc.nextLine();
         }
         showGoodbyeMsg();
+    }
+
+    private static void addTask(String task) {
+        tasks[taskCount++] = task;
+            System.out.println(">>>Added: " + task);
+            showSeparator();
+    }
+
+    private static void listTask() {
+        if (taskCount == 0) {
+            System.out.println(">>>No Current Tasks.");
+            showSeparator();
+            return;
+        }
+        System.out.println(">>>Current tasks:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.print(">>>" + (i + 1) + ".");
+            System.out.println(tasks[i]);
+        }
+        showSeparator();
     }
  }
