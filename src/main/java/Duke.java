@@ -40,7 +40,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke_HTT. \n What can I do for you?");
         
-        // Take user input
+        // Take user inputt
         Scanner scan = new Scanner ( System.in ); 
         String inData = scan.nextLine();
 
