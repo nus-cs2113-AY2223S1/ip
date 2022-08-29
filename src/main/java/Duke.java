@@ -13,19 +13,19 @@ public class Duke {
         printLines();
 
         int count = 0; // how many items in array
-        String input;
+        String inputs;
         boolean state = true;
         Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
 
         while (state) {
-            input = in.nextLine();
-            if (input.equals("bye")) {
+            inputs = in.nextLine();
+            if (inputs.equals("bye")) {
                 printLines();
                 System.out.println("Bye. Hope to see you again soon!");
                 printLines();
                 state = false;
-            }   else if (input.equals("list")) {
+            }   else if (inputs.equals("list")) {
                 printLines();
                 for (int i = 0; i < count; i++) {
                     System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon()
@@ -33,7 +33,7 @@ public class Duke {
                 }
                 printLines();
             }   else {
-                String[] words = input.split(" ");
+                String[] words = inputs.split(" ");
                 printLines();
                 if (words[0].equals("mark")) {
                     tasks[Integer.parseInt(words[1]) - 1].markAsDone();
@@ -46,10 +46,10 @@ public class Duke {
                     System.out.println("  [" + tasks[Integer.parseInt(words[1]) - 1].getStatusIcon()
                             + "] " + tasks[Integer.parseInt(words[1]) - 1].getDescription());
                 } else {
-                    tasks[count] = new Task(input);
+                    tasks[count] = new Task(inputs);
                     count++;
                     // System.out.println(count); // debug line
-                    System.out.println("Added: " + input);
+                    System.out.println("Added: " + inputs);
                 }
                 printLines();
             }
