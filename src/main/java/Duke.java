@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+
+    public class Deadline extends Task {
+        
+    }
     public static class Task {
         protected String description;
         protected int number;
