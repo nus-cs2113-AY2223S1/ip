@@ -48,9 +48,8 @@ public class Duke {
                 break;
             } else if (line.equals("list")) {
                 System.out.println("Here are the tasks for today: ");
-                for (int i = 0; i < dukeList.size(); i++) {
-                    System.out.println(dukeList.get(i).number + ": [" + printCheck(dukeList.get(i)) + "] " +
-                            dukeList.get(i).description);
+                for (Task i :dukeList) {
+                    System.out.println(i.number + ": [" + printCheck(i) + "] " + i.description);
                 }
             } else if (line.startsWith("mark")) {
                 int itemNumber = Integer.parseInt(line.split(" ")[1]) -1;
