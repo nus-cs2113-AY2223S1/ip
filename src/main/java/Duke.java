@@ -18,6 +18,7 @@ public class Duke {
         line = in.nextLine();
         while (!line.equals("bye")){
             Message.printingEcho(line);
+            line = in.nextLine();
         }
         Message.printingExit();
     }
