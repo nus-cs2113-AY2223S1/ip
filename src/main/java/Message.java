@@ -20,4 +20,5 @@ public class Message {
         System.out.println(line);
         printingHorizontalLine();
     }
+
 }
