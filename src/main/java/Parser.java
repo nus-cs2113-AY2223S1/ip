@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.lang.Object;
-
 public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -32,7 +29,7 @@ public class Parser {
             processNewTodo(command, taskManager);
             break;
         case COMMAND_DEADLINES:
-            processDeadline(command, taskManager);
+            processNewDeadline(command, taskManager);
             break;
         case COMMAND_EVENTS:
             processNewEvent(command, taskManager);
@@ -73,7 +70,7 @@ public class Parser {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
         if(spacePosition < 0 || dividerPosition < 0 || dividerPosition + 2 > command.length()) {
-            System.out.println("Please input a valid deadline");
+            System.out.println("Please input a valid event");
             return;
         }
         String taskName = command.substring(spacePosition + 1, dividerPosition);
@@ -81,7 +78,7 @@ public class Parser {
         taskManager.addNewEvent(taskName, at);
     }
 
-    private static void processDeadline(String command, TaskManager taskManager) {
+    private static void processNewDeadline(String command, TaskManager taskManager) {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
         if(spacePosition < 0 || dividerPosition < 0 || dividerPosition + 2 > command.length()) {
