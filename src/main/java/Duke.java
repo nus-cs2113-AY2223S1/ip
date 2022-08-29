@@ -15,14 +15,20 @@ public class Duke {
 
     public static void echo(){
         List dukeList = new List();
+        String[] words;
         String line;
+        int itemNum;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         while (!line.equals("bye")){
+            words = line.split(" ");
             if (line.equals("list")){
                 dukeList.printingList();
-            }
-            else {
+            } else if (words[0].equals("unmark")){
+                dukeList.unmarkingItem(Integer.parseInt(words[1]));
+            } else if (words[0].equals("mark")) {
+                dukeList.markingItem(Integer.parseInt(words[1]));
+            } else {
                 dukeList.addItem(line);
             }
             line = in.nextLine();

@@ -1,9 +1,12 @@
 public class List {
     private static int amountOfItems = 0;
-    private static String[] list;
+    private static String[] listItemNames;
+    private static boolean[] listItemsMarks;
+
 
     public List(){
-         list = new String[100];
+         listItemNames = new String[100];
+         listItemsMarks = new boolean[100];
     }
 
     public int getListSize(){
@@ -11,7 +14,8 @@ public class List {
     }
 
     public void addItem(String item){
-        list[amountOfItems] = item;
+        listItemNames[amountOfItems] = item;
+        listItemsMarks[amountOfItems] = false;
         amountOfItems++;
         printingItemAdded(item);
     }
@@ -20,13 +24,29 @@ public class List {
         Message.printingHorizontalLine();
         for (int i = 0; i<amountOfItems; i++)
         {
-            printingItem(i,list[i]);
+            printingItem(i);
         }
         Message.printingHorizontalLine();
     }
 
-    public void printingItem(int i, String item){
-        System.out.println(i + 1 + ". " + item);
+    public void printingItem(int i){
+        String mark = " ";
+        if (listItemsMarks[i]){
+            mark = "X";
+        }
+        System.out.println(i + 1 + ". [" + mark + "] " + listItemNames[i]);
+    }
+
+    public void markingItem(int i){
+        System.out.println("Nice! I've marked this task as done:");
+        listItemsMarks[i-1] = true;
+        System.out.println( " [X] " + listItemNames[i-1]);
+    }
+
+    public void unmarkingItem(int i){
+        System.out.println(" OK, I've marked this task as not done yet:");
+        listItemsMarks[i-1] = false;
+        System.out.println( " [ ] " + listItemNames[i-1]);
     }
 
     public void printingItemAdded(String item){
