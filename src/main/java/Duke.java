@@ -28,28 +28,45 @@ public class Duke {
         }
     }
 
-    public static void AddandList() {
+    public static void ToDoList() {
         int counter = 0;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
 
         while (isRunning) {
             String line;
+            int taskNumber = 0;
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
 
-            switch (line) {
+            String[] details = line.split(" ");
+            if (details[0].equals("mark") || details[0].equals("unmark")) {
+                taskNumber = Integer.parseInt(details[1])-1;
+            }
+
+            switch (details[0]) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 isRunning = false;
                 break;
             case "list":
+                System.out.println("Here are the tasks in your list:\n");
                 for (int i = 0; i < counter; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getTask());
                 }
+                break;
+            case "mark":
+                System.out.println("Nice! I've marked this task as done:\n");
+                tasks[taskNumber].markasDone();
+                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].getTask());
+                break;
+            case "unmark":
+                System.out.println("OK, I've marked this task as not done yet:\n");
+                tasks[taskNumber].Unmark();
+                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].getTask());
                 break;
             default:
                 System.out.println("added: " + line);
-                tasks[counter] = line;
+                tasks[counter] = new Task(line);
                 counter++;
                 break;
             }
@@ -59,7 +76,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Greetings();
-        AddandList();
+        ToDoList();
 
     }
 }
