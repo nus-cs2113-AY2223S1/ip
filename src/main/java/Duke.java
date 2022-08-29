@@ -24,21 +24,21 @@ public class Duke {
                 int index = Integer.parseInt(a) - 1;
                 list[index].setUnDone();
                 System.out.println(line + " OK, I've marked this task as not done yet:");
-                System.out.println("  [" + list[index].getStatusIcon() + "]" + list[index].description);
+                System.out.println(list[index].toString());
                 System.out.println(line);
             } else if (foo.contains("mark")) {
                 String a = foo.substring(5);
                 int index = Integer.parseInt(a) - 1;
                 list[index].setDone();
                 System.out.println(line + "Nice! I've marked this task as done:");
-                System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
+                System.out.println(list[index].toString());
                 System.out.println(line);
             } else {
                 switch (first) {
                 case "todo":
-                    list[cnt] = new Task("T",second);
+                    list[cnt] = new Todo(second);
                     System.out.println(line + " Got it. I've added this task:");
-                    System.out.println("  [T][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
+                    System.out.println("\t" + list[cnt].toString());
                     cnt++;
                     System.out.println(" Now you have " + cnt + " tasks in the list.");
                     System.out.println(line);
@@ -47,11 +47,9 @@ public class Duke {
                     String arr2[] = second.split("/by",2);
                     String desc = arr2[0];
                     String deadline = arr2[1];
-                    list[cnt] = new Task("D",desc);
-                    list[cnt].deadline = deadline;
+                    list[cnt] = new Deadline(desc,deadline);
                     System.out.println(line + " Got it. I've added this task:");
-                    System.out.print("  [D][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
-                    System.out.println(" (by: " + deadline + ")");
+                    System.out.println("\t" + list[cnt].toString());
                     cnt++;
                     System.out.println(" Now you have " + cnt + " tasks in the list.");
                     System.out.println(line);
@@ -60,11 +58,9 @@ public class Duke {
                     String event[] = second.split("/at",2);
                     String name = event[0];
                     String time = event[1];
-                    list[cnt] = new Task("E",name);
-                    list[cnt].deadline = time;
+                    list[cnt] = new Event(name,time);
                     System.out.println(line + " Got it. I've added this task:");
-                    System.out.print("  [E][" + list[cnt].getStatusIcon() + "]" + list[cnt].description);
-                    System.out.println(" (at: " + time + ")");
+                    System.out.println("\t" + list[cnt].toString());
                     cnt++;
                     System.out.println(" Now you have " + cnt + " tasks in the list.");
                     System.out.println(line);
@@ -73,7 +69,7 @@ public class Duke {
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < cnt; i++) {
-                        System.out.println((i+1) + ".[" + list[i].type + "][" + list[i].getStatusIcon() + "]" + list[i].description);
+                        System.out.println("\t" + (i+1) + "." + list[i].toString());
                     }
                     System.out.println(line);
                     break;

@@ -2,11 +2,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
-    protected String deadline;
 
-    public Task(String type, String description) {
+    public Task(String description) {
         this.description = description;
-        this.type = type;
         this.isDone = false;
     }
 
@@ -20,5 +18,9 @@ public class Task {
 
     public void setUnDone() {
         isDone = false;
+    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "]" + this.description;
     }
 }
