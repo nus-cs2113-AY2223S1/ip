@@ -3,10 +3,10 @@ import java.util.Arrays;
 public class Duke {
     private static final String LOGO = "     ____.  _____ ______________   ____.___  _________\n"
             + "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/\n"
-            + "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\ \n"
+            + "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\\n"
             + "/\\__|    /    |    \\    |   \\ \\     /  |   |/        \\\n"
             + "\\________\\____|__  /____|_  /  \\___/   |___/_______  /\n"
-            + "                 \\/       \\/                       \\/ \n";
+            + "                 \\/       \\/                       \\/\n";
     public static final String DASH_SEPARATOR = "------------------------------------------------\n";
     public static void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + DASH_SEPARATOR);
