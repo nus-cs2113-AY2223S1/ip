@@ -5,39 +5,55 @@ public class TaskManager {
     private static int index = 0;
     public static Task[] tasks = new Task[100];
 
+    public static void addTaskMsg(Task task) {
+        index++;
+        System.out.println(DASH_SEPARATOR);
+        System.out.println("Got it. I've added this task:" + System.lineSeparator()
+                + task + System.lineSeparator() + "Now you have " + Integer.toString(index)
+                + " tasks in the list.");
+        System.out.println(DASH_SEPARATOR);
+    }
+
     public static void doTasks() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine().trim();
-
         while(!command.equals("bye")){
             boolean isList = command.equals("list");
-            boolean isMark = command.length() > 5 && command.startsWith("mark");
-            boolean isUnmark =command.length() > 7 && command.startsWith("unmark");
-            System.out.println(DASH_SEPARATOR);
+            String firstWord = " ";
+
             if (isList) {
+                System.out.println(DASH_SEPARATOR);
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < index; i++) {
                     System.out.print(i+1);
-                    System.out.println(".[" + tasks[i].getStatusIcon() + "] "
-                            + tasks[i].getDescription());
+                    System.out.println("." + tasks[i]);
                 }
-            } else if (isMark) {
-                int pos = Integer.parseInt(command.substring(5)) - 1;
-                tasks[pos].setDone(true);
-                System.out.print("Nice! I've marked this task as done:\n  [X] ");
-                System.out.println(tasks[pos].getDescription());
-            } else if (isUnmark) {
-                int pos = Integer.parseInt(command.substring(7)) - 1;
-                tasks[pos].setDone(false);
-                System.out.print("OK, I've marked this task as not done yet:\n  [ ] ");
-                System.out.println(tasks[pos].getDescription());
+                System.out.println(DASH_SEPARATOR);
             } else {
-                tasks[index] = new Task(command);
-                index++;
-                System.out.println("added: " + command + "\n"
-                + "Enter \"list\" to view all items you added or \"bye\" to exit.");
+                firstWord = command.substring(0, command.indexOf(' '));
             }
-            System.out.println(DASH_SEPARATOR);
+            switch (firstWord) {
+            case "mark":
+                int pos = Integer.parseInt(command.substring(5)) - 1;
+                tasks[pos].markDone(true);
+                break;
+            case "unmark":
+                pos = Integer.parseInt(command.substring(7)) - 1;
+                tasks[pos].markDone(false);
+                break;
+            case "todo":
+                tasks[index] = new Todo(command,' ');
+                addTaskMsg(tasks[index]);
+                break;
+            case "deadline":
+                tasks[index] = new Deadline(command, '/');
+                addTaskMsg(tasks[index]);
+                break;
+            case "event":
+                tasks[index] = new Event(command, '/');
+                addTaskMsg(tasks[index]);
+                break;
+            }
             command = in.nextLine().trim();
         }
     }
