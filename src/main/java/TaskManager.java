@@ -15,11 +15,28 @@ public class TaskManager {
         System.out.println("  ____________________________________________________________");
     }
 
-    public void addTask(String line) {
-        tasks[taskCount] = new Task(line);
-        taskCount++;
+    public void addTask(String line, String commandWord) {
+        if (commandWord.equals("todo")) {
+            tasks[taskCount] = new Todo(line);
+        } else if (commandWord.equals("deadline")) {
+            int index = line.indexOf("/by ");
+            String by = line.substring(index + 4);
+            line = line.substring(0, index - 1);
+            tasks[taskCount] = new Deadline(line, by);
+        } else if (commandWord.equals("event")) {
+            int index = line.indexOf("/at ");
+            String at = line.substring(index + 4);
+            line = line.substring(0, index - 1);
+            tasks[taskCount] = new Event(line, at);
+        } else {
+            tasks[taskCount] = new Task(line);
+        }
         System.out.println("  ____________________________________________________________");
-        System.out.println("\tAdded: " + line);
+        System.out.println("\tAdded: ");
+        System.out.println("\t  " + tasks[taskCount].getType() + tasks[taskCount].getStatus()
+                + tasks[taskCount].getDescription() + tasks[taskCount].getAddedInfo());
+        taskCount++;
+        System.out.println("\tNow you have " + taskCount + " tasks in the list");
         System.out.println("  ____________________________________________________________");
     }
 
@@ -28,28 +45,29 @@ public class TaskManager {
         System.out.println("\tThese are the tasks in your list: ");
         for (int i = 0; i < taskCount; i += 1) {
             int index = i + 1;
-            System.out.println("\t" + index + ".[" + tasks[i].getStatus() + "] " + tasks[i].getDescription());
+            System.out.println("\t" + index + "." + tasks[i].getType() + tasks[i].getStatus()
+                    + " " + tasks[i].getDescription() + tasks[i].getAddedInfo());
         }
         System.out.println("  ____________________________________________________________");
     }
 
     public void markTask(String line) {
-        String taskIndex = line.substring(5);
-        int index = Integer.parseInt(taskIndex);
-        tasks[index - 1].setCompletion(true);
+        int index = Integer.parseInt(line) - 1;
+        tasks[index].setCompletion(true);
         System.out.println("  ____________________________________________________________");
         System.out.println("\tWell done! I have marked this task as completed: ");
-        System.out.println("\t  [" + tasks[index - 1].getStatus() + "] " + tasks[index - 1].getDescription());
+        System.out.println("\t  " + tasks[index].getType() + tasks[index].getStatus() + " "
+                + tasks[index].getDescription() + tasks[index].getAddedInfo());
         System.out.println("  ____________________________________________________________");
     }
 
     public void unmarkTask(String line) {
-        String taskIndex = line.substring(7);
-        int index = Integer.parseInt(taskIndex);
-        tasks[index - 1].setCompletion(false);
+        int index = Integer.parseInt(line) - 1;
+        tasks[index].setCompletion(false);
         System.out.println("  ____________________________________________________________");
         System.out.println("\tNoted. I have marked this task as incomplete: ");
-        System.out.println("\t  [" + tasks[index - 1].getStatus() + "] " + tasks[index - 1].getDescription());
+        System.out.println("\t  " + tasks[index].getType() + tasks[index].getStatus() + " "
+                + tasks[index].getDescription() + tasks[index].getAddedInfo());
         System.out.println("  ____________________________________________________________");
     }
 }

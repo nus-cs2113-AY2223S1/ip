@@ -3,16 +3,34 @@ import java.util.Scanner;
 public class Duke {
 
     public static void response(String line, TaskManager action) {
-        if (line.equals("bye")) {
+        String[] words = line.split(" ");
+        String commandWord = words[0];
+        int length = commandWord.length();
+        String taskLine = " ";
+        if (line.length() > length) {
+            taskLine = line.substring(length + 1);
+        }
+
+        switch (commandWord) {
+        case "bye":
             action.bye();
-        } else if (line.equals("list")) {
+            break;
+        case "list":
             action.listTasks();
-        } else if ((line.length() > 5) && (line.substring(0, 5).equals("mark "))) {
-            action.markTask(line);
-        } else if ((line.length() > 7) && (line.substring(0, 7).equals("unmark "))) {
-            action.unmarkTask(line);
-        } else {
-            action.addTask(line);
+            break;
+        case "mark":
+            action.markTask(taskLine);
+            break;
+        case "unmark":
+            action.unmarkTask(taskLine);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            action.addTask(taskLine, commandWord);
+            break;
+        default:
+            action.addTask(line, commandWord);
         }
     }
 

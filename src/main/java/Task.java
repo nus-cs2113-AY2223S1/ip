@@ -1,6 +1,6 @@
 public class Task {
-    private String description;
-    private boolean isCompleted;
+    protected String description;
+    protected boolean isCompleted;
 
     public Task(String description) {
         this.description = description;
@@ -9,10 +9,18 @@ public class Task {
 
     public String getStatus() {
         if (isCompleted) {
-            return "X";
+            return "[X]";
         } else {
-            return " ";
+            return "[ ]";
         }
+    }
+
+    public String getType() {
+        return "[ ]";
+    }
+
+    public String getAddedInfo() {
+        return "";
     }
 
     public void setCompletion(boolean isComplete) {
