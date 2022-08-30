@@ -9,15 +9,18 @@ public class Duke {
             "Type the command to start interacting with Duke";
     private static final String MESSAGE_COMMAND_LISTS = "Supported commands: list, mark, unmark, todo, deadline, event, bye";
     private static final String MESSAGE_DIVIDER = "===================================================";
+    private static final String MESSAGE_DIVIDER_LIST = "=======================LIST========================";
+    
+    
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown Command";
 
     private static final String ERROR_MESSAGE_BYE = "";
     private static final String ERROR_MESSAGE_LIST = "";
-    private static final String ERROR_MESSAGE_MARK = "";
-    private static final String ERROR_MESSAGE_UNMARK = "";
-    private static final String ERROR_MESSAGE_TODO = "";
-    private static final String ERROR_MESSAGE_DEADLINE = "";
-    private static final String ERROR_MESSAGE_EVENT = "";
+    private static final String ERROR_MESSAGE_MARK = "Syntax for mark \n\t>>> mark <item index number> \nNote: item index must exist in the current list";
+    private static final String ERROR_MESSAGE_UNMARK = "Syntax for unmark \n\t>>>unmark <item index number> \nNote: item index must exist in the current list";
+    private static final String ERROR_MESSAGE_TODO = "Syntax for todo \n\t>>>todo <task>";
+    private static final String ERROR_MESSAGE_DEADLINE = "Syntax for deadline \n\t>>>deadline <task> / <date of deadline>";
+    private static final String ERROR_MESSAGE_EVENT = "Syntax for event \n\t>>>event <task> / <date of event>";
 
     // ========================================= GLOBAL VARIABLES
     static Scanner in = new Scanner(System.in);
@@ -28,6 +31,7 @@ public class Duke {
     public static void main(String[] args) {
         helloMessage();
         while (isRunning) {
+            System.out.print(">>> ");
             parseCommand();
         }
     }
@@ -46,10 +50,10 @@ public class Duke {
 
         switch (commandWord) {
             case "bye":
-                exit(parsedLine);
+                exit();
                 break;
             case "list":
-                list(parsedLine);
+                list();
                 break;
             case "mark":
                 mark(parsedLine);
@@ -93,58 +97,44 @@ public class Duke {
     private static void commandErrorHandler(String errorMessage) {
         switch (errorMessage) {
             case "bye":
-                showToUser(ERROR_MESSAGE_BYE);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_BYE);
+                break;
             case "list":
-                showToUser(ERROR_MESSAGE_LIST);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_LIST);
+                break;
             case "mark":
-                showToUser(ERROR_MESSAGE_MARK);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_MARK);
+                break;
+
             case "unmark":
-                showToUser(ERROR_MESSAGE_UNMARK);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_UNMARK);
+                break;
             case "todo":
-                showToUser(ERROR_MESSAGE_TODO);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_TODO);
+                break;
             case "deadline":
-                showToUser(ERROR_MESSAGE_DEADLINE);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_DEADLINE);
+                break;
             case "event":
-                showToUser(ERROR_MESSAGE_EVENT);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_EVENT);
+                break;
             default:
+                showToUser(MESSAGE_DIVIDER, errorMessage);
                 break;
         }
     }
 
-    private static void exit(String[] parsedLine) {
-        try {
-            if (parsedLine[1] != null) {
-                throw new DukeException("bye");
-            }
-        } catch (DukeException e) {
-            commandErrorHandler(e.getMessage());
-        }
+    private static void exit() {
         isRunning = false;
         exitMessage();
     }
 
     private static void unknownCommand() {
-        showToUser(MESSAGE_UNKNOWN_COMMAND, MESSAGE_COMMAND_LISTS);
-    }
-
-    private static void list(String[] parsedLine) {
-        try {
-            if (parsedLine[1] != null) {
-                throw new DukeException("list");
-            }
-        } catch (DukeException e) {
-            commandErrorHandler(e.getMessage());
-        }
-        showToUser("LIST", MESSAGE_DIVIDER);
-        for (int i = 0; i < Task.numberOfTasks; i++) {
-            System.out.print((i + 1) + ".");
-            tasksList[i].printTask();
-        }
-        showToUser(MESSAGE_DIVIDER);
+        showToUser(MESSAGE_DIVIDER, MESSAGE_UNKNOWN_COMMAND, MESSAGE_COMMAND_LISTS);
     }
 
     private static void list() {
-        showToUser("LIST", MESSAGE_DIVIDER);
+        showToUser(MESSAGE_DIVIDER_LIST);
         for (int i = 0; i < Task.numberOfTasks; i++) {
             System.out.print((i + 1) + ".");
             tasksList[i].printTask();
@@ -153,39 +143,88 @@ public class Duke {
     }
 
     private static void add(String line) {
-        String newTaskType = line.split(" ")[0];
+        String newTaskType = line.split(" ")[0].toLowerCase();
         String[] taskDescriptor = line.replace(newTaskType, "").trim().split("/");
-        switch (newTaskType.toLowerCase()) {
+        switch (newTaskType) {
             case "todo":
-                tasksList[Task.numberOfTasks] = new Todo(taskDescriptor[0]);
+                addTodo(taskDescriptor);
                 break;
             case "deadline":
-                tasksList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
+                addDeadline(taskDescriptor);
                 break;
             case "event":
-                tasksList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
+                addEvent(taskDescriptor);
                 break;
             default:
                 break;
         }
-        addTaskMessage();
+    }
+
+    private static void addTodo(String[] taskDescriptor) {
+        try {
+            if (taskDescriptor[0].trim().isEmpty()) {
+                throw new DukeException("No Task Description");
+            }
+            tasksList[Task.numberOfTasks] = new Todo(taskDescriptor[0]);
+            addTaskMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            commandErrorHandler("todo");
+        } catch (DukeException e) {
+            commandErrorHandler(e.getMessage());
+        }
+
+    }
+
+    private static void addDeadline(String[] taskDescriptor) {
+        try {
+            if (taskDescriptor[0].trim().isEmpty()) {
+                throw new DukeException("Error: No Task Description");
+            }
+            tasksList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
+            addTaskMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            commandErrorHandler("deadline");
+        } catch (DukeException e) {
+            commandErrorHandler(e.getMessage());
+        }
+    }
+
+    private static void addEvent(String[] taskDescriptor) {
+        try {
+            if (taskDescriptor[0].trim().isEmpty()) {
+                throw new DukeException("Error: No Task Description");
+            }
+            tasksList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
+            addTaskMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            commandErrorHandler("event");
+        } catch (DukeException e) {
+            commandErrorHandler(e.getMessage());
+        }
     }
 
     private static void addTaskMessage() {
-        System.out.println("Got it! You just add a new Task");
+        showToUser(MESSAGE_DIVIDER, "Got it! You just add a new Task");
         System.out.print("\t");
         tasksList[Task.numberOfTasks - 1].printTask();
-        System.out.println("Number of tasks in the list: " + Task.numberOfTasks);
+        showToUser("Number of tasks in the list: " + Task.numberOfTasks);
     }
 
     public static void mark(String[] parsedLine) {
-        int index = Integer.parseInt(parsedLine[1]);
-        if (parsedLine[0].equalsIgnoreCase("mark")) {
-            tasksList[index - 1].isDone = true;
-        } else {
-            tasksList[index - 1].isDone = false;
+        try {
+            int index = Integer.parseInt(parsedLine[1]);
+            if (parsedLine[0].equalsIgnoreCase("mark")) {
+                tasksList[index - 1].isDone = true;
+            } else {
+                tasksList[index - 1].isDone = false;
+            }
+            list();
+        } catch (NumberFormatException e) {
+            commandErrorHandler("mark");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            commandErrorHandler("unmark");
         }
-        list();
+
     }
 
     private static void exitMessage() {

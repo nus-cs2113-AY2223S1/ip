@@ -5,6 +5,7 @@ public class Task {
     public String taskType = "[ ]";
 
     public Task(String description) {
+
         this.description = description;
         this.isDone = false;
         numberOfTasks++;
