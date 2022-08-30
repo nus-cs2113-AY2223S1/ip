@@ -13,7 +13,6 @@ public class Duke {
         System.out.println("What can I do for you?");
 
         Scanner in = new Scanner(System.in);
-        //String[] items = new String[100];
         Task[] tasks = new Task[100];
         int matchCount = 0;
 
@@ -48,7 +47,6 @@ public class Duke {
                 Task newTask = new Task(line);
                 tasks[matchCount] = newTask;
                 System.out.println("added " + line);
-                //items[matchCount] = line;
                 matchCount += 1;
             }
         }
