@@ -3,23 +3,28 @@ import java.util.Arrays;
 public class Storage {
     private static final Task[] list = new Task[120];
     private static int size = 0;
-//    private static final boolean[] isDone = new boolean[120];
 
-//    public Storage(){
-//    }
-
+    /**
+     * Add item to storage
+     */
     public static void add(Task item) {
         list[size] = item;
         size++;
         System.out.format("added: %s%n", item);
     }
 
+    /**
+     * List all items in storage
+     */
     public static void listAll() {
         for(int i = 0; i < size; i++) {
             System.out.format("%d.[%s] %s%n", i+1, list[i].getStatusIcon(), list[i]);
         }
     }
 
+    /**
+     * Toggle is used to change the check mark of each item in storage
+     */
     public static void toggle(String cmd) {
         String[] cmds = cmd.split(" ");
         if(Integer.parseInt(cmds[1]) > size) {
@@ -33,10 +38,15 @@ public class Storage {
         }
         listAll();
     }
+
+    /**
+     * Execute choose to modify storage depending on command
+     */
     public void execute(String cmd) {
+        String[] words = cmd.split(" ");
         if(cmd.toLowerCase().equals("list")) {
             listAll();
-        } else if(cmd.toLowerCase().indexOf("mark") == 0 || cmd.toLowerCase().indexOf("unmark") == 0) {
+        } else if(words.length == 2 && words[0].equals("mark") || words[0].equals("unmark")) {
             toggle(cmd);
         } else {
             add(new Task(cmd));
