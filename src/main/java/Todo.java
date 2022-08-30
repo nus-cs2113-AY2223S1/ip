@@ -1,13 +1,14 @@
 public class Todo extends Task {
 
+    private static final String TODO_MARK = "[T]";
+
     public Todo(String description) {
         super(description);
     }
 
     @Override
     public String getStatusIcon() {
-        String statusIcon = "[T]";
-        return statusIcon + super.getStatusIcon();
+        return TODO_MARK + super.getStatusIcon();
     }
 
     @Override

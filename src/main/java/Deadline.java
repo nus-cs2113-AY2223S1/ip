@@ -1,5 +1,6 @@
 public class Deadline extends Task {
-    protected String by;
+    private static final String DEADLINE_MARK = "[D]";
+    private String by;
 
     public Deadline(String description, String by) {
         super(description);
@@ -8,9 +9,9 @@ public class Deadline extends Task {
 
     public Deadline(String complexString) {
         super();
-        int i = complexString.indexOf("/");
-        this.description = complexString.substring(0, i);
-        this.by = complexString.substring(i + SEPARATOR_LENGTH);
+        int separatorIndex = complexString.indexOf(TIME_SEPARATOR);
+        this.description = complexString.substring(0, separatorIndex);
+        this.by = complexString.substring(separatorIndex + TIME_SEPARATOR_LENGTH);
         this.isDone = false;
     }
 
@@ -24,8 +25,7 @@ public class Deadline extends Task {
 
     @Override
     public String getStatusIcon() {
-        String statusIcon = "[D]";
-        return statusIcon + super.getStatusIcon();
+        return DEADLINE_MARK + super.getStatusIcon();
     }
 
     @Override

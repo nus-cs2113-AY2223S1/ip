@@ -1,12 +1,21 @@
 import java.util.Arrays;
 
 public class Storage {
-    private static final Task[] list = new Task[120];
+    private static final String IDLE_MESSAGE = "Nothing happened QaQ";
+    private static final int TODO_LENGTH = 5;
+    private static final int DEADLINE_LENGTH = 9;
+    private static final int EVENT_LENGTH = 6;
+    private static final String COMMAND_SEPARATOR = " ";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_NULL = "";
+    private static final int MAXIMUM_LIST_SIZE = 120;
+    private static final Task[] list = new Task[MAXIMUM_LIST_SIZE];
     private static int size = 0;
-
-    private static int TODO_LENGTH = 5;
-    private static int DEADLINE_LENGTH = 9;
-    private static int EVENT_LENGTH = 6;
 
     /**
      * Add item to storage
@@ -30,14 +39,14 @@ public class Storage {
      * Toggle is used to change the check mark of each item in storage
      */
     public static void toggle(String cmd) {
-        String[] cmds = cmd.split(" ");
+        String[] cmds = cmd.split(COMMAND_SEPARATOR);
         if (Integer.parseInt(cmds[1]) > size) {
             System.out.format("There are only %d tasks now~%n", size);
             return;
         }
-        if (cmds[0].toLowerCase().equals("mark")) {
+        if (cmds[0].toLowerCase().equals(COMMAND_MARK)) {
             list[Integer.parseInt(cmds[1]) - 1].setIsDone(true);
-        } else if (cmds[0].toLowerCase().equals("unmark")) {
+        } else if (cmds[0].toLowerCase().equals(COMMAND_UNMARK)) {
             list[Integer.parseInt(cmds[1]) - 1].setIsDone(false);
         }
         listAll();
@@ -47,28 +56,28 @@ public class Storage {
      * Execute choose to modify storage depending on command
      */
     public void execute(String cmd) {
-        String[] words = cmd.split(" ");
+        String[] words = cmd.split(COMMAND_SEPARATOR);
         switch (words[0]) {
-        case "list":
+        case COMMAND_LIST:
             listAll();
             break;
-        case "mark":
+        case COMMAND_MARK:
             toggle(cmd);
             break;
-        case "unmark":
+        case COMMAND_UNMARK:
             toggle(cmd);
             break;
-        case "todo":
+        case COMMAND_TODO:
             add(new Todo(cmd.substring(TODO_LENGTH)));
             break;
-        case "deadline":
+        case COMMAND_DEADLINE:
             add(new Deadline(cmd.substring(DEADLINE_LENGTH)));
             break;
-        case "event":
+        case COMMAND_EVENT:
             add(new Event(cmd.substring(EVENT_LENGTH)));
             break;
-        case "":
-            System.out.println("Nothing happened QaQ");
+        case COMMAND_NULL:
+            System.out.println(IDLE_MESSAGE);
             break;
         default:
             add(new Task(cmd));

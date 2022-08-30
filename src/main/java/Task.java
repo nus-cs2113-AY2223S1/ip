@@ -1,7 +1,10 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int SEPARATOR_LENGTH = 5; //length of separator from input, eg: /at:, /by:
+    protected static int TIME_SEPARATOR_LENGTH = 5; //length of separator from input, eg: /at:, /by:
+    private static final String CHECK_MARK = "[X]";
+    private static final String UNCHECK_MARK = "[]";
+    protected static final String TIME_SEPARATOR = "/";
 
     public Task(String description) {
         this.description = description;
@@ -12,7 +15,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[]");
+        return (isDone ? CHECK_MARK : UNCHECK_MARK);
     }
 
     public void setIsDone(boolean isDone) {

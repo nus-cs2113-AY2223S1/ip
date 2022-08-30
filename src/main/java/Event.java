@@ -1,5 +1,6 @@
 public class Event extends Task {
-    protected String at;
+    private static final String EVENT_MARK = "[E]";
+    private String at;
 
     public Event(String description, String at) {
         super(description);
@@ -8,9 +9,9 @@ public class Event extends Task {
 
     public Event(String complexString) {
         super();
-        int i = complexString.indexOf("/");
-        this.description = complexString.substring(0, i);
-        this.at = complexString.substring(i + SEPARATOR_LENGTH);
+        int separatorIndex = complexString.indexOf(TIME_SEPARATOR);
+        this.description = complexString.substring(0, separatorIndex);
+        this.at = complexString.substring(separatorIndex + TIME_SEPARATOR_LENGTH);
         this.isDone = false;
     }
 

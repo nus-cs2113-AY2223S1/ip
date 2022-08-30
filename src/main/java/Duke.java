@@ -3,23 +3,31 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String COMMAND_BYE = "bye";
+    private static final String BYE_MESSAGE = "Bye! Always there waiting for you!";
+    private static final String GREET_MESSAGE_1 = "Hello! I'm Rae.";
+    private static final String GREET_MESSAGE_2 = "How does everything progress now?";
+    private static final int LINE_SEPARATOR_LENGTH = 60;
+    private static final String LINE_SEPARATOR = "_";
+    private static final String NULL_STRING = "";
+
     public static void separateLine() {
-        String str = "";
-        for (int i = 0; i < 60; i++) {
-            str += '_';
+        String lineSeparator = NULL_STRING;
+        for (int i = 0; i < LINE_SEPARATOR_LENGTH; i++) {
+            lineSeparator += LINE_SEPARATOR;
         }
-        System.out.println(str);
+        System.out.println(lineSeparator);
     }
 
     public static void greet() {
         separateLine();
-        System.out.println("Hello! I'm Rae.");
-        System.out.println("How does everything progress now?");
+        System.out.println(GREET_MESSAGE_1);
+        System.out.println(GREET_MESSAGE_2);
     }
 
     public static void bye() {
         separateLine();
-        System.out.println("Bye! Always there waiting for you!");
+        System.out.println(BYE_MESSAGE);
         separateLine();
     }
 
@@ -36,7 +44,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         Storage storage = new Storage();
-        while (!line.toUpperCase().equals("BYE")) {
+        while (!line.toLowerCase().equals(COMMAND_BYE)) {
             separateLine();
             storage.execute(line);
             separateLine();
