@@ -32,6 +32,7 @@ public class Duke {
     private static void handleUserInput() {
         Scanner scanner = new Scanner(System.in);
         int index;
+        String response;
         while (true) {
             String inputText = scanner.nextLine();
             while (inputText.trim().isEmpty())
@@ -41,44 +42,54 @@ public class Duke {
             final String commandType = commandTypeAndParams[0];
             final String commandArgs = commandTypeAndParams[1];
             switch (commandType) {
+            case "todo":
+                listLength++;
+                taskList[listLength] = new Todo(commandArgs);
+                response = taskList[listLength].getResponse();
+                Util.printTaskResponse(response, listLength);
+                break;
+            case "deadline":
+                listLength++;
+                taskList[listLength] = new Deadline(commandArgs);
+                response = taskList[listLength].getResponse();
+                Util.printTaskResponse(response, listLength);
+                break;
             case "list":
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 for (int i = 1; i <= listLength; i++) {
-                    System.out.println("    " + String.valueOf(i) + "." + "[" + taskList[i - 1].getStatusIcon()
-                            + "] " + taskList[i - 1].getDescription());
+                    System.out.println("    " + String.valueOf(i) + "." + taskList[i].getResponse());
                 }
-                ;
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.out.println();
                 break;
             case "mark":
-                index = Integer.valueOf(commandArgs) - 1;
+                index = Integer.valueOf(commandArgs);
                 taskList[index].setStringState(true);
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println(
                         "      " + "[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 break;
             case "unmark":
-                index = Integer.valueOf(commandArgs) - 1;
+                index = Integer.valueOf(commandArgs);
                 taskList[index].setStringState(false);
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println(
                         "      " + "[" + taskList[index].getStatusIcon() + "]" + taskList[index].getDescription());
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 break;
             case "bye":
                 System.out.println("    Bye. Hope to see you again soon!");
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.exit(0);
             default:
                 taskList[listLength] = new Task(inputText);
                 listLength++;
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.out.println("    " + "added: " + inputText);
-                System.out.println("    ____________________________________________________________");
+                Util.printSplitLine();
                 System.out.println();
                 break;
             }
