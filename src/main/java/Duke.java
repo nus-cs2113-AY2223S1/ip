@@ -42,20 +42,26 @@ public class Duke {
         String input = new String();
         input = sc.nextLine();
         while (!input.equals(ENDCMD)) {
-            switch (input) {
+            switch (input.split(" ")[0]) {
             case "list":
                 listTask();
                 break;
+            case "mark":
+                markTask(Integer.parseInt(input.split(" ")[1]), true);
+                break;
+            case "unmark":
+                markTask(Integer.parseInt(input.split(" ")[1]), false);
+                break;
             default:
-                addTask(new Task(input));
+                addTask(input);
             }
             input = sc.nextLine();
         }
     }
 
-    private static void addTask(Task task) {
-        tasks[taskCount++] = task;
-        System.out.println(">>>Added: " + task);
+    private static void addTask(String taskDescrip) {
+        tasks[taskCount++] = new Task(taskDescrip);
+        System.out.println(">>>Added: " + taskDescrip);
         showSeparator();
     }
 
@@ -75,7 +81,6 @@ public class Duke {
     private static void markTask(int taskId, boolean mark) {
         if (taskId <= 0 || taskId > taskCount) {
             System.out.println(">>>Pls Enter the Right TaskId!");
-            return;
         }
         else {
             tasks[taskId-1].setMarked(mark);
