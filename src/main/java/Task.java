@@ -22,19 +22,19 @@ public class Task {
         return name;
     }
 
-    public void setDone(boolean a) {
-        if (isDone == a) {
+    public void setDone(boolean d) {
+        if (isDone == d) {
             System.out.println("Task was already marked like that");
         } else {
             isDone = !isDone;
         }
     }
 
-    public void printTask() {
+    public String toString() {
         if (isDone) {
-            System.out.println("[X] " + name);
+            return "[X] " + name;
         } else {
-            System.out.println("[ ] " + name);
+            return "[ ] " + name;
         }
     }
 }
