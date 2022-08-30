@@ -98,13 +98,20 @@ public class Duke {
                 printAddItemText(newTodo);
                 break;
             case "deadline":
-                System.out.println("DEADLINE INNN");
                 String[] taskWithDeadline = inputWords[1].split("/by ", 2);
                 String taskDescription = taskWithDeadline[0];
                 String taskDeadline = taskWithDeadline[1];
                 Deadline newDeadlineTask = new Deadline(taskDescription, 'D', taskDeadline);
                 addItem(newDeadlineTask);
                 printAddItemText(newDeadlineTask);
+                break;
+            case "event":
+                String[] eventTask = inputWords[1].split("/at ", 2);
+                taskDescription = eventTask[0];
+                String taskTime = eventTask[1];
+                Event newEvent = new Event(taskDescription, 'E', taskTime);
+                addItem(newEvent);
+                printAddItemText(newEvent);
                 break;
             default:
                 Task newTask = new Task(input, 'N');
