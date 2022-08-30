@@ -35,7 +35,7 @@ public class Duke {
     // ========================================= GLOBAL METHOD
     private static void showToUser(String... message) {
         for (String m : message) {
-            System.out.println(message);
+            System.out.println(m);
         }
     }
 
