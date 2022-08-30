@@ -40,6 +40,7 @@ public class Duke {
                     // mark x commands duke to mark the corresponding task as completed
                     isMark = Boolean.TRUE;
                     System.out.println("Nice! I've marked this task as done: ");
+                    // without the break, both mark and unmark will trigger the similar process
 
                 case "unmark":
                     // unmark x commands duke to mark the corresponding task as uncompleted
@@ -56,11 +57,8 @@ public class Duke {
                 case "todo":
                     description = line.substring(line.indexOf(" ")+1);
                     Task td = new Todo(description);
-                    count = taskPrint(tasks, td, count);    // this function does all the printing and increases count also
-                    //tasks.add(td);
-                    //System.out.println("Got it. I've added this task: \n" + td);
-                    //count++;
-                    //System.out.println("Now you have " + count + " tasks in the list\n");
+                    // this function does all the printing and increases count also
+                    count = taskPrint(tasks, td, count);
                     break;
 
                 case "deadline":
@@ -68,22 +66,13 @@ public class Duke {
                     String by = line.substring(line.indexOf("/by ")+ 4);
                     Task d = new Deadline(description, by);
                     count = taskPrint(tasks, d, count);
-                    //tasks.add(d);
-                    //System.out.println("Got it. I've added this task: \n" + d);
-                    //count++;
-                    //System.out.println("Now you have " + count + " tasks in the list\n");
                     break;
 
                 case "event":
                     description = line.substring(line.indexOf(" ")+1, line.indexOf(" /at "));
                     String at = line.substring(line.indexOf("/at ")+ 4);
                     Task e = new Event(description, at);
-
                     count = taskPrint(tasks, e, count);
-                    //tasks.add(e);
-                    //System.out.println("Got it. I've added this task: \n" + e);
-                    //count++;
-                    //System.out.println("Now you have " + count + " tasks in the list\n");
                     break;
 
                 default:

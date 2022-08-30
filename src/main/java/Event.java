@@ -5,12 +5,10 @@ public class Event extends Task{
      * @param description
      */
     protected String at;
-    //protected String symbol;
 
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        //symbol = "E";
     }
 
 

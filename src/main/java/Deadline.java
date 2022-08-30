@@ -5,16 +5,10 @@ public class Deadline extends Task{
      * @param text
      */
     protected String by;
-    //protected String symbol;
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        //symbol = "D";
-
-        //String description = text.substring();
-        //String numericString = line.substring(line.indexOf(" ")+1);
-
     }
 
 
