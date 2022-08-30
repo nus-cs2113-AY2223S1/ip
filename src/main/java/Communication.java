@@ -16,20 +16,47 @@ public class Communication {
 
     public static void list(ArrayList<Task> ListOfTasks) {
         for (Task task : ListOfTasks) {
-            System.out.println(task.index+".[" + task.getStatusIcon() +"] "+ task.name);
+            System.out.println(task.toString());
         }
     }
     public static void mark(Task task){
         System.out.println("Nice! I've marked this task as done:");
         task.UpdateStatus();
-        System.out.println(task.printSelf());
+        System.out.println(task.toString());
 
     }
     public static void unmark(Task task){
         System.out.println("OK, I've marked this task as not done yet:");
         task.UpdateStatus();
-        System.out.println(task.printSelf());
+        System.out.println(task.toString());
 
     }
 
-}
+    public static Deadline addDeadline(String str){
+        String action = str.split("/",2)[0];
+        String time = str.split("/",2)[1].split("by ",2)[1];
+        System.out.println("Got it. I've added this task;");
+        Deadline newTask = Deadline.AddTask( action , time);
+        Deadline.countRemainingTasks();
+        return newTask;
+
+    }
+    public static Event addEvent(String str){
+        String action = str.split("/",2)[0];
+        String time = str.split("/",2)[1].split("at ",2)[1];
+        System.out.println("Got it. I've added this task;");
+        Event newEvent = Event.AddEvent( action , time);
+        Event.countRemainingTasks();
+        return newEvent;
+
+    }
+    public static ToDo addToDo(String str){
+        System.out.println("Got it. I've added this task;");
+        ToDo newTodo = ToDo.addToDo(str);
+        ToDo.countRemainingTasks();
+        return newTodo;
+
+    }
+
+
+    }

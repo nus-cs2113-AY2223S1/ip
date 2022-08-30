@@ -19,9 +19,13 @@ public class Task {
     public void UpdateStatus(){
         this.isDone = !this.isDone;
     }
+
+    public static void countRemainingTasks(){
+        System.out.println("Now you have "+currTotal+" tasks in the list");
+    }
     //...
-    public String printSelf(){
-        return ("["+this.getStatusIcon()+"] " + this.name);
+    public String toString(){
+        return ( this.index + "."+"["+this.getStatusIcon()+"] " + this.name);
     }
 
 }

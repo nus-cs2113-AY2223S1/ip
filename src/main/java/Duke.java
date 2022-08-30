@@ -16,7 +16,7 @@ public class Duke {
 
         Communication.greet();
         Scanner sc = new Scanner(System.in);
-        boolean exit = false;
+        boolean isDone = false;
         String[] inputs;
         int TaskIndex;
         Task currTask;
@@ -25,9 +25,9 @@ public class Duke {
 
 
 
-        while (!exit){
+        while (!isDone){
             String inputString = sc.nextLine();
-            inputs = inputString.split(" "); // split
+            inputs = inputString.split(" ",2); // split
             if (inputs[0].equals("mark")){
                 inputString = "mark";
             }
@@ -37,12 +37,8 @@ public class Duke {
 
 
 
-
-
-
-
             if (inputString.equals("bye")){
-                exit = true;
+                isDone = true;
                 Communication.bye();
                 break;
             }
@@ -71,6 +67,17 @@ public class Duke {
                 TaskIndex = Integer.parseInt(inputs[1]);
                 currTask = ListOfTasks.get(TaskIndex-1);
                 Communication.unmark(currTask);
+            }
+            else if (inputs[0].equals("todo")){
+                ListOfTasks.add(Communication.addToDo(inputs[1]));
+            }
+            else if (inputs[0].equals("deadline")){
+                ListOfTasks.add(Communication.addDeadline(inputs[1]));
+
+            }
+            else if (inputs[0].equals("event")){
+                ListOfTasks.add(Communication.addEvent(inputs[1]));
+
             }
             else{
                 Communication.copy(inputString);
