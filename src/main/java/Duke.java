@@ -41,7 +41,7 @@ public class Duke {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 1; i < taskSize + 1; i++) {
-                System.out.println(i + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+                System.out.println(i + "." + taskList[i].printTask());
             }
         }
         printHorizontalLine();
@@ -74,8 +74,8 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         while (true) {
             input = in.nextLine();
-            String[] inputWords = input.split("\\s+");
-            switch (inputWords[0]){
+            String[] inputWords = input.split(" ", 2);
+            switch (inputWords[0]) {
             case "bye":
                 printExitText();
                 break;
@@ -87,11 +87,16 @@ public class Duke {
                 printMarkTaskText(taskNumber, "mark", true);
                 break;
             case "unmark":
-                int taskNumber =  Integer.parseInt(inputWords[1]);
+                taskNumber =  Integer.parseInt(inputWords[1]);
                 printMarkTaskText(taskNumber, "unmark", false);
                 break;
+            case "todo":
+                Todo newTodo = new Todo(inputWords[1], 'T');
+                addItem(newTodo);
+                printAddItemText(newTodo);
+                break;
             default:
-                Task newTask = new Task(input);
+                Task newTask = new Task(input, 'N');
                 addItem(newTask);
                 printAddItemText(newTask);
                 break;
