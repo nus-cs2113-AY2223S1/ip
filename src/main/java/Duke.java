@@ -1,9 +1,16 @@
 import java.util.Scanner;
-
+import java.util.Collections;
 
 
 public class Duke {
     public static void main(String[] args) {
+        showLogo();
+        showWelcomeMsg();
+        readUserCmd();
+        showGoodbyeMsg();
+    }
+
+    private static void showLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -11,18 +18,17 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println(logo);
-        showWelcomeMsg();
-        readUserCmd();
-        showGoodbyeMsg();
     }
 
     private static final String END_CMD = "bye";
     private static final int MAX_TASK = 100;
+    private static final int SEPARATOR_LEN = 50;
     private static int taskCount = 0;
     private static Task[] tasks = new Task[MAX_TASK];
 
     private static void showSeparator() {
-        System.out.println("===================================================");
+        String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
+        System.out.println(separator);
     }
 
     private static void showWelcomeMsg() {
