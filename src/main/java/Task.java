@@ -1,15 +1,18 @@
 public class Task {
-    private String taskName;
+    private String taskName = "";
+    private String taskType = "";
+    private String taskDeadline = "";
+    private String eventTime = "";
     private boolean isDone;
 
     public Task() {
-        taskName = "";
-        isDone = false;
+        this.taskName = "";
+        this.isDone = false;
     }
 
     public Task(String taskName) {
         this.taskName = taskName;
-        isDone = false;
+        this.isDone = false;
     }
 
     public Task(String taskName, boolean status) {
@@ -27,5 +30,29 @@ public class Task {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public String getTaskDeadline() {
+        return taskDeadline;
+    }
+
+    public void setTaskDeadline(String taskDeadline) {
+        this.taskDeadline = taskDeadline;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
     }
 }
