@@ -75,22 +75,26 @@ public class Duke {
         while (true) {
             input = in.nextLine();
             String[] inputWords = input.split("\\s+");
-            if (inputWords.length == 1 && inputWords[0].equals("bye")) {
+            switch (inputWords[0]){
+            case "bye":
                 printExitText();
                 break;
-            } else if (inputWords.length == 1 && inputWords[0].equals("list")) {
+            case "list":
                 printTaskList();
-            } else if (inputWords[0].equals("mark")) {
+                break;
+            case "mark":
                 int taskNumber =  Integer.parseInt(inputWords[1]);
                 printMarkTaskText(taskNumber, "mark", true);
-            }else if (inputWords[0].equals("unmark")) {
+                break;
+            case "unmark":
                 int taskNumber =  Integer.parseInt(inputWords[1]);
                 printMarkTaskText(taskNumber, "unmark", false);
-            }
-            else {
+                break;
+            default:
                 Task newTask = new Task(input);
                 addItem(newTask);
                 printAddItemText(newTask);
+                break;
             }
         }
     }
