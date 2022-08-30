@@ -1,4 +1,12 @@
+package duke;
+
 import java.util.Scanner;
+
+import duke.command.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class Duke {
     // ========================================= GLOBAL CONSTANT
@@ -10,8 +18,7 @@ public class Duke {
     private static final String MESSAGE_COMMAND_LISTS = "Supported commands: list, mark, unmark, todo, deadline, event, bye";
     private static final String MESSAGE_DIVIDER = "===================================================";
     private static final String MESSAGE_DIVIDER_LIST = "=======================LIST========================";
-    
-    
+
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown Command";
 
     private static final String ERROR_MESSAGE_BYE = "";
@@ -76,50 +83,32 @@ public class Duke {
         }
     }
 
-    /*
-     * private static boolean isCommandBye(String line){
-     * return line.toLowerCase().contains("bye");
-     * }
-     * private static boolean isCommandList(String line){
-     * return line.toLowerCase().contains("list");
-     * }
-     * private static boolean isCommandMark(String line){
-     * return line.toLowerCase().contains("mark");
-     * }
-     * private static boolean isCommandAdd(String line){
-     * String lowerCase = line.toLowerCase();
-     * return lowerCase.contains("todo") || lowerCase.contains("deadline") ||
-     * lowerCase .contains("event");
-     * }
-     * 
-     */
-
     private static void commandErrorHandler(String errorMessage) {
         switch (errorMessage) {
             case "bye":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_BYE);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_BYE, MESSAGE_DIVIDER);
                 break;
             case "list":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_LIST);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_LIST, MESSAGE_DIVIDER);
                 break;
             case "mark":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_MARK);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_MARK, MESSAGE_DIVIDER);
                 break;
 
             case "unmark":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_UNMARK);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_UNMARK, MESSAGE_DIVIDER);
                 break;
             case "todo":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_TODO);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_TODO, MESSAGE_DIVIDER);
                 break;
             case "deadline":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_DEADLINE);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_DEADLINE, MESSAGE_DIVIDER);
                 break;
             case "event":
-                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_EVENT);
+                showToUser(MESSAGE_DIVIDER, ERROR_MESSAGE_EVENT, MESSAGE_DIVIDER);
                 break;
             default:
-                showToUser(MESSAGE_DIVIDER, errorMessage);
+                showToUser(MESSAGE_DIVIDER, errorMessage, MESSAGE_DIVIDER);
                 break;
         }
     }
@@ -130,7 +119,7 @@ public class Duke {
     }
 
     private static void unknownCommand() {
-        showToUser(MESSAGE_DIVIDER, MESSAGE_UNKNOWN_COMMAND, MESSAGE_COMMAND_LISTS);
+        showToUser(MESSAGE_DIVIDER, MESSAGE_UNKNOWN_COMMAND, MESSAGE_COMMAND_LISTS, MESSAGE_DIVIDER);
     }
 
     private static void list() {
@@ -208,6 +197,7 @@ public class Duke {
         System.out.print("\t");
         tasksList[Task.numberOfTasks - 1].printTask();
         showToUser("Number of tasks in the list: " + Task.numberOfTasks);
+        showToUser(MESSAGE_DIVIDER);
     }
 
     public static void mark(String[] parsedLine) {

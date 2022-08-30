@@ -1,3 +1,4 @@
+package duke.task;
 public class Task {
     public static int numberOfTasks = 0;
     public String description;
