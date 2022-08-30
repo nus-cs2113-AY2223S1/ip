@@ -26,17 +26,44 @@ public class Duke {
 
     static void storeTasks(ArrayList<Task> Tasks, String text) {
         System.out.println(linebreak);
-        Task newTask = new Task(text);
-        Tasks.add(newTask);
-        System.out.println("added: " + text);
+        String[] result = text.split(" ");
+        String[] result2 = text.split("/by ");
+        String[] result3 = text.split("/at ");
+        Todo newTodo = null;
+        Deadline newDeadline = null;
+        Event newEvent = null;
+        if (result[0].equals("todo")) {
+            newTodo = new Todo(result[1]);
+            Tasks.add(newTodo);
+        }
+        else if (result[0].equals("deadline")) {
+            newDeadline = new Deadline(result2[0].substring(9), result2[1]);
+            Tasks.add(newDeadline);
+        }
+        else if (result[0].equals("event")) {
+            newEvent = new Event(result3[0].substring(6), result3[1]);
+            Tasks.add(newEvent);
+        }
+        System.out.println("I have added this task!");
+        if (result[0].equals("todo")) {
+            System.out.println(newTodo);
+        }
+        else if (result[0].equals("deadline")) {
+            System.out.println(newDeadline);
+        }
+        else if (result[0].equals("event")) {
+            System.out.println(newEvent);
+        }
+        System.out.println("Okay loser! You now have " + Tasks.size() + " in the list. Get to work!");
         System.out.println(linebreak);
     }
 
     static void printTasks(ArrayList<Task> Tasks) {
         System.out.println(linebreak);
+        System.out.println("It just keeps piling up");
         int count = 1;
         for (Task i : Tasks) {
-            System.out.println(String.valueOf(count) + "." + "[" + i.getStatusIcon() + "] " + i.getDescription());
+            System.out.println(String.valueOf(count) + "." + i);
             count++;
         }
         System.out.println(linebreak);
@@ -44,10 +71,11 @@ public class Duke {
 
     static void markTasks(ArrayList<Task> Tasks, String text) {
         System.out.println(linebreak);
-        System.out.println("I've marked this task as done, now what?:");
+        System.out.println("I've marked this task as done, now go do something else!:");
         String[] result = text.split(" ");
         Tasks.get(Integer.valueOf(result[1]) - 1).setDone();
-        System.out.println("[" + Tasks.get(Integer.valueOf(result[1]) - 1).getStatusIcon() + "] " + Tasks.get(Integer.valueOf(result[1]) - 1).getDescription());
+        Tasks.get(Integer.valueOf(result[1]) - 1).setDone();
+        System.out.println(Tasks.get(Integer.valueOf(result[1]) - 1));
         System.out.println(linebreak);
     }
 
@@ -56,7 +84,7 @@ public class Duke {
         System.out.println("I've marked this task as not done, get working!:");
         String[] result = text.split(" ");
         Tasks.get(Integer.valueOf(result[1]) - 1).setNotDone();
-        System.out.println("[" + Tasks.get(Integer.valueOf(result[1]) - 1).getStatusIcon() + "] " + Tasks.get(Integer.valueOf(result[1]) - 1).getDescription());
+        System.out.println(Tasks.get(Integer.valueOf(result[1]) - 1));
         System.out.println(linebreak);
     }
 
