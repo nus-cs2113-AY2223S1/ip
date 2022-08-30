@@ -16,7 +16,7 @@ public class Duke {
         showGoodbyeMsg();
     }
 
-    private static final String ENDCMD = "bye";
+    private static final String END_CMD = "bye";
     private static final int MAX_TASK = 100;
     private static int taskCount = 0;
     private static Task[] tasks = new Task[MAX_TASK];
@@ -39,9 +39,8 @@ public class Duke {
 
     private static void readUserCmd() {
         Scanner sc = new Scanner(System.in);
-        String input = new String();
-        input = sc.nextLine();
-        while (!input.equals(ENDCMD)) {
+        String input = sc.nextLine();
+        while (!input.equals(END_CMD)) {
             switch (input.split(" ")[0]) {
             case "list":
                 listTask();
@@ -87,7 +86,9 @@ public class Duke {
             if (mark) {
                 System.out.println(">>>Nice! I've marked this task as done:");
             }
-            else System.out.println(">>>OK, I've marked this task as not done yet:");
+            else {
+                System.out.println(">>>OK, I've marked this task as not done yet:");
+            }
             System.out.println(tasks[taskId-1]);
         }
         showSeparator();
