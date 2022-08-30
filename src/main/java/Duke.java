@@ -14,7 +14,7 @@ public class Duke {
     public static void greet() {
         separateLine();
         System.out.println("Hello! I'm Rae.");
-        System.out.println("How does everything progree now?");
+        System.out.println("How does everything progress now?");
     }
 
     public static void bye() {
