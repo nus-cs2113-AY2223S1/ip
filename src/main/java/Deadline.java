@@ -16,7 +16,7 @@ public class Deadline extends Task {
         return "Added deadline: [D] " + super.toString() + " (by: " + by + ")";
     }
 
-    public String printList(){
-        return "[D] [" +super.getStatusIcon() +"] "+ super.description + " (by: " + by + ")" ;
+    public String printList() {
+        return "[D] [" + super.getStatusIcon() + "] " + super.description + " (by: " + by + ")";
     }
 }

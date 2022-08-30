@@ -1,4 +1,4 @@
-public class Event extends Task{
+public class Event extends Task {
 
     protected String at;
 
@@ -15,8 +15,9 @@ public class Event extends Task{
     public String toString() {
         return "Added new event : [E] " + super.toString() + " (at: " + at + ")";
     }
-    public String printList(){
-        return "[E] [" +super.getStatusIcon()+"] "+ super.description + " (at: " + at + ")" ;
+
+    public String printList() {
+        return "[E] [" + super.getStatusIcon() + "] " + super.description + " (at: " + at + ")";
     }
 
 }

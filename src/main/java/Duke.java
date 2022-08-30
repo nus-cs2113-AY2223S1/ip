@@ -72,7 +72,7 @@ public class Duke {
                     printNumOfTasks(0);
                 } else {
                     for (int i = 1; i < taskIndex; i += 1) {
-                            System.out.println(i + ". " + tasks[i].printList());
+                        System.out.println(i + ". " + tasks[i].printList());
                     }
                 }
                 System.out.println("____________________________________________________________");
