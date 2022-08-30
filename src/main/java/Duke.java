@@ -10,23 +10,8 @@ public class Duke {
     private static int listLength = 0;
 
     public static void main(String[] args) {
-
-        showWelcomeMessage();
+        Util.showWelcomeMessage();
         handleUserInput();
-    }
-
-    private static void showWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("    Hello from\n" + logo);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello! I'm Duke");
-        System.out.println("    What can I do for you?");
-        System.out.println("    ____________________________________________________________");
-        System.out.println();
     }
 
     private static void handleUserInput() {
@@ -54,10 +39,17 @@ public class Duke {
                 response = taskList[listLength].getResponse();
                 Util.printTaskResponse(response, listLength);
                 break;
+            case "event":
+                listLength++;
+                taskList[listLength] = new Event(commandArgs);
+                response = taskList[listLength].getResponse();
+                Util.printTaskResponse(response, listLength);
+                break;
             case "list":
                 Util.printSplitLine();
+                System.out.println("     Here are the tasks in your list:");
                 for (int i = 1; i <= listLength; i++) {
-                    System.out.println("    " + String.valueOf(i) + "." + taskList[i].getResponse());
+                    System.out.println("     " + String.valueOf(i) + "." + taskList[i].getResponse());
                 }
                 Util.printSplitLine();
                 System.out.println();
@@ -67,8 +59,7 @@ public class Duke {
                 taskList[index].setStringState(true);
                 Util.printSplitLine();
                 System.out.println("    Nice! I've marked this task as done:");
-                System.out.println(
-                        "      " + "[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
+                System.out.println("     "+taskList[index].getResponse());
                 Util.printSplitLine();
                 break;
             case "unmark":
@@ -76,8 +67,7 @@ public class Duke {
                 taskList[index].setStringState(false);
                 Util.printSplitLine();
                 System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println(
-                        "      " + "[" + taskList[index].getStatusIcon() + "]" + taskList[index].getDescription());
+                System.out.println("     "+taskList[index].getResponse());
                 Util.printSplitLine();
                 break;
             case "bye":

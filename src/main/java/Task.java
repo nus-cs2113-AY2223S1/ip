@@ -12,24 +12,26 @@ public class Task {
         this.isDone = state;
     }
 
-    public String getDescription() {
+    protected String getDescription() {
         return this.description;
     }
 
-    public String getStatusIcon() {
+    protected String getResponse() {
+        return this.assembleResponse();
+    }
+
+    protected String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public String getTaskType() {
+    protected String getTaskType() {
         return "";
     }
 
-    private String assembleResponse() {
+    protected String assembleResponse() {
         String response = "[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + getDescription();
         return response;
     }
 
-    public String getResponse() {
-        return this.assembleResponse();
-    }
+    
 }
