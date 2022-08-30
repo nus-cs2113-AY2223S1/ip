@@ -25,13 +25,15 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void addItem(Task input) {
+    public static void addItem(Task task) {
         taskSize++;
-        taskList[taskSize] = input;
+        taskList[taskSize] = task;
     }
 
     public static void printAddItemText(Task input) {
-        System.out.println("added: " + input.description);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(input.printTask());
+        System.out.println("Now you have " + taskSize + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -94,6 +96,15 @@ public class Duke {
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 addItem(newTodo);
                 printAddItemText(newTodo);
+                break;
+            case "deadline":
+                System.out.println("DEADLINE INNN");
+                String[] taskWithDeadline = inputWords[1].split("/by ", 2);
+                String taskDescription = taskWithDeadline[0];
+                String taskDeadline = taskWithDeadline[1];
+                Deadline newDeadlineTask = new Deadline(taskDescription, 'D', taskDeadline);
+                addItem(newDeadlineTask);
+                printAddItemText(newDeadlineTask);
                 break;
             default:
                 Task newTask = new Task(input, 'N');
