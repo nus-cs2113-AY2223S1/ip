@@ -6,30 +6,36 @@ public class Duke {
         Scanner myObj = new Scanner(System.in);
 
         Task[] todoList = new Task[100];
+
         String userInput;
-        String subUserInput;
+        String taskType;
+        String userInputNewValue;
+        String taskString; //based on how many tasks are in list, changes to plural
+
         int markedValue = 0;
+        int taskCounter;
+
         boolean bye = false;
 
         Commands commandType;
-        while (!bye){
+        while (!bye) {
             userInput = myObj.nextLine() + " ";
-            subUserInput = userInput.substring(0, userInput.indexOf(' '));
-            try{
-                markedValue = Integer.parseInt(userInput.substring(userInput.indexOf(' ')).replaceAll("\\s+","")) - 1;
-            }
-            catch(Exception ignored){
+            taskType = userInput.substring(0, userInput.indexOf(' ')); //list, mark, unmark etc.
+            userInputNewValue = userInput.substring(taskType.length()); //firstly does it assuming that it is todo, so no date , todo borrow book -> borrow book
+            try {
+                markedValue = Integer.parseInt(userInput.substring(userInput.indexOf(' ')).replaceAll("\\s+", "")) - 1; //used just for mark and unmark
 
-            }
+            } catch (Exception ignored) {}
 
-            try{
-                commandType = Commands.valueOf(subUserInput.toUpperCase());
+            try {
+                commandType = Commands.valueOf(taskType.toUpperCase());
                 switch (commandType) {
                     case LIST:
                         System.out.println("____________________________________________________________");
+                        System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < todoList.length; i++) {
                             if (todoList[i] != null) {
-                                System.out.println("\t" + (i + 1) + ") [" + todoList[i].getStatusIcon() +"] " + todoList[i].getDescription());
+                                System.out.println("\t" + (i + 1) + ") " + todoList[i].toString());
                             } else {
                                 break;
                             }
@@ -37,35 +43,84 @@ public class Duke {
                         System.out.println("____________________________________________________________");
                         break;
 
-                    case BYE :
+                    case BYE:
                         bye = true;
                         break;
 
-                    case MARK :
+                    case MARK:
                         todoList[markedValue].markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("[" +todoList[markedValue].getStatusIcon() +"]  " + todoList[markedValue].getDescription());
+                        System.out.println(todoList[markedValue].getStatusIcon() + todoList[markedValue].getDescription());
                         System.out.println("____________________________________________________________");
                         break;
 
-                    case UNMARK :
+                    case UNMARK:
                         todoList[markedValue].unMark();
                         System.out.println("____________________________________________________________");
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("[" +todoList[markedValue].getStatusIcon() +"]  " + todoList[markedValue].getDescription());
+                        System.out.println(todoList[markedValue].getStatusIcon() + todoList[markedValue].getDescription());
                         System.out.println("____________________________________________________________");
-                }
-            }
-            catch(Exception e){
-                for(int i = 0; i < todoList.length; i++)
-                    if(todoList[i] == null) {
-                        Task newTask = new Task(userInput);
-                        todoList[i] = newTask;
+
+                    case TODO:
+                        taskCounter = 0;
+                        for (int i = 0; i < todoList.length; i++)
+                            if (todoList[i] == null) {
+                                Task newTask = new Todo(userInputNewValue);
+                                todoList[i] = newTask;
+                                taskCounter = i;
+                                break;
+                            }
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(todoList[taskCounter].toString());
+
+                        taskString = taskCounter == 0 ? " task " : " tasks ";
+
+                        System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
+                        System.out.println("____________________________________________________________");
                         break;
-                    }
+                    case DEADLINE:
+                        taskCounter = 0;
+                        for (int i = 0; i < todoList.length; i++)
+                            if (todoList[i] == null) {
+                                Task newTask = new Deadline(userInputNewValue);
+                                todoList[i] = newTask;
+                                taskCounter = i;
+                                break;
+                            }
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(todoList[taskCounter].toString());
+
+                        taskString = taskCounter == 0 ? " task " : " tasks ";
+
+                        System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
+                        System.out.println("____________________________________________________________");
+                        break;
+
+                    case EVENT:
+                        taskCounter = 0;
+                        for (int i = 0; i < todoList.length; i++)
+                            if (todoList[i] == null) {
+                                Task newTask = new Event(userInputNewValue);
+                                todoList[i] = newTask;
+                                taskCounter = i;
+                                break;
+                            }
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(todoList[taskCounter].toString());
+
+                        taskString = taskCounter == 0 ? " task " : " tasks ";
+
+                        System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
+                        System.out.println("____________________________________________________________");
+                        break;
+                }
+            } catch (Exception e) {
                 System.out.println("____________________________________________________________");
-                System.out.println("\t Added: " + userInput);
+                System.out.println("\t Not sure what you meant, try again");
                 System.out.println("____________________________________________________________");
             }
         }
@@ -73,37 +128,5 @@ public class Duke {
         System.out.println("\tBye. Hope to see you soon!");
         System.out.println("____________________________________________________________");
     }
-
-    enum Commands{
-        LIST,
-        BYE,
-        MARK,
-        UNMARK
-    }
-
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public void markAsDone(){
-            this.isDone = true;
-        }
-
-        public void unMark(){
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : ""); // mark done task with X
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
 }
+
