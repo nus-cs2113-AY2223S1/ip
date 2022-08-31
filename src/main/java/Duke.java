@@ -1,3 +1,4 @@
+import javax.annotation.processing.SupportedSourceVersion;
 import java.util.Scanner;
 
 public class Duke {
@@ -6,22 +7,36 @@ public class Duke {
 
     public static void main(String[] args) {
         printWelcomeMessage();
-        String[] taskLists = new String[100];
-        int count = 0;
+        Task[] taskLists = new Task[100];
 
 
         String userInput = getUserInput();
 
         while(!userInput.equals("bye")){
-            switch(userInput){
+            String[] userInputSplit = userInput.split(" ");
+            switch(userInputSplit[0]){
             case "list":
-                printList(taskLists, count);
+                printTaskList(taskLists, Task.numOfTasks);
                 break;
+
+            case "mark":
+                int markDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
+                taskLists[markDoneIndex].setIsDone(true);
+                printSetDoneMessage(taskLists[markDoneIndex]);
+                break;
+
+            case "unmark":
+                int markNotDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
+                taskLists[markNotDoneIndex].setIsDone(false);
+                printSetNotDoneMessage(taskLists[markNotDoneIndex]);
+                break;
+
 
             default:
                 printEchoInput(userInput);
-                taskLists[count] = userInput;
-                count++;
+                taskLists[Task.numOfTasks] = new Task(userInput);
+                Task.numOfTasks ++;
+
             }
             userInput = getUserInput();
         }
@@ -62,12 +77,35 @@ public class Duke {
         System.out.println(byeMessage);
     }
 
-    public static void printList(String[] taskLists, int count){
+    public static void printTaskList(Task[] taskLists, int count){
         System.out.println("    ____________________________________________________________");
+        System.out.println("     Here are the tasks in your list:");
+        String isDoneNotation;
         for (int i=0; i<count; i++){
+            Task currTask = taskLists[i];
+            if (currTask.getIsDone() == false){
+                isDoneNotation = "[] ";
+            }
+            else {isDoneNotation = "[X] ";}
+
             int index = i + 1;
-            System.out.println("     " + index + ". " + taskLists[i]);
+            System.out.println("     " + index + "." + isDoneNotation
+                    + taskLists[i].getDescription());
         }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void printSetDoneMessage(Task task){
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       [X]" + task.getDescription());
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void printSetNotDoneMessage(Task task){
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       []" + task.getDescription());
         System.out.println("    ____________________________________________________________");
     }
 
