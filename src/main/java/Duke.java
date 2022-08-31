@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Duke {
+    public static final int DEADLINE_STRING_LENGTH = 9;     // "deadline "
+    public static final int BY_SEPARATOR_LENGTH = 4;        // "/by  "
+    public static final int EVENT_STRING_LENGTH = 6;        // "event "
+    public static final int AT_SEPARATOR_LENGTH = 4;        // "/at  "
     public static ArrayList<Task> list = new ArrayList<Task>();
 
     public static void printList(ArrayList<Task> list) {
@@ -35,6 +39,25 @@ public class Duke {
             System.out.println("        ____________________________________________");
     }
 
+    private static void printGoodbyeMessage() {
+        System.out.println("____________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________");
+    }
+
+    private static void printWelcomeMessage() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("____________________________________________");
+        System.out.println("Hello! I'm Duke.");
+        System.out.println("What can I do for you?");
+        System.out.println("____________________________________________");
+    }
+
     public static void handleInput() {
         String input = "";
         Scanner in = new Scanner(System.in);
@@ -56,11 +79,6 @@ public class Duke {
                 break;
 
             case "mark":
-//                Task tempTaskDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(),
-//                        list.get(Integer.parseInt(line[1])-1).isDone());
-//                tempTaskDone.setDone(true);
-//                list.set(Integer.parseInt(line[1])-1, tempTaskDone);
-
                 list.get(Integer.parseInt(line[1])-1).setDone(true);
 
                 String markDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
@@ -72,10 +90,6 @@ public class Duke {
                 break;
 
             case "unmark":
-//                Task tempTaskNotDone = new Task(list.get(Integer.parseInt(line[1])-1).getTaskName(),
-//                        list.get(Integer.parseInt(line[1])-1).isDone());
-//                tempTaskNotDone.setDone(false);
-//                list.set(Integer.parseInt(line[1])-1, tempTaskNotDone);
                 list.get(Integer.parseInt(line[1])-1).setDone(false);
 
                 String unmarkDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
@@ -101,8 +115,10 @@ public class Duke {
 
             case "deadline":
                 int byIndex = input.indexOf("/by");
-                String deadlineName = String.copyValueOf(input.toCharArray(), 9, byIndex-1-9);
-                String taskDeadline = String.copyValueOf(input.toCharArray(), byIndex+4, input.length()-byIndex-4);
+                String deadlineName = String.copyValueOf(input.toCharArray(), DEADLINE_STRING_LENGTH,
+                        byIndex-1-DEADLINE_STRING_LENGTH);
+                String taskDeadline = String.copyValueOf(input.toCharArray(), byIndex+ BY_SEPARATOR_LENGTH,
+                        input.length()-byIndex-BY_SEPARATOR_LENGTH);
                 list.add(new Deadline(deadlineName, taskDeadline));
 
                 System.out.println("        ____________________________________________");
@@ -114,8 +130,10 @@ public class Duke {
 
             case "event":
                 int atIndex = input.indexOf("/at");
-                String eventName = String.copyValueOf(input.toCharArray(), 6, atIndex-1-6);
-                String eventTime = String.copyValueOf(input.toCharArray(), atIndex+4, input.length()-atIndex-4);
+                String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
+                        atIndex-1- EVENT_STRING_LENGTH);
+                String eventTime = String.copyValueOf(input.toCharArray(), atIndex+ AT_SEPARATOR_LENGTH,
+                        input.length()-atIndex-AT_SEPARATOR_LENGTH);
                 list.add(new Event(eventName, eventTime));
 
                 System.out.println("        ____________________________________________");
@@ -136,24 +154,5 @@ public class Duke {
         printWelcomeMessage();
         handleInput();
         printGoodbyeMessage();
-    }
-
-    private static void printGoodbyeMessage() {
-        System.out.println("____________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________");
-    }
-
-    private static void printWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________");
-        System.out.println("Hello! I'm Duke.");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________");
     }
 }

@@ -7,8 +7,9 @@ public class Event extends Task {
         super.setEventTime(eventTime);
     }
 
-    public Event(String taskName, boolean status) {
+    public Event(String taskName, boolean status, String eventTime) {
         super(taskName, status);
         super.setTaskType("Event");
+        super.setEventTime(eventTime);
     }
 }
