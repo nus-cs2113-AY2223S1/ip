@@ -1,89 +1,162 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static String readTaskDetails(Scanner in) {
+        return in.nextLine().trim();
+    }
+
+    public static String extractTaskName(String taskDetails, String dateTimeReference) {
+        int dateTimeIndex = taskDetails.indexOf(dateTimeReference);
+        return taskDetails.substring(0, dateTimeIndex - 1).trim();
+    }
+
+    public static String extractTaskDateTime(String taskDetails, String dateTimeReference) {
+        int dateTimeIndex = taskDetails.indexOf(dateTimeReference);
+        return taskDetails.substring(dateTimeIndex + 3).trim();
+    }
+
+    public static void addToDoTask(Task[] tasks, int taskIndex, String todoTaskName) {
+        tasks[taskIndex] = new Todo(todoTaskName);
+    }
+
+    public static void addDeadlineTask(Task[] tasks, int taskIndex, String deadlineTaskName, String deadlineTaskBy) {
+        tasks[taskIndex] = new Deadline(deadlineTaskName, deadlineTaskBy);
+    }
+
+    public static void addEventTask(Task[] tasks, int taskIndex, String eventTaskName, String eventTaskAt) {
+        tasks[taskIndex] = new Event(eventTaskName, eventTaskAt);
+    }
+
+    public static void printTaskAddedMessage(Task[] tasks, int taskIndex) {
+        boolean isSingleTask = (taskIndex == 0);
+        String task = isSingleTask ? " task" : " tasks";
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskIndex]);
+        System.out.println("Now you have " + (taskIndex + 1) + task + " in the list.");
+    }
 
     public static void markAsDone(Task[] tasks, int markIndex) {
         tasks[markIndex].setDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.print("  [" + tasks[markIndex].getStatusIcon() + "] ");
-        System.out.println(tasks[markIndex].getDescription());
+        System.out.println("  " + tasks[markIndex]);
     }
 
     public static void markAsUndone(Task[] tasks, int unmarkIndex) {
         tasks[unmarkIndex].setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.print("  [" + tasks[unmarkIndex].getStatusIcon() + "] ");
-        System.out.println(tasks[unmarkIndex].getDescription());
+        System.out.println("  " + tasks[unmarkIndex]);
     }
 
-    public static void printList(Task[] tasks) {
-        System.out.println("Here are the tasks in your list:");
-        int taskIndex = 0;
+    public static void printList(Task[] tasks, int taskIndex) {
+        boolean hasNoTask = (taskIndex == 0);
+        if (hasNoTask) {
+            System.out.println("There is no task in your list.");
+            return;
+        }
+        boolean isSingleTask = (taskIndex == 1);
+        String task = isSingleTask ? "is the task" : "are the tasks";
+        System.out.println("Here " + task + " in your list:");
+        taskIndex = 0;
         while (tasks[taskIndex] != null) {
-            System.out.print((taskIndex + 1) + ". [" + tasks[taskIndex].getStatusIcon() +"] ");
-            System.out.println(tasks[taskIndex].getDescription());
+            System.out.println((taskIndex + 1) + "." + tasks[taskIndex]);
             taskIndex++;
         }
     }
 
     public static void main(String[] args) {
-
-        String logo = "    ,---,                        ,-.            \n"
-                + "  .'  .' `\\                  ,--/ /|            \n"
-                + ",---.'     \\          ,--, ,--. :/ |            \n"
-                + "|   |  .`\\  |       ,'_ /| :  : ' /             \n"
-                + ":   : |  '  |  .--. |  | : |  '  /      ,---.   \n"
-                + "|   ' '  ;  :,'_ /| :  . | '  |  :     /     \\  \n"
-                + "'   | ;  .  ||  ' | |  . . |  |   \\   /    /  | \n"
-                + "|   | :  |  '|  | ' |  | | '  : |. \\ .    ' / | \n"
-                + "'   : | /  ; :  | : ;  ; | |  | ' \\ \\'   ;   /| \n"
-                + "|   | '` ,/  '  :  `--'   \\'  : |--' '   |  / | \n"
-                + ";   :  .'    :  ,      .-./;  |,'    |   :    | \n"
-                + "|   ,.'       `--`----'    '--'       \\   \\  /  \n"
-                + "'---'                                  `----'   \n";
-
         //Greet
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello I'm Duke\n" + logo);
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        showWelcomeMessage();
 
+        //Read Input
         String command;                         //variable to store line (input)
         Scanner in = new Scanner(System.in);    //create object that reads input
-        command = in.nextLine();                //read input
 
-        //Add
         Task[] tasks = new Task[100];
         int taskIndex = 0;
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                printList(tasks);
-            } else if (command.contains("unmark")) {
-                command = command.trim();
-                command = command.substring(6);
-                command = command.trim();
-                int unmarkIndex = Integer.parseInt(command) - 1;
+        do {
+            command = in.next();                //Read first word (command)
+            switch (command) {
+            case "list":
+                printList(tasks, taskIndex);
+                break;
+            case "unmark":
+                int unmarkIndex = Integer.parseInt(in.next()) - 1;
                 markAsUndone(tasks, unmarkIndex);
-            } else if (command.contains("mark")) {
-                command = command.trim();
-                command = command.substring(4);
-                command = command.trim();
-                int markIndex = Integer.parseInt(command) - 1;
+                break;
+            case "mark":
+                int markIndex = Integer.parseInt(in.next()) - 1;
                 markAsDone(tasks, markIndex);
-            } else {
-                //Add only if input is not blank
-                if (!command.isBlank()) {
-                    tasks[taskIndex] = new Task(command);
-                    System.out.println("added: " + command);
-                    taskIndex++;
-                }
+                break;
+            //Add Task
+            case "todo":
+                String todoTaskName = readTaskDetails(in);
+                addToDoTask(tasks, taskIndex, todoTaskName);
+                printTaskAddedMessage(tasks, taskIndex);
+                taskIndex++;
+                break;
+            case "deadline":
+                String deadlineTask = readTaskDetails(in);
+                String deadlineTaskName = extractTaskName(deadlineTask ,"/by");
+                String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
+                addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
+                printTaskAddedMessage(tasks, taskIndex);
+                taskIndex++;
+                break;
+            case "event":
+                String eventTask = readTaskDetails(in);
+                String eventTaskName = extractTaskName(eventTask ,"/at");
+                String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
+                addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
+                printTaskAddedMessage(tasks, taskIndex);
+                taskIndex++;
+                break;
+            default:
             }
-            command = in.nextLine();
-        }
+        } while (!command.equals("bye"));
 
         //Exit
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        showByeMessage();
+    }
+
+    private static void showByeMessage() {
+        System.out.println("{\\__/}");
+        System.out.println("(´^ω^)ノ Bye. Hope to see you again soon!");
+        System.out.println("/ v v/");
+    }
+
+    private static void showWelcomeMessage() {
+
+        String logo = "          @@@@@@@@@@@@@@@@%\n"
+                + "       @@@%%%%%%%%%%%%%%%%%&@@\n"
+                + "       @@%%%%%%%%%%###%#####%@@@@@@\n"
+                + "        @@%%%%%##%@@@&@###@##@##@##@@\n"
+                + "         @@@@&@####@###%@##@#@##&&#@@\n"
+                + "        @@%@%%%@@##@@@@@@@@@@#/**@@@\n"
+                + "         @@%@@@@@#*****************/@@\n"
+                + "          /@@************#@@@@@@@@@@@@@@\n"
+                + "          @@********%@@(******         *%@@\n"
+                + "         @@(*******@@###*****            **@@\n"
+                + "   @@@@@@@@((******@#####*****          ****@\n"
+                + ",@@******@%((******@@######**************###@%\n"
+                + "@@******%@((((******@@#####################@@\n"
+                + "@@**/((((@((((********@@%###############&@@\n"
+                + "@@(((((((@(((((***********(@@@@@@@@@&/**&@@\n"
+                + "@@(((((((@(((((**************************@@\n"
+                + "@@(((((((@#((((**************************@@\n"
+                + "@@(((((((@&(((((*************************@@\n"
+                + "@@(((((((@@((((((**********************((@@\n"
+                + "@@(((((((@@(((((((((***************/(((((@/\n"
+                + "@@(((((((@@(((((((((((((((((((((((((((((&@\n"
+                + " @@((((((@@(((((((((((((((((((((((((((((@@\n"
+                + "   @@@@@@@@((((((((((((@@@@@@@@@@@&(((((@@\n"
+                + "         @@((((((((((((@%   @@((((((((((@@\n"
+                + "         @@((((((((((((@    *@((((((((((@/\n"
+                + "         %@(((((((((((@@     @%((((((((@@\n"
+                + "         .@@((((((((((@@     @@@@@@@@@@.\n"
+                + "             #@@@@@@*";
+
+        //Greet
+        System.out.println("Hello I'm Duke\n" + logo);
+        System.out.println("What can I do for you?");
     }
 }
