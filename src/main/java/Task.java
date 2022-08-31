@@ -14,6 +14,7 @@ public class Task {
     }
 
     public void markasDone() {
+
         this.isDone = true;
     }
 
@@ -22,6 +23,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
+
         return (isDone ? "X" : " ");
     }
 }
