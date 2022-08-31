@@ -87,13 +87,13 @@ public class Duke {
             } else if (numOfWords >= 2) {
                 // check if the user input has 2 words before checking for commands "mark" and "unmark"
 
-                String[] arr = inData.split(" ");
+                String[] splittedInput = inData.split(" ");
 
-                if (numOfWords == 2 && arr[0].equals("unmark")) {
+                if (numOfWords == 2 && splittedInput[0].equals("unmark")) {
                     // checks if user input has entered "unmark" as the first word
-                    if (checkIsNumeric(arr[1])) {
+                    if (checkIsNumeric(splittedInput[1])) {
                         // check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking
-                        int unmarkedIndex = Integer.parseInt(arr[1]);
+                        int unmarkedIndex = Integer.parseInt(splittedInput[1]);
                         if ((unmarkedIndex > 0) && (unmarkedIndex < taskIndex)) {
                             // checks if the user input command is within the current bound of the tasks array.
                             tasks[unmarkedIndex].setDone(false);
@@ -106,10 +106,10 @@ public class Duke {
                         System.out.println("Invalid unmark command");
                     }
 
-                } else if (numOfWords == 2 && arr[0].equals("mark")) {
+                } else if (numOfWords == 2 && splittedInput[0].equals("mark")) {
                     // checks if user input has entered "mark" as the first word.
-                    if (checkIsNumeric(arr[1])) {
-                        int markedIndex = Integer.parseInt(arr[1]);
+                    if (checkIsNumeric(splittedInput[1])) {
+                        int markedIndex = Integer.parseInt(splittedInput[1]);
                         if ((markedIndex > 0) && (markedIndex < taskIndex)) {
                             // checks if the user input command is within the current bound of the tasks array.
                             tasks[markedIndex].setDone(true);
@@ -125,18 +125,18 @@ public class Duke {
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
                     for (int i = 1; i < numOfWords; i += 1) {
-                        synthesizedArr.append(arr[i]).append(" ");
+                        synthesizedArr.append(splittedInput[i]).append(" ");
                     }
                     String taskDescription = synthesizedArr.toString();
 
-                    if (arr[0].equals("todo")) {
+                    if (splittedInput[0].equals("todo")) {
                         tasks[taskIndex] = new Todo(taskDescription);
                         tasks[taskIndex].setTaskType("T");
                         System.out.println(tasks[taskIndex]);
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
 
-                    } else if (arr[0].equals("deadline")) {
+                    } else if (splittedInput[0].equals("deadline")) {
                         // find "/" break point before processing the description and the deadline
                         String deadline = taskDescription;
                         if (taskDescription.contains("/by")) {
@@ -151,7 +151,7 @@ public class Duke {
                         System.out.println(tasks[taskIndex]);
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
-                    } else if (arr[0].equals("event")) {
+                    } else if (splittedInput[0].equals("event")) {
                         String eventPeriod = taskDescription;
                         if (taskDescription.contains("/at")) {
                             //update taskDescription and deadline
