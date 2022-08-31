@@ -1,0 +1,32 @@
+todo read book
+list
+mark 1
+list
+unmark 1
+list
+deadline do dishes /by midnight
+list
+mark 2
+list
+unmark 2
+list
+event attend wedding /at Sunday 1900
+list
+mark 3
+list
+unmark 3
+list
+this is an invalid command
+todo read book again
+deadline do dishes again /by morning
+event attend funeral /at 31st February
+list
+mark 4
+mark 5
+mark 6
+list
+unmark 4
+unmark 5
+unmark 6
+list
+bye

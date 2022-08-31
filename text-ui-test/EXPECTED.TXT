@@ -1,7 +1,131 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-------------------------------------
+Hello! I am not Duke.
+Here are a list of commands:
+    todo <string> : adds a Todo to the list
+    deadline <string> /by <string> : adds a deadline and its deadline...
+    event <string> /at <string> : adds an event and its time...
+    mark <task id> : marks a task
+    unmark <task id> : unmarks a task
+    list : lists out all your tasks
+    bye : exits the program
+I WILL CRASH IF YOU DO NOT COMPLY!!!
+-------------------------------------
+Got it. I have added this task:
+[T][ ] read book
+You now have 1 tasks.
+-------------------------------------
+Marked this task:
+ [T][X] read book
+-------------------------------------
+Here are a list of your tasks:
+1. [T][X] read book
+-------------------------------------
+Unmarked this task:
+[T][ ] read book
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+-------------------------------------
+Got it. I have added this task:
+[D][ ] do dishes (by: midnight)
+You now have 2 tasks.
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+-------------------------------------
+Marked this task:
+ [D][X] do dishes (by: midnight)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][X] do dishes (by: midnight)
+-------------------------------------
+Unmarked this task:
+[D][ ] do dishes (by: midnight)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+-------------------------------------
+Got it. I have added this task:
+[E][ ] attend wedding (at: Sunday 1900)
+You now have 3 tasks.
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][ ] attend wedding (at: Sunday 1900)
+-------------------------------------
+Marked this task:
+ [E][X] attend wedding (at: Sunday 1900)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][X] attend wedding (at: Sunday 1900)
+-------------------------------------
+Unmarked this task:
+[E][ ] attend wedding (at: Sunday 1900)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][ ] attend wedding (at: Sunday 1900)
+-------------------------------------
+"this is an invalid command" is not a valid command, please try again!
+Got it. I have added this task:
+[T][ ] read book again
+You now have 4 tasks.
+-------------------------------------
+Got it. I have added this task:
+[D][ ] do dishes again (by: morning)
+You now have 5 tasks.
+-------------------------------------
+Got it. I have added this task:
+[E][ ] attend funeral (at: 31st February)
+You now have 6 tasks.
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][ ] attend wedding (at: Sunday 1900)
+4. [T][ ] read book again
+5. [D][ ] do dishes again (by: morning)
+6. [E][ ] attend funeral (at: 31st February)
+-------------------------------------
+Marked this task:
+ [T][X] read book again
+-------------------------------------
+Marked this task:
+ [D][X] do dishes again (by: morning)
+-------------------------------------
+Marked this task:
+ [E][X] attend funeral (at: 31st February)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][ ] attend wedding (at: Sunday 1900)
+4. [T][X] read book again
+5. [D][X] do dishes again (by: morning)
+6. [E][X] attend funeral (at: 31st February)
+-------------------------------------
+Unmarked this task:
+[T][ ] read book again
+-------------------------------------
+Unmarked this task:
+[D][ ] do dishes again (by: morning)
+-------------------------------------
+Unmarked this task:
+[E][ ] attend funeral (at: 31st February)
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
+2. [D][ ] do dishes (by: midnight)
+3. [E][ ] attend wedding (at: Sunday 1900)
+4. [T][ ] read book again
+5. [D][ ] do dishes again (by: morning)
+6. [E][ ] attend funeral (at: 31st February)
+-------------------------------------
+Bye! ;)
