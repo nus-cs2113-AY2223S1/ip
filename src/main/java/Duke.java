@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void welcomeUser() {
+    public static void startProgram() {
         UI.welcomeUser();
         InputHandler.handleInput();
     }
 
     public static void main(String[] args) {
-        welcomeUser();
-        trackInput();
+        startProgram();
     }
 }
