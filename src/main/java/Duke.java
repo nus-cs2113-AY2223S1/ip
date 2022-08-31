@@ -11,8 +11,7 @@ public class Duke {
 
     public static String truncateInput(String[] s) {
         String[] copy = Arrays.copyOfRange(s, 1, s.length);
-        String truncatedInput = String.join(" ", copy);
-        return truncatedInput;
+        return String.join(" ", copy);
     }
 
     public static void printGreetings(String greeting) {
@@ -27,13 +26,13 @@ public class Duke {
         }
     }
 
-    public static void markResponse(int position, int count, Task[] tasks) {
+    public static void markResponse(int position, Task[] tasks) {
         tasks[position].markAsDone();
         System.out.println("Nice! I've marked this task as done:" + System.lineSeparator()
                 + tasks[position]);
     }
 
-    public static void unmarkResponse(int position, int count, Task[] tasks) {
+    public static void unmarkResponse(int position, Task[] tasks) {
         tasks[position].unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:" + System.lineSeparator()
                 + tasks[position]);
@@ -101,10 +100,10 @@ public class Duke {
                 systemState = false;
                 break;
             case "mark":
-                markResponse(Integer.parseInt(words[1]) - 1, count, tasks);
+                markResponse(Integer.parseInt(words[1]) - 1, tasks);
                 break;
             case "unmark":
-                unmarkResponse(Integer.parseInt(words[1]) - 1, count, tasks);
+                unmarkResponse(Integer.parseInt(words[1]) - 1, tasks);
                 break;
             case "list":
                 listResponse(tasks, count);
