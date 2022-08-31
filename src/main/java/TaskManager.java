@@ -32,7 +32,7 @@ public class TaskManager {
             tasks[taskCount] = new Task(line);
         }
         System.out.println("  ____________________________________________________________");
-        System.out.println("\tAdded: ");
+        System.out.println("\tAdded:");
         System.out.println("\t  " + tasks[taskCount].getType() + tasks[taskCount].getStatus()
                 + tasks[taskCount].getDescription() + tasks[taskCount].getAddedInfo());
         taskCount++;
@@ -42,7 +42,7 @@ public class TaskManager {
 
     public void listTasks() {
         System.out.println("  ____________________________________________________________");
-        System.out.println("\tThese are the tasks in your list: ");
+        System.out.println("\tThese are the tasks in your list:");
         for (int i = 0; i < taskCount; i += 1) {
             int index = i + 1;
             System.out.println("\t" + index + "." + tasks[i].getType() + tasks[i].getStatus()
@@ -55,7 +55,7 @@ public class TaskManager {
         int index = Integer.parseInt(line) - 1;
         tasks[index].setCompletion(true);
         System.out.println("  ____________________________________________________________");
-        System.out.println("\tWell done! I have marked this task as completed: ");
+        System.out.println("\tWell done! I have marked this task as completed:");
         System.out.println("\t  " + tasks[index].getType() + tasks[index].getStatus() + " "
                 + tasks[index].getDescription() + tasks[index].getAddedInfo());
         System.out.println("  ____________________________________________________________");
@@ -65,7 +65,7 @@ public class TaskManager {
         int index = Integer.parseInt(line) - 1;
         tasks[index].setCompletion(false);
         System.out.println("  ____________________________________________________________");
-        System.out.println("\tNoted. I have marked this task as incomplete: ");
+        System.out.println("\tNoted. I have marked this task as incomplete:");
         System.out.println("\t  " + tasks[index].getType() + tasks[index].getStatus() + " "
                 + tasks[index].getDescription() + tasks[index].getAddedInfo());
         System.out.println("  ____________________________________________________________");
