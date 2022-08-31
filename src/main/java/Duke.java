@@ -65,5 +65,75 @@ public class Duke {
             counter++;
         }
 
+
+        //level 4
+        // list with 100 rows, 3 columns, 0 - TaskType, 1 - isDone, 2 - TaskName
+        String[][] TaskList = new String[100][3];
+        int ListCounter = 0;
+        for(int row=0; row<100; row++){
+            for(int col=0; col<3; col++){
+                TaskList[row][col] = " ";
+            }
+        }
+        while(true) {
+            Scanner ScannerObject4 = new Scanner(System.in);
+            String input = ScannerObject4.nextLine();
+            if(Objects.equals(input, "bye")){
+                System.out.println("Bye! See you :)");
+                break;
+            } else if (Objects.equals(input, "list")) {
+                //show list
+                System.out.println("Here are the tasks in your list:");
+                for(int task=0; task<ListCounter; task++){
+                    System.out.println((task+1) + ".[" + TaskList[task][0]+"][" + TaskList[task][1]+"] " + TaskList[task][2]);
+                }
+                continue;
+            }
+            String command = input.substring(0, input.indexOf(' '));
+            String content = input.substring(input.indexOf(' ') + 1);
+            if(Objects.equals(command, "todo")){
+                //add task to list
+                TaskList[ListCounter][0] = "T";
+                TaskList[ListCounter][2] = content;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
+                System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
+            } else if (Objects.equals(command, "deadline")) {
+                // add deadline to list, split at /
+                TaskList[ListCounter][0] = "D";
+                String task = content.substring(0, content.indexOf('/'));
+                String timing = content.substring(content.indexOf('/') + 1);
+                TaskList[ListCounter][2] = task + "(" + timing + ")";
+                System.out.println("Got it. I've added this task:");
+                System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
+                System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
+            } else if (Objects.equals(command, "event")) {
+                // add to event to list
+                TaskList[ListCounter][0] = "E";
+                String task = content.substring(0, content.indexOf('/'));
+                String timing = content.substring(content.indexOf('/') + 1);
+                TaskList[ListCounter][2] = task + "(" + timing + ")";
+                System.out.println("Got it. I've added this task:");
+                System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
+                System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
+            } else if (Objects.equals(command, "mark")) {
+                //mark task
+                int TaskNumber = Integer.parseInt(content);
+                TaskList[TaskNumber-1][1] = "X";
+                System.out.println("Alright. Marked task " + TaskNumber);
+                continue;
+            } else if (Objects.equals(command, "unmark")) {
+                //unmark task
+                int TaskNumber = Integer.parseInt(content);
+                TaskList[TaskNumber-1][1] = " ";
+                System.out.println("Alright. Unmarked task " + TaskNumber);
+                continue;
+            } else {
+                System.out.println("Invalid command. Please try again!");
+                continue;
+            }
+            ListCounter++;
+        }
+
     }
 }
