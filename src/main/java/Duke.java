@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static Task[] list = new Task[100];
+    public static Task[] tasks = new Task[100];
     public static int position = 0;
 
     public static void printDivider() {
@@ -24,13 +24,42 @@ public class Duke {
         printDivider();
     }
 
-    public static void addToList(Task currentTask) {
-        list[position] = currentTask;
+    public static void addTodoToList(Todo currentTodo) {
+        tasks[position] = currentTodo;
         position++;
 
         printDivider();
-        System.out.println("\tadded: " + currentTask.description);
-        System.out.println();
+        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
+        System.out.print("\t  ");
+        System.out.println(currentTodo);
+        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
+        System.out.println("");
+        printDivider();
+    }
+
+    public static void addDeadlineToList(Deadline currentDeadline) {
+        tasks[position] = currentDeadline;
+        position++;
+
+        printDivider();
+        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
+        System.out.print("\t  ");
+        System.out.println(currentDeadline);
+        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
+        System.out.println("");
+        printDivider();
+    }
+
+    public static void addEventToList(Event currentEvent) {
+        tasks[position] = currentEvent;
+        position++;
+
+        printDivider();
+        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
+        System.out.print("\t  ");
+        System.out.println(currentEvent);
+        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
+        System.out.println("");
         printDivider();
     }
 
@@ -38,31 +67,35 @@ public class Duke {
         printDivider();
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < position; i++) {
-            System.out.println("    " + String.valueOf(i + 1) + ".[" +
-                    list[i].getStatusIcon() + "] " + list[i].description);
+            System.out.print("\t" + Integer.toString(i + 1) + ".");
+            System.out.println(tasks[i]);
         }
         System.out.println();
         printDivider();
     }
 
     public static void markAsDone(String index) {
-        Task currentTask = list[Integer.parseInt(index) - 1];
+        //Modify this
+        Task currentTask = tasks[Integer.parseInt(index) - 1];
         currentTask.markAsDone();
 
         printDivider();
-        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
         System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+        System.out.println("\tWell done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
         System.out.println("");
         printDivider();
     }
 
     public static void markAsUndone(String index) {
-        Task currentTask = list[Integer.parseInt(index) - 1];
+        //Modify this
+        Task currentTask = tasks[Integer.parseInt(index) - 1];
         currentTask.markAsUndone();
 
         printDivider();
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+        System.out.println("\tYou better stop procrastinating, friend.. (╥﹏╥)");
         System.out.println("");
         printDivider();
     }
@@ -73,22 +106,39 @@ public class Duke {
         String userInput = "";
 
         while (!userInput.equals("bye")) {
+            //Input
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
             if (userInput.equals("bye")) {
                 break;
             }
             String words[] = userInput.split(" ");
+            //Mark
             if (words[0].equals("mark")) {
                 markAsDone(words[1]);
+                //Unmark
             } else if (words[0].equals("unmark")) {
                 markAsUndone(words[1]);
             } else {
-                Task task = new Task(userInput);
+                //Print List
                 if (userInput.equals("list")) {
                     printList();
                 } else {
-                    addToList(task);
+                    //Todo
+                    if (words[0].equals("todo")) {
+                        Todo todo = new Todo(userInput.substring(5));
+                        addTodoToList(todo);
+                        //Deadline
+                    } else if (words[0].equals("deadline")) {
+                        String deadlineWords[] = userInput.substring(8).split("/");
+                        Deadline deadline = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
+                        addDeadlineToList(deadline);
+                        //Event
+                    } else if (words[0].equals("event")) {
+                        String eventWords[] = userInput.substring(6).split("/");
+                        Event event = new Event(eventWords[0].trim(), eventWords[1].substring(3));
+                        addEventToList(event);
+                    }
                 }
             }
         }
