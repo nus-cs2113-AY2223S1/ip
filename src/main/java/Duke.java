@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     /**
-     * Function checks if the user's 2nd word input is a numeral value whenever the 1st word input is "mark" or "unmark".
+     * Checks if the user's 2nd word input is a numeral value whenever the 1st word input is "mark" or "unmark".
      *
      * @param str the 2nd word input by the user whenever the 1st word input is "mark" or "unmark"
      * @return boolean true if the string is a numeral, and false if it contains any other characters.
@@ -33,6 +33,11 @@ public class Duke {
         return words.length;
     }
 
+    /**
+     * Prints the correct number of task message when called.
+     *
+     * @param numOfTasks the current count of tasking
+     */
     public static void printNumOfTasks(int numOfTasks) {
         if (numOfTasks == 0) {
             System.out.println("There are no tasks");
@@ -44,10 +49,10 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+
         /*
          * array storing the Task objects.
          */
-
         Task[] tasks = new Task[101];
 
         /*
@@ -62,11 +67,13 @@ public class Duke {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        while (true) { /* continuously receive user input */
+        while (true) {
+            // continuously receive user input
             inData = scan.nextLine();
             numOfWords = getNumOfWords(inData);
 
-            if (inData.equals("list")) { /* print entire list if input is equal to "list" */
+            if (inData.equals("list")) {
+                //print entire list if input is equal to "list"
                 System.out.println("Here are the tasks in your list:");
                 if (taskIndex == 1) {
                     printNumOfTasks(0);
@@ -77,14 +84,18 @@ public class Duke {
                 }
                 System.out.println("____________________________________________________________");
 
-            } else if (numOfWords >= 2) { /* check if the user input has 2 words before checking for commands "mark" and "unmark" */
+            } else if (numOfWords >= 2) {
+                // check if the user input has 2 words before checking for commands "mark" and "unmark"
 
                 String[] arr = inData.split(" ");
 
-                if (numOfWords == 2 && arr[0].equals("unmark")) { /* checks if user input has entered "unmark" as the first word */
-                    if (checkIsNumeric(arr[1])) { /* check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking */
+                if (numOfWords == 2 && arr[0].equals("unmark")) {
+                    // checks if user input has entered "unmark" as the first word
+                    if (checkIsNumeric(arr[1])) {
+                        // check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking
                         int unmarkedIndex = Integer.parseInt(arr[1]);
-                        if ((unmarkedIndex > 0) && (unmarkedIndex < taskIndex)) { /* checks if the user input command is within the current bound of the tasks array. */
+                        if ((unmarkedIndex > 0) && (unmarkedIndex < taskIndex)) {
+                            // checks if the user input command is within the current bound of the tasks array.
                             tasks[unmarkedIndex].setDone(false);
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println("[" + tasks[unmarkedIndex].getTaskType() + "]" + "[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
@@ -95,10 +106,12 @@ public class Duke {
                         System.out.println("Invalid unmark command");
                     }
 
-                } else if (numOfWords == 2 && arr[0].equals("mark")) { /* checks if user input has entered "mark" as the first word. */
+                } else if (numOfWords == 2 && arr[0].equals("mark")) {
+                    // checks if user input has entered "mark" as the first word.
                     if (checkIsNumeric(arr[1])) {
                         int markedIndex = Integer.parseInt(arr[1]);
-                        if ((markedIndex > 0) && (markedIndex < taskIndex)) { /* checks if the user input command is within the current bound of the tasks array. */
+                        if ((markedIndex > 0) && (markedIndex < taskIndex)) {
+                            // checks if the user input command is within the current bound of the tasks array.
                             tasks[markedIndex].setDone(true);
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println("[" + tasks[markedIndex].getTaskType() + "]" + "[" + tasks[markedIndex].getStatusIcon() + "] " + tasks[markedIndex].getDescription());
@@ -154,7 +167,8 @@ public class Duke {
                     }
                 }
             } else {
-                if (inData.equals("bye")) { /* exits the while loop if the user inputs is equal to "bye" */
+                if (inData.equals("bye")) {
+                    // exits the while loop if the user inputs is equal to "bye"
                     break;
                 } else {
                     System.out.println("Invalid command!!!!!");

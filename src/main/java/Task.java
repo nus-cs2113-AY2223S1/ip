@@ -17,7 +17,8 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        // mark completed task with X
+        return (isDone ? "X" : " ");
     }
 
     public String getTaskType() {
@@ -47,6 +48,7 @@ public class Task {
     public String getAt() {
         return "";
     }
+
 
     public String printList() {
         return "";

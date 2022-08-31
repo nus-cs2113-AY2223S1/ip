@@ -4,6 +4,7 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
     public String printList() {
         return "[T] [" + super.getStatusIcon() + "] " + super.description;
     }

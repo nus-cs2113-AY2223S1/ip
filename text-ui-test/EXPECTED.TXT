@@ -6,16 +6,25 @@ Added Todo Task : [T] return book
 There is only 1 task!
 Nice! I've marked this task as done:
 [T][X] return book
+Here are the tasks in your list:
+1. [T] [X] return book
+____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] return book
+Here are the tasks in your list:
+1. [T] [ ] return book
+____________________________________________________________
 Added deadline: [D] return calculator  (by:  tuesday )
 There are 2 tasks left :(
 Added new event : [E] go to school  (at:  monday afternoon )
 There are 3 tasks left :(
 Nice! I've marked this task as done:
 [D][X] return calculator
-OK, I've marked this task as not done yet:
-[D][ ] return calculator
+Here are the tasks in your list:
+1. [T] [ ] return book
+2. [D] [X] return calculator  (by:  tuesday )
+3. [E] [ ] go to school  (at:  monday afternoon )
+____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

@@ -7,6 +7,7 @@ public class Event extends Task {
         this.at = at;
     }
 
+    @Override
     public String getAt() {
         return at;
     }
@@ -16,8 +17,8 @@ public class Event extends Task {
         return "Added new event : [E] " + super.toString() + " (at: " + at + ")";
     }
 
+    @Override
     public String printList() {
         return "[E] [" + super.getStatusIcon() + "] " + super.description + " (at: " + at + ")";
     }
-
 }

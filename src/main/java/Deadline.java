@@ -7,6 +7,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
     public String getBy() {
         return by;
     }
@@ -16,6 +17,7 @@ public class Deadline extends Task {
         return "Added deadline: [D] " + super.toString() + " (by: " + by + ")";
     }
 
+    @Override
     public String printList() {
         return "[D] [" + super.getStatusIcon() + "] " + super.description + " (by: " + by + ")";
     }
