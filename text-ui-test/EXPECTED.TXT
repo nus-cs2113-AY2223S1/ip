@@ -5,3 +5,43 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+
+ Hello! I'm Duke
+ What can I do for you?
+todo Lok Qi Jun: Answer CS2113 tutorial questions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 Added:
+	 [T][ ] Lok Qi Jun: Answer CS2113 tutorial questions
+	 There are currently 1 task(s) in the list :)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+deadline weekly CS2113 quiz /by Monday 9pm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 Added:
+	 [D][ ] weekly CS2113 quiz     by : Monday 9pm
+	 There are currently 2 task(s) in the list :)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1: 	 [T][ ] Lok Qi Jun: Answer CS2113 tutorial questions
+2: 	 [D][ ] weekly CS2113 quiz     by : Monday 9pm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+event CS2113 lecture /at Friday 4 to 6pm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 Added:
+	 [E][ ] CS2113 lecture     at : Friday 4 to 6pm
+	 There are currently 3 task(s) in the list :)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mark 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1: 	 [T][X] Lok Qi Jun: Answer CS2113 tutorial questions
+2: 	 [D][ ] weekly CS2113 quiz     by : Monday 9pm
+3: 	 [E][ ] CS2113 lecture     at : Friday 4 to 6pm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1: 	 [T][X] Lok Qi Jun: Answer CS2113 tutorial questions
+2: 	 [D][ ] weekly CS2113 quiz     by : Monday 9pm
+3: 	 [E][ ] CS2113 lecture     at : Friday 4 to 6pm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BYE
+ Bye! Hope to see you again soon :)
