@@ -52,16 +52,18 @@ public class Task {
     public String toString() {
         String typeLetter = " ";
         switch (this.type) {
-            case TODO:
-                typeLetter = "T";
-                break;
-            case DEADLINE:
-                typeLetter = "D";
-                break;
-            case EVENT:
-                typeLetter = "E";
-                break;
+        case TODO:
+            typeLetter = "T";
+            break;
+        case DEADLINE:
+            typeLetter = "D";
+            break;
+        case EVENT:
+            typeLetter = "E";
+            break;
         }
-        return "[" + typeLetter + "][" + getMark() + "] " + getDescription();
+        return "[" + typeLetter + "]["
+                + getMark() + "] "
+                + getDescription();
     }
 }

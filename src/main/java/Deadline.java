@@ -21,6 +21,4 @@ public class Deadline extends Task {
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
-
-
 }

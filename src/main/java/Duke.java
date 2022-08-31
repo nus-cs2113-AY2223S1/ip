@@ -12,7 +12,8 @@ public class Duke {
 
     /* Constants */
     private static String INDENT = "\n    ";
-    private static String H_LINE = INDENT + "------------------------------------------------";
+    private static String H_LINE = INDENT +
+            "------------------------------------------------";
 
 
     public static void main(String[] args) {
@@ -58,35 +59,38 @@ public class Duke {
         boolean shouldExit = false;
 
         switch (inputType) {
-            case "bye":
-                shouldExit = true;
-                break;
-            case "list":
-                System.out.print(H_LINE);
-                printList();
-                System.out.println(H_LINE + "\n");
-                break;
-            default:
-                //create patterns for checking both mark and unmark
-                Pattern markPattern = Pattern.compile("^mark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
-                boolean matchesMark = markPattern.matcher(input).find();
-                Pattern unmarkPattern = Pattern.compile("^unmark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
-                boolean matchesUnmark = unmarkPattern.matcher(input).find();
+        case "bye":
+            shouldExit = true;
+            break;
+        case "list":
+            System.out.print(H_LINE);
+            printList();
+            System.out.println(H_LINE + "\n");
+            break;
+        default:
+            //create patterns for checking both mark and unmark
+            Pattern markPattern = Pattern.compile("^mark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
+            boolean matchesMark = markPattern.matcher(input).find();
+            Pattern unmarkPattern = Pattern.compile("^unmark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
+            boolean matchesUnmark = unmarkPattern.matcher(input).find();
 
-                //if the item is to be marked or unmarked, follow the correct steps to extract the index
-                if (matchesMark || matchesUnmark) {
-                    markOrUnmark(matchesMark, input);
+            //if the item is to be marked or unmarked, follow the correct steps to extract the index
+            if (matchesMark || matchesUnmark) {
+                markOrUnmark(matchesMark, input);
 
                 //Otherwise, create a new task
-                } else {
-                    Task task = createTask(input);
-                    if (task == null) {
-                        System.out.println(H_LINE + INDENT + "Looks like there was an issue with adding this task: " + input + INDENT + "Please try again!" + H_LINE + "\n");
-                    }
-                    System.out.println(H_LINE + INDENT + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
-                    taskList[listIndex] = task;
-                    listIndex++;
+            } else {
+                Task task = createTask(input);
+                if (task == null) {
+                    System.out.println(H_LINE + INDENT
+                            + "Looks like there was an issue with adding this task: "
+                            + input + INDENT + "Please try again!" + H_LINE + "\n");
                 }
+                System.out.println(H_LINE + INDENT
+                        + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
+                taskList[listIndex] = task;
+                listIndex++;
+            }
         }
         return shouldExit;
     }
@@ -96,12 +100,14 @@ public class Duke {
         if (input.startsWith("deadline")) {
             task = createDeadline(input);
             if (task == null) {
-                System.out.println(INDENT + "Was unable to create a Deadline! Please specify a date after writing /by.");
+                System.out.println(INDENT
+                        + "Was unable to create a Deadline! Please specify a date after writing /by.");
             }
         } else if (input.startsWith("event")) {
             task = createEvent(input);
             if (task == null) {
-                System.out.println(INDENT + "Was unable to create an Event! Please specify a date after writing /at.");
+                System.out.println(INDENT
+                        + "Was unable to create an Event! Please specify a date after writing /at.");
             }
         } else {
             task = new Task(input);
@@ -159,7 +165,6 @@ public class Duke {
             System.out.print(INDENT + "Success!");
             printList();
         }
-
         System.out.println(H_LINE + "\n");
     }
 
