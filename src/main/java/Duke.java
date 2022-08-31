@@ -16,7 +16,17 @@ public class Duke {
                 int index = Integer.parseInt(input.substring(7));
                 dukeController.unmarkTask(index);
             } else {
-                dukeController.addTask(input);
+                String[] inputs = input.split(" +", 2);
+                if (inputs[0].equals("todo")){
+                    dukeController.addToDo(inputs[1]);
+
+                } else if (inputs[0].equals("event")) {
+                    String[] eventInfo = inputs[1].split("/",2);
+                    dukeController.addEvent(eventInfo[0],eventInfo[1]);
+                } else if (inputs[0].equals("deadline")){
+                    String[] deadlineInfo = inputs[1].split("/", 2);
+                    dukeController.addDeadline(deadlineInfo[0], deadlineInfo[1]);
+                }
             }
 
         }

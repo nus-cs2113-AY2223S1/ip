@@ -9,16 +9,40 @@ public class DukeController {
         for (int i = 0; i < taskList.size(); i++){
             int listIndex = i+1;
             Task taskToPrint = taskList.get(i);
-            System.out.println(" "+listIndex+".["+taskToPrint.getStatusIcon()+"] "+ taskToPrint.description);
+            System.out.print(" "+listIndex+".");
+            taskToPrint.printItem();
         }
         printNewLine();
     }
 
-    public void addTask(String input){
-        System.out.println(" added: " + input);
-        Task newTask = new Task(input);
-        taskList.add(newTask);
+    public void addToDo(String input){
+        System.out.println("Got it. I've added this task:");
+        ToDo toDo = new ToDo(input);
+        toDo.printItem();
+        taskList.add(toDo);
+        System.out.println("You now have " + taskList.size() + " tasks");
         printNewLine();
+
+    }
+
+    public void addEvent(String event, String eventTiming){
+        System.out.println("Got it. I've added this task:");
+        Event newEvent = new Event(event, eventTiming);
+        newEvent.printItem();;
+        taskList.add(newEvent);
+        System.out.println("You now have " + taskList.size() + " tasks");
+        printNewLine();
+
+    }
+
+    public void addDeadline(String deadline, String by){
+        System.out.println("Got it. I've added this task:");
+        Deadline newDeadline = new Deadline(deadline, by);
+        newDeadline.printItem();
+        taskList.add(newDeadline);
+        System.out.println("You now have " + taskList.size() + " tasks");
+        printNewLine();
+
     }
 
     public String getInput(){
@@ -51,7 +75,7 @@ public class DukeController {
         Task task = taskList.get(index);
         task.updateStatus(true);
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("  ["+task.getStatusIcon()+"] "+task.description);
+        System.out.println("  [T]["+task.getStatusIcon()+"] "+task.description);
         printNewLine();
 
     }
