@@ -32,4 +32,10 @@ public class Task {
             return STATUS_NOTDONE_ICON;
         }
     }
+
+    public String toString(){
+        return "[" + getStatusIcon() + "] " + taskDescription;
+    }
 }
+
+
