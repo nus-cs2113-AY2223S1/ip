@@ -21,49 +21,49 @@ public class Duke {
         }
         System.out.println("Bye. Hope to see you again soon!");
 
-        // level 2 & 3
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        int counter = 0;
-        int split;
-        String[] toDoList = new String[100];
-        String[] markers = new String[100];
-        for(int m=0; m<100; m++){ //set all unmarked
-            markers[m] = " ";
-        }
-        while (true){
-            Scanner ScannerObject2 = new Scanner(System.in);
-            String add = ScannerObject2.nextLine();
-            if(Objects.equals(add, "list")){
-                System.out.println("Here are the tasks in your list:");
-                for(int i=0; i<counter; i++){
-                    System.out.println((i+1)+".["+ markers[i] +"] " +toDoList[i]);
-                }
-                continue;
-            } else if (Objects.equals(add, "bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if (add.contains("mark") || add.contains("unmark")) {
-                 if (add.contains("unmark")) {
-                     String[] parts = add.split(" ");
-                     split = Integer.parseInt(parts[1]);
-                     markers[split - 1] = " ";
-                     System.out.println("OK, I've marked this task as not done yet:");
-                     System.out.println("[ ] " + toDoList[split - 1]);
-                 } else if (add.contains("mark")) {
-                    String[] parts = add.split(" ");
-                    split = Integer.parseInt(parts[1]);
-                    markers[split-1] = "X";
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] "+ toDoList[split-1]);
-                }
-                continue;
-            } else {
-                toDoList[counter] = add;
-                System.out.println("added: " + add);
-            }
-            counter++;
-        }
+//        // level 2 & 3
+//        System.out.println("Hello! I'm Duke");
+//        System.out.println("What can I do for you?");
+//        int counter = 0;
+//        int split;
+//        String[] toDoList = new String[100];
+//        String[] markers = new String[100];
+//        for(int m=0; m<100; m++){ //set all unmarked
+//            markers[m] = " ";
+//        }
+//        while (true){
+//            Scanner ScannerObject2 = new Scanner(System.in);
+//            String add = ScannerObject2.nextLine();
+//            if(Objects.equals(add, "list")){
+//                System.out.println("Here are the tasks in your list:");
+//                for(int i=0; i<counter; i++){
+//                    System.out.println((i+1)+".["+ markers[i] +"] " +toDoList[i]);
+//                }
+//                continue;
+//            } else if (Objects.equals(add, "bye")) {
+//                System.out.println("Bye. Hope to see you again soon!");
+//                break;
+//            } else if (add.contains("mark") || add.contains("unmark")) {
+//                 if (add.contains("unmark")) {
+//                     String[] parts = add.split(" ");
+//                     split = Integer.parseInt(parts[1]);
+//                     markers[split - 1] = " ";
+//                     System.out.println("OK, I've marked this task as not done yet:");
+//                     System.out.println("[ ] " + toDoList[split - 1]);
+//                 } else if (add.contains("mark")) {
+//                    String[] parts = add.split(" ");
+//                    split = Integer.parseInt(parts[1]);
+//                    markers[split-1] = "X";
+//                    System.out.println("Nice! I've marked this task as done:");
+//                    System.out.println("[X] "+ toDoList[split-1]);
+//                }
+//                continue;
+//            } else {
+//                toDoList[counter] = add;
+//                System.out.println("added: " + add);
+//            }
+//            counter++;
+//        }
 
 
         //level 4
@@ -91,15 +91,20 @@ public class Duke {
             }
             String command = input.substring(0, input.indexOf(' '));
             String content = input.substring(input.indexOf(' ') + 1);
-            if(Objects.equals(command, "todo")){
-                //add task to list
+
+            boolean isToDo = Objects.equals(command, "todo");
+            boolean isDeadline = Objects.equals(command, "deadline");
+            boolean isEvent = Objects.equals(command, "event");
+            boolean isMark = Objects.equals(command, "mark");
+            boolean isUnmark = Objects.equals(command, "unmark");
+
+            if(isToDo){ //add task to list
                 TaskList[ListCounter][0] = "T";
                 TaskList[ListCounter][2] = content;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
                 System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
-            } else if (Objects.equals(command, "deadline")) {
-                // add deadline to list, split at /
+            } else if (isDeadline) { // add deadline to list
                 TaskList[ListCounter][0] = "D";
                 String task = content.substring(0, content.indexOf('/'));
                 String timing = content.substring(content.indexOf('/') + 1);
@@ -107,8 +112,7 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
                 System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
-            } else if (Objects.equals(command, "event")) {
-                // add to event to list
+            } else if (isEvent) { // add to event to list
                 TaskList[ListCounter][0] = "E";
                 String task = content.substring(0, content.indexOf('/'));
                 String timing = content.substring(content.indexOf('/') + 1);
@@ -116,14 +120,12 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("[" + TaskList[ListCounter][0]+"][" + TaskList[ListCounter][1]+"] " + TaskList[ListCounter][2]);
                 System.out.println("Now you have "+ (ListCounter+1) +" tasks in your list.");
-            } else if (Objects.equals(command, "mark")) {
-                //mark task
+            } else if (isMark) { //mark task
                 int TaskNumber = Integer.parseInt(content);
                 TaskList[TaskNumber-1][1] = "X";
                 System.out.println("Alright. Marked task " + TaskNumber);
                 continue;
-            } else if (Objects.equals(command, "unmark")) {
-                //unmark task
+            } else if (isUnmark) { //unmark task
                 int TaskNumber = Integer.parseInt(content);
                 TaskList[TaskNumber-1][1] = " ";
                 System.out.println("Alright. Unmarked task " + TaskNumber);
