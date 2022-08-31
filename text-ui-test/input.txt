@@ -1,0 +1,9 @@
+todo read book
+deadline homework /by 3pm today
+event meeting /at 4pm today
+list
+mark 1
+list
+unmark 1
+list
+bye
