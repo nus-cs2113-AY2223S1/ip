@@ -9,11 +9,11 @@ public class Event extends Task{
             super.description += splitInputs[i++];
         }
         i += 1;
-        super.deadline = "( at :";
+        super.dueDate = "( at :";
         while(i < splitInputs.length) {
-            super.deadline += splitInputs[i++];
-            super.deadline += " ";
+            super.dueDate += splitInputs[i++];
+            super.dueDate += " ";
         }
-        super.deadline += ")";
+        super.dueDate += ")";
     }
 }

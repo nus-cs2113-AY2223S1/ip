@@ -8,6 +8,6 @@ public class Todo extends Task{
             this.description += " ";
             super.description += splitInputs[i++];
         }
-        super.deadline = "";
+        super.dueDate = "";
     }
 }

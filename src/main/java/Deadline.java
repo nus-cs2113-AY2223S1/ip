@@ -9,11 +9,11 @@ public class Deadline extends Task{
             super.description += splitInputs[i++];
         }
         i += 1;
-        super.deadline = "( by :";
+        super.dueDate = "( by :";
         while(i < splitInputs.length) {
-            super.deadline += splitInputs[i++];
-            super.deadline += " ";
+            super.dueDate += splitInputs[i++];
+            super.dueDate += " ";
         }
-        super.deadline += ")";
+        super.dueDate += ")";
     }
 }

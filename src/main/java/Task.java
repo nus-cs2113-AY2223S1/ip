@@ -1,6 +1,6 @@
 public abstract class Task{
     protected String description;
-    protected String deadline;
+    protected String dueDate;
     protected String taskType;
     protected boolean isDone;
 
@@ -28,6 +28,6 @@ public abstract class Task{
     public void printTask() {
         System.out.println("\t [" + this.taskType + "]" +
                 this.getMarkStatus() + " " +
-                this.description + "\t\t" + this.deadline);
+                this.description + "\t\t" + this.dueDate);
     }
 }
