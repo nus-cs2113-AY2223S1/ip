@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -20,15 +22,24 @@ public class Duke {
     public static void handleUserInput(){
         Scanner in = new Scanner(System.in);
         String inputText = "";
+        List<String> inputs = new ArrayList<>();
         boolean isRunning = true;
         while(isRunning){
             inputText = in.nextLine();
-            if(inputText.equals("bye")){
+            if(inputText.equals("bye")) {
                 isRunning = false;
             }
+            else if (inputText.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for(int i=0;i< inputs.size();i++){
+                    System.out.println("\t"+(i+1)+". "+ inputs.get(i) );
+                }
+                System.out.println("____________________________________________________________");
+            }
             else{
+                inputs.add(inputText);
                 System.out.println("____________________________________________________________\n" +
-                        "     "+inputText +"\n"+
+                        "\tadded: "+inputText +"\n"+
                         "____________________________________________________________\n");
             }
 
