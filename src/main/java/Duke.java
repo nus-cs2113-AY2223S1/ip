@@ -13,31 +13,31 @@ public class Duke {
         System.out.println("What can I do for you?");
 
         // level 1
-        Scanner sc = new Scanner(System.in);
-        String echo = sc.next();
+        Scanner ScannerObject = new Scanner(System.in);
+        String echo = ScannerObject.next();
         while (!Objects.equals(echo, "bye")){
             System.out.println(echo);
-            echo = sc.next();
+            echo = ScannerObject.next();
         }
         System.out.println("Bye. Hope to see you again soon!");
 
         // level 2 & 3
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        int count = 0;
-        int marker;
-        String[] storage = new String[100];
-        String[] marked = new String[100];
+        int counter = 0;
+        int split;
+        String[] toDoList = new String[100];
+        String[] markers = new String[100];
         for(int m=0; m<100; m++){ //set all unmarked
-            marked[m] = " ";
+            markers[m] = " ";
         }
         while (true){
-            Scanner sc2 = new Scanner(System.in);
-            String add = sc2.nextLine();
+            Scanner ScannerObject2 = new Scanner(System.in);
+            String add = ScannerObject2.nextLine();
             if(Objects.equals(add, "list")){
                 System.out.println("Here are the tasks in your list:");
-                for(int i=0; i<count; i++){
-                    System.out.println((i+1)+".["+ marked[i] +"] " +storage[i]);
+                for(int i=0; i<counter; i++){
+                    System.out.println((i+1)+".["+ markers[i] +"] " +toDoList[i]);
                 }
                 continue;
             } else if (Objects.equals(add, "bye")) {
@@ -46,23 +46,23 @@ public class Duke {
             } else if (add.contains("mark") || add.contains("unmark")) {
                  if (add.contains("unmark")) {
                      String[] parts = add.split(" ");
-                     marker = Integer.parseInt(parts[1]);
-                     marked[marker - 1] = " ";
+                     split = Integer.parseInt(parts[1]);
+                     markers[split - 1] = " ";
                      System.out.println("OK, I've marked this task as not done yet:");
-                     System.out.println("[ ] " + storage[marker - 1]);
+                     System.out.println("[ ] " + toDoList[split - 1]);
                  } else if (add.contains("mark")) {
                     String[] parts = add.split(" ");
-                    marker = Integer.parseInt(parts[1]);
-                    marked[marker-1] = "X";
+                    split = Integer.parseInt(parts[1]);
+                    markers[split-1] = "X";
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] "+ storage[marker-1]);
+                    System.out.println("[X] "+ toDoList[split-1]);
                 }
                 continue;
             } else {
-                storage[count] = add;
+                toDoList[counter] = add;
                 System.out.println("added: " + add);
             }
-            count++;
+            counter++;
         }
 
     }
