@@ -11,6 +11,10 @@ public class Duke {
             taskLine = line.substring(length + 1);
         }
 
+        specificCase(line, action, commandWord, taskLine);
+    }
+
+    private static void specificCase(String line, TaskManager action, String commandWord, String taskLine) {
         switch (commandWord) {
         case "bye":
             action.bye();

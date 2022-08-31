@@ -16,21 +16,7 @@ public class TaskManager {
     }
 
     public void addTask(String line, String commandWord) {
-        if (commandWord.equals("todo")) {
-            tasks[taskCount] = new Todo(line);
-        } else if (commandWord.equals("deadline")) {
-            int index = line.indexOf("/by ");
-            String by = line.substring(index + 4);
-            line = line.substring(0, index - 1);
-            tasks[taskCount] = new Deadline(line, by);
-        } else if (commandWord.equals("event")) {
-            int index = line.indexOf("/at ");
-            String at = line.substring(index + 4);
-            line = line.substring(0, index - 1);
-            tasks[taskCount] = new Event(line, at);
-        } else {
-            tasks[taskCount] = new Task(line);
-        }
+        separatingCommands(line, commandWord);
         System.out.println("  ____________________________________________________________");
         System.out.println("\tAdded:");
         System.out.println("\t  " + tasks[taskCount].getType() + tasks[taskCount].getStatus()
@@ -38,6 +24,36 @@ public class TaskManager {
         taskCount++;
         System.out.println("\tNow you have " + taskCount + " tasks in the list");
         System.out.println("  ____________________________________________________________");
+    }
+
+    private void separatingCommands(String line, String commandWord) {
+        if (commandWord.equals("todo")) {
+            createTodo(line);
+        } else if (commandWord.equals("deadline")) {
+            createDeadline(line);
+        } else if (commandWord.equals("event")) {
+            createEvent(line);
+        } else {
+            tasks[taskCount] = new Task(line);
+        }
+    }
+
+    private void createTodo(String line) {
+        tasks[taskCount] = new Todo(line);
+    }
+
+    private void createEvent(String line) {
+        int index = line.indexOf("/at ");
+        String at = line.substring(index + 4);
+        line = line.substring(0, index - 1);
+        tasks[taskCount] = new Event(line, at);
+    }
+
+    private void createDeadline(String line) {
+        int index = line.indexOf("/by ");
+        String by = line.substring(index + 4);
+        line = line.substring(0, index - 1);
+        tasks[taskCount] = new Deadline(line, by);
     }
 
     public void listTasks() {
