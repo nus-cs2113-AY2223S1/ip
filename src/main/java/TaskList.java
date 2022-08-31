@@ -1,41 +1,36 @@
 public class TaskList {
+    public static final String COMMAND_MARKED = "mark";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
     Task[] list = new Task[100];
-    private int index = 0;
-
+    private int numberOfTasks = 0;
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
-    public void unmarkStatus(String input) {
-        String[] instructions = input.split(" ");
-        int number = Integer.parseInt(instructions[1]);
-        list[number-1].isDone = false;
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + list[number-1].description);
-        printLine();
-    }
-
     public void markStatus(String input) {
         String[] instructions = input.split(" ");
-        int number = Integer.parseInt(instructions[1]);
-        list[number-1].isDone = true;
+        int index = Integer.parseInt(instructions[1]);
         printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + list[number-1].description);
+        if (instructions[0].equals(COMMAND_MARKED)) {
+            list[index - 1].isDone = true;
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            list[index-1].isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println("  " + list[index-1]);
         printLine();
     }
-
-
-
     public void printList() {
         printLine();
-        for (int i = 0; i < index; i++) {
-            String status = list[i].getStatusIcon();
-            System.out.println(i + 1 + ".[" + status + "] " + list[i].description);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.print((i + 1) + ".");
+            System.out.println(list[i].toString());
         }
         printLine();
     }
-
     public void start() {
         printLine();
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -47,11 +42,26 @@ public class TaskList {
         printLine();
     }
     public void addTask(String input) {
-        Task t = new Task(input);
-        list[index] = t;
-        index++;
         printLine();
-        System.out.println("added: " + input);
+        String[] instructions = input.split(" ");
+        Task t = null;
+        if (instructions[0].equals(COMMAND_DEADLINE)) {
+            String deadlineTask = input.replace("deadline ", "");
+            String[] deadlineInstructions = deadlineTask.split(" /by ");
+            t = new Deadline(deadlineInstructions[0],deadlineInstructions[1]);
+        }
+        else if (instructions[0].equals(COMMAND_EVENT)) {
+            String eventTask = input.replace("event ", "");
+            String[] deadlineInstructions = eventTask.split(" /at ");
+            t = new Event(deadlineInstructions[0],deadlineInstructions[1]);
+        }
+        else if (instructions[0].equals(COMMAND_TODO)) {
+            String todoTask = input.replace("todo ", "");
+            t = new Todo(todoTask);
+        }
+        list[numberOfTasks] = t;
+        numberOfTasks++;
+        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         printLine();
     }
 }
