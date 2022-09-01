@@ -17,7 +17,6 @@ public class Duke {
         List dukeList = new List();
         String[] words;
         String line;
-        int itemNum;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         while (!line.equals("bye")){
@@ -25,11 +24,13 @@ public class Duke {
             if (line.equals("list")){
                 dukeList.printingList();
             } else if (words[0].equals("unmark")){
-                dukeList.unmarkingItem(Integer.parseInt(words[1]));
+                int TaskNumber = Integer.parseInt(words[1]);
+                dukeList.unmarkingItem(TaskNumber);
             } else if (words[0].equals("mark")) {
-                dukeList.markingItem(Integer.parseInt(words[1]));
+                int TaskNumber = Integer.parseInt(words[1]);
+                dukeList.markingItem(TaskNumber);
             } else {
-                dukeList.addItem(line);
+                dukeList.addTask(line);
             }
             line = in.nextLine();
         }

@@ -1,11 +1,10 @@
-public class TodoTask extends Task{
-    public TodoTask(String description) {
+public class Todo extends Task {
+    public Todo(String description) {
         super(description);
     }
 
     @Override
     public String toString() {
-        System.out.println("[T][" + getMarking() + "] " + getDescription());
+        return "[T][" + getMarking() + "] " + getDescription();
     }
-
 }

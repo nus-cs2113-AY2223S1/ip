@@ -1,58 +1,61 @@
 public class List {
     private static int amountOfItems = 0;
-    private static String[] listItemNames;
-    private static boolean[] listItemsMarks;
+    private static Task[] tasks;
 
 
-    public List(){
-         listItemNames = new String[100];
-         listItemsMarks = new boolean[100];
+    public List() {
+        tasks = new Task[100];
     }
 
-    public int getListSize(){
+    public int getListSize() {
         return amountOfItems;
     }
 
-    public void addItem(String item){
-        listItemNames[amountOfItems] = item;
-        listItemsMarks[amountOfItems] = false;
+    public void addTask(String input) {
+        if (input.contains("/by") || input.split(" ")[0].equals("deadline")) {
+            if (input.split(" ", 2)[0].equals("deadline")) {
+                input = input.split(" ", 2)[1];
+            }
+            String[] details = input.split(" /by ");
+            tasks[amountOfItems] = new Deadline(details[0], details[1]);
+            tasks[amountOfItems] = new Deadline(details[0], details[1]);
+        } else if (input.contains("/at") || input.split(" ")[0].equals("event")) {
+            if (input.split(" ", 2)[0].equals("event")) {
+                input = input.split(" ", 2)[1];
+            }
+            String[] details = input.split(" /at ");
+            tasks[amountOfItems] = new Event(details[0], details[1]);
+        } else {
+            if (input.split(" ", 2)[0].equals("todo")) {
+                input = input.split(" ", 2)[1];
+            }
+            tasks[amountOfItems] = new Todo(input);
+        }
+        Message.printingHorizontalLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks[amountOfItems]);
+        System.out.println("Now you have " + (amountOfItems + 1) + " tasks in the list.");
+        Message.printingHorizontalLine();
         amountOfItems++;
-        printingItemAdded(item);
     }
 
-    public void printingList(){
+    public void printingList() {
         Message.printingHorizontalLine();
-        for (int i = 0; i<amountOfItems; i++)
-        {
-            printingItem(i);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < amountOfItems; i++) {
+            System.out.print(i + 1 + ". ");
+            System.out.println(tasks[i]);
         }
         Message.printingHorizontalLine();
     }
 
-    public void printingItem(int i){
-        String mark = " ";
-        if (listItemsMarks[i]){
-            mark = "X";
-        }
-        System.out.println(i + 1 + ". [" + mark + "] " + listItemNames[i]);
+    public void markingItem(int i) {
+        tasks[i-1].markDone();
     }
 
-    public void markingItem(int i){
-        System.out.println("Nice! I've marked this task as done:");
-        listItemsMarks[i-1] = true;
-        System.out.println( " [X] " + listItemNames[i-1]);
+    public void unmarkingItem(int i) {
+        tasks[i-1].unmarkDone();
     }
 
-    public void unmarkingItem(int i){
-        System.out.println(" OK, I've marked this task as not done yet:");
-        listItemsMarks[i-1] = false;
-        System.out.println( " [ ] " + listItemNames[i-1]);
-    }
-
-    public void printingItemAdded(String item){
-        Message.printingHorizontalLine();
-        System.out.println("added: " + item);
-        Message.printingHorizontalLine();
-    }
 
 }
