@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     /** Array of assignments that is limited to 100 tasks */
-    private static final Task[] ASSIGNMENTS = new Task[100];
+    private static final Task[] assignments = new Task[100];
     /** Use to track the number of Task that is added */
     private static int indexTask = 0;
 
@@ -21,7 +21,7 @@ public class Duke {
 
         System.out.println("\t Roger that. I've added this task:");
 
-        if(isToDo) {
+        if (isToDo) {
             addToDoTask(splitUserInputs);
         } else if (isDeadlines) {
             addDeadlineTask(splitUserInputs);
@@ -37,10 +37,10 @@ public class Duke {
     /**
      * Returns the indexTask that is .
      *
-     * @param assignment assignment that is based on the type of task.
+     * @param assignment that takes in the type of task.
      */
     public static void addTask(Task assignment) {
-        ASSIGNMENTS[indexTask] = assignment;
+        assignments[indexTask] = assignment;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Duke {
      */
     private static void addNoTypeTask(String userInput) {
         addTask(new Task(userInput));
-        System.out.println("\t   [ ][ ] " + ASSIGNMENTS[indexTask].description);
+        System.out.println("\t   [ ][ ] " + assignments[indexTask].description);
     }
 
     /**
@@ -60,9 +60,10 @@ public class Duke {
      */
     private static void addEventTask(String[] splitUserInputs) {
         addTask(new Event(splitUserInputs[1]));
-        ASSIGNMENTS[indexTask].markTypeTask();
-        System.out.println("\t   [" + ASSIGNMENTS[indexTask].getStatusOfTypeTask() + "]" + "[ ] "
-                + ASSIGNMENTS[indexTask].displayTypeTaskDetails());
+        assignments[indexTask].markTypeTask();
+        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
+                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails();
+        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -72,9 +73,10 @@ public class Duke {
      */
     private static void addDeadlineTask(String[] splitUserInputs) {
         addTask(new Deadline(splitUserInputs[1]));
-        ASSIGNMENTS[indexTask].markTypeTask();
-        System.out.println("\t   [" + ASSIGNMENTS[indexTask].getStatusOfTypeTask() + "]" + "[ ] "
-                + ASSIGNMENTS[indexTask].displayTypeTaskDetails());
+        assignments[indexTask].markTypeTask();
+        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
+                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails();
+        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -84,9 +86,10 @@ public class Duke {
      */
     private static void addToDoTask(String[] splitUserInputs) {
         addTask(new ToDo(splitUserInputs[1]));
-        ASSIGNMENTS[indexTask].markTypeTask();
-        System.out.println("\t   [" + ASSIGNMENTS[indexTask].getStatusOfTypeTask() + "]" + "[ ] "
-                + ASSIGNMENTS[indexTask].description);
+        assignments[indexTask].markTypeTask();
+        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
+                + "]" + "[ ] " + assignments[indexTask].description;
+        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -97,11 +100,11 @@ public class Duke {
      * @param lineDivider a string for line separator.
      * @return error which is a boolean that tell us if there is an error or not.
      */
-    public static boolean hasErrorMarkTask(int markIndex, String lineDivider) {
+    public static boolean hasMarkTaskError(int markIndex, String lineDivider) {
         boolean error = false;
         try {
-            ASSIGNMENTS[markIndex].markAsDone();
-        } catch(NullPointerException e) {
+            assignments[markIndex].markAsDone();
+        } catch (NullPointerException e) {
             System.out.println("\t You are trying to mark a task that has not been specified!");
             System.out.println("\t" + lineDivider);
             error = true;
@@ -117,11 +120,11 @@ public class Duke {
      * @param lineDivider a string for line separator.
      * @return error which is a boolean that tell us if there is an error or not.
      */
-    public static boolean hasErrorUnMarkTask(int unMarkIndex, String lineDivider){
+    public static boolean hasUnmarkTaskError(int unMarkIndex, String lineDivider){
         boolean error = false;
         try {
-            ASSIGNMENTS[unMarkIndex].unmarkAsDone();
-        } catch(NullPointerException e) {
+            assignments[unMarkIndex].unmarkAsDone();
+        } catch (NullPointerException e) {
             System.out.println("\t You are trying to unmark a task that has not been specified!");
             System.out.println("\t" + lineDivider);
             error = true;
@@ -158,11 +161,11 @@ public class Duke {
 
         System.out.println("\t Here are the tasks in your list:");
 
-        for(int i = 0; i < indexTask; i++) {
+        for (int i = 0; i < indexTask; i++) {
             System.out.println("\t " + numberOrder + ".["
-                    + ASSIGNMENTS[i].getStatusOfTypeTask() + "]["
-                    + ASSIGNMENTS[i].getStatusOfDone() + "] "
-                    + ASSIGNMENTS[i].displayTypeTaskDetails());
+                    + assignments[i].getStatusOfTypeTask() + "]["
+                    + assignments[i].getStatusOfDone() + "] "
+                    + assignments[i].displayTypeTaskDetails());
             numberOrder++;
         }
     }
@@ -174,14 +177,14 @@ public class Duke {
      * @param isMark boolean true or false to check if the task has been marked.
      */
     public static void printMarkOrUnmarkTask(int markIndex, boolean isMark) {
-        if(isMark) {
+        if (isMark) {
             System.out.println("\t Awesome! I've marked this task as done:");
         } else {
             System.out.println("\t Awesome! I've marked this task as not done yet:");
         }
-        System.out.println("\t\t [" + ASSIGNMENTS[markIndex].getStatusOfTypeTask()
-                + "]" + "[" + ASSIGNMENTS[markIndex].getStatusOfDone()
-                + "] " + ASSIGNMENTS[markIndex].description);
+        System.out.println("\t\t [" + assignments[markIndex].getStatusOfTypeTask()
+                + "]" + "[" + assignments[markIndex].getStatusOfDone()
+                + "] " + assignments[markIndex].description);
     }
 
     public static void main(String[] args) {
@@ -206,21 +209,21 @@ public class Duke {
             boolean isMark = splitUserInputs[0].equals("mark");
             boolean isUnmark = splitUserInputs[0].equals("unmark");
 
-            if(isUserInputData) {
+            if (isUserInputData) {
                 sortTypeOfTask(userInput, splitUserInputs);
             } else if (isList) {
                 printList();
             } else if (isMark) {
                 int indexMark = Integer.parseInt(splitUserInputs[1]) - 1;
                 //To handle a case where user tries to mark a task that has not been specified
-                if(hasErrorMarkTask(indexMark, lineDivider)) {
+                if (hasMarkTaskError(indexMark, lineDivider)) {
                     continue;
                 }
                 printMarkOrUnmarkTask(indexMark, true);
             } else if (isUnmark) {
                 int indexMark = Integer.parseInt(splitUserInputs[1]) - 1;
                 //To handle a case where user tries to unmark a task that has not been specified
-                if(hasErrorUnMarkTask(indexMark, lineDivider)){
+                if (hasUnmarkTaskError(indexMark, lineDivider)){
                     continue;
                 }
                 printMarkOrUnmarkTask(indexMark, false);

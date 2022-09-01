@@ -34,12 +34,11 @@ public class Task {
     public String displayTypeTaskDetails() {
         String typeTaskParameter = description;
         boolean isEventOrDeadline = description.contains("/at") || description.contains("/by");
-        if(isEventOrDeadline) {
+        if (isEventOrDeadline) {
             typeTaskParameter = modifyDescription(typeTaskParameter);
         }
         return typeTaskParameter;
     }
-
 
     /**
      * Modifies the given description by the User
