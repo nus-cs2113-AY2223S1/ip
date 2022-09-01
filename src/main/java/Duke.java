@@ -15,16 +15,27 @@ public class Duke {
         System.out.println("------------------------------------");
         Scanner in = new Scanner(System.in);
         String input;
+        String[] inputArray = new String[100];
+        int addCount = 0;
         do {
             input = in.nextLine();
             if(input.equals("bye")){
                 System.out.println("------------------------------------");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("------------------------------------");
-            } else {
+            } else if (input.equals("list")){
                 System.out.println("------------------------------------");
-                System.out.println(input);
+                for (int i = 1; i <= addCount; i++){
+                    System.out.println(i + ". "+ inputArray[i-1]);
+                }
                 System.out.println("------------------------------------");
+            }
+            else {
+                inputArray[addCount] = input;
+                System.out.println("------------------------------------");
+                System.out.println("added: "+ input);
+                System.out.println("------------------------------------");
+                addCount +=1;
             }
         } while (!input.equals("bye"));
 
