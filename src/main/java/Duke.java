@@ -32,7 +32,7 @@ public class Duke {
 
     public static void printAddItemText(Task input) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(input.printTask());
+        System.out.println(input.taskStatusWithDescriptionText());
         System.out.println("Now you have " + taskSize + " tasks in the list.");
         printHorizontalLine();
     }
@@ -43,7 +43,7 @@ public class Duke {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 1; i < taskSize + 1; i++) {
-                System.out.println(i + "." + taskList[i].printTask());
+                System.out.println(i + "." + taskList[i].taskStatusWithDescriptionText());
             }
         }
         printHorizontalLine();

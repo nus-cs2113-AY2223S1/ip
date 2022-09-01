@@ -13,15 +13,15 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone(boolean isDone){
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
-    public char getTaskType(){
+    public char getTaskType() {
         return taskType;
     }
 
-    public String printTask() {
+    public String taskStatusWithDescriptionText() {
         String output = "[" + this.getTaskType() + "]";
         output += "[" + this.getStatusIcon() + "] ";
         output += this.description;
