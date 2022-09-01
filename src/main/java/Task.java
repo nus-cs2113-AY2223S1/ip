@@ -11,28 +11,48 @@ public class Task {
         this.id = numberOfTasks;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+    public String getStatusIcon() { return (isDone ? "X" : " "); }
+
+    public String toString() { return "[ ]" + "[" + getStatusIcon() + "] " + description; }
+
+    public void setDone() { isDone = true; }
+
+    public void setNotDone() { isDone = false; }
+
+    public static int getNumberOfTasks() { return numberOfTasks; }
+
+    public static void printHorizontalLine() {
+        System.out.println("    ____________________________________________________________");
     }
 
-    public String getDescription() {
-        return description;
+    public void printNewTask() {
+        printHorizontalLine();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + this);
+        System.out.println("     Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+        printHorizontalLine();
     }
 
-    public void printTask() {
-        System.out.println(this.id + ".[" + this.getStatusIcon() + "] " + this.description);
+    public static void printTaskList(Task[] tasks) {
+        Task.printHorizontalLine();
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            System.out.println("     " + Integer.toString(tasks[i].id) + "." + tasks[i]);
+        }
+        Task.printHorizontalLine();
     }
 
-    public void setDone() {
-        isDone = true;
+    public void printMark() {
+        Task.printHorizontalLine();
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + this);
+        Task.printHorizontalLine();
     }
 
-    public void setNotDone() {
-        isDone = false;
+    public void printUnmark() {
+        Task.printHorizontalLine();
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + this);
+        Task.printHorizontalLine();
     }
-
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
-    //...
 }
