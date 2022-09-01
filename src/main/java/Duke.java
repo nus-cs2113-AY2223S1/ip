@@ -90,7 +90,7 @@ public class Duke {
                 for (Task task:tasks){
                     System.out.println("Here are the tasks in your list: \n" 
                                         + (tasks.indexOf(task) + 1) 
-                                        + "[" + task.getDescription + "]"
+                                        + "[" + task.getDescription() + "]"
                                         + "." + "[" + task.getStatusIcon() + "] " 
                                         + task.getDescription());
                 }
@@ -112,24 +112,24 @@ public class Duke {
                 Task t = new Task(inData.substring(4),false,"T");
                 tasks.add(t);
                 System.out.println("Got it. I've added this task: \n" + "["
-                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
-                + tasl.getDescription());
+                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
+                + t.getDescription());
                 System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
             } else if (inData.substring(0,8).equals("deadline")){
                 int taskEndIndex = inData.indexOf("/");
                 Task t = new Task(inData.substring(9,taskEndIndex),false,"D",
                 inData.substring(taskEndIndex+1));
                 System.out.println("Got it. I've added this task: \n" + "["
-                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
-                + task.getDescription() + "by: " + task.getDate());
+                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
+                + t.getDescription() + "by: " + t.getDate());
                 System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
             } else if (inData.substring(0,5).equals("event")){
                 int taskEndIndex = inData.indexOf("/");
                 Task t = new Task(inData.substring(5,taskEndIndex),false,"E",
                 inData.substring(taskEndIndex+1));
                 System.out.println("Got it. I've added this task: \n" + "["
-                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
-                + task.getDescription() + task.getDate());
+                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
+                + t.getDescription() + t.getDate());
                 System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
             } else{
                 Task t = new Task(inData);
