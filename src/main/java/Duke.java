@@ -105,13 +105,13 @@ public class Duke {
         showSeparator();
     }
 
-    private static void markTask(int taskId, boolean mark) {
+    private static void markTask(int taskId, boolean setMark) {
         if (taskId <= 0 || taskId > taskCount) {
             System.out.println(">>>Pls Enter the Right TaskId!");
         }
         else {
-            tasks[taskId-1].setMarked(mark);
-            if (mark) {
+            tasks[taskId-1].setMarked(setMark);
+            if (setMark) {
                 System.out.println(">>>Nice! I've marked this task as done:");
             }
             else {
