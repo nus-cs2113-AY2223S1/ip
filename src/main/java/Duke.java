@@ -75,7 +75,6 @@ public class Duke {
     }
 
     public static void markAsDone(String index) {
-        //Modify this
         Task currentTask = tasks[Integer.parseInt(index) - 1];
         currentTask.markAsDone();
 
@@ -88,7 +87,6 @@ public class Duke {
     }
 
     public static void markAsUndone(String index) {
-        //Modify this
         Task currentTask = tasks[Integer.parseInt(index) - 1];
         currentTask.markAsUndone();
 
@@ -106,38 +104,39 @@ public class Duke {
         String userInput = "";
 
         while (!userInput.equals("bye")) {
-            //Input
+            //Input the task from the user
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
             if (userInput.equals("bye")) {
                 break;
             }
             String words[] = userInput.split(" ");
-            //Mark
+            //Mark a certain task as done
             if (words[0].equals("mark")) {
                 markAsDone(words[1]);
-                //Unmark
+                //Unmark a certain task as not done
             } else if (words[0].equals("unmark")) {
                 markAsUndone(words[1]);
             } else {
-                //Print List
+                //Print the full list of tasks
                 if (userInput.equals("list")) {
                     printList();
                 } else {
-                    //Todo
-                    if (words[0].equals("todo")) {
+                    switch(words[0]) {
+                    case "todo" :
                         Todo todo = new Todo(userInput.substring(5));
                         addTodoToList(todo);
-                        //Deadline
-                    } else if (words[0].equals("deadline")) {
+                        break;
+                    case "deadline" :
                         String deadlineWords[] = userInput.substring(8).split("/");
                         Deadline deadline = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
                         addDeadlineToList(deadline);
-                        //Event
-                    } else if (words[0].equals("event")) {
+                        break;
+                    case "event" :
                         String eventWords[] = userInput.substring(6).split("/");
                         Event event = new Event(eventWords[0].trim(), eventWords[1].substring(3));
                         addEventToList(event);
+                        break;
                     }
                 }
             }
