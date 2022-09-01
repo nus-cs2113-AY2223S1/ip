@@ -1,7 +1,7 @@
 public class Task {
 
-    private String description;
-    private boolean isMarked;
+    protected String description;
+    protected boolean isMarked;
 
 
     public Task(String description) {
