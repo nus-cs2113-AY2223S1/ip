@@ -5,11 +5,19 @@ public class Duke {
     public class Task {
         protected String description;
         protected boolean isDone;
+        protected String taskType;
+        protected String taskDate;
     
-        public Task(String description) { // initiating an instance
+        public Task(String description,boolean isDone, String taskType, String taskDate) { // initiating an instance
             this.description = description;
-            this.isDone = false;
+            this.isDone = isDone;
+            this.taskType = taskType; // todo,ddl,event
+            this.taskDate = taskDate; // 
 
+        }
+
+        public String getTaskType(){
+            return (this.taskType);
         }
     
         public String getStatusIcon() {
@@ -26,8 +34,14 @@ public class Duke {
 
         public String getDescription(){
             return this.description;
+
         }
+
+        public String getDate(){
+            return this.taskDate;
     }
+}
+
 
     // Driver code
     public static void main(String[] args) {
@@ -76,6 +90,7 @@ public class Duke {
                 for (Task task:tasks){
                     System.out.println("Here are the tasks in your list: \n" 
                                         + (tasks.indexOf(task) + 1) 
+                                        + "[" + task.getDescription + "]"
                                         + "." + "[" + task.getStatusIcon() + "] " 
                                         + task.getDescription());
                 }
@@ -93,7 +108,39 @@ public class Duke {
                 Task task = tasks.get(inDataIndex);
                 System.out.println("OK, I've marked this task as not done yet: \n" + "[" 
                 + task.getStatusIcon() + "] " + task.getDescription());
-            } else{
+            } else if (inData.substring(0,4).equals("todo")){
+                Task t = new Task(inData.substring(4),false,"T");
+                tasks.add(t);
+                System.out.println("Got it. I've added this task: \n" + "["
+                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
+                + tasl.getDescription());
+                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+            } else if (inData.substring(0,8).equals("deadline")){
+                int taskEndIndex = inData.indexOf("/");
+                Task t = new Task(inData.substring(9,taskEndIndex),false,"D",
+                inData.substring(taskEndIndex+1));
+                System.out.println("Got it. I've added this task: \n" + "["
+                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
+                + task.getDescription() + "by: " + task.getDate());
+                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+            } else if (inData.substring(0,5).equals("event")){
+                int taskEndIndex = inData.indexOf("/");
+                Task t = new Task(inData.substring(5,taskEndIndex),false,"E",
+                inData.substring(taskEndIndex+1));
+                System.out.println("Got it. I've added this task: \n" + "["
+                + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
+                + task.getDescription() + task.getDate());
+                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            else{
                 Task t = new Task(inData);
                 tasks.add(t);
                 System.out.println("added: " + t.getDescription());
