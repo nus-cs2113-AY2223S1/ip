@@ -1,0 +1,11 @@
+list
+read a book
+todo go to the lecture
+deadline finish the quiz /by tonight
+event watch the video game /at 8:00-9:00 Sat
+list
+mark 1
+mark 2
+unmark 1
+list
+bye

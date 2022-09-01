@@ -101,8 +101,8 @@ public class Duke {
                 System.out.print(">>>" + (i + 1) + ".");
                 System.out.println(tasks[i]);
             }
-            showSeparator();
         }
+        showSeparator();
     }
 
     private static void markTask(int taskId, boolean mark) {
