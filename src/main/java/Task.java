@@ -6,14 +6,27 @@ public class Task {
     private static final String UNCHECK_MARK = "[]";
     protected static final String TIME_SEPARATOR = "/";
 
+    /**
+     * Deafult constructor for Task instance
+     *
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Empty constructor for Task instance
+     */
     public Task() {
     }
 
+    /**
+     * Retrieve the status icon of Task
+     *
+     * @return status icon
+     */
     public String getStatusIcon() {
         return (isDone ? CHECK_MARK : UNCHECK_MARK);
     }

@@ -1,5 +1,9 @@
 import java.util.Arrays;
 
+/**
+ * Storage class serve as a storage of all tasks and execute command
+ * on the list of tasks
+ */
 public class Storage {
     private static final String IDLE_MESSAGE = "Nothing happened QaQ";
     private static final int TODO_LENGTH = 5;
@@ -18,7 +22,9 @@ public class Storage {
     private static int size = 0;
 
     /**
-     * Add item to storage
+     * Add item to list of tasks
+     *
+     * @param item
      */
     public static void add(Task item) {
         list[size] = item;
@@ -36,9 +42,11 @@ public class Storage {
     }
 
     /**
-     * Toggle is used to change the check mark of each item in storage
+     * toggleMarkStatus changes the check mark of each item in storage
+     *
+     * @param cmd COMMAND_MARK or COMMAND_UNMARK
      */
-    public static void toggle(String cmd) {
+    public static void toggleMarkStatus(String cmd) {
         String[] cmds = cmd.split(COMMAND_SEPARATOR);
         if (Integer.parseInt(cmds[1]) > size) {
             System.out.format("There are only %d tasks now~%n", size);
@@ -54,6 +62,8 @@ public class Storage {
 
     /**
      * Execute choose to modify storage depending on command
+     *
+     * @param cmd input command: COMMAND_*
      */
     public void execute(String cmd) {
         String[] words = cmd.split(COMMAND_SEPARATOR);
@@ -62,10 +72,10 @@ public class Storage {
             listAll();
             break;
         case COMMAND_MARK:
-            toggle(cmd);
+            toggleMarkStatus(cmd);
             break;
         case COMMAND_UNMARK:
-            toggle(cmd);
+            toggleMarkStatus(cmd);
             break;
         case COMMAND_TODO:
             add(new Todo(cmd.substring(TODO_LENGTH)));
@@ -83,4 +93,5 @@ public class Storage {
             add(new Task(cmd));
         }
     }
+
 }

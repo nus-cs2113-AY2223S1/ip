@@ -2,11 +2,22 @@ public class Event extends Task {
     private static final String EVENT_MARK = "[E]";
     private String at;
 
+    /**
+     * Default constructor for Event instance
+     *
+     * @param description description of Event
+     * @param at time of event
+     */
     public Event(String description, String at) {
         super(description);
         this.at = at;
     }
 
+    /**
+     * Event constructor for a raw string input of event
+     *
+     * @param complexString raw string input containing time and description of event
+     */
     public Event(String complexString) {
         super();
         int separatorIndex = complexString.indexOf(TIME_SEPARATOR);

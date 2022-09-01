@@ -19,19 +19,29 @@ public class Duke {
         System.out.println(lineSeparator);
     }
 
+    /**
+     * greet prints greet messages
+     */
     public static void greet() {
         separateLine();
         System.out.println(GREET_MESSAGE_1);
         System.out.println(GREET_MESSAGE_2);
     }
 
+    /**
+     * bye prints farewell messages
+     */
     public static void bye() {
         separateLine();
         System.out.println(BYE_MESSAGE);
         separateLine();
     }
 
-
+    /**
+     * echo print input string with line breaker after it
+     *
+     * @param line
+     */
     public static void echo(String line) {
         separateLine();
         System.out.println(line);

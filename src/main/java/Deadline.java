@@ -2,11 +2,22 @@ public class Deadline extends Task {
     private static final String DEADLINE_MARK = "[D]";
     private String by;
 
+    /**
+     * Default constructor for Deadline instance
+     *
+     * @param description description of Deadline
+     * @param by time of deadline
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Constructor for a raw string input of dealine
+     *
+     * @param complexString raw string containing description and dealine
+     */
     public Deadline(String complexString) {
         super();
         int separatorIndex = complexString.indexOf(TIME_SEPARATOR);
