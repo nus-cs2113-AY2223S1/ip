@@ -24,7 +24,7 @@ public class Duke {
         return formattedString;
     }
 
-    private static void unmark(String line){
+    private static void unmark(String line) {
         int input = Integer.valueOf(line.replace("unmark", "").strip());
         Task task = inputs[input - 1];
         task.markAsNotDone();
@@ -40,7 +40,7 @@ public class Duke {
                 + task + "\n"+ HORIZONTAL_LINE);
     }
 
-    private static void createTodo(String line){
+    private static void createTodo(String line) {
         String description = line.replace("todo", "").strip();
         Todo todo = new Todo(description);
         inputs[index] = todo;
@@ -49,7 +49,7 @@ public class Duke {
                 + "\nNow you have "+ index + " tasks in the list.\n" + HORIZONTAL_LINE);
     }
 
-    private static void createEvent(String line){
+    private static void createEvent(String line) {
         String removedCommand = line.replace("event", "");
         String description = removedCommand.substring(0, removedCommand.indexOf("/at")).strip();
         String date = removedCommand.substring(removedCommand.indexOf("/at") + "/at".length()).strip();
@@ -87,7 +87,7 @@ public class Duke {
             line = in.nextLine();
             if (line.equals("bye")) {
                 break;
-            } else if (line.equals("list")){
+            } else if (line.equals("list")) {
                 System.out.println(formatList(inputs));
             } else if (line.startsWith("mark")) {
                 mark(line);

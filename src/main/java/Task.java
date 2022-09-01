@@ -18,6 +18,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Returns formatted string
+     *
+     * @return string to print
+     */
     public String toString() {
         return "["+ getStatusIcon()+ "] " + this.description;
     }
