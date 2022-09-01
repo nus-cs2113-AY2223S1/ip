@@ -14,7 +14,7 @@ public class Duke {
         "mark", "unmark", "bye"};
 
     private static Task[] tasks = new Task[100];
-    private static int tasksCount = 0;
+    private static int taskCount = 0;
 
     private static void greet() {
         String MESSAGE = "Hello! I'm Ever\n" +
@@ -28,11 +28,11 @@ public class Duke {
     }
 
     private static void addTask(Task task) {
-        tasks[tasksCount++] = task;
+        tasks[taskCount++] = task;
     }
 
     private static void listTasks() {
-        for (int i = 0; i < tasksCount; i++) {
+        for (int i = 0; i < taskCount; i++) {
             System.out.printf("%d. %s\n", i + 1, tasks[i].getPrintString());
         }
     }
@@ -73,13 +73,19 @@ public class Duke {
             } else if (inputWords[0].equals("todo")) {
                 String description = inputWords[1].trim();
                 addTask(new Todo(description));
-                System.out.println("Todo task \"" + inputWords[1] + "\" added");
+                System.out.println("Todo task added: " + tasks[taskCount - 1].getPrintString());
             } else if (inputWords[0].equals("deadline")) {
                 String[] arguments = inputWords[1].split("/by ");
                 String description = arguments[0].trim();
                 String deadlineDate = arguments[1].trim();
                 addTask(new Deadline(description, deadlineDate));
-                System.out.println("Deadline task \"" + description + "\" added");
+                System.out.println("Deadline task added: " + tasks[taskCount - 1].getPrintString());
+            } else if (inputWords[0].equals("event")) {
+                String[] arguments = inputWords[1].split("/at ");
+                String description = arguments[0].trim();
+                String datetime = arguments[1].trim();
+                addTask(new Event(description, datetime));
+                System.out.println("Event task added: " + tasks[taskCount - 1].getPrintString());
             } else {
                 System.out.println("Sorry, I don't get what you mean. Can you try again?");
             }
