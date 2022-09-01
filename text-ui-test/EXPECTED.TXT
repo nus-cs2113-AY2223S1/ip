@@ -1,18 +1,21 @@
 -------------------------------------
 Hello! I am not Duke.
 Here are a list of commands:
-    todo <string> : adds a Todo to the list
-    deadline <string> /by <string> : adds a deadline and its deadline...
-    event <string> /at <string> : adds an event and its time...
-    mark <task id> : marks a task
-    unmark <task id> : unmarks a task
-    list : lists out all your tasks
-    bye : exits the program
+	todo <string> : adds a Todo to the list
+	deadline <string> /by <string> : adds a deadline and its deadline...
+	event <string> /at <string> : adds an event and its time...
+	mark <task id> : marks a task
+	unmark <task id> : unmarks a task
+	list : lists out all your tasks
+	bye : exits the program
 I WILL CRASH IF YOU DO NOT COMPLY!!!
 -------------------------------------
 Got it. I have added this task:
 [T][ ] read book
 You now have 1 tasks.
+-------------------------------------
+Here are a list of your tasks:
+1. [T][ ] read book
 -------------------------------------
 Marked this task:
  [T][X] read book
