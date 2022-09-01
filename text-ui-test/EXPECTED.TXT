@@ -1,7 +1,36 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Oi I'm
+                   _
+                  | |
+  _   _ _ __   ___| | ___
+ | | | | '_ \ / __| |/ _ |
+ | |_| | | | | (__| |  __/
+  \__,_|_| |_|\___|_|\___|
 
+What you want?
+add task liao
+  [T][ ] run
+you still have 1 tasks left
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+add task liao
+  [D][ ] assignment 1 (by: thurs 2359)
+you still have 2 tasks left
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+come uncle show you your tasks
+1. [T][ ] run
+2. [D][ ] assignment 1 (by: thurs 2359)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+add task liao
+  [E][ ] tuition (at: saturday)
+you still have 3 tasks left
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wa so fast done liao
+  [D][X] assignment 1 (by: thurs 2359)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+come uncle show you your tasks
+1. [T][ ] run
+2. [D][X] assignment 1 (by: thurs 2359)
+3. [E][ ] tuition (at: saturday)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Huh? What saying you?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bye bye!

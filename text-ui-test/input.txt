@@ -1,0 +1,8 @@
+todo run
+deadline assignment 1 /thurs 2359
+list
+event tuition /saturday
+mark 2
+list
+what
+bye
