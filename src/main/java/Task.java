@@ -2,7 +2,7 @@ public class Task {
     private String name;
     private boolean isCompleted;
 
-    public Task(String name){
+    public Task(String name) {
         this.name = name;
         this.isCompleted = false;
     }
@@ -19,8 +19,9 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public String getCheckBox(){
-        if(isCompleted){
+    //returns the checkbox as a string
+    public String getCheckBox() {
+        if (isCompleted){
             return "[X]";
         }
         return "[ ]";
