@@ -131,16 +131,7 @@ public class Duke {
                 + task.getDescription + "]" + "[" + task.getStatusIcon() + "] "
                 + task.getDescription() + task.getDate());
                 System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            else{
+            } else{
                 Task t = new Task(inData);
                 tasks.add(t);
                 System.out.println("added: " + t.getDescription());
