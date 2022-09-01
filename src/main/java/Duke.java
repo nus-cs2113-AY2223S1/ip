@@ -27,7 +27,7 @@ public class Duke {
                 System.out.println("------------------------------------");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i <= addCount; i++){
-                    System.out.println(i + "."+ "[" +taskArray[i-1].getStatusIcon() + "] " + taskArray[i-1].getDescription());
+                    System.out.println(i + "."+ "[" +taskArray[i-1].getTaskIcon() + "]" + "[" + taskArray[i-1].getStatusIcon() + "] "+ taskArray[i-1].getDescription());
                 }
                 System.out.println("------------------------------------");
             } else if (input.contains("unmark")){
@@ -35,7 +35,7 @@ public class Duke {
                 int choiceToUnMark = Integer.parseInt(inputWords[1]);
                 taskArray[choiceToUnMark - 1].unMarkTask();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("\t[" +taskArray[choiceToUnMark-1].getStatusIcon() + "] " + taskArray[choiceToUnMark-1].getDescription());
+                System.out.println("\t[" +taskArray[choiceToUnMark-1].getTaskIcon() + "]" + "[" + taskArray[choiceToUnMark-1].getStatusIcon() + "] " + taskArray[choiceToUnMark-1].getDescription());
                 System.out.println("------------------------------------");
 
             } else if (input.contains("mark")){
@@ -43,14 +43,41 @@ public class Duke {
                 int choiceToMark = Integer.parseInt(inputWords[1]);
                 taskArray[choiceToMark - 1].markTask();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("\t[" +taskArray[choiceToMark-1].getStatusIcon() + "] " + taskArray[choiceToMark-1].getDescription());
+                System.out.println("\t[" +taskArray[choiceToMark-1].getTaskIcon() + "]" + "[" + taskArray[choiceToMark-1].getStatusIcon() + "] " + taskArray[choiceToMark-1].getDescription());
                 System.out.println("------------------------------------");
-            } else {
+            } else if(input.contains("todo")) {
+                taskArray[addCount] = new Todo(input);
+                System.out.println("------------------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t[" +taskArray[addCount].getTaskIcon() + "]" + "[" + taskArray[addCount].getStatusIcon() + "] " + taskArray[addCount].getDescription());
+                addCount +=1;
+                System.out.printf("Now you have %d tasks in the list\n",addCount);
+                System.out.println("------------------------------------");
+            } else if (input.contains("deadline")) {
+                taskArray[addCount] = new Deadline(input);
+                System.out.println("------------------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t[" +taskArray[addCount].getTaskIcon() + "]" + "[" + taskArray[addCount].getStatusIcon() + "] " + taskArray[addCount].getDescription());
+                addCount +=1;
+                System.out.printf("Now you have %d tasks in the list\n",addCount);
+                System.out.println("------------------------------------");
+            } else if (input.contains("event")) {
+                taskArray[addCount] = new Event(input);
+                System.out.println("------------------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t[" +taskArray[addCount].getTaskIcon() + "]" + "[" + taskArray[addCount].getStatusIcon() + "] " + taskArray[addCount].getDescription());
+                addCount +=1;
+                System.out.printf("Now you have %d tasks in the list\n",addCount);
+                System.out.println("------------------------------------");
+            }
+            else {
                 taskArray[addCount] = new Task(input);
                 System.out.println("------------------------------------");
-                System.out.println("added: "+ input);
-                System.out.println("------------------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t[" +taskArray[addCount].getTaskIcon() + "]" + "[" + taskArray[addCount].getStatusIcon() + "] " + taskArray[addCount].getDescription());
                 addCount +=1;
+                System.out.printf("Now you have %d tasks in the list\n",addCount);
+                System.out.println("------------------------------------");
             }
         } while (!input.equals("bye"));
     }
