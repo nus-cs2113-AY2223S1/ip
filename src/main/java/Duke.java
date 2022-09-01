@@ -71,8 +71,15 @@ public class Duke {
                 tasks[taskIndex].unmarkDone();
                 System.out.printf("Unmarked done: %s\n", tasks[taskIndex].getPrintString());
             } else if (inputWords[0].equals("todo")) {
-                addTask(new Todo(inputWords[1]));
+                String description = inputWords[1].trim();
+                addTask(new Todo(description));
                 System.out.println("Todo task \"" + inputWords[1] + "\" added");
+            } else if (inputWords[0].equals("deadline")) {
+                String[] arguments = inputWords[1].split("/by ");
+                String description = arguments[0].trim();
+                String deadlineDate = arguments[1].trim();
+                addTask(new Deadline(description, deadlineDate));
+                System.out.println("Deadline task \"" + description + "\" added");
             } else {
                 System.out.println("Sorry, I don't get what you mean. Can you try again?");
             }
