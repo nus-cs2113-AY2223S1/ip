@@ -1,11 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
+    /** Array of assignments that is limited to 100 tasks */
     private static final Task[] ASSIGNMENTS = new Task[100];
+    /** Use to track the number of Task that is added */
     private static int indexTask = 0;
 
     /**
-     * Sort the type of Task that is input by the user and prints out the respective types.
+     * Sorts the type of Task that is input by the user and prints out the respective types.
      * Based on the keyword "todo", "deadline" or "event".
      * Has helper functions addToDoTask(), addEventTask() and addDeadlineTask()
      *
@@ -18,7 +20,6 @@ public class Duke {
         boolean isEvent = splitUserInputs[0].equals("event");
 
         System.out.println("\t Roger that. I've added this task:");
-
 
         if(isToDo) {
             addToDoTask(splitUserInputs);
@@ -227,7 +228,6 @@ public class Duke {
                 System.out.println("\t Bye. Hope to see you again soon!");
             }
             System.out.println("\t" + lineDivider);
-        }
-        while(!isBye);
+        } while(!isBye);
     }
 }

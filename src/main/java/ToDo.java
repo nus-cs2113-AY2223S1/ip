@@ -1,4 +1,5 @@
 public class ToDo extends Task {
+    /** To check if the task is to do task */
     protected boolean isToDoCheck;
 
     public ToDo(String description) {

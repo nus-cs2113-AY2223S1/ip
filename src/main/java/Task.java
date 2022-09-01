@@ -26,17 +26,34 @@ public class Task {
 
     public void markTypeTask() {}
 
+    /**
+     * Returns a string to properly display the event or deadline task information
+     *
+     * @return typeTaskParameter modified string to contain the event or deadline task information
+     */
     public String displayTypeTaskDetails() {
         String typeTaskParameter = description;
         boolean isEventOrDeadline = description.contains("/at") || description.contains("/by");
         if(isEventOrDeadline) {
-            int indexOfDash = description.indexOf("/");
-            String typeTaskTitle = typeTaskParameter.substring(0, indexOfDash);
-            String typeTaskDetail = typeTaskParameter.substring(indexOfDash);
-            typeTaskDetail = typeTaskDetail.replaceFirst("/", "(");
-            typeTaskDetail = typeTaskDetail.substring(0,3) + ':' + typeTaskDetail.substring(3) + ")";
-            typeTaskParameter = typeTaskTitle + typeTaskDetail;
+            typeTaskParameter = modifyDescription(typeTaskParameter);
         }
+        return typeTaskParameter;
+    }
+
+
+    /**
+     * Modifies the given description by the User
+     *
+     * @param typeTaskParameter string that is taken from description
+     * @return typeTaskParameter a modified string
+     */
+    private String modifyDescription(String typeTaskParameter) {
+        int indexOfDash = description.indexOf("/");
+        String typeTaskTitle = typeTaskParameter.substring(0, indexOfDash);
+        String typeTaskDetail = typeTaskParameter.substring(indexOfDash);
+        typeTaskDetail = typeTaskDetail.replaceFirst("/", "(");
+        typeTaskDetail = typeTaskDetail.substring(0,3) + ':' + typeTaskDetail.substring(3) + ")";
+        typeTaskParameter = typeTaskTitle + typeTaskDetail;
         return typeTaskParameter;
     }
 }
