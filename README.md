@@ -2,8 +2,17 @@
 
 ## * TO DO:
 ## * create tasks package
+extend tasks for deadline todo & event types
 ## * create command package
+Command
+CommandExit
+CommandList
+CommandAdd
+CommandDelete
+CommandMark
+CommandUnmark
 ## * improve parser
+make a separate class for parser takes in userInput and returns command to execute
 
 
 
