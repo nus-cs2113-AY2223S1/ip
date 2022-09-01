@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
-
+    private static String EVENT = "event";
+    private static String TODO = "todo";
+    private static String DEADLINE = "deadline";
 
     public static void main(String[] args) {
         welcomeMsg();
@@ -21,15 +23,16 @@ public class Duke {
                 }
             } else if (!val.contains("mark")) {
                 System.out.println("Got it. I've added this task:");
-                if(val.contains("todo")){
-                    tasks[length] = new Todo(val.substring(5));
-                } else if (val.contains("deadline")) {
-                    int index = val.indexOf("/");
-                    tasks[length] = new Deadline(val.substring(9, index),val.substring((index + 4)));
-                } else if (val.contains("event")) {
-                    int index = val.indexOf("/") ;
-                    tasks[length] = new Event(val.substring(6, index),val.substring((index + 4)));
+                int index = val.indexOf("/");
+
+                if(val.contains(TODO)){
+                    tasks[length] = new Todo(val.substring(TODO.length()));
+                } else if (val.contains(DEADLINE)) {
+                    tasks[length] = new Deadline(val.substring(DEADLINE.length(), index),val.substring((index + 4)));
+                } else if (val.contains(EVENT)) {
+                    tasks[length] = new Event(val.substring(EVENT.length(), index),val.substring((index + 4)));
                 }
+
                 System.out.println(tasks[length]);
                 length++;
                 System.out.println("Now you have " + length + " tasks in the list.");
