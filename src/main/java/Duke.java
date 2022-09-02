@@ -65,35 +65,18 @@ public class Duke {
     }
 
     private static void addTask(String taskType, String taskData) {
-        Task task = null;
+        Task task;
         switch (taskType) {
         case "todo": {
-            task = new Todo(taskData);
-            tasks.add(task);
+            task = createTodo(taskData);
             break;
         }
         case "deadline": {
-            if (!taskData.contains("/by")) {
-                System.out.println("Missing /by parameter");
-                break;
-            }
-            String[] inputArr = taskData.split("/by");
-            String description = inputArr[0];
-            String by = inputArr[1];
-            task = new Deadline(description, by);
-            tasks.add(task);
+            task = createDeadline(taskData);
             break;
         }
         case "event": {
-            if (!taskData.contains("/at")) {
-                System.out.println("Missing /at parameter");
-                break;
-            }
-            String[] inputArr = taskData.split("/at");
-            String description = inputArr[0].trim();
-            String at = inputArr[1].trim();
-            task = new Event(description, at);
-            tasks.add(task);
+            task = createEvent(taskData);
             break;
         }
         default: {
@@ -105,9 +88,37 @@ public class Duke {
             System.out.println("Error adding task."); // something went wrong in the switch case
             return;
         }
+        tasks.add(task);
         System.out.println("OK, dude, I've added this task: ");
         System.out.println(task);
         System.out.println("You have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static Todo createTodo(String taskData) {
+        return new Todo(taskData);
+    }
+
+    private static Task createEvent(String taskData) {
+        if (!taskData.contains("/at")) {
+            System.out.println("Missing /at parameter");
+            return null;
+        }
+        String[] inputArr = taskData.split("/at");
+        String description = inputArr[0].trim();
+        String at = inputArr[1].trim();
+        return new Event(description, at);
+    }
+
+
+    private static Deadline createDeadline(String taskData) {
+        if (!taskData.contains("/by")) {
+            System.out.println("Missing /by parameter");
+            return null;
+        }
+        String[] inputArr = taskData.split("/by");
+        String description = inputArr[0].trim();
+        String by = inputArr[1].trim();
+        return new Deadline(description, by);
     }
 
     private static void setTaskStatus(int taskIndex, boolean isDone) {
