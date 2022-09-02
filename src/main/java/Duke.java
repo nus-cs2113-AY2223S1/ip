@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Duke {
-    public class Task {
+    public static class Task {
         protected String description;
         protected boolean isDone;
         protected String taskType;
@@ -71,7 +71,7 @@ public class Duke {
                                     + task.getDescription());   
             }
         } else{
-            Task t = new Task(inData);
+            Task t = new Task(inData,false,"","");
             tasks.add(t);
             System.out.println("added: " + t.getDescription());
         }
@@ -90,7 +90,7 @@ public class Duke {
                 for (Task task:tasks){
                     System.out.println("Here are the tasks in your list: \n" 
                                         + (tasks.indexOf(task) + 1) 
-                                        + "[" + task.getDescription() + "]"
+                                        + "[" + task.getTaskType() + "]"
                                         + "." + "[" + task.getStatusIcon() + "] " 
                                         + task.getDescription());
                 }
@@ -109,12 +109,12 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet: \n" + "[" 
                 + task.getStatusIcon() + "] " + task.getDescription());
             } else if (inData.substring(0,4).equals("todo")){
-                Task t = new Task(inData.substring(4),false,"T");
+                Task t = new Task(inData.substring(4),false,"T","");
                 tasks.add(t);
                 System.out.println("Got it. I've added this task: \n" + "["
                 + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
                 + t.getDescription());
-                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
             } else if (inData.substring(0,8).equals("deadline")){
                 int taskEndIndex = inData.indexOf("/");
                 Task t = new Task(inData.substring(9,taskEndIndex),false,"D",
@@ -122,7 +122,7 @@ public class Duke {
                 System.out.println("Got it. I've added this task: \n" + "["
                 + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
                 + t.getDescription() + "by: " + t.getDate());
-                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
             } else if (inData.substring(0,5).equals("event")){
                 int taskEndIndex = inData.indexOf("/");
                 Task t = new Task(inData.substring(5,taskEndIndex),false,"E",
@@ -130,9 +130,9 @@ public class Duke {
                 System.out.println("Got it. I've added this task: \n" + "["
                 + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
                 + t.getDescription() + t.getDate());
-                System.out.println("Now you have %2d tasks in the list.".formatted(tasks.size()));
+                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
             } else{
-                Task t = new Task(inData);
+                Task t = new Task(inData,false,"","");
                 tasks.add(t);
                 System.out.println("added: " + t.getDescription());
             }
