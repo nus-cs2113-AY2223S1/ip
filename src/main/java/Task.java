@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -23,7 +23,12 @@ public class Task {
         isDone = false;
     }
 
-    public String getPrintString() {
+    @Override
+    public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), description);
+    }
+
+    public static String[] extractParameters(String command) {
+        return new String[0];
     }
 }

@@ -18,20 +18,21 @@ public class Duke {
     private static int taskCount = 0;
 
     private static void greet() {
-        String MESSAGE = "Hello! I'm Ever\n" +
+        final String MESSAGE = "Hello! I'm Ever\n" +
                 "What can I do for you?";
+        System.out.println(LOGO);
         System.out.println(MESSAGE);
     }
 
     private static void exit() {
-        String MESSAGE = "Bye. Hope to see you again soon!";
+        final String MESSAGE = "Bye. Hope to see you again soon!";
         System.out.println(MESSAGE);
     }
 
     private static void addTask(Task task) {
         if (taskCount < MAX_TASK) {
             tasks[taskCount++] = task;
-            System.out.println("Task added: " + task.getPrintString());
+            System.out.println("Task added: " + task);
         }
         else {
             System.out.println("Maximum number of tasks reached");
@@ -41,7 +42,7 @@ public class Duke {
     private static void listTasks() {
         if (taskCount > 0) {
             for (int i = 0; i < taskCount; i++) {
-                System.out.printf("%d. %s\n", i + 1, tasks[i].getPrintString());
+                System.out.printf("%d. %s\n", i + 1, tasks[i]);
             }
         } else {
             System.out.println("There are no tasks added yet. Type 'help' if you need help.");
@@ -54,49 +55,77 @@ public class Duke {
         }
     }
 
+    private static String getUserInput() {
+        System.out.print(">> ");
+        return SCANNER.nextLine().trim();
+    }
+
+    private static void evaluateUserInput(String input) {
+        String[] inputWords = input.split(" ", 2);
+
+        switch (inputWords[0]) {
+        case "help":
+            displayCommandMenu();
+            break;
+        case "list":
+            listTasks();
+            break;
+        case "mark": {
+            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+            tasks[taskIndex].markAsDone();
+            System.out.printf("Marked as done: %s\n", tasks[taskIndex]);
+            break;
+        }
+        case "unmark": {
+            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+            tasks[taskIndex].unmarkDone();
+            System.out.printf("Unmarked done: %s\n", tasks[taskIndex]);
+            break;
+        }
+        case "todo":
+            try {
+                String[] parameters = Todo.extractParameters(input);
+                String description = parameters[0].trim();
+                addTask(new Todo(description));
+            } catch (Exception exception) {
+                System.out.println("Invalid input, todo task could not be added");
+            }
+            break;
+        case "deadline":
+            try {
+                String[] parameters = Deadline.extractParameters(input);
+                String description = parameters[0].trim();
+                String deadlineDate = parameters[1].trim();
+                addTask(new Deadline(description, deadlineDate));
+            } catch (Exception exception) {
+                System.out.println("Invalid input, deadline task could not be added");
+            }
+            break;
+        case "event":
+            try {
+                String[] parameters = Event.extractParameters(input);
+                String description = parameters[0].trim();
+                String datetime = parameters[1].trim();
+                addTask(new Event(description, datetime));
+            } catch (Exception exception) {
+                System.out.println("Invalid input, event task could not be added");
+            }
+            break;
+        default:
+            System.out.println("Sorry, I don't get what you mean. Can you try again?");
+            break;
+        }
+    }
+
     public static void main(String[] args) {
-
-        System.out.println(LOGO);
-
         greet();
 
-        /* Get input from user */
-        String inputMessage;
-
         while (true) {
-            System.out.print(">> ");
-            inputMessage = SCANNER.nextLine();
-            String[] inputWords = inputMessage.split(" ", 2);
+            String inputMessage = getUserInput();
             if (inputMessage.equals("bye")) {
                 break;
-            } else if (inputMessage.equals("help")){
-                displayCommandMenu();
-            } else if (inputMessage.equals("list")){
-                listTasks();
-            } else if (inputWords[0].equals("mark")) {
-                int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-                tasks[taskIndex].markAsDone();
-                System.out.printf("Marked as done: %s\n", tasks[taskIndex].getPrintString());
-            } else if (inputWords[0].equals("unmark")) {
-                int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-                tasks[taskIndex].unmarkDone();
-                System.out.printf("Unmarked done: %s\n", tasks[taskIndex].getPrintString());
-            } else if (inputWords[0].equals("todo")) {
-                String description = inputWords[1].trim();
-                addTask(new Todo(description));
-            } else if (inputWords[0].equals("deadline")) {
-                String[] arguments = inputWords[1].split(Deadline.SEPARATOR);
-                String description = arguments[0].trim();
-                String deadlineDate = arguments[1].trim();
-                addTask(new Deadline(description, deadlineDate));
-            } else if (inputWords[0].equals("event")) {
-                String[] arguments = inputWords[1].split(Event.SEPARATOR);
-                String description = arguments[0].trim();
-                String datetime = arguments[1].trim();
-                addTask(new Event(description, datetime));
-            } else {
-                System.out.println("Sorry, I don't get what you mean. Can you try again?");
             }
+            evaluateUserInput(inputMessage);
         }
 
         exit();

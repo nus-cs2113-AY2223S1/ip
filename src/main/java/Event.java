@@ -1,7 +1,7 @@
 public class Event extends Task {
     private String datetime;
 
-    public static final String SEPARATOR = "/at ";
+    public static final String SEPARATOR = " /at ";
 
     public Event(String description, String datetime) {
         super(description);
@@ -9,7 +9,16 @@ public class Event extends Task {
     }
 
     @Override
-    public String getPrintString() {
-        return String.format("[E]%s (at: %s)", super.getPrintString(), this.datetime);
+    public String toString() {
+        return String.format("[E]%s (at: %s)", super.toString(), this.datetime);
+    }
+
+    public static String[] extractParameters(String command) throws IllegalArgumentException  {
+        String commandParameters = command.split(" ", 2)[1];
+        String[] parameters = commandParameters.split(SEPARATOR);
+        if (parameters.length < 2) {
+            throw new IllegalArgumentException();
+        }
+        return parameters;
     }
 }
