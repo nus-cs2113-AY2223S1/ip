@@ -1,3 +1,6 @@
+/**
+ * Stores command and arguments entered by the user via standard input
+ */
 public class ConsoleInput {
     private String command;
     private String arguments;

@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Provides functions to interface with user via standard input and standard output
+ */
 public class ConsoleInterface {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
