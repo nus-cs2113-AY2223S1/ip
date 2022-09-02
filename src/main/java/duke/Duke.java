@@ -1,10 +1,14 @@
+package duke;
+
 import java.util.Scanner;
+import duke.task.Task;
+import duke.task.TaskFactory;
 
 public class Duke {
     private static final String INDENT = "    ";
     private static final String HORIZONTAL_RULE = "____________________________________________________________\n";
-    private static final String DUKE_LOGO = "" + " ____        _        \n" + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n" + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String DUKE_LOGO = String.join("\n", " ____        _        ", "|  _ \\ _   _| | _____ ",
+            "| | | | | | | |/ / _ \\", "| |_| | |_| |   <  __/", "|____/ \\__,_|_|\\_\\___|");
     private static final String[] GREETING = { "Hello! I'm Duke", "What can I do for you?" };
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 

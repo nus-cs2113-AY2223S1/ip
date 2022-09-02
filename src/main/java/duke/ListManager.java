@@ -1,5 +1,8 @@
-import java.util.List;
+package duke;
+
 import java.util.ArrayList;
+import java.util.List;
+import duke.task.Task;
 
 public class ListManager {
     List<Task> items;

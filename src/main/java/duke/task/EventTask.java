@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 public class EventTask extends Task {
     private String eventDateTime;
 
