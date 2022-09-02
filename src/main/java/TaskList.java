@@ -3,7 +3,7 @@ public class TaskList {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
-    Task[] list = new Task[100];
+    Task[] listOfTasks = new Task[100];
     private int numberOfTasks = 0;
     public static void printLine() {
         System.out.println("____________________________________________________________");
@@ -13,13 +13,13 @@ public class TaskList {
         int index = Integer.parseInt(instructions[1]);
         printLine();
         if (instructions[0].equals(COMMAND_MARKED)) {
-            list[index - 1].isDone = true;
+            listOfTasks[index - 1].isDone = true;
             System.out.println("Nice! I've marked this task as done:");
         } else {
-            list[index-1].isDone = false;
+            listOfTasks[index-1].isDone = false;
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println("  " + list[index-1]);
+        System.out.println("  " + listOfTasks[index-1]);
         printLine();
     }
     public void printList() {
@@ -27,7 +27,7 @@ public class TaskList {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numberOfTasks; i++) {
             System.out.print((i + 1) + ".");
-            System.out.println(list[i].toString());
+            System.out.println(listOfTasks[i].toString());
         }
         printLine();
     }
@@ -44,23 +44,26 @@ public class TaskList {
     public void addTask(String input) {
         printLine();
         String[] instructions = input.split(" ");
-        Task t = null;
         if (instructions[0].equals(COMMAND_DEADLINE)) {
             String deadlineTask = input.replace("deadline ", "");
             String[] deadlineInstructions = deadlineTask.split(" /by ");
-            t = new Deadline(deadlineInstructions[0],deadlineInstructions[1]);
+            listOfTasks[numberOfTasks] = new Deadline(deadlineInstructions[0],deadlineInstructions[1]);
+            numberOfTasks++;
         }
         else if (instructions[0].equals(COMMAND_EVENT)) {
             String eventTask = input.replace("event ", "");
             String[] deadlineInstructions = eventTask.split(" /at ");
-            t = new Event(deadlineInstructions[0],deadlineInstructions[1]);
+            listOfTasks[numberOfTasks] = new Event(deadlineInstructions[0],deadlineInstructions[1]);
+            numberOfTasks++;
         }
         else if (instructions[0].equals(COMMAND_TODO)) {
             String todoTask = input.replace("todo ", "");
-            t = new Todo(todoTask);
+            listOfTasks[numberOfTasks] = new Todo(todoTask);
+            numberOfTasks++;
         }
-        list[numberOfTasks] = t;
-        numberOfTasks++;
+        else {
+            System.out.println("Invalid input. Please try again.");
+        }
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         printLine();
     }
