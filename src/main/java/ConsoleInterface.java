@@ -67,7 +67,8 @@ public class ConsoleInterface {
         String[] userInputArr = userInputStr.split(" ", 2);
         String command = userInputArr[0];
         String argument = "";
-        if (userInputArr.length == 2) {
+        int numOperands = 2;
+        if (userInputArr.length == numOperands) {
             argument = userInputArr[1];
         }
 
@@ -90,8 +91,23 @@ public class ConsoleInterface {
      * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
      */
     public void executeCommandMark(String taskNumberStr) {
-        int taskNumberInt = Integer.parseInt(taskNumberStr);
-        taskManager.markTaskAsCompleted(taskNumberInt);
+        int taskNumberInt;
+        try {
+            taskNumberInt = Integer.parseInt(taskNumberStr);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("☹ OOPS!!! Your input " + taskNumberStr + " is not a number.");
+            return;
+        }
+
+        try {
+            taskManager.markTaskAsCompleted(taskNumberInt);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.print("  ");
+            taskManager.getTask(taskNumberInt).print();
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
+            return;
+        }
     }
 
     /**
@@ -100,8 +116,23 @@ public class ConsoleInterface {
      * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
      */
     public void executeCommandUnmark(String taskNumberStr) {
-        int taskNumberInt = Integer.parseInt(taskNumberStr);
-        taskManager.markTaskAsUncompleted(taskNumberInt);
+        int taskNumberInt;
+        try {
+            taskNumberInt = Integer.parseInt(taskNumberStr);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("☹ OOPS!!! Your input " + taskNumberStr + " is not a number.");
+            return;
+        }
+
+        try {
+            taskManager.markTaskAsUncompleted(taskNumberInt);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.print("  ");
+            taskManager.getTask(taskNumberInt).print();
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
+            return;
+        }
     }
 
     /**
@@ -110,10 +141,15 @@ public class ConsoleInterface {
      * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
      */
     public void executeCommandTodo(String arguments) {
-        System.out.println("Got it. I've added this task:");
+        String description = arguments;
+        if (description.isEmpty()) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            return;
+        }
 
-        Todo todo = new Todo(arguments);
+        Todo todo = new Todo(description);
         taskManager.addTask(todo);
+        System.out.println("Got it. I've added this task:");
         todo.print();
 
         int numTasks = taskManager.getNumTasks();
@@ -126,14 +162,28 @@ public class ConsoleInterface {
      * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
      */
     public void executeCommandDeadline(String arguments) {
-        System.out.println("Got it. I've added this task:");
+        if (!arguments.contains("/by")) {
+            System.out.println("☹ OOPS!!! The /by option of a deadline must be present.");
+            return;
+        }
 
         String[] argumentArray = arguments.split("/by");
+        int numOperands = 2;
+        if (argumentArray.length != numOperands) {
+            System.out.println("☹ OOPS!!! The description and the /by option of a deadline cannot be empty.");
+            return;
+        }
+
         String description = argumentArray[0].trim();
         String by = argumentArray[1].trim();
+        if (description.isEmpty() || by.isEmpty()) {
+            System.out.println("☹ OOPS!!! The description and the /by option of a deadline cannot be empty.");
+            return;
+        }
 
         Deadline deadline = new Deadline(description, by);
         taskManager.addTask(deadline);
+        System.out.println("Got it. I've added this task:");
         deadline.print();
 
         int numTasks = taskManager.getNumTasks();
@@ -146,18 +196,36 @@ public class ConsoleInterface {
      * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
      */
     public void executeCommandEvent(String arguments) {
-        System.out.println("Got it. I've added this task:");
+        if (!arguments.contains("/at")) {
+            System.out.println("☹ OOPS!!! The /at option of an event must be present.");
+            return;
+        }
 
         String[] argumentArray = arguments.split("/at");
+        int numOperands = 2;
+        if (argumentArray.length != numOperands) {
+            System.out.println("☹ OOPS!!! The description and the /at option of an event cannot be empty.");
+            return;
+        }
+
         String description = argumentArray[0].trim();
         String at = argumentArray[1].trim();
+        if (description.isEmpty() || at.isEmpty()) {
+            System.out.println("☹ OOPS!!! The description and the /at option of an event cannot be empty.");
+            return;
+        }
 
         Event event = new Event(description, at);
         taskManager.addTask(event);
+        System.out.println("Got it. I've added this task:");
         event.print();
 
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
+    }
+
+    public void executeInvalidCommand() {
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
@@ -195,7 +263,7 @@ public class ConsoleInterface {
                 executeCommandEvent(input.getArguments());
                 break;
             default:
-                break;
+                executeInvalidCommand();
             }
 
             ConsoleInterface.printLineSeparator();
