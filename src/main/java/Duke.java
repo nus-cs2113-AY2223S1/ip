@@ -6,6 +6,7 @@ public class Duke {
         ConsoleInterface consoleInterface = new ConsoleInterface();
 
         ConsoleInterface.printLogo();
+
         ConsoleInterface.printLineSeparator();
         ConsoleInterface.printGreetingMessage();
         ConsoleInterface.printLineSeparator();
