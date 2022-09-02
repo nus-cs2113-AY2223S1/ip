@@ -2,8 +2,10 @@ package duke.task;
 
 import duke.exceptions.AccessTaskOutOfBoundsException;
 import duke.exceptions.EmptyDescriptionException;
-import duke.exceptions.MissingTaskNumberException;
 import duke.exceptions.UnknownCommandException;
+import duke.exceptions.MissingTaskNumberException;
+import duke.exceptions.TaskAlreadyMarkedException;
+import duke.exceptions.TaskAlreadyUnmarkedException;
 
 public class TaskManager {
     private Task[] tasks = new Task[100];
@@ -122,19 +124,25 @@ public class TaskManager {
             } catch (AccessTaskOutOfBoundsException e) {
                 e.printAccessTaskOutOfBoundsError();
                 printNumberOfTasks();
+            } catch (TaskAlreadyMarkedException e) {
+                e.printTaskAlreadyMarkedError();
             }
         }
     }
 
-    public void markAsDone(int taskNumber) throws AccessTaskOutOfBoundsException {
+    public void markAsDone(int taskNumber) throws AccessTaskOutOfBoundsException, TaskAlreadyMarkedException {
         if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds
             throw new AccessTaskOutOfBoundsException();
         } else {
             int taskIndex = taskNumber - 1;
-            tasks[taskIndex].isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks[taskIndex].toString());
-            System.out.println("____________________________________________________________");
+            if (!tasks[taskIndex].isDone) { //only if task is undone
+                tasks[taskIndex].isDone = true;
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks[taskIndex].toString());
+                System.out.println("____________________________________________________________");
+                return;
+            }
+            throw new TaskAlreadyMarkedException();
         }
     }
 
@@ -149,19 +157,25 @@ public class TaskManager {
             } catch (AccessTaskOutOfBoundsException e) {
                 e.printAccessTaskOutOfBoundsError();
                 printNumberOfTasks();
+            } catch (TaskAlreadyUnmarkedException e) {
+                e.printTaskAlreadyUnmarkedError();
             }
         }
     }
 
-    public void markAsUndone(int taskNumber) throws AccessTaskOutOfBoundsException{
+    public void markAsUndone(int taskNumber) throws AccessTaskOutOfBoundsException, TaskAlreadyUnmarkedException{
         if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds
             throw new AccessTaskOutOfBoundsException();
         } else {
             int taskIndex = taskNumber - 1;
-            tasks[taskIndex].isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks[taskIndex].toString());
-            System.out.println("____________________________________________________________");
+            if (tasks[taskIndex].isDone) { //only if task is done
+                tasks[taskIndex].isDone = false;
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(tasks[taskIndex].toString());
+                System.out.println("____________________________________________________________");
+                return;
+            }
+            throw new TaskAlreadyUnmarkedException();
         }
     }
 }
