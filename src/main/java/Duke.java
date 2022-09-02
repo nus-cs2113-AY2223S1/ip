@@ -1,7 +1,9 @@
 import java.util.Scanner;
+
 public class Duke {
     static TaskManager tasks = new TaskManager();
     static String PRINT_LINE = "____________________________________________________________\n";
+
     public static void main(String[] args) {
        /*
        String logo = " ____        _        \n"
@@ -26,29 +28,29 @@ public class Duke {
         do {
             String command = sc.nextLine();
 
-            if(command.equals("bye")){
+            if (command.equals("bye")) {
                 isFinished = true;
-            } else if(command.startsWith("mark")){
-                taskNum = Integer.parseInt(command.substring(command.length()-1));
+            } else if (command.startsWith("mark")) {
+                taskNum = Integer.parseInt(command.substring(command.length() - 1));
                 tasks.markTask(taskNum);
-            } else if(command.startsWith("unmark")){
-                taskNum = Integer.parseInt(command.substring(command.length()-1));
+            } else if (command.startsWith("unmark")) {
+                taskNum = Integer.parseInt(command.substring(command.length() - 1));
                 tasks.unmarkTask(taskNum);
-            } else if(command.equals("list")){ // list
+            } else if (command.equals("list")) { // list
                 tasks.printList();
-            } else if(command.startsWith("todo")){
+            } else if (command.startsWith("todo")) {
                 tasks.addToDo(command);
-            }else if(command.startsWith("event")){
+            } else if (command.startsWith("event")) {
                 tasks.addEvent(command);
-            }else if(command.startsWith("deadline")){
+            } else if (command.startsWith("deadline")) {
                 tasks.addDeadline(command);
             }
 
-        }while(isFinished != true);
+        } while (isFinished != true);
         System.out.println(
                 PRINT_LINE
-                + "Bye. Come back soon! :) \n"
-                + PRINT_LINE
+                        + "Bye. Come back soon! :) \n"
+                        + PRINT_LINE
         );
     }
 }

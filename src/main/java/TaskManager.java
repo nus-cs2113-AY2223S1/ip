@@ -5,7 +5,7 @@ public class TaskManager {
     public int numOfTasks = 0;
 
     /**
-     * Add a task into the list
+     * Add a task into the list and prints an indication it has been added successfully
      *
      * @param task task to add
      */
@@ -14,27 +14,42 @@ public class TaskManager {
         numOfTasks++;
         System.out.println(
                 Duke.PRINT_LINE
-                + TASK_ADDED
-                + task + "\n"
-                + "Now you have " + numOfTasks + " in the list.\n"
-                + Duke.PRINT_LINE
+                        + TASK_ADDED
+                        + task + "\n"
+                        + "Now you have " + numOfTasks + " in the list.\n"
+                        + Duke.PRINT_LINE
         );
     }
-    public void addToDo(String input){
-        String todoTask = input.substring("todo".length(),input.length());
+    /**
+     * Adds a todo type task to the list
+     *
+     * @param input input of user
+     */
+    public void addToDo(String input) {
+        String todoTask = input.substring("todo".length(), input.length());
         ToDo todo = new ToDo(todoTask);
         addTask(todo);
     }
+    /**
+     * Adds an event type task to the list
+     *
+     * @param input input of user
+     */
     public void addEvent(String input) {
-        String eventTask = input.substring("event".length(),input.indexOf("/") - 1);
+        String eventTask = input.substring("event".length(), input.indexOf("/") - 1);
         String eventDate = input.substring(input.indexOf("/at ") + "/at ".length());
         Event event = new Event(eventTask, eventDate);
         addTask(event);
 
     }
 
+    /**
+     * Adds a deadline type task to the list
+     *
+     * @param input input of user
+     */
     public void addDeadline(String input) {
-        String deadlineTask = input.substring("deadline".length(),input.indexOf("/") - 1);
+        String deadlineTask = input.substring("deadline".length(), input.indexOf("/") - 1);
         String deadlineDate = input.substring(input.indexOf("/by ") + "/by ".length());
         Deadline deadline = new Deadline(deadlineTask, deadlineDate);
         addTask(deadline);
@@ -48,7 +63,7 @@ public class TaskManager {
      * @param input position of item to mark in the list
      */
     public void markTask(int input) {
-        if(input > 0 && input <= numOfTasks){
+        if (input > 0 && input <= numOfTasks) {
             taskList[input - 1].markAsDone();
         }
     }
@@ -59,7 +74,7 @@ public class TaskManager {
      * @param input position of item to unmark in the list
      */
     public void unmarkTask(int input) {
-        if(input > 0 && input <= numOfTasks){
+        if (input > 0 && input <= numOfTasks) {
             taskList[input - 1].markAsNotDone();
         }
     }
@@ -70,11 +85,11 @@ public class TaskManager {
     public void printList() {
         System.out.println(
                 Duke.PRINT_LINE
-                + "Here are the tasks in your list:"
+                        + "Here are the tasks in your list:"
         );
-        for(int i = 0; i < numOfTasks; i ++) {
+        for (int i = 0; i < numOfTasks; i++) {
             System.out.println(
-                    (i+1) + "."
+                    (i + 1) + "."
                             + taskList[i]
             );
         }

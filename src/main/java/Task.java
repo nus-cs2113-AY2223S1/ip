@@ -21,28 +21,28 @@ public class Task {
     /**
      * Mark an item as not done
      */
-    public void markAsNotDone(){
+    public void markAsNotDone() {
         this.isDone = false;
         System.out.println(
                 Duke.PRINT_LINE
-                        +"OK, I've marked this task as not done:\n"
+                        + "OK, I've marked this task as not done:\n"
                         + "[ ] "
                         + description
-                        + "\n____________________________________________________________"
+                        + "\n" + Duke.PRINT_LINE
         );
     }
 
     /**
      * Mark an item as done
      */
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
         System.out.println(
                 Duke.PRINT_LINE
-                        +"Nice! I've marked this task as done:\n"
+                        + "Nice! I've marked this task as done:\n"
                         + "[X] "
                         + description
-                        + "\n____________________________________________________________"
+                        + "\n" + Duke.PRINT_LINE
         );
     }
 }

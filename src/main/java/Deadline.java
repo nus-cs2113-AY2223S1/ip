@@ -12,7 +12,7 @@ public class Deadline extends Task {
         return "[D]" + getStatusIcon() + super.description + " (by: " + this.by + ")";
     }
 
-    public String getBy(){
+    public String getBy() {
         return this.by;
     }
 }
