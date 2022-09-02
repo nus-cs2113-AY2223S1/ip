@@ -18,4 +18,10 @@ public class Task {
     public boolean isDone() {
         return isDone;
     }
+
+    @Override
+    public String toString() {
+        String checkmark = this.isDone() ? "X" : " ";
+        return String.format("[%s] %s", checkmark, description);
+    }
 }
