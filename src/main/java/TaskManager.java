@@ -35,6 +35,11 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    public Task getTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        return tasks.get(taskIndex);
+    }
+
     /**
      * Marks a task as completed.
      *
@@ -43,9 +48,6 @@ public class TaskManager {
     public void markTaskAsCompleted(int taskNumber) {
         int index = taskNumber - 1;
         tasks.get(index).setComplete(true);
-        String taskDescription = tasks.get(index).getDescription();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + taskDescription);
     }
 
     /**
@@ -56,8 +58,5 @@ public class TaskManager {
     public void markTaskAsUncompleted(int taskNumber) {
         int index = taskNumber - 1;
         tasks.get(index).setComplete(false);
-        String taskDescription = tasks.get(index).getDescription();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + taskDescription);
     }
 }
