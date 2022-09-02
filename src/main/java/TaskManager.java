@@ -12,20 +12,6 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    public void printEmptyDescriptionError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The description cannot be empty.\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
-    public void printUnknownCommandError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
     public String assembleTaskDescription(String[] text) {
         String description = text[1]; //initialise with first word of task
         for (int i = 2; i < text.length; i++) { //start loop from second word of task
@@ -92,9 +78,9 @@ public class TaskManager {
             try {
                 this.addTask(type, curr);
             } catch (EmptyDescriptionException e) {
-                printEmptyDescriptionError();
+                e.printEmptyDescriptionError();
             } catch (UnknownCommandException e){
-                printUnknownCommandError();
+                e.printUnknownCommandError();
             }
         }
     }
