@@ -1,18 +1,22 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskType = "T";
     }
 
     /**
      * Get status of list item if it is done or undone
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone ? "[X]" : "[ ]"
+        ); // mark done task with X
     }
+
 
     /**
      * Mark an item as not done
@@ -21,7 +25,7 @@ public class Task {
         this.isDone = false;
         System.out.println(
                 Duke.PRINT_LINE
-                        +"OK, I've marked this task as not done yet:\n"
+                        +"OK, I've marked this task as not done:\n"
                         + "[ ] "
                         + description
                         + "\n____________________________________________________________"

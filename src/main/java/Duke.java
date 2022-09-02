@@ -36,14 +36,18 @@ public class Duke {
                 tasks.unmarkTask(taskNum);
             } else if(command.equals("list")){ // list
                 tasks.printList();
-            } else{
-                tasks.addTask(command);
+            } else if(command.startsWith("todo")){
+                tasks.addToDo(command);
+            }else if(command.startsWith("event")){
+                tasks.addEvent(command);
+            }else if(command.startsWith("deadline")){
+                tasks.addDeadline(command);
             }
 
         }while(isFinished != true);
         System.out.println(
                 PRINT_LINE
-                + "Bye. Hope to see you again soon! \n"
+                + "Bye. Come back soon! :) \n"
                 + PRINT_LINE
         );
     }
