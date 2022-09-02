@@ -3,6 +3,59 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static String getInputType(String line) {
+        String breakLine[] = line.split(" ", 2);
+        return breakLine[0];
+    }
+
+    public static String getInputDetails(String line) {
+        String breakLine[] = line.split(" ", 2);
+        return breakLine[1];
+    }
+
+    public static void printTaskList(Task[] tasks, int taskCount) {
+        System.out.println("\t_____________________");
+        // if there are no task
+        if (taskCount == 0) {
+            System.out.println("There are no tasks yet!");
+        } else {
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 0; i < taskCount; i += 1) {
+                System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+            }
+        }
+        System.out.println("\t_____________________");
+    }
+
+    public static int getTaskId(String line) {
+        int markId = Integer.parseInt(line.replaceAll("[^0-9]", ""));    // gets the id
+        return (markId - 1);
+    }
+
+    public static void printMark(Task[] tasks, int taskId) {
+        System.out.println("\tNice! I've marked this task as done:");
+        tasks[taskId].setDone(tasks[taskId].isDone);
+        System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+    }
+
+    public static void printUnmark(Task[] tasks, int taskId) {
+        if (!tasks[taskId].isDone) {
+            System.out.println("this is already unmarked");
+        } else {
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            tasks[taskId].setDone(tasks[taskId].isDone);
+            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+        }
+    }
+
+    public static void printSuccessfulAdd(Task[] tasks, int taskCount) {
+        System.out.println("\t_____________________");
+        System.out.println("\t" + "Got it. I've added this task:");
+        System.out.println("\t" + "added: " + tasks[taskCount]);
+        System.out.println("\t_____________________\n");
+    }
+
+
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
@@ -15,71 +68,49 @@ public class Duke {
 
         do {
             line = in.nextLine();
-            String breakLine[] = line.split(" ", 2);
-            String firstWord = breakLine[0];
+            String type = getInputType(line);
 
-            if (firstWord.equals("bye")) {
+            if (type.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             }
 
-            if (firstWord.equals("list")) {  // list out the items
-                System.out.println("\t_____________________");
-                System.out.println("\tHere are the tasks in your list:");
-                for (int i = 0; i < taskCount; i += 1) {
-                    System.out.println("\t" + (i + 1) + ". " + tasks[i]);
-                }
+            if (type.equals("list")) {  // list out the items
+                printTaskList(tasks, taskCount);
+            } else if (type.equals("mark")) {
+                int taskId = getTaskId(line);
+                printMark(tasks, taskId);
+            } else if (type.equals("unmark")) {
+                int taskId = getTaskId(line);
+                printUnmark(tasks, taskId);
 
-
-                System.out.println("\t_____________________\n");
-            } else if (firstWord.equals("mark")) {
-                int markId = Integer.parseInt(line.replaceAll("[^0-9]", ""));    // gets the id
-                int taskId = markId - 1;
-                System.out.println("\tNice! I've marked this task as done:");
-                tasks[taskId].setDone(tasks[taskId].isDone);
-                System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
-            } else if (firstWord.equals("unmark")) {
-                int markId = Integer.parseInt(line.replaceAll("[^0-9]", ""));    // gets the id
-                int taskId = markId - 1;
-                if (!tasks[taskId].isDone) {
-                    System.out.println("this is already unmarked");
-                } else {
-                    System.out.println("\tOK, I've marked this task as not done yet:");
-                    tasks[taskId].setDone(tasks[taskId].isDone);
-                    System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
-                }
-
-            } else if (firstWord.equals("total")) {
+            } else if (type.equals("total")) {
                 System.out.println(taskCount);
             } else {
 
-                if (firstWord.equals("todo")) {
-                    String desc = breakLine[1];
-                    Task t = new Todo(desc);
+                if (type.equals("todo")) {
+                    String details = getInputDetails(line);
+                    Task t = new Todo(details);
                     tasks[taskCount] = t;
-                }
-                else if (firstWord.equals("deadline")){
-                    String desc = breakLine[1];
-                    String breakBy[] = desc.split("/by", 2);
+                } else if (type.equals("deadline")) {
+                    String details = getInputDetails(line);
+                    String breakBy[] = details.split("/by", 2);
                     String detail = breakBy[0];
                     String by = breakBy[1];
                     Task d = new Deadline(detail, by);
                     tasks[taskCount] = d;
-                }
-                else if (firstWord.equals("event")){
-                    String desc = breakLine[1];
-                    String breakAt[] = desc.split("/at", 2);
+                } else if (type.equals("event")) {
+                    String details = getInputDetails(line);
+                    String breakAt[] = details.split("/at", 2);
                     String detail = breakAt[0];
                     String at = breakAt[1];
                     Task e = new Event(detail, at);
                     tasks[taskCount] = e;
                 }
 
-                System.out.println("\t_____________________");
-                System.out.println("\t" + "Got it. I've added this task:");
-                System.out.println("\t" + "added: " + tasks[taskCount]);
-                System.out.println("\t_____________________\n");
+                printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
+
             }
 
         } while (!line.equals("bye"));
