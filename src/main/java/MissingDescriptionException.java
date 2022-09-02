@@ -1,2 +1,2 @@
-public class DescriptionEmptyException extends Exception {
+public class MissingDescriptionException extends Exception {
 }

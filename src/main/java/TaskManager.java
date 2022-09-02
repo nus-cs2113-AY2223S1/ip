@@ -35,6 +35,11 @@ public class TaskManager {
         return output;
     }
 
+    public String addToDo(ToDo toDo) {
+        String output = addTask(toDo);
+        return output;
+    }
+
     /**
      * Add a new deadline task to the list of tasks
      * @param taskDescription Name of Task
@@ -46,6 +51,11 @@ public class TaskManager {
         return output;
     }
 
+    public String addDeadline(Deadline deadline) {
+        String output = addTask(deadline);
+        return output;
+    }
+
     /**
      * Add a new event task to the list of tasks
      * @param taskDescription Name of task
@@ -54,6 +64,11 @@ public class TaskManager {
      */
     public String addEvent(String taskDescription, String at) {
         String output = addTask(new Event(taskDescription, at));
+        return output;
+    }
+
+    public String addEvent(Event event) {
+        String output = addTask(event);
         return output;
     }
 

@@ -1,2 +1,2 @@
-public class DateMissingException extends Exception {
+public class MissingArgumentException extends Exception {
 }

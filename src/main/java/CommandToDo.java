@@ -1,22 +1,18 @@
-public class CommandUnmark extends Command {
+public class CommandToDo extends Command {
 
-    public static final int NUM_OF_ARGUMENTS = 1;
+    public static final int MIN_ARGUMENTS = 1;
 
     private String[] splitArguments;
-    private Integer taskNum = null;
+    private String description = null;
 
 
-    public CommandUnmark(String rawArguments) {
+    public CommandToDo(String rawArguments) {
         splitArguments = rawArguments.split(" ");
     }
 
     @Override
-    public void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException {
-        if (splitArguments.length > NUM_OF_ARGUMENTS) {
-            throw new ExtraArgumentException();
-        }
-
-        if (splitArguments.length < NUM_OF_ARGUMENTS) {
+    public void checkArgumentLength() throws MissingArgumentException {
+        if (splitArguments.length < MIN_ARGUMENTS) {
             throw new MissingArgumentException();
         }
     }
@@ -27,15 +23,7 @@ public class CommandUnmark extends Command {
     }
 
     @Override
-    public void checkArgument() throws NotIntegerException {
-        try {
-            taskNum = Integer.parseInt(splitArguments[0]);
-        } catch (NumberFormatException e) {
-            throw new NotIntegerException();
-        }
+    public void checkArgument() {
     }
 
-    public int getTaskNum() {
-        return taskNum;
-    }
 }

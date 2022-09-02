@@ -19,6 +19,44 @@ public class Duke {
     }
 
 
+    public static Command parse(String rawInput) throws UnknownCommandException, MissingDescriptionException,
+            MissingArgumentException, ExtraArgumentException {
+        String[] tokens = rawInput.split("[ \t]+");
+        String commandType = tokens[0];
+        String rawArguments = tokens.length > 1 ? rawInput.substring(commandType.length()+1) : "";
+
+        Command command;
+
+        switch (commandType) {
+        case "bye":
+            command = new CommandExit(rawArguments);
+            break;
+        case "list":
+            command = new CommandList(rawArguments);
+            break;
+        case "mark":
+            command = new CommandMark(rawArguments);
+            break;
+        case "unmark":
+            command = new CommandUnmark(rawArguments);
+            break;
+        case "todo":
+            command = new CommandToDo();
+            break;
+        case "deadline":
+            command = new CommandDeadline();
+            break;
+        case "event":
+            command = new CommandEvent();
+            break;
+        default:
+            throw new UnknownCommandException();
+        }
+
+        return command;
+    }
+
+
     public static void main(String[] args) {
         String input, output;
         TaskManager taskManager = new TaskManager();
@@ -59,7 +97,7 @@ public class Duke {
                 output = taskManager.addEvent(description, at);
                 break;
             default:
-                output = "Not a valid input";
+                output = "Uh Hello, not a valid input?";
                 break;
             }
             formatAndPrint(output);

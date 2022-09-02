@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class MissingFlagException {
+public class MissingFlagException extends Exception {
 }

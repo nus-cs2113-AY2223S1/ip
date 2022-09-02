@@ -1,15 +1,12 @@
-import java.util.ArrayList;
-
-public class CommandMark extends Command {
+public class CommandUnmark extends Command {
 
     public static final int NUM_OF_ARGUMENTS = 1;
-    public static final String[] FLAGS = new String[]{};
 
     private String[] splitArguments;
     private Integer taskNum = null;
 
 
-    public CommandMark(String rawArguments) {
+    public CommandUnmark(String rawArguments) {
         splitArguments = rawArguments.split(" ");
     }
 
@@ -22,7 +19,6 @@ public class CommandMark extends Command {
         if (splitArguments.length < NUM_OF_ARGUMENTS) {
             throw new MissingArgumentException();
         }
-
     }
 
     @Override
