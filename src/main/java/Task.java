@@ -26,4 +26,8 @@ public class Task {
         }
         return "[ ]";
     }
+
+    public String toString(){
+        return getCheckBox() + " "+ getName();
+    }
 }
