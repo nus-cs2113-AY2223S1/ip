@@ -11,6 +11,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by){
         super(description);
         this.by = by;
+        this.taskType = 'D';
     }
 
     public void setBy(String by){
@@ -18,7 +19,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void printItem() {
-        System.out.println("[D]["+this.getStatusIcon()+"] "+this.description+" (by: "+this.by+")");
+    public void printTask() {
+        super.printTask();
+        System.out.println(" ("+this.by+")");
     }
 }

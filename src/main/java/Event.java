@@ -8,13 +8,16 @@ public class Event extends Task {
     public Event(String description, String timing){
         super(description);
         this.timing = timing;
+        this.taskType = 'E';
     }
 
     public void setTiming(String timing) {
         this.timing = timing;
     }
+
     @Override
-    public void printItem() {
-        System.out.println("[E]["+this.getStatusIcon()+"] "+this.description+" (at: "+this.timing+")");
+    public void printTask() {
+        super.printTask();
+        System.out.println(" ("+this.timing+")");
     }
 }
