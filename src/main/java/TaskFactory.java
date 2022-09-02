@@ -8,6 +8,9 @@ public class TaskFactory {
 
     private static String parseName(String description) {
         int firstSpace = description.indexOf(' ');
+        if (firstSpace == -1) {
+            return "";
+        }
         String withoutKeyword = description.substring(firstSpace + 1);
         int firstSlash = withoutKeyword.indexOf('/');
         if (firstSlash != -1) {
@@ -34,7 +37,7 @@ public class TaskFactory {
 
     }
 
-    public static Task createTask(String description) {
+    public static Task createTask(String description) throws DukeException {
         String keyword = parseKeyword(description);
         String name = parseName(description);
         Map<String, String> params = parseParams(description);
@@ -46,7 +49,7 @@ public class TaskFactory {
         case "todo":
             return new TodoTask(name);
         default:
-            return new Task(name);
+            throw new DukeException("I don't know what that means :-(");
         }
     }
 }

@@ -24,20 +24,25 @@ public class Duke {
 
     public static void processInput(String input) {
         // command types: read, return, list
-        if (input.startsWith("list")) {
-            displayMessage(listManager.toString());
-        } else if (input.startsWith("mark")) {
-            int index = Integer.parseInt(input.substring("mark".length()).trim());
-            listManager.markDone(index);
-            displayMessage(String.format("Nice! I've marked this task as done:\n %s", listManager.getItem(index)));
-        } else if (input.startsWith("unmark")) {
-            int index = Integer.parseInt(input.substring("unmark".length()).trim());
-            listManager.markUndone(index);
-            displayMessage(
-                    String.format("OK, I've marked this task as not done yet:\n %s", listManager.getItem(index)));
-        } else {
-            listManager.addItem(input);
-            displayMessage("added: " + input);
+        try {
+            if (input.startsWith("list")) {
+                displayMessage(listManager.toString());
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.substring("mark".length()).trim());
+                listManager.markDone(index);
+                displayMessage(String.format("Nice! I've marked this task as done:\n %s", listManager.getItem(index)));
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.substring("unmark".length()).trim());
+                listManager.markUndone(index);
+                displayMessage(
+                        String.format("OK, I've marked this task as not done yet:\n %s", listManager.getItem(index)));
+            } else {
+                Task task = TaskFactory.createTask(input);
+                listManager.addItem(task);
+                displayMessage("added: " + task);
+            }
+        } catch (DukeException e) {
+            displayMessage(e.getMessage());
         }
     }
 
