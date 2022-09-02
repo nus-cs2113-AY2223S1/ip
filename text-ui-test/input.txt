@@ -9,4 +9,8 @@ mark 2
 list
 unmark 2
 list
+todo
+deadline
+event Name provided but not date
+list
 bye
