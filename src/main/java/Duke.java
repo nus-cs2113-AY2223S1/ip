@@ -13,7 +13,8 @@ public class Duke {
     private static final String[] COMMANDS = {"help", "list", "todo", "deadline", "event",
         "mark", "unmark", "bye"};
 
-    private static Task[] tasks = new Task[100];
+    private static final int MAX_TASK = 100;
+    private static Task[] tasks = new Task[MAX_TASK];
     private static int taskCount = 0;
 
     private static void greet() {
@@ -28,12 +29,22 @@ public class Duke {
     }
 
     private static void addTask(Task task) {
-        tasks[taskCount++] = task;
+        if (taskCount < MAX_TASK) {
+            tasks[taskCount++] = task;
+            System.out.println("Task added: " + task.getPrintString());
+        }
+        else {
+            System.out.println("Maximum number of tasks reached");
+        }
     }
 
     private static void listTasks() {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.printf("%d. %s\n", i + 1, tasks[i].getPrintString());
+        if (taskCount > 0) {
+            for (int i = 0; i < taskCount; i++) {
+                System.out.printf("%d. %s\n", i + 1, tasks[i].getPrintString());
+            }
+        } else {
+            System.out.println("There are no tasks added yet. Type 'help' if you need help.");
         }
     }
 
@@ -73,19 +84,16 @@ public class Duke {
             } else if (inputWords[0].equals("todo")) {
                 String description = inputWords[1].trim();
                 addTask(new Todo(description));
-                System.out.println("Todo task added: " + tasks[taskCount - 1].getPrintString());
             } else if (inputWords[0].equals("deadline")) {
-                String[] arguments = inputWords[1].split("/by ");
+                String[] arguments = inputWords[1].split(Deadline.SEPARATOR);
                 String description = arguments[0].trim();
                 String deadlineDate = arguments[1].trim();
                 addTask(new Deadline(description, deadlineDate));
-                System.out.println("Deadline task added: " + tasks[taskCount - 1].getPrintString());
             } else if (inputWords[0].equals("event")) {
-                String[] arguments = inputWords[1].split("/at ");
+                String[] arguments = inputWords[1].split(Event.SEPARATOR);
                 String description = arguments[0].trim();
                 String datetime = arguments[1].trim();
                 addTask(new Event(description, datetime));
-                System.out.println("Event task added: " + tasks[taskCount - 1].getPrintString());
             } else {
                 System.out.println("Sorry, I don't get what you mean. Can you try again?");
             }
