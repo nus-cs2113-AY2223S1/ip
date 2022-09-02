@@ -1,3 +1,10 @@
+package duke.task;
+
+import duke.exceptions.AccessTaskOutOfBoundsException;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.MissingTaskNumberException;
+import duke.exceptions.UnknownCommandException;
+
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private int tasksCount = 0;
@@ -69,11 +76,17 @@ public class TaskManager {
         String[] text = curr.split(" ");
         String type = text[0];
         if (type.equals("mark")) {
-            int taskNumber = Integer.parseInt(text[1]);
-            this.markAsDone(taskNumber);
+            try {
+                this.handleMarkAsDone(curr);
+            } catch (MissingTaskNumberException e) {
+                e.printMissingTaskNumberError();
+            }
         } else if (type.equals("unmark")) {
-            int taskNumber = Integer.parseInt(text[1]);
-            this.markAsUndone(taskNumber);
+            try {
+                this.handleMarkAsUndone(curr);
+            } catch (MissingTaskNumberException e) {
+                e.printMissingTaskNumberError();
+            }
         } else {
             try {
                 this.addTask(type, curr);
@@ -85,6 +98,10 @@ public class TaskManager {
         }
     }
 
+    public void printNumberOfTasks() {
+        System.out.println("You currently have " + this.tasksCount + " task(s) in your list.\n"
+                + "    ____________________________________________________________");
+    }
     public void listTasks(){
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
@@ -94,19 +111,57 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    public void markAsDone(int taskNumber){
-        int taskIndex = taskNumber - 1;
-        tasks[taskIndex].isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIndex].toString());
-        System.out.println("____________________________________________________________");
+    public void handleMarkAsDone(String curr) throws MissingTaskNumberException {
+        String[] text = curr.split(" ");
+        if (text.length == 1) { //did not specify task number
+            throw new MissingTaskNumberException();
+        } else {
+            int taskNumber = Integer.parseInt(text[1]);
+            try {
+                markAsDone(taskNumber);
+            } catch (AccessTaskOutOfBoundsException e) {
+                e.printAccessTaskOutOfBoundsError();
+                printNumberOfTasks();
+            }
+        }
     }
 
-    public void markAsUndone(int taskNumber){
-        int taskIndex = taskNumber - 1;
-        tasks[taskIndex].isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[taskIndex].toString());
-        System.out.println("____________________________________________________________");
+    public void markAsDone(int taskNumber) throws AccessTaskOutOfBoundsException {
+        if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds
+            throw new AccessTaskOutOfBoundsException();
+        } else {
+            int taskIndex = taskNumber - 1;
+            tasks[taskIndex].isDone = true;
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks[taskIndex].toString());
+            System.out.println("____________________________________________________________");
+        }
+    }
+
+    public void handleMarkAsUndone(String curr) throws MissingTaskNumberException {
+        String[] text = curr.split(" ");
+        if (text.length == 1) { //did not specify task number
+            throw new MissingTaskNumberException();
+        } else {
+            int taskNumber = Integer.parseInt(text[1]);
+            try {
+                markAsUndone(taskNumber);
+            } catch (AccessTaskOutOfBoundsException e) {
+                e.printAccessTaskOutOfBoundsError();
+                printNumberOfTasks();
+            }
+        }
+    }
+
+    public void markAsUndone(int taskNumber) throws AccessTaskOutOfBoundsException{
+        if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds
+            throw new AccessTaskOutOfBoundsException();
+        } else {
+            int taskIndex = taskNumber - 1;
+            tasks[taskIndex].isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(tasks[taskIndex].toString());
+            System.out.println("____________________________________________________________");
+        }
     }
 }

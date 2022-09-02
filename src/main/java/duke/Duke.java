@@ -1,4 +1,7 @@
+package duke;
+
 import java.util.Scanner;
+import duke.task.TaskManager;
 
 public class Duke {
     static final String LOGO = "   _____                .__   \n" +

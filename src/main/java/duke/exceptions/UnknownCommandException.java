@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class UnknownCommandException extends DukeException{
     public void printUnknownCommandError() {
         String error = "    ____________________________________________________________\n" +

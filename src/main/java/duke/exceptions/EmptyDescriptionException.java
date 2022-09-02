@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class EmptyDescriptionException extends ArrayIndexOutOfBoundsException{
     public void printEmptyDescriptionError() {
         String error = "    ____________________________________________________________\n" +
