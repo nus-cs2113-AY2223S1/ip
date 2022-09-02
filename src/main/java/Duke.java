@@ -24,40 +24,14 @@ public class Duke {
         printDivider();
     }
 
-    public static void addTodoToList(Todo currentTodo) {
-        tasks[position] = currentTodo;
+    public static void addTask(Task currentTask) {
+        tasks[position] = currentTask;
         position++;
 
         printDivider();
         System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
         System.out.print("\t  ");
-        System.out.println(currentTodo);
-        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
-        System.out.println("");
-        printDivider();
-    }
-
-    public static void addDeadlineToList(Deadline currentDeadline) {
-        tasks[position] = currentDeadline;
-        position++;
-
-        printDivider();
-        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
-        System.out.print("\t  ");
-        System.out.println(currentDeadline);
-        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
-        System.out.println("");
-        printDivider();
-    }
-
-    public static void addEventToList(Event currentEvent) {
-        tasks[position] = currentEvent;
-        position++;
-
-        printDivider();
-        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
-        System.out.print("\t  ");
-        System.out.println(currentEvent);
+        System.out.println(currentTask);
         System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
         System.out.println("");
         printDivider();
@@ -124,18 +98,18 @@ public class Duke {
                 } else {
                     switch(words[0]) {
                     case "todo" :
-                        Todo todo = new Todo(userInput.substring(5));
-                        addTodoToList(todo);
+                        Task todo = new Todo(userInput.substring(5));
+                        addTask(todo);
                         break;
                     case "deadline" :
                         String deadlineWords[] = userInput.substring(8).split("/");
-                        Deadline deadline = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
-                        addDeadlineToList(deadline);
+                        Task deadline = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
+                        addTask(deadline);
                         break;
                     case "event" :
                         String eventWords[] = userInput.substring(6).split("/");
-                        Event event = new Event(eventWords[0].trim(), eventWords[1].substring(3));
-                        addEventToList(event);
+                        Task event = new Event(eventWords[0].trim(), eventWords[1].substring(3));
+                        addTask(event);
                         break;
                     }
                 }
