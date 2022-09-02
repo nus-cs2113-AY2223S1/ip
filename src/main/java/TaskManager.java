@@ -4,7 +4,11 @@ public class TaskManager {
     public static final String DASH_SEPARATOR = "------------------------------------------------\n";
     public static Task[] tasks = new Task[100];
     private static int index = 0;
-
+    public static void printMark(Task task, boolean done) {
+        System.out.println(DASH_SEPARATOR);
+        task.markDone(done);
+        System.out.println(DASH_SEPARATOR);
+    }
     public static void printTask(Task task) {
         index++;
         System.out.println(DASH_SEPARATOR);
@@ -43,11 +47,11 @@ public class TaskManager {
         switch (firstWord) {
         case "mark":
             int pos = Integer.parseInt(command.substring(5)) - 1;
-            tasks[pos].markDone(true);
+            printMark(tasks[pos], true);
             break;
         case "unmark":
             pos = Integer.parseInt(command.substring(7)) - 1;
-            tasks[pos].markDone(false);
+            printMark(tasks[pos], false);
             break;
         case "todo":
             tasks[index] = new Todo(command, ' ');
