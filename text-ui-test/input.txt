@@ -1,0 +1,21 @@
+help
+list
+todo read book
+todo
+event watch movie /at Sep 30th 6pm
+event watch TV show
+event
+deadline submit quiz /by Sep 6th 23:59
+deadline submit
+deadline
+list
+mark 2
+mark 3
+mark 4
+list
+unmark 2
+unmark 0
+list
+
+byebye
+bye

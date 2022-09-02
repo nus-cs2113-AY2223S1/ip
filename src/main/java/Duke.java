@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final String LOGO = " ________      ________ _____  \n" +
-            "|  ____\\ \\    / /  ____|  __ \\ \n" +
+    private static final String LOGO = " ________      ________ _____\n" +
+            "|  ____\\ \\    / /  ____|  __ \\\n" +
             "| |__   \\ \\  / /| |__  | |__) |\n" +
-            "|  __|   \\ \\/ / |  __| |  _  / \n" +
-            "| |____   \\  /  | |____| | \\ \\ \n" +
+            "|  __|   \\ \\/ / |  __| |  _  /\n" +
+            "| |____   \\  /  | |____| | \\ \\\n" +
             "|______|   \\/   |______|_|  \\_\\";
+    private static final String HORIZONTAL_LINE = "==================================================================";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final TaskManager TASK_MANAGER = new TaskManager();
@@ -27,12 +28,12 @@ public class Duke {
 
     private static void displayCommandMenu() {
         for (String command: COMMANDS) {
-            System.out.printf("\t* %s\n", command);
+            System.out.printf(" * %s\n", command);
         }
     }
 
     private static String getUserInput() {
-        System.out.print(">> ");
+        System.out.println(HORIZONTAL_LINE);
         return SCANNER.nextLine().trim();
     }
 
