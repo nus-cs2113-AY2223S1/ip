@@ -1,3 +1,10 @@
+package duke.userinterface;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskManager;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 /**

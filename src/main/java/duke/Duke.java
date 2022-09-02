@@ -1,3 +1,7 @@
+package duke;
+
+import duke.userinterface.ConsoleInterface;
+
 public class Duke {
     /**
      * Initializes application and starts interaction with user.
