@@ -4,10 +4,10 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String name, String deadline) throws DukeException {
         super(name);
         if ("".equals(name)) {
-            throw new DukeException("☹ OOPS!!! Deadline name cannot be empty");
+            throw new DukeException("Deadline name cannot be empty");
         }
         if (deadline == null) {
-            throw new DukeException("☹ OOPS!!! Please provide a deadline (/by)");
+            throw new DukeException("Please provide a deadline (/by)");
         }
         this.deadline = deadline;
     }

@@ -49,7 +49,7 @@ public class TaskFactory {
         case "todo":
             return new TodoTask(name);
         default:
-            throw new DukeException("☹ OOPS!!! I don't know what that means :-(");
+            throw new DukeException("I don't know what that means :-(");
         }
     }
 }

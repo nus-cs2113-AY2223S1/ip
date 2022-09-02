@@ -4,10 +4,10 @@ public class EventTask extends Task {
     public EventTask(String name, String eventDateTime) throws DukeException {
         super(name);
         if ("".equals(name)) {
-            throw new DukeException("☹ OOPS!!! Event name cannot be empty");
+            throw new DukeException("Event name cannot be empty");
         }
         if (eventDateTime == null) {
-            throw new DukeException("☹ OOPS!!! Please provide a date and time (/at)");
+            throw new DukeException("Please provide a date and time (/at)");
         }
         this.eventDateTime = eventDateTime;
     }

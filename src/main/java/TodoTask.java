@@ -2,7 +2,7 @@ public class TodoTask extends Task {
     public TodoTask(String name) throws DukeException {
         super(name);
         if ("".equals(name)) {
-            throw new DukeException("☹ OOPS!!! Todo name cannot be empty");
+            throw new DukeException("Todo name cannot be empty");
         }
     }
 
