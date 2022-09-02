@@ -21,6 +21,8 @@ public class TaskManager {
 
     /**
      * Returns number of tasks in task manager.
+     *
+     * @return Number of tasks
      */
     public int getNumTasks() {
         return tasks.size();
@@ -35,6 +37,12 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    /**
+     * Gets a task from list of tasks
+     *
+     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @return Task
+     */
     public Task getTask(int taskNumber) {
         int taskIndex = taskNumber - 1;
         return tasks.get(taskIndex);
