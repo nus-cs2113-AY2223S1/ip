@@ -7,7 +7,7 @@ public class Event extends Task {
     }
 
     public String getTime() {
-        return this.time;
+        return time;
     }
 
     @Override

@@ -13,12 +13,11 @@ public class Duke {
         final String CONV_END = "Bye. Hope to see you again soon!";
 
         printOutput(CONV_START);
-        String lineInput;
         Scanner in = new Scanner(System.in);
 
         while (true) {
             System.out.println("What can I do for you?");
-            lineInput = in.nextLine();
+            String lineInput = in.nextLine();
 
 //            System.out.print("\033[H\033[2J");
 //            System.out.flush();
@@ -53,18 +52,18 @@ public class Duke {
     }
 
     private static void doMarkAction(String lineInput) {
-        int itemNo = Integer.parseInt(lineInput.split(" ")[1]);
-        list.markCompleted(itemNo, true);
+        int itemNumber = Integer.parseInt(lineInput.split(" ")[1]);
+        list.markCompleted(itemNumber, true);
         String message = "Nice! I've marked this task as done:\n"
-                + list.getItemFromList(itemNo);
+                + list.getItemFromList(itemNumber);
         printOutput(message);
     }
 
     private static void doUnmarkAction(String lineInput) {
-        int itemNo = Integer.parseInt(lineInput.split(" ")[1]);
-        list.markCompleted(itemNo, false);
+        int itemNumber = Integer.parseInt(lineInput.split(" ")[1]);
+        list.markCompleted(itemNumber, false);
         String message = "OK, I've marked this task as not done yet:\n"
-                + list.getItemFromList(itemNo);
+                + list.getItemFromList(itemNumber);
         printOutput(message);
     }
 

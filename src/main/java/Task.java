@@ -11,12 +11,12 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public Boolean hasCompleted() {
-        return this.isCompleted;
+    public boolean hasCompleted() {
+        return isCompleted;
     }
 
     public String getTaskName() {
-        return this.item;
+        return item;
     }
 
     public String getCompleteDescription() {
