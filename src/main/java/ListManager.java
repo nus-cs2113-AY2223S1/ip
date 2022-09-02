@@ -16,8 +16,8 @@ public class ListManager {
         }
     }
 
-    public void addItem(String item) {
-        items.add(TaskFactory.createTask(item));
+    public void addItem(Task item) {
+        items.add(item);
     }
 
     public void markDone(int index) {
