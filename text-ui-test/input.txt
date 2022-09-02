@@ -1,0 +1,25 @@
+todo valid todo 1
+deadline valid deadline 1 /by due date
+event valid event 2 /at event time
+todo valid todo 2
+todo valid todo 3
+list
+deadline valid deadline 2 /by due date 2
+event valid event 2 /at event time 2
+mark 4
+mark 1
+list
+unmark 1
+list
+todo
+deadline
+event
+deadline no by
+event no at
+mark 500
+mark 8
+unmark 0
+unmark -234
+unmark invalid
+list
+bye
