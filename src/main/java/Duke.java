@@ -34,10 +34,10 @@ public class Duke {
                 System.out.println(tasks[length]);
                 length++;
                 System.out.println("Now you have " + length + " tasks in the list.");
-            } else if (val.indexOf("mark") == 0) {
-                markTask(val, tasks, true, "Nice! I've marked this task as done:");
-            } else{
+            } else if (val.contains("unmark")) {
                 markTask(val, tasks, false, "OK, I've marked this task as not done yet:");
+            } else{
+                markTask(val, tasks, true, "Nice! I've marked this task as done:");
             }
             System.out.println("____________________________________________________________");
             val = input.nextLine();
