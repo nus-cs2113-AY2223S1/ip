@@ -6,7 +6,7 @@ package duke.error.exceptions;
  * {@link duke.Duke#COMMAND_MARK Duke.COMMAND_MARK} command.
  */
 public class NoStateChangeException extends DukeException {
-    boolean isDone;
+    private final boolean isDone;
 
     /**
      * Constructor for exception

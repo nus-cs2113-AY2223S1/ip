@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Class to control the user interface (getting input from user, displaying prompts etc.
+ * Class to control the user interface (getting input from user, displaying prompts etc.)
  * Displays a box of text overlaid on some ASCII art.
  */
 public class UserInterface {

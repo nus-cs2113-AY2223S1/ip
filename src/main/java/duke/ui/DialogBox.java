@@ -45,7 +45,7 @@ public class DialogBox {
      */
     public DialogBox(String text, int consoleWidth, int boxHorizontalPosition) {
         MAX_ROW_WIDTH = consoleWidth - boxHorizontalPosition - HORIZONTAL_PADDING * 2 - 2;
-        textBoxRows = new ArrayList<String>();
+        textBoxRows = new ArrayList<>();
         makeBox(indentAndWrapText(text));
     }
 
@@ -92,7 +92,7 @@ public class DialogBox {
      * @return indented and wrapped text expressed as a list of strings
      */
     private List<String> indentAndWrapText(String text) {
-        List<String> textRows = new ArrayList<String>();
+        List<String> textRows = new ArrayList<>();
         for (String row : text.split("\n")) {
             textRows.addAll(indentAndWrapItem(row));
         }

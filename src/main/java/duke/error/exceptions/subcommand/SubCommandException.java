@@ -7,8 +7,8 @@ import duke.error.exceptions.DukeException;
  * a command and subcommand string.
  */
 public abstract class SubCommandException extends DukeException {
-    protected String command;
-    protected String subCommand;
+    protected final String command;
+    protected final String subCommand;
 
     /**
      * Constructor for exception

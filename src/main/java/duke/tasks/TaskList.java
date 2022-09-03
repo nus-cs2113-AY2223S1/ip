@@ -20,7 +20,7 @@ public class TaskList {
      * Constructor that initializes list of task items.
      */
     public TaskList() {
-        items = new ArrayList<Task>();
+        items = new ArrayList<>();
     }
 
     /**
