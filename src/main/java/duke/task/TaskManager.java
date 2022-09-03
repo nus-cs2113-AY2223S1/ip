@@ -1,3 +1,6 @@
+package duke.task;
+import duke.DukeException;
+
 public class TaskManager {
     protected Task[] tasks;
     protected int taskCount;
@@ -14,7 +17,7 @@ public class TaskManager {
         taskCount = 0;
     }
 
-    public void handleInput(String input, String command) throws DukeException{
+    public void handleInput(String input, String command) throws DukeException {
         switch (command) {
         case "list":
             print();
