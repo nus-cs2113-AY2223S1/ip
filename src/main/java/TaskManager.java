@@ -43,6 +43,12 @@ public abstract class TaskManager {
         } catch (MissingTaskNumberException e) {
             System.out.println("Missing task number");
             return;
+        } catch (NonIntegerTaskNumberException e) {
+            System.out.println("Non-integer task number");
+            return;
+        } catch (OutOfBoundsTaskNumberException e) {
+            System.out.println("Out of bounds task number");
+            return;
         }
 
         tasks[taskNum].setDone();
@@ -58,6 +64,12 @@ public abstract class TaskManager {
             taskNum = Parser.parseTaskNumber(InputManager.UNMARK_PHRASE, input);
         } catch (MissingTaskNumberException e) {
             System.out.println("Missing task number");
+            return;
+        } catch (NonIntegerTaskNumberException e) {
+            System.out.println("Non-integer task number");
+            return;
+        } catch (OutOfBoundsTaskNumberException e) {
+            System.out.println("Out of bounds task number");
             return;
         }
 

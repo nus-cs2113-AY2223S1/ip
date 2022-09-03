@@ -28,7 +28,7 @@ public abstract class InputManager {
             try {
                 handleInput(input);
             } catch (DukeException e) {
-                System.out.println("☹ Bad Input");
+                System.out.println("Bad Input :(");
             }
 
             System.out.println(Duke.HORIZONTAL_LINE + System.lineSeparator());

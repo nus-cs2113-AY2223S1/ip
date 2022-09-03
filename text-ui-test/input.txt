@@ -23,5 +23,11 @@ deadline
 event
 mark
 unmark
+mark -1
+unmark -1
+mark 999
+unmark 999
+mark this
+unmark this
 list
 bye

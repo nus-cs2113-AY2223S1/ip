@@ -17,6 +17,7 @@ public abstract class Parser {
             }
 
             newTask = new Todo(description);
+
             break;
         case InputManager.DEADLINE_PHRASE:
             descriptionIndex = input.indexOf(InputManager.DEADLINE_PHRASE);
@@ -34,6 +35,7 @@ public abstract class Parser {
             }
 
             newTask = new Deadline(description, by);
+
             break;
         case InputManager.EVENT_PHRASE:
             descriptionIndex = input.indexOf(InputManager.EVENT_PHRASE);
@@ -51,16 +53,19 @@ public abstract class Parser {
             }
 
             newTask = new Event(description, at);
+
             break;
         default:
             newTask = null;
+
             break;
         }
 
         return newTask;
     }
 
-    public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException {
+    public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException,
+            NonIntegerTaskNumberException, OutOfBoundsTaskNumberException {
         String taskNumString;
         int taskNumInt;
 
@@ -72,7 +77,16 @@ public abstract class Parser {
                 throw new MissingTaskNumberException();
             }
 
-            taskNumInt = Integer.parseInt(taskNumString);
+            try {
+                taskNumInt = Integer.parseInt(taskNumString);
+            } catch (NumberFormatException e) {
+                throw new NonIntegerTaskNumberException();
+            }
+
+            if (!isValidTaskNumber(taskNumInt)) {
+                throw new OutOfBoundsTaskNumberException();
+            }
+
             break;
         case InputManager.UNMARK_PHRASE:
             try {
@@ -81,9 +95,17 @@ public abstract class Parser {
                 throw new MissingTaskNumberException();
             }
 
-            taskNumInt = Integer.parseInt(taskNumString);
-            break;
+            try {
+                taskNumInt = Integer.parseInt(taskNumString);
+            } catch (NumberFormatException e) {
+                throw new NonIntegerTaskNumberException();
+            }
 
+            if (!isValidTaskNumber(taskNumInt)) {
+                throw new OutOfBoundsTaskNumberException();
+            }
+
+            break;
         default:
             taskNumInt = 1;
             break;
@@ -93,5 +115,13 @@ public abstract class Parser {
         taskNumInt -= 1;
 
         return taskNumInt;
+    }
+
+    private static boolean isValidTaskNumber(int taskNum) {
+        if (taskNum > Task.getTaskCount() || taskNum <= 0) {
+            return false;
+        }
+
+        return true;
     }
 }
