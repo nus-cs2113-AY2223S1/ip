@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.DukeException;
 import duke.task.List;
 import duke.task.Task;
 
@@ -64,4 +65,7 @@ public class UI {
         return scanner.nextLine();
     }
 
+    public void printError(String errorMessage) {
+        reply(errorMessage);
+    }
 }

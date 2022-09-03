@@ -24,16 +24,16 @@ public class Duke {
     public void run() {
         ui.greet();
         while (isActive) {
-            String input = ui.getUserInput();
-            Command command = CommandManager.manageCommand(input);
-            if (command != null) {
+            try {
+                String input = ui.getUserInput();
+                Command command = CommandManager.manageCommand(input);
                 command.execute(list, ui);
-            } else {
-                ui.unrecognizable();
-            }
 
-            if (input.startsWith(EXIT_PREFIX)) {
-                exit();
+                if (input.startsWith(EXIT_PREFIX)) {
+                    exit();
+                }
+            } catch (DukeException e) {
+                ui.printError(e.getMessage());
             }
         }
     }

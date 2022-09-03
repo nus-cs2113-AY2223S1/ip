@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.DukeException;
 import duke.task.Task;
 import java.util.ArrayList;
 
@@ -12,8 +13,13 @@ public class List {
         this.list = new ArrayList<>();
     }
 
-    public Task findTask(int index) {
-        return list.get(index - 1);
+    public Task findTask(int index) throws DukeException {
+        try {
+            return list.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! The task number is out of bound ☹"
+                                + "\nThere are only " + list.size() + " task(s) in your list");
+        }
     }
 
     public int getSize() {
@@ -24,11 +30,11 @@ public class List {
         list.add(task);
     }
 
-    public void markDone(int index) {
+    public void markDone(int index) throws DukeException {
         findTask(index).setDone(true);
     }
 
-    public void unmarkDone(int index) {
+    public void unmarkDone(int index) throws DukeException {
         findTask(index).setDone(false);
     }
 
