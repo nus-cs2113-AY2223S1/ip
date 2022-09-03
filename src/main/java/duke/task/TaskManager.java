@@ -1,3 +1,9 @@
+package duke.task;
+
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.exception.ExceptionType;
+
 public class TaskManager {
 
     private static final int TASKS_LIMIT = 100;
