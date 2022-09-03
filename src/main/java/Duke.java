@@ -9,7 +9,7 @@ public class Duke {
         return split;
     }
 
-    public static void executeInstruction(Menu dukeMenu, String instruction, String inputValue) {
+    public static void executeInstruction(Menu dukeMenu, String instruction, String inputValue) throws DukeException {
         switch (instruction) {
         case "list":
             dukeMenu.list();
@@ -31,8 +31,15 @@ public class Duke {
             dukeMenu.addTask(instruction, inputValue);
             break;
         default:
-            dukeMenu.displayErrorMessage();
-            break;
+            throw new InvalidCommandException();
+        }
+    }
+
+    public static void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
+        try {
+            executeInstruction(dukeMenu, instruction, inputValue);
+        } catch (DukeException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -44,10 +51,10 @@ public class Duke {
         dukeMenu.greet();
         while (!instruction.equals("bye")) {
             userInput = in.nextLine();
-            String[] split = splitInput(userInput);
-            instruction = split[0];
-            inputValue = split[1];
-            executeInstruction(dukeMenu, instruction, inputValue);
+            String[] splits = splitInput(userInput);
+            instruction = splits[0];
+            inputValue = splits[1];
+            safeExecuteInstruction(dukeMenu, instruction, inputValue);
         }
     }
 }
