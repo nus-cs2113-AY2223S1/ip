@@ -1,4 +1,4 @@
-public class DeadlineMissingDescriptionException extends DukeException{
+public class DeadlineMissingDescriptionException extends DukeException {
 
     @Override
     public String getMessage() {

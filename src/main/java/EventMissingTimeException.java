@@ -1,4 +1,4 @@
-public class EventMissingTimeException extends DukeException{
+public class EventMissingTimeException extends DukeException {
 
     @Override
     public String getMessage() {

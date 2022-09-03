@@ -10,4 +10,19 @@ unmark 4
 deadline return book /by Sunday
 event project meeting /at Mon 2-4pm
 list
+mark 0
+mark -1
+mark 123
+mark 11111111111111111111111111111111111
+todo
+todo
+deadline
+deadline  /by
+deadline 123 /by
+deadline  /by 123
+event
+event  /at
+event 123 /at
+event  /at 123
+byee
 bye

@@ -1,4 +1,4 @@
-public class InvalidMarkOrUnmarkIndexException extends DukeException{
+public class InvalidMarkOrUnmarkIndexException extends DukeException {
 
     @Override
     public String getMessage() {

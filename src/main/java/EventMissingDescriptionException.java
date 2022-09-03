@@ -1,4 +1,4 @@
-public class EventMissingDescriptionException extends DukeException{
+public class EventMissingDescriptionException extends DukeException {
 
     @Override
     public String getMessage() {

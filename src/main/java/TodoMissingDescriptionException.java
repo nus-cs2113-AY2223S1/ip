@@ -1,4 +1,4 @@
-public class TodoMissingDescriptionException extends DukeException{
+public class TodoMissingDescriptionException extends DukeException {
 
     @Override
     public String getMessage() {

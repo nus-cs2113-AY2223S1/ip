@@ -1,4 +1,4 @@
-public class DeadlineMissingTagException extends DukeException{
+public class DeadlineMissingTagException extends DukeException {
 
     @Override
     public String getMessage() {

@@ -38,7 +38,7 @@ public class Duke {
     public static void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
         try {
             executeInstruction(dukeMenu, instruction, inputValue);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

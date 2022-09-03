@@ -1,4 +1,4 @@
-public class EventMissingTagException extends DukeException{
+public class EventMissingTagException extends DukeException {
 
     @Override
     public String getMessage() {
