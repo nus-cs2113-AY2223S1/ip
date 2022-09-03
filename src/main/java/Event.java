@@ -9,6 +9,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString().substring(3) + " (at: " + at + ")";
+        return "[E]" + super.toString().substring(BRACKET_LENGTH) + " (at: " + at + ")";
     }
 }

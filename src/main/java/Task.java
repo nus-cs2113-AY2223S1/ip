@@ -3,6 +3,7 @@ public class Task {
     protected boolean isDone;
     protected int id;
     protected static int numberOfTasks = 0;
+    public static final int BRACKET_LENGTH = 3;
 
     public Task(String description) {
         this.description = description;
