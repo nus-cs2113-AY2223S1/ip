@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.error.exceptions.NoStateChangeException;
 import duke.ui.DialogBox;
 
 /**
@@ -36,7 +37,15 @@ public abstract class Task {
                 + DialogBox.rightAlign(getPostFix());
     }
 
-    public void setDone(boolean isDone) {
+    /**
+     * Throws an exception if isDone does not change (already marked/unmarked)
+     *
+     * @param isDone state to change {@link Task#isDone} to.
+     */
+    public void setDone(boolean isDone) throws NoStateChangeException {
+        if (this.isDone == isDone) {
+            throw new NoStateChangeException(isDone);
+        }
         this.isDone = isDone;
     }
 

@@ -1,10 +1,7 @@
 package duke;
 
 import duke.error.ErrorHandler;
-import duke.error.exceptions.CustomException;
-import duke.error.exceptions.ListEmptyException;
-import duke.error.exceptions.NotANumberException;
-import duke.error.exceptions.NotRecognizedException;
+import duke.error.exceptions.*;
 import duke.input.InputValidator;
 import duke.ui.UserInterface;
 import duke.tasks.tasktypes.DeadlineTask;
@@ -23,7 +20,7 @@ public class Duke {
     public static final String COMMAND_UNMARK = "unmark";
 
     /** TaskList class that contains all items */
-    private static final TaskList TASK_LIST = new TaskList();
+    public static final TaskList TASK_LIST = new TaskList();
 
     public static void main(String[] args) {
         greet();
@@ -57,13 +54,15 @@ public class Duke {
         }
     }
 
-    private static void markAndConfirm(String input) throws NotANumberException {
+    private static void markAndConfirm(String input) throws
+            NotANumberException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(markItem(input) - 1)
                 + "\" as done.");
     }
 
-    private static void unmarkAndConfirm(String input) throws NotANumberException {
+    private static void unmarkAndConfirm(String input) throws
+            NotANumberException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
                 + "\" as not yet done.");
@@ -119,7 +118,8 @@ public class Duke {
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
      */
-    private static int markItem(String input) throws NotANumberException {
+    private static int markItem(String input) throws NotANumberException, ItemNotFoundException,
+            NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
         TASK_LIST.markItem(itemIndex);
         return itemIndex + 1;
@@ -133,7 +133,8 @@ public class Duke {
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
      */
-    private static int unmarkItem(String input) throws NotANumberException {
+    private static int unmarkItem(String input) throws NotANumberException, ItemNotFoundException,
+            NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
         TASK_LIST.unmarkItem(itemIndex);
         return itemIndex + 1;

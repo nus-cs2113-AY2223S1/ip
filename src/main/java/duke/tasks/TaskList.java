@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import duke.error.exceptions.ItemNotFoundException;
+import duke.error.exceptions.NoStateChangeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +10,10 @@ import java.util.List;
  * Class that keeps track of each To-Do item added to the program.
  */
 public class TaskList {
-    /** list containing item */
+    /** List containing item */
     private final List<Task> items;
 
-    /** count of number of items in list */
+    /** Count of number of items in list */
     private int itemCount = 0;
 
     /**
@@ -58,18 +61,28 @@ public class TaskList {
      * Mark item as done.
      *
      * @param index <b>0-based</b> index of desired item
+     * @throws ItemNotFoundException if item index is not within the bounds of the list
      */
-    public void markItem(int index) {
-        items.get(index).setDone(true);
+    public void markItem(int index) throws ItemNotFoundException, NoStateChangeException {
+        try {
+            items.get(index).setDone(true);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ItemNotFoundException(index);
+        }
     }
 
     /**
      * Mark item as not yet done.
      *
      * @param index <b>0-based</b> index of desired item
+     * @throws ItemNotFoundException if item index is not within the bounds of the list
      */
-    public void unmarkItem(int index) {
-        items.get(index).setDone(false);
+    public void unmarkItem(int index) throws ItemNotFoundException, NoStateChangeException {
+        try {
+            items.get(index).setDone(false);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ItemNotFoundException(index);
+        }
     }
 
     /**
