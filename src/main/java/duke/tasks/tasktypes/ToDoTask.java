@@ -1,6 +1,6 @@
-package tasks.tasktypes;
+package duke.tasks.tasktypes;
 
-import tasks.Task;
+import duke.tasks.Task;
 
 /**
  * Vanilla tasks. Task item without any extra functionality.

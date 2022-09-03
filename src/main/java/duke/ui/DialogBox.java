@@ -1,4 +1,4 @@
-package UI;
+package duke.ui;
 
 import java.util.ArrayList;
 import java.util.List;

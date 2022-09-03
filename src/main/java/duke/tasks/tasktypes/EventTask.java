@@ -1,6 +1,6 @@
-package tasks.tasktypes;
+package duke.tasks.tasktypes;
 
-import tasks.Task;
+import duke.tasks.Task;
 
 /**
  * Event item that keeps track of when an item is slated to happen.
@@ -13,8 +13,8 @@ public class EventTask extends Task {
     private final String EVENT;
 
     /**
-     * Splits the text into two and initializes both {@link EventTask#TEXT} and
-     * {@link EventTask#EVENT} strings.
+     * Splits the text into two and initializes
+     * the {@link EventTask#EVENT} string.
      * @param text input text to be parsed
      */
     public EventTask(String text) {

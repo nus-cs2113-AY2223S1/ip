@@ -1,6 +1,6 @@
-package tasks.tasktypes;
+package duke.tasks.tasktypes;
 
-import tasks.Task;
+import duke.tasks.Task;
 
 /**
  * Deadline item that keeps track of when an item has to be completed.
@@ -13,8 +13,8 @@ public class DeadlineTask extends Task {
     private final String DEADLINE;
 
     /**
-     * Splits the text into two and initializes both {@link DeadlineTask#TEXT} and
-     * {@link DeadlineTask#DEADLINE} strings.
+     * Splits the text into two and initializes
+     * the {@link DeadlineTask#DEADLINE} string.
      * @param text input text to be parsed
      */
     public DeadlineTask(String text) {

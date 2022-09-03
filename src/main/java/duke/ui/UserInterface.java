@@ -1,4 +1,4 @@
-package UI;
+package duke.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
