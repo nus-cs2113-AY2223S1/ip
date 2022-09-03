@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+//test new branch
+
 public class Duke {
     static final String GREETING = "Hello! I'm Timmy\n What can I do for you?\n \n";
     static final String GOODBYE = "Bye. Hope to see you again soon\n";
