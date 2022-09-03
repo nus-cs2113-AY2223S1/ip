@@ -1,29 +1,42 @@
+import java.util.Arrays;
+
 public class CommandToDo extends Command {
 
-    public static final int MIN_ARGUMENTS = 1;
+    private static final int MIN_ARGUMENTS = 1;
+    private static final String[] FLAGS = {};
 
-    private String[] splitArguments;
     private String description = null;
 
-
     public CommandToDo(String rawArguments) {
-        splitArguments = rawArguments.split(" ");
+        super.rawArguments = rawArguments;
+        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.MIN_ARGUMENTS = MIN_ARGUMENTS;
+        super.MAX_ARGUMENTS = null;
+        super.FLAGS = FLAGS;
+        super.commandType = CommandType.TODO;
     }
 
     @Override
-    public void checkArgumentLength() throws MissingArgumentException {
-        if (splitArguments.length < MIN_ARGUMENTS) {
-            throw new MissingArgumentException();
+    protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
+            MissingDescriptionException  {
+
+        if (super.MIN_ARGUMENTS != null && splitArguments.length < MIN_ARGUMENTS) {
+            throw new MissingDescriptionException();
         }
     }
 
+
     @Override
-    public void checkFlags() {
+    protected void checkArgument() throws NotIntegerException {
 
     }
 
     @Override
-    public void checkArgument() {
+    protected void parse() {
+        description = rawArguments;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }

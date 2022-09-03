@@ -19,11 +19,10 @@ public class Duke {
     }
 
 
-    public static Command parse(String rawInput) throws UnknownCommandException, MissingDescriptionException,
-            MissingArgumentException, ExtraArgumentException {
+    public static Command parse(String rawInput) throws Exception {
         String[] tokens = rawInput.split("[ \t]+");
         String commandType = tokens[0];
-        String rawArguments = tokens.length > 1 ? rawInput.substring(commandType.length()+1) : "";
+        String rawArguments = tokens.length > 1 ? rawInput.substring(commandType.length()).trim() : "";
 
         Command command;
 
@@ -41,18 +40,18 @@ public class Duke {
             command = new CommandUnmark(rawArguments);
             break;
         case "todo":
-            command = new CommandToDo();
+            command = new CommandToDo(rawArguments);
             break;
         case "deadline":
-            command = new CommandDeadline();
+            command = new CommandDeadline(rawArguments);
             break;
         case "event":
-            command = new CommandEvent();
+            command = new CommandEvent(rawArguments);
             break;
         default:
-            throw new UnknownCommandException();
+            throw new InvalidCommandTypeException();
         }
-
+        command.verifyAndParse();
         return command;
     }
 
@@ -62,46 +61,52 @@ public class Duke {
         TaskManager taskManager = new TaskManager();
         Scanner sc = new Scanner(System.in);
 
-        output = "Hello! I'm DuckyMoMo\n"
+        output = "Hello! I'm Duckymomo\n"
                 + "What can I do for you?";
+
         formatAndPrint(output);
 
         input = sc.nextLine();
         while (true) {
-            String[] arguments = input.split("[ \t]+");
+            Command command;
+            try {
+                command = parse(input);
+            } catch (Exception e) {
+                formatAndPrint(e.toString());
+                input = sc.nextLine();
+                continue;
+            }
 
-            switch (arguments[0]) {
-            case "bye":
+            switch (command.getCommandType()) {
+            case EXIT:
                 formatAndPrint("Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 return;
-            case "list":
+            case LIST:
                 output = taskManager.getAllTasks();
                 break;
-            case "mark":
-                output = taskManager.markTask(Integer.parseInt(arguments[1]));
+            case TODO:
+                output = taskManager.addToDo(((CommandToDo) command).getDescription());
                 break;
-            case "unmark":
-                output = taskManager.unmarkTask(Integer.parseInt(arguments[1]));
+            case MARK:
+                output = taskManager.markTask(((CommandMark) command).getTaskNum());
                 break;
-            case "todo":
-                output = taskManager.addToDo(input.substring("todo ".length()));
+            case UNMARK:
+                output = taskManager.unmarkTask(((CommandUnmark) command).getTaskNum());
                 break;
-            case "deadline":
-                String description = input.substring("deadline ".length(), input.indexOf("/by") - 1);
-                String by = input.substring(input.indexOf("/by") + "/by ".length());
-                output = taskManager.addDeadline(description, by);
+            case DEADLINE:
+                CommandDeadline commandDeadline = (CommandDeadline) command;
+                output = taskManager.addDeadline(commandDeadline.getDescription(), commandDeadline.getDate());
                 break;
-            case "event":
-                description =  input.substring("event ".length(), input.indexOf("/at") - 1);
-                String at = input.substring(input.indexOf("/at") + "/at ".length());
-                output = taskManager.addEvent(description, at);
+            case EVENT:
+                CommandEvent commandEvent = (CommandEvent) command;
+                output = taskManager.addEvent(commandEvent.getDescription(), commandEvent.getDate());
                 break;
             default:
-                output = "Uh Hello, not a valid input?";
+                output = "Error, major bug";
                 break;
             }
-            formatAndPrint(output);
 
+            formatAndPrint(output);
             input = sc.nextLine();
         }
 

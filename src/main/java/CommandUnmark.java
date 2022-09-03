@@ -1,30 +1,22 @@
+import java.util.Arrays;
+
 public class CommandUnmark extends Command {
 
-    public static final int NUM_OF_ARGUMENTS = 1;
+    private static final int NUM_OF_ARGUMENTS = 1;
+    private static final String[] FLAGS = {};
 
-    private String[] splitArguments;
     private Integer taskNum = null;
 
 
     public CommandUnmark(String rawArguments) {
-        splitArguments = rawArguments.split(" ");
+        super.rawArguments = rawArguments;
+        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.FLAGS = FLAGS;
+        super.commandType = CommandType.UNMARK;
     }
 
-    @Override
-    public void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException {
-        if (splitArguments.length > NUM_OF_ARGUMENTS) {
-            throw new ExtraArgumentException();
-        }
-
-        if (splitArguments.length < NUM_OF_ARGUMENTS) {
-            throw new MissingArgumentException();
-        }
-    }
-
-    @Override
-    public void checkFlags() {
-
-    }
 
     @Override
     public void checkArgument() throws NotIntegerException {
@@ -33,6 +25,11 @@ public class CommandUnmark extends Command {
         } catch (NumberFormatException e) {
             throw new NotIntegerException();
         }
+    }
+
+    @Override
+    protected void parse() {
+        taskNum = Integer.parseInt(splitArguments[0]);
     }
 
     public int getTaskNum() {

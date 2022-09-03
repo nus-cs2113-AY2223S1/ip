@@ -1,26 +1,27 @@
+import java.util.Arrays;
+
 public class CommandExit extends Command {
 
-    public static final int NUM_OF_ARGUMENTS = 0;
+    private static final int NUM_OF_ARGUMENTS = 0;
+    private static final String[] FLAGS = {};
 
-    private String[] splitArguments;
 
     public CommandExit(String rawArguments) {
-        splitArguments = rawArguments.split(" ");
+        super.rawArguments = rawArguments;
+        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.FLAGS = FLAGS;
+        super.commandType = CommandType.EXIT;
+
     }
 
     @Override
-    public void checkArgumentLength() throws ExtraArgumentException {
-        if (splitArguments.length > NUM_OF_ARGUMENTS) {
-            throw new ExtraArgumentException();
-        }
+    public void checkArgument() throws NotIntegerException{
     }
 
     @Override
-    public void checkFlags() {
-    }
-
-    @Override
-    public void checkArgument() {
+    protected void parse() {
     }
 
 
