@@ -98,7 +98,7 @@ public class Duke {
 
     /**
      * Marks item in To-Do list as done.
-     * <b>NOTE: Operates on 1-based indexing logic</b>, but converts it
+     * <br><b>NOTE: Operates on 1-based indexing logic</b>, but converts it
      * to 0-based indexing for {@link TaskList} class
      *
      * @param input input string to find index
@@ -122,7 +122,7 @@ public class Duke {
 
     /**
      * Removes mark on item in To-Do list, marking it as undone.
-     * <b>NOTE: Operates on 1-based indexing logic</b>, but converts it
+     * <br><b>NOTE: Operates on 1-based indexing logic</b>, but converts it
      * to 0-based indexing for {@link TaskList} class
      *
      * @param input input string to find index
