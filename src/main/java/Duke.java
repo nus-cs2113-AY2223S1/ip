@@ -59,8 +59,8 @@ public class Duke {
                         break;
 
                     case "todo":
-                        if (splitInput.length <= 1) {
-                            throw new StringIndexOutOfBoundsException();
+                        if (splitInput.length == 1) {
+                            throw new EmptyDescriptionException();
                         }
                         description = input.substring(input.indexOf(" ") + 1);
                         Task td = new Todo(description);
@@ -69,6 +69,9 @@ public class Duke {
                         break;
 
                     case "deadline":
+                        if (splitInput.length == 1) {
+                            throw new EmptyDescriptionException();
+                        }
                         description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /by "));
                         String by = input.substring(input.indexOf("/by ") + 4);
                         Task d = new Deadline(description, by);
@@ -78,6 +81,9 @@ public class Duke {
                         //StringIndexOutOfBoundsException
 
                     case "event":
+                        if (splitInput.length == 1) {
+                            throw new EmptyDescriptionException();
+                        }
                         description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /at "));
                         String at = input.substring(input.indexOf("/at ") + 4);
                         Task e = new Event(description, at);
@@ -102,8 +108,15 @@ public class Duke {
             }
 
             catch (StringIndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! The description of a " + splitInput[0] + " cannot be empty.\n");
+                System.out.println("OOPS!!! You must have a ' /at ' for events OR a ' /by ' for deadlines!!\n");
+            }
 
+            catch (EmptyDescriptionException e) {
+                if (splitInput[0] == "event") {
+                    System.out.println("OOPS!!! The description of an " + splitInput[0] + " cannot be empty.\n");
+                } else {
+                    System.out.println("OOPS!!! The description of a " + splitInput[0] + " cannot be empty.\n");
+                }
             }
 
             // input after the try, catch and switch case to obtain the next input statement
