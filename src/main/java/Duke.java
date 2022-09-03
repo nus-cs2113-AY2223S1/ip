@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+//test new branch
+
 public class Duke {
     static final String GREETING = "Hello! I'm Timmy\n What can I do for you?\n \n";
     static final String GOODBYE = "Bye. Hope to see you again soon\n";
@@ -7,18 +9,16 @@ public class Duke {
     static TaskManager myManager = new TaskManager();
 
     public static void handleInput(String input) {
-        if (input.equals("list")) {
-            myManager.print();
-        } else if (input.startsWith("mark")){
-            myManager.markAsDone(input);
-        } else if (input.startsWith("unmark")) {
-            myManager.removeMark(input);
-        } else if (input.startsWith("todo")){
-            myManager.addTodo(input);
-        } else if (input.startsWith("deadline")) {
-            myManager.addDeadline(input);
-        } else if (input.startsWith("event")) {
-            myManager.addEvent(input);
+        String command;
+        if (input.contains(" ")) {
+            command = input.substring(0, input.indexOf(" "));
+        } else {
+            command = input;
+        }
+        try {
+            myManager.handleInput(input, command);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -32,7 +32,6 @@ public class Duke {
             System.out.println();
             userInput = in.nextLine();
         }
-
         System.out.println(GOODBYE);
     }
 }
