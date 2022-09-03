@@ -22,7 +22,7 @@ public abstract class Duke {
 
     public static void main(String[] args) {
         printIntroduction();
-        InputManager.handleInput();
+        InputManager.readInputs();
         printExit();
     }
 }

@@ -11,7 +11,7 @@ public abstract class InputManager {
     public static final String EVENT_PHRASE = "event";
     public static final String AT_PHRASE = "/at";
 
-    public static void handleInput() {
+    public static void readInputs() {
         Scanner in = new Scanner(System.in);
         String input;
 
@@ -21,28 +21,36 @@ public abstract class InputManager {
             // handle exit
             if (input.equals(EXIT_PHRASE)) {
                 break;
-            } else {
-                System.out.println(Duke.HORIZONTAL_LINE);
-
-                // handle list, mark, unmark, add
-                if (input.equals(LIST_PHRASE)) {
-                    TaskManager.printList();
-                } else if (input.startsWith(MARK_PHRASE)) {
-                    TaskManager.markTask(input);
-                } else if (input.startsWith(UNMARK_PHRASE)) {
-                    TaskManager.unmarkTask(input);
-                } else if (input.startsWith(TODO_PHRASE)) {
-                    TaskManager.addTask(TODO_PHRASE, input);
-                } else if (input.startsWith(DEADLINE_PHRASE)) {
-                    TaskManager.addTask(DEADLINE_PHRASE, input);
-                } else if (input.startsWith(EVENT_PHRASE)) {
-                    TaskManager.addTask(EVENT_PHRASE, input);
-                } else {
-                    TaskManager.addTask("", input);
-                }
-
-                System.out.println(Duke.HORIZONTAL_LINE + System.lineSeparator());
             }
+
+            System.out.println(Duke.HORIZONTAL_LINE);
+
+            try {
+                handleInput(input);
+            } catch (DukeException e) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+
+            System.out.println(Duke.HORIZONTAL_LINE + System.lineSeparator());
+        }
+    }
+
+    public static void handleInput(String input) throws DukeException {
+        // handle list, mark, unmark, add
+        if (input.equals(LIST_PHRASE)) {
+            TaskManager.printList();
+        } else if (input.startsWith(MARK_PHRASE)) {
+            TaskManager.markTask(input);
+        } else if (input.startsWith(UNMARK_PHRASE)) {
+            TaskManager.unmarkTask(input);
+        } else if (input.startsWith(TODO_PHRASE)) {
+            TaskManager.addTask(TODO_PHRASE, input);
+        } else if (input.startsWith(DEADLINE_PHRASE)) {
+            TaskManager.addTask(DEADLINE_PHRASE, input);
+        } else if (input.startsWith(EVENT_PHRASE)) {
+            TaskManager.addTask(EVENT_PHRASE, input);
+        } else {
+            throw new DukeException();
         }
     }
 }

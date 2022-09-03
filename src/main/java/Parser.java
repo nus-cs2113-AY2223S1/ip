@@ -41,9 +41,7 @@ public abstract class Parser {
             newTask = new Event(description, at);
             break;
         default:
-            // add new Task by default
-            description = input;
-            newTask = new Todo(description);
+            newTask = null;
             break;
         }
 
