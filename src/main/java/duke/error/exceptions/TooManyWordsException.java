@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-public class TooManyWordsException extends CustomException {
+public class TooManyWordsException extends DukeException {
     private final String command;
     public TooManyWordsException(String command) {
         super();

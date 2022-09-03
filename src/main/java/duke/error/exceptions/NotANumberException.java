@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-public class NotANumberException extends CustomException {
+public class NotANumberException extends DukeException {
     private final String command;
     public NotANumberException(String command) {
         super();

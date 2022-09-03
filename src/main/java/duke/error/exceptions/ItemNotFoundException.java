@@ -2,7 +2,7 @@ package duke.error.exceptions;
 
 import duke.Duke;
 
-public class ItemNotFoundException extends CustomException {
+public class ItemNotFoundException extends DukeException {
     private final int index;
     public ItemNotFoundException(int index) {
         super();

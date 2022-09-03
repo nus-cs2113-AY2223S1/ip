@@ -1,8 +1,6 @@
 package duke.error.exceptions;
 
-import duke.Duke;
-
-public class NotRecognizedException extends CustomException {
+public class NotRecognizedException extends DukeException {
     private final String input;
 
     public NotRecognizedException(String input) {

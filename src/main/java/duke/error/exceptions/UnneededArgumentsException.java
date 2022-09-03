@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-public class UnneededArgumentsException extends CustomException {
+public class UnneededArgumentsException extends DukeException {
     private final String command;
 
     public UnneededArgumentsException(String command) {

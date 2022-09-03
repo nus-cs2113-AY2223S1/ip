@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-public class NoCommandArgumentException extends CustomException {
+public class NoCommandArgumentException extends DukeException {
     private final String command;
 
     public NoCommandArgumentException(String command) {

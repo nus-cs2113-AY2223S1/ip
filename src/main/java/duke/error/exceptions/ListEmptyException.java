@@ -2,7 +2,7 @@ package duke.error.exceptions;
 
 import duke.Duke;
 
-public class ListEmptyException extends CustomException {
+public class ListEmptyException extends DukeException {
     @Override
     public String getExceptionMessage() {
         return String.format("Your to-do list is empty. Please add some items "

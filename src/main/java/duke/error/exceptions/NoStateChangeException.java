@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-public class NoStateChangeException extends CustomException {
+public class NoStateChangeException extends DukeException {
     boolean isDone;
     public NoStateChangeException(boolean isDone) {
         super();
