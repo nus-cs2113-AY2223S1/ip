@@ -1,6 +1,6 @@
 package duke.manager;
 
-import duke.DukeException;
+import duke.exception.DukeException;
 import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -54,7 +54,6 @@ public class CommandManager {
     private static Command manageTodoCommand(String input) throws DukeException {
         String SUGGESTED_FORMAT = "\nFollow this format: todo {description}";
         String[] analysedInput = input.split(" ", 2);
-
         if (analysedInput.length != 2) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty ☹" + SUGGESTED_FORMAT);
         }
@@ -65,11 +64,9 @@ public class CommandManager {
     private static Command manageEventCommand(String input) throws DukeException {
         String SUGGESTED_FORMAT = "\nFollow this format: event {description} /at {time}";
         String[] analysedInput = input.split(" ", 2);
-
         if (analysedInput.length != 2) {
             throw new DukeException("OOPS!!! The event information cannot be empty ☹" + SUGGESTED_FORMAT);
         }
-
         String[] analysedEvent = analysedInput[1].split(EVENT_DIVIDER);
         if (analysedEvent.length != 2) {
             throw new DukeException("OOPS!!! The event description or time is missing ☹" + SUGGESTED_FORMAT);
@@ -87,7 +84,6 @@ public class CommandManager {
     private static Command manageDeadlineCommand(String input) throws DukeException {
         String SUGGESTED_FORMAT = "\nFollow this format: deadline {description} /by {time}";
         String[] analysedInput = input.split(" ", 2);
-
         if (analysedInput.length != 2) {
             throw new DukeException("OOPS!!! The deadline information cannot be empty ☹" + SUGGESTED_FORMAT);
         }
@@ -108,7 +104,6 @@ public class CommandManager {
     private static Command manageMarkCommand(String input) throws DukeException {
         String SUGGESTED_FORMAT = "\nFollow this format: mark {task_number}";
         String[] analysedInput = input.split(" ", 2);
-
         if (analysedInput.length != 2) {
             throw new DukeException("OOPS!!! The task number to be marked done is missing ☹" + SUGGESTED_FORMAT);
         }
@@ -122,7 +117,6 @@ public class CommandManager {
     private static Command manageUnmarkCommand(String input) throws DukeException {
         String SUGGESTED_FORMAT = "\nFollow this format: unmark {task_number}";
         String[] analysedInput = input.split(" ", 2);
-
         if (analysedInput.length != 2) {
             throw new DukeException("OOPS!!! The task number to be unmarked done is missing ☹" + SUGGESTED_FORMAT);
         }
@@ -132,5 +126,4 @@ public class CommandManager {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted ☹" + SUGGESTED_FORMAT);
         }
     }
-
 }

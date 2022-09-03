@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.DukeException;
 import duke.task.List;
 import duke.task.Task;
 
@@ -54,10 +53,6 @@ public class UI {
 
     public void printList(List list) {
         reply(list.toString());
-    }
-
-    public void unrecognizable() {
-        reply("Sorry, I do not understand your input");
     }
 
     public String getUserInput() {

@@ -1,7 +1,7 @@
 package duke.task;
 
-import duke.DukeException;
-import duke.task.Task;
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 
 public class List {
@@ -18,7 +18,7 @@ public class List {
             return list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! The task number is out of bound ☹"
-                                + "\nThere are only " + list.size() + " task(s) in your list");
+                    + "\nThere are only " + list.size() + " task(s) in your list");
         }
     }
 

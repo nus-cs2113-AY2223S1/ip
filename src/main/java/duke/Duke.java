@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeException;
 import duke.manager.CommandManager;
 import duke.task.List;
 import duke.ui.UI;
