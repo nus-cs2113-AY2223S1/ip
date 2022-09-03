@@ -1,3 +1,4 @@
+package duke;
 
 public class Duke {
     public static void drawLine() {    //print underscore symbol 50 times
