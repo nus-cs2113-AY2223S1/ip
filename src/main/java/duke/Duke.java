@@ -1,5 +1,7 @@
-import java.util.Scanner;
+package duke;
 
+import duke.task.TaskManager;
+import java.util.Scanner;
 //test new branch
 
 public class Duke {
