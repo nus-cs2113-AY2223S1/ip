@@ -1,4 +1,10 @@
-package duke;
+package duke.manager;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.command.*;
+import duke.ui.UI;
 
 public class CommandManager {
     private static UI ui;
