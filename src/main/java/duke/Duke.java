@@ -8,8 +8,8 @@ import duke.ui.UI;
 
 public class Duke {
 
-    private UI ui;
-    private List list;
+    private final UI ui;
+    private final List list;
     private static final String EXIT_PREFIX = "bye";
     private boolean isActive = true;
 

@@ -1,14 +1,18 @@
 package duke.manager;
 
 import duke.exception.DukeException;
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.ListCommand;
+import duke.command.ExitCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.ui.UI;
 
 public class CommandManager {
-    private static UI ui;
     private static final String EXIT_PREFIX = "bye";
     private static final String LIST_PREFIX = "list";
     private static final String TODO_PREFIX = "todo";
