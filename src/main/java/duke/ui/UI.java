@@ -55,13 +55,12 @@ public class UI {
         reply(list.toString());
     }
 
-    public void unrecognizable() {
-        reply("Sorry, I do not understand your input");
-    }
-
     public String getUserInput() {
         System.out.print("Enter command: ");
         return scanner.nextLine();
     }
 
+    public void printError(String errorMessage) {
+        reply(errorMessage);
+    }
 }
