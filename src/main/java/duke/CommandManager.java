@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandManager {
     private static UI ui;
     private static final String EXIT_PREFIX = "bye";
