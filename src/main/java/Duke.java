@@ -109,9 +109,8 @@ public class Duke {
             case EVENT:
                 newLine = line.substring(6);
                 description = newLine.split(" /at ")[0];
-                String startTime = (newLine.split(" /at ")[1]).split("-")[0];
-                String endTime = (newLine.split(" /at ")[1]).split("-")[1];
-                Event event = new Event(description, startTime, endTime);
+                String eventTime = (newLine.split(" /at ")[1]);
+                Event event = new Event(description, eventTime);
                 tasks.add(event);
                 printNewTask(event.getTaskDetails(), tasks.size());
                 break;
