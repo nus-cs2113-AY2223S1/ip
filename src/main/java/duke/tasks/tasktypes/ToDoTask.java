@@ -1,6 +1,6 @@
-package tasks.tasktypes;
+package duke.tasks.tasktypes;
 
-import tasks.Task;
+import duke.tasks.Task;
 
 /**
  * Vanilla tasks. Task item without any extra functionality.
@@ -12,6 +12,7 @@ public class ToDoTask extends Task {
 
     /**
      * Provides type icon to be used in string formatting.
+     *
      * @return Type icon "T" for "ToDo".
      */
     @Override

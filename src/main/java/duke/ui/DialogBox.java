@@ -1,4 +1,4 @@
-package UI;
+package duke.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +197,8 @@ public class DialogBox {
         // Vertical lines at the side of the text
         for (String row : textRows) {
             textBoxRows.add(" " + LINE_VERTICAL_CHARACTER + generateIndent(HORIZONTAL_PADDING, INDENT_CHARACTER)
-                    + row + generateIndent(width - row.length() - HORIZONTAL_PADDING, ' ') + LINE_VERTICAL_CHARACTER);
+                    + row + generateIndent(width - row.length() - HORIZONTAL_PADDING, ' ')
+                    + LINE_VERTICAL_CHARACTER);
         }
 
         // Horizontal lines to close the box

@@ -1,12 +1,13 @@
-package tasks;
+package duke.tasks;
 
-import UI.DialogBox;
+import duke.error.exceptions.NoStateChangeException;
+import duke.ui.DialogBox;
 
 /**
  * Abstract superclass that list items inherit from. <br>
  * <b>Subclasses: </b>
- * <ul><li>{@link tasks.tasktypes.ToDoTask}</li> <li>{@link tasks.tasktypes.DeadlineTask}</li>
- * <li>{@link tasks.tasktypes.EventTask}</li></ul>
+ * <ul><li>{@link duke.tasks.tasktypes.ToDoTask}</li> <li>{@link duke.tasks.tasktypes.DeadlineTask}</li>
+ * <li>{@link duke.tasks.tasktypes.EventTask}</li></ul>
  */
 public abstract class Task {
     /** Text that each item contains */
@@ -36,7 +37,15 @@ public abstract class Task {
                 + DialogBox.rightAlign(getPostFix());
     }
 
-    public void setDone(boolean isDone) {
+    /**
+     * Throws an exception if isDone does not change (already marked/unmarked)
+     *
+     * @param isDone state to change {@link Task#isDone} to.
+     */
+    public void setDone(boolean isDone) throws NoStateChangeException {
+        if (this.isDone == isDone) {
+            throw new NoStateChangeException(isDone);
+        }
         this.isDone = isDone;
     }
 
@@ -45,13 +54,11 @@ public abstract class Task {
     }
 
     /**
-     * Should always be overridden. Returns the type icon based on item type.
+     * Returns the type icon based on item type.
      *
      * @return the type icon that represents the item type
      */
-    protected String getTypeIcon() {
-        return "???";
-    }
+    protected abstract String getTypeIcon();
 
     /**
      * Overridden in the case of certain methods that attach
