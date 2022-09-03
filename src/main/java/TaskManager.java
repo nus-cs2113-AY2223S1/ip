@@ -8,7 +8,19 @@ public abstract class TaskManager {
         final String ADD_PHRASE_END =
                 "There are " + Integer.toString(Task.getTaskCount() + 1) + " task(s) in your list.";
 
-        Task newTask = Parser.parseTask(type, input);
+        Task newTask;
+        try {
+            newTask = Parser.parseTask(type, input);
+        } catch (InvalidTodoDescriptionException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            return;
+        } catch (InvalidDeadlineDescriptionException e) {
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            return;
+        } catch (InvalidEventDescriptionException e) {
+            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+            return;
+        }
 
         // change to zero-index
         tasks[Task.getTaskCount() - 1] = newTask;
