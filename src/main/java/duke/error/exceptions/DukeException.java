@@ -1,11 +1,11 @@
 package duke.error.exceptions;
 
 /**
- * Custom Exception that forces a {@code getExceptionMessage()} method.
+ * Custom Exception that forces implementation of a {@link DukeException#getExceptionMessage} method.
  */
 public abstract class DukeException extends Exception {
     /**
-     * Message to be used in dialog box
+     * Message to be returned depending on exception.
      *
      * @return message string
      */

@@ -4,7 +4,7 @@ import duke.error.exceptions.NoStateChangeException;
 import duke.ui.DialogBox;
 
 /**
- * Abstract superclass that list items inherit from. <br>
+ * Abstract superclass that list items inherit from. <br><br>
  * <b>Subclasses: </b>
  * <ul><li>{@link duke.tasks.tasktypes.ToDoTask}</li> <li>{@link duke.tasks.tasktypes.DeadlineTask}</li>
  * <li>{@link duke.tasks.tasktypes.EventTask}</li></ul>
@@ -41,6 +41,7 @@ public abstract class Task {
      * Throws an exception if isDone does not change (already marked/unmarked)
      *
      * @param isDone state to change {@link Task#isDone} to.
+     * @throws NoStateChangeException If task is already the same state as the desired change
      */
     public void setDone(boolean isDone) throws NoStateChangeException {
         if (this.isDone == isDone) {
@@ -49,6 +50,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns text of task.
+     *
+     * @return text of task expressed as a String
+     */
     public String getText() {
         return TEXT;
     }
@@ -70,6 +76,11 @@ public abstract class Task {
         return "";
     }
 
+    /**
+     * Status icon that changes when item is marked done or not done.
+     *
+     * @return String of status icon
+     */
     private String getStatusIcon() {
         return isDone ? "■" : " ";
     }

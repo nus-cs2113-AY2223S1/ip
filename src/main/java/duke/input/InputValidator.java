@@ -1,7 +1,12 @@
 package duke.input;
 
 import duke.Duke;
-import duke.error.exceptions.*;
+import duke.error.exceptions.NoCommandArgumentException;
+import duke.error.exceptions.TooManyWordsException;
+import duke.error.exceptions.UnneededArgumentsException;
+import duke.error.exceptions.subcommand.NoSubCommandArgumentException;
+import duke.error.exceptions.subcommand.NoSubCommandException;
+import duke.error.exceptions.subcommand.TooManySubCommandsException;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 
@@ -11,6 +16,7 @@ public class InputValidator {
      *
      * @param input input string to check
      * @return boolean, true or false
+     * @throws UnneededArgumentsException When argument is given but none are required.
      */
     public static boolean isTerminatingInput(String input) throws UnneededArgumentsException {
         return stringContainsEnforceNoArgs(input, Duke.COMMAND_TERMINATE);
@@ -48,16 +54,20 @@ public class InputValidator {
     }
 
     /**
-     * Checks if the keywords {@link Duke#COMMAND_DEADLINE},  {@link Duke#COMMAND_EVENT}
-     * or {@link Duke#COMMAND_TODO} is present at front of input string
+     * Checks if the given input string contains an adding command <br>
+     * ({@link Duke#COMMAND_DEADLINE}, {@link Duke#COMMAND_EVENT}, {@link Duke#COMMAND_TODO})
      *
-     * @param input input string to check
-     * @return boolean, true or false
+     * @param input input string
+     * @return true if an add command is the first word in input string, false otherwise
+     * @throws NoCommandArgumentException    If the command has no argument after it
+     * @throws NoSubCommandArgumentException If a subcommand has no argument after it
+     *                                       (for {@link DeadlineTask} and {@link EventTask})
+     * @throws NoSubCommandException         If a subcommand is not found
+     * @throws TooManySubCommandsException   If there is more than one subcommand in the input
      */
     public static boolean isAddInput(String input) throws
-            NoCommandArgumentException,
-            NoSubCommandArgumentException,
-            TooManySubCommandsException, NoSubCommandException {
+            NoCommandArgumentException, NoSubCommandArgumentException,
+            NoSubCommandException, TooManySubCommandsException {
 
         String firstWord = input.split(" ", 2)[0];
         String[] commands = {Duke.COMMAND_TODO, Duke.COMMAND_DEADLINE, Duke.COMMAND_EVENT};
@@ -74,20 +84,46 @@ public class InputValidator {
         return false;
     }
 
+    /**
+     * Checks if a given subcommand is present in input string.
+     *
+     * @param input      given input string
+     * @param subCommand subcommand to check against
+     * @return true if the subcommand is present and valid, false if not
+     * @throws NoCommandArgumentException    If the command has no argument after it
+     * @throws NoSubCommandArgumentException If a subcommand has no argument after it
+     *                                       (for {@link DeadlineTask} and {@link EventTask})
+     * @throws NoSubCommandException         If a subcommand is not found
+     * @throws TooManySubCommandsException   If there is more than one subcommand in the input
+     */
     private static boolean hasValidSubCommand(String input, String subCommand) throws
-            NoSubCommandArgumentException,
-            TooManySubCommandsException, NoSubCommandException, NoCommandArgumentException {
+            NoCommandArgumentException, NoSubCommandArgumentException,
+            NoSubCommandException, TooManySubCommandsException {
 
         String firstWord = input.split(" ")[0];
         if (input.toLowerCase().contains(subCommand)) {
-            return validateLength(input, firstWord, subCommand);
+            return validateCommand(input, firstWord, subCommand);
         } else {
             throw new NoSubCommandException(firstWord, subCommand);
         }
     }
 
-    private static boolean validateLength(String input, String command, String subCommand) throws
-            NoSubCommandArgumentException, TooManySubCommandsException, NoCommandArgumentException {
+    /**
+     * Makes sure give input string is valid for a string that has both a command and
+     * subcommand.
+     *
+     * @param input      input string
+     * @param command    command string
+     * @param subCommand subcommand string
+     * @return true if input string is valid, false if not
+     * @throws NoSubCommandArgumentException If a subcommand has no argument after it
+     *                                       (for {@link DeadlineTask} and {@link EventTask})
+     * @throws TooManySubCommandsException   If there is more than one subcommand in the input
+     * @throws NoCommandArgumentException    If the command has no argument after it
+     */
+    private static boolean validateCommand(String input, String command, String subCommand) throws
+            NoSubCommandArgumentException, TooManySubCommandsException,
+            NoCommandArgumentException {
         int length = splitCount(input, subCommand);
         if (length == 2) {
             // both command and subcommand are present
@@ -115,6 +151,9 @@ public class InputValidator {
      *
      * @param input input string to check
      * @return boolean, true or false
+     * @throws NoCommandArgumentException If the command has no argument after it
+     * @throws TooManyWordsException      If there is more than one space-separated
+     *                                    substring after the command.
      */
     public static boolean isMarkInput(String input) throws
             NoCommandArgumentException, TooManyWordsException {
@@ -129,12 +168,14 @@ public class InputValidator {
      * @param command command to check equality against
      * @return true if input has command as the first word
      * @throws NoCommandArgumentException When no command argument is given
+     * @throws TooManyWordsException      If there is more than one space-separated
+     *                                    substring after the command.
      */
     public static boolean stringContainsEnforceOneWord(String input, String command) throws
             NoCommandArgumentException, TooManyWordsException {
         if (input.equalsIgnoreCase(command)) {
             throw new NoCommandArgumentException(command);
-        } else if (stringContains(input, command)){
+        } else if (stringContains(input, command)) {
             if (splitCount(input, " ") != 2) {
                 throw new TooManyWordsException(command);
             } else {
@@ -150,6 +191,9 @@ public class InputValidator {
      *
      * @param input input string to check
      * @return boolean, true or false
+     * @throws NoCommandArgumentException When no command argument is given
+     * @throws TooManyWordsException      If there is more than one space-separated
+     *                                    substring after the command.
      */
     public static boolean isUnmarkInput(String input) throws
             NoCommandArgumentException, TooManyWordsException {
@@ -183,7 +227,13 @@ public class InputValidator {
         return false;
     }
 
-    public static boolean isNumber(String input) {
+    /**
+     * Checks if given input string is an integer.
+     *
+     * @param input input string to be checked
+     * @return true if input string can be parsed as an integer, false if not
+     */
+    public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -192,6 +242,13 @@ public class InputValidator {
         return true;
     }
 
+    /**
+     * Counts the length of an array after a {@link String#split} operation.
+     *
+     * @param input     input string to be split
+     * @param separator substring that input should be split with
+     * @return length of split array
+     */
     public static int splitCount(String input, String separator) {
         return input.split(separator).length;
     }

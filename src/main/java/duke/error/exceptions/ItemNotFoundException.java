@@ -2,15 +2,25 @@ package duke.error.exceptions;
 
 import duke.Duke;
 
+/**
+ * Exception subclass of {@link DukeException} for if an item is not found in list at a given index.
+ */
 public class ItemNotFoundException extends DukeException {
     private final int index;
+
+    /**
+     * Constructor for exception.
+     *
+     * @param index index of item. <b>Note:</b> input is given as 0-based index
+     *              but error message prints 1-based index
+     */
     public ItemNotFoundException(int index) {
         super();
         this.index = index + 1;
     }
 
     /**
-     * Message to be used in dialog box
+     * Message to be returned depending on exception.
      *
      * @return message string
      */

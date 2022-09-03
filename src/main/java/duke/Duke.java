@@ -3,11 +3,11 @@ package duke;
 import duke.error.ErrorHandler;
 import duke.error.exceptions.*;
 import duke.input.InputValidator;
-import duke.ui.UserInterface;
+import duke.tasks.TaskList;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 import duke.tasks.tasktypes.ToDoTask;
-import duke.tasks.TaskList;
+import duke.ui.UserInterface;
 
 public class Duke {
     /* Command list to check against */
@@ -54,15 +54,31 @@ public class Duke {
         }
     }
 
+    /**
+     * Marks item given in the input string.
+     *
+     * @param input input
+     * @throws NotAnIntegerException  If word after command is not an integer.
+     * @throws ItemNotFoundException  If there is no item at given index.
+     * @throws NoStateChangeException If item is already marked.
+     */
     private static void markAndConfirm(String input) throws
-            NotANumberException, ItemNotFoundException, NoStateChangeException {
+            NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(markItem(input) - 1)
                 + "\" as done.");
     }
 
+    /**
+     * Unmarks item given in the input string.
+     *
+     * @param input input
+     * @throws NotAnIntegerException  If word after command is not an integer.
+     * @throws ItemNotFoundException  If there is no item at given index.
+     * @throws NoStateChangeException If item is already not marked.
+     */
     private static void unmarkAndConfirm(String input) throws
-            NotANumberException, ItemNotFoundException, NoStateChangeException {
+            NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
                 + "\" as not yet done.");
@@ -117,8 +133,10 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
+     * @throws NotAnIntegerException If word after command is not an integer
+     * @throws ItemNotFoundException If item is already marked
      */
-    private static int markItem(String input) throws NotANumberException, ItemNotFoundException,
+    private static int markItem(String input) throws NotAnIntegerException, ItemNotFoundException,
             NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
         TASK_LIST.markItem(itemIndex);
@@ -132,21 +150,30 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
+     * @throws NotAnIntegerException If word after command is not an integer
+     * @throws ItemNotFoundException If item is already marked
      */
-    private static int unmarkItem(String input) throws NotANumberException, ItemNotFoundException,
+    private static int unmarkItem(String input) throws NotAnIntegerException, ItemNotFoundException,
             NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
         TASK_LIST.unmarkItem(itemIndex);
         return itemIndex + 1;
     }
 
-    private static int extractNumber(String input) throws NotANumberException {
+    /**
+     * Extracts a number from a given string.
+     *
+     * @param input input string
+     * @return extracted integer
+     * @throws NotAnIntegerException If word after command is not an integer
+     */
+    private static int extractNumber(String input) throws NotAnIntegerException {
         String number = input.split(" ")[1];
         String command = input.split(" ")[0];
-        if (InputValidator.isNumber(number)) {
+        if (InputValidator.isInteger(number)) {
             return Integer.parseInt(number);
         } else {
-            throw new NotANumberException(command);
+            throw new NotAnIntegerException(command);
         }
     }
 
