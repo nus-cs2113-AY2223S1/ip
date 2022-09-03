@@ -1,3 +1,11 @@
+package duke.manager;
+
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.ui.UI;
+
 public class CommandManager {
     private static UI ui;
     private static final String EXIT_PREFIX = "bye";
