@@ -1,6 +1,8 @@
+package duke;
+
 public class Deadline extends Task {
     /**
-     * Creates Task Object
+     * Creates duke.Task Object
      *
      * @param text
      */
