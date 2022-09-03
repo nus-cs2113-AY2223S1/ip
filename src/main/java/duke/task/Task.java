@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exception.DukeException;
+import duke.exception.ExceptionType;
+
 public abstract class Task {
 
     private int taskNumber;
