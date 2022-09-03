@@ -1,3 +1,16 @@
+package duke.command;
+
+import duke.exception.MissingDeadlineDescriptionException;
+import duke.exception.MissingEventDescriptionException;
+import duke.exception.MissingTaskNumberException;
+import duke.exception.MissingTodoDescriptionException;
+import duke.exception.NonIntegerTaskNumberException;
+import duke.exception.OutOfBoundsTaskNumberException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public abstract class Parser {
     public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
             MissingDeadlineDescriptionException, MissingEventDescriptionException {

@@ -1,3 +1,14 @@
+package duke.task;
+
+import duke.command.InputManager;
+import duke.command.Parser;
+import duke.exception.MissingDeadlineDescriptionException;
+import duke.exception.MissingEventDescriptionException;
+import duke.exception.MissingTaskNumberException;
+import duke.exception.MissingTodoDescriptionException;
+import duke.exception.NonIntegerTaskNumberException;
+import duke.exception.OutOfBoundsTaskNumberException;
+
 public abstract class TaskManager {
     private static final int MAX_NUM_OF_TASKS = 100;
     private static Task[] tasks = new Task[MAX_NUM_OF_TASKS];
