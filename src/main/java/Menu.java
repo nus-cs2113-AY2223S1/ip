@@ -27,24 +27,25 @@ public class Menu {
 
     public void addTask(String taskType, String userInput) {
         String taskName;
-        String[] split;
+        String[] splits;
         switch (taskType) {
         case "todo":
             taskName = userInput;
             tasks[taskCount] = new Todo(taskName);
             break;
         case "deadline":
-            split = splitTaskName(" /by ", userInput);
-            // Task name: split[0], deadline: split[1]
-            tasks[taskCount] = new Deadline(split[0], split[1]);
+            splits = splitTaskName(" /by ", userInput);
+            // Task name: splits[0], deadline: splits[1]
+            tasks[taskCount] = new Deadline(splits[0], splits[1]);
             break;
         case "event":
-            split = splitTaskName(" /at ", userInput);
-            // Task name: split[0], deadline: split[1]
-            tasks[taskCount] = new Event(split[0], split[1]);
+            splits = splitTaskName(" /at ", userInput);
+            // Task name: splits[0], deadline: splits[1]
+            tasks[taskCount] = new Event(splits[0], splits[1]);
             break;
         default:
             displayErrorMessage();
+            break;
         }
         taskCount++;
         displayTaskAdditionMessage(tasks[taskCount - 1].getTaskFullDetails(), taskCount);
@@ -142,10 +143,10 @@ public class Menu {
     }
 
     public static String[] splitTaskName(String regex, String userInput) {
-        String[] split = userInput.split(regex, 2);
-        if (split.length == 1) {
-            return new String[]{split[0], ""};
+        String[] splits = userInput.split(regex, 2);
+        if (splits.length == 1) {
+            return new String[]{splits[0], ""};
         }
-        return split;
+        return splits;
     }
 }
