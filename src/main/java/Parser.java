@@ -1,5 +1,6 @@
-public class Parser {
-    public static Task parseTask(String type, String input) {
+public abstract class Parser {
+    public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
+            MissingDeadlineDescriptionException, MissingEventDescriptionException {
         int descriptionIndex;
         String description;
         Task newTask;
@@ -8,63 +9,103 @@ public class Parser {
         case InputManager.TODO_PHRASE:
             descriptionIndex = input.indexOf(InputManager.TODO_PHRASE);
 
-            // add one to remove space
-            description = input.substring(descriptionIndex + InputManager.TODO_PHRASE.length() + 1,
-                    input.length());
+            try {
+                description = input.substring(
+                        descriptionIndex + InputManager.TODO_PHRASE.length() + 1, input.length());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTodoDescriptionException();
+            }
 
             newTask = new Todo(description);
+
             break;
         case InputManager.DEADLINE_PHRASE:
             descriptionIndex = input.indexOf(InputManager.DEADLINE_PHRASE);
             int byIndex = input.indexOf(InputManager.BY_PHRASE);
 
-            // add one to remove space
-            // minus one to remove space
-            description = input.substring(
-                    descriptionIndex + InputManager.DEADLINE_PHRASE.length() + 1, byIndex - 1);
-            String by =
-                    input.substring(byIndex + InputManager.BY_PHRASE.length() + 1, input.length());
+            String by;
+            try {
+                // add one to remove space
+                // minus one to remove space
+                description = input.substring(
+                        descriptionIndex + InputManager.DEADLINE_PHRASE.length() + 1, byIndex - 1);
+                by = input.substring(byIndex + InputManager.BY_PHRASE.length() + 1, input.length());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingDeadlineDescriptionException();
+            }
 
             newTask = new Deadline(description, by);
+
             break;
         case InputManager.EVENT_PHRASE:
             descriptionIndex = input.indexOf(InputManager.EVENT_PHRASE);
             int atIndex = input.indexOf(InputManager.AT_PHRASE);
 
-            // add one to remove space
-            // minus one to remove space
-            description = input.substring(descriptionIndex + InputManager.EVENT_PHRASE.length() + 1,
-                    atIndex - 1);
-            String at =
-                    input.substring(atIndex + InputManager.AT_PHRASE.length() + 1, input.length());
+            String at;
+            try {
+                // add one to remove space
+                // minus one to remove space
+                description = input.substring(
+                        descriptionIndex + InputManager.EVENT_PHRASE.length() + 1, atIndex - 1);
+                at = input.substring(atIndex + InputManager.AT_PHRASE.length() + 1, input.length());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingEventDescriptionException();
+            }
 
             newTask = new Event(description, at);
-            break;
 
+            break;
         default:
-            // add new Task by default
-            description = input;
-            newTask = new Task(description);
+            newTask = null;
+
             break;
         }
 
         return newTask;
     }
 
-    public static int parseTaskNumber(String type, String input) {
+    public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException,
+            NonIntegerTaskNumberException, OutOfBoundsTaskNumberException {
         String taskNumString;
         int taskNumInt;
 
         switch (type) {
         case InputManager.MARK_PHRASE:
-            taskNumString = input.substring(InputManager.MARK_PHRASE.length() + 1);
-            taskNumInt = Integer.parseInt(taskNumString);
+            try {
+                taskNumString = input.substring(InputManager.MARK_PHRASE.length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTaskNumberException();
+            }
+
+            try {
+                taskNumInt = Integer.parseInt(taskNumString);
+            } catch (NumberFormatException e) {
+                throw new NonIntegerTaskNumberException();
+            }
+
+            if (!isValidTaskNumber(taskNumInt)) {
+                throw new OutOfBoundsTaskNumberException();
+            }
+
             break;
         case InputManager.UNMARK_PHRASE:
-            taskNumString = input.substring(InputManager.UNMARK_PHRASE.length() + 1);
-            taskNumInt = Integer.parseInt(taskNumString);
-            break;
+            try {
+                taskNumString = input.substring(InputManager.UNMARK_PHRASE.length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTaskNumberException();
+            }
 
+            try {
+                taskNumInt = Integer.parseInt(taskNumString);
+            } catch (NumberFormatException e) {
+                throw new NonIntegerTaskNumberException();
+            }
+
+            if (!isValidTaskNumber(taskNumInt)) {
+                throw new OutOfBoundsTaskNumberException();
+            }
+
+            break;
         default:
             taskNumInt = 1;
             break;
@@ -74,5 +115,13 @@ public class Parser {
         taskNumInt -= 1;
 
         return taskNumInt;
+    }
+
+    private static boolean isValidTaskNumber(int taskNum) {
+        if (taskNum > Task.getTaskCount() || taskNum <= 0) {
+            return false;
+        }
+
+        return true;
     }
 }
