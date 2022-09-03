@@ -1,7 +1,40 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+     _________________________________________
+   /  _____________________________________   \ 
+   | |                                     |  | 
+   | |  C:\> Initiating programme_         |  | 
+   | |                                     |  | 
+   | |                                     |  | 
+   | |                                     |  | 
+   | |                                     |  | 
+   | |                                     |  | 
+   | |_____________________________________|  | 
+    \_____________________________________/ 
+       \________________________________/ 
+        _________________________________ 
+   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ 
+_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ 
+
+Hello! I'm Duke
+What can I do for you?
+HELLO BEEP, added a new ToDo:
+	[T][ ] Hao Yi: Answer CS2113 Tutorial questions
+Beep boop, now you have 1 tasks
+OH NO BEEP BEEP, a new Deadline: weekly CS2113 quiz
+	[D][ ] weekly CS2113 quiz  (by: Monday 9pm)
+Beep boop, now you have 2 tasks
+Beep beep, listing out the tasks....Loading.....
+1.[T][ ] Hao Yi: Answer CS2113 Tutorial questions
+2.[D][ ] weekly CS2113 quiz  (by: Monday 9pm)
+OH NO BEEP BEEP, a new Event:
+	[E][ ] CS2113 Lecture  (at: Friday 4 to 6pm)
+Beep boop, now you have 3 tasks
+Nice! I've marked this task as done:
+	[T][X] Hao Yi: Answer CS2113 Tutorial questions
+Beep beep, listing out the tasks....Loading.....
+1.[T][X] Hao Yi: Answer CS2113 Tutorial questions
+2.[D][ ] weekly CS2113 quiz  (by: Monday 9pm)
+3.[E][ ] CS2113 Lecture  (at: Friday 4 to 6pm)
+BEEP BEEP >>>> TERMINATING >>>> PROCESS >>>>>>
+
+Process finished with exit code 0
