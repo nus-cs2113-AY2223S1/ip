@@ -7,71 +7,12 @@ ______________________________
 ______________________________
 
 ______________________________
-added: [T][ ] read book
+added: [T][ ] borrow book
 There are 1 task(s) in your list.
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-______________________________
-
-______________________________
-Completed! The following task is marked as done:
-[T][X] read book
-______________________________
-
-______________________________
-1. [T][X] read book
-______________________________
-
-______________________________
-Oh no! The following task is marked as undone:
-[T][ ] read book
-______________________________
-
-______________________________
-1. [T][ ] read book
-______________________________
-
-______________________________
-added: [T][ ] return book
-There are 2 task(s) in your list.
-______________________________
-
-______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-______________________________
-
-______________________________
-Completed! The following task is marked as done:
-[T][X] return book
-______________________________
-
-______________________________
-1. [T][ ] read book
-2. [T][X] return book
-______________________________
-
-______________________________
-Oh no! The following task is marked as undone:
-[T][ ] return book
-______________________________
-
-______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-______________________________
-
-______________________________
-added: [T][ ] borrow book
-There are 3 task(s) in your list.
-______________________________
-
-______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
+1. [T][ ] borrow book
 ______________________________
 
 ______________________________
@@ -80,9 +21,7 @@ Completed! The following task is marked as done:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][X] borrow book
+1. [T][X] borrow book
 ______________________________
 
 ______________________________
@@ -91,21 +30,17 @@ Oh no! The following task is marked as undone:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
+1. [T][ ] borrow book
 ______________________________
 
 ______________________________
 added: [D][ ] return book (by: Sunday)
-There are 4 task(s) in your list.
+There are 2 task(s) in your list.
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
 ______________________________
 
 ______________________________
@@ -114,10 +49,8 @@ Completed! The following task is marked as done:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][X] return book (by: Sunday)
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
 ______________________________
 
 ______________________________
@@ -126,23 +59,19 @@ Oh no! The following task is marked as undone:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
 ______________________________
 
 ______________________________
 added: [E][ ] project meeting (at: Mon 2-4pm)
-There are 5 task(s) in your list.
+There are 3 task(s) in your list.
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ______________________________
 
 ______________________________
@@ -151,11 +80,9 @@ Completed! The following task is marked as done:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][X] project meeting (at: Mon 2-4pm)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][X] project meeting (at: Mon 2-4pm)
 ______________________________
 
 ______________________________
@@ -164,53 +91,39 @@ Oh no! The following task is marked as undone:
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ______________________________
 
 ______________________________
-added: [D][ ] do homework (by: no idea :-p)
-There are 6 task(s) in your list.
+☹ Bad Input
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
-6. [D][ ] do homework (by: no idea :-p)
+Missing Todo Description
 ______________________________
 
 ______________________________
-Completed! The following task is marked as done:
-[D][X] do homework (by: no idea :-p)
+Missing Deadline Description
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
-6. [D][X] do homework (by: no idea :-p)
+Missing Event Description
 ______________________________
 
 ______________________________
-Oh no! The following task is marked as undone:
-[D][ ] do homework (by: no idea :-p)
+Missing task number
 ______________________________
 
 ______________________________
-1. [T][ ] read book
-2. [T][ ] return book
-3. [T][ ] borrow book
-4. [D][ ] return book (by: Sunday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
-6. [D][ ] do homework (by: no idea :-p)
+Missing task number
+______________________________
+
+______________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ______________________________
 
 ______________________________

@@ -11,14 +11,14 @@ public abstract class TaskManager {
         Task newTask;
         try {
             newTask = Parser.parseTask(type, input);
-        } catch (InvalidTodoDescriptionException e) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        } catch (MissingTodoDescriptionException e) {
+            System.out.println("Missing Todo Description");
             return;
-        } catch (InvalidDeadlineDescriptionException e) {
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+        } catch (MissingDeadlineDescriptionException e) {
+            System.out.println("Missing Deadline Description");
             return;
-        } catch (InvalidEventDescriptionException e) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+        } catch (MissingEventDescriptionException e) {
+            System.out.println("Missing Event Description");
             return;
         }
 
@@ -36,7 +36,14 @@ public abstract class TaskManager {
     }
 
     public static void markTask(String input) {
-        int taskNum = Parser.parseTaskNumber(InputManager.MARK_PHRASE, input);
+        int taskNum;
+
+        try {
+            taskNum = Parser.parseTaskNumber(InputManager.MARK_PHRASE, input);
+        } catch (MissingTaskNumberException e) {
+            System.out.println("Missing task number");
+            return;
+        }
 
         tasks[taskNum].setDone();
 
@@ -45,7 +52,14 @@ public abstract class TaskManager {
     }
 
     public static void unmarkTask(String input) {
-        int taskNum = Parser.parseTaskNumber(InputManager.UNMARK_PHRASE, input);
+        int taskNum;
+
+        try {
+            taskNum = Parser.parseTaskNumber(InputManager.UNMARK_PHRASE, input);
+        } catch (MissingTaskNumberException e) {
+            System.out.println("Missing task number");
+            return;
+        }
 
         tasks[taskNum].setUndone();
 

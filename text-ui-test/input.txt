@@ -1,38 +1,27 @@
 list
-read book
+todo borrow book
 list
 mark 1
 list
 unmark 1
 list
-return book
+deadline return book /by Sunday
 list
 mark 2
 list
 unmark 2
 list
-todo borrow book
+event project meeting /at Mon 2-4pm
 list
 mark 3
 list
 unmark 3
 list
-deadline return book /by Sunday
-list
-mark 4
-list
-unmark 4
-list
-event project meeting /at Mon 2-4pm
-list
-mark 5
-list
-unmark 5
-list
-deadline do homework /by no idea :-p
-list
-mark 6
-list
-unmark 6
+test
+todo
+deadline
+event
+mark
+unmark
 list
 bye

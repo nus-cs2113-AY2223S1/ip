@@ -1,6 +1,6 @@
 public abstract class Parser {
-    public static Task parseTask(String type, String input) throws InvalidTodoDescriptionException,
-            InvalidDeadlineDescriptionException, InvalidEventDescriptionException {
+    public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
+            MissingDeadlineDescriptionException, MissingEventDescriptionException {
         int descriptionIndex;
         String description;
         Task newTask;
@@ -13,7 +13,7 @@ public abstract class Parser {
                 description = input.substring(
                         descriptionIndex + InputManager.TODO_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidTodoDescriptionException();
+                throw new MissingTodoDescriptionException();
             }
 
             newTask = new Todo(description);
@@ -30,7 +30,7 @@ public abstract class Parser {
                         descriptionIndex + InputManager.DEADLINE_PHRASE.length() + 1, byIndex - 1);
                 by = input.substring(byIndex + InputManager.BY_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidDeadlineDescriptionException();
+                throw new MissingDeadlineDescriptionException();
             }
 
             newTask = new Deadline(description, by);
@@ -47,7 +47,7 @@ public abstract class Parser {
                         descriptionIndex + InputManager.EVENT_PHRASE.length() + 1, atIndex - 1);
                 at = input.substring(atIndex + InputManager.AT_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidEventDescriptionException();
+                throw new MissingEventDescriptionException();
             }
 
             newTask = new Event(description, at);
@@ -60,17 +60,27 @@ public abstract class Parser {
         return newTask;
     }
 
-    public static int parseTaskNumber(String type, String input) {
+    public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException {
         String taskNumString;
         int taskNumInt;
 
         switch (type) {
         case InputManager.MARK_PHRASE:
-            taskNumString = input.substring(InputManager.MARK_PHRASE.length() + 1);
+            try {
+                taskNumString = input.substring(InputManager.MARK_PHRASE.length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTaskNumberException();
+            }
+
             taskNumInt = Integer.parseInt(taskNumString);
             break;
         case InputManager.UNMARK_PHRASE:
-            taskNumString = input.substring(InputManager.UNMARK_PHRASE.length() + 1);
+            try {
+                taskNumString = input.substring(InputManager.UNMARK_PHRASE.length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTaskNumberException();
+            }
+
             taskNumInt = Integer.parseInt(taskNumString);
             break;
 
