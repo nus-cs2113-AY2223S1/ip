@@ -26,7 +26,7 @@ public class CommandHandler {
         int taskID = Integer.parseInt(words[1]);
         return taskID;
     }
-    public static void unmarkTasks(int taskID) {
+    public static void unmarkTask(int taskID) {
         tasks[taskID-1].setDone(false);
         System.out.println("Okay, I've marked this task as not done yet:");
         char taskTypeCharacter = tasks[taskID-1].getType();
@@ -34,7 +34,7 @@ public class CommandHandler {
         drawLine();
     }
 
-    public static void markTasks(int taskID) {
+    public static void markTask(int taskID) {
         tasks[taskID-1].setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         char taskTypeCharacter = tasks[taskID-1].getType();
@@ -122,7 +122,7 @@ public class CommandHandler {
                     System.out.println("Unable to unmark as this task has not been done yet");
                     drawLine();
                 } else {
-                    unmarkTasks(taskID);
+                    unmarkTask(taskID);
                 }
             }
             else if (command.contains("mark")) {
@@ -131,7 +131,7 @@ public class CommandHandler {
                     System.out.println("Unable to mark as this task has already been done");
                     drawLine();
                 } else {
-                    markTasks(taskID);
+                    markTask(taskID);
                 }
             }
             else {

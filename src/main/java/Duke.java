@@ -1,5 +1,5 @@
 
-public class Bloom {
+public class Duke {
     public static void drawLine() {    //print underscore symbol 50 times
         System.out.println("__________________________________________________");
     }
