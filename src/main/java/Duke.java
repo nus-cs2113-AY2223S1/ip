@@ -17,30 +17,8 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static Command getCommand(String line) {
-        Command command;
-        if (line.equals("bye")) {
-            command = Command.BYE;
-        } else if (line.equals("list")) {
-            command = Command.LIST;
-        } else if (line.startsWith("mark ")) {
-            command = Command.MARK;
-        } else if (line.startsWith("unmark ")) {
-            command = Command.UNMARK;
-        } else if (line.startsWith("todo ")) {
-            command = Command.TODO;
-        } else if (line.startsWith("deadline ")) {
-            command = Command.DEADLINE;
-        } else if (line.startsWith("event ")) {
-            command = Command.EVENT;
-        } else {
-            command = Command.EMPTY;
-        }
-        return command;
-    }
-
-    public static void markDone(ArrayList<Task> tasks, String line, boolean isDone) {
-        int taskIndex = Integer.parseInt(line.replaceAll("[^0-9]", "")) - 1;
+    public static void markDone(ArrayList<Task> tasks, String input, boolean isDone) {
+        int taskIndex = Integer.parseInt(input) - 1;
         tasks.get(taskIndex).setStatus(isDone);
 
         System.out.println("    ____________________________________________________________");
@@ -64,22 +42,28 @@ public class Duke {
     public static void main(String[] args) {
         printGreeting();
         boolean isLoop = true;
-        String line, newLine, description;
+        String command, input;
+        String[] inputSplits;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (isLoop) {
-            line = in.nextLine();
-            Command command = getCommand(line);
+            input = in.nextLine();
+            if (input.contains(" ")) {
+                command = input.split(" ")[0];
+                input = input.substring(input.indexOf(' ') + 1);
+            } else {
+                command = input;
+            }
 
             switch (command) {
-            case BYE:
+            case "bye":
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    Sayonara. Hope to see you again soon!");
                 System.out.println("    ____________________________________________________________");
                 isLoop = false;
                 break;
-            case LIST:
+            case "list":
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    Here are the tasks stored in Doraemon's 4D pocket:");
                 for (int i = 0; i < tasks.size(); i++) {
@@ -87,30 +71,26 @@ public class Duke {
                 }
                 System.out.println("    ____________________________________________________________");
                 break;
-            case MARK:
-                markDone(tasks, line, true);
+            case "mark":
+                markDone(tasks, input, true);
                 break;
-            case UNMARK:
-                markDone(tasks, line, false);
+            case "unmark":
+                markDone(tasks, input, false);
                 break;
-            case TODO:
-                Todo todo = new Todo(line.substring(5));
+            case "todo":
+                Todo todo = new Todo(input);
                 tasks.add(todo);
                 printNewTask(todo.getTaskDetails(), tasks.size());
                 break;
-            case DEADLINE:
-                newLine = line.substring(9);
-                description = newLine.split(" /by ")[0];
-                String dueBy = newLine.split(" /by ")[1];
-                Deadline deadline = new Deadline(description, dueBy);
+            case "deadline":
+                inputSplits = input.split(" /by ");
+                Deadline deadline = new Deadline(inputSplits[0], inputSplits[1]);
                 tasks.add(deadline);
                 printNewTask(deadline.getTaskDetails(), tasks.size());
                 break;
-            case EVENT:
-                newLine = line.substring(6);
-                description = newLine.split(" /at ")[0];
-                String eventTime = (newLine.split(" /at ")[1]);
-                Event event = new Event(description, eventTime);
+            case "event":
+                inputSplits = input.split(" /at ");
+                Event event = new Event(inputSplits[0], inputSplits[1]);
                 tasks.add(event);
                 printNewTask(event.getTaskDetails(), tasks.size());
                 break;
