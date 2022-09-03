@@ -2,8 +2,12 @@ public class Event extends Task {
 
     private String eventTime;
 
-    public Event(String name, String eventTime) {
-        super(name);
+    public Event(String arguments) throws DukeException {
+        super(arguments);
+        String eventTime = extractTime(arguments);
+        if (eventTime.length() == 0) {
+            throw new DukeException(ExceptionType.MISSING_TIME);
+        }
         this.eventTime = eventTime;
     }
 

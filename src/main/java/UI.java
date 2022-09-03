@@ -32,9 +32,12 @@ public class UI {
         System.out.println(output);
     }
 
-    public static void response(Command command) {
+    public static void respond(Command command) {
         line();
         switch (command) {
+        case HI:
+            System.out.println("Howdy!");
+            break;
         case LIST:
             System.out.println("You have " + TaskManager.getTasksCount() + " tasks");
             for (int taskNumber = 1; taskNumber <= TaskManager.getTasksCount(); taskNumber++) {
@@ -55,7 +58,8 @@ public class UI {
                     "unmark {task number} - to mark that task as not done\n" +
                     "todo {description} - to add a new todo task\n" +
                     "event {description} /{event time} - to add a new event task\n" +
-                    "deadline {description} /{deadline time} - to add a new deadline task");
+                    "deadline {description} /{deadline time} - to add a new deadline task\n" +
+                    "bye - to exit");
             break;
         case BYE:
             System.out.println("Please don't go :(");
@@ -67,7 +71,7 @@ public class UI {
         line();
     }
 
-    public static void response(Command command, String arguments) {
+    public static void respond(Command command, String arguments) {
         line();
         switch (command) {
         case ADD:
@@ -81,6 +85,34 @@ public class UI {
         case UNMARK:
             System.out.println("Boo! I've marked this task as not done yet:");
             System.out.println(arguments);
+            break;
+        default:
+            System.out.println("Invalid input. Boo! Please type help for help");
+            break;
+        }
+        line();
+    }
+
+    public static void respond(DukeException e) {
+        line();
+        switch (e.exceptionType) {
+        case MISSING_DESCRIPTION:
+            System.out.println("Please describe the task\n" +
+                    "Follow this format:\n" +
+                    "todo {description}\n" +
+                    "Example: todo find a girlfriend\n" +
+                    "event/deadline {description} /{time}\n" +
+                    "Example: deadline find a girlfriend /last year");
+            break;
+        case MISSING_TIME:
+            System.out.println("Please specify a time\n" +
+                    "Follow this format:\n" +
+                    "event/deadline {description} /{time}\n" +
+                    "Example: event find a girlfriend /never");
+            break;
+        case INVALID_TASK_NUMBER:
+            System.out.println("Invalid task number: task does not exist\n" +
+                    "Please try again");
             break;
         default:
             System.out.println("Invalid input. Boo! Please type help for help");
