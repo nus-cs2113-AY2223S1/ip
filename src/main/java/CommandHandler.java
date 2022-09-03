@@ -26,7 +26,10 @@ public class CommandHandler {
         int taskID = Integer.parseInt(words[1]);
         return taskID;
     }
-    public static void unmarkTask(int taskID) {
+    public static void unmarkTask(int taskID) throws DukeException {
+        if (tasks[taskID - 1].isDone() == false) {
+            throw new DukeException(":( OOPS!!! Unable to unmark as this task has not been done yet");
+        }
         tasks[taskID-1].setDone(false);
         System.out.println("Okay, I've marked this task as not done yet:");
         char taskTypeCharacter = tasks[taskID-1].getType();
@@ -34,7 +37,10 @@ public class CommandHandler {
         drawLine();
     }
 
-    public static void markTask(int taskID) {
+    public static void markTask(int taskID) throws DukeException{
+        if (tasks[taskID - 1].isDone() == true) {
+            throw new DukeException(":( OOPS!!! Unable to mark as this task has already been done");
+        }
         tasks[taskID-1].setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         char taskTypeCharacter = tasks[taskID-1].getType();
@@ -42,32 +48,59 @@ public class CommandHandler {
         drawLine();
     }
     public static void createNewTask(String command) {
+        command = command.trim();
         char taskType = command.toUpperCase().charAt(0);    //first char is the type in uppercase
-        command = removeTaskType(command);   //get taskName from command
+        try {
+            command = removeTaskType(command);   //get taskName from command
+        } catch (DukeException e) {
+            e.printErrorMessage();
+            drawLine();
+            return;
+        }
         String taskDateTime, taskName;
         switch(taskType) {
         case 'T':
             createNewToDo(new ToDo(command, false, taskType));
             break;
         case 'D':
-            taskDateTime = getTaskDateTime(command);
-            taskName = getTaskName(command);
-            createNewDeadline(new Deadline(taskName, false, taskType, taskDateTime));
+            try {
+                taskDateTime = getTaskDateTime(command);
+                taskName = getTaskName(command);
+                createNewDeadline(new Deadline(taskName, false, taskType, taskDateTime));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println(":( OOPS!!! Deadline tasks should be of the form 'deadline <task_name> /by <task_deadline>'");
+                drawLine();
+            }
             break;
         case 'E':
-            taskDateTime = getTaskDateTime(command);
-            taskName = getTaskName(command);
-            createNewEvent(new Event(taskName, false, taskType, taskDateTime));
+            try {
+                taskDateTime = getTaskDateTime(command);
+                taskName = getTaskName(command);
+                createNewEvent(new Event(taskName, false, taskType, taskDateTime));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println(":( OOPS!!! Event tasks should be of the form 'event <task_name> /at <task_time>'");
+                drawLine();
+            }
             break;
         default:
-            System.out.println("Type of task invalid");     //throw error
             drawLine();
         }
-
     }
-    public static String removeTaskType(String command) {
+    public static String removeTaskType(String command) throws DukeException{
         int indexOfFirstBlankSpace = command.indexOf(" ");
-        return command.substring(indexOfFirstBlankSpace + 1);
+        String firstWord;
+        if (indexOfFirstBlankSpace == -1) {
+            firstWord = command;
+        } else {
+            firstWord = command.substring(0, indexOfFirstBlankSpace);
+        }
+        if (indexOfFirstBlankSpace == -1 && (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event"))) {
+            throw new DukeException(":( OOPS!!! The description of a " + command + " cannot be empty.");
+        } else if (!firstWord.equals("todo") && !firstWord.equals("deadline") && !firstWord.equals("event")) {
+            throw new DukeException(":( OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        command = command.substring(indexOfFirstBlankSpace + 1);
+        return command;
     }
     private static String getTaskName(String command) {
         int indexOfBackslash = command.indexOf('/');
@@ -118,20 +151,32 @@ public class CommandHandler {
             }
             else if (command.contains("unmark")) {
                 int taskID = getTaskID(command);
-                if (tasks[taskID - 1].isDone() == false) {
-                    System.out.println("Unable to unmark as this task has not been done yet");
-                    drawLine();
-                } else {
+                try {
                     unmarkTask(taskID);
+                } catch (DukeException e) {
+                    e.printErrorMessage();
+                    drawLine();
+                } catch (NullPointerException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
                 }
             }
             else if (command.contains("mark")) {
                 int taskID = getTaskID(command);
-                if (tasks[taskID - 1].isDone() == true) {
-                    System.out.println("Unable to mark as this task has already been done");
-                    drawLine();
-                } else {
+                try {
                     markTask(taskID);
+                } catch (DukeException e) {
+                    e.printErrorMessage();
+                    drawLine();
+                } catch (NullPointerException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
                 }
             }
             else {
