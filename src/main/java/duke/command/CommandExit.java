@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package duke.command;
+import duke.exception.*;
 
 public class CommandExit extends Command {
 
@@ -17,7 +18,7 @@ public class CommandExit extends Command {
     }
 
     @Override
-    public void checkArgument() throws NotIntegerException{
+    public void checkArgument() throws NotIntegerException {
     }
 
     @Override

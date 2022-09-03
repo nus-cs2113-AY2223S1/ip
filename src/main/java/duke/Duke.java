@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.InvalidCommandTypeException;
+
 import java.util.Scanner;
 
 public class Duke {

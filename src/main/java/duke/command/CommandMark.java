@@ -1,17 +1,20 @@
-public class CommandUnmark extends Command {
+package duke.command;
+import duke.exception.*;
+
+public class CommandMark extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 1;
     private static final String[] FLAGS = {};
 
     private Integer taskNum = null;
 
-    public CommandUnmark(String rawArguments) {
+    public CommandMark(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;
-        super.commandType = CommandType.UNMARK;
+        super.commandType = CommandType.MARK;
     }
 
     @Override

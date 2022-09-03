@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Object representation of an event task
  */

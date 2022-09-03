@@ -1,3 +1,6 @@
+package duke.command;
+import duke.exception.*;
+
 public class CommandList extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 0;

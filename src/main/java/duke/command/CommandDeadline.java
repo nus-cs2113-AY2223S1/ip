@@ -1,3 +1,6 @@
+package duke.command;
+import duke.exception.*;
+
 public class CommandDeadline extends Command {
 
     private static final int MIN_ARGUMENTS = 3;

@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package duke.command;
+import duke.exception.*;
 
 public class CommandEvent extends Command {
 

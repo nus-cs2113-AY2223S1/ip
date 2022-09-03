@@ -1,3 +1,6 @@
+package duke.command;
+import duke.exception.*;
+
 public class CommandToDo extends Command {
 
     private static final int MIN_ARGUMENTS = 1;
@@ -16,7 +19,7 @@ public class CommandToDo extends Command {
 
     @Override
     protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
-            MissingDescriptionException  {
+            MissingDescriptionException {
 
         if (super.MIN_ARGUMENTS != null && splitArguments.length < MIN_ARGUMENTS) {
             throw new MissingDescriptionException();

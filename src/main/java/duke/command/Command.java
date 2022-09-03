@@ -1,4 +1,7 @@
+package duke.command;
+
 import java.util.Arrays;
+import duke.exception.*;
 
 public abstract class Command {
     public enum CommandType {
@@ -60,7 +63,7 @@ public abstract class Command {
 
     protected abstract void parse();
 
-    protected CommandType getCommandType() {
+    public CommandType getCommandType() {
         return commandType;
     }
 
