@@ -1,3 +1,10 @@
+package duke;
+
+import duke.command.Command;
+import duke.manager.CommandManager;
+import duke.task.List;
+import duke.ui.UI;
+
 public class Duke {
 
     private UI ui;
