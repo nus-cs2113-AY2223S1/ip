@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +13,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm duke.Duke\nWhat can I do for you?\n");
 
         //tasks is an array list collection of task objects
         List<Task> tasks = new ArrayList<>();

@@ -1,10 +1,12 @@
+package duke;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
 
     /**
-     * Creates Task Object
+     * Creates duke.Task Object
      * @param description
      */
     public Task(String description) {
