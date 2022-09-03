@@ -1,4 +1,4 @@
-public class Parser {
+public abstract class Parser {
     public static Task parseTask(String type, String input) {
         int descriptionIndex;
         String description;
@@ -40,11 +40,10 @@ public class Parser {
 
             newTask = new Event(description, at);
             break;
-
         default:
             // add new Task by default
             description = input;
-            newTask = new Task(description);
+            newTask = new Todo(description);
             break;
         }
 

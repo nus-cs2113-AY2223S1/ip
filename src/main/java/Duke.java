@@ -1,4 +1,4 @@
-public class Duke {
+public abstract class Duke {
     public static final String HORIZONTAL_LINE = "______________________________";
 
     private static void printIntroduction() {

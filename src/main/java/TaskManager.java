@@ -1,4 +1,4 @@
-public class TaskManager {
+public abstract class TaskManager {
     private static final int MAX_NUM_OF_TASKS = 100;
     private static Task[] tasks = new Task[MAX_NUM_OF_TASKS];
 

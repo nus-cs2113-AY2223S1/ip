@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class InputManager {
+public abstract class InputManager {
     public static final String EXIT_PHRASE = "bye";
     public static final String LIST_PHRASE = "list";
     public static final String MARK_PHRASE = "mark";
