@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class Menu {
     private Task[] tasks;
     private int taskCount;

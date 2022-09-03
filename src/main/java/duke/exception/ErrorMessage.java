@@ -1,3 +1,5 @@
+package duke.exception;
+
 public enum ErrorMessage {
     INVALID_COMMAND_ERROR_MESSAGE("I'm sorry, but I don't know what that means :-("),
     INVALID_MARK_OR_UNMARK_INDEX_ERROR_MESSAGE("The selected task index value does not exists."),

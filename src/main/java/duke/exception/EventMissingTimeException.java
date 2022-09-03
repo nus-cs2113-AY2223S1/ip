@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EventMissingTimeException extends DukeException {
 
     @Override

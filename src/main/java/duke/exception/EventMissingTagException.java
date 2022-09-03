@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EventMissingTagException extends DukeException {
 
     @Override
