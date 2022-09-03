@@ -3,7 +3,6 @@ package duke;
 public class Todo extends Task {
     /**
      * Creates duke.Task Object
-     *
      * @param description
      */
     public Todo(String description) {
