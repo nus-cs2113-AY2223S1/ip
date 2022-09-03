@@ -63,14 +63,24 @@ public class CommandHandler {
             createNewToDo(new ToDo(command, false, taskType));
             break;
         case 'D':
-            taskDateTime = getTaskDateTime(command);
-            taskName = getTaskName(command);
-            createNewDeadline(new Deadline(taskName, false, taskType, taskDateTime));
+            try {
+                taskDateTime = getTaskDateTime(command);
+                taskName = getTaskName(command);
+                createNewDeadline(new Deadline(taskName, false, taskType, taskDateTime));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println(":( OOPS!!! Deadline tasks should be of the form 'deadline <task_name> /by <task_deadline>'");
+                drawLine();
+            }
             break;
         case 'E':
-            taskDateTime = getTaskDateTime(command);
-            taskName = getTaskName(command);
-            createNewEvent(new Event(taskName, false, taskType, taskDateTime));
+            try {
+                taskDateTime = getTaskDateTime(command);
+                taskName = getTaskName(command);
+                createNewEvent(new Event(taskName, false, taskType, taskDateTime));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println(":( OOPS!!! Event tasks should be of the form 'event <task_name> /at <task_time>'");
+                drawLine();
+            }
             break;
         default:
             drawLine();
@@ -146,6 +156,12 @@ public class CommandHandler {
                 } catch (DukeException e) {
                     e.printErrorMessage();
                     drawLine();
+                } catch (NullPointerException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
                 }
             }
             else if (command.contains("mark")) {
@@ -154,6 +170,12 @@ public class CommandHandler {
                     markTask(taskID);
                 } catch (DukeException e) {
                     e.printErrorMessage();
+                    drawLine();
+                } catch (NullPointerException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
                 }
             }
