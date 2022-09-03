@@ -15,6 +15,7 @@ public class DeadlineTask extends Task {
     /**
      * Splits the text into two and initializes
      * the {@link DeadlineTask#DEADLINE} string.
+     *
      * @param text input text to be parsed
      */
     public DeadlineTask(String text) {
@@ -24,6 +25,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Provides type icon to be used in string formatting.
+     *
      * @return Type icon "D" for "Deadline".
      */
     @Override
@@ -34,6 +36,7 @@ public class DeadlineTask extends Task {
     /**
      * Add a postfix that denotes a deadline.
      * (e.g. <code>(by 4:00 pm)</code> )
+     *
      * @return postfix string
      */
     protected String getPostFix() {

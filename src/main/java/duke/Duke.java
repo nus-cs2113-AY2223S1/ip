@@ -3,6 +3,7 @@ package duke;
 import duke.error.ErrorHandler;
 import duke.error.exceptions.CustomException;
 import duke.error.exceptions.ListEmptyException;
+import duke.error.exceptions.NotANumberException;
 import duke.error.exceptions.NotRecognizedException;
 import duke.input.InputValidator;
 import duke.ui.UserInterface;
@@ -42,19 +43,11 @@ public class Duke {
                 } else if (InputValidator.isListInput(input)) {
                     printList();
                 } else if (InputValidator.isMarkInput(input)) {
-                    UserInterface.print("Marked task \""
-                            + TASK_LIST.getTextOfItem(markItem(input) - 1)
-                            + "\" as done.");
+                    markAndConfirm(input);
                 } else if (InputValidator.isUnmarkInput(input)) {
-                    UserInterface.print("Marked task \""
-                            + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
-                            + "\" as not yet done.");
+                    unmarkAndConfirm(input);
                 } else if (InputValidator.isAddInput(input)) {
-                    UserInterface.print("Added \""
-                            + TASK_LIST.getTextOfItem(addItem(input))
-                            + "\" to your list.\nThere " + (TASK_LIST.getItemCount() == 1 ? "is" : "are")
-                            + " now " + TASK_LIST.getItemCount() + " task"
-                            + (TASK_LIST.getItemCount() == 1 ? "" : "s") + ".");
+                    addAndConfirm(input);
                 } else {
                     throw new NotRecognizedException(input);
                 }
@@ -62,6 +55,31 @@ public class Duke {
                 ErrorHandler.printErrorMessage(e);
             }
         }
+    }
+
+    private static void markAndConfirm(String input) throws NotANumberException {
+        UserInterface.print("Marked task \""
+                + TASK_LIST.getTextOfItem(markItem(input) - 1)
+                + "\" as done.");
+    }
+
+    private static void unmarkAndConfirm(String input) throws NotANumberException {
+        UserInterface.print("Marked task \""
+                + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
+                + "\" as not yet done.");
+    }
+
+    /**
+     * Adds item to {@link Duke#TASK_LIST} and prints confirmation.
+     *
+     * @param input input string
+     */
+    private static void addAndConfirm(String input) {
+        UserInterface.print("Added \""
+                + TASK_LIST.getTextOfItem(addItem(input))
+                + "\" to your list.\nThere " + (TASK_LIST.getItemCount() == 1 ? "is" : "are")
+                + " now " + TASK_LIST.getItemCount() + " task"
+                + (TASK_LIST.getItemCount() == 1 ? "" : "s") + ".");
     }
 
     /**
@@ -83,12 +101,13 @@ public class Duke {
      * @return <b>0-based</b> index of added item.
      */
     private static int addItem(String input) {
+        String task = input.split(" ", 2)[1];
         if (InputValidator.stringContains(input, COMMAND_DEADLINE)) {
-            return TASK_LIST.addItem(new DeadlineTask(input.split(" ", 2)[1]));
+            return TASK_LIST.addItem(new DeadlineTask(task));
         } else if (InputValidator.stringContains(input, COMMAND_EVENT)) {
-            return TASK_LIST.addItem(new EventTask(input.split(" ", 2)[1]));
+            return TASK_LIST.addItem(new EventTask(task));
         } else {
-            return TASK_LIST.addItem(new ToDoTask(input.split(" ", 2)[1]));
+            return TASK_LIST.addItem(new ToDoTask(task));
         }
     }
 
@@ -100,8 +119,8 @@ public class Duke {
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
      */
-    private static int markItem(String input) {
-        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+    private static int markItem(String input) throws NotANumberException {
+        int itemIndex = extractNumber(input) - 1;
         TASK_LIST.markItem(itemIndex);
         return itemIndex + 1;
     }
@@ -114,10 +133,20 @@ public class Duke {
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
      */
-    private static int unmarkItem(String input) {
-        int itemIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+    private static int unmarkItem(String input) throws NotANumberException {
+        int itemIndex = extractNumber(input) - 1;
         TASK_LIST.unmarkItem(itemIndex);
         return itemIndex + 1;
+    }
+
+    private static int extractNumber(String input) throws NotANumberException {
+        String number = input.split(" ")[1];
+        String command = input.split(" ")[0];
+        if (InputValidator.isNumber(number)) {
+            return Integer.parseInt(number);
+        } else {
+            throw new NotANumberException(command);
+        }
     }
 
     /**

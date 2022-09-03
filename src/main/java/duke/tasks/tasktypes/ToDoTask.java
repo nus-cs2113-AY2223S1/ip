@@ -12,6 +12,7 @@ public class ToDoTask extends Task {
 
     /**
      * Provides type icon to be used in string formatting.
+     *
      * @return Type icon "T" for "ToDo".
      */
     @Override

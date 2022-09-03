@@ -65,7 +65,7 @@ public class UserInterface {
             "##########@G GGGGG GGGG########     ##@####s,       \n" +
             "###########S.   GG  CGGS#######   #  # ########s,   \n" +
             "##### ######;G   ^'' ~^GGSGGQ#   # #   ############,";
-    //@@author
+            //@@author
 
     /** ASCII art from {@link UserInterface#ASCII_ART} expressed as a list of strings, where each row is a string */
     private static final List<String> textRows = Arrays.asList(ASCII_ART.split("\n"));

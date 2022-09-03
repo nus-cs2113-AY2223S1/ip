@@ -6,6 +6,7 @@ public abstract class SubCommandException extends CustomException {
         this.command = firstWord;
         this.subCommand = subCommand;
     }
+
     String command;
     String subCommand;
 }
