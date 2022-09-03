@@ -1,4 +1,8 @@
+package duke.command;
 import java.util.Scanner;
+import duke.Duke;
+import duke.exception.DukeException;
+import duke.task.TaskManager;
 
 public abstract class InputManager {
     public static final String EXIT_PHRASE = "bye";

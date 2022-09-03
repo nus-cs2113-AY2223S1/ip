@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.InputManager;
+
 public abstract class Duke {
     public static final String HORIZONTAL_LINE = "______________________________";
 
