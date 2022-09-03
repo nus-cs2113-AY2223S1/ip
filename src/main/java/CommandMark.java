@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CommandMark extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 1;
@@ -7,11 +5,9 @@ public class CommandMark extends Command {
 
     private Integer taskNum = null;
 
-
-    //https://www.codevscolor.com/java-remove-empty-values-while-split
     public CommandMark(String rawArguments) {
         super.rawArguments = rawArguments;
-        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CommandList extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 0;
@@ -8,7 +6,7 @@ public class CommandList extends Command {
 
     public CommandList(String rawArguments) {
         super.rawArguments = rawArguments;
-        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;

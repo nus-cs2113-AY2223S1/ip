@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CommandToDo extends Command {
 
     private static final int MIN_ARGUMENTS = 1;
@@ -9,7 +7,7 @@ public class CommandToDo extends Command {
 
     public CommandToDo(String rawArguments) {
         super.rawArguments = rawArguments;
-        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = MIN_ARGUMENTS;
         super.MAX_ARGUMENTS = null;
         super.FLAGS = FLAGS;

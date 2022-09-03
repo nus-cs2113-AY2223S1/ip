@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CommandUnmark extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 1;
@@ -7,16 +5,14 @@ public class CommandUnmark extends Command {
 
     private Integer taskNum = null;
 
-
     public CommandUnmark(String rawArguments) {
         super.rawArguments = rawArguments;
-        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.UNMARK;
     }
-
 
     @Override
     public void checkArgument() throws NotIntegerException {

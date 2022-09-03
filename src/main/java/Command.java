@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public abstract class Command {
     public enum CommandType {
         EXIT, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO
@@ -44,6 +46,14 @@ public abstract class Command {
                 throw new MissingArgumentException();
             }
         }
+    }
+
+    protected String[] splitArguments(String rawArguments) {
+        //@@Author CodeVsColor
+        //Reused from https://www.codevscolor.com/java-remove-empty-values-while-split
+        //with minor modifications
+        return Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        //@@author
     }
 
     protected abstract void checkArgument() throws NotIntegerException;

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CommandDeadline extends Command {
 
     private static final int MIN_ARGUMENTS = 3;
@@ -10,7 +8,7 @@ public class CommandDeadline extends Command {
     private String date = null;
     public CommandDeadline(String rawArguments) {
         super.rawArguments = rawArguments;
-        super.splitArguments = Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = MIN_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.DEADLINE;
