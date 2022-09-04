@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
+    static final int MAX_TASK_SIZE = 100;
+
     public static String readTaskDetails(Scanner in) {
         return in.nextLine().trim();
     }
@@ -71,7 +73,7 @@ public class Duke {
         String command;                         //variable to store line (input)
         Scanner in = new Scanner(System.in);    //create object that reads input
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAX_TASK_SIZE];
         int taskIndex = 0;
         do {
             command = in.next();                //Read first word (command)
