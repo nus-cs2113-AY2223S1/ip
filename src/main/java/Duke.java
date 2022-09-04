@@ -44,7 +44,13 @@ public class Duke {
         System.out.println(DASH);
     }
 
-    public static void main(String[] args) {
+    public static void checkTodoFormat(String input) throws TodoNoDescriptionException {
+        if (input.equals("todo") || input.isBlank()) {
+            throw new TodoNoDescriptionException();
+        }
+    }
+
+    public static void main(String[] args) throws TodoNoDescriptionException {
         printGreeting();
         boolean isLoop = true;
         Scanner in = new Scanner(System.in);
@@ -63,7 +69,7 @@ public class Duke {
 
             switch (command) {
             case "bye":
-                System.out.println(String.format("%s\n%s\n%s", DASH, InfoText.INFO_WELCOME, DASH));
+                System.out.println(String.format("%s\n%s\n%s", DASH, InfoText.INFO_BYE, DASH));
                 isLoop = false;
                 break;
             case "list":
@@ -81,13 +87,14 @@ public class Duke {
                 markDone(tasks, input, false);
                 break;
             case "todo":
-                if (input.equals("todo") || input.isBlank()) {
+                try {
+                    checkTodoFormat(input);
+                    Todo todo = new Todo(input);
+                    tasks.add(todo);
+                    printNewTask(todo.getTaskDetails(), tasks.size());
+                } catch (TodoNoDescriptionException e) {
                     System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_TODO_FORMAT, DASH));
-                    break;
                 }
-                Todo todo = new Todo(input);
-                tasks.add(todo);
-                printNewTask(todo.getTaskDetails(), tasks.size());
                 break;
             case "deadline":
                 try {
