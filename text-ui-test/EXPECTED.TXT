@@ -1,15 +1,15 @@
 Greetings, I am Azmuth
 What can I do for you?
 ____________________
-Please input a valid deadline
-Please input a valid event
-Please input a valid todo
-Please input a valid deadline
+Please enter a deadline task followed by a '/' and indicate a deadline
+Please enter an event task followed by a '/' and indicate when
+Please enter a name for the todo task!
+Please enter a deadline task followed by a '/' and indicate a deadline
 Added new deadline task: activity 1 
  [D][ ]activity 1  (by: monday )
 You have 1 tasks in the list.
 ____________________
-Please input a valid event
+Please enter an event task followed by a '/' and indicate when
 Added new event task: activity 2 
  [E][ ]activity 2  (at: tuesday )
 You have 2 tasks in the list.
