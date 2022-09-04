@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.lang.Object;
-
 public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -29,19 +26,43 @@ public class Parser {
             taskManager.listTasks();
             break;
         case COMMAND_TODOS:
-            processNewTodo(command, taskManager);
+            try {
+                processNewTodo(command, taskManager);
+            } catch (DukeException.IllegalTodoException e) {
+                System.out.println("Please enter a name for the todo task!");
+            }
             break;
         case COMMAND_DEADLINES:
-            processDeadline(command, taskManager);
+            try {
+                processNewDeadline(command, taskManager);
+            } catch (DukeException.IllegalDeadlineFormatException e) {
+                System.out.println("Please enter a deadline task followed by a '/' and indicate a deadline");
+            } catch (DukeException.IllegalDeadlineDateException e) {
+                System.out.println("Please enter a deadline to complete the task!");
+            }
             break;
         case COMMAND_EVENTS:
-            processNewEvent(command, taskManager);
+            try {
+                processNewEvent(command, taskManager);
+            } catch (DukeException.IllegalEventFormatException e) {
+                System.out.println("Please enter an event task followed by a '/' and indicate when");
+            } catch (DukeException.IllegalEventDateException e) {
+                System.out.println("Please enter when this event is happening!");
+            }
             break;
         case COMMAND_MARK:
-            processMark(command, taskManager);
+            try {
+                processMarking(command, taskManager, true);
+            } catch (DukeException.IllegalNoMarkIndexException e) {
+                System.out.println("Please enter a task number to be marked");
+            }
             break;
         case COMMAND_UNMARK:
-            processUnmark(command, taskManager);
+            try {
+                processMarking(command, taskManager, false);
+            } catch (DukeException.IllegalNoMarkIndexException e) {
+                System.out.println("Please enter a task number to be marked");
+            }
             break;
         default:
             System.out.println("Invalid command");
@@ -50,54 +71,58 @@ public class Parser {
 
         return true;
     }
-
-    private static void processUnmark(String command, TaskManager taskManager) {
+    private static void processMarking(String command, TaskManager taskManager, boolean toMark)
+            throws DukeException.IllegalNoMarkIndexException {
         String[] arrOfCommand = command.split(" ");
-        if (arrOfCommand.length > 1 && isInteger(arrOfCommand[1])) {
-            taskManager.markTasks(false, Integer.parseInt(arrOfCommand[1]));
-        } else {
-            System.out.println("Please input a valid unmark");
+
+        if (arrOfCommand.length <= 1 || !isInteger(arrOfCommand[1])) {
+            throw new DukeException.IllegalNoMarkIndexException();
+        }
+
+        try {
+            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]));
+        } catch (DukeException.IllegalMarkTargetException e) {
+            System.out.println("Index of task is out of range");
         }
     }
 
-    private static void processMark(String command, TaskManager taskManager) {
-        String[] arrOfCommand = command.split(" ");
-        if (arrOfCommand.length > 1 && isInteger(arrOfCommand[1])) {
-            taskManager.markTasks(true, Integer.parseInt(arrOfCommand[1]));
-        } else {
-            System.out.println("Please input a valid mark");
-        }
-    }
-
-    private static void processNewEvent(String command, TaskManager taskManager) {
+    private static void processNewEvent(String command, TaskManager taskManager)
+            throws DukeException.IllegalEventFormatException, DukeException.IllegalEventDateException {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
-        if(spacePosition < 0 || dividerPosition < 0 || dividerPosition + 2 > command.length()) {
-            System.out.println("Please input a valid deadline");
-            return;
+
+        if(spacePosition < 0 || dividerPosition < 0) {
+            throw new DukeException.IllegalEventFormatException();
+        } else if (dividerPosition + 2 > command.length()) {
+            throw new DukeException.IllegalEventDateException();
         }
+
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String at = command.substring(dividerPosition + 1);
         taskManager.addNewEvent(taskName, at);
     }
 
-    private static void processDeadline(String command, TaskManager taskManager) {
+    private static void processNewDeadline(String command, TaskManager taskManager)
+            throws DukeException.IllegalDeadlineFormatException, DukeException.IllegalDeadlineDateException {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
-        if(spacePosition < 0 || dividerPosition < 0 || dividerPosition + 2 > command.length()) {
-            System.out.println("Please input a valid deadline");
-            return;
+
+        if(spacePosition < 0 || dividerPosition < 0) {
+            throw new DukeException.IllegalDeadlineFormatException();
+        } else if (dividerPosition + 2 > command.length()) {
+            throw new DukeException.IllegalDeadlineDateException();
         }
+
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String by = command.substring(dividerPosition + 1);
         taskManager.addNewDeadline(taskName, by);
     }
 
-    private static void processNewTodo(String command, TaskManager taskManager) {
+    private static void processNewTodo(String command, TaskManager taskManager)
+            throws DukeException.IllegalTodoException {
         int spacePosition = command.indexOf(" ");
         if(spacePosition < 0) {
-            System.out.println("Please input a valid todo");
-            return;
+            throw new DukeException.IllegalTodoException();
         }
         taskManager.addNewTodo(command.substring(spacePosition + 1));
     }
