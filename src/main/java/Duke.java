@@ -4,32 +4,13 @@ public class Duke {
 
     public static final int MAX_TASK = 100;
 
-    public static void printWelcomeMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
-        Task.printHorizontalLine();
-    }
-
-    public static void printBlahMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     blah");
-        Task.printHorizontalLine();
-    }
-
-    public static void printByeMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     Bye. Hope to see you again soon!");
-        Task.printHorizontalLine();
-    }
-
     public static void main(String[] args) {
 
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         Task[] tasks = new Task[MAX_TASK];
 
-        request:
+        untilBye:
         while(true){
             String line = in.nextLine();
             String[] parsedInput = line.split(" ");
@@ -57,12 +38,30 @@ public class Duke {
                 break;
             case "bye":
                 printByeMessage();
-                break request;
+                break untilBye;
             default:
                 addTask(tasks, line);
                 break;
             }
         }
+    }
+    public static void printWelcomeMessage() {
+        Task.printHorizontalLine();
+        System.out.println("     Hello! I'm Duke");
+        System.out.println("     What can I do for you?");
+        Task.printHorizontalLine();
+    }
+
+    public static void printBlahMessage() {
+        Task.printHorizontalLine();
+        System.out.println("     blah");
+        Task.printHorizontalLine();
+    }
+
+    public static void printByeMessage() {
+        Task.printHorizontalLine();
+        System.out.println("     Bye. Hope to see you again soon!");
+        Task.printHorizontalLine();
     }
 
     private static void addTask(Task[] tasks, String line) {
