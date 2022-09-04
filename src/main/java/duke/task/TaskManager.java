@@ -44,29 +44,47 @@ public class TaskManager {
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
      * @return Task
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
-    public Task getTask(int taskNumber) {
+    public Task getTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
-        return tasks.get(taskIndex);
+        try {
+            Task task = tasks.get(taskIndex);
+            return task;
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new TaskManagerException.TaskNotFoundException();
+        }
     }
 
     /**
      * Marks a task as completed.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
-    public void markTaskAsCompleted(int taskNumber) {
-        int index = taskNumber - 1;
-        tasks.get(index).setComplete(true);
+    public void markTaskAsCompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
+        int taskIndex = taskNumber - 1;
+        try {
+            Task task = tasks.get(taskIndex);
+            task.setComplete(true);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new TaskManagerException.TaskNotFoundException();
+        }
     }
 
     /**
      * Marks a task as uncompleted.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
-    public void markTaskAsUncompleted(int taskNumber) {
-        int index = taskNumber - 1;
-        tasks.get(index).setComplete(false);
+    public void markTaskAsUncompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
+        int taskIndex = taskNumber - 1;
+        try {
+            Task task = tasks.get(taskIndex);
+            task.setComplete(false);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new TaskManagerException.TaskNotFoundException();
+        }
     }
 }
