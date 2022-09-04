@@ -35,10 +35,10 @@ public class Parser {
             processNewEvent(command, taskManager);
             break;
         case COMMAND_MARK:
-            processMark(command, taskManager);
+            processMarking(command, taskManager, true);
             break;
         case COMMAND_UNMARK:
-            processUnmark(command, taskManager);
+            processMarking(command, taskManager, false);
             break;
         default:
             System.out.println("Invalid command");
@@ -47,20 +47,10 @@ public class Parser {
 
         return true;
     }
-
-    private static void processUnmark(String command, TaskManager taskManager) {
+    private static void processMarking(String command, TaskManager taskManager, boolean toMark) {
         String[] arrOfCommand = command.split(" ");
         if (arrOfCommand.length > 1 && isInteger(arrOfCommand[1])) {
-            taskManager.markTasks(false, Integer.parseInt(arrOfCommand[1]));
-        } else {
-            System.out.println("Please input a valid unmark");
-        }
-    }
-
-    private static void processMark(String command, TaskManager taskManager) {
-        String[] arrOfCommand = command.split(" ");
-        if (arrOfCommand.length > 1 && isInteger(arrOfCommand[1])) {
-            taskManager.markTasks(true, Integer.parseInt(arrOfCommand[1]));
+            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]));
         } else {
             System.out.println("Please input a valid mark");
         }
