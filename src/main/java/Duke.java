@@ -26,7 +26,7 @@ public class Duke {
     public static void main(String[] args) {
         greet();
         TaskManager manager = new TaskManager();
-        TaskManager.recieveCommands();
+        TaskManager.receiveCommands();
         bye();
     }
 }

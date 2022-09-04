@@ -3,7 +3,7 @@ public class Deadline extends Todo {
 
     public Deadline(String command, Character lastChar) {
         super(command, lastChar);
-        int byStartIdx = command.indexOf('/') + 4;
+        int byStartIdx = command.indexOf('/') + "by _".length();
         setBy(command.substring(byStartIdx));
     }
 

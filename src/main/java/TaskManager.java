@@ -1,34 +1,35 @@
 import java.util.Scanner;
 
 public class TaskManager {
+    public static final int TASKS_SIZE = 100;
     public static final String DASH_SEPARATOR = "------------------------------------------------\n";
-    public static Task[] tasks = new Task[100];
-    private static int index = 0;
+    public static Task[] tasks = new Task[TASKS_SIZE];
+    private static int oneBasedIndex = 1;
     public static void printMark(Task task, boolean done) {
         System.out.println(DASH_SEPARATOR);
         task.markDone(done);
         System.out.println(DASH_SEPARATOR);
     }
     public static void printTask(Task task) {
-        index++;
         System.out.println(DASH_SEPARATOR);
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                + task + System.lineSeparator() + "Now you have " + index
+                + task + System.lineSeparator() + "Now you have " + oneBasedIndex
                 + " tasks in the list.");
         System.out.println(DASH_SEPARATOR);
+        oneBasedIndex++;
     }
 
     public static void printList() {
         System.out.println(DASH_SEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.print(i + 1);
+        for (int i = 1; i < oneBasedIndex; i++) {
+            System.out.print(i);
             System.out.println("." + tasks[i]);
         }
         System.out.println(DASH_SEPARATOR);
     }
 
-    public static void recieveCommands() {
+    public static void receiveCommands() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine().trim();
         while (!command.equals("bye")) {
@@ -46,24 +47,24 @@ public class TaskManager {
     private static void doCommand(String command, String firstWord) {
         switch (firstWord) {
         case "mark":
-            int pos = Integer.parseInt(command.substring(5)) - 1;
+            int pos = Integer.parseInt(command.substring("mark _".length()));
             printMark(tasks[pos], true);
             break;
         case "unmark":
-            pos = Integer.parseInt(command.substring(7)) - 1;
+            pos = Integer.parseInt(command.substring("unmark _".length()));
             printMark(tasks[pos], false);
             break;
         case "todo":
-            tasks[index] = new Todo(command, ' ');
-            printTask(tasks[index]);
+            tasks[oneBasedIndex] = new Todo(command, ' ');
+            printTask(tasks[oneBasedIndex]);
             break;
         case "deadline":
-            tasks[index] = new Deadline(command, '/');
-            printTask(tasks[index]);
+            tasks[oneBasedIndex] = new Deadline(command, '/');
+            printTask(tasks[oneBasedIndex]);
             break;
         case "event":
-            tasks[index] = new Event(command, '/');
-            printTask(tasks[index]);
+            tasks[oneBasedIndex] = new Event(command, '/');
+            printTask(tasks[oneBasedIndex]);
             break;
         }
     }
