@@ -1,4 +1,9 @@
-public class Event extends Task{
+package duke.task;
+
+import duke.EmptyDescriptionException;
+import duke.task.Task;
+
+public class Event extends Task {
     public Event(String task) throws EmptyDescriptionException {
         // Call constructor for superclass and change formatting to brackets
         super(task.replace("/at", "(at:") + ")");

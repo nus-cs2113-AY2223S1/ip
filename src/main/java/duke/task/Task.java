@@ -1,14 +1,20 @@
+package duke.task;
+
+import duke.EmptyDescriptionException;
+
 public class Task {
     protected String task;
     protected boolean isDone;
 
     //Constructor
     public Task(String task) throws EmptyDescriptionException {
-        // Initialise task and print completion message
-        if (task.split(" ").length <= 1) {
+
+        boolean isEmpty = task.equals("todo") | task.equals("todo ") | task.equals("");
+
+        if (isEmpty) {
             throw new EmptyDescriptionException();
         } else {
-            System.out.println(task.split(" ").length);
+            // Initialise task and print completion message
             this.task = task;
             System.out.println("Got it. I added to the list.");
         }

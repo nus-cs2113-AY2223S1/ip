@@ -1,4 +1,9 @@
-public class Deadline extends Task{
+package duke.task;
+
+import duke.EmptyDescriptionException;
+import duke.task.Task;
+
+public class Deadline extends Task {
     public Deadline(String task) throws EmptyDescriptionException {
         // Call constructor of super class and change formatting to braces
         super(task.replace("/by", "(by:") + ")");
