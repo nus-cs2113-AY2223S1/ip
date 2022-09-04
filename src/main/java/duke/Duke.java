@@ -23,8 +23,7 @@ public class Duke {
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown Command";
     private static final String ERROR_MESSAGE_BYE = "";
     private static final String ERROR_MESSAGE_LIST = "";
-    private static final String ERROR_MESSAGE_MARK = "Syntax for mark \n\t>>> mark <item index number> \nNote: item index must exist in the current list";
-    private static final String ERROR_MESSAGE_UNMARK = "Syntax for unmark \n\t>>>unmark <item index number> \nNote: item index must exist in the current list";
+    private static final String ERROR_MESSAGE_MARK = "Syntax for (un)mark \n\t>>> (un)mark <item index number> \nNote: item index must exist in the current list";
     private static final String ERROR_MESSAGE_TODO = "Syntax for todo \n\t>>>todo <task>";
     private static final String ERROR_MESSAGE_DEADLINE = "Syntax for deadline \n\t>>>deadline <task> / <date of deadline>";
     private static final String ERROR_MESSAGE_EVENT = "Syntax for event \n\t>>>event <task> / <date of event>";
@@ -103,9 +102,6 @@ public class Duke {
             break;
         case "mark":
             showToUserDivider(ERROR_MESSAGE_MARK);
-            break;
-        case "unmark":
-            showToUserDivider(ERROR_MESSAGE_UNMARK);
             break;
         case "todo":
             showToUserDivider(ERROR_MESSAGE_TODO);
@@ -221,7 +217,9 @@ public class Duke {
         } catch (NumberFormatException e) {
             commandErrorHandler("mark");
         } catch (ArrayIndexOutOfBoundsException e) {
-            commandErrorHandler("unmark");
+            commandErrorHandler("mark");
+        } catch (NullPointerException e) {
+            commandErrorHandler("mark");
         }
 
     }
