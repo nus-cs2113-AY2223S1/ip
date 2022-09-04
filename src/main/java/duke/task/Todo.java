@@ -1,4 +1,9 @@
-public class Todo extends Task{
+package duke.task;
+
+import duke.EmptyDescriptionException;
+import duke.task.Task;
+
+public class  Todo extends Task {
 
     public Todo(String task) throws EmptyDescriptionException {
         // Call constructor of superclass and print ou task added

@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 
@@ -6,6 +13,7 @@ public class Duke {
         LIST,
         MARK,
         ADD,
+        BYE,
         ERROR
     }
     public static final int maxLength = 100;
@@ -76,6 +84,7 @@ public class Duke {
         boolean isList = command.contains("list");
         boolean isAdd = command.contains("todo") || command.contains("deadline") || command.contains("event");
         boolean isMarkedOrUnmarked = command.contains("mark") || command.contains("unmark");
+        boolean isBye = command.contains("bye");
 
         if (isList) {
             return TaskType.LIST;
@@ -83,6 +92,8 @@ public class Duke {
             return TaskType.MARK;
         } else if (isAdd) {
             return TaskType.ADD;
+        } else if (isBye) {
+            return TaskType.BYE;
         } else {
             return TaskType.ERROR;
         }
@@ -119,6 +130,9 @@ public class Duke {
                     addTask(command, index);
                     index += 1;
                     break;
+                case BYE:
+                    farewellMessage();
+                    break;
                 case ERROR:
                     throw new IncorrectCommandException();
                 }
@@ -126,7 +140,5 @@ public class Duke {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } while (!isGoodbye);
-        // Goodbye message
-        farewellMessage();
     }
 }
