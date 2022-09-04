@@ -1,3 +1,5 @@
+package duke.text;
+
 public enum InfoText {
     INFO_WELCOME("    Kon'nichiwa! Doraemon desu. What can I do for you?"),
     INFO_LIST("    Here are the tasks stored in Doraemon's 4D pocket:"),

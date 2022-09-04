@@ -1,3 +1,5 @@
+package duke.text;
+
 public enum ErrorText {
     ERROR_INVALID_COMMAND("    Oh no, Doraemon didn't understand your command."),
     ERROR_INVALID_STATUS_TASK("    Nobita, the specified task does not exist in Doramon's 4D pocket."),
