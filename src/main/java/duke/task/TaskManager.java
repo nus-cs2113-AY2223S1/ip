@@ -44,6 +44,7 @@ public class TaskManager {
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
      * @return Task
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
     public Task getTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -59,6 +60,7 @@ public class TaskManager {
      * Marks a task as completed.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
     public void markTaskAsCompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -74,6 +76,7 @@ public class TaskManager {
      * Marks a task as uncompleted.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
      */
     public void markTaskAsUncompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
