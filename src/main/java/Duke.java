@@ -102,13 +102,12 @@ public class Duke {
         showWelcomeMessage();
 
         //Read Input
-        String command;                         //variable to store line (input)
         Scanner in = new Scanner(System.in);    //create object that reads input
+        String command = in.next();             //variable to store line (input)
 
         Task[] tasks = new Task[MAX_TASK_SIZE];
         int taskIndex = 0;
-        do {
-            command = in.next();                //Read first word (command)
+        while (!command.equals("bye")) {
             switch (command) {
             case "list":
                 printList(tasks, taskIndex);
@@ -161,7 +160,8 @@ public class Duke {
             default:
                 showUndefinedCommandMessage();
             }
-        } while (!command.equals("bye"));
+            command = in.next();                //Read first word (command)
+        }
 
         //Exit
         showByeMessage();
