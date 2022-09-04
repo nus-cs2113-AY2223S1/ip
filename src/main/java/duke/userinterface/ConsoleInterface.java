@@ -1,9 +1,6 @@
 package duke.userinterface;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.TaskManager;
-import duke.task.Todo;
+import duke.task.*;
 
 import java.util.Scanner;
 
@@ -111,7 +108,7 @@ public class ConsoleInterface {
             System.out.println("Nice! I've marked this task as done:");
             System.out.print("  ");
             taskManager.getTask(taskNumberInt).print();
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+        } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
             return;
         }
@@ -136,7 +133,7 @@ public class ConsoleInterface {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.print("  ");
             taskManager.getTask(taskNumberInt).print();
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+        } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
             return;
         }
