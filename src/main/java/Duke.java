@@ -48,6 +48,14 @@ public class Duke {
         }
     }
 
+    public static boolean checkIfWithinBounds(int Index, int taskIndex) throws CurrentIndexOutOfBoundsException {
+        if ((Index <= 0) || (Index >= taskIndex)) {
+            throw new CurrentIndexOutOfBoundsException();
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
 
         /*
@@ -86,41 +94,46 @@ public class Duke {
 
             } else if (numOfWords >= 2) {
                 // check if the user input has 2 words before checking for commands "mark" and "unmark"
-
                 String[] parsedInput = inData.split(" ");
 
                 if (numOfWords == 2 && parsedInput[0].equals("unmark")) {
-                    // checks if user input has entered "unmark" as the first word
-                    if (checkIsNumeric(parsedInput[1])) {
-                        // check if the 2nd word is indeed a numeric value , else the input would be stored as a tasking
+                    // checks if user input has entered "unmark" as the first word.
+                    try {
                         int unmarkedIndex = Integer.parseInt(parsedInput[1]);
-                        if ((unmarkedIndex > 0) && (unmarkedIndex < taskIndex)) {
-                            // checks if the user input command is within the current bound of the tasks array.
+                        if (checkIfWithinBounds(unmarkedIndex, taskIndex)) {
+                            //checks if the user input command is within the current bound of the tasks array.
                             tasks[unmarkedIndex].setDone(false);
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println("[" + tasks[unmarkedIndex].getTaskType() + "]" + "[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
-                        } else {
-                            System.out.println("Invalid unmark command");
+                            System.out.println("____________________________________________________________");
                         }
-                    } else {
-                        System.out.println("Invalid unmark command");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid unmark command - non numeric index detected.");
+                        System.out.println("____________________________________________________________");
+                    } catch (CurrentIndexOutOfBoundsException e) {
+                        System.out.println("Invalid unmark command - Index out of bounds.");
+                        System.out.println("____________________________________________________________");
                     }
 
                 } else if (numOfWords == 2 && parsedInput[0].equals("mark")) {
                     // checks if user input has entered "mark" as the first word.
-                    if (checkIsNumeric(parsedInput[1])) {
+                    try {
                         int markedIndex = Integer.parseInt(parsedInput[1]);
-                        if ((markedIndex > 0) && (markedIndex < taskIndex)) {
+                        if (checkIfWithinBounds(markedIndex, taskIndex)) {
                             // checks if the user input command is within the current bound of the tasks array.
                             tasks[markedIndex].setDone(true);
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println("[" + tasks[markedIndex].getTaskType() + "]" + "[" + tasks[markedIndex].getStatusIcon() + "] " + tasks[markedIndex].getDescription());
-                        } else {
-                            System.out.println("Invalid mark command");
+                            System.out.println("____________________________________________________________");
                         }
-                    } else {
-                        System.out.println("Invalid mark command");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid mark command - non numeric index detected.");
+                        System.out.println("____________________________________________________________");
+                    } catch (CurrentIndexOutOfBoundsException e) {
+                        System.out.println("Invalid unmark command - Index out of bounds.");
+                        System.out.println("____________________________________________________________");
                     }
+
                 } else if (taskIndex < 101) {
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
@@ -129,14 +142,15 @@ public class Duke {
                     }
                     String taskDescription = synthesizedArr.toString();
 
-                    if (parsedInput[0].equals("todo")) {
+                    switch(parsedInput[0]){
+                    case "todo":
                         tasks[taskIndex] = new Todo(taskDescription);
                         tasks[taskIndex].setTaskType("T");
                         System.out.println(tasks[taskIndex]);
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
-
-                    } else if (parsedInput[0].equals("deadline")) {
+                        break;
+                    case "deadline":
                         // find "/" break point before processing the description and the deadline
                         String deadline = taskDescription;
                         if (taskDescription.contains("/by")) {
@@ -151,7 +165,9 @@ public class Duke {
                         System.out.println(tasks[taskIndex]);
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
-                    } else if (parsedInput[0].equals("event")) {
+                        break;
+
+                    case "event":
                         String eventPeriod = taskDescription;
                         if (taskDescription.contains("/at")) {
                             //update taskDescription and deadline
@@ -164,6 +180,11 @@ public class Duke {
                         System.out.println(tasks[taskIndex]);
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
+                        break;
+                    default:
+                        System.out.println("Invalid command");
+                        System.out.println("____________________________________________________________");
+                        break;
                     }
                 }
             } else {
@@ -171,7 +192,8 @@ public class Duke {
                     // exits the while loop if the user inputs is equal to "bye"
                     break;
                 } else {
-                    System.out.println("Invalid command!!!!!");
+                    System.out.println("Invalid command");
+                    System.out.println("____________________________________________________________");
                 }
             }
         }
