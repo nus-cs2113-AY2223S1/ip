@@ -11,9 +11,10 @@ public class Duke {
     private static Scanner scanner;
 
     /* Constants */
-    private static String INDENT = "\n    ";
-    private static String H_LINE = INDENT +
+    private static final String INDENT = "\n    ";
+    private static final String H_LINE = INDENT +
             "------------------------------------------------";
+    private static final int TASK_LIMIT = 100;
 
 
     public static void main(String[] args) {
@@ -29,14 +30,14 @@ public class Duke {
         }
 
         //If the user exits, salute them goodbye
-        goodbye();
+        goodBye();
 
     }
 
     /* Initialize variables for Duke's use */
     private static void init() {
         scanner = new Scanner(System.in);
-        taskList = new Task[100];
+        taskList = new Task[TASK_LIMIT];
         listIndex = 0;
     }
 
@@ -147,15 +148,15 @@ public class Duke {
 
     /* Either mark or unmark a task */
     private static void markOrUnmark(boolean toMark, String input) {
-        String type = toMark ? "Mark" : "Unmark";
-        System.out.print(H_LINE + INDENT + type + "ing...");
+        String markString = toMark ? "Mark" : "Unmark";
+        System.out.print(H_LINE + INDENT + markString + "ing...");
         int markIndex = toMark ? 4 : 6;
         String number = input.substring(markIndex).replaceAll(" ", "");
         int index = Integer.valueOf(number) - 1;
         if (index >= listIndex) {
-            System.out.print(INDENT + "Trying to " + type + " an item outside of list length? Failed.");
+            System.out.print(INDENT + "Trying to " + markString + " an item outside of list length? Failed.");
         } else if (index < 0) {
-            System.out.print(INDENT + "Trying to " + type + " an item that is too small? Failed.");
+            System.out.print(INDENT + "Trying to " + markString + " an item that is too small? Failed.");
         } else {
             if (toMark) {
                 taskList[index].mark();
@@ -182,9 +183,9 @@ public class Duke {
     }
 
     /* Print a goodbye message from the Duke */
-    private static void goodbye() {
-        String goodbyeText = "\n    Bye. Hope to see you again soon!";
-        String goodbye = H_LINE + goodbyeText + H_LINE;
-        System.out.println(goodbye);
+    private static void goodBye() {
+        String goodByeText = "\n    Bye. Hope to see you again soon!";
+        String goodBye = H_LINE + goodByeText + H_LINE;
+        System.out.println(goodBye);
     }
 }
