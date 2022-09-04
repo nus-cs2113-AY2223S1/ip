@@ -51,9 +51,9 @@ public class Duke {
     public static void main(String[] args) {
         printGreeting();
         boolean isLoop = true;
+        Scanner in = new Scanner(System.in);
         String command, input;
         String[] inputSplits;
-        Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (isLoop) {
@@ -87,26 +87,45 @@ public class Duke {
                 markDone(tasks, input, false);
                 break;
             case "todo":
+                if (input.equals("todo") || input.isBlank()) {
+                    System.out.println(DASH);
+                    System.out.println(INDENT + "Nobita, the format is todo <description>, e.g. todo read books.");
+                    System.out.println(DASH);
+                    break;
+                }
                 Todo todo = new Todo(input);
                 tasks.add(todo);
                 printNewTask(todo.getTaskDetails(), tasks.size());
                 break;
             case "deadline":
-                inputSplits = input.split(" /by ");
-                Deadline deadline = new Deadline(inputSplits[0], inputSplits[1]);
-                tasks.add(deadline);
-                printNewTask(deadline.getTaskDetails(), tasks.size());
+                try {
+                    inputSplits = input.split(" /by ");
+                    Deadline deadline = new Deadline(inputSplits[0], inputSplits[1]);
+                    tasks.add(deadline);
+                    printNewTask(deadline.getTaskDetails(), tasks.size());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(DASH);
+                    System.out.println(INDENT + "Nobita, the format is: deadline <description> /by <dueBy>, e.g. deadline marry Shizuka /by September 3rd.");
+                    System.out.println(DASH);
+                }
                 break;
             case "event":
-                inputSplits = input.split(" /at ");
-                Event event = new Event(inputSplits[0], inputSplits[1]);
-                tasks.add(event);
-                printNewTask(event.getTaskDetails(), tasks.size());
+                try {
+                    inputSplits = input.split(" /at ");
+                    Event event = new Event(inputSplits[0], inputSplits[1]);
+                    tasks.add(event);
+                    printNewTask(event.getTaskDetails(), tasks.size());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(DASH);
+                    System.out.println(INDENT + "Nobita, the format is: event <description> /at <eventTime>, e.g. event marry Shizuka /at September 3rd 10-12pm.");
+                    System.out.println(DASH);
+                }
                 break;
             default:
                 System.out.println(DASH);
                 System.out.println(INDENT + "Oh no, Doraemon didn't understand your command.");
                 System.out.println(DASH);
+                break;
             }
         }
     }
