@@ -1,11 +1,13 @@
 package duke.task;
+
 public class Event extends Task {
+    private static final String TYPE_EVENT = "[E]";
     public String date;
 
     public Event(String description, String date) {
         super(description);
         this.date = date;
-        this.taskType = "[E]";
+        this.taskType = TYPE_EVENT;
     }
 
 
