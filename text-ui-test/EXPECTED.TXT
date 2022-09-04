@@ -72,6 +72,23 @@ Here are the tasks in your list:
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (at: Mon 2-4pm)
 4.[D][ ] do homework (by: no idea :-p)
+☹ OOPS!!! The description of a todo cannot be empty.
+☹ OOPS!!! The description of a deadline cannot be empty.
+☹ OOPS!!! The description of a event cannot be empty.
+☹ OOPS!!! I'm sorry, there is no such task found in the task list.
+☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.
+☹ OOPS!!! Please kindly provide a numerical taskID.
+☹ OOPS!!! I'm sorry, there is no such task found in the task list.
+☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.
+☹ OOPS!!! Please kindly provide a numerical taskID.
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+☹ OOPS!!! The description of a deadline requires a specific date/time denoted after '/by'.
+Example: deadline return book /by Sunday
+Please try again.
+☹ OOPS!!! The description of a event requires a date and specific start & end time denoted after '/at'.
+Example: event project meeting /at Mon 2-4pm
+Please try again.
 {\__/}
 (´^ω^)ノ Bye. Hope to see you again soon!
 / v v/

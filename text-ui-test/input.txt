@@ -14,4 +14,17 @@ unmark 3
 list
 deadline do homework /by no idea :-p
 list
+todo
+deadline
+event
+mark 5
+mark 500
+mark idk
+unmark 5
+unmark 500
+unmark idk
+hi
+lol
+deadline abc
+event 123
 bye
