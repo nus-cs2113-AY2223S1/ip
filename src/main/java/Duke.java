@@ -52,10 +52,19 @@ public class Duke {
         }
     }
 
-    public static void markAsUndone(Task[] tasks, int unmarkIndex) {
-        tasks[unmarkIndex].setDone(false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + tasks[unmarkIndex]);
+    public static void markAsUndone(Task[] tasks, Scanner in) {
+        try {
+            int unmarkIndex = Integer.parseInt(in.next()) - 1;
+            tasks[unmarkIndex].setDone(false);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  " + tasks[unmarkIndex]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.");
+        } catch (NullPointerException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, there is no such task found in the task list.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please kindly provide a numerical taskID.");
+        }
     }
 
     public static void printList(Task[] tasks, int taskIndex) {
@@ -91,8 +100,7 @@ public class Duke {
                 printList(tasks, taskIndex);
                 break;
             case "unmark":
-                int unmarkIndex = Integer.parseInt(in.next()) - 1;
-                markAsUndone(tasks, unmarkIndex);
+                markAsUndone(tasks, in);
                 break;
             case "mark":
                 markAsDone(tasks, in);
