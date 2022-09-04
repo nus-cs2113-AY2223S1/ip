@@ -3,8 +3,12 @@ import java.util.Scanner;
 public class Duke {
     static final int MAX_TASK_SIZE = 100;
 
-    public static String readTaskDetails(Scanner in) {
-        return in.nextLine().trim();
+    public static String readTaskDetails(Scanner in) throws EmptyTaskDescriptionException {
+        String taskDescription = in.nextLine().trim();
+        if (taskDescription.isEmpty()) {
+            throw new EmptyTaskDescriptionException();
+        }
+        return taskDescription;
     }
 
     public static String extractTaskName(String taskDetails, String dateTimeReference) {
@@ -107,26 +111,38 @@ public class Duke {
                 break;
             //Add Task
             case "todo":
-                String todoTaskName = readTaskDetails(in);
-                addToDoTask(tasks, taskIndex, todoTaskName);
-                printTaskAddedMessage(tasks, taskIndex);
-                taskIndex++;
+                try {
+                    String todoTaskName = readTaskDetails(in);
+                    addToDoTask(tasks, taskIndex, todoTaskName);
+                    printTaskAddedMessage(tasks, taskIndex);
+                    taskIndex++;
+                } catch (EmptyTaskDescriptionException e) {
+                    showEmptyToDoDescriptionExceptionMessage();
+                }
                 break;
             case "deadline":
-                String deadlineTask = readTaskDetails(in);
-                String deadlineTaskName = extractTaskName(deadlineTask ,"/by");
-                String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
-                addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
-                printTaskAddedMessage(tasks, taskIndex);
-                taskIndex++;
+                try {
+                    String deadlineTask = readTaskDetails(in);
+                    String deadlineTaskName = extractTaskName(deadlineTask ,"/by");
+                    String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
+                    addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
+                    printTaskAddedMessage(tasks, taskIndex);
+                    taskIndex++;
+                } catch (EmptyTaskDescriptionException e) {
+                    showEmptyDeadlineDescriptionExceptionMessage();
+                }
                 break;
             case "event":
-                String eventTask = readTaskDetails(in);
-                String eventTaskName = extractTaskName(eventTask ,"/at");
-                String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
-                addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
-                printTaskAddedMessage(tasks, taskIndex);
-                taskIndex++;
+                try {
+                    String eventTask = readTaskDetails(in);
+                    String eventTaskName = extractTaskName(eventTask ,"/at");
+                    String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
+                    addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
+                    printTaskAddedMessage(tasks, taskIndex);
+                    taskIndex++;
+                } catch (EmptyTaskDescriptionException e) {
+                    showEmptyEventDescriptionExceptionMessage();
+                }
                 break;
             default:
                 showUndefinedCommandMessage();
@@ -135,6 +151,18 @@ public class Duke {
 
         //Exit
         showByeMessage();
+    }
+
+    private static void showEmptyToDoDescriptionExceptionMessage() {
+        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+    }
+
+    private static void showEmptyDeadlineDescriptionExceptionMessage() {
+        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+    }
+
+    private static void showEmptyEventDescriptionExceptionMessage() {
+        System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
     }
 
     private static void showUndefinedCommandMessage() {
