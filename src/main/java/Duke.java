@@ -113,11 +113,20 @@ public class Duke {
                 taskIndex++;
                 break;
             default:
+                showUndefinedCommandMessage();
             }
         } while (!command.equals("bye"));
 
         //Exit
         showByeMessage();
+    }
+
+    private static void showUndefinedCommandMessage() {
+        try {
+            throw new UndefinedCommandException();
+        } catch (UndefinedCommandException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 
     private static void showByeMessage() {
