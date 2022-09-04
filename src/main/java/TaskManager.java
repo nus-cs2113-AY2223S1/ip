@@ -3,12 +3,22 @@ public class TaskManager {
     int numTasks;
     static final int MAX_NUM_TASKS = 100;
 
+    static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event"};
+
     public static final String DEADLINE_SEPERATOR = " /by ";
     public static final String EVENT_SEPERATOR = " /at ";
 
     public TaskManager() {
         tasks = new Task[MAX_NUM_TASKS];
         numTasks = -1;
+    }
+
+    public static boolean isValidCommand(String command){
+        for(String validCommand: LIST_OF_COMMANDS){
+            if(command.equals(validCommand))
+                return true;
+        }
+        return false;
     }
 
     public Task[] getTasks() {
@@ -19,7 +29,7 @@ public class TaskManager {
         tasks[++numTasks] = task;
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
-        System.out.println("Now you have " + (numTasks + 1) + " task(s) in the list.");
+        System.out.println("\tNow you have " + (numTasks + 1) + " task(s) in the list.");
     }
 
     public void markTaskAsDone(int taskNumber) {
@@ -49,6 +59,7 @@ public class TaskManager {
     public void listTasks() {
         if (numTasks == -1) {
             System.out.println("\tNothing in list right now!");
+            return;
         }
         System.out.println("\tHere are the tasks in your list: ");
         for (int i = 0; i <= numTasks; i++) {

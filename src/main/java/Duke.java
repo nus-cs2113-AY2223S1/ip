@@ -33,11 +33,12 @@ public class Duke {
     }
 
     public static void processInput() {
-        String input = acceptInput();
+        String input = acceptAndValidateInput();
         String command = retrieveCommand(input);
         String parameters = retrieveParameters(input);
         String description, deadline;
         int taskNumber;
+
         while (!command.equals("bye")) {
             printLine();
             switch (command) {
@@ -72,7 +73,7 @@ public class Duke {
                 break;
             }
             printLine();
-            input = acceptInput();
+            input = acceptAndValidateInput();
             command = retrieveCommand(input);
             parameters = retrieveParameters(input);
         }
@@ -85,8 +86,7 @@ public class Duke {
 
     public static String retrieveParameters(String input) {
         String[] parsed = input.split(" ", 2);
-        if (parsed.length > 1)
-            return parsed[1];
+        if (parsed.length > 1) return parsed[1];
         else return "";
     }
 
@@ -98,13 +98,39 @@ public class Duke {
         return parameters.split(separator)[0];
     }
 
-    public static String acceptInput() {
+    public static String acceptAndValidateInput() {
+        boolean isInputValid = false;
+        String input = "";
+        String command = "";
+        while (!isInputValid) {
+            try {
+                input = readLine();
+                command = retrieveCommand(input);
+                validateCommand(command);
+                isInputValid = true;
+            } catch (UnrecognizedCommandException e) {
+                printLine();
+                System.out.println("\t" + e.getMessage());
+                printLine();
+            }
+        }
+        return input;
+    }
+
+    public static String readLine() {
         return scanner.nextLine();
     }
 
     public static String retrieveCommand(String input) {
         return input.split(" ")[0];
     }
+
+    public static void validateCommand(String command) throws UnrecognizedCommandException {
+        if (!TaskManager.isValidCommand(command)) {
+            throw new UnrecognizedCommandException();
+        }
+    }
+
 
     public static void exit() {
         printLine();
