@@ -1,3 +1,5 @@
+package duke.userinterface;
+
 /**
  * Stores command and arguments entered by the user via standard input
  */
