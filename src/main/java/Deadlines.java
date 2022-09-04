@@ -1,13 +1,13 @@
 public class Deadlines extends Task {
-    private static String by;
+    private static String toBeDoneBy;
 
-    public Deadlines(String taskName, String by) {
+    public Deadlines(String taskName, String toBeDoneBy) {
         super(taskName);
-        this.by = by;
+        this.toBeDoneBy = toBeDoneBy;
     }
 
     public String toString() {
-        char done = this.getIsDone() ? 'X' : ' ';
-        return "[D][" + done + "] " + this.getTaskName() + " (by: " + by + " )";
+        String done = this.getIsDone() ? "[X]" : "[ ]";
+        return "[D]" + done + this.getTaskName() + " (by: " + toBeDoneBy + " )";
     }
 }

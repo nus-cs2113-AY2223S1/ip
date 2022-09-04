@@ -7,18 +7,18 @@ public class TaskManager {
 
     public void addNewTodo(String taskName) {
         tasks.add(new Task(taskName));
-        System.out.println("Added new to task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
+        System.out.println("Added new todo task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                 + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
     }
 
-    public void addNewDeadline(String taskName, String by) {
-        tasks.add(new Deadlines(taskName, by));
+    public void addNewDeadline(String taskName, String toBeDoneBy) {
+        tasks.add(new Deadlines(taskName, toBeDoneBy));
         System.out.println("Added new deadline task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                 + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
     }
 
-    public void addNewEvent(String taskName, String at) {
-        tasks.add(new Events(taskName, at));
+    public void addNewEvent(String taskName, String happeningAt) {
+        tasks.add(new Events(taskName, happeningAt));
         System.out.println("Added new event task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                 + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
     }
@@ -31,10 +31,9 @@ public class TaskManager {
         System.out.println("____________________");
     }
 
-    public void markTasks(boolean toMark, int taskIndex) {
+    public void markTasks(boolean toMark, int taskIndex) throws DukeException.IllegalMarkTargetException {
         if (taskIndex < 1 || taskIndex > tasks.size()) {
-            System.out.println("Invalid task indicated, unable to process request" + END_OF_LINE);
-            return;
+            throw new DukeException.IllegalMarkTargetException();
         }
         if (toMark) {
             if (tasks.get(taskIndex - 1).getIsDone()) {
