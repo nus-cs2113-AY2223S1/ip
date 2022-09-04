@@ -1,10 +1,8 @@
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     static final String DASH = "    ____________________________________________________________";
-    static final String INDENT = "    ";
 
     public static void printGreeting() {
         String logo = "    *******     *******   *******       **\n"
@@ -16,9 +14,7 @@ public class Duke {
                 + "    /*******   //*******  /**   //**/**     /**\n"
                 + "    ///////     ///////   //     // //      //\n";
 
-        System.out.println(DASH);
-        System.out.println(logo + "\n" + INDENT + "Kon'nichiwa! Doraemon desu.\n" + INDENT + "What can I do for you?");
-        System.out.println(DASH);
+        System.out.println(String.format("%s\n%s\n%s\n%s", DASH, logo, InfoText.INFO_WELCOME, DASH));
     }
 
     public static void markDone(ArrayList<Task> tasks, String input, boolean isDone) {
@@ -27,24 +23,24 @@ public class Duke {
             int taskIndex = Integer.parseInt(input) - 1;
             tasks.get(taskIndex).setStatus(isDone);
             if (isDone) {
-                System.out.println(INDENT + "Subarashi! Good job in completing your task, Nobita:");
+                System.out.println(String.format("%s", InfoText.INFO_TASK_MARKED));
             } else {
-                System.out.println(INDENT + "Gambate Nobita, complete it soon! Don't procrastinate:");
+                System.out.println(String.format("%s", InfoText.INFO_TASK_UNMARKED));
             }
-            System.out.println(INDENT + "* " + tasks.get(taskIndex).getTaskDetails());
+            System.out.println(String.format("    * %s", tasks.get(taskIndex).getTaskDetails()));
         } catch (NumberFormatException e) {
-            System.out.println(INDENT + "Nobita, the format is: mark <taskIndex> or unmark <taskIndex>, e.g. mark 1.");
+            System.out.println(String.format("%s", ErrorText.ERROR_INVALID_STATUS_FORMAT));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(INDENT + "Nobita, task " + input + " does not exist in Doramon's 4D pocket.");
+            System.out.println(String.format("%s", ErrorText.ERROR_INVALID_STATUS_TASK));
         }
         System.out.println(DASH);
     }
 
     public static void printNewTask(String taskDetails, int numberOfTasks) {
         System.out.println(DASH);
-        System.out.println(INDENT + "Nobita, wake up. Here's your new task:");
-        System.out.println(INDENT + "* " + taskDetails);
-        System.out.println(INDENT + "Now you have " + numberOfTasks + " tasks in Doraemon's 4D pocket.");
+        System.out.println(String.format("%s", InfoText.INFO_TASK_ADDED));
+        System.out.println(String.format("    * %s", taskDetails));
+        System.out.println(String.format("%s", String.format(String.valueOf(InfoText.INFO_TASK_COUNT), numberOfTasks)));
         System.out.println(DASH);
     }
 
@@ -67,14 +63,12 @@ public class Duke {
 
             switch (command) {
             case "bye":
-                System.out.println(DASH);
-                System.out.println(INDENT + "Sayonara. Hope to see you again soon!");
-                System.out.println(DASH);
+                System.out.println(String.format("%s\n%s\n%s", DASH, InfoText.INFO_WELCOME, DASH));
                 isLoop = false;
                 break;
             case "list":
                 System.out.println(DASH);
-                System.out.println(INDENT + "Here are the tasks stored in Doraemon's 4D pocket:");
+                System.out.println(String.format("%s", InfoText.INFO_LIST));
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println("    " + (i + 1) + "." + tasks.get(i).getTaskDetails());
                 }
@@ -88,9 +82,7 @@ public class Duke {
                 break;
             case "todo":
                 if (input.equals("todo") || input.isBlank()) {
-                    System.out.println(DASH);
-                    System.out.println(INDENT + "Nobita, the format is todo <description>, e.g. todo read books.");
-                    System.out.println(DASH);
+                    System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_TODO_FORMAT, DASH));
                     break;
                 }
                 Todo todo = new Todo(input);
@@ -104,9 +96,7 @@ public class Duke {
                     tasks.add(deadline);
                     printNewTask(deadline.getTaskDetails(), tasks.size());
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(DASH);
-                    System.out.println(INDENT + "Nobita, the format is: deadline <description> /by <dueBy>, e.g. deadline marry Shizuka /by September 3rd.");
-                    System.out.println(DASH);
+                    System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_DEADLINE_FORMAT, DASH));
                 }
                 break;
             case "event":
@@ -116,15 +106,11 @@ public class Duke {
                     tasks.add(event);
                     printNewTask(event.getTaskDetails(), tasks.size());
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(DASH);
-                    System.out.println(INDENT + "Nobita, the format is: event <description> /at <eventTime>, e.g. event marry Shizuka /at September 3rd 10-12pm.");
-                    System.out.println(DASH);
+                    System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_EVENT_FORMAT, DASH));
                 }
                 break;
             default:
-                System.out.println(DASH);
-                System.out.println(INDENT + "Oh no, Doraemon didn't understand your command.");
-                System.out.println(DASH);
+                System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_COMMAND, DASH));
                 break;
             }
         }
