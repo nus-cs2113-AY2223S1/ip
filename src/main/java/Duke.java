@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     static final int MAX_TASK_SIZE = 100;
 
-    public static String readTaskDetails(Scanner in) throws EmptyTaskDescriptionException {
+    public static String readTaskDescription(Scanner in) throws EmptyTaskDescriptionException {
         String taskDescription = in.nextLine().trim();
         if (taskDescription.isEmpty()) {
             throw new EmptyTaskDescriptionException();
@@ -11,14 +11,14 @@ public class Duke {
         return taskDescription;
     }
 
-    public static String extractTaskName(String taskDetails, String dateTimeReference) {
-        int dateTimeIndex = taskDetails.indexOf(dateTimeReference);
-        return taskDetails.substring(0, dateTimeIndex - 1).trim();
+    public static String extractTaskName(String taskDescription, String dateTimeReference) {
+        int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
+        return taskDescription.substring(0, dateTimeIndex - 1).trim();
     }
 
-    public static String extractTaskDateTime(String taskDetails, String dateTimeReference) {
-        int dateTimeIndex = taskDetails.indexOf(dateTimeReference);
-        return taskDetails.substring(dateTimeIndex + 3).trim();
+    public static String extractTaskDateTime(String taskDescription, String dateTimeReference) {
+        int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
+        return taskDescription.substring(dateTimeIndex + 3).trim();
     }
 
     public static void addToDoTask(Task[] tasks, int taskIndex, String todoTaskName) {
@@ -112,7 +112,7 @@ public class Duke {
             //Add Task
             case "todo":
                 try {
-                    String todoTaskName = readTaskDetails(in);
+                    String todoTaskName = readTaskDescription(in);
                     addToDoTask(tasks, taskIndex, todoTaskName);
                     printTaskAddedMessage(tasks, taskIndex);
                     taskIndex++;
@@ -122,7 +122,7 @@ public class Duke {
                 break;
             case "deadline":
                 try {
-                    String deadlineTask = readTaskDetails(in);
+                    String deadlineTask = readTaskDescription(in);
                     String deadlineTaskName = extractTaskName(deadlineTask ,"/by");
                     String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
                     addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
@@ -134,7 +134,7 @@ public class Duke {
                 break;
             case "event":
                 try {
-                    String eventTask = readTaskDetails(in);
+                    String eventTask = readTaskDescription(in);
                     String eventTaskName = extractTaskName(eventTask ,"/at");
                     String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
                     addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
