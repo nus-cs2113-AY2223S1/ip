@@ -32,8 +32,17 @@ public class Duke {
         }
     }
 
-    public static boolean checkIfWithinBounds(int Index, int taskIndex) throws DukeException {
-        if ((Index <= 0) || (Index >= taskIndex)) {
+    /**
+     * Checks if the checked index is within the current taskIndex and if it is above 0.
+     *
+     * @param index the checked index
+     * @param taskIndex the maximum index of the current number of tasks.
+     *
+     * @return true if the index is within the bounds. else return DukeException().
+     */
+
+    public static boolean checkIfWithinBounds(int index, int taskIndex) throws DukeException {
+        if ((index <= 0) || (index >= taskIndex)) {
             throw new DukeException();
         }
         return true;
