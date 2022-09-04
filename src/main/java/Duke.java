@@ -11,13 +11,23 @@ public class Duke {
         return taskDescription;
     }
 
-    public static String extractTaskName(String taskDescription, String dateTimeReference) {
+    public static String extractTaskName(String taskDescription, String dateTimeReference)
+            throws MissingDateTimeReferenceException {
         int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
+        boolean haveDataTimeReference = (dateTimeIndex != -1);
+        if (!haveDataTimeReference) {
+            throw new MissingDateTimeReferenceException();
+        }
         return taskDescription.substring(0, dateTimeIndex - 1).trim();
     }
 
-    public static String extractTaskDateTime(String taskDescription, String dateTimeReference) {
+    public static String extractTaskDateTime(String taskDescription, String dateTimeReference)
+            throws MissingDateTimeReferenceException {
         int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
+        boolean haveDataTimeReference = (dateTimeIndex != -1);
+        if (!haveDataTimeReference) {
+            throw new MissingDateTimeReferenceException();
+        }
         return taskDescription.substring(dateTimeIndex + 3).trim();
     }
 
@@ -130,6 +140,8 @@ public class Duke {
                     taskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyDeadlineDescriptionExceptionMessage();
+                } catch (MissingDateTimeReferenceException e) {
+                    showMissingDeadlineDateTimeReferenceExceptionMessage();
                 }
                 break;
             case "event":
@@ -142,6 +154,8 @@ public class Duke {
                     taskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyEventDescriptionExceptionMessage();
+                } catch (MissingDateTimeReferenceException e) {
+                    showMissingEventDateTimeReferenceExceptionMessage();
                 }
                 break;
             default:
@@ -151,6 +165,19 @@ public class Duke {
 
         //Exit
         showByeMessage();
+    }
+
+    private static void showMissingDeadlineDateTimeReferenceExceptionMessage() {
+        System.out.println("☹ OOPS!!! The description of a deadline requires a specific date/time denoted after '/by'.");
+        System.out.println("Example: deadline return book /by Sunday");
+        System.out.println("Please try again.");
+    }
+
+    private static void showMissingEventDateTimeReferenceExceptionMessage() {
+        System.out.println("☹ OOPS!!! The description of a event requires a date and specific start & end time " +
+                "denoted after '/at'.");
+        System.out.println("Example: event project meeting /at Mon 2-4pm");
+        System.out.println("Please try again.");
     }
 
     private static void showEmptyToDoDescriptionExceptionMessage() {
