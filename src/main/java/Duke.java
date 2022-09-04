@@ -8,7 +8,7 @@ public class Duke {
         System.out.println(InitialGreeting);
     }
 
-    public static void runBot() {
+    public static void main(String[] args) {
         String command;
         Scanner in = new Scanner(System.in);
         printGreetingMessage();
@@ -20,8 +20,5 @@ public class Duke {
             }
         }
         in.close();
-    }
-    public static void main(String[] args) {
-        runBot();
     }
 }
