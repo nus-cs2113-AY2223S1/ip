@@ -3,10 +3,16 @@ public class Task {
     protected boolean isDone;
 
     //Constructor
-    public Task(String task) {
+    public Task(String task) throws EmptyDescriptionException {
         // Initialise task and print completion message
-        this.task = task;
-        System.out.println("Got it. I added to the list.");
+        if (task.split(" ").length <= 1) {
+            throw new EmptyDescriptionException();
+        } else {
+            System.out.println(task.split(" ").length);
+            this.task = task;
+            System.out.println("Got it. I added to the list.");
+        }
+
     }
 
     public String getTask() {

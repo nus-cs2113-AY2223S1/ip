@@ -1,5 +1,5 @@
 public class Deadline extends Task{
-    public Deadline(String task) {
+    public Deadline(String task) throws EmptyDescriptionException {
         // Call constructor of super class and change formatting to braces
         super(task.replace("/by", "(by:") + ")");
         // Print out deadline added

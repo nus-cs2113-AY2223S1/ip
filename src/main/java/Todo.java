@@ -1,6 +1,6 @@
 public class Todo extends Task{
 
-    public Todo(String task) {
+    public Todo(String task) throws EmptyDescriptionException {
         // Call constructor of superclass and print ou task added
         super(task);
         System.out.println("  [T][ ] " + getTask());

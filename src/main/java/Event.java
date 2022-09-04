@@ -1,5 +1,5 @@
 public class Event extends Task{
-    public Event(String task) {
+    public Event(String task) throws EmptyDescriptionException {
         // Call constructor for superclass and change formatting to brackets
         super(task.replace("/at", "(at:") + ")");
         // Print out event added
