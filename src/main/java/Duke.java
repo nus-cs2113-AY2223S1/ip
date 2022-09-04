@@ -17,30 +17,37 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Duke\n" + "What can I do for you?\n" +
-                "____________________________________________________________\n" );
+        System.out.println("____________________________________________________________");
+        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("____________________________________________________________" );
     }
     
     public static void showExitMessage(){
-        System.out.println(" Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
     }
     
     public static void handleListMessage(){
-        System.out.println(taskCount);
         System.out.println("____________________________________________________________");
         for(int i=0;i< taskCount;i++){
-            System.out.println("\t"+(i+1)+".["+ tasks[i].getStatusIcon()+"] "+ tasks[i].description );
+            System.out.println(tasks[i].toString() );
         }
         System.out.println("____________________________________________________________");
     }
     
     public static void addNewTask(){
-        tasks[taskCount++] = new Task(inputText);
-        System.out.println("____________________________________________________________\n" +
-                "\tadded: "+inputText +"\n"+
-                "____________________________________________________________\n");
+        String arr[] = inputText.split(" ");
+        if(arr[0].equals("todo")){
+            tasks[taskCount++] = new Todo(inputText.substring(5));
+        } else if (arr[0].equals("deadline")) {
+            tasks[taskCount++] = new Deadline(inputText.substring(9,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
+        }else {
+            tasks[taskCount++] = new Event(inputText.substring(6,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
+        }
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:\n"+inputText +"\n"+"Now you have "+taskCount+ " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
     
     public static void handleMarkMessage(){

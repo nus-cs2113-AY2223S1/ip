@@ -11,6 +11,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+
     public void markAsDone(){
         if (isDone == false) {
             this.isDone = true;
@@ -21,6 +22,10 @@ public class Task {
         if(isDone == true){
             this.isDone = false;
         }
+    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon()+"] " + this.description;
     }
 
     //...
