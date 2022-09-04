@@ -1,13 +1,13 @@
 public class Events extends Task {
-    private static String at;
+    private static String happeningAt;
 
-    public Events(String taskName, String at) {
+    public Events(String taskName, String happeningAt) {
         super(taskName);
-        this.at = at;
+        this.happeningAt = happeningAt;
     }
 
     public String toString() {
-        char done = this.getIsDone() ? 'X' : ' ';
-        return "[E][" + done + "] " + this.getTaskName() + " (at: " + at + " )";
+        String done = this.getIsDone() ? "[X]" : "[ ]";
+        return "[E]" + done + this.getTaskName() + " (at: " + happeningAt + " )";
     }
 }
