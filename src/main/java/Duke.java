@@ -3,22 +3,6 @@ import java.util.Scanner;
 public class Duke {
 
     /**
-     * Checks if the user's 2nd word input is a numeral value whenever the 1st word input is "mark" or "unmark".
-     *
-     * @param str the 2nd word input by the user whenever the 1st word input is "mark" or "unmark"
-     * @return boolean true if the string is a numeral, and false if it contains any other characters.
-     */
-    public static boolean checkIsNumeric(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c < '0' || c > '9') {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Returns the number of words within a string.
      *
      * @param input the string input from the user
@@ -48,9 +32,9 @@ public class Duke {
         }
     }
 
-    public static boolean checkIfWithinBounds(int Index, int taskIndex) throws CurrentIndexOutOfBoundsException {
+    public static boolean checkIfWithinBounds(int Index, int taskIndex) throws DukeException {
         if ((Index <= 0) || (Index >= taskIndex)) {
-            throw new CurrentIndexOutOfBoundsException();
+            throw new DukeException();
         }
         return true;
     }
@@ -110,7 +94,7 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid unmark command - non numeric index detected.");
                         System.out.println("____________________________________________________________");
-                    } catch (CurrentIndexOutOfBoundsException e) {
+                    } catch (DukeException e) {
                         System.out.println("Invalid unmark command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
@@ -129,7 +113,7 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid mark command - non numeric index detected.");
                         System.out.println("____________________________________________________________");
-                    } catch (CurrentIndexOutOfBoundsException e) {
+                    } catch (DukeException e) {
                         System.out.println("Invalid unmark command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
@@ -142,7 +126,7 @@ public class Duke {
                     }
                     String taskDescription = synthesizedArr.toString();
 
-                    switch(parsedInput[0]){
+                    switch (parsedInput[0]) {
                     case "todo":
                         tasks[taskIndex] = new Todo(taskDescription);
                         tasks[taskIndex].setTaskType("T");
