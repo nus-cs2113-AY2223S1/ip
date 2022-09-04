@@ -1,3 +1,5 @@
+package duke.taskings;
+
 public class Task {
     /*
      * a string storing the user's tasking.
