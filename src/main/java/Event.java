@@ -1,15 +1,13 @@
 public class Event extends Task {
-    protected String startTime;
-    protected String endTime;
+    private String eventTime;
 
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String eventTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.eventTime = eventTime;
     }
 
     @Override
     public String getTaskDetails() {
-        return "[E]" + super.getTaskDetails() + " (at: " + startTime + "-" + endTime + ")";
+        return "[E]" + super.getTaskDetails() + " (at: " + eventTime + ")";
     }
 }
