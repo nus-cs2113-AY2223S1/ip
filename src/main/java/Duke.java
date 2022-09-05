@@ -63,14 +63,14 @@ public class Duke {
         }
     }
 
-    public static void list() {
+    public static void list() throws ArrayEmptyException {
         if (listSize > 0) {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < listSize; i++) {
                 System.out.printf("%d. %s\n", i + 1, taskList[i].print());
             }
         } else {
-            System.out.println("No items in list! Type something to add to list.");
+            throw new ArrayEmptyException();
         }
     }
 
@@ -151,7 +151,11 @@ public class Duke {
                     event(line);
                     break;
                 case "list":
-                    list();
+                    try {
+                        list();
+                    } catch (ArrayEmptyException e) {
+                        System.out.println("No items in list! Type something to add to list.");
+                    }
                     break;
                 case "mark":
                     mark(true, words);
