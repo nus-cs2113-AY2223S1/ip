@@ -3,14 +3,20 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final int MAX_SIZE = 100;
+
     public static int listSize = 0;
-    public static Task[] taskList = new Task[100];
+    public static Task[] taskList = new Task[MAX_SIZE];
 
     public static void addTask(Task task) {
-        taskList[listSize] = task;
-        listSize++;
-        System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
-                task.print(), listSize);
+        if (listSize < MAX_SIZE) {
+            taskList[listSize] = task;
+            listSize++;
+            System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
+                    task.print(), listSize);
+        } else {
+            System.out.println("Error! Too many items in list!");
+        }
     }
 
     public  static  void todo(String line, String[] words) {
