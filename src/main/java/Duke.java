@@ -8,14 +8,14 @@ public class Duke {
     public static int listSize = 0;
     public static Task[] taskList = new Task[MAX_SIZE];
 
-    public static void addTask(Task task) {
+    public static void addTask(Task task) throws ArrayOutOfBoundException {
         if (listSize < MAX_SIZE) {
             taskList[listSize] = task;
             listSize++;
             System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
                     task.print(), listSize);
         } else {
-            System.out.println("Error! Too many items in list!");
+            throw new ArrayOutOfBoundException();
         }
     }
 
@@ -23,7 +23,11 @@ public class Duke {
         if (words.length >= 2) {
             String task = line.substring(line.indexOf(' ') + 1);
             Todo todo = new Todo(task);
-            addTask(todo);
+            try {
+                addTask(todo);
+            } catch (ArrayOutOfBoundException e) {
+                System.out.println("Error! Too many items in list!");
+            }
         } else {
             System.out.println("Usage: todo <task>");
         }
@@ -34,7 +38,11 @@ public class Duke {
             String task = line.substring(line.indexOf(' ')+1, line.indexOf("/by")-1);
             String date = line.substring(line.indexOf("/by")+4);
             Deadline deadline = new Deadline(task, date);
-            addTask(deadline);
+            try {
+                addTask(deadline);
+            } catch (ArrayOutOfBoundException e) {
+                System.out.println("Error! Too many items in list!");
+            }
         } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("Usage: deadline <task> /by <date>");
         }
@@ -45,7 +53,11 @@ public class Duke {
             String task = line.substring(line.indexOf(' ')+1, line.indexOf("/at")-1);
             String date = line.substring(line.indexOf("/at")+4);
             Event event = new Event(task, date);
-            addTask(event);
+            try {
+                addTask(event);
+            } catch (ArrayOutOfBoundException e) {
+                System.out.println("Error! Too many items in list!");
+            }
         } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("Usage: event <task> /at <date>");
         }
