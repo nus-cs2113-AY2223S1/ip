@@ -23,4 +23,14 @@ public class Task {
     public static int getNumOfTasks(){
         return numOfTasks;
     }
+
+    public String toString(){
+        String isDoneNotation;
+        if (isDone == true){
+            isDoneNotation = "[X]";
+        }
+        else {isDoneNotation = "[ ]";}
+
+        return isDoneNotation + " " + description;
+    }
 }
