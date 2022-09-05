@@ -1,6 +1,9 @@
 public class Todo extends Task{
-    public Todo(String description) {
+    public Todo(String description) throws DukeExceptions {
         super(description);
+        if (description.equals(" ")){
+            throw new DukeExceptions();
+        }
     }
     public String getCommandIcon(){return "[T]";}
     @Override
