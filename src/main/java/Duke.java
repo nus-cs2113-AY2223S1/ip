@@ -30,34 +30,15 @@ public class Duke {
                 break;
 
             case "todo":
-                inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
-                description = String.join(" ", inputArrayWithoutType);
-                ToDo newToDo = new ToDo(description);
-                taskLists[Task.numOfTasks] = newToDo;
-                Task.numOfTasks ++;
-                printEchoInput(newToDo);
+                addTodo(taskLists, userInputSplit);
                 break;
 
             case "event":
-                inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
-                inputWithoutType = String.join(" ", inputArrayWithoutType);
-                description = inputWithoutType.split(" /at ")[0];
-                String time = inputWithoutType.split(" /at ")[1];
-                Event newEvent = new Event(description, time);
-                taskLists[Task.numOfTasks] = newEvent;
-                Task.numOfTasks ++;
-                printEchoInput(newEvent);
+                addEvent(taskLists, userInputSplit);
                 break;
 
             case "deadline":
-                inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
-                inputWithoutType = String.join(" ", inputArrayWithoutType);
-                description = inputWithoutType.split(" /by ")[0];
-                String deadline = inputWithoutType.split(" /by ")[1];
-                Deadline newDeadline = new Deadline(description, deadline);
-                taskLists[Task.numOfTasks] = newDeadline;
-                Task.numOfTasks ++;
-                printEchoInput(newDeadline);
+                addDeadline(taskLists, userInputSplit);
                 break;
 
 
@@ -73,6 +54,37 @@ public class Duke {
         }
 
         printByeMessage();
+    }
+
+    private static void addTodo(Task[] taskLists, String[] userInputSplit) {
+        String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
+        String description = String.join(" ", inputArrayWithoutType);
+        ToDo newToDo = new ToDo(description);
+        taskLists[Task.numOfTasks] = newToDo;
+        Task.numOfTasks ++;
+        printEchoInput(newToDo);
+    }
+
+    private static void addEvent(Task[] taskLists, String[] userInputSplit) {
+        String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
+        String inputWithoutType = String.join(" ", inputArrayWithoutType);
+        String description = inputWithoutType.split(" /at ")[0];
+        String time = inputWithoutType.split(" /at ")[1];
+        Event newEvent = new Event(description, time);
+        taskLists[Task.numOfTasks] = newEvent;
+        Task.numOfTasks ++;
+        printEchoInput(newEvent);
+    }
+
+    private static void addDeadline(Task[] taskLists, String[] userInputSplit) {
+        String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
+        String inputWithoutType = String.join(" ", inputArrayWithoutType);
+        String description = inputWithoutType.split(" /by ")[0];
+        String deadline = inputWithoutType.split(" /by ")[1];
+        Deadline newDeadline = new Deadline(description, deadline);
+        taskLists[Task.numOfTasks] = newDeadline;
+        Task.numOfTasks ++;
+        printEchoInput(newDeadline);
     }
 
     public static String getUserInput(){
