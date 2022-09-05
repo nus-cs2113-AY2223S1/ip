@@ -8,6 +8,27 @@ public class Duke {
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
 
     // class methods
+    static void errorMessage() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("I don't know what that means :(");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    static boolean checkSpace(String line) {
+        // in the case of "todo"
+        if (!line.contains(" ")) {
+            return false;
+        }
+
+        // in the case of "todo "
+        int spaceLocation = line.indexOf(" ");
+        if (spaceLocation == line.length()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         greet();
         Scanner input = new Scanner(System.in);
@@ -39,8 +60,7 @@ public class Duke {
                 
 
             default:
-                Task task = new Task(line);
-                addTask(task);
+                errorMessage();
                 break;
             }
             line = input.nextLine();
@@ -113,6 +133,20 @@ public class Duke {
     // Method to add todo, deadline and event tasks
     public static void addTaskSpecial(String name, String type) {
         String divider = "/";
+        if (!checkSpace(name)) {
+            errorMessage();
+            return;
+        }
+
+        if (!name.contains(divider)) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Please add a date");
+            System.out.println(HORIZONTAL_LINE);
+            greet();
+            return;
+        }
+
+        name = name.substring(name.indexOf(" "), name.length());
         switch (type) {
         case "todo":
             Todo todoTask = new Todo(name);
