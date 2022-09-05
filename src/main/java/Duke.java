@@ -42,6 +42,9 @@ public class Duke {
         while (!command.equals("bye")) {
             printLine();
             switch (command) {
+            case "help":
+                taskManager.printHelpMessage();
+                break;
             case "list":
                 taskManager.listTasks();
                 break;
@@ -56,20 +59,16 @@ public class Duke {
             case "todo":
                 taskManager.addTask(new Todo(parameters));
                 break;
-            case "deadline": {
+            case "deadline":
                 description = retrieveTaskDescription(parameters, TaskManager.DEADLINE_SEPERATOR);
                 deadline = retrieveTime(parameters, TaskManager.DEADLINE_SEPERATOR);
                 taskManager.addTask(new Deadline(description, deadline));
                 break;
-            }
-            case "event": {
+
+            case "event":
                 description = retrieveTaskDescription(parameters, TaskManager.EVENT_SEPERATOR);
                 deadline = retrieveTime(parameters, TaskManager.EVENT_SEPERATOR);
                 taskManager.addTask(new Event(description, deadline));
-                break;
-            }
-            default: //catch-all to prevent abrupt errors
-                taskManager.addTask(new Task(input));
                 break;
             }
             printLine();
