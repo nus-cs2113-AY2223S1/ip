@@ -1,14 +1,17 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.List;
+import duke.tasks.*;
 
 public class TaskManager {
-    public static final String END_OF_LINE = "\n____________________";
+    public static final String END_OF_LINE = "____________________\n";
     private static List<Task> tasks = new ArrayList<Task>();
 
     public void addNewTodo(String taskName) {
-        tasks.add(new Task(taskName));
+        tasks.add(new Todos(taskName));
         System.out.println("Added new todo task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
-                + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
+                + "\nYou have " + tasks.size() + " tasks in the list." + tasks);
     }
 
     public void addNewDeadline(String taskName, String toBeDoneBy) {
@@ -28,7 +31,7 @@ public class TaskManager {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
-        System.out.println("____________________");
+        System.out.print(END_OF_LINE);
     }
 
     public void markTasks(boolean toMark, int taskIndex) throws DukeException.IllegalMarkTargetException {

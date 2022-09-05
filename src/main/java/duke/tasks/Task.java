@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Task {
     private String taskName;
     private boolean isDone;
@@ -25,10 +27,5 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
-    }
-
-    public String toString() {
-        String done = this.getIsDone() ? "[X]" : "[ ]";
-        return "[T]" + done + this.getTaskName();
     }
 }

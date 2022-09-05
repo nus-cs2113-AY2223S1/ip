@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Deadlines extends Task {
     private static String toBeDoneBy;
 
