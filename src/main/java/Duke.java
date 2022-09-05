@@ -5,39 +5,52 @@ public class Duke {
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
 
-    private static void markCommand(String input, int count, Task[] tasks) {
+    private static void markCommand(String input, int count, Task[] tasks) throws DukeException {
         String[] words = input.split(" ");
         int num = Integer.parseInt(words[1]);
         if (num <= (count)) {
             tasks[num - 1].markDone();
             System.out.println("wa so fast done liao\n" + SPACER + tasks[num - 1].toString() + System.lineSeparator()
                     + DIVIDER);
+        } else {
+            throw new DukeException();
         }
     }
 
-    private static void unmarkCommand(String input, int count, Task[] tasks) {
+    private static void unmarkCommand(String input, int count, Task[] tasks) throws DukeException {
         String[] words = input.split(" ");
         int num = Integer.parseInt(words[1]);
         if (num <= (count)) {
             tasks[num - 1].markUndone();
             System.out.println("can make up your mind\n" + SPACER + tasks[num - 1].toString() + System.lineSeparator()
                     + DIVIDER);
+        } else {
+            throw new DukeException();
         }
     }
 
-    private static Deadline deadlineCommand(String input) {
+    private static Deadline deadlineCommand(String input) throws DukeException {
+        if (input.length() < 10 || !input.contains("/")) {
+            throw new DukeException();
+        }
         int endOfDescription = input.indexOf("/") - 1;
         String description = input.substring(9, endOfDescription);
         String by = input.substring(input.indexOf("/") + 1);
         return new Deadline(description, by);
     }
 
-    private static Todo todoCommand(String input) {
+    private static Todo todoCommand(String input) throws DukeException {
+        if (input.length() < 6) {
+            throw new DukeException();
+        }
         String description = input.substring(5);
         return new Todo(description);
     }
 
-    private static Event eventCommand(String input) {
+    private static Event eventCommand(String input) throws DukeException{
+        if (input.length() < 7 || !input.contains("/")) {
+            throw new DukeException();
+        }
         int endOfDescription = input.indexOf("/") - 1;
         String description = input.substring(6, endOfDescription);
         String at = input.substring(input.indexOf("/") + 1);
@@ -99,25 +112,46 @@ public class Duke {
                 listCommand(tasks);
                 break;
             case "mark":
-                markCommand(line, matchCount, tasks);
+                try {
+                    markCommand(line, matchCount, tasks);
+                } catch(DukeException e) {
+                    System.out.println("you only have " + (matchCount) + "tasks");
+                }
+
                 break;
             case "unmark":
-                unmarkCommand(line, matchCount, tasks);
+                try {
+                    unmarkCommand(line, matchCount, tasks);
+                } catch (DukeException e) {
+                    System.out.println("you only have " + (matchCount) + "tasks");
+                }
                 break;
             case "deadline":
-                tasks[matchCount] = deadlineCommand(line);
-                printStatement(tasks, matchCount);
-                matchCount += 1;
+                try {
+                    tasks[matchCount] = deadlineCommand(line);
+                    printStatement(tasks, matchCount);
+                    matchCount += 1;
+                } catch(DukeException e) {
+                    System.out.println("Please key in a valid deadline input (missing '/' or missing description)");
+                }
                 break;
             case "todo":
-                tasks[matchCount] = todoCommand(line);
-                printStatement(tasks, matchCount);
-                matchCount += 1;
+                try {
+                    tasks[matchCount] = todoCommand(line);
+                    printStatement(tasks, matchCount);
+                    matchCount += 1;
+                } catch (DukeException e) {
+                    System.out.println("aiya todo description cannot be empty.");
+                }
                 break;
             case "event":
-                tasks[matchCount] = eventCommand(line);
-                printStatement(tasks, matchCount);
-                matchCount += 1;
+                try {
+                    tasks[matchCount] = eventCommand(line);
+                    printStatement(tasks, matchCount);
+                    matchCount += 1;
+                } catch(DukeException e) {
+                    System.out.println("Please key in a valid deadline input (missing '/' or missing description)");
+                }
                 break;
             default:
                 System.out.println("Huh? What saying you?\n" + DIVIDER);
