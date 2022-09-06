@@ -2,7 +2,7 @@ package Duke;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private final static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTasks(Task newTask) {
         tasks.add(newTask);
@@ -18,10 +18,14 @@ public class TaskManager {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println();
     }
-    public void printList() {
-        System.out.println("\tHere are the tasks in your list:");
-        for(Task element : tasks){
-            element.printTask();
+    public void printList() throws DukeException{
+        if(tasks.size() == 0) {
+            throw new DukeException();
+        } else {
+            System.out.println("\tHere are the tasks in your list:");
+            for (Task element : tasks) {
+                element.printTask();
+            }
         }
     }
 

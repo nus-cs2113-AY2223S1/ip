@@ -1,6 +1,6 @@
 package Duke;
 public class Event extends Task{
-    public Event(String[] splitInputs) {
+    public Event(String[] splitInputs) throws DukeException {
         super();
         super.taskType = "E";
         int i = 2;
@@ -10,6 +10,9 @@ public class Event extends Task{
             super.description += splitInputs[i++];
         }
         i += 1;
+        if(i >= splitInputs.length) {
+            throw new DukeException();
+        }
         super.dueDate = "( at :";
         while(i < splitInputs.length) {
             super.dueDate += splitInputs[i++];
