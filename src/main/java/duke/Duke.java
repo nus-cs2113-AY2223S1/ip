@@ -54,10 +54,6 @@ public class Duke {
 
     public static void toDoResponse(Task[] tasks, String input, int count) {
         // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-            return;
-        }
         tasks[count] = new Todo(input);
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
                 + tasks[count] + System.lineSeparator() + "Now you have " + (count + 1)
@@ -66,10 +62,6 @@ public class Duke {
 
     public static void deadlineResponse(Task[] tasks, String input, int count) {
         // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-            return;
-        }
         int byPosition = input.indexOf("/by");
         String taskDescription = input.substring(0, byPosition);
         String time = input.substring(byPosition + 4);
@@ -81,10 +73,6 @@ public class Duke {
 
     private static void eventResponse(Task[] tasks, String input, int count) {
         // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-            return;
-        }
         int atPosition = input.indexOf("/at");
         String taskDescription = input.substring(0, atPosition);
         String time = input.substring(atPosition + 4);
@@ -141,9 +129,9 @@ public class Duke {
                 break;
             default:
                 // probably an exception/bad input  - leave for the future
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
                 break;
-            }
+            }   // putting this switch statement into another function causes some variables to not be incremented
             printLines();
         }
     }
