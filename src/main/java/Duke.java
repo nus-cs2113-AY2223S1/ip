@@ -46,7 +46,7 @@ public class Duke {
             userInput = scanObj.nextLine();
             String[] words = userInput.split(" ", 2);
             
-            // variables required for Tasks with timestamps
+            // variables for Tasks with timestamps
             int dividerIndex = 0;
             String timestamp = "";
             String taskDescription="";
