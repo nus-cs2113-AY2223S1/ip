@@ -11,4 +11,16 @@ event project meeting /at Mon 2-4 pm
 mark 3
 unmark 2
 list
+deadline
+event
+todo
+abc
+mark abc
+deadline /by
+deadline abc /by
+deadline /by abc
+event /at
+event /at abc
+event acb /at
+list
 bye

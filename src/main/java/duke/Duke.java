@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.IncorrectFormatException;
+import duke.exceptions.UnrecognizedCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -106,38 +114,44 @@ public class Duke {
             }
             retrieveTaskNumber(parameters);
         }
-
         if (command.equals("deadline")) {
-            if (!parameters.contains(TaskManager.DEADLINE_SEPERATOR.trim())) {
-                throw new IncorrectFormatException("Incorrect format! Deadline must contain a task and its deadline separated by '/by'! Refer to 'help' for more details!");
-            }
-            if (parameters.trim().equals(TaskManager.DEADLINE_SEPERATOR.trim())) {
-                throw new IncorrectFormatException("Incorrect format! Deadline must contain a task and its deadline separated by '/by'! Refer to 'help' for more details!");
-            }
-            if (retrieveTaskDescription(parameters, TaskManager.DEADLINE_SEPERATOR.trim()).isEmpty()) {
-                throw new IncorrectFormatException("Incorrect format! The description of a deadline cannot be empty!");
-            }
-            if (retrieveTime(parameters, TaskManager.DEADLINE_SEPERATOR).isEmpty()) {
-                throw new IncorrectFormatException("Incorrect format! The deadline of a deadline cannot be empty!");
-            }
-
+            handlePossibleDeadlineExceptions(parameters);
         }
         if (command.equals("event")) {
-            if (!parameters.contains(TaskManager.EVENT_SEPERATOR.trim())) {
-                throw new IncorrectFormatException("Incorrect format! Event must contain a task and its time separated by '/at'! Refer to 'help' for more details!");
-            }
-            if (parameters.trim().equals(TaskManager.EVENT_SEPERATOR.trim())) {
-                throw new IncorrectFormatException("Incorrect format! Event must contain a task and its time separated by '/at'! Refer to 'help' for more details!");
-            }
-            if (retrieveTaskDescription(parameters, TaskManager.EVENT_SEPERATOR.trim()).isEmpty()) {
-                throw new IncorrectFormatException("Incorrect format! The description of an event cannot be empty!");
-            }
-            if (retrieveTime(parameters, TaskManager.EVENT_SEPERATOR).isEmpty()) {
-                throw new IncorrectFormatException("Incorrect format! The time of an event cannot be empty!");
-            }
+            handlePossibleEventExceptions(parameters);
         }
         if (parameters.isEmpty()) {
             throw new IncorrectFormatException("Incorrect format! The description of a todo cannot be empty!");
+        }
+    }
+
+    public static void handlePossibleEventExceptions(String parameters) throws IncorrectFormatException {
+        if (!parameters.contains(TaskManager.EVENT_SEPERATOR.trim())) {
+            throw new IncorrectFormatException("Incorrect format! Event must contain a task and its time separated by '/at'! Refer to 'help' for more details!");
+        }
+        if (parameters.trim().equals(TaskManager.EVENT_SEPERATOR.trim())) {
+            throw new IncorrectFormatException("Incorrect format! Event must contain a task and its time separated by '/at'! Refer to 'help' for more details!");
+        }
+        if (retrieveTaskDescription(parameters, TaskManager.EVENT_SEPERATOR.trim()).isEmpty()) {
+            throw new IncorrectFormatException("Incorrect format! The description of an event cannot be empty!");
+        }
+        if (retrieveTime(parameters, TaskManager.EVENT_SEPERATOR).isEmpty()) {
+            throw new IncorrectFormatException("Incorrect format! The time of an event cannot be empty!");
+        }
+    }
+
+    public static void handlePossibleDeadlineExceptions(String parameters) throws IncorrectFormatException {
+        if (!parameters.contains(TaskManager.DEADLINE_SEPERATOR.trim())) {
+            throw new IncorrectFormatException("Incorrect format! Deadline must contain a task and its deadline separated by '/by'! Refer to 'help' for more details!");
+        }
+        if (parameters.trim().equals(TaskManager.DEADLINE_SEPERATOR.trim())) {
+            throw new IncorrectFormatException("Incorrect format! Deadline must contain a task and its deadline separated by '/by'! Refer to 'help' for more details!");
+        }
+        if (retrieveTaskDescription(parameters, TaskManager.DEADLINE_SEPERATOR.trim()).isEmpty()) {
+            throw new IncorrectFormatException("Incorrect format! The description of a deadline cannot be empty!");
+        }
+        if (retrieveTime(parameters, TaskManager.DEADLINE_SEPERATOR).isEmpty()) {
+            throw new IncorrectFormatException("Incorrect format! The deadline of a deadline cannot be empty!");
         }
     }
 
