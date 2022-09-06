@@ -41,45 +41,41 @@ public class Response {
         }
     }
 
-    public static void toDoResponse(Task[] tasks, String input, int count) {
-        // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+    public static void toDoResponse(Task[] tasks, String description, int taskNum) {
+        //System.out.println(description); // code for debugging purposes
+        if (description.length() < 1) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
             return;
         }
-        tasks[count] = new Todo(input);
+        tasks[taskNum] = new Todo(description);
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                + tasks[count] + System.lineSeparator() + "Now you have " + (count + 1)
+                + tasks[taskNum] + System.lineSeparator() + "Now you have " + (taskNum + 1)
                 + " tasks in the list.");
     }
 
-    public static void deadlineResponse(Task[] tasks, String input, int count) {
-        // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+    public static void deadlineResponse(Task[] tasks, String description, String time, int taskNum) {
+        //System.out.println(description); // code for debugging purposes
+        if (description.length() < 1) {
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
             return;
         }
-        int byPosition = input.indexOf("/by");
-        String taskDescription = input.substring(0, byPosition);
-        String time = input.substring(byPosition + 4);
-        tasks[count] = new Deadline(taskDescription, time);
+
+        tasks[taskNum] = new Deadline(description, time);
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                + tasks[count] + System.lineSeparator() + "Now you have "
-                + (count + 1)  + " tasks in the list.");
+                + tasks[taskNum] + System.lineSeparator() + "Now you have "
+                + (taskNum + 1)  + " tasks in the list.");
     }
 
-    public static void eventResponse(Task[] tasks, String input, int count) {
+    public static void eventResponse(Task[] tasks, String description, String time, int taskNum) {
         // System.out.println(count); // code for debugging purposes
-        if (input.equals("")) {
+        if (description.length() < 1) {
             System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
             return;
         }
-        int atPosition = input.indexOf("/at");
-        String taskDescription = input.substring(0, atPosition);
-        String time = input.substring(atPosition + 4);
-        tasks[count] = new Event(taskDescription, time);
+
+        tasks[taskNum] = new Event(description, time);
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                +  tasks[count] + System.lineSeparator() + "Now you have "
-                + (count + 1) + " tasks in the list.");
+                +  tasks[taskNum] + System.lineSeparator() + "Now you have "
+                + (taskNum + 1) + " tasks in the list.");
     }
 }

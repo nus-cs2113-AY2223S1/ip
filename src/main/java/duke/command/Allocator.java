@@ -4,29 +4,29 @@ import duke.task.Task;
 
 public class Allocator {
 
-    public static void allocate(Task[] tasks, String[] words, String keyword, String remainingInput) {
+    public static void allocateForResponse(Task[] tasks, String keyword, String description, String time, int taskNumber) {
 
         switch (keyword) {
         case "bye":
             Response.printGreetings("bye");
             break;
         case "mark":
-            Response.markResponse(tasks, Integer.parseInt(words[1]) - 1);
+            Response.markResponse(tasks, Integer.parseInt(description) - 1);
             break;
         case "unmark":
-            Response.unmarkResponse(tasks, Integer.parseInt(words[1]) - 1);
+            Response.unmarkResponse(tasks, Integer.parseInt(description) - 1);
             break;
         case "list":
-            Response.listResponse(tasks, Task.getTaskNumber());
+            Response.listResponse(tasks, taskNumber);
             break;
         case "todo":
-            Response.toDoResponse(tasks, remainingInput, Task.getTaskNumber());
+            Response.toDoResponse(tasks, description, taskNumber);
             break;
         case "deadline":
-            Response.deadlineResponse(tasks, remainingInput, Task.getTaskNumber());
+            Response.deadlineResponse(tasks, description, time, taskNumber);
             break;
         case "event":
-            Response.eventResponse(tasks, remainingInput, Task.getTaskNumber());
+            Response.eventResponse(tasks, description, time, taskNumber);
             break;
         default:
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
