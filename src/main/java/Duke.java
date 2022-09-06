@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String EVENT = "event";
-    private static String TODO = "todo";
-    private static String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+
+    private static final String SEPARATOR = "____________________________________________________________";
+    private static final int LENGTH = 100;
 
     public static void main(String[] args) {
         welcomeMsg();
@@ -11,35 +14,46 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String val = input.nextLine();
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[LENGTH];
         int length = 0;
 
         while(!val.equals("bye")){
-            System.out.println("____________________________________________________________");
-            if(val.equals("list")){
+            System.out.println(SEPARATOR);
+            //Solution below adapted from https://github.com/kohnh/ip/blob/master/src/main/java/TaskManager.java
+            if(val.contains("list")){
                 printList(tasks, length);
-            } else if (!val.contains("mark")) {
-                System.out.println("Got it. I've added this task:");
+                System.out.println(SEPARATOR);
+                val = input.nextLine();
+                continue;
+            }
 
-                int index = val.indexOf("/");
 
-                if(val.contains(TODO)){
-                    tasks[length] = new Todo(val.substring(TODO.length()));
-                } else if (val.contains(DEADLINE)) {
-                    tasks[length] = new Deadline(val.substring(DEADLINE.length(), index),val.substring((index + 4)));
-                } else if (val.contains(EVENT)) {
-                    tasks[length] = new Event(val.substring(EVENT.length(), index),val.substring((index + 4)));
-                }
-
-                System.out.println(tasks[length]);
+            String firstWord = val.substring(0, val.indexOf(' '));
+            switch(firstWord){
+            case "mark":
+                markTask(val, tasks, true, "Nice! I've marked this task as done:");
+                break;
+            case "unmark":
+                markTask(val, tasks, false, "OK, I've marked this task as not done yet:");
+                break;
+            case TODO:
+                tasks[length] = new Todo(val.substring(TODO.length()));
                 length++;
                 System.out.println("Now you have " + length + " tasks in the list.");
-            } else if (val.contains("unmark")) {
-                markTask(val, tasks, false, "OK, I've marked this task as not done yet:");
-            } else{
-                markTask(val, tasks, true, "Nice! I've marked this task as done:");
+                break;
+            case DEADLINE:
+                tasks[length] = new Deadline(val.substring(DEADLINE.length(), val.indexOf("/")), val.substring((val.indexOf("/") + 4)));
+                length++;
+                System.out.println("Now you have " + length + " tasks in the list.");
+                break;
+            case EVENT:
+                tasks[length] = new Event(val.substring(EVENT.length(), val.indexOf("/")), val.substring((val.indexOf("/") + 4)));
+                length++;
+                System.out.println("Now you have " + length + " tasks in the list.");
+                break;
             }
-            System.out.println("____________________________________________________________");
+
+            System.out.println(SEPARATOR);
             val = input.nextLine();
         }
 

@@ -5,6 +5,7 @@ public class Task {
     public Task(String description){
         this.description = description;
         this.isDone = false;
+        System.out.println("Got it. I've added this task:");
     }
 
     public String toString(){
@@ -13,7 +14,7 @@ public class Task {
             output = "[X] ";
         }
 
-        return output + description;
+        return output + this.description;
     }
 
     public void setDone(boolean status){
