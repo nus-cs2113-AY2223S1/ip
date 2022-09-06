@@ -16,7 +16,6 @@ public class Duke {
     private static Task[] tasks;
 
     private static String commandWord;
-
     private static String commandInfo;
     private static String description;
     private static String time;
@@ -26,35 +25,40 @@ public class Duke {
         printWelcomeMessage();
         while (true) {
             String inputString = getUserInput();
-            executeCommand(inputString);
+            try {
+                executeCommand(inputString);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getExceptionDescription());
+            } catch (InvalidCommandException e) {
+                System.out.println(e.getExceptionDescription());
+            }
         }
     }
-
-    private static void executeCommand(String inputString) {
+    private static void executeCommand(String inputString) throws EmptyDescriptionException, InvalidCommandException {
         separateCommandWordAndCommandInfo(inputString);
         switch (commandWord) {
         case "list":
             listTasks();
             break;
         case "mark":
-            changeTaskStatus(commandInfo, true);
+            changeTaskStatus(true);
             break;
         case "unmark":
-            changeTaskStatus(commandInfo, false);
+            changeTaskStatus(false);
             break;
         case "todo":
-            createTodo(commandInfo);
+            createTodo();
             break;
         case "deadline":
-            handleCreateDeadlineCommand(commandInfo);
+            handleCreateDeadlineCommand();
             break;
         case "event":
-            handleCreateEventCommand(commandInfo);
+            handleCreateEventCommand();
             break;
         case "bye":
             exitProgramme();
         default:
-            createTask(inputString);
+            throw new InvalidCommandException();
         }
     }
 
@@ -80,8 +84,11 @@ public class Duke {
         return inputString.substring(0,separatorIndex);
     }
 
-    private static void handleCreateEventCommand(String inputString) {
-        getDescriptionAndTime(inputString, EVENT_INFO_SEPARATOR);
+    private static void handleCreateEventCommand() throws EmptyDescriptionException {
+        if (commandInfo.length() == 0) {
+            throw new EmptyDescriptionException("event");
+        }
+        getDescriptionAndTime(EVENT_INFO_SEPARATOR);
         createEvent();
     }
 
@@ -92,8 +99,11 @@ public class Duke {
     }
 
 
-    private static void handleCreateDeadlineCommand(String commandInfo) {
-        getDescriptionAndTime(commandInfo, DEADLINE_INFO_SEPARATOR);
+    private static void handleCreateDeadlineCommand() throws EmptyDescriptionException {
+        if (commandInfo.length() == 0) {
+            throw new EmptyDescriptionException("deadline");
+        }
+        getDescriptionAndTime(DEADLINE_INFO_SEPARATOR);
         createDeadline();
     }
 
@@ -103,17 +113,20 @@ public class Duke {
         newDeadline.echo();
     }
 
-    private static void createTodo(String description) {
-        Todo newTodo = new Todo(description);
+    private static void createTodo() throws EmptyDescriptionException {
+        if (commandInfo.length() == 0) {
+            throw new EmptyDescriptionException("todo");
+        }
+        Todo newTodo = new Todo(commandInfo);
         tasks[Task.getTaskCount() -1] = newTodo;
         newTodo.echo();
     }
-    private static void getDescriptionAndTime(String commandInfo, String separator) {
+    private static void getDescriptionAndTime(String separator) {
         description = getSubStringBeforeSeparator(commandInfo, separator).trim();
         time = getSubStringAfterSeparator(commandInfo, separator, 2).trim();
     }
 
-    private static void changeTaskStatus(String commandInfo, boolean isMarkAsDone) {
+    private static void changeTaskStatus(boolean isMarkAsDone) {
         int taskIndex = Integer.parseInt(commandInfo) - 1;
         Task targetTask = tasks[taskIndex];
         if (isMarkAsDone) {
@@ -148,12 +161,6 @@ public class Duke {
         for (int i = 0; i < Task.getTaskCount(); i++) {
             System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks[i].getTaskInfo());
         }
-    }
-
-    private static void createTask(String input) {
-        Task newTask = new Task(input);
-        tasks[Task.getTaskCount() - 1] = newTask;
-        newTask.echo();
     }
 
 }
