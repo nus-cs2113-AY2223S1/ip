@@ -1,4 +1,6 @@
-package duke;
+package duke.command;
+
+import duke.Task;
 
 public class Processor {
 

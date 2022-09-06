@@ -1,5 +1,9 @@
 package duke;
 
+import duke.command.Processor;
+import duke.command.Response;
+import duke.command.StringTools;
+
 import java.util.Scanner;
 
 public class Duke {
