@@ -1,0 +1,52 @@
+Greetings, I am Azmuth
+What can I do for you?
+Enter command 'help' for a list of useful commands!
+____________________
+____________________
+Here if a list of commands that I recognise!
+'todo <taskName>': Add a new todo task
+'deadline <taskName>/<date>': Add a new todo task
+'event <taskName>/<date>': Add a new todo task
+'list': Lists out tasks in index order
+'mark <taskNumber>': Mark a certain task as done
+'unmark <taskNumber>': Unmark a certain task that was done
+'bye': Quit the system
+____________________
+Please enter a name for the todo task!
+Please enter a deadline task followed by a '/' and indicate a deadline
+Please enter an event task followed by a '/' and indicate when
+Please enter a name for the todo task!
+Please enter a deadline task followed by a '/' and indicate a deadline
+Added new deadline task: activity 1 
+ [D][ ]activity 1  (by: monday )
+You have 1 tasks in the list.____________________
+
+Please enter an event task followed by a '/' and indicate when
+Added new event task: activity 2 
+ [E][ ]activity 2  (at: tuesday )
+You have 2 tasks in the list.____________________
+
+Added new todo task: activity 3
+ [T][ ]activity 3
+You have 3 tasks in the list.[[D][ ]activity 1  (by: monday ), [E][ ]activity 2  (at: tuesday ), [T][ ]activity 3]
+Here is your list of tasks.
+1. [D][ ]activity 1  (by: monday )
+2. [E][ ]activity 2  (at: tuesday )
+3. [T][ ]activity 3
+____________________
+This task has already been unmarked!____________________
+
+activity 2  has been marked as done!____________________
+
+This task has already been marked done!____________________
+
+activity 2  has been unmarked!____________________
+
+activity 3 has been marked as done!____________________
+
+Here is your list of tasks.
+1. [D][ ]activity 1  (by: monday )
+2. [E][ ]activity 2  (at: tuesday )
+3. [T][X]activity 3
+____________________
+Bye and see you again soon!
