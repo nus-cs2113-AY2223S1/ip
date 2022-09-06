@@ -1,3 +1,7 @@
+package duke;
+
+import duke.tasks.Task;
+
 public class TaskManager {
     Task[] tasks;
     int numTasks;
