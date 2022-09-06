@@ -2,7 +2,7 @@ public class Deadline extends Task {
     protected String[] descriptions;
     protected String dueTime;
 
-    public Deadline(String commandArgs) {
+    public Deadline(String commandArgs) throws DukeException {
         super(commandArgs);
         descriptions = this.parseDescriptions(commandArgs);
         this.description = descriptions[0];
@@ -25,8 +25,11 @@ public class Deadline extends Task {
         return response;
     }
 
-    protected String[] parseDescriptions(String commandArgs) {
+    protected String[] parseDescriptions(String commandArgs) throws DukeException {
         String[] descriptions = commandArgs.split("/by");
+        if (descriptions.length != 2) {
+            throw new DukeException("DeadlineDescriptionError");
+        }
         return descriptions;
     }
 }
