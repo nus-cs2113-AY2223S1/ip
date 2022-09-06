@@ -7,7 +7,7 @@ import java.util.Scanner;
 import static duke.command.Command.*;
 
 public class Duke {
-
+    public static final int MAX_TASK = 100;
     public static void main(String[] args) {
 
         printWelcomeMessage();
@@ -51,23 +51,6 @@ public class Duke {
             }
         }
     }
-
-    public static final int MAX_TASK = 100;
-
-    public static void printWelcomeMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
-        Task.printHorizontalLine();
-    }
-
-    public static void printByeMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     Bye. Hope to see you again soon!");
-        Task.printHorizontalLine();
-    }
-
-
 
 }
 

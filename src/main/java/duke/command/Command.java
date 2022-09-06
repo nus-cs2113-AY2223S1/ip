@@ -102,4 +102,17 @@ public class Command {
         tasks[markId].setDone();
         tasks[markId].printMark();
     }
+
+    public static void printWelcomeMessage() {
+        Task.printHorizontalLine();
+        System.out.println("     Hello! I'm Duke");
+        System.out.println("     What can I do for you?");
+        Task.printHorizontalLine();
+    }
+
+    public static void printByeMessage() {
+        Task.printHorizontalLine();
+        System.out.println("     Bye. Hope to see you again soon!");
+        Task.printHorizontalLine();
+    }
 }
