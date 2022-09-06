@@ -5,7 +5,6 @@ public class Task {
     protected boolean isDone;
     protected int id;
     protected static int numberOfTasks = 0;
-    public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
 
     public Task(String description) {
         this.description = description;
@@ -22,40 +21,10 @@ public class Task {
 
     public void setNotDone() { isDone = false; }
 
+    public int getId() {
+        return id;
+    }
+
     public static int getNumberOfTasks() { return numberOfTasks; }
 
-    public static void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    public void printNewTask() {
-        printHorizontalLine();
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + this);
-        System.out.println("     Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
-        printHorizontalLine();
-    }
-
-    public static void printTaskList(Task[] tasks) {
-        Task.printHorizontalLine();
-        System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("     " + tasks[i].id + "." + tasks[i]);
-        }
-        Task.printHorizontalLine();
-    }
-
-    public void printMark() {
-        Task.printHorizontalLine();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + this);
-        Task.printHorizontalLine();
-    }
-
-    public void printUnmark() {
-        Task.printHorizontalLine();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + this);
-        Task.printHorizontalLine();
-    }
 }

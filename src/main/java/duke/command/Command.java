@@ -5,37 +5,74 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+
 public class Command {
-    static void tryAddEvent(Task[] tasks, String line){
-        try{
-            if(line.replaceFirst("event", "").trim().equals("")){
+    public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
+
+    public static void printHorizontalLine() {
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printNewTask(Task task) {
+        printHorizontalLine();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + task);
+        System.out.println("     Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+        printHorizontalLine();
+    }
+
+    public static void printTaskList(Task[] tasks) {
+        printHorizontalLine();
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            System.out.println("     " + tasks[i].getId() + "." + tasks[i]);
+        }
+        printHorizontalLine();
+    }
+
+    public static void printMark(Task task) {
+        printHorizontalLine();
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + task);
+        printHorizontalLine();
+    }
+
+    public static void printUnmark(Task task) {
+        printHorizontalLine();
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + task);
+        printHorizontalLine();
+    }
+    static void tryAddEvent(Task[] tasks, String line) {
+        try {
+            if (line.replaceFirst("event", "").trim().equals("")) {
                 throw new DukeException();
             }
             addEvent(tasks, line);
-        } catch (DukeException e){
-            Task.printHorizontalLine();
+        } catch (DukeException e) {
+            printHorizontalLine();
             System.out.println("     T_T OOPS!!! The description of an event cannot be empty.");
-            Task.printHorizontalLine();
+            printHorizontalLine();
         }
     }
     static void addEvent(Task[] tasks, String line) {
-        String[] DescriptionAt = line.replaceFirst("event ", "").split(" /at ");
-        String eventDescription = DescriptionAt[0];
-        String at = DescriptionAt[1];
+        String[] descriptionAt = line.replaceFirst("event ", "").split(" /at ");
+        String eventDescription = descriptionAt[0];
+        String at = descriptionAt[1];
         tasks[Event.getNumberOfTasks()] = new Event(eventDescription, at);
         int eventId = Task.getNumberOfTasks() - 1;
-        tasks[eventId].printNewTask();
+        printNewTask(tasks[eventId]);
     }
-    static void tryAddDeadline(Task[] tasks, String line){
-        try{
-            if(line.replaceFirst("deadline", "").trim().equals("")){
+    static void tryAddDeadline(Task[] tasks, String line) {
+        try {
+            if (line.replaceFirst("deadline", "").trim().equals("")) {
                 throw new DukeException();
             }
             addDeadline(tasks, line);
-        } catch (DukeException e){
-            Task.printHorizontalLine();
+        } catch (DukeException e) {
+            printHorizontalLine();
             System.out.println("     T_T OOPS!!! The description of a deadline cannot be empty.");
-            Task.printHorizontalLine();
+            printHorizontalLine();
         }
     }
     private static void addDeadline(Task[] tasks, String line) {
@@ -44,19 +81,19 @@ public class Command {
         String by = descriptionBy[1];
         tasks[Deadline.getNumberOfTasks()] = new Deadline(deadlineDescription, by);
         int deadlineId = Task.getNumberOfTasks() - 1;
-        tasks[deadlineId].printNewTask();
+        printNewTask(tasks[deadlineId]);
     }
 
-    static void tryAddTodo(Task[] tasks, String line){
-        try{
-            if(line.replaceFirst("todo", "").trim().equals("")){
+    static void tryAddTodo(Task[] tasks, String line) {
+        try {
+            if (line.replaceFirst("todo", "").trim().equals("")) {
                 throw new DukeException();
             }
             addTodo(tasks, line);
-        } catch (DukeException e){
-            Task.printHorizontalLine();
+        } catch (DukeException e) {
+            printHorizontalLine();
             System.out.println("     T_T OOPS!!! The description of a todo cannot be empty.");
-            Task.printHorizontalLine();
+            printHorizontalLine();
         }
     }
 
@@ -64,55 +101,55 @@ public class Command {
         String todoDescription = line.replaceFirst("todo ", "");
         tasks[Todo.getNumberOfTasks()] = new Todo(todoDescription);
         int todoId = Todo.getNumberOfTasks() - 1;
-        tasks[todoId].printNewTask();
+        printNewTask(tasks[todoId]);
     }
-    static void tryUnmarkTask(Task[] tasks, String line){
-        try{
-            if(line.replaceFirst("unmark", "").trim().equals("")){
+    static void tryUnmarkTask(Task[] tasks, String line) {
+        try {
+            if (line.replaceFirst("unmark", "").trim().equals("")) {
                 throw new DukeException();
             }
             unmarkTask(tasks, line.split(" "));
-        } catch (DukeException e){
-            Task.printHorizontalLine();
+        } catch (DukeException e) {
+            printHorizontalLine();
             System.out.println("     T_T OOPS!!! The description of an unmark cannot be empty.");
-            Task.printHorizontalLine();
+            printHorizontalLine();
         }
     }
     private static void unmarkTask(Task[] tasks, String[] parsedInput) {
         int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
         tasks[unmarkId].setNotDone();
-        tasks[unmarkId].printUnmark();
+        printUnmark(tasks[unmarkId]);
     }
 
-    static void tryMarkTask(Task[] tasks, String line){
-        try{
-            if(line.replaceFirst("mark", "").trim().equals("")){
+    static void tryMarkTask(Task[] tasks, String line) {
+        try {
+            if (line.replaceFirst("mark", "").trim().equals("")) {
                 throw new DukeException();
             }
             markTask(tasks, line.split(" "));
-        } catch (DukeException e){
-            Task.printHorizontalLine();
+        } catch (DukeException e) {
+            printHorizontalLine();
             System.out.println("     T_T OOPS!!! The description of a mark cannot be empty.");
-            Task.printHorizontalLine();
+            printHorizontalLine();
         }
     }
 
     private static void markTask(Task[] tasks, String[] parsedInput) {
         int markId = Integer.parseInt(parsedInput[1]) - 1;
         tasks[markId].setDone();
-        tasks[markId].printMark();
+        printMark(tasks[markId]);
     }
 
     public static void printWelcomeMessage() {
-        Task.printHorizontalLine();
+        printHorizontalLine();
         System.out.println("     Hello! I'm Duke");
         System.out.println("     What can I do for you?");
-        Task.printHorizontalLine();
+        printHorizontalLine();
     }
 
     public static void printByeMessage() {
-        Task.printHorizontalLine();
+        printHorizontalLine();
         System.out.println("     Bye. Hope to see you again soon!");
-        Task.printHorizontalLine();
+        printHorizontalLine();
     }
 }

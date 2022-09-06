@@ -21,7 +21,7 @@ public class Duke {
                 String[] parsedInput = line.split(" ");
                 switch (parsedInput[0]) {
                 case "list":
-                    Task.printTaskList(tasks);
+                    printTaskList(tasks);
                     break;
                 case "mark":
                     tryMarkTask(tasks, line);
@@ -43,15 +43,15 @@ public class Duke {
                     break untilBye;
                 default:
                     throw new DukeException();
+                    // Fallthrough
                 }
-            }   catch (DukeException e) {
-                Task.printHorizontalLine();
+            } catch (DukeException e) {
+                printHorizontalLine();
                 System.out.println("     T_T OOPS!!! I'm sorry, but I don't know what that means :-(");
-                Task.printHorizontalLine();
+                printHorizontalLine();
             }
         }
     }
-
 }
 
 
