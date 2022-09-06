@@ -129,7 +129,7 @@ public class Duke {
                 break;
             default:
                 // probably an exception/bad input  - leave for the future
-                System.out.println("ERROR!");
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
                 break;
             }   // putting this switch statement into another function causes some variables to not be incremented
             printLines();
