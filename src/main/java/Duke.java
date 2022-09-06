@@ -15,26 +15,26 @@ public class Duke {
         System.out.println("__________________________________________________ \n");
     }
 
-    private static void markDone (Task[] inputs, String input){
-        System.out.println("Okiii... This task has been marked as done");
+    private static void markDone (Task[] inputs, String input) throws DukeException{
         int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARKDONE) + MARKDONE.length()));
         if (taskNumber < itemCount) {
+            System.out.println("Okiii... This task has been marked as done");
             inputs[taskNumber].markAsDone();
             System.out.println(inputs[taskNumber].description);
         } else {
-            System.out.println("Sorryyy!!! The index is out of bound!");
+            throw new DukeException();
         }
         printDashLine();
     }
 
-    private static void markUnDone (Task[] inputs, String input){
-        System.out.println("Okiii... This task has been marked as not done yet");
+    private static void markUnDone (Task[] inputs, String input) throws DukeException{
         int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARKUNDONE) + MARKUNDONE.length()));
         if (taskNumber < itemCount) {
+            System.out.println("Okiii... This task has been marked as not done yet");
             inputs[taskNumber].markAsUndone();
             System.out.println(inputs[taskNumber].description);
         } else {
-            System.out.println("Sorryyy!!! The index is out of bound!");
+            throw new DukeException();
         }
 
         printDashLine();
@@ -65,7 +65,6 @@ public class Duke {
         System.out.println(intro);
         Task[] inputs = new Task[100];
 
-
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
@@ -74,55 +73,104 @@ public class Duke {
             if (input.equals(LIST)) {
                 listTasks(inputs);
             } else if (input.contains(MARKUNDONE)) {
-                markUnDone(inputs, input);
+                try {
+                    markUnDone(inputs, input);
+                }
+                catch (DukeException e)
+                {
+                    System.out.println("The task number is out of bound and therefore cannot be marked undone!");
+                }
             } else if (input.contains(MARKDONE)) {
-                markDone(inputs, input);
+                try {
+                    markDone(inputs, input);
+                }
+                catch (DukeException e)
+                {
+                    System.out.println("The task number is out of bound and therefore cannot be marked done!");
+                }
             } else if (input.contains(TODO)) {
-                addTodo(inputs, input);
+                try {
+                    addTodo(inputs, input);
+                }
+                catch (DukeException e)
+                {
+                    System.out.println("The todo input is not valid! Might be missing description!");
+                }
             }
             else if (input.contains(DEADLINE)) {
-                addDeadline(inputs, input);
+                try {
+                    addDeadline(inputs, input);
+                }
+                catch (DukeException e)
+                {
+                    System.out.println("The deadline input is not valid! Might be missing description, '/by' or deadline!");
+                }
             }
             else if (input.contains(EVENT)) {
-                addEvent(inputs, input);
+                try{
+                    addEvent(inputs, input);
+                }
+                catch (DukeException e){
+                    System.out.println("The event input is not valid! Might be missing description, '/at' or time !");
+                }
             }
-            in = new Scanner(System.in);
             input = in.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again soon! \n");
 
     }
-    private static void addEvent(Task[] inputs, String input) {
+    private static void addEvent(Task[] inputs, String input) throws DukeException{
         String task = input.substring(EVENT.length(), input.indexOf(AT));
         String time = input.substring(input.indexOf(AT) + AT.length());
-        inputs[itemCount] = new Event(task, time);
-        itemCount++;
-        printDashLine();
-        System.out.println("Got it. I have added this task:");
-        System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
-        printDashLine();
+
+        if (task.equals("") || (time.equals(""))){
+            throw new DukeException();
+        }
+        else{
+            inputs[itemCount] = new Event(task, time);
+            itemCount++;
+            printDashLine();
+            System.out.println("Got it. I have added this task:");
+            System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
+            printDashLine();
+        }
+
     }
 
-    private static void addDeadline(Task[] inputs, String input) {
+    private static void addDeadline(Task[] inputs, String input) throws DukeException {
         String task = input.substring(DEADLINE.length(), input.indexOf(BY));
         String deadline = input.substring(input.indexOf(BY) + BY.length());
-        inputs[itemCount] = new Deadline(task, deadline);
-        itemCount++;
-        printDashLine();
-        System.out.println("Got it. I have added this task:");
-        System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
-        printDashLine();
+
+        if (task.equals("") || deadline.equals("")){
+            throw new DukeException();
+        }
+
+        else{
+            inputs[itemCount] = new Deadline(task, deadline);
+            itemCount++;
+            printDashLine();
+            System.out.println("Got it. I have added this task:");
+            System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
+            printDashLine();
+        }
+
     }
 
-    private static void addTodo(Task[] inputs, String input) {
+    private static void addTodo(Task[] inputs, String input) throws DukeException{
         String task = input.substring(TODO.length());
-        inputs[itemCount] = new Todo(task);
-        itemCount++;
-        printDashLine();
-        System.out.println("Got it. I have added this task:");
-        System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
-        printDashLine();
+        if (task.equals("")){
+            throw new DukeException();
+        }
+        else {
+            inputs[itemCount] = new Todo(task);
+            itemCount++;
+            printDashLine();
+            System.out.println("Got it. I have added this task:");
+            System.out.println("Now you have " + Integer.toString(itemCount) + " tasks left");
+            printDashLine();
+        }
+
     }
 }
 
