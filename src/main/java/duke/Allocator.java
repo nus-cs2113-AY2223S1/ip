@@ -1,6 +1,4 @@
-package duke.command;
-
-import duke.task.Task;
+package duke;
 
 public class Allocator {
 
@@ -29,7 +27,7 @@ public class Allocator {
             Response.eventResponse(tasks, description, time, taskNumber);
             break;
         default:
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             break;
         }
     }

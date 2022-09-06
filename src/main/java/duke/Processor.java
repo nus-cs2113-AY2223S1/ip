@@ -1,7 +1,4 @@
-package duke.command;
-
-import java.util.Scanner;
-import duke.task.Task;
+package duke;
 
 public class Processor {
 

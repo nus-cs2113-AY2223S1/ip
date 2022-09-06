@@ -1,14 +1,16 @@
 package duke;
 
-import duke.task.*;
-import duke.command.*;
-
 import java.util.Scanner;
 
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;
 
-
+    /* Possible type of exceptions:
+        Wrong command
+        Missing Arguments: description, time
+        Too many arguments
+        Wrong input
+     */
 
     public static void main(String[] args) {
 
