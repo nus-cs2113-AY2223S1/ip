@@ -2,8 +2,6 @@ import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
 
-    public static final int MAX_TASK = 100;
-
     public static void main(String[] args) {
 
         printWelcomeMessage();
@@ -11,40 +9,45 @@ public class Duke {
         Task[] tasks = new Task[MAX_TASK];
 
         untilBye:
-        while(true){
-            String line = in.nextLine();
-            String[] parsedInput = line.split(" ");
-            switch (parsedInput[0]) {
-            case "list":
-                Task.printTaskList(tasks);
-                break;
-            case "mark":
-                markTask(tasks, parsedInput);
-                break;
-            case "unmark":
-                unmarkTask(tasks, parsedInput);
-                break;
-            case "todo":
-                addTodo(tasks, line);
-                break;
-            case "deadline":
-                addDeadline(tasks, line);
-                break;
-            case "event":
-                addEvent(tasks, line);
-                break;
-            case "blah":
-                printBlahMessage();
-                break;
-            case "bye":
-                printByeMessage();
-                break untilBye;
-            default:
-                addTask(tasks, line);
-                break;
+        while (true) {
+            try {
+                String line = in.nextLine();
+                String[] parsedInput = line.split(" ");
+                switch (parsedInput[0]) {
+                case "list":
+                    Task.printTaskList(tasks);
+                    break;
+                case "mark":
+                    markTask(tasks, parsedInput);
+                    break;
+                case "unmark":
+                    unmarkTask(tasks, parsedInput);
+                    break;
+                case "todo":
+                    addTodo(tasks, line);
+                    break;
+                case "deadline":
+                    addDeadline(tasks, line);
+                    break;
+                case "event":
+                    addEvent(tasks, line);
+                    break;
+                case "bye":
+                    printByeMessage();
+                    break untilBye;
+                default:
+                    throw new DukeException();
+                }
+            }   catch (DukeException e) {
+                Task.printHorizontalLine();
+                System.out.println("     T_T OOPS!!! I'm sorry, but I don't know what that means :-(");
+                Task.printHorizontalLine();
             }
         }
     }
+
+    public static final int MAX_TASK = 100;
+
     public static void printWelcomeMessage() {
         Task.printHorizontalLine();
         System.out.println("     Hello! I'm Duke");
@@ -52,22 +55,10 @@ public class Duke {
         Task.printHorizontalLine();
     }
 
-    public static void printBlahMessage() {
-        Task.printHorizontalLine();
-        System.out.println("     blah");
-        Task.printHorizontalLine();
-    }
-
     public static void printByeMessage() {
         Task.printHorizontalLine();
         System.out.println("     Bye. Hope to see you again soon!");
         Task.printHorizontalLine();
-    }
-
-    private static void addTask(Task[] tasks, String line) {
-        tasks[Task.getNumberOfTasks()] = new Task(line);
-        int taskId = Task.getNumberOfTasks() - 1;
-        tasks[taskId].printNewTask();
     }
 
     private static void addEvent(Task[] tasks, String line) {
@@ -107,3 +98,6 @@ public class Duke {
         tasks[markId].printMark();
     }
 }
+
+
+
