@@ -1,7 +1,8 @@
+package Duke;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private final static ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTasks(Task newTask) {
         tasks.add(newTask);
