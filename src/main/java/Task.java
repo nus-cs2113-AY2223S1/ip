@@ -3,7 +3,7 @@ public class Task {
     protected boolean isDone;
     protected int id;
     protected static int numberOfTasks = 0;
-    public static final int BRACKET_LENGTH = 3;
+    public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
 
     public Task(String description) {
         this.description = description;
@@ -14,7 +14,7 @@ public class Task {
 
     public String getStatusIcon() { return (isDone ? "X" : " "); }
 
-    public String toString() { return "[ ]" + "[" + getStatusIcon() + "] " + description; }
+    public String toString() { return "[" + getStatusIcon() + "] " + description; }
 
     public void setDone() { isDone = true; }
 
@@ -23,7 +23,7 @@ public class Task {
     public static int getNumberOfTasks() { return numberOfTasks; }
 
     public static void printHorizontalLine() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public void printNewTask() {
@@ -38,7 +38,7 @@ public class Task {
         Task.printHorizontalLine();
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("     " + Integer.toString(tasks[i].id) + "." + tasks[i]);
+            System.out.println("     " + tasks[i].id + "." + tasks[i]);
         }
         Task.printHorizontalLine();
     }
