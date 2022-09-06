@@ -1,30 +1,22 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.command.Input;
+import duke.command.Output;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;
 
-    public static void printLines() {
-        String lines = "__________________________________________________";
-        System.out.println(lines);
-    }
-
     public static String truncateInput(String[] s) {
         String[] copy = Arrays.copyOfRange(s, 1, s.length);
         String truncatedInput = String.join(" ", copy);
         return truncatedInput;
-    }
-
-    public static void printGreetings(String greeting) {
-        if (greeting.equals("hello")) {
-            // hello greeting
-            printLines();
-            System.out.println("Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?");
-            printLines();
-        }   else {
-            // bye greeting
-            System.out.println("Bye. Hope to see you again soon!");
-        }
     }
 
     public static void markResponse(int position, int count, Task[] tasks) {
@@ -78,7 +70,7 @@ public class Duke {
 
     public static void main(String[] args) {
         // prints hello greeting
-        printGreetings("hello");
+        Output.printGreetings("hello");
 
         String inputs;
         int count = 0; // how many items in array, 0 at start.
@@ -94,10 +86,10 @@ public class Duke {
             String truncatedInput = truncateInput(words);
             // truncatedInput is the input without the command keywords e.g. todo, list, mark...
 
-            printLines();
+            Output.printLines();
             switch (keyword) {
             case "bye":
-                printGreetings("bye");
+                Output.printGreetings("bye");
                 systemState = false;
                 break;
             case "mark":
@@ -126,7 +118,7 @@ public class Duke {
                 System.out.println("ERROR!");
                 break;
             }   // putting this switch statement into another function causes some variables to not be incremented
-            printLines();
+            Output.printLines();
         }
     }
 }
