@@ -3,6 +3,7 @@ package duke;
 import duke.command.Processor;
 import duke.command.Response;
 import duke.command.StringTools;
+import duke.task.Task;
 
 import java.util.Scanner;
 

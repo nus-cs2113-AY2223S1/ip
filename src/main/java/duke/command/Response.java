@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Task;
-import duke.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class Response {
 
