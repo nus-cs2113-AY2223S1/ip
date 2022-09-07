@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.EmptyTasklineException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private int taskCount = 0;

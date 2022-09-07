@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exceptions.EmptyCommandException;
+
 import java.util.Scanner;
 
 public class Duke {
