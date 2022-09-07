@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
     /** To check if the task is an event task */
     protected boolean isEvent;
