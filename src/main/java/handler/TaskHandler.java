@@ -1,3 +1,11 @@
+package handler;
+
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
+import exception.DukeException;
+
 public class TaskHandler {
     private static final String BYE_MESSAGE = "Bye! ;)";
     public static final int SPLIT_AMOUNT = 2;

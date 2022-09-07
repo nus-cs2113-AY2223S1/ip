@@ -1,3 +1,8 @@
+package handler;
+
+import ui.UI;
+import exception.DukeException;
+
 public class InputHandler {
 
     private static final String TODO = "todo";
