@@ -1,4 +1,4 @@
-package main.java;
+package main.duke.task;
 
 enum TaskType {
     TODO,

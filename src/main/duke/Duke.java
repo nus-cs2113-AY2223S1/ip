@@ -1,4 +1,9 @@
-package main.java;
+package main.duke;
+
+import main.duke.exception.DukeException;
+import main.duke.task.Deadline;
+import main.duke.task.Event;
+import main.duke.task.Task;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
