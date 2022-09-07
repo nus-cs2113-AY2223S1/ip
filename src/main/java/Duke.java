@@ -58,7 +58,7 @@ public class Duke {
         System.out.println("____________________________________________");
     }
 
-    public static void handleInput() throws InvalidCommandException {
+    public static void handleInput() {
         String input = "";
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
@@ -79,25 +79,41 @@ public class Duke {
                 break;
 
             case "mark":
-                list.get(Integer.parseInt(line[1])-1).setDone(true);
+                try {
+                    if ((Integer.parseInt(line[1]) - 1) > list.size() || (Integer.parseInt(line[1]) - 1) < 1) {
+                        throw new InvalidListItemNumberException();
+                    }
 
-                String markDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
-                System.out.println("        ____________________________________________");
-                System.out.println("        Nice! I've marked this task as done:");
-                System.out.println("            " + markDone + " " +
-                        list.get(Integer.parseInt(line[1])-1).getTaskName());
-                System.out.println("        ____________________________________________");
+                    list.get(Integer.parseInt(line[1]) - 1).setDone(true);
+
+                    String markDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Nice! I've marked this task as done:");
+                    System.out.println("            " + markDone + " " +
+                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
+                    System.out.println("        ____________________________________________");
+                } catch (InvalidListItemNumberException | NumberFormatException e) {
+                    System.out.println("OOPS!!! The list item number given is invalid.");
+                }
                 break;
 
             case "unmark":
-                list.get(Integer.parseInt(line[1])-1).setDone(false);
+                try {
+                    if ((Integer.parseInt(line[1]) - 1) > list.size() || (Integer.parseInt(line[1]) - 1) < 1) {
+                        throw new InvalidListItemNumberException();
+                    }
 
-                String unmarkDone = list.get(Integer.parseInt(line[1])-1).isDone()?"[X]":"[ ]";
-                System.out.println("        ____________________________________________");
-                System.out.println("        Ok. I've marked this task as not done yet:");
-                System.out.println("            " + unmarkDone + " " +
-                        list.get(Integer.parseInt(line[1])-1).getTaskName());
-                System.out.println("        ____________________________________________");
+                    list.get(Integer.parseInt(line[1]) - 1).setDone(false);
+
+                    String unmarkDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Ok. I've marked this task as not done yet:");
+                    System.out.println("            " + unmarkDone + " " +
+                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
+                    System.out.println("        ____________________________________________");
+                } catch (InvalidListItemNumberException | NumberFormatException e) {
+                    System.out.println("OOPS!!! The list item number given is invalid.");
+                }
                 break;
 
             case "todo":
@@ -122,33 +138,65 @@ public class Duke {
                 break;
 
             case "deadline":
-                int byIndex = input.indexOf("/by");
-                String deadlineName = String.copyValueOf(input.toCharArray(), DEADLINE_STRING_LENGTH,
-                        byIndex-1-DEADLINE_STRING_LENGTH);
-                String taskDeadline = String.copyValueOf(input.toCharArray(), byIndex+ BY_SEPARATOR_LENGTH,
-                        input.length()-byIndex-BY_SEPARATOR_LENGTH);
-                list.add(new Deadline(deadlineName, taskDeadline));
+                try {
+                    int byIndex = input.indexOf("/by");
+                    if (byIndex == -1) {
+                        throw new MissingKeywordException();
+                    } else if (byIndex == DEADLINE_STRING_LENGTH) {
+                        throw new MissingTaskException();
+                    } else if (byIndex + 2 == input.length() - 1) {
+                        throw new MissingDateException();
+                    }
 
-                System.out.println("        ____________________________________________");
-                System.out.println("        Got it. I've added this task:");
-                System.out.println("        [D][ ] " + deadlineName + " (by: " + taskDeadline + ")");
-                System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                System.out.println("        ____________________________________________");
+                    String deadlineName = String.copyValueOf(input.toCharArray(), DEADLINE_STRING_LENGTH,
+                            byIndex - 1 - DEADLINE_STRING_LENGTH);
+                    String taskDeadline = String.copyValueOf(input.toCharArray(), byIndex + BY_SEPARATOR_LENGTH,
+                            input.length() - byIndex - BY_SEPARATOR_LENGTH);
+                    list.add(new Deadline(deadlineName, taskDeadline));
+
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Got it. I've added this task:");
+                    System.out.println("        [D][ ] " + deadlineName + " (by: " + taskDeadline + ")");
+                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("        ____________________________________________");
+                } catch (MissingKeywordException e) {
+                    System.out.println("OOPS!!! You did not include '/by'.");
+                } catch (MissingTaskException e) {
+                    System.out.println("OOPS!!! You did not indicate the task.");
+                } catch (MissingDateException e) {
+                    System.out.println("OOPS!!! You did not indicate the deadline.");
+                }
                 break;
 
             case "event":
-                int atIndex = input.indexOf("/at");
-                String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
-                        atIndex-1- EVENT_STRING_LENGTH);
-                String eventTime = String.copyValueOf(input.toCharArray(), atIndex+ AT_SEPARATOR_LENGTH,
-                        input.length()-atIndex-AT_SEPARATOR_LENGTH);
-                list.add(new Event(eventName, eventTime));
+                try {
+                    int atIndex = input.indexOf("/at");
+                    if (atIndex == -1) {
+                        throw new MissingKeywordException();
+                    } else if (atIndex == EVENT_STRING_LENGTH) {
+                        throw new MissingTaskException();
+                    } else if (atIndex + 2 == input.length() - 1) {
+                        throw new MissingDateException();
+                    }
 
-                System.out.println("        ____________________________________________");
-                System.out.println("        Got it. I've added this task:");
-                System.out.println("        [E][ ] " + eventName + " (at: " + eventTime + ")");
-                System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                System.out.println("        ____________________________________________");
+                    String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
+                            atIndex - 1 - EVENT_STRING_LENGTH);
+                    String eventTime = String.copyValueOf(input.toCharArray(), atIndex + AT_SEPARATOR_LENGTH,
+                            input.length() - atIndex - AT_SEPARATOR_LENGTH);
+                    list.add(new Event(eventName, eventTime));
+
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Got it. I've added this task:");
+                    System.out.println("        [E][ ] " + eventName + " (at: " + eventTime + ")");
+                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("        ____________________________________________");
+                } catch (MissingKeywordException e) {
+                    System.out.println("OOPS!!! You did not include '/at'.");
+                } catch (MissingTaskException e) {
+                    System.out.println("OOPS!!! You did not indicate the task.");
+                } catch (MissingDateException e) {
+                    System.out.println("OOPS!!! You did not indicate the event date.");
+                }
                 break;
 
             default:
