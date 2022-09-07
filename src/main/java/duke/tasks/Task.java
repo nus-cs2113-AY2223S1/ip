@@ -2,22 +2,22 @@ package duke.tasks;
 
 public class Task {
     protected String description;
-    protected boolean isCompleted;
+    protected boolean isTaskCompleted;
 
     public Task(String description) {
         this.description = description;
-        this.isCompleted = false;
+        this.isTaskCompleted = false;
     }
 
     public String getStatus() {
-        if (isCompleted) {
+        if (isTaskCompleted) {
             return "[X]";
         } else {
             return "[ ]";
         }
     }
 
-    public String getType() {
+    public String getTaskType() {
         return "[ ]";
     }
 
@@ -26,7 +26,7 @@ public class Task {
     }
 
     public void setCompletion(boolean isComplete) {
-        this.isCompleted = isComplete;
+        this.isTaskCompleted = isComplete;
     }
 
     public String getDescription() {

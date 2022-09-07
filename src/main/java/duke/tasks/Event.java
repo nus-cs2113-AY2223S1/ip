@@ -10,7 +10,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String getType() {
+    public String getTaskType() {
         return "[E]";
     }
 
