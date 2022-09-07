@@ -18,7 +18,7 @@ public class Duke {
     private static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_HELLO = "Hello! I'm a chatbot Duke made by Than Duc Huy\n" +
             "Type the command to start interacting with Duke";
-    private static final String MESSAGE_COMMAND_LISTS = "Supported commands: list, mark, unmark, todo, deadline, event, bye";
+    private static final String MESSAGE_COMMAND_LISTS = "Supported commands: list, mark, unmark, delete, todo, deadline, event, bye";
     private static final String MESSAGE_DIVIDER = "===============================================================================";
     private static final String MESSAGE_DIVIDER_LIST = "=====================================LIST======================================";
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown Command";
@@ -221,8 +221,8 @@ public class Duke {
         }
 
     }
-    private static void removeTaskMessage(int index){
-        showToUser(MESSAGE_DIVIDER, "TASK REMOVED");
+    private static void deleteTaskMessage(int index){
+        showToUser(MESSAGE_DIVIDER, "TASK DELETED");
         System.out.print("\t");
         tasksList.get(index).printTask();
         showToUser("Number of tasks in the list: " + --Task.numberOfTasks);
@@ -233,7 +233,7 @@ public class Duke {
     public static void delete(String[] parsedLine){
         try{
             int index = Integer.parseInt(parsedLine[1])-1; // Array index = Counting index - 1
-            removeTaskMessage(index);
+            deleteTaskMessage(index);
             tasksList.remove(index);
             // Task.numberOfTasks--;
 
