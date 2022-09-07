@@ -1,4 +1,4 @@
-public class Todo extends Task {
+public class Todo extends Task implements FormatChecker{
 
     private static final String TODO_MARK = "[T]";
 
@@ -7,8 +7,9 @@ public class Todo extends Task {
      *
      * @param description description of Todo
      */
-    public Todo(String description) {
+    public Todo(String description) throws WrongCommandFormatException{
         super(description);
+        FormatChecker.checkNullString(description);
     }
 
     @Override

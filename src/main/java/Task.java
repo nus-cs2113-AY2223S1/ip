@@ -1,15 +1,16 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int TIME_SEPARATOR_LENGTH = 5; //length of separator from input, eg: /at:, /by:
+    //protected static int TIME_IDENTIFIER_LENGTH = 5; //length of separator from input, eg: /at:, /by:
     private static final String CHECK_MARK = "[X]";
     private static final String UNCHECK_MARK = "[]";
-    protected static final String TIME_SEPARATOR = "/";
+    protected static final String DEADLINE_IDENTIFIER = "/by: ";
+    protected static final String EVENT_IDENTIFIER = "/at: ";
 
     /**
-     * Deafult constructor for Task instance
+     * Default constructor for Task instance
      *
-     * @param description
+     * @param description task description
      */
     public Task(String description) {
         this.description = description;

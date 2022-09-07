@@ -1,4 +1,4 @@
-public class Deadline extends Task {
+public class Deadline extends Task implements FormatChecker {
     private static final String DEADLINE_MARK = "[D]";
     private String by;
 
@@ -14,16 +14,22 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for a raw string input of dealine
+     * Constructor for a raw string input of deadline
      *
-     * @param complexString raw string containing description and dealine
+     * @param complexString raw string containing description and deadline
      */
-    public Deadline(String complexString) {
+    public Deadline(String complexString) throws WrongCommandFormatException{
         super();
-        int separatorIndex = complexString.indexOf(TIME_SEPARATOR);
-        this.description = complexString.substring(0, separatorIndex);
-        this.by = complexString.substring(separatorIndex + TIME_SEPARATOR_LENGTH);
-        this.isDone = false;
+        try {
+            int identifierIndex = FormatChecker.findIdentifierIndex(DEADLINE_IDENTIFIER, complexString);
+            this.description = complexString.substring(0, identifierIndex);
+            FormatChecker.checkNullString(this.description);
+            this.by = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
+            FormatChecker.checkNullString(this.by);
+            this.isDone = false;
+        } catch (WrongCommandFormatException e) {
+            throw new WrongCommandFormatException();
+        }
     }
 
     public String getBy() {

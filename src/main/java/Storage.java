@@ -1,11 +1,8 @@
-import java.util.Arrays;
-
 /**
  * Storage class serve as a storage of all tasks and execute command
  * on the list of tasks
  */
 public class Storage {
-    private static final String IDLE_MESSAGE = "Nothing happened QaQ";
     private static final int TODO_LENGTH = 5;
     private static final int DEADLINE_LENGTH = 9;
     private static final int EVENT_LENGTH = 6;
@@ -24,7 +21,7 @@ public class Storage {
     /**
      * Add item to list of tasks
      *
-     * @param item
+     * @param item tasks in the list
      */
     public static void add(Task item) {
         list[size] = item;
@@ -48,15 +45,21 @@ public class Storage {
      */
     public static void toggleMarkStatus(String cmd) {
         String[] cmds = cmd.split(COMMAND_SEPARATOR);
-        if (Integer.parseInt(cmds[1]) > size) {
-            System.out.format("There are only %d tasks now~%n", size);
-            return;
+
+        try {
+            if (cmds[0].equalsIgnoreCase(COMMAND_MARK)) {
+                list[Integer.parseInt(cmds[1]) - 1].setIsDone(true);
+            } else if (cmds[0].equalsIgnoreCase(COMMAND_UNMARK)) {
+                list[Integer.parseInt(cmds[1]) - 1].setIsDone(false);
+            }
+        } catch (NumberFormatException e) {
+            System.out.format("Exception: Wrong command Format%n" +
+                    "Try the command in correct format: mark <index of task>%n");
+        } catch (NullPointerException e) {
+            System.out.format("Exception: Unable to mark task %n" +
+                    "There are only %d tasks now~%n", size);
         }
-        if (cmds[0].toLowerCase().equals(COMMAND_MARK)) {
-            list[Integer.parseInt(cmds[1]) - 1].setIsDone(true);
-        } else if (cmds[0].toLowerCase().equals(COMMAND_UNMARK)) {
-            list[Integer.parseInt(cmds[1]) - 1].setIsDone(false);
-        }
+
         listAll();
     }
 
@@ -65,32 +68,56 @@ public class Storage {
      *
      * @param cmd input command: COMMAND_*
      */
-    public void execute(String cmd) {
+    public void execute(String cmd) throws UnknownCommandException, NullCommandException {
         String[] words = cmd.split(COMMAND_SEPARATOR);
         switch (words[0]) {
         case COMMAND_LIST:
             listAll();
             break;
         case COMMAND_MARK:
-            toggleMarkStatus(cmd);
-            break;
         case COMMAND_UNMARK:
             toggleMarkStatus(cmd);
             break;
         case COMMAND_TODO:
-            add(new Todo(cmd.substring(TODO_LENGTH)));
+            try {
+                if(cmd.length() == TODO_LENGTH - 1) {
+                    throw new WrongCommandFormatException();
+                }
+                add(new Todo(cmd.substring(TODO_LENGTH)));
+            } catch (WrongCommandFormatException e) {
+                System.out.format("Exception: Wrong Command Format%n" +
+                        "Try the correct command format: " +
+                        "todo <description>%n");
+            }
             break;
         case COMMAND_DEADLINE:
-            add(new Deadline(cmd.substring(DEADLINE_LENGTH)));
+            try {
+                if(cmd.length() == DEADLINE_LENGTH - 1) {
+                    throw new WrongCommandFormatException();
+                }
+                add(new Deadline(cmd.substring(DEADLINE_LENGTH)));
+            } catch (WrongCommandFormatException e) {
+                System.out.format("Exception: Wrong Command Format%n" +
+                        "Try the correct command format: " +
+                        "deadline <description> /by: <time>%n");
+            }
             break;
         case COMMAND_EVENT:
-            add(new Event(cmd.substring(EVENT_LENGTH)));
+            try {
+                if(cmd.length() == EVENT_LENGTH - 1) {
+                    throw new WrongCommandFormatException();
+                }
+                add(new Event(cmd.substring(EVENT_LENGTH)));
+            } catch (WrongCommandFormatException e) {
+                System.out.format("Exception: Wrong Command Format%n" +
+                        "Try the correct command format: " +
+                        "event <description> /at: <time>%n");
+            }
             break;
         case COMMAND_NULL:
-            System.out.println(IDLE_MESSAGE);
-            break;
+            throw new NullCommandException();
         default:
-            add(new Task(cmd));
+            throw new UnknownCommandException();
         }
     }
 

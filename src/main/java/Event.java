@@ -1,4 +1,4 @@
-public class Event extends Task {
+public class Event extends Task implements FormatChecker{
     private static final String EVENT_MARK = "[E]";
     private String at;
 
@@ -18,26 +18,31 @@ public class Event extends Task {
      *
      * @param complexString raw string input containing time and description of event
      */
-    public Event(String complexString) {
+    public Event(String complexString) throws WrongCommandFormatException {
         super();
-        int separatorIndex = complexString.indexOf(TIME_SEPARATOR);
-        this.description = complexString.substring(0, separatorIndex);
-        this.at = complexString.substring(separatorIndex + TIME_SEPARATOR_LENGTH);
-        this.isDone = false;
+        try {
+            int identifierIndex = FormatChecker.findIdentifierIndex(EVENT_IDENTIFIER, complexString);
+            this.description = complexString.substring(0, identifierIndex);
+            FormatChecker.checkNullString(this.description);
+            this.at = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
+            FormatChecker.checkNullString(this.at);
+            this.isDone = false;
+        } catch (WrongCommandFormatException e) {
+            throw new WrongCommandFormatException();
+        }
     }
 
     public String getAt() {
         return this.at;
     }
 
-    public void setAt(String At) {
+    public void setAt(String at) {
         this.at = at;
     }
 
     @Override
     public String getStatusIcon() {
-        String statusIcon = "[E]";
-        return statusIcon + super.getStatusIcon();
+        return EVENT_MARK + super.getStatusIcon();
     }
 
     @Override

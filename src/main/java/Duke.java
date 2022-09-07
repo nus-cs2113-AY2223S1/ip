@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,14 +8,9 @@ public class Duke {
     private static final String GREET_MESSAGE_2 = "How does everything progress now?";
     private static final int LINE_SEPARATOR_LENGTH = 60;
     private static final String LINE_SEPARATOR = "_";
-    private static final String NULL_STRING = "";
 
     public static void separateLine() {
-        String lineSeparator = NULL_STRING;
-        for (int i = 0; i < LINE_SEPARATOR_LENGTH; i++) {
-            lineSeparator += LINE_SEPARATOR;
-        }
-        System.out.println(lineSeparator);
+        System.out.println(LINE_SEPARATOR.repeat(LINE_SEPARATOR_LENGTH));
     }
 
     /**
@@ -40,7 +34,7 @@ public class Duke {
     /**
      * echo print input string with line breaker after it
      *
-     * @param line
+     * @param line the line of string input
      */
     public static void echo(String line) {
         separateLine();
@@ -54,9 +48,17 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         Storage storage = new Storage();
-        while (!line.toLowerCase().equals(COMMAND_BYE)) {
+        while (!line.equalsIgnoreCase(COMMAND_BYE)) {
             separateLine();
-            storage.execute(line);
+            try {
+                storage.execute(line);
+            } catch (UnknownCommandException e) {
+                System.out.format("Exception: Unknown command%n" +
+                        "%s is not a valid command%n", line.split(" ")[0]);
+            } catch (NullCommandException e) {
+                System.out.format("Exception: Null command%n" +
+                        "No command is entered%n");
+            }
             separateLine();
             line = in.nextLine();
         }
