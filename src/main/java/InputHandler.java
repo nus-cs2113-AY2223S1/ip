@@ -15,17 +15,40 @@ public class InputHandler {
                 TaskHandler.handleBye();
                 break;
             } else if (input.startsWith(TODO)) {
-                TaskHandler.handleTodo(input);
+                try {
+                    TaskHandler.handleTodo(input);
+                } catch (DukeException e) {
+                    System.out.println("todo what?");
+                }
             } else if (input.startsWith(LIST)) {
                 TaskHandler.handleList();
             } else if (input.startsWith(DEADLINE)) {
-                TaskHandler.handleDeadline(input);
+                try {
+                    TaskHandler.handleDeadline(input);
+                } catch (DukeException e) {
+                    System.out.println("deadline missing some info...");
+                    ;
+                }
             } else if (input.startsWith(EVENT)) {
-                TaskHandler.handleEvent(input);
+                try {
+                    TaskHandler.handleEvent(input);
+                } catch (DukeException e) {
+                    System.out.println("event missing some info...");
+                    ;
+                }
             } else if (input.startsWith(MARK)) {
-                TaskHandler.handleMark(input);
+                try {
+                    TaskHandler.handleMark(input);
+                } catch (DukeException e) {
+                    System.out.println("mark what");
+                    ;
+                }
             } else if (input.startsWith(UNMARK)) {
-                TaskHandler.handleUnmark(input);
+                try {
+                    TaskHandler.handleUnmark(input);
+                } catch (DukeException e) {
+                    System.out.println("unmark what");
+                }
             } else {
                 TaskHandler.handleInvalid(input);
             }

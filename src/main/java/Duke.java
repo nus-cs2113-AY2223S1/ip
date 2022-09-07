@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Duke {
     public static void startProgram() {
         UI.welcomeUser();
