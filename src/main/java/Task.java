@@ -2,24 +2,24 @@ public class Task {
     private String item;
     private boolean isCompleted;
 
-    public Task(String item) {
+    protected Task(String item) {
         this.item = item;
         isCompleted = false;
     }
 
-    public void setCompleted(Boolean isCompleted) {
+    protected void setCompleted(Boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 
-    public boolean hasCompleted() {
+    protected boolean hasCompleted() {
         return isCompleted;
     }
 
-    public String getTaskName() {
+    protected String getTaskName() {
         return item;
     }
 
-    public String getCompleteDescription() {
+    protected String getCompleteDescription() {
         String output = "[ ][";
         output += (hasCompleted() ? "X] " : " ] ");
         output += getTaskName() + "\n";
