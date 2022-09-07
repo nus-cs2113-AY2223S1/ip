@@ -11,7 +11,11 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String ILLEGAL_TODO_INPUT_ERROR = "OOPS! The description of a todo cannot be empty";
 
+    private static void checkInput(String input) throws DukeException {
+
+    }
     public static void main(String[] args) {
         String line;
         ArrayList<Task> tasksList = new ArrayList<Task>();
@@ -51,14 +55,22 @@ public class Duke {
                 }
                 break;
             case COMMAND_TODO:
-                String description = line.substring(line.indexOf("todo") + 5);
-                Todo td = new Todo(description);
-                tasksList.add(td);
-                System.out.println("Got it. I've added this task: " + System.lineSeparator() +
-                        td + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
+                try {
+                    String description = line.substring(line.indexOf("todo") + 5);
+                    if (description.length() < 1) {
+                        throw new EmptyTodoDescriptionException(description);
+                    } else {
+                        Todo td = new Todo(description);
+                        tasksList.add(td);
+                        System.out.println("Got it. I've added this task: " + System.lineSeparator() +
+                                td + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
+                    }
+                } catch (EmptyTodoDescriptionException e){
+                    System.out.println(e.getExceptionMessage());
+                }
                 break;
             case COMMAND_DEADLINE:
-                description = line.substring(line.indexOf("deadline") + 9, line.indexOf("/"));
+                String description = line.substring(line.indexOf("deadline") + 9, line.indexOf("/"));
                 String by = line.substring(line.indexOf("by") + 3);
                 Deadline d = new Deadline(description, by);
                 tasksList.add(d);
@@ -74,12 +86,12 @@ public class Duke {
                         e + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list.");
                 break;
             default:
-                System.out.println("added: " + line);
-                Task t = new Task();
-                t.description = line;
-                t.number = count + 1;
-                t.isDone = false;
-                tasksList.add(t);
+                try {
+                    String message = "error";
+                    throw new UnrecognisedInput(message);
+                } catch (UnrecognisedInput f) {
+                    System.out.println(f.getExceptionMessage());
+                }
                 break;
             }
         }
