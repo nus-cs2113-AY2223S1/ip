@@ -9,8 +9,11 @@ public class Event extends Task {
 
     @Override
     public String getStatusOfTypeTask() {
-        //mark task with event as "E"
-        return (isEvent ? "E" : " ");
+        String status = " ";
+        if (isEvent) {
+            status = "E";
+        }
+        return status;
     }
 
     @Override

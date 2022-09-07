@@ -10,7 +10,6 @@ public class Task {
     }
 
     public String getStatusOfDone() {
-        //mark done task with X
         return (isDone ? "X" : " ");
     }
 
