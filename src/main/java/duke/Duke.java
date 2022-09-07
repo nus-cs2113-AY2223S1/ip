@@ -43,9 +43,8 @@ public class Duke {
     /**
      * Checks if the checked index is within the current taskIndex and if it is above 0.
      *
-     * @param index the checked index
+     * @param index     the checked index
      * @param taskIndex the maximum index of the current number of tasks.
-     *
      * @return true if the index is within the bounds. else return DukeException().
      */
 
@@ -59,21 +58,19 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        /*
-         * array storing the Task objects.
-         */
+        // array storing the Task objects.
         Task[] tasks = new Task[101];
 
-        /*
-         * stores the number of words in the user's string input.
-         */
+        //stores the number of words in the user's string input.
         int numOfWords;
 
+        //keeps track of the index of the current task entry.
         int taskIndex = 1;
         String inData;
         Scanner scan = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("Enter <help> if you need the list of commands");
         System.out.println("____________________________________________________________");
 
         while (true) {
@@ -104,7 +101,7 @@ public class Duke {
                         if (checkIfWithinBounds(unmarkedIndex, taskIndex)) {
                             //checks if the user input command is within the current bound of the tasks array.
                             tasks[unmarkedIndex].setDone(false);
-                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println("OK, I've marked this task as NOT done yet:");
                             System.out.println("[" + tasks[unmarkedIndex].getTaskType() + "]" + "[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
                             System.out.println("____________________________________________________________");
                         }
@@ -131,7 +128,7 @@ public class Duke {
                         System.out.println("Invalid mark command - non numeric index detected.");
                         System.out.println("____________________________________________________________");
                     } catch (DukeException e) {
-                        System.out.println("Invalid unmark command - Index out of bounds.");
+                        System.out.println("Invalid mark command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
 
@@ -183,7 +180,7 @@ public class Duke {
                         taskIndex += 1;
                         break;
                     default:
-                        System.out.println("Invalid command");
+                        System.out.println("Unrecognised command");
                         System.out.println("____________________________________________________________");
                         break;
                     }
@@ -192,8 +189,18 @@ public class Duke {
                 if (inData.equals("bye")) {
                     // exits the while loop if the user inputs is equal to "bye"
                     break;
+                } else if (inData.equals("help")) {
+                    System.out.println("Available commands:");
+                    System.out.println("1) todo ");
+                    System.out.println("2) event, use </at> to indicate time period");
+                    System.out.println("3) deadline use </by> to indicate deadline");
+                    System.out.println("4) mark <item number>  ");
+                    System.out.println("5) unmark <item number>)");
+                    System.out.println("6) list ");
+                    System.out.println("7) bye ");
+                    System.out.println("____________________________________________________________");
                 } else {
-                    System.out.println("Invalid command");
+                    System.out.println("Unrecognised command");
                     System.out.println("____________________________________________________________");
                 }
             }
