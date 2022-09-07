@@ -11,27 +11,39 @@ public class Duke {
      * Based on the keyword "todo", "deadline" or "event".
      * Has helper functions addToDoTask(), addEventTask() and addDeadlineTask()
      *
-     * @param userInput the string input by the user.
      * @param splitUserInputs array of string that have been split into two.
      */
-    public static void sortTypeOfTask(String userInput, String[] splitUserInputs) {
+    public static void sortTypeOfTask(String[] splitUserInputs) {
         boolean isToDo = splitUserInputs[0].equals("todo");
         boolean isDeadlines = splitUserInputs[0].equals("deadline");
         boolean isEvent = splitUserInputs[0].equals("event");
 
-        System.out.println("\t Roger that. I've added this task:");
-
         if (isToDo) {
-            addToDoTask(splitUserInputs);
+            try {
+                addToDoTask(splitUserInputs);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("\t ☹ OH MAN!!! The description of a todo cannot be empty.");
+                return;
+            }
         } else if (isDeadlines) {
             addDeadlineTask(splitUserInputs);
         } else if (isEvent) {
             addEventTask(splitUserInputs);
         } else {
-            addNoTypeTask(userInput);
+            System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
+            return;
         }
+        printTaskDetails();
         indexTask++;
-        System.out.println("\t Now you have " + indexTask + " in the list.");
+    }
+
+    public static void printTaskDetails() {
+        int countTask = indexTask + 1;
+        String startStatement = "\t Roger that. I've added this task:\n";
+        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
+                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails() + "\n";
+        String endStatement = "\t Now you have " + countTask + " in the list.";
+        System.out.println(startStatement + displayTaskDetails + endStatement);
     }
 
     /**
@@ -44,16 +56,6 @@ public class Duke {
     }
 
     /**
-     * Adds in the type of task which in this case no type task.
-     *
-     * @param userInput that is input by the user.
-     */
-    private static void addNoTypeTask(String userInput) {
-        addTask(new Task(userInput));
-        System.out.println("\t   [ ][ ] " + assignments[indexTask].description);
-    }
-
-    /**
      * Adds in the type of task which in this case Event task.
      *
      * @param splitUserInputs array of strings that is split into two.
@@ -61,9 +63,6 @@ public class Duke {
     private static void addEventTask(String[] splitUserInputs) {
         addTask(new Event(splitUserInputs[1]));
         assignments[indexTask].markTypeTask();
-        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
-                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails();
-        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -85,11 +84,9 @@ public class Duke {
      * @param splitUserInputs array of strings that is split into two.
      */
     private static void addToDoTask(String[] splitUserInputs) {
-        addTask(new ToDo(splitUserInputs[1]));
+        String taskDetail = splitUserInputs[1];
+        addTask(new ToDo(taskDetail));
         assignments[indexTask].markTypeTask();
-        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
-                + "]" + "[ ] " + assignments[indexTask].description;
-        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -101,15 +98,15 @@ public class Duke {
      * @return error which is a boolean that tell us if there is an error or not.
      */
     public static boolean hasMarkTaskError(int markIndex, String lineDivider) {
-        boolean error = false;
+        boolean isError = false;
         try {
             assignments[markIndex].markAsDone();
         } catch (NullPointerException e) {
             System.out.println("\t You are trying to mark a task that has not been specified!");
             System.out.println("\t" + lineDivider);
-            error = true;
+            isError = true;
         }
-        return error;
+        return isError;
     }
 
     /**
@@ -118,18 +115,18 @@ public class Duke {
      *
      * @param unMarkIndex index of the unmark in splitUserInput[1].
      * @param lineDivider a string for line separator.
-     * @return error which is a boolean that tell us if there is an error or not.
+     * @return isError which is a boolean that tell us if there is an error or not.
      */
     public static boolean hasUnmarkTaskError(int unMarkIndex, String lineDivider){
-        boolean error = false;
+        boolean isError = false;
         try {
             assignments[unMarkIndex].unmarkAsDone();
         } catch (NullPointerException e) {
             System.out.println("\t You are trying to unmark a task that has not been specified!");
             System.out.println("\t" + lineDivider);
-            error = true;
+            isError = true;
         }
-        return error;
+        return isError;
     }
 
     /**
@@ -210,7 +207,7 @@ public class Duke {
             boolean isUnmark = splitUserInputs[0].equals("unmark");
 
             if (isUserInputData) {
-                sortTypeOfTask(userInput, splitUserInputs);
+                sortTypeOfTask(splitUserInputs);
             } else if (isList) {
                 printList();
             } else if (isMark) {
