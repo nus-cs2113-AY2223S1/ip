@@ -11,10 +11,18 @@ public class Duke {
             taskLine = line.substring(length + 1);
         }
 
-        specificCase(line, action, commandWord, taskLine);
+        try {
+            specificCase(line, action, commandWord, taskLine);
+        } catch (EmptyCommandException e) {
+            System.out.println("  ____________________________________________________________");
+            System.out.println("\tSorry what are you trying to say?");
+            System.out.println("  ____________________________________________________________");
+        }
     }
 
-    private static void specificCase(String line, TaskManager action, String commandWord, String taskLine) {
+    private static void specificCase(String line, TaskManager action, String commandWord,
+                                      String taskLine) throws EmptyCommandException {
+        String status = "start";
         switch (commandWord) {
         case "bye":
             action.bye();
@@ -23,18 +31,16 @@ public class Duke {
             action.listTasks();
             break;
         case "mark":
-            action.markTask(taskLine);
-            break;
         case "unmark":
-            action.unmarkTask(taskLine);
+            status = action.markOrUnmark(taskLine, commandWord);
             break;
         case "todo":
         case "deadline":
         case "event":
-            action.addTask(taskLine, commandWord);
+            status = action.addTask(taskLine, commandWord);
             break;
         default:
-            action.addTask(line, commandWord);
+            throw new EmptyCommandException();
         }
     }
 

@@ -15,7 +15,18 @@ public class TaskManager {
         System.out.println("  ____________________________________________________________");
     }
 
-    public void addTask(String line, String commandWord) {
+    public void detectEmptyTasklineException(String taskline) throws EmptyTasklineException {
+        if (taskline.equals(" ")) {
+            throw new EmptyTasklineException();
+        }
+    }
+
+    public String addTask(String line, String commandWord) {
+        boolean hasException = findEmptyTasklineException(line);
+        if (hasException) {
+            return "exception";
+        }
+
         separatingCommands(line, commandWord);
         System.out.println("  ____________________________________________________________");
         System.out.println("\tAdded:");
@@ -24,6 +35,7 @@ public class TaskManager {
         taskCount++;
         System.out.println("\tNow you have " + taskCount + " tasks in the list");
         System.out.println("  ____________________________________________________________");
+        return "done adding";
     }
 
     private void separatingCommands(String line, String commandWord) {
@@ -33,8 +45,6 @@ public class TaskManager {
             createDeadline(line);
         } else if (commandWord.equals("event")) {
             createEvent(line);
-        } else {
-            tasks[taskCount] = new Task(line);
         }
     }
 
@@ -65,6 +75,32 @@ public class TaskManager {
                     + " " + tasks[i].getDescription() + tasks[i].getAddedInfo());
         }
         System.out.println("  ____________________________________________________________");
+    }
+
+    public String markOrUnmark(String line, String commandWord) {
+        boolean hasException = findEmptyTasklineException(line);
+        if (hasException) {
+            return "exception";
+        }
+
+        if (commandWord.equals("mark")) {
+            markTask(line);
+        } else {
+            unmarkTask(line);
+        }
+        return "done marking or unmarking";
+    }
+
+    private boolean findEmptyTasklineException(String line) {
+        try {
+            detectEmptyTasklineException(line);
+        } catch (EmptyTasklineException e) {
+            System.out.println("  ____________________________________________________________");
+            System.out.println("\tThere is no content assigned!");
+            System.out.println("  ____________________________________________________________");
+            return true;
+        }
+        return false;
     }
 
     public void markTask(String line) {
