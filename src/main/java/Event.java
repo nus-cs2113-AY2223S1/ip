@@ -6,8 +6,8 @@ public class Event extends Task {
         this.startTime = startTime;
     }
 
-    public String printTask() {
+    public String taskStatusWithDescriptionText() {
         String startTimeText = "(at: " + startTime + ")";
-        return super.printTask() + startTimeText;
+        return super.taskStatusWithDescriptionText() + startTimeText;
     }
 }

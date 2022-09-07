@@ -6,8 +6,8 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public String printTask() {
+    public String taskStatusWithDescriptionText() {
         String deadlineText = "(by: " + deadline + ")";
-        return super.printTask() + deadlineText;
+        return super.taskStatusWithDescriptionText() + deadlineText;
     }
 }
