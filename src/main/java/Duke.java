@@ -58,7 +58,7 @@ public class Duke {
         System.out.println("____________________________________________");
     }
 
-    public static void handleInput() {
+    public static void handleInput() throws InvalidCommandException {
         String input = "";
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
@@ -101,16 +101,24 @@ public class Duke {
                 break;
 
             case "todo":
-                String[] todoName = Arrays.copyOfRange(line, 1, line.length);
-                list.add(new ToDo(Arrays.toString(todoName).replace(",", "")
-                        .replace("[", "").replace("]", "")));
+                try {
+                    if (line.length == 1) {
+                        throw new InvalidTodoCommandException();
+                    }
 
-                System.out.println("        ____________________________________________");
-                System.out.println("        Got it. I've added this task:");
-                System.out.println("        [T][ ] " + Arrays.toString(todoName).replace(",", "")
-                        .replace("[", "").replace("]", ""));
-                System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                System.out.println("        ____________________________________________");
+                    String[] todoName = Arrays.copyOfRange(line, 1, line.length);
+                    list.add(new ToDo(Arrays.toString(todoName).replace(",", "")
+                            .replace("[", "").replace("]", "")));
+
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Got it. I've added this task:");
+                    System.out.println("        [T][ ] " + Arrays.toString(todoName).replace(",", "")
+                            .replace("[", "").replace("]", ""));
+                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("        ____________________________________________");
+                } catch (InvalidTodoCommandException e) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                }
                 break;
 
             case "deadline":
@@ -144,13 +152,17 @@ public class Duke {
                 break;
 
             default:
-                break;
+                try {
+                    throw new InvalidCommandException();
+                } catch (InvalidCommandException e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
             }
         }
         return;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCommandException {
         printWelcomeMessage();
         handleInput();
         printGoodbyeMessage();
