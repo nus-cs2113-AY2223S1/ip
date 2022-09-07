@@ -1,5 +1,5 @@
 public class Duke {
-    public static final String DASH_SEPARATOR = "------------------------------------------------\n";
+    public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     private static final String LOGO =
               "     ____.  _____ ______________   ____.___  _________\n"
             + "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/\n"

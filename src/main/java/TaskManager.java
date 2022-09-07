@@ -2,31 +2,29 @@ import java.util.Scanner;
 
 public class TaskManager {
     public static final int TASKS_SIZE = 100;
-    public static final String DASH_SEPARATOR = "------------------------------------------------\n";
+    public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     public static Task[] tasks = new Task[TASKS_SIZE];
     private static int oneBasedIndex = 1;
+    public static void formatOutput(String stringToOutput) {
+        System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
+    }
     public static void printMark(Task task, boolean done) {
-        System.out.println(DASH_SEPARATOR);
-        task.markDone(done);
-        System.out.println(DASH_SEPARATOR);
+        formatOutput(task.markDone(done));
     }
     public static void printTask(Task task) {
-        System.out.println(DASH_SEPARATOR);
-        System.out.println("Got it. I've added this task:" + System.lineSeparator()
+        formatOutput("Got it. I've added this task:" + System.lineSeparator()
                 + task + System.lineSeparator() + "Now you have " + oneBasedIndex
                 + " tasks in the list.");
-        System.out.println(DASH_SEPARATOR);
         oneBasedIndex++;
     }
 
     public static void printList() {
-        System.out.println(DASH_SEPARATOR);
-        System.out.println("Here are the tasks in your list:");
+        String s = "";
+        s += "Here are the tasks in your list:" + System.lineSeparator();
         for (int i = 1; i < oneBasedIndex; i++) {
-            System.out.print(i);
-            System.out.println("." + tasks[i]);
+            s += String.valueOf(i) + "." + tasks[i] + System.lineSeparator();
         }
-        System.out.println(DASH_SEPARATOR);
+        formatOutput(s);
     }
 
     public static void receiveCommands() {
@@ -37,57 +35,83 @@ public class TaskManager {
             if (isList) {
                 printList();
             } else {
-                String firstWord = "";
-                try {
-                    firstWord = command.substring(0, command.indexOf(' '));
-                    doCommand(command, firstWord);
-                } catch (StringIndexOutOfBoundsException e) {
-                    try {
-                        checkExceptions(command);
-                    }catch (EmptyException ee) {
-                        System.out.println(DASH_SEPARATOR);
-                        System.out.println("☹ OOPS!!! The description of a " + command + " cannot be empty.");
-                        System.out.println(DASH_SEPARATOR);
-                    } catch (WrongCommandException ee) {
-                        System.out.println(DASH_SEPARATOR);
-                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                        System.out.println(DASH_SEPARATOR);
-                    }
-                } catch (WrongCommandException e) {
-                    System.out.println(DASH_SEPARATOR);
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                    System.out.println(DASH_SEPARATOR);
-                }
+                tryCommand(command);
             }
             command = in.nextLine().trim();
         }
     }
 
-    private static void doCommand(String command, String firstWord) throws WrongCommandException {
+    private static void tryCommand(String command) {
+        String firstWord = "";
+        try {
+            firstWord = command.substring(0, command.indexOf(' '));
+            doCommand(command, firstWord);
+        } catch (StringIndexOutOfBoundsException e) {
+            try {
+                checkExceptions(command);
+            }catch (EmptyException ee) {
+                formatOutput("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+            } catch (WrongCommandException ee) {
+                formatOutput("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (WrongCommandException e) {
+            formatOutput("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } catch (TaskOutOfBoundsException e) {
+            formatOutput("☹ OOPS!!! The task number you specified does not exist.");
+        } catch (NoBackslashException e) {
+            formatOutput("☹ OOPS!!! You did not specify a deadline OR event datetime.");
+        }
+    }
+
+    private static void doCommand(String command, String firstWord)
+            throws WrongCommandException, TaskOutOfBoundsException, NoBackslashException {
         switch (firstWord) {
         case "mark":
-            int pos = Integer.parseInt(command.substring("mark _".length()));
-            printMark(tasks[pos], true);
+            int pos = Integer.parseInt(command.substring("mark ".length()));
+            tryMark(pos, true);
             break;
         case "unmark":
-            pos = Integer.parseInt(command.substring("unmark _".length()));
-            printMark(tasks[pos], false);
+            pos = Integer.parseInt(command.substring("unmark ".length()));
+            tryMark(pos, false);
             break;
         case "todo":
             tasks[oneBasedIndex] = new Todo(command, ' ');
             printTask(tasks[oneBasedIndex]);
             break;
         case "deadline":
-            tasks[oneBasedIndex] = new Deadline(command, '/');
-            printTask(tasks[oneBasedIndex]);
+            tryDeadline(command);
             break;
         case "event":
-            tasks[oneBasedIndex] = new Event(command, '/');
-            printTask(tasks[oneBasedIndex]);
+            tryEvent(command);
             break;
         default:
             throw new WrongCommandException();
         }
+    }
+
+    private static void tryEvent(String command) throws NoBackslashException {
+        if (command.contains("/")) {
+            tasks[oneBasedIndex] = new Event(command, '/');
+            printTask(tasks[oneBasedIndex]);
+        } else {
+            throw new NoBackslashException();
+        }
+    }
+
+    private static void tryDeadline(String command) throws NoBackslashException {
+        if (command.contains("/")){
+            tasks[oneBasedIndex] = new Deadline(command, '/');
+            printTask(tasks[oneBasedIndex]);
+        } else {
+            throw new NoBackslashException();
+        }
+    }
+
+    private static void tryMark(int pos, boolean done) throws TaskOutOfBoundsException {
+        if (pos >= oneBasedIndex || pos < 1) {
+            throw new TaskOutOfBoundsException();
+        }
+        printMark(tasks[pos], done);
     }
 
     private static void checkExceptions(String command) throws EmptyException, WrongCommandException {
