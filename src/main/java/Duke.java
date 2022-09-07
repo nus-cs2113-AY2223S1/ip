@@ -81,67 +81,82 @@ public class Duke {
 
                 //Otherwise, create a new task
             } else {
-                Task task = createTask(input);
-                if (task == null) {
+                try {
+                    Task task = createTask(input);
                     System.out.println(H_LINE + INDENT
-                            + "Looks like there was an issue with adding this task: "
+                            + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
+                    taskList[listIndex] = task;
+                    listIndex++;
+                } catch (DukeException dukeException) {
+                    System.out.println(H_LINE + INDENT
+                            + dukeException.getMessage() + INDENT + "Task not added: "
                             + input + INDENT + "Please try again!" + H_LINE + "\n");
                 }
-                System.out.println(H_LINE + INDENT
-                        + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
-                taskList[listIndex] = task;
-                listIndex++;
             }
         }
         return shouldExit;
     }
 
-    private static Task createTask(String input) {
+    private static Task createTask(String input) throws DukeException {
         Task task;
-        if (input.startsWith("deadline")) {
-            task = createDeadline(input);
-            if (task == null) {
-                System.out.println(INDENT
-                        + "Was unable to create a Deadline! Please specify a date after writing /by.");
+        try {
+            if (input.startsWith("deadline")) {
+                task = createDeadline(input);
+            } else if (input.startsWith("event")) {
+                task = createEvent(input);
+            } else if (input.startsWith("todo")){
+                task = createTodo(input);
+            } else {
+                throw new DukeException("Uhoh! You haven't told me if this is a deadline, event, or todo.");
             }
-        } else if (input.startsWith("event")) {
-            task = createEvent(input);
-            if (task == null) {
-                System.out.println(INDENT
-                        + "Was unable to create an Event! Please specify a date after writing /at.");
-            }
-        } else {
-            task = new Task(input);
+        } catch (DukeException dukeException) {
+            throw dukeException;
+        } catch (Exception e) {
+            throw new DukeException("Unknown Error: " + e.getMessage());
         }
         return task;
     }
 
     /* Create a new Deadline with the correct due date */
-    private static Task createDeadline(String input) {
+    private static Task createDeadline(String input) throws DukeException {
+        int startIndex = findNextLetter("deadline", input);
         int dateIndex = input.indexOf("/by");
         if (dateIndex == -1) {
-            return null;
+            throw new DukeException("Unable to create a Deadline! Please follow the format: deadline [task] /by [date]");
         }
-        int startIndex = findNextLetter("deadline", input);
         int endIndex = dateIndex + findNextLetter("/by", input.substring(dateIndex));
         return new Deadline(input.substring(startIndex, dateIndex), input.substring(endIndex));
     }
 
     /* Create a new Event with the correct date */
-    private static Task createEvent(String input) {
+    private static Task createEvent(String input) throws DukeException {
+        int startIndex = findNextLetter("event", input);
         int dateIndex = input.indexOf("/at");
         if (dateIndex == -1) {
-            return null;
+            throw new DukeException("Unable to create an Event! Please follow the format: event [name] /at [date]");
         }
-        int startIndex = findNextLetter("event", input);
         int endIndex = dateIndex + findNextLetter("/at", input.substring(dateIndex));
         return new Event(input.substring(startIndex, dateIndex), input.substring(endIndex));
     }
+    /* Create a new Todo */
+    private static Task createTodo(String input) throws DukeException {
+        int startIndex = findNextLetter("todo", input);
+        if (startIndex >= input.length()) {
+            throw new DukeException("You only wrote todo! Please follow the correct format: todo [task]");
+        }
+        return new Task(input.substring(startIndex));
+    }
 
-    private static int findNextLetter(String word, String input) {
+    private static int findNextLetter(String word, String input) throws DukeException {
+        if (word.length() == input.length()) {
+            throw new DukeException("You only wrote " + word + "! Please follow the correct format.");
+        }
         int index = word.length();
         while (input.charAt(index) == ' ') {
             index++;
+            if (index >= input.length()) {
+                throw new DukeException("You only wrote spaces after " + word + "! Please follow the correct format.");
+            }
         }
         return index;
     }
@@ -173,6 +188,10 @@ public class Duke {
     private static void printList() {
         if (listIndex == 0) {
             System.out.print(INDENT + "Nothing to see here! Type to add to your list.");
+            System.out.print(INDENT + "Here are the correct formats: "
+                    + INDENT + "- todo [task]"
+                    + INDENT + "- deadline [task] /by [date]"
+                    + INDENT + "- event [name] /at [date]");
             return;
         }
         System.out.print(INDENT + "Here's your current task list:");
