@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadline extends Task {
     /** To check if the task is a deadline task */
     protected boolean isDeadline;

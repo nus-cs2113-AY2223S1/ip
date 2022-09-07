@@ -1,3 +1,11 @@
+package duke;
+
+import duke.command.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -62,7 +70,11 @@ public class Duke {
     }
 
     /**
+     * Adds on the type of task based on the COMMAND_INDEX.
+     *
      * @param splitUserInputs array of strings that is split into two words.
+     * @throws DukeException which generates an error if the user input a blank task detail or
+     * did not fill up the task detail.
      */
     public static void addTypeOfTask(String[] splitUserInputs) throws DukeException {
         if (splitUserInputs[TASK_DETAIL_INDEX].isBlank()) {
@@ -117,7 +129,7 @@ public class Duke {
     }
 
     /**
-     * validates the marked or unmarked task then proceeds to mark or unmark a task.
+     * Validates the marked or unmarked task then proceeds to mark or unmark a task.
      *
      * @param splitUserInputs array of strings that is split into two words.
      */
@@ -228,7 +240,7 @@ public class Duke {
         }
         System.out.println("\t\t [" + assignments[markIndex].getStatusOfTypeTask()
                 + "]" + "[" + assignments[markIndex].getStatusOfDone()
-                + "] " + assignments[markIndex].description);
+                + "] " + assignments[markIndex].getDescription());
     }
 
     /**

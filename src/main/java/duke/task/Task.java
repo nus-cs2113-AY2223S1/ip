@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     /** Represent the individual task that the user input */
     protected String description;
@@ -11,6 +13,10 @@ public class Task {
 
     public String getStatusOfDone() {
         return (isDone ? "X" : " ");
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getStatusOfTypeTask() { return " "; }
