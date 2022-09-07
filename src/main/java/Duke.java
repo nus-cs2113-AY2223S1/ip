@@ -1,3 +1,10 @@
+import Exceptions.*;
+//import Tasks.Deadline;
+//import Tasks.Event;
+//import Tasks.Task;
+//import Tasks.ToDo;
+import Tasks.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,7 +87,7 @@ public class Duke {
 
             case "mark":
                 try {
-                    if ((Integer.parseInt(line[1]) - 1) > list.size() || (Integer.parseInt(line[1]) - 1) < 1) {
+                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
                         throw new InvalidListItemNumberException();
                     }
 
@@ -99,7 +106,7 @@ public class Duke {
 
             case "unmark":
                 try {
-                    if ((Integer.parseInt(line[1]) - 1) > list.size() || (Integer.parseInt(line[1]) - 1) < 1) {
+                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
                         throw new InvalidListItemNumberException();
                     }
 
