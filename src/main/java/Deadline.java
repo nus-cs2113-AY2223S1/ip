@@ -9,8 +9,11 @@ public class Deadline extends Task {
 
     @Override
     public String getStatusOfTypeTask() {
-        //mark Task with Deadline with "D"
-        return (isDeadline ? "D" : " ");
+        String status = " ";
+        if (isDeadline) {
+            status = "D";
+        }
+        return status;
     }
 
     @Override

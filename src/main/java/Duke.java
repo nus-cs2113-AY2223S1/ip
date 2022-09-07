@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    private static final int COMMAND_INDEX = 0;
+    private static final int TASK_DETAIL_INDEX = 1;
+    /** Minus 1 to convert user input index which starts from 1 to 0 for array indexing */
+    private static final int OFFSET_TO_ARRAY_INDEX = 1;
     /** Array of assignments that is limited to 100 tasks */
     private static final Task[] assignments = new Task[100];
     /** Use to track the number of Task that is added */
@@ -20,19 +25,12 @@ public class Duke {
      * @param splitUserInputs array of string that have been split into two.
      */
     public static void validateTypeOfTask(String[] splitUserInputs) {
-        isToDo = splitUserInputs[0].equals("todo");
-        isDeadline = splitUserInputs[0].equals("deadline");
-        isEvent = splitUserInputs[0].equals("event");
+        isToDo = splitUserInputs[COMMAND_INDEX].equals("todo");
+        isDeadline = splitUserInputs[COMMAND_INDEX].equals("deadline");
+        isEvent = splitUserInputs[COMMAND_INDEX].equals("event");
         boolean isNoType = !isToDo && !isDeadline && !isEvent;
 
-        try {
-            if (isNoType) {
-                System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
-                return;
-            }
-            addTypeOfTask(splitUserInputs);
-        } catch (ArrayIndexOutOfBoundsException | DukeException e) {
-            printTypeOfTaskError();
+        if (!hasValidTypeOfTask(splitUserInputs, isNoType)) {
             return;
         }
         printTypeOfTaskDetails();
@@ -40,10 +38,34 @@ public class Duke {
     }
 
     /**
-     * @param splitUserInputs array of strings that is split into two.
+     * Checks the type of task that the user input, if the input specified does not belong
+     * to any of the task, it would print a warning. Likewise, if an exception arise from a
+     * specific type of task, a warning message will be printed.
+     *
+     * @param splitUserInputs array of strings that is split into two words.
+     * @param isNoType to check if the user has input a nonTypeTask
+     * @return isValidTypeOfTask a boolean that checks if the user has input a type of task correctly
+     */
+    private static boolean hasValidTypeOfTask(String[] splitUserInputs, boolean isNoType) {
+        boolean isValidTypeOfTask = true;
+        try {
+            if (isNoType) {
+                System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
+                isValidTypeOfTask = false;
+            }
+            addTypeOfTask(splitUserInputs);
+        } catch (ArrayIndexOutOfBoundsException | DukeException e) {
+            printTypeOfTaskError();
+            isValidTypeOfTask = false;
+        }
+        return isValidTypeOfTask;
+    }
+
+    /**
+     * @param splitUserInputs array of strings that is split into two words.
      */
     public static void addTypeOfTask(String[] splitUserInputs) throws DukeException {
-        if (splitUserInputs[1].isBlank()) {
+        if (splitUserInputs[TASK_DETAIL_INDEX].isBlank()) {
             throw new DukeException();
         } else if (isToDo) {
             addToDoTask(splitUserInputs);
@@ -66,30 +88,30 @@ public class Duke {
     /**
      * Adds in the type of task which in this case Event task.
      *
-     * @param splitUserInputs array of strings that is split into two.
+     * @param splitUserInputs array of strings that is split into two words.
      */
     private static void addEventTask(String[] splitUserInputs) {
-        addTask(new Event(splitUserInputs[1]));
+        addTask(new Event(splitUserInputs[TASK_DETAIL_INDEX]));
         assignments[indexTask].markTypeTask();
     }
 
     /**
      * Adds in the type of task which in this case Deadline task.
      *
-     * @param splitUserInputs array of strings that is split into two.
+     * @param splitUserInputs array of strings that is split into two words.
      */
     private static void addDeadlineTask(String[] splitUserInputs) {
-        addTask(new Deadline(splitUserInputs[1]));
+        addTask(new Deadline(splitUserInputs[TASK_DETAIL_INDEX]));
         assignments[indexTask].markTypeTask();
     }
 
     /**
      * Adds in the type of task which in this case to do task.
      *
-     * @param splitUserInputs array of strings that is split into two.
+     * @param splitUserInputs array of strings that is split into two words.
      */
     private static void addToDoTask(String[] splitUserInputs) {
-        String taskDetail = splitUserInputs[1];
+        String taskDetail = splitUserInputs[TASK_DETAIL_INDEX];
         addTask(new ToDo(taskDetail));
         assignments[indexTask].markTypeTask();
     }
@@ -97,11 +119,11 @@ public class Duke {
     /**
      * validates the marked or unmarked task then proceeds to mark or unmark a task.
      *
-     * @param splitUserInputs array of strings that is split into two.
+     * @param splitUserInputs array of strings that is split into two words.
      */
     private static void validateMarkOrUnmarkTask(String[] splitUserInputs) {
         try {
-            int indexOfMark = readIndexOfMark(splitUserInputs);
+            int indexOfMark = readIndexOfMarkOrUnmark(splitUserInputs);
             //To handle a case where user tries to mark or unmark a task that has not been specified
             markOrUnmarkTask(splitUserInputs, indexOfMark);
         } catch (DukeException e) {
@@ -117,7 +139,7 @@ public class Duke {
      * @param indexOfMark     index of the mark in splitUserInput[1].
      */
     public static void markOrUnmarkTask(String[] splitUserInputs, int indexOfMark) {
-        boolean isMark = splitUserInputs[0].equals("mark");
+        boolean isMark = splitUserInputs[COMMAND_INDEX].equals("mark");
 
         try {
             if (isMark) {
@@ -136,17 +158,22 @@ public class Duke {
         printMarkOrUnmarkTask(indexOfMark, isMark);
     }
 
-    public static int readIndexOfMark(String[] splitUserInputs) throws DukeException {
-        boolean isPositiveDigits = splitUserInputs[1].matches("[0-9]+")
-                && !splitUserInputs[1].startsWith("-");
+    /**
+     * Reads the index of where the mark or unmark is based on the user input then translate
+     * to indexing based on an array which index starts from 0 instead of 1.
+     *
+     * @param splitUserInputs an array of String that has been split into individual words.
+     * @return indexOfMarkOrUnmark which is the index of where to mark or unmark in the list.
+     * @throws DukeException when the indexOfMark is not a digit, it will generate an error
+     */
+    public static int readIndexOfMarkOrUnmark(String[] splitUserInputs) throws DukeException {
+        boolean isPositiveDigits = splitUserInputs[TASK_DETAIL_INDEX].matches("[0-9]+")
+                && !splitUserInputs[TASK_DETAIL_INDEX].startsWith("-");
         if (!isPositiveDigits) {
             throw new DukeException();
         }
-        //Digit taken from userInput index from 1 onwards
-        int indexOfMark = Integer.parseInt(splitUserInputs[1]);
-        //Minus 1 to get index of mark of in list of task as index from 0 onwards
-        indexOfMark = indexOfMark - 1;
-        return indexOfMark;
+        int indexOfMarkOrUnmark = Integer.parseInt(splitUserInputs[TASK_DETAIL_INDEX]);
+        return indexOfMarkOrUnmark - OFFSET_TO_ARRAY_INDEX;
     }
 
     /**
@@ -239,28 +266,23 @@ public class Duke {
         boolean isBye;
 
         do {
-            //Enable user to enter text
             userInput = in.nextLine();
             System.out.print("\t" + lineDivider);
             String[] splitUserInputs = userInput.split(" ", 2);
-            isBye = splitUserInputs[0].equals("bye");
+            isBye = splitUserInputs[COMMAND_INDEX].equals("bye");
 
-            boolean isUserInputData = !splitUserInputs[0].equals("bye")
-                    && !splitUserInputs[0].equals("list")
-                    && !splitUserInputs[0].equals("mark")
-                    && !splitUserInputs[0].equals("unmark");
-            boolean isList = splitUserInputs[0].equals("list");
-            boolean isMarkOrUnmark = splitUserInputs[0].equals("mark")
-                    || splitUserInputs[0].equals("unmark");
+            boolean isList = splitUserInputs[COMMAND_INDEX].equals("list");
+            boolean isMarkOrUnmark = splitUserInputs[COMMAND_INDEX].equals("mark")
+                || splitUserInputs[COMMAND_INDEX].equals("unmark");
 
-            if (isUserInputData) {
-                validateTypeOfTask(splitUserInputs);
+            if (isBye) {
+                System.out.println("\t Bye. Hope to see you again soon!");
             } else if (isList) {
                 printList();
             } else if (isMarkOrUnmark) {
                 validateMarkOrUnmarkTask(splitUserInputs);
             } else {
-                System.out.println("\t Bye. Hope to see you again soon!");
+                validateTypeOfTask(splitUserInputs);
             }
             System.out.println("\t" + lineDivider);
         } while (!isBye);

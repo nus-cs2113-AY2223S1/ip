@@ -9,8 +9,11 @@ public class ToDo extends Task {
 
     @Override
     public String getStatusOfTypeTask() {
-        //mark task with toDo as "T"
-        return (isToDo ? "T" : " ");
+        String status = " ";
+        if (isToDo) {
+            status = "T";
+        }
+        return status;
     }
 
     @Override
