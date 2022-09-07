@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class Duke {
     private static TaskList list = new TaskList();
+
+    private static final String SEPARATOR = "____________________________________________________________";
+
     public static void main(String[] args) {
         final String DUKE_LOGO =  " ____        _\n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -12,93 +15,149 @@ public class Duke {
         final String CONV_START = DUKE_LOGO + "Hello! I'm Duke";
         final String CONV_END = "Bye. Hope to see you again soon!";
 
+
         printOutput(CONV_START);
         Scanner in = new Scanner(System.in);
 
         while (true) {
             System.out.println("What can I do for you?");
             String lineInput = in.nextLine();
+            String[] inputSplitted = lineInput.split(" ",2);
 
-//            System.out.print("\033[H\033[2J");
-//            System.out.flush();
-
-            if (lineInput.equals("bye")) {
+            if (inputSplitted[0].equals("bye")) {
                 break;
-            } else if (lineInput.equals("list")) {
-                printOutput(list.getCompleteList());
-            } else if (lineInput.startsWith("mark ")) {
-                doMarkAction(lineInput);
-            } else if (lineInput.startsWith("unmark ")) {
-                doUnmarkAction(lineInput);
-            } else if (lineInput.startsWith("todo ")) {
-                doTodoAction(lineInput);
-            } else if (lineInput.startsWith("deadline ")) {
-                doDeadlineAction(lineInput);
-            } else if (lineInput.startsWith("event ")) {
-                doEventAction(lineInput);
-            } else {
-                doTaskAction(lineInput);
             }
+
+            switch (inputSplitted[0]) {
+                case "list":
+                    printOutput(list.getCompleteList());
+                    break;
+                case "mark":
+                    try {
+                        doMarkAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
+                        printError("OOPS!!! Please input a number to mark as done.");
+                    } catch (WrongArgumentException e) {
+                        printError("OOPS, that task is not in the list.");
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        doUnmarkAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
+                        printOutput("OOPS!!! Please input a number to unmark as done.");
+                    } catch (WrongArgumentException e) {
+                        printError("OOPS, that task is not in the list.");
+                    }
+                    break;
+                case "todo":
+                    try {
+                        doTodoAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e){
+                        printError("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    break;
+                case "deadline":
+                    try {
+                        doDeadlineAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
+                        printError("OOPS!!! The description of a deadline cannot be empty.");
+                    }
+                    break;
+                case "event":
+                    try {
+                        doEventAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
+                        printError("OOPS!!! The description of an event cannot be empty.");
+                    }
+                    break;
+                default:
+                    printError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    break;
+            }
+
         }
         printOutput(CONV_END);
     }
 
     private static void printOutput(String message) {
-        final String SEPARATOR = "____________________________________________________________";
         System.out.println(SEPARATOR);
         System.out.println(message);
         System.out.println(SEPARATOR);
         System.out.println("");
     }
 
-    private static void doMarkAction(String lineInput) {
-        int itemNumber = Integer.parseInt(lineInput.split(" ")[1]);
+    private static void printError(String message) {
+        System.out.print("\u001b[31m"); // red font ANSI
+        System.out.println(SEPARATOR);
+        System.out.println(message);
+        System.out.println(SEPARATOR);
+        System.out.println("\u001b[0m"); // reset font ANSI
+    }
+
+    private static void doMarkAction(String lineInput)
+            throws EmptyArgumentException, WrongArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > list.getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+
         list.markCompleted(itemNumber, true);
         String message = "Nice! I've marked this task as done:\n"
                 + list.getItemFromList(itemNumber);
         printOutput(message);
     }
 
-    private static void doUnmarkAction(String lineInput) {
-        int itemNumber = Integer.parseInt(lineInput.split(" ")[1]);
+    private static void doUnmarkAction(String lineInput)
+            throws EmptyArgumentException, WrongArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > list.getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+
         list.markCompleted(itemNumber, false);
         String message = "OK, I've marked this task as not done yet:\n"
                 + list.getItemFromList(itemNumber);
         printOutput(message);
     }
 
-    private static void doTodoAction(String lineInput) {
-        String item_description = lineInput.substring("todo ".length());
-        int index = list.addTaskToList(item_description, TaskType.TODO);
+    private static void doTodoAction(String lineInput) throws EmptyArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int index = list.addTaskToList(lineInput, TaskType.TODO);
         String output = "I got you, added a todo:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
         printOutput(output);
     }
 
-    private static void doDeadlineAction(String lineInput) {
-        String item_description = lineInput.substring("deadline ".length());
-        int index = list.addTaskToList(item_description, TaskType.DEADLINE);
+    private static void doDeadlineAction(String lineInput) throws EmptyArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int index = list.addTaskToList(lineInput, TaskType.DEADLINE);
         String output = "I got you, added a deadline:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
         printOutput(output);
     }
 
-    private static void doEventAction(String lineInput) {
-        String item_description = lineInput.substring("event ".length());
-        int index = list.addTaskToList(item_description, TaskType.EVENT);
+    private static void doEventAction(String lineInput) throws EmptyArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int index = list.addTaskToList(lineInput, TaskType.EVENT);
         String output = "I got you, added a event:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
         printOutput(output);
     }
 
-    private static void doTaskAction(String lineInput) {
-        int index = list.addTaskToList(lineInput, TaskType.OTHER);
-        String output = "I got you, added a task:\n"
-                + list.getItemFromList(index + 1)
-                + "\n Now you have " + (index + 1) + " tasks in the list.";
-        printOutput(output);
-    }
 }
