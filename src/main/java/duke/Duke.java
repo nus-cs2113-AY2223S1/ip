@@ -38,7 +38,7 @@ public class Duke {
     private static final String ERROR_MESSAGE_TODO = "Syntax for todo \n\t>>>todo <task>";
     private static final String ERROR_MESSAGE_DEADLINE = "Syntax for deadline \n\t>>>deadline <task> / <date of deadline>";
     private static final String ERROR_MESSAGE_EVENT = "Syntax for event \n\t>>>event <task> / <date of event>";
-    private static final String ERROR_MESSAGE_DELETE = "Syntax for (un)mark \n\t>>> delete <item index number> \nNote: item index must exist in the current list";
+    private static final String ERROR_MESSAGE_DELETE = "Syntax for delete \n\t>>> delete <item index number> \nNote: item index must exist in the current list";
 
     private static final String STORAGE_DIRECTORY = "./storage";
     private static final String STORAGE_FILE = "./storage/savedTaskList.txt";
@@ -108,6 +108,7 @@ public class Duke {
             break;
         case "delete":
             delete(parsedLine);
+            break;
         case "save":
             save();
             break;
@@ -297,6 +298,7 @@ public class Duke {
                 fileParser(fileRead.nextLine());
             }
             fileRead.close();
+            list();
         } catch (FileNotFoundException e) {
             showToUser(MESSAGE_NO_FILE);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -314,17 +316,14 @@ public class Duke {
         case Todo.TYPE_TODO:
             tasksList.add(new Todo(parsedLine[2]));
             tasksList.get(Task.numberOfTasks - 1).isDone = Boolean.valueOf(parsedLine[1]);
-            addTaskMessage();
             break;
         case Deadline.TYPE_DEADLINE:
             tasksList.add(new Deadline(parsedLine[2], parsedLine[3]));
             tasksList.get(Task.numberOfTasks - 1).isDone = Boolean.valueOf(parsedLine[1]);
-            addTaskMessage();
             break;
         case Event.TYPE_EVENT:
             tasksList.add(new Event(parsedLine[2], parsedLine[3]));
             tasksList.get(Task.numberOfTasks - 1).isDone = Boolean.valueOf(parsedLine[1]);
-            addTaskMessage();
             break;
         default:
             break;
