@@ -42,4 +42,8 @@ public class TaskList {
     public void markCompleted(int n, boolean bool) {
         inputLists.get(n - 1).setCompleted(bool);
     }
+
+    public int getTaskListSize() {
+        return inputLists.size();
+    }
 }

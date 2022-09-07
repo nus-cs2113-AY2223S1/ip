@@ -37,6 +37,8 @@ public class Duke {
                         doMarkAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
                         printError("OOPS!!! Please input a number to mark as done.");
+                    } catch (WrongArgumentException e) {
+                        printError("OOPS, that task is not in the list.");
                     }
                     break;
                 case "unmark":
@@ -44,6 +46,8 @@ public class Duke {
                         doUnmarkAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
                         printOutput("OOPS!!! Please input a number to unmark as done.");
+                    } catch (WrongArgumentException e) {
+                        printError("OOPS, that task is not in the list.");
                     }
                     break;
                 case "todo":
@@ -91,22 +95,32 @@ public class Duke {
         System.out.println("\u001b[0m"); // reset font ANSI
     }
 
-    private static void doMarkAction(String lineInput) throws EmptyArgumentException {
+    private static void doMarkAction(String lineInput)
+            throws EmptyArgumentException, WrongArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
         int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > list.getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+
         list.markCompleted(itemNumber, true);
         String message = "Nice! I've marked this task as done:\n"
                 + list.getItemFromList(itemNumber);
         printOutput(message);
     }
 
-    private static void doUnmarkAction(String lineInput) throws EmptyArgumentException {
+    private static void doUnmarkAction(String lineInput)
+            throws EmptyArgumentException, WrongArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
         int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > list.getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+
         list.markCompleted(itemNumber, false);
         String message = "OK, I've marked this task as not done yet:\n"
                 + list.getItemFromList(itemNumber);
