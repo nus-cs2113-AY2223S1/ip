@@ -15,8 +15,8 @@ public class TaskManager {
         System.out.println("  ____________________________________________________________");
     }
 
-    public void detectEmptyTasklineException(String taskline) throws EmptyTasklineException {
-        if (taskline.equals(" ")) {
+    public void detectEmptyTasklineException(String taskLine) throws EmptyTasklineException {
+        if (taskLine.equals(" ")) {
             throw new EmptyTasklineException();
         }
     }
