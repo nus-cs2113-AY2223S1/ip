@@ -1,9 +1,11 @@
-public class ToDo extends Task{
-    public ToDo(String name){
+public class ToDo extends Task {
+    private String taskType;
+    public ToDo(String name) {
         super(name);
+        this.taskType = "[T]";
     }
 
     public String toString() {
-        return  "[T]" + super.toString();
+        return taskType + getCheckBox() + " "+ getName();
     }
 }

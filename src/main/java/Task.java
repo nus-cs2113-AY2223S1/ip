@@ -1,10 +1,12 @@
 public class Task {
     private String name;
     private boolean isCompleted;
+    private String taskType;
 
     public Task(String name) {
         this.name = name;
         this.isCompleted = false;
+        this.taskType = "[NA]";
     }
 
     public String getName(){
@@ -21,13 +23,13 @@ public class Task {
 
     //returns the checkbox as a string
     public String getCheckBox() {
-        if (isCompleted){
+        if (isCompleted) {
             return "[X]";
         }
         return "[ ]";
     }
 
-    public String toString(){
-        return getCheckBox() + " "+ getName();
+    public String toString() {
+        return taskType + getCheckBox() + " "+ getName();
     }
 }

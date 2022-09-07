@@ -1,12 +1,14 @@
-public class Event extends Task{
+public class Event extends Task {
     private String timeOfEvent;
+    private String taskType;
 
-    public Event(String name, String timeOfEvent){
+    public Event(String name, String timeOfEvent) {
         super(name);
         this.timeOfEvent = timeOfEvent;
+        this.taskType = "[E]";
     }
 
     public String toString() {
-        return  "[E]" + super.toString() + " (at: " + timeOfEvent + ")";
+        return  taskType + getCheckBox() + " "+ getName() + " (at: " + timeOfEvent + ")";
     }
 }

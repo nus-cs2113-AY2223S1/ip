@@ -1,12 +1,14 @@
-public class Deadline extends Task{
+public class Deadline extends Task {
     private String dueDate;
+    private String taskType;
 
-    public Deadline(String name, String dueDate){
+    public Deadline(String name, String dueDate) {
         super(name);
         this.dueDate = dueDate;
+        this.taskType = "[D]";
     }
 
     public String toString() {
-        return  "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return  taskType + getCheckBox() + " "+ getName() + " (by: " + dueDate + ")";
     }
 }
