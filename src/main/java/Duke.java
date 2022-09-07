@@ -33,17 +33,8 @@ public class Duke {
             System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
             return;
         }
-        printTaskDetails();
+        printTypeOfTaskDetails();
         indexTask++;
-    }
-
-    public static void printTaskDetails() {
-        int countTask = indexTask + 1;
-        String startStatement = "\t Roger that. I've added this task:\n";
-        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
-                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails() + "\n";
-        String endStatement = "\t Now you have " + countTask + " in the list.";
-        System.out.println(startStatement + displayTaskDetails + endStatement);
     }
 
     /**
@@ -73,9 +64,6 @@ public class Duke {
     private static void addDeadlineTask(String[] splitUserInputs) {
         addTask(new Deadline(splitUserInputs[1]));
         assignments[indexTask].markTypeTask();
-        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
-                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails();
-        System.out.println(displayTaskDetails);
     }
 
     /**
@@ -93,40 +81,27 @@ public class Duke {
      * Returns a boolean true or false called error to inform user if he or she is trying
      * to mark a task that is not defined or specified.
      *
-     * @param markIndex index of the mark in splitUserInput[1].
-     * @param lineDivider a string for line separator.
-     * @return error which is a boolean that tell us if there is an error or not.
+     * @param splitUserInputs an array of String that has been split into individual words.
+     * @param indexMark index of the mark in splitUserInput[1].
      */
-    public static boolean hasMarkTaskError(int markIndex, String lineDivider) {
-        boolean isError = false;
-        try {
-            assignments[markIndex].markAsDone();
-        } catch (NullPointerException e) {
-            System.out.println("\t You are trying to mark a task that has not been specified!");
-            System.out.println("\t" + lineDivider);
-            isError = true;
-        }
-        return isError;
-    }
+    public static void markOrUnmarkTask(String[] splitUserInputs, int indexMark) {
+        boolean isMark = splitUserInputs[0].equals("mark");
 
-    /**
-     * Returns a boolean true or false error to inform user if he or she is trying
-     * to unmark a task that is not defined or specified.
-     *
-     * @param unMarkIndex index of the unmark in splitUserInput[1].
-     * @param lineDivider a string for line separator.
-     * @return isError which is a boolean that tell us if there is an error or not.
-     */
-    public static boolean hasUnmarkTaskError(int unMarkIndex, String lineDivider){
-        boolean isError = false;
         try {
-            assignments[unMarkIndex].unmarkAsDone();
+            if (isMark) {
+                assignments[indexMark].markAsDone();
+            } else {
+                assignments[indexMark].unmarkAsDone();
+            }
         } catch (NullPointerException e) {
-            System.out.println("\t You are trying to unmark a task that has not been specified!");
-            System.out.println("\t" + lineDivider);
-            isError = true;
+            if (isMark) {
+                System.out.println("\t You are trying to mark a task that has not been specified!");
+            } else {
+                System.out.println("\t You are trying to unmark a task that has not been specified!");
+            }
+            return;
         }
-        return isError;
+        printMarkOrUnmarkTask(indexMark, isMark);
     }
 
     /**
@@ -184,6 +159,19 @@ public class Duke {
                 + "] " + assignments[markIndex].description);
     }
 
+    /**
+     * Prints the type of task and its respective details
+     * of the description that the user input.
+     */
+    public static void printTypeOfTaskDetails() {
+        int countTask = indexTask + 1;
+        String startStatement = "\t Roger that. I've added this task:\n";
+        String displayTaskDetails = "\t   [" + assignments[indexTask].getStatusOfTypeTask()
+                + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails() + "\n";
+        String endStatement = "\t Now you have " + countTask + " in the list.";
+        System.out.println(startStatement + displayTaskDetails + endStatement);
+    }
+
     public static void main(String[] args) {
 
         String lineDivider = printWelcomeMessage();
@@ -203,27 +191,17 @@ public class Duke {
                     && !splitUserInputs[0].equals("mark")
                     && !splitUserInputs[0].equals("unmark");
             boolean isList = splitUserInputs[0].equals("list");
-            boolean isMark = splitUserInputs[0].equals("mark");
-            boolean isUnmark = splitUserInputs[0].equals("unmark");
+            boolean isMarkOrUnmark = splitUserInputs[0].equals("mark")
+                    || splitUserInputs[0].equals("unmark");
 
             if (isUserInputData) {
                 sortTypeOfTask(splitUserInputs);
             } else if (isList) {
                 printList();
-            } else if (isMark) {
+            } else if (isMarkOrUnmark) {
                 int indexMark = Integer.parseInt(splitUserInputs[1]) - 1;
-                //To handle a case where user tries to mark a task that has not been specified
-                if (hasMarkTaskError(indexMark, lineDivider)) {
-                    continue;
-                }
-                printMarkOrUnmarkTask(indexMark, true);
-            } else if (isUnmark) {
-                int indexMark = Integer.parseInt(splitUserInputs[1]) - 1;
-                //To handle a case where user tries to unmark a task that has not been specified
-                if (hasUnmarkTaskError(indexMark, lineDivider)){
-                    continue;
-                }
-                printMarkOrUnmarkTask(indexMark, false);
+                //To handle a case where user tries to mark or unmark a task that has not been specified
+                markOrUnmarkTask(splitUserInputs, indexMark);
             } else {
                 System.out.println("\t Bye. Hope to see you again soon!");
             }
