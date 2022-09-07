@@ -5,6 +5,9 @@ public class Duke {
     private static final Task[] assignments = new Task[100];
     /** Use to track the number of Task that is added */
     private static int indexTask = 0;
+    private static boolean isToDo = false;
+    private static boolean isDeadline = false;
+    private static boolean isEvent = false;
 
     /**
      * Sorts the type of Task that is input by the user and prints out the respective types.
@@ -14,27 +17,37 @@ public class Duke {
      * @param splitUserInputs array of string that have been split into two.
      */
     public static void sortTypeOfTask(String[] splitUserInputs) {
-        boolean isToDo = splitUserInputs[0].equals("todo");
-        boolean isDeadlines = splitUserInputs[0].equals("deadline");
-        boolean isEvent = splitUserInputs[0].equals("event");
+        isToDo = splitUserInputs[0].equals("todo");
+        isDeadline = splitUserInputs[0].equals("deadline");
+        isEvent = splitUserInputs[0].equals("event");
+        boolean isNoType = !isToDo && !isDeadline && !isEvent;
 
-        if (isToDo) {
-            try {
-                addToDoTask(splitUserInputs);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("\t ☹ OH MAN!!! The description of a todo cannot be empty.");
+        try {
+            addTypeOfTask(splitUserInputs);
+            if (isNoType) {
+                System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
                 return;
             }
-        } else if (isDeadlines) {
-            addDeadlineTask(splitUserInputs);
-        } else if (isEvent) {
-            addEventTask(splitUserInputs);
-        } else {
-            System.out.println("\t ☹ HMM?? I'm sorry, but I don't know what that means :-(");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printTypeOfTaskError();
             return;
         }
         printTypeOfTaskDetails();
         indexTask++;
+    }
+
+    /**
+     *
+     * @param splitUserInputs array of strings that is split into two.
+     */
+    public static void addTypeOfTask(String[] splitUserInputs) {
+        if (isToDo) {
+            addToDoTask(splitUserInputs);
+        } else if (isDeadline) {
+            addDeadlineTask(splitUserInputs);
+        } else if (isEvent) {
+            addEventTask(splitUserInputs);
+        }
     }
 
     /**
@@ -170,6 +183,20 @@ public class Duke {
                 + "]" + "[ ] " + assignments[indexTask].displayTypeTaskDetails() + "\n";
         String endStatement = "\t Now you have " + countTask + " in the list.";
         System.out.println(startStatement + displayTaskDetails + endStatement);
+    }
+
+    /**
+     * Prints the Task Error in case the user calls for a type of task
+     * but did not specify the task detail.
+     */
+    public static void printTypeOfTaskError() {
+        if (isToDo) {
+            System.out.println("\t ☹ OH MAN!!! The description of a todo cannot be empty.");
+        } else if (isDeadline) {
+            System.out.println("\t ☹ OH MAN!!! The description of a deadline cannot be empty.");
+        } else if (isEvent) {
+            System.out.println("\t ☹ OH MAN!!! The description of an event cannot be empty.");
+        }
     }
 
     public static void main(String[] args) {
