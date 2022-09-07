@@ -37,14 +37,33 @@ public class TaskManager {
             if (isList) {
                 printList();
             } else {
-                String firstWord = command.substring(0, command.indexOf(' '));
-                doCommand(command, firstWord);
+                String firstWord = "";
+                try {
+                    firstWord = command.substring(0, command.indexOf(' '));
+                    doCommand(command, firstWord);
+                } catch (StringIndexOutOfBoundsException e) {
+                    try {
+                        checkExceptions(command);
+                    }catch (EmptyException ee) {
+                        System.out.println(DASH_SEPARATOR);
+                        System.out.println("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                        System.out.println(DASH_SEPARATOR);
+                    } catch (WrongCommandException ee) {
+                        System.out.println(DASH_SEPARATOR);
+                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                        System.out.println(DASH_SEPARATOR);
+                    }
+                } catch (WrongCommandException e) {
+                    System.out.println(DASH_SEPARATOR);
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println(DASH_SEPARATOR);
+                }
             }
             command = in.nextLine().trim();
         }
     }
 
-    private static void doCommand(String command, String firstWord) {
+    private static void doCommand(String command, String firstWord) throws WrongCommandException {
         switch (firstWord) {
         case "mark":
             int pos = Integer.parseInt(command.substring("mark _".length()));
@@ -66,6 +85,20 @@ public class TaskManager {
             tasks[oneBasedIndex] = new Event(command, '/');
             printTask(tasks[oneBasedIndex]);
             break;
+        default:
+            throw new WrongCommandException();
+        }
+    }
+
+    private static void checkExceptions(String command) throws EmptyException, WrongCommandException {
+        if (command.equals("mark") ||
+                command.equals("unmark") ||
+                command.equals("todo") ||
+                command.equals("deadline") ||
+                command.equals("event")) {
+            throw new EmptyException();
+        } else {
+            throw new WrongCommandException();
         }
     }
 }
