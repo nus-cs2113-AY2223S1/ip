@@ -1,4 +1,3 @@
-
 public class Task {
     protected String task;
     protected boolean isDone;
@@ -24,5 +23,9 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String toString() {
+       return "[" + getStatusIcon() + "]" + task;
     }
 }
