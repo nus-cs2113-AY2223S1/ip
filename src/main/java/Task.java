@@ -1,7 +1,7 @@
 
 public class Task {
-    private String task;
-    private boolean isDone;
+    protected String task;
+    protected boolean isDone;
 
 
     public Task(String task) {
@@ -13,17 +13,16 @@ public class Task {
         return task;
     }
 
-    public void markasDone() {
+    public void markAsDone() {
 
         this.isDone = true;
     }
 
-    public void Unmark() {
+    public void unmark() {
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-
         return (isDone ? "X" : " ");
     }
 }

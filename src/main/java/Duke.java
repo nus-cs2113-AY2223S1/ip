@@ -3,30 +3,15 @@ import java.util.Scanner;
 public class Duke {
     public static Boolean isRunning = true;
 
-    public static void Greetings() {
+    public static void printGreetings() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello! I'm Duke\n");
-        System.out.println("What can I do for you?\n");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
     }
 
-    public static void Echo() {
-
-        while (isRunning) {
-            String line;
-            Scanner in = new Scanner(System.in);
-            line = in.nextLine();
-            if (line.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                isRunning = false;
-            } else {
-                System.out.println(line);
-            }
-        }
-    }
 
     public static void ToDoList() {
         int counter = 0;
@@ -39,11 +24,13 @@ public class Duke {
             line = in.nextLine();
 
             String[] details = line.split(" ");
-            if (details[0].equals("mark") || details[0].equals("unmark")) {
-                taskNumber = Integer.parseInt(details[1])-1;
+            String command = details[0];
+            String task = details[1];
+            if (command.equals("mark") || command.equals("unmark")) {
+                taskNumber = Integer.parseInt(task)-1;
             }
 
-            switch (details[0]) {
+            switch (command) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 isRunning = false;
@@ -56,12 +43,12 @@ public class Duke {
                 break;
             case "mark":
                 System.out.println("Nice! I've marked this task as done:\n");
-                tasks[taskNumber].markasDone();
+                tasks[taskNumber].markAsDone();
                 System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].getTask());
                 break;
             case "unmark":
                 System.out.println("OK, I've marked this task as not done yet:\n");
-                tasks[taskNumber].Unmark();
+                tasks[taskNumber].unmark();
                 System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].getTask());
                 break;
             default:
@@ -75,8 +62,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Greetings();
-        ToDoList();
+        printGreetings();
+//        ToDoList();
 
     }
 }
