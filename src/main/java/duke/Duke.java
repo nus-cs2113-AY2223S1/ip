@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import duke.command.DukeException;
 import duke.task.Deadline;
@@ -27,13 +28,14 @@ public class Duke {
     private static final String ERROR_MESSAGE_TODO = "Syntax for todo \n\t>>>todo <task>";
     private static final String ERROR_MESSAGE_DEADLINE = "Syntax for deadline \n\t>>>deadline <task> / <date of deadline>";
     private static final String ERROR_MESSAGE_EVENT = "Syntax for event \n\t>>>event <task> / <date of event>";
-
+    private static final String ERROR_MESSAGE_DELETE = "Syntax for (un)mark \n\t>>> delete <item index number> \nNote: item index must exist in the current list";
 
     /**
      * Global Variables Section
      */
     static Scanner in = new Scanner(System.in);
-    static Task[] tasksList = new Task[MAXIMUM_NUMBER_OF_TASKS];
+
+    static ArrayList<Task> tasksList = new ArrayList<>(MAXIMUM_NUMBER_OF_TASKS);
     static boolean isRunning = true;
 
     /**
@@ -86,6 +88,9 @@ public class Duke {
         case "event":
             add(line);
             break;
+        case "delete":
+            delete(parsedLine);
+            break;
         default:
             unknownCommand();
             break;
@@ -112,6 +117,9 @@ public class Duke {
         case "event":
             showToUserDivider(ERROR_MESSAGE_EVENT);
             break;
+        case "delete":
+            showToUserDivider(ERROR_MESSAGE_DELETE);
+            break;
         default:
             showToUserDivider(errorMessage);
             break;
@@ -131,7 +139,7 @@ public class Duke {
         showToUser(MESSAGE_DIVIDER_LIST);
         for (int i = 0; i < Task.numberOfTasks; i++) {
             System.out.print((i + 1) + ".");
-            tasksList[i].printTask();
+            tasksList.get(i).printTask();
         }
         showToUser(MESSAGE_DIVIDER);
     }
@@ -159,11 +167,9 @@ public class Duke {
             if (taskDescriptors[0].trim().isEmpty()) {
                 throw new DukeException("No Task Description");
             }
-            tasksList[Task.numberOfTasks] = new Todo(taskDescriptors[0]);
+            tasksList.add(new Todo(taskDescriptors[0]));
             addTaskMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            commandErrorHandler("todo");
-        } catch (DukeException e) {
+        } catch (IndexOutOfBoundsException | DukeException e) {
             commandErrorHandler("todo");
         }
 
@@ -174,11 +180,9 @@ public class Duke {
             if (taskDescriptor[0].trim().isEmpty()) {
                 throw new DukeException("Error: No Task Description");
             }
-            tasksList[Task.numberOfTasks] = new Deadline(taskDescriptor[0], taskDescriptor[1].trim());
+            tasksList.add(new Deadline(taskDescriptor[0], taskDescriptor[1].trim()));
             addTaskMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            commandErrorHandler("deadline");
-        } catch (DukeException e) {
+        } catch (IndexOutOfBoundsException | DukeException e) {
             commandErrorHandler("deadline");
         }
     }
@@ -188,40 +192,54 @@ public class Duke {
             if (taskDescriptor[0].trim().isEmpty()) {
                 throw new DukeException("Error: No Task Description");
             }
-            tasksList[Task.numberOfTasks] = new Event(taskDescriptor[0], taskDescriptor[1].trim());
+            tasksList.add(new Event(taskDescriptor[0], taskDescriptor[1].trim()));
             addTaskMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | DukeException e) {
             commandErrorHandler("event");
-        } catch (DukeException e) {
-            commandErrorHandler("event");
-        }
+        } 
     }
 
     private static void addTaskMessage() {
-        showToUser(MESSAGE_DIVIDER, "Got it! You just add a new Task");
+        showToUser(MESSAGE_DIVIDER, "TASK ADDED");
         System.out.print("\t");
-        tasksList[Task.numberOfTasks - 1].printTask();
+        tasksList.get(tasksList.size()-1).printTask();
         showToUser("Number of tasks in the list: " + Task.numberOfTasks);
         showToUser(MESSAGE_DIVIDER);
     }
 
     public static void mark(String[] parsedLine) {
         try {
-            int index = Integer.parseInt(parsedLine[1]);
+            int index = Integer.parseInt(parsedLine[1])-1; // Array index = Counting index - 1
             if (parsedLine[0].equalsIgnoreCase("mark")) {
-                tasksList[index - 1].isDone = true;
+                tasksList.get(index).isDone = true;
             } else {
-                tasksList[index - 1].isDone = false;
+                tasksList.get(index).isDone = false;
             }
             list();
-        } catch (NumberFormatException e) {
-            commandErrorHandler("mark");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            commandErrorHandler("mark");
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
             commandErrorHandler("mark");
         }
 
+    }
+    private static void removeTaskMessage(int index){
+        showToUser(MESSAGE_DIVIDER, "TASK REMOVED");
+        System.out.print("\t");
+        tasksList.get(index).printTask();
+        showToUser("Number of tasks in the list: " + --Task.numberOfTasks);
+        showToUser(MESSAGE_DIVIDER);
+
+    }
+
+    public static void delete(String[] parsedLine){
+        try{
+            int index = Integer.parseInt(parsedLine[1])-1; // Array index = Counting index - 1
+            removeTaskMessage(index);
+            tasksList.remove(index);
+            // Task.numberOfTasks--;
+
+        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
+            commandErrorHandler("delete");
+        }
     }
 
     private static void exitMessage() {
