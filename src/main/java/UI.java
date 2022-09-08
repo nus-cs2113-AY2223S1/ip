@@ -49,7 +49,7 @@ public class UI {
      * greeting and goodbye messages
      * */
 
-    public final String dashLine = "______________________________________\n";
+    public final String dashLine = "______________________________________";
     public final String greetingMessage =
                 "Hello! I'm Handsome!\n" +
                 greetingArt +
@@ -66,24 +66,31 @@ public class UI {
     }
 
     /**
-     * Helper functions to read and print input
+     * Reads input
+     * @return String containing user input
      */
     public String readInput(){
         return in.nextLine();
     }
-
+    /**
+     * Prints formatted message
+     * */
     public void printMessageLine(String messageLine){
-        System.out.print(dashLine);
+        System.out.println(dashLine);
         System.out.println(messageLine);
-        System.out.print(dashLine);
+        System.out.println(dashLine);
     }
 
     /**
-     * Helper function to print greeting and exit messages
+     * Helper function to print greeting messages
      * */
     public void printGreeting(){
         printMessageLine(greetingMessage);
     }
+
+    /**
+     * Helper function to print exit messages
+     * */
     public void printGoodbye(){
         printMessageLine(goodbyeMessage);
     }

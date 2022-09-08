@@ -11,12 +11,6 @@ public class Task {
         isDone = false;
     }
 
-//    // constructor with isDone -- conflict with tasklist add new task parsing
-//    public Task(String taskDescription, boolean isDone) {
-//        this.taskDescription = taskDescription;
-//        this.isDone = isDone;
-//    }
-
     // getters
     public String getTaskDescription() {
         return this.taskDescription;

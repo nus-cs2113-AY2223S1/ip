@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
-    // constructors
+    /** Constructor */
 
     public TaskList(){
     }
@@ -39,11 +39,7 @@ public class TaskList {
         Task newTask = new Task(taskDescription);
         taskList.add(newTask);
     }
-    // constructor issue - conflict with add new task and input parser
-//    public void addNewTask(String taskDescription, boolean isDone) {
-//        Task newTask = new Task(taskDescription, isDone);
-//        taskList.add(newTask);
-//    }
+
 
     // set completed status
     public void setMarkAsCompleted(int n, Boolean bool) {
