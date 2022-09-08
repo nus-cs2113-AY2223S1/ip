@@ -33,13 +33,15 @@ public class Task {
                 + this.getDescription();
     }
 
-    public void markDone(boolean done) {
+    public String markDone(boolean done) {
         setDone(done);
+        String s = "";
         if (done) {
-            System.out.println("Nice! I've marked this task as done:");
+            s += "Nice! I've marked this task as done:";
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            s += "OK, I've marked this task as not done yet:";
         }
-        System.out.println(this);
+        s += System.lineSeparator() + this;
+        return s;
     }
 }
