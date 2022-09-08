@@ -1,10 +1,13 @@
-public class Task {
+public abstract class Task {
     /** Description for a task */
     protected String description;
     /** Indicates if a task is done */
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws DukeException {
+        if (description.isBlank()) {
+            throw new DukeException();
+        }
         this.description = description;
         this.isDone = false;
     }
@@ -40,14 +43,4 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
-
-    /**
-     * Returns description for a task
-     *
-     * @return the description for a task
-     */
-    public String getDescription(){
-        return this.description;
-    }
-
 }
