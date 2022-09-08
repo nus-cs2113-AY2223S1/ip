@@ -8,13 +8,13 @@ public class TaskManager {
         taskCount = 0;
     }
 
-    private void addTask(Task task) {
-        if (taskCount < MAX_TASK) {
-            tasks[taskCount++] = task;
-            System.out.println("Task added: " + task);
+    private void addTask(Task task) throws TaskCountExceedMaximumException {
+        if (taskCount >= MAX_TASK) {
+            throw new TaskCountExceedMaximumException();
         }
         else {
-            System.out.println(Message.MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
+            tasks[taskCount++] = task;
+            System.out.println("Task added: " + task);
         }
     }
 
@@ -28,24 +28,26 @@ public class TaskManager {
         }
     }
 
-    private int getTaskIndex(String input) {
+    private int getTaskIndex(String input) throws IllegalTaskNumberInputException {
         String[] inputWords = input.split(" ", 2);
         try {
             return Integer.parseInt(inputWords[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.MISSING_TASK_NUMBER_ERROR_MESSAGE);
             System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
-            return -1;
+            throw new IllegalTaskNumberInputException();
         } catch (NumberFormatException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE);
             System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
-            return -1;
+            throw new IllegalTaskNumberInputException();
         }
     }
 
     public void markTaskAsDone(String input) {
-        int taskIndex = getTaskIndex(input);
-        if (taskIndex == -1) {
+        int taskIndex;
+        try {
+            taskIndex = getTaskIndex(input);
+        } catch (IllegalTaskNumberInputException e) {
             return;
         }
 
@@ -62,8 +64,10 @@ public class TaskManager {
     }
 
     public void markTaskAsUndone(String input) {
-        int taskIndex = getTaskIndex(input);
-        if (taskIndex == -1) {
+        int taskIndex;
+        try {
+            taskIndex = getTaskIndex(input);
+        } catch (IllegalTaskNumberInputException e) {
             return;
         }
 
@@ -87,6 +91,8 @@ public class TaskManager {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_TODO_FORMAT_ERROR_MESSAGE);
             System.out.println("Syntax: " + Duke.COMMANDS.get("todo").syntax);
+        } catch (TaskCountExceedMaximumException e) {
+            System.out.println(Message.MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
         }
     }
 
@@ -99,6 +105,8 @@ public class TaskManager {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE);
             System.out.println("Syntax: " + Duke.COMMANDS.get("deadline").syntax);
+        } catch (TaskCountExceedMaximumException e) {
+            System.out.println(Message.MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
         }
     }
 
@@ -111,6 +119,8 @@ public class TaskManager {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE);
             System.out.println("Syntax: " + Duke.COMMANDS.get("event").syntax);
+        } catch (TaskCountExceedMaximumException e) {
+            System.out.println(Message.MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
         }
     }
 }
