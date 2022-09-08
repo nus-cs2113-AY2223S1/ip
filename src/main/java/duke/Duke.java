@@ -3,7 +3,12 @@ package duke;
 import java.util.Scanner;
 
 public class Duke {
-    public static Task[] tasks = new Task[100];
+    static final int MAX_TASKS = 100;
+    static final String EXCEPTION_1 = "Empty Description";
+    static final String EXCEPTION_2 = "Other Command";
+    static final String EXCEPTION_3 = "Mark/Unmark Out of Bounds";
+
+    public static Task[] tasks = new Task[MAX_TASKS];
     public static int position = 0;
 
     public static void printDivider() {
@@ -30,13 +35,16 @@ public class Duke {
         printDivider();
 
         switch (exceptionType) {
-        case "Empty Description" :
+        case EXCEPTION_1 :
+            //Empty description of a task
             System.out.println("\t☹ OOPS!!! The description of a task cannot be empty...");
             break;
-        case "Other Command" :
+        case EXCEPTION_2 :
+            //Commands other than the ones recognized
             System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means...");
             break;
-        case "Mark/Unmark Out of Bounds" :
+        case EXCEPTION_3 :
+            //Mark/Unmark index out of bounds
             System.out.println("\t☹ OOPS!!! Please provide a valid task index...");
         }
 
@@ -60,7 +68,7 @@ public class Duke {
                 Task currentTask = createTask(command, words[0], words);
                 addTask(currentTask);
             } catch (DukeException e) {
-                printExceptionMessage("Empty Description");
+                printExceptionMessage(EXCEPTION_1);
             }
         } else {
             throw new DukeException();
@@ -127,7 +135,7 @@ public class Duke {
             System.out.println("");
             printDivider();
         } catch (NullPointerException e) {
-            printExceptionMessage("Mark/Unmark Out of Bounds");
+            printExceptionMessage(EXCEPTION_3);
         }
     }
 
@@ -143,7 +151,7 @@ public class Duke {
             System.out.println("");
             printDivider();
         } catch (NullPointerException e) {
-            printExceptionMessage("Mark/Unmark Out of Bounds");
+            printExceptionMessage(EXCEPTION_3);
         }
     }
 
@@ -164,7 +172,7 @@ public class Duke {
             try {
                 performAction(words, words[0], userInput);
             } catch (DukeException e) {
-                printExceptionMessage("Other Command");
+                printExceptionMessage(EXCEPTION_2);
             }
         }
 
