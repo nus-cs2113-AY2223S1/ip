@@ -1,3 +1,5 @@
+package duke.taskmanager.tasks;
+
 public class Deadline extends Todo {
     protected String by;
 

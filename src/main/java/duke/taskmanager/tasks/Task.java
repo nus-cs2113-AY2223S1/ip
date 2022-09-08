@@ -1,3 +1,5 @@
+package duke.taskmanager.tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
