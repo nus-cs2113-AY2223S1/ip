@@ -15,15 +15,12 @@ public class Duke {
         "mark", "unmark", "bye"};
 
     private static void greet() {
-        final String MESSAGE = "Hello! I'm Ever\n" +
-                "What can I do for you?";
         System.out.println(LOGO);
-        System.out.println(MESSAGE);
+        System.out.println(Message.GREETING_MESSAGE);
     }
 
     private static void exit() {
-        final String MESSAGE = "Bye. Hope to see you again soon!";
-        System.out.println(MESSAGE);
+        System.out.println(Message.EXIT_MESSAGE);
     }
 
     private static void displayCommandMenu() {
@@ -47,14 +44,12 @@ public class Duke {
         case "list":
             TASK_MANAGER.listTasks();
             break;
-        case "mark": {
+        case "mark":
             TASK_MANAGER.markTaskAsDone(input);
             break;
-        }
-        case "unmark": {
+        case "unmark":
             TASK_MANAGER.markTaskAsUndone(input);
             break;
-        }
         case "todo":
             TASK_MANAGER.addTodoTask(input);
             break;
@@ -64,8 +59,11 @@ public class Duke {
         case "event":
             TASK_MANAGER.addEventTask(input);
             break;
+        case "":
+            System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);
+            break;
         default:
-            System.out.println("Sorry, I don't get what you mean. Can you try again?");
+            System.out.println(Message.INVALID_COMMAND_MESSAGE + " " + Message.HELP_MESSAGE);
             break;
         }
     }
