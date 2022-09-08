@@ -1,141 +1,215 @@
+import Tasks.*;
+import Exceptions.*;
+
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Duke {
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-        protected String taskType;
-        protected String taskDate;
-    
-        public Task(String description,boolean isDone, String taskType, String taskDate) { // initiating an instance
-            this.description = description;
-            this.isDone = isDone;
-            this.taskType = taskType; // todo,ddl,event
-            this.taskDate = taskDate; // 
+    public static final int EVENT_KEYWORD_LENGTH = 6;
+    public static final int DEADLINE_KEYWORD_LENGTH = 9;
 
-        }
-
-        public String getTaskType(){
-            return (this.taskType);
-        }
-    
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-    
-        public void markAsDone(){
-            this.isDone = true;
-        }
-
-        public void markAsNotDone(){
-            this.isDone = false;
-        }
-
-        public String getDescription(){
-            return this.description;
-
-        }
-
-        public String getDate(){
-            return this.taskDate;
-    }
-}
-
-
-    // Driver code
-    public static void main(String[] args) {
-        // Greeting message
+    protected static void printGreet(){
         String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke_HTT. \n What can I do for you?");
-        
-        // Take user inputt
+    }
+
+    public static void processInput(){
         Scanner scan = new Scanner ( System.in ); 
-        String inData = scan.nextLine();
+        String inData = scan.nextLine(); // user line of input
+        String[] inLine = inData.split(" "); // code process line of input into an array
+        Vector<Task> tasks = new Vector<>(); // list of tasks
+        boolean isFirstLine = false; 
 
-        // Processing input - 1st time
-        Vector<Task> tasks = new Vector<>();
-        
-        if (inData.equals("bye")){
-            System.out.println(" \n Bye. Hope to see you again soon!");
-        } else if (inData.equals("list")){
-            for (Task task:tasks){
-                System.out.println("Here are the tasks in your list: \n" 
-                                    + (tasks.indexOf(task) + 1) 
-                                    + "." + "[" + task.getStatusIcon() + "] " 
-                                    + task.getDescription());   
+        while (!inData.equals("bye")){
+            if (isFirstLine) { // kick start the loop if first time
+                inData = scan.nextLine();
+                inLine = inData.split(" ");
+            } else {
+                isFirstLine = true;
             }
-        } else{
-            Task t = new Task(inData,false,"","");
-            tasks.add(t);
-            System.out.println("added: " + t.getDescription());
-        }
 
-        // Processing input - loop
-        Boolean isBye = false;
+            int inputTaskIndex = Integer.parseInt(inLine[1]);
+            int taskIndex = inputTaskIndex - 1;
+            switch (inLine[0]){
+            case "list":
+                printList(tasks);
+                break;
 
-        while (!isBye) {
-
-            inData = scan.nextLine();
-            
-            if (inData.equals("bye")){
-                isBye = true;
-                System.out.println(" \n Bye. Hope to see you again soon!");
-            } else if (inData.equals("list")){
-                for (Task task:tasks){
-                    System.out.println("Here are the tasks in your list: \n" 
-                                        + (tasks.indexOf(task) + 1) 
-                                        + "[" + task.getTaskType() + "]"
-                                        + "." + "[" + task.getStatusIcon() + "] " 
-                                        + task.getDescription());
+            case "mark":
+            try {
+                if (inputTaskIndex > tasks.size() || inputTaskIndex < 1) {
+                    throw new InvalidListIndexException();
                 }
-            } else if (inData.contains("mark") && !inData.contains("unmark")){
-                int inDataIndex = Integer.parseInt(inData.substring(5));
-                inDataIndex--;
-                tasks.get(inDataIndex).markAsDone();
-                Task task = tasks.get(inDataIndex);
-                System.out.println("Nice! I've marked this task as done: \n" + "[" 
-                + task.getStatusIcon() + "] " + task.getDescription());
-            } else if (inData.contains("unmark")){
-                int inDataIndex = Integer.parseInt(inData.substring(7));
-                inDataIndex--;
-                tasks.get(inDataIndex).markAsNotDone();
-                Task task = tasks.get(inDataIndex);
-                System.out.println("OK, I've marked this task as not done yet: \n" + "[" 
-                + task.getStatusIcon() + "] " + task.getDescription());
-            } else if (inData.substring(0,4).equals("todo")){
-                Task t = new Task(inData.substring(4),false,"T","");
-                tasks.add(t);
-                System.out.println("Got it. I've added this task: \n" + "["
-                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
-                + t.getDescription());
-                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
-            } else if (inData.substring(0,8).equals("deadline")){
-                int taskEndIndex = inData.indexOf("/");
-                Task t = new Task(inData.substring(9,taskEndIndex),false,"D",
-                inData.substring(taskEndIndex+1));
-                System.out.println("Got it. I've added this task: \n" + "["
-                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
-                + t.getDescription() + "by: " + t.getDate());
-                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
-            } else if (inData.substring(0,5).equals("event")){
-                int taskEndIndex = inData.indexOf("/");
-                Task t = new Task(inData.substring(5,taskEndIndex),false,"E",
-                inData.substring(taskEndIndex+1));
-                System.out.println("Got it. I've added this task: \n" + "["
-                + t.getDescription() + "]" + "[" + t.getStatusIcon() + "] "
-                + t.getDescription() + t.getDate());
-                System.out.println("Now you have" + tasks.size() +  "tasks in the list.");
-            } else{
-                Task t = new Task(inData,false,"","");
-                tasks.add(t);
-                System.out.println("added: " + t.getDescription());
+
+                tasks.get(taskIndex).setTaskDone(true);
+                
+                String doneMark;
+                if (tasks.get(taskIndex).getTaskDone()){
+                    doneMark = "[X]";
+                } else{
+                    doneMark = "[ ]";
+                }
+
+                System.out.println("Nice! I've marked this task as done: \n" + doneMark +
+                        tasks.get(taskIndex).getTaskTitle());
+            } catch (InvalidListIndexException | NumberFormatException e) {
+                System.out.println("Error - List index given invalid. Please check again.");
             }
-        }  
+            break;
+            
+            case "unmark":
+            try {
+                if (inputTaskIndex > tasks.size() || inputTaskIndex < 1) {
+                    throw new InvalidListIndexException();
+                }
+
+                tasks.get(taskIndex).setTaskDone(false);
+                
+                String doneMark;
+                if (tasks.get(taskIndex).getTaskDone()){
+                    doneMark = "[X]";
+                } else{
+                    doneMark = "[ ]";
+                }
+
+                System.out.println("Nice! I've marked this task as not done: \n" + doneMark +
+                        tasks.get(taskIndex).getTaskTitle());
+            } catch (InvalidListIndexException | NumberFormatException e) {
+                System.out.println("Error - List index given invalid. Please check again.");
+            }
+            break;
+            
+            case "todo":
+            try {
+                if (inLine.length <= 1) {
+                    throw new InvalidTodoException();
+                }
+
+                tasks.add(new ToDo(inData.substring(5)));
+
+                System.out.println("Got it. I've added this task: \n" + "[T][ ] "
+                        + inData.substring(5) ); //////////magic number problem
+                System.out.println("Now you have " + tasks.size() +  " tasks in the list.");
+            } catch (InvalidTodoException e) {
+                System.out.println("Error - Please input a description for your To do. ");
+            }
+            break;
+
+            case "event":
+                try {
+                    int taskEndIndex = inData.indexOf("/at");
+                    if (taskEndIndex == -1) { // no "/at"
+                        throw new InvalidEventException();
+                    } else if (taskEndIndex <= EVENT_KEYWORD_LENGTH) { // no task title
+                        throw new InvalidTaskTitleException();
+                    } else if (taskEndIndex + 3 <= inData.length()) { // no task date
+                        throw new InvalidTaskDateException();
+                    }
+
+                    String eventTitle = inData.substring(EVENT_KEYWORD_LENGTH,taskEndIndex); 
+                    String eventDate = inData.substring(taskEndIndex + 3); /////magic number, "/at"
+                    tasks.add(new Event(eventTitle, eventDate));
+
+                    System.out.println("Got it. I've added this event: \n" + "[E] [ ]"
+                            + eventTitle + " (at: " + eventDate + ")");
+                    System.out.println("Now you have " + tasks.size() +  " tasks in the list.");
+                } catch (InvalidEventException e) {
+                    System.out.println("Error - '/at' must be included.");
+                } catch (InvalidTaskTitleException e) {
+                    System.out.println("Error - input an event description");
+                } catch (InvalidTaskDateException e) {
+                    System.out.println("Error - input an event date.");
+                }
+                break;
+
+            case "deadline":
+                try {
+                    int taskEndIndex = inData.indexOf("/by");
+                    if (taskEndIndex == -1) { // no "/by"
+                        throw new InvalidDeadlineException();
+                    } else if (taskEndIndex <= DEADLINE_KEYWORD_LENGTH) { // no task title
+                        throw new InvalidTaskTitleException();
+                    } else if (taskEndIndex + 3 <= inData.length()) { // no task date
+                        throw new InvalidTaskDateException();
+                    }
+
+                    String deadlineTitle = inData.substring(DEADLINE_KEYWORD_LENGTH, taskEndIndex); 
+                    String deadlineDate = inData.substring(taskEndIndex + 3); //magic number, "/by"
+                    tasks.add(new Deadline(deadlineTitle, deadlineDate));
+
+                    System.out.println("Got it. I've added this deadline: \n" + "[D] [ ]"
+                            + deadlineTitle + " (at: " + deadlineDate + ")");
+                    System.out.println("Now you have " + tasks.size() +  " tasks in the list.");
+
+
+                } catch (InvalidDeadlineException e){
+                    System.out.println("Error - '/by' must be included.");
+                } catch (InvalidTaskTitleException e) {
+                    System.out.println("Error - input a deadline description");
+                } catch (InvalidTaskDateException e) {
+                    System.out.println("Error - input a deadline date.");
+                }
+                break;
+
+            default:
+            try {
+                throw new InvalidGeneralInputException(); // catch all other exceptions
+            } catch (InvalidGeneralInputException e) {
+                System.out.println("Error - Sorry, I do not understand this input.");
+            }
+            }
+        }
+    }
+    
+    protected static void printGoodbyeMeessage(){
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void printList(Vector <Task> tasks){
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskType = tasks.get(i).getTaskType();
+            String doneMark;
+            int outputIndex = i + 1;
+            if (tasks.get(i).getTaskDone()){
+                doneMark = "[X]";
+            } else{
+                doneMark = "[ ]";
+            }
+
+            switch(taskType) {
+            
+            case "ToDo":
+                System.out.println("[T]" + doneMark + " " + outputIndex + ". " + tasks.get(i).getTaskTitle());
+                break;
+
+            case "Deadline":
+                String deadline = tasks.get(i).getTaskDeadline();
+                //String outputIndex = i + 1;
+                System.out.println("[D]" + doneMark + " " + outputIndex + ". " + tasks.get(i).getTaskTitle() +
+                        " (by: " + deadline + ")");
+                break;
+
+            case "Event":
+                String eventDate = tasks.get(i).getTaskDate();
+                //String outputIndex = i + 1;
+                System.out.println("[E]" + doneMark + " " + outputIndex + ". " + tasks.get(i).getTaskTitle() +
+                        " (at: " + eventDate + ")");
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        printGreet();
+        processInput();
+        printGoodbyeMeessage();  
     }
 }
