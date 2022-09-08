@@ -1,8 +1,14 @@
+package Duke;
+
+import Duke.Exception.EmptyArgumentException;
+import Duke.Exception.WrongArgumentException;
+import Duke.Tasks.Task;
+
 import java.util.Scanner;
 
 
 public class Duke {
-    private static TaskList list = new TaskList();
+    private static Task.TaskList list = new Task.TaskList();
 
     private static final String SEPARATOR = "____________________________________________________________";
 
@@ -12,7 +18,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        final String CONV_START = DUKE_LOGO + "Hello! I'm Duke";
+        final String CONV_START = DUKE_LOGO + "Hello! I'm Duke.Duke";
         final String CONV_END = "Bye. Hope to see you again soon!";
 
 
@@ -131,7 +137,7 @@ public class Duke {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.TODO);
+        int index = list.addTaskToList(lineInput, Task.TaskType.TODO);
         String output = "I got you, added a todo:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
@@ -142,7 +148,7 @@ public class Duke {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.DEADLINE);
+        int index = list.addTaskToList(lineInput, Task.TaskType.DEADLINE);
         String output = "I got you, added a deadline:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
@@ -153,7 +159,7 @@ public class Duke {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.EVENT);
+        int index = list.addTaskToList(lineInput, Task.TaskType.EVENT);
         String output = "I got you, added a event:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
