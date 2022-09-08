@@ -19,12 +19,12 @@ public class TaskManager {
     }
 
     public static void printList() {
-        String s = "";
-        s += "Here are the tasks in your list:" + System.lineSeparator();
+        StringBuilder s = new StringBuilder();
+        s.append("Here are the tasks in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
-            s += String.valueOf(i) + "." + tasks[i] + System.lineSeparator();
+            s.append(i).append(".").append(tasks[i]).append(System.lineSeparator());
         }
-        formatOutput(s);
+        formatOutput(s.toString());
     }
 
     public static void receiveCommands() {
@@ -42,7 +42,7 @@ public class TaskManager {
     }
 
     private static void tryCommand(String command) {
-        String firstWord = "";
+        String firstWord;
         try {
             firstWord = command.substring(0, command.indexOf(' '));
             doCommand(command, firstWord);
@@ -79,28 +79,25 @@ public class TaskManager {
             printTask(tasks[oneBasedIndex]);
             break;
         case "deadline":
-            tryDeadline(command);
-            break;
+            //Fallthrough
         case "event":
-            tryEvent(command);
+            tryDeadlineOrEvent(command,firstWord);
             break;
         default:
             throw new WrongCommandException();
         }
     }
 
-    private static void tryEvent(String command) throws NoBackslashException {
-        if (command.contains("/")) {
-            tasks[oneBasedIndex] = new Event(command, '/');
-            printTask(tasks[oneBasedIndex]);
-        } else {
-            throw new NoBackslashException();
-        }
-    }
-
-    private static void tryDeadline(String command) throws NoBackslashException {
+    private static void tryDeadlineOrEvent(String command, String firstWord) throws NoBackslashException {
         if (command.contains("/")){
-            tasks[oneBasedIndex] = new Deadline(command, '/');
+            switch (firstWord) {
+            case "deadline":
+                tasks[oneBasedIndex] = new Deadline(command, '/');
+                break;
+            case "event":
+                tasks[oneBasedIndex] = new Event(command, '/');
+                break;
+            }
             printTask(tasks[oneBasedIndex]);
         } else {
             throw new NoBackslashException();

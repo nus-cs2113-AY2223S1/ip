@@ -3,7 +3,7 @@ public class Event extends Todo {
 
     public Event(String command, Character lastChar) {
         super(command, lastChar);
-        int atStartIdx = command.indexOf('/') + + "at _".length();
+        int atStartIdx = command.indexOf('/') + "at _".length();
         setAt(command.substring(atStartIdx));
     }
 
