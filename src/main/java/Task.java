@@ -5,18 +5,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-
     }
-    public void setDone(boolean isDone){
-        this.isDone = isDone;
-    }
-    public boolean isDone(boolean isDone){
+    public boolean isDone(){
         return this.isDone;
     }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public void updateStatus(boolean status){
+    public void setDone(boolean status){
         this.isDone = status;
     }
     public char getTaskType(){
