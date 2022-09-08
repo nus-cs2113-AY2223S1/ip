@@ -1,3 +1,5 @@
+package duke.taskmanager.tasks;
+
 public class Event extends Todo {
     protected String at;
 

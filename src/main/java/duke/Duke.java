@@ -1,3 +1,7 @@
+package duke;
+
+import duke.taskmanager.TaskManager;
+
 public class Duke {
     public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     private static final String LOGO =

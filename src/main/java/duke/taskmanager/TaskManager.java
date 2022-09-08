@@ -1,3 +1,14 @@
+package duke.taskmanager;
+
+import duke.exceptions.EmptyException;
+import duke.exceptions.NoBackslashException;
+import duke.exceptions.TaskOutOfBoundsException;
+import duke.exceptions.WrongCommandException;
+import duke.taskmanager.tasks.Deadline;
+import duke.taskmanager.tasks.Event;
+import duke.taskmanager.tasks.Task;
+import duke.taskmanager.tasks.Todo;
+
 import java.util.Scanner;
 
 public class TaskManager {
