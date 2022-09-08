@@ -1,3 +1,2 @@
-public class DukeExceptions {
-
+public abstract class DukeExceptions {
 }
