@@ -4,4 +4,6 @@ list
 event CS2113 Lecture /at Friday 4 to 6pm
 mark 1
 list
+blah
+todo
 bye
