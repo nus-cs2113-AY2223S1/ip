@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.TaskManager;
+
 public final class Message {
     public static final String GREETING_MESSAGE = "Hello! I'm Ever\n" +
             "What can I do for you?";

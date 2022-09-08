@@ -1,3 +1,12 @@
+package duke.task;
+
+import duke.*;
+import duke.task.exception.IllegalTaskNumberInputException;
+import duke.task.exception.TaskCountExceedMaximumException;
+import duke.task.model.Deadline;
+import duke.task.model.Event;
+import duke.task.model.Todo;
+
 public class TaskManager {
     public static final int MAX_TASK = 100;
     private final Task[] tasks;
