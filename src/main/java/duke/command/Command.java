@@ -1,6 +1,9 @@
 package duke.command;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import duke.exception.*;
 
 public abstract class Command {
@@ -11,38 +14,38 @@ public abstract class Command {
     protected CommandType commandType;
     protected Integer MIN_ARGUMENTS = null;
     protected Integer MAX_ARGUMENTS = null;
-    protected String[] FLAGS;
+    protected ArrayList<String> FLAGS;
     protected String rawArguments;
-    protected String[] splitArguments;
+    protected ArrayList<String> splitArguments;
 
 
     protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
             MissingDescriptionException {
 
-        if (MAX_ARGUMENTS != null && splitArguments.length > MAX_ARGUMENTS) {
+        if (MAX_ARGUMENTS != null && splitArguments.size() > MAX_ARGUMENTS) {
             throw new ExtraArgumentException();
         }
 
-        if (MIN_ARGUMENTS != null && splitArguments.length < MIN_ARGUMENTS) {
+        if (MIN_ARGUMENTS != null && splitArguments.size() < MIN_ARGUMENTS) {
             throw new MissingArgumentException();
         }
     }
 
 
     private void checkFlags() throws MissingFlagException, MissingArgumentException {
-        for (int i = 0; i < FLAGS.length; i++) {
-            String flag = FLAGS[i];
+        for (int i = 0; i < FLAGS.size(); i++) {
+            String flag = FLAGS.get(i);
 
             int indexOfFlag = rawArguments.indexOf(flag);
             if (indexOfFlag == -1) {
                 throw new MissingFlagException();
             }
 
-            if (i + 1 >= FLAGS.length) {
+            if (i + 1 >= FLAGS.size()) {
                 break;
             }
 
-            int indexOfNextFlag = rawArguments.indexOf(FLAGS[i + 1]);
+            int indexOfNextFlag = rawArguments.indexOf(FLAGS.get(i + 1));
 
             if ((indexOfFlag + flag.length() >= rawArguments.length()) ||
                 indexOfFlag + flag.length() >= indexOfNextFlag) {
@@ -51,11 +54,14 @@ public abstract class Command {
         }
     }
 
-    protected String[] splitArguments(String rawArguments) {
+    protected ArrayList<String> splitArguments(String rawArguments) {
         //@@Author CodeVsColor
         //Reused from https://www.codevscolor.com/java-remove-empty-values-while-split
         //with minor modifications
-        return Arrays.stream(rawArguments.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        return Arrays.stream(rawArguments.split(" "))
+                .filter(e -> e.trim().length() > 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+
         //@@author
     }
 

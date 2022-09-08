@@ -1,10 +1,12 @@
 package duke.command;
-import duke.exception.*;
+import duke.exception.NotIntegerException;
+
+import java.util.ArrayList;
 
 public class CommandList extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 0;
-    private static final String[] FLAGS = {};
+    private static final ArrayList<String> FLAGS = new ArrayList<>();
 
 
     public CommandList(String rawArguments) {

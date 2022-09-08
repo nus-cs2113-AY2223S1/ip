@@ -1,10 +1,12 @@
 package duke.command;
 import duke.exception.*;
 
+import java.util.ArrayList;
+
 public class CommandToDo extends Command {
 
     private static final int MIN_ARGUMENTS = 1;
-    private static final String[] FLAGS = {};
+    private static final ArrayList<String> FLAGS = new ArrayList<>();
 
     private String description = null;
 
@@ -21,7 +23,7 @@ public class CommandToDo extends Command {
     protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
             MissingDescriptionException {
 
-        if (super.MIN_ARGUMENTS != null && splitArguments.length < MIN_ARGUMENTS) {
+        if (super.MIN_ARGUMENTS != null && splitArguments.size() < MIN_ARGUMENTS) {
             throw new MissingDescriptionException();
         }
     }
