@@ -30,7 +30,13 @@ public class Duke {
                 break;
 
             case "todo":
-                addTodo(taskLists, userInputSplit);
+                try{
+                    addTodo(taskLists, userInputSplit);
+                }
+                catch(EmptyDescriptionException e){
+                    System.out.println(e);
+                }
+
                 break;
 
             case "event":
@@ -49,6 +55,8 @@ public class Duke {
                 printSetNotDoneMessage(taskLists[markNotDoneIndex]);
                 break;
 
+            default:
+                printDontKnowMessage();
             }
             userInput = getUserInput();
         }
@@ -56,7 +64,10 @@ public class Duke {
         printByeMessage();
     }
 
-    private static void addTodo(Task[] taskLists, String[] userInputSplit) {
+    private static void addTodo(Task[] taskLists, String[] userInputSplit) throws EmptyDescriptionException {
+        if (userInputSplit.length < 2){
+            throw new EmptyDescriptionException();
+        }
         String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
         String description = String.join(" ", inputArrayWithoutType);
         ToDo newToDo = new ToDo(description);
@@ -85,6 +96,13 @@ public class Duke {
         taskLists[Task.numOfTasks] = newDeadline;
         Task.numOfTasks ++;
         printEchoInput(newDeadline);
+    }
+
+    private static void printDontKnowMessage(){
+        String dontKnowMessage = "    ____________________________________________________________\n"
+                        + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                        + "    ____________________________________________________________";
+        System.out.println(dontKnowMessage);
     }
 
     public static String getUserInput(){
