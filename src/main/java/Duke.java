@@ -24,6 +24,71 @@ public class Duke {
         printDivider();
     }
 
+    public static void printExceptionMessage(String exceptionType) {
+        printDivider();
+
+        switch (exceptionType) {
+        case "Empty Description" :
+            System.out.println("\t☹ OOPS!!! The description of a task cannot be empty...");
+            break;
+        case "Other Command" :
+            System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means...");
+            break;
+        case "Mark/Unmark Out of Bounds" :
+            System.out.println("\t☹ OOPS!!! Please provide a valid task index...");
+        }
+
+        System.out.println();
+        printDivider();
+    }
+
+    public static void performAction(String[] words, String firstWord, String command) throws DukeException{
+        if (firstWord.equals("mark")) {
+            //Mark task as done
+            markAsDone(words[1]);
+        } else if (firstWord.equals("unmark")) {
+            //Mark task as undone
+            markAsUndone(words[1]);
+        } else if (firstWord.equals("list")) {
+            //Print the list
+            printList();
+        } else if (firstWord.equals("todo") | firstWord.equals("deadline") | firstWord.equals("event")) {
+            //Add to-do, deadline, or event to list
+            try {
+                Task currentTask = createTask(command, words[0], words);
+                addTask(currentTask);
+            } catch (DukeException e) {
+                printExceptionMessage("Empty Description");
+            }
+        } else {
+            throw new DukeException();
+        }
+    }
+
+    public static Task createTask(String command, String type, String[] words) throws DukeException{
+        //Handle empty description exception
+        if (words.length == 1) {
+            throw new DukeException();
+        }
+
+        Task newTask = new Task("");
+
+        switch (type) {
+        case "todo" :
+            newTask = new Todo(command.substring(5));
+            break;
+        case "deadline" :
+            String deadlineWords[] = command.substring(8).split("/");
+            newTask = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
+            break;
+        case "event" :
+            String eventWords[] = command.substring(6).split("/");
+            newTask = new Event(eventWords[0].trim(), eventWords[1].substring(3));
+            break;
+        }
+        return newTask;
+    }
+
     public static void addTask(Task currentTask) {
         tasks[position] = currentTask;
         position++;
@@ -32,7 +97,7 @@ public class Duke {
         System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
         System.out.print("\t  ");
         System.out.println(currentTask);
-        System.out.println("\tNow you have " + Integer.toString(position) + " tasks in the list! 凸(￣ヘ￣)");
+        System.out.println("\tNow you have " + Integer.toString(position) + " task(s) in the list! 凸(￣ヘ￣)");
         System.out.println("");
         printDivider();
     }
@@ -49,27 +114,35 @@ public class Duke {
     }
 
     public static void markAsDone(String index) {
-        Task currentTask = tasks[Integer.parseInt(index) - 1];
-        currentTask.markAsDone();
+        try {
+            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            currentTask.markAsDone();
 
-        printDivider();
-        System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
-        System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
-        System.out.println("\tWell done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
-        System.out.println("");
-        printDivider();
+            printDivider();
+            System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
+            System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+            System.out.println("\tWell done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
+            System.out.println("");
+            printDivider();
+        } catch (NullPointerException e) {
+            printExceptionMessage("Mark/Unmark Out of Bounds");
+        }
     }
 
     public static void markAsUndone(String index) {
-        Task currentTask = tasks[Integer.parseInt(index) - 1];
-        currentTask.markAsUndone();
+        try {
+            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            currentTask.markAsUndone();
 
-        printDivider();
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
-        System.out.println("\tYou better stop procrastinating, friend.. (╥﹏╥)");
-        System.out.println("");
-        printDivider();
+            printDivider();
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+            System.out.println("\tYou better stop procrastinating, friend.. (╥﹏╥)");
+            System.out.println("");
+            printDivider();
+        } catch (NullPointerException e) {
+            printExceptionMessage("Mark/Unmark Out of Bounds");
+        }
     }
 
     public static void main(String[] args) {
@@ -81,38 +154,15 @@ public class Duke {
             //Input the task from the user
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
+            //Exit the loop immediately if the user input is "bye"
             if (userInput.equals("bye")) {
                 break;
             }
-            String words[] = userInput.split(" ");
-            //Mark a certain task as done
-            if (words[0].equals("mark")) {
-                markAsDone(words[1]);
-                //Unmark a certain task as not done
-            } else if (words[0].equals("unmark")) {
-                markAsUndone(words[1]);
-            } else {
-                //Print the full list of tasks
-                if (userInput.equals("list")) {
-                    printList();
-                } else {
-                    switch(words[0]) {
-                    case "todo" :
-                        Task todo = new Todo(userInput.substring(5));
-                        addTask(todo);
-                        break;
-                    case "deadline" :
-                        String deadlineWords[] = userInput.substring(8).split("/");
-                        Task deadline = new Deadline(deadlineWords[0].trim(), deadlineWords[1].substring(3));
-                        addTask(deadline);
-                        break;
-                    case "event" :
-                        String eventWords[] = userInput.substring(6).split("/");
-                        Task event = new Event(eventWords[0].trim(), eventWords[1].substring(3));
-                        addTask(event);
-                        break;
-                    }
-                }
+            String[] words = userInput.split(" ");
+            try {
+                performAction(words, words[0], userInput);
+            } catch (DukeException e) {
+                printExceptionMessage("Other Command");
             }
         }
 
