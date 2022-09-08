@@ -2,10 +2,10 @@
  * Tasks to be added with attribute to track completion status
  * */
 
-public class Task {
-    private String taskDescription;
-    private Boolean isDone;
-    // constructor without isDone
+public abstract class Task {
+    protected final String taskDescription;
+    protected boolean isDone;
+    // constructor
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         isDone = false;
@@ -16,13 +16,18 @@ public class Task {
         return this.taskDescription;
     }
 
-    public Boolean getIsDone() {
+    public boolean getIsDone() {
         return this.isDone;
     }
 
-    // setters
-    public void setIsDone(Boolean doneStatus) {
-        this.isDone = doneStatus;
+    public void markDone(){
+        isDone = true;
     }
+
+    /**
+     * Abstract that serves as base for formatting taskDescription
+     * @return String describing task
+     * */
+    public abstract String showTask();
 
 }
