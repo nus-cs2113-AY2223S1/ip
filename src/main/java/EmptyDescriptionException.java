@@ -1,10 +1,10 @@
 
-public class EmptyTodoDescriptionException extends DukeException {
+public class EmptyDescriptionException extends DukeException {
     /**
      * Constructor for exception
      */
 
-    public EmptyTodoDescriptionException(String message) {
+    public EmptyDescriptionException(String message) {
         super(message);
     }
 
@@ -16,7 +16,7 @@ public class EmptyTodoDescriptionException extends DukeException {
 
     @Override
     public String getExceptionMessage() {
-        return "☹ The description of a todo cannot be empty! Please try again.";
+        return "☹ The description cannot be empty! Please try again.";
     }
 
 }
