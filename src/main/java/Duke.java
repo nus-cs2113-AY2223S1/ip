@@ -114,6 +114,9 @@ public class Duke {
                     System.out.println("The event input is not valid! Might be missing description, '/at' or time !");
                 }
             }
+            else {
+                System.out.println("Oops... cannot recognize the input command !");
+            }
             input = in.nextLine();
         }
 
