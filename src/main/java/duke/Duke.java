@@ -54,7 +54,6 @@ public class Duke {
         TaskManager action = new TaskManager();
 
         action.greet();
-
         do {
             line = in.nextLine();
             response(line, action);
