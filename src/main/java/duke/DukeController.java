@@ -1,8 +1,10 @@
+package duke;
+
 import java.util.ArrayList;
 
 public class DukeController {
     protected ArrayList<Task> taskList = new ArrayList<Task>(0);
-    private final String GREETING_PART_ONE = "Hello! I'm Duke";
+    private final String GREETING_PART_ONE = "Hello! I'm duke.Duke";
     private final String GREETING_PART_TWO = "What can I do for you?";
     private final String GOODBYE = "Bye. Hope to see you again soon!";
     private final String NUMBER_OF_TASKS_MESSAGE = "You now have %d tasks";

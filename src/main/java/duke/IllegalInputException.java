@@ -1,3 +1,5 @@
+package duke;
+
 public class IllegalInputException extends Exception{
 
     private String errorMessage;
