@@ -87,7 +87,11 @@ public class Duke {
                 }
                 break;
             case "event":
-                addEvent(arg2);
+                try {
+                    addEvent(arg2);
+                } catch (DukeException e) {
+                    handleAddEventException(e);
+                }
                 break;
             default:
                 addTask(input);
@@ -157,8 +161,16 @@ public class Duke {
         showTaskCount();
     }
 
-    private static void addEvent(String str) {
+    private static void addEvent(String str) throws DukeException {
+        if (str.equals("")) {
+            throw new IllegalArgsNumException();
+        }
+
         String description = str.split("/")[0].trim();
+        if (!str.contains(EVENT_FLAG)) {
+            throw new AbsentArgsFlagException();
+        }
+
         String duration = str.split("/")[1];
         tasks[taskCount] = new Event(description, duration);
         System.out.println(">>>Added: " + tasks[taskCount++]);
@@ -176,6 +188,16 @@ public class Duke {
         }
         else if (e instanceof AbsentArgsFlagException) {
             System.out.println("OOPS!!! The description of a DDL should contain /by.");
+        }
+        showSeparator();
+    }
+
+    private static void handleAddEventException(DukeException e) {
+        if (e instanceof IllegalArgsNumException) {
+            System.out.println("OOPS!!! The description of a event cannot be empty.");
+        }
+        else if (e instanceof AbsentArgsFlagException) {
+            System.out.println("OOPS!!! The description of a event should contain /at.");
         }
         showSeparator();
     }
