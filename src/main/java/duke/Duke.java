@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 public class Duke {
     public static final String MARKDONE = "mark ";
