@@ -1,3 +1,5 @@
+package duke;
+
 public class Duke {
 
     private static boolean shouldExit = false;
