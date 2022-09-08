@@ -5,7 +5,6 @@ import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-import duke.ui.UI;
 
 public class CommandManager {
     private static final String EXIT_PREFIX = "bye";
