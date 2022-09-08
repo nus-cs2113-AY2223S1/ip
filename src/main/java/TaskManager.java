@@ -29,14 +29,16 @@ public class TaskManager {
     }
 
     private int getTaskIndex(String input) {
+        String[] inputWords = input.split(" ", 2);
         try {
-            String[] inputWords = input.split(" ", 2);
             return Integer.parseInt(inputWords[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.MISSING_TASK_NUMBER_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
             return -1;
         } catch (NumberFormatException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
             return -1;
         }
     }
@@ -52,8 +54,10 @@ public class TaskManager {
             System.out.printf("Marked as done: %s\n", tasks[taskIndex]);
         } catch (NullPointerException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("mark").syntax);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("mark").syntax);
         }
     }
 
@@ -68,8 +72,10 @@ public class TaskManager {
             System.out.printf("Unmarked done: %s\n", tasks[taskIndex]);
         } catch (NullPointerException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("unmark").syntax);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("unmark").syntax);
         }
     }
 
@@ -80,6 +86,7 @@ public class TaskManager {
             addTask(new Todo(description));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_TODO_FORMAT_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("todo").syntax);
         }
     }
 
@@ -91,6 +98,7 @@ public class TaskManager {
             addTask(new Deadline(description, deadlineDate));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("deadline").syntax);
         }
     }
 
@@ -102,6 +110,7 @@ public class TaskManager {
             addTask(new Event(description, datetime));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE);
+            System.out.println("Syntax: " + Duke.COMMANDS.get("event").syntax);
         }
     }
 }

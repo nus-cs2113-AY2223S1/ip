@@ -18,7 +18,7 @@ public final class Message {
     /** Add Task Error Messages **/
     public static final String INVALID_ADD_TODO_FORMAT_ERROR_MESSAGE = "Invalid input, todo task could not be added";
     public static final String INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE = "Invalid input, please provide the description and deadline";
-    public static final String INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE = "Invalid input, please provide the description and date time.";
+    public static final String INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE = "Invalid input, please provide the description and date time";
 
     private Message() {
     }
