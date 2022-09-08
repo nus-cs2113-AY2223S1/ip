@@ -1,3 +1,7 @@
+package duke.task.model;
+
+import duke.task.Task;
+
 public class Deadline extends Task {
     private String deadlineDate;
 

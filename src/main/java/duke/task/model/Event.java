@@ -1,3 +1,7 @@
+package duke.task.model;
+
+import duke.task.Task;
+
 public class Event extends Task {
     private String datetime;
 
