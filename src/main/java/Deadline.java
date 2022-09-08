@@ -13,12 +13,8 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)", super.toString(), this.deadlineDate);
     }
 
-    public static String[] extractParameters(String command) throws IllegalArgumentException {
+    public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
         String commandParameters = command.split(" ", 2)[1];
-        String[] parameters = commandParameters.split(SEPARATOR);
-        if (parameters.length < 2) {
-            throw new IllegalArgumentException();
-        }
-        return parameters;
+        return commandParameters.split(SEPARATOR);
     }
 }
