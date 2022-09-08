@@ -80,7 +80,11 @@ public class Duke {
                 }
                 break;
             case "deadline":
-                addDeadline(arg2);
+                try {
+                    addDeadline(arg2);
+                } catch (DukeException e) {
+                    handleAddDeadException(e);
+                }
                 break;
             case "event":
                 addEvent(arg2);
@@ -128,9 +132,9 @@ public class Duke {
         showSeparator();
     }
 
-    private static void addTodo(String todoDescription) throws DukeException {
+    private static void addTodo(String todoDescription) throws IllegalArgsNumException {
         if (todoDescription.equals("")) {
-            throw new DukeException();
+            throw new IllegalArgsNumException();
         }
         tasks[taskCount] = new Todo(todoDescription);
         System.out.println(">>>Added: " + tasks[taskCount++]);
@@ -139,12 +143,12 @@ public class Duke {
 
     private static void addDeadline(String str) throws DukeException {
         if (str.equals("")) {
-            throw new DukeException();
+            throw new IllegalArgsNumException();
         }
 
         String description = str.split("/")[0].trim();
         if (!str.contains(DEADLINE_FLAG)) {
-            throw new DukeException();
+            throw new AbsentArgsFlagException();
         }
 
         String by = str.split("/")[1];
@@ -163,6 +167,16 @@ public class Duke {
 
     private static void handleAddTodoException() {
         System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        showSeparator();
+    }
+
+    private static void handleAddDeadException(DukeException e) {
+        if (e instanceof IllegalArgsNumException) {
+            System.out.println("OOPS!!! The description of a DDL cannot be empty.");
+        }
+        else if (e instanceof AbsentArgsFlagException) {
+            System.out.println("OOPS!!! The description of a DDL should contain /by.");
+        }
         showSeparator();
     }
 }
