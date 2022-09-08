@@ -31,7 +31,7 @@ public class Duke {
 
     public static void insertDeadlineTask(String inputLine, Task[] tasks) {
         String deadlineSpecifics = findTaskSpecifics(inputLine);
-        String deadline = inputLine.substring(inputLine.indexOf("by") + 2);
+        String deadline = inputLine.substring(inputLine.indexOf("/by") + 3);
         tasks[numberOfTasks] = new Deadline(deadlineSpecifics, deadline);
         printDefaultTaskResponse(numberOfTasks, tasks);
         numberOfTasks++;
@@ -46,8 +46,8 @@ public class Duke {
 
     public static void insertEventTask(String inputLine, Task[] tasks) {
         String eventSpecifics = findTaskSpecifics(inputLine);
-        String event_date = inputLine.substring(inputLine.indexOf("at") + 2);
-        tasks[numberOfTasks] = new Event(eventSpecifics, event_date);
+        String eventDate = inputLine.substring(inputLine.indexOf("/at") + 3);
+        tasks[numberOfTasks] = new Event(eventSpecifics, eventDate);
         printDefaultTaskResponse(numberOfTasks, tasks);
         numberOfTasks++;
     }
@@ -74,8 +74,8 @@ public class Duke {
     }
 
     public static void runTaskList() {
+        Scanner in = new Scanner(System.in);
         while (isRunning) {
-            Scanner in = new Scanner(System.in);
             inputLine = in.nextLine();
             String[] details = inputLine.split(" ");
             String command = details[0];
