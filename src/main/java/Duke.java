@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Duke {
@@ -23,6 +25,7 @@ public class Duke {
     private static final String END_CMD = "bye";
     private static final String DEADLINE_FLAG = "/by";
     private static final String EVENT_FLAG = "/at";
+    private static final String[] ILLEGAL_ARGS = {"blah"};
     private static final int MAX_TASK = 100;
     private static final int SEPARATOR_LEN = 50;
     private static int taskCount = 0;
@@ -94,13 +97,20 @@ public class Duke {
                 }
                 break;
             default:
-                addTask(input);
+                try {
+                    addTask(input);
+                } catch (IllegalArgsTypeException e) {
+                    handleAddTaskException();
+                }
             }
             input = sc.nextLine();
         }
     }
 
-    private static void addTask(String taskDescription) {
+    private static void addTask(String taskDescription) throws IllegalArgsTypeException {
+        if (Arrays.asList(ILLEGAL_ARGS).contains(taskDescription)) {
+            throw new IllegalArgsTypeException();
+        }
         tasks[taskCount] = new Task(taskDescription);
         System.out.println(">>>Added: " + tasks[taskCount++]);
         showTaskCount();
@@ -176,7 +186,11 @@ public class Duke {
         System.out.println(">>>Added: " + tasks[taskCount++]);
         showTaskCount();
     }
+    private static void handleAddTaskException() {
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        showSeparator();
 
+    }
     private static void handleAddTodoException() {
         System.out.println("OOPS!!! The description of a todo cannot be empty.");
         showSeparator();
