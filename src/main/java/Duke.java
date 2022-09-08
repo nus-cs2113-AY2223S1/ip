@@ -71,7 +71,11 @@ public class Duke {
                         false);
                 break;
             case "todo":
-                addTodo(arg2);
+                try {
+                    addTodo(arg2);
+                } catch (DukeException e) {
+                    handleAddTodoException();
+                }
                 break;
             case "deadline":
                 addDeadline(arg2);
@@ -122,7 +126,10 @@ public class Duke {
         showSeparator();
     }
 
-    private static void addTodo(String todoDescription) {
+    private static void addTodo(String todoDescription) throws DukeException {
+        if (todoDescription.equals("")) {
+            throw new DukeException();
+        }
         tasks[taskCount] = new Todo(todoDescription);
         System.out.println(">>>Added: " + tasks[taskCount++]);
         showTaskCount();
@@ -142,5 +149,10 @@ public class Duke {
         tasks[taskCount] = new Event(description, duration);
         System.out.println(">>>Added: " + tasks[taskCount++]);
         showTaskCount();
+    }
+
+    private static void handleAddTodoException() {
+        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        showSeparator();
     }
 }
