@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
     public static Boolean isRunning = true;
+    public static int numberOfTasks = 0;
+    public static String inputLine;
+    public static Task[] tasks = new Task[100];
 
     public static void printGreetings() {
         String logo = " ____        _        \n"
@@ -21,57 +24,85 @@ public class Duke {
                 + "Now you have " + (number + 1) + " tasks in the list.");
     }
 
+    public static void sayGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+        isRunning = false;
+    }
+
+    public static void insertDeadlineTask(String inputLine, Task[] tasks) {
+        String deadlineSpecifics = findTaskSpecifics(inputLine);
+        String deadline = inputLine.substring(inputLine.indexOf("by") + 2);
+        tasks[numberOfTasks] = new Deadline(deadlineSpecifics, deadline);
+        printDefaultTaskResponse(numberOfTasks, tasks);
+        numberOfTasks++;
+    }
+
+    public static void insertToDoTask(String inputLine, Task[] tasks) {
+        String todoSpecifics = inputLine.substring(inputLine.indexOf(" "));
+        tasks[numberOfTasks] = new Todo(todoSpecifics);
+        printDefaultTaskResponse(numberOfTasks, tasks);
+        numberOfTasks++;
+    }
+
+    public static void insertEventTask(String inputLine, Task[] tasks) {
+        String eventSpecifics = findTaskSpecifics(inputLine);
+        String event_date = inputLine.substring(inputLine.indexOf("at") + 2);
+        tasks[numberOfTasks] = new Event(eventSpecifics, event_date);
+        printDefaultTaskResponse(numberOfTasks, tasks);
+        numberOfTasks++;
+    }
+
+    public static void printTaskList(int numberOfTasks, Task[] tasks) {
+        System.out.println("Here are the tasks in your list:\n");
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.println((i + 1) + "." + tasks[i].toString());
+        }
+    }
+
+    public static void markTask(String[] taskDescriptions, Task[] tasks) {
+        int taskToMark = Integer.parseInt(taskDescriptions[1]) - 1;
+        System.out.println("Nice! I've marked this task as done:\n");
+        tasks[taskToMark].markAsDone();
+        System.out.println(tasks[taskToMark].toString());
+    }
+
+    public static void unmarkTask(String[] taskDescriptions, Task[] tasks) {
+        int taskToUnmark = Integer.parseInt(taskDescriptions[1]) - 1;
+        System.out.println("OK, I've marked this task as not done yet:\n");
+        tasks[taskToUnmark].unmark();
+        System.out.println(tasks[taskToUnmark].toString());
+    }
+
     public static void runTaskList() {
-        Task[] tasks = new Task[100];
-        String line;
-        int number_of_tasks = 0;
         while (isRunning) {
             Scanner in = new Scanner(System.in);
-            line = in.nextLine();
-            String[] details = line.split(" ");
+            inputLine = in.nextLine();
+            String[] details = inputLine.split(" ");
             String command = details[0];
             switch (command) {
             case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
-                isRunning = false;
+                sayGoodbye();
                 break;
             case "deadline":
-                String deadline_specifics = findTaskSpecifics(line);
-                String deadline = line.substring(line.indexOf("by") + 2);
-                tasks[number_of_tasks] = new Deadline(deadline_specifics, deadline);
-                printDefaultTaskResponse(number_of_tasks,tasks);
-                number_of_tasks++;
+                insertDeadlineTask(inputLine, tasks);
                 break;
             case "todo":
-                String todo_specifics = line.substring(line.indexOf(" "));
-                tasks[number_of_tasks] = new Todo(todo_specifics);
-                printDefaultTaskResponse(number_of_tasks,tasks);
-                number_of_tasks++;
+                insertToDoTask(inputLine, tasks);
                 break;
             case "event":
-                String event_specifics = findTaskSpecifics(line);
-                String event_date = line.substring(line.indexOf("at") + 2);
-                tasks[number_of_tasks] = new Event(event_specifics, event_date);
-                printDefaultTaskResponse(number_of_tasks,tasks);
-                number_of_tasks++;
+                insertEventTask(inputLine, tasks);
                 break;
             case "mark":
-                int task_to_mark = Integer.parseInt(details[1])-1;
-                System.out.println("Nice! I've marked this task as done:\n");
-                tasks[task_to_mark].markAsDone();
-                System.out.println(tasks[task_to_mark].toString());
+                markTask(details, tasks);
                 break;
             case "unmark":
-                int task_to_unmark = Integer.parseInt(details[1])-1;
-                System.out.println("OK, I've marked this task as not done yet:\n");
-                tasks[task_to_unmark].unmark();
-                System.out.println(tasks[task_to_unmark].toString());
+                unmarkTask(details, tasks);
+                break;
+            case "list":
+                printTaskList(numberOfTasks, tasks);
                 break;
             default:
-                System.out.println("Here are the tasks in your list:\n");
-                for (int i = 0; i < number_of_tasks; i++) {
-                    System.out.println((i + 1) + "." + tasks[i].toString());
-                }
+                System.out.println("You have entered an invalid command, please try again.");
                 break;
             }
         }
