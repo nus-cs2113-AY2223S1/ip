@@ -37,8 +37,8 @@ public class UI {
 
     public void confirmAdd(Task task, List list) {
         reply("Got it, I added this task to your list:\n"
-                + ARROW + task + '\n'
-                + "Now you have " + list.getSize() + " task" + (list.getSize() == 1 ? "" : "s") + " in the list");
+                + ARROW + task
+                + "\nNow you have " + list.getSize() + " task" + (list.getSize() == 1 ? "" : "s") + " in the list");
     }
 
     public void confirmMark(Task task) {
@@ -49,6 +49,12 @@ public class UI {
     public void confirmUnmark(Task task) {
         reply("OK, I've marked this task as not done yet:\n"
                 + ARROW + task);
+    }
+
+    public void confirmDelete(Task task, List list) {
+        reply("Noted. I've removed this task:\n"
+                + ARROW + task
+                + "\nNow you have " + list.getSize() + " task" + (list.getSize() == 1 ? "" : "s") + " in the list");
     }
 
     public void printList(List list) {

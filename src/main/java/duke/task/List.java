@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class List {
     //I will use ArrayList because the maximum size is only 100
     //In the future, it would be easier to implement DELETE
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     public List() {
         this.list = new ArrayList<>();
@@ -36,6 +36,10 @@ public class List {
 
     public void unmarkDone(int index) throws DukeException {
         findTask(index).setDone(false);
+    }
+
+    public void delete(int index) throws DukeException {
+        list.remove(findTask(index));
     }
 
     @Override
