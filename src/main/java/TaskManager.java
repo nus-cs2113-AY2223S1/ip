@@ -2,6 +2,16 @@ public class TaskManager {
     private static final int MAX_TASK = 100;
     private final Task[] tasks;
     private int taskCount;
+    /* Messages */
+    private static final String HELP_MESSAGE = "Type 'help' if you need help.";
+    private static final String NO_TASKS_MESSAGE = "There are no tasks added yet.";
+    private static final String MAXIMUM_TASKS_REACHED_ERROR_MESSAGE = "Maximum number of tasks reached";
+    private static final String WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE = "Sorry, task number should lies between 1 to " +
+            MAX_TASK + " tasks stored. Type \"list\" for viewing all the tasks.";
+    private static final String WRONG_TASK_NUMBER_ERROR_MESSAGE = "Sorry, the selected task has not been created yet. Type \"list\" to see the task numbers.";
+    private static final String MISSING_TASK_NUMBER_ERROR_MESSAGE = "Sorry, you have not provide the task number.";
+    private static final String WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE = "Invalid input. Please type an integer for the task number.";
+    /* End Messages */
 
     public TaskManager() {
         tasks = new Task[MAX_TASK];
@@ -14,7 +24,7 @@ public class TaskManager {
             System.out.println("Task added: " + task);
         }
         else {
-            System.out.println("Maximum number of tasks reached");
+            System.out.println(MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
         }
     }
 
@@ -24,29 +34,52 @@ public class TaskManager {
                 System.out.printf("%d. %s\n", i + 1, tasks[i]);
             }
         } else {
-            System.out.println("There are no tasks added yet. Type 'help' if you need help.");
+            System.out.println(NO_TASKS_MESSAGE + " " + HELP_MESSAGE);
+        }
+    }
+
+    private int getTaskIndex(String input) {
+        try {
+            String[] inputWords = input.split(" ", 2);
+            return Integer.parseInt(inputWords[1]) - 1;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(MISSING_TASK_NUMBER_ERROR_MESSAGE);
+            return -1;
+        } catch (NumberFormatException e) {
+            System.out.println(WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE);
+            return -1;
         }
     }
 
     public void markTaskAsDone(String input) {
-        String[] inputWords = input.split(" ", 2);
+        int taskIndex = getTaskIndex(input);
+        if (taskIndex == -1) {
+            return;
+        }
+
         try {
-            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
             tasks[taskIndex].markAsDone();
             System.out.printf("Marked as done: %s\n", tasks[taskIndex]);
-        } catch (Exception exception) {
-            System.out.println("Invalid input. Task could not be marked as done.");
+        } catch (NullPointerException e) {
+            System.out.println(WRONG_TASK_NUMBER_ERROR_MESSAGE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
         }
     }
 
     public void markTaskAsUndone(String input) {
-        String[] inputWords = input.split(" ", 2);
+        int taskIndex = getTaskIndex(input);
+        if (taskIndex == -1) {
+            return;
+        }
+
         try {
-            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
             tasks[taskIndex].unmarkDone();
             System.out.printf("Unmarked done: %s\n", tasks[taskIndex]);
-        } catch (Exception exception) {
-            System.out.println("Invalid input. Task could not be unmarked.");
+        } catch (NullPointerException e) {
+            System.out.println(WRONG_TASK_NUMBER_ERROR_MESSAGE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
         }
     }
 
