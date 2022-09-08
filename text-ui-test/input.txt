@@ -1,13 +1,27 @@
+
+list
+blah
+todo
 todo return book
+deadline
+deadline return book
 deadline return book /by Sunday
+deadline /by Sunday
+event
+event project meeting
 event project meeting /at Mon 2-4pm
+event /at Monday
 deadline do homework /by no idea :-p
+mark 2
 mark 2
 list
 mark 3
+mark 3
 list
 unmark 2
+unmark 2
 list
+unmark 3
 unmark 3
 list
 bye

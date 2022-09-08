@@ -1,6 +1,18 @@
 ____________________________________________________________
- Hello! I'm Duke
- What can I do for you?
+Hello! I'm Duke
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+:( Input cannot be empty
+____________________________________________________________
+____________________________________________________________
+You have no tasks in your list currently!
+____________________________________________________________
+____________________________________________________________
+:( Sorry I do not know what that means!
+____________________________________________________________
+____________________________________________________________
+:( The description of a todo cannot be empty!
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -8,60 +20,98 @@ Got it. I've added this task:
 You now have 1 tasks
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-  [D][ ] return book (by: by Sunday)
- You now have 2 tasks
+:( The description of a deadline cannot be empty!
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-  [E][ ] project meeting (at: at Mon 2-4pm)
- You now have 3 tasks
+:( A deadline task must have a date!
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-  [D][ ] do homework (by: by no idea :-p)
- You now have 4 tasks
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+You now have 2 tasks
 ____________________________________________________________
 ____________________________________________________________
- Nice! I've marked this task as done:
-  [D][X] return book (by: by Sunday)
+:( The description of a deadline cannot be empty!
 ____________________________________________________________
 ____________________________________________________________
- 1.[T][ ] return book
- 2.[D][X] return book (by: by Sunday)
- 3.[E][ ] project meeting (at: at Mon 2-4pm)
- 4.[D][ ] do homework (by: by no idea :-p)
+:( The description of a event cannot be empty!
 ____________________________________________________________
 ____________________________________________________________
- Nice! I've marked this task as done:
-  [E][X] project meeting (at: at Mon 2-4pm)
+:( A event task must have a date!
 ____________________________________________________________
 ____________________________________________________________
- 1.[T][ ] return book
- 2.[D][X] return book (by: by Sunday)
- 3.[E][X] project meeting (at: at Mon 2-4pm)
- 4.[D][ ] do homework (by: by no idea :-p)
+Got it. I've added this task:
+[E][ ] project meeting (at: Mon 2-4pm)
+You now have 3 tasks
 ____________________________________________________________
 ____________________________________________________________
- OK, I've marked this task as not done yet:
-  [D][ ] return book (by: by Sunday)
+:( The description of a event cannot be empty!
 ____________________________________________________________
 ____________________________________________________________
- 1.[T][ ] return book
- 2.[D][ ] return book (by: by Sunday)
- 3.[E][X] project meeting (at: at Mon 2-4pm)
- 4.[D][ ] do homework (by: by no idea :-p)
+Got it. I've added this task:
+[D][ ] do homework (by: no idea :-p)
+You now have 4 tasks
 ____________________________________________________________
 ____________________________________________________________
- OK, I've marked this task as not done yet:
-  [E][ ] project meeting (at: at Mon 2-4pm)
+Nice! I've marked this task:
+[D][X] return book (by: Sunday)
 ____________________________________________________________
 ____________________________________________________________
- 1.[T][ ] return book
- 2.[D][ ] return book (by: by Sunday)
- 3.[E][ ] project meeting (at: at Mon 2-4pm)
- 4.[D][ ] do homework (by: by no idea :-p)
+[D][X] return book (by: Sunday)
+:( This task is already marked
 ____________________________________________________________
 ____________________________________________________________
- Bye. Hope to see you again soon!
+Here are the tasks in your list:
+1.[T][ ] return book
+2.[D][X] return book (by: Sunday)
+3.[E][ ] project meeting (at: Mon 2-4pm)
+4.[D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task:
+[E][X] project meeting (at: Mon 2-4pm)
+____________________________________________________________
+____________________________________________________________
+[E][X] project meeting (at: Mon 2-4pm)
+:( This task is already marked
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] return book
+2.[D][X] return book (by: Sunday)
+3.[E][X] project meeting (at: Mon 2-4pm)
+4.[D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Nice! I've unmarked this task:
+[D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+[D][ ] return book (by: Sunday)
+:( This task is already unmarked
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] return book
+2.[D][ ] return book (by: Sunday)
+3.[E][X] project meeting (at: Mon 2-4pm)
+4.[D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Nice! I've unmarked this task:
+[E][ ] project meeting (at: Mon 2-4pm)
+____________________________________________________________
+____________________________________________________________
+[E][ ] project meeting (at: Mon 2-4pm)
+:( This task is already unmarked
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] return book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (at: Mon 2-4pm)
+4.[D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
 ____________________________________________________________
