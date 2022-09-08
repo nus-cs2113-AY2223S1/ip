@@ -1,3 +1,5 @@
+Hello! I'm Duke
+What can I do for you?
 	_____________________
 There are no tasks yet!
 	_____________________
@@ -5,6 +7,7 @@ There are no tasks yet!
 	Got it. I've added this task:
 	added: [T][ ] borrow book
 	_____________________
+
 	_____________________
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
@@ -13,10 +16,12 @@ There are no tasks yet!
 	Got it. I've added this task:
 	added: [D][ ] return book (by: Sunday)
 	_____________________
+
 	_____________________
 	Got it. I've added this task:
 	added: [E][ ] project meeting (at: Mon 2-4pm)
 	_____________________
+
 	_____________________
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
@@ -26,9 +31,9 @@ There are no tasks yet!
 	Nice! I've marked this task as done:
 	[X] borrow book
 	Nice! I've marked this task as done:
-	[X] return book
+	[X] return book 
 	Nice! I've marked this task as done:
-	[X] project meeting
+	[X] project meeting 
 	_____________________
 	Here are the tasks in your list:
 	1. [T][X] borrow book
@@ -38,9 +43,9 @@ There are no tasks yet!
 	OK, I've marked this task as not done yet:
 	[ ] borrow book
 	OK, I've marked this task as not done yet:
-	[ ] return book
+	[ ] return book 
 	OK, I've marked this task as not done yet:
-	[ ] project meeting
+	[ ] project meeting 
 	_____________________
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
@@ -51,6 +56,7 @@ There are no tasks yet!
 	Got it. I've added this task:
 	added: [D][ ] do homework (by: no idea :-p)
 	_____________________
+
 	_____________________
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
