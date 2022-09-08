@@ -1,4 +1,8 @@
-public class Event extends Task{
+package dukeTasksPackage;
+
+import dukeTasksPackage.Task;
+
+public class Event extends Task {
     protected String time;
     public Event(String description, String time) {
         this.description = description;

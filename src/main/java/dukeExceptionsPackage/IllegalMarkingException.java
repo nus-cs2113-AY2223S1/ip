@@ -1,3 +1,7 @@
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
+
 public class IllegalMarkingException extends DukeException {
     public IllegalMarkingException (String message) {
         super(message);

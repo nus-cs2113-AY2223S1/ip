@@ -1,4 +1,8 @@
-public class IllegalTaskNumber extends DukeException{
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
+
+public class IllegalTaskNumber extends DukeException {
     public IllegalTaskNumber (String message) {
         super(message);
     }

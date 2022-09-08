@@ -1,4 +1,8 @@
-public class UnrecognisedDeadlineException extends DukeException{
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
+
+public class UnrecognisedDeadlineException extends DukeException {
     public UnrecognisedDeadlineException(String message) {
         super(message);
     }

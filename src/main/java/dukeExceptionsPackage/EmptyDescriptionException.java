@@ -1,3 +1,6 @@
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
 
 public class EmptyDescriptionException extends DukeException {
     /**

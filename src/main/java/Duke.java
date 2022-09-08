@@ -1,4 +1,6 @@
-import java.util.Optional;
+import dukeExceptionsPackage.*;
+import dukeTasksPackage.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -29,9 +31,17 @@ public class Duke {
                 System.out.println(MESSAGE_BYE);
                 break;
             case COMMAND_LIST:
-                System.out.println("Here are the tasks for today: ");
-                for (int i = 0; i < tasksList.size(); i++) {
-                    System.out.println(tasksList.get(i));
+                try {
+                    if (tasksList.isEmpty()) {
+                        throw new EmptyListException(line);
+                    } else {
+                        System.out.println("Here are the tasks for today: ");
+                        for (int i = 0; i < tasksList.size(); i++) {
+                            System.out.println(tasksList.get(i));
+                        }
+                    }
+                } catch (EmptyListException e) {
+                    System.out.println(e.getExceptionMessage());
                 }
                 break;
             case COMMAND_MARK:

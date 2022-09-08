@@ -1,4 +1,8 @@
-public class UnrecognisedEventException extends DukeException{
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
+
+public class UnrecognisedEventException extends DukeException {
     public UnrecognisedEventException(String message) {
         super(message);
     }

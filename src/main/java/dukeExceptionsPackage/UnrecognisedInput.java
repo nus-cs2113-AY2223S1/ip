@@ -1,3 +1,7 @@
+package dukeExceptionsPackage;
+
+import dukeExceptionsPackage.DukeException;
+
 /**
  * Exception subclass of {@DukeException} when an input is not recognised by Duke
  *

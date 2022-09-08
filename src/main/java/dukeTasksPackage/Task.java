@@ -1,9 +1,11 @@
+package dukeTasksPackage;
+
 public class Task {
     protected String description;
     protected int number;
     protected  char status = ' ';
     protected char alphabet = ' ';
-    protected boolean isDone;
+    public boolean isDone;
     public void markAsDone(Task t) {
         System.out.println("Good job! You have completed another task! I've marked this task as done:\n" + "    [X] " + t.description);
         t.isDone = true;
