@@ -21,6 +21,8 @@ public class Duke {
     }
 
     private static final String END_CMD = "bye";
+    private static final String DEADLINE_FLAG = "/by";
+    private static final String EVENT_FLAG = "/at";
     private static final int MAX_TASK = 100;
     private static final int SEPARATOR_LEN = 50;
     private static int taskCount = 0;
@@ -135,8 +137,16 @@ public class Duke {
         showTaskCount();
     }
 
-    private static void addDeadline(String str) {
+    private static void addDeadline(String str) throws DukeException {
+        if (str.equals("")) {
+            throw new DukeException();
+        }
+
         String description = str.split("/")[0].trim();
+        if (!str.contains(DEADLINE_FLAG)) {
+            throw new DukeException();
+        }
+
         String by = str.split("/")[1];
         tasks[taskCount] = new Deadline(description, by);
         System.out.println(">>>Added: " + tasks[taskCount++]);
