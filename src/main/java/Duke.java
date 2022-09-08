@@ -141,7 +141,7 @@ public class Duke {
 
     public static boolean isToExit(String userInput) {
         if (userInput.equals("bye")) {
-            System.out.println("BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>");
+            System.out.println("BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWW >>>");
             return true;
         }
         return false;
