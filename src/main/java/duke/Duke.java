@@ -3,19 +3,26 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.manager.CommandManager;
+import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
 public class Duke {
 
     private final UI ui;
-    private final TaskList taskList;
+    private TaskList taskList;
+    private final Storage storage;
     private static final String EXIT_PREFIX = "bye";
     private boolean isActive = true;
 
-    public Duke() {
+    public Duke(String filePath) {
         ui = new UI();
-        taskList = new TaskList();
+        storage = new Storage(filePath);
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (DukeException e) {
+            taskList = new TaskList();
+        }
     }
 
     public void exit() {
@@ -31,6 +38,7 @@ public class Duke {
                 command.execute(taskList, ui);
 
                 if (input.startsWith(EXIT_PREFIX)) {
+                    storage.writeTasks(taskList);
                     exit();
                 }
             } catch (DukeException e) {
@@ -40,6 +48,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Duke("./data/duke.txt").run();
     }
 }
