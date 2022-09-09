@@ -9,6 +9,8 @@ import duke.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,9 +27,9 @@ public class Storage {
     }
 
     public ArrayList<Task> loadTasks() throws DukeException {
-        File file = new File(filePath);
-        ArrayList<Task> list = new ArrayList<>();
         try {
+            File file = new File(filePath);
+            ArrayList<Task> list = new ArrayList<>();
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String taskLine = scanner.nextLine();
@@ -37,12 +39,25 @@ public class Storage {
             }
             return list;
         } catch (FileNotFoundException e) {
-            throw new DukeException("OOPS! I cannot find your file");
+            throw new DukeException("OOPS! I cannot find your file ☹");
         }
     }
 
-    public void saveTasks(TaskList taskList) {
-
+    public void writeTasks(TaskList taskList) throws DukeException {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            String formattedTaskList = taskList.formatTaskListToStringToStore();
+            fileWriter.write(formattedTaskList);
+            fileWriter.close();
+        } catch (IOException e) {
+            String fileDirectory = filePath.replace(filePath.substring(filePath.lastIndexOf("/")), "");
+            File file = new File(fileDirectory);
+            if (file.mkdir()) {
+                writeTasks(taskList);
+            } else {
+                throw new DukeException("OOPS!!! Something went wrong when storing your tasks ☹");
+            }
+        }
     }
 
     public Task handleTaskLine(String[] analysedTaskLine) throws DukeException {
@@ -58,7 +73,7 @@ public class Storage {
             task = new Deadline(analysedTaskLine[2], analysedTaskLine[3]);
             break;
         default:
-            throw new DukeException("Something is wrong with the tasks in your saved files");
+            throw new DukeException("Something went wrong with the tasks in your saved files ☹");
         }
 
         switch (analysedTaskLine[1]) {
@@ -69,7 +84,7 @@ public class Storage {
             task.setDone(false);
             break;
         default:
-            throw new DukeException("Cannot understand your task status!");
+            throw new DukeException("Cannot understand your task status ☹");
         }
 
         return task;
