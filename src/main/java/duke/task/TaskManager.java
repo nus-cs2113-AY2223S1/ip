@@ -25,6 +25,7 @@ public class TaskManager {
         for (int i = 0; i < tasks.size(); i++) {
             int taskNumber = i + 1;
             System.out.print(taskNumber + ".");
+
             Task task = tasks.get(i);
             task.print();
         }
@@ -78,7 +79,6 @@ public class TaskManager {
         int taskIndex = taskNumber - 1;
         try {
             Task task = tasks.get(taskIndex);
-
             tasks.remove(taskIndex);
 
             saveTasks();
@@ -126,25 +126,25 @@ public class TaskManager {
     }
 
     public void saveTasks() {
-        Path dataDirectoryPath = Paths.get("./data/");
+        Path tasksDirectoryPath = Paths.get("./data/");
         Path tasksFilePath = Paths.get("./data/tasks.txt");
 
-        if (Files.notExists(dataDirectoryPath)) {
+        if (Files.notExists(tasksDirectoryPath)) {
             try {
-                Files.createDirectories(dataDirectoryPath);
+                Files.createDirectories(tasksDirectoryPath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        String data = "";
+        String tasksStr = "";
         for (Task task : tasks) {
-            data += Task.convertToString(task);
-            data += "\n";
+            tasksStr += Task.convertToString(task);
+            tasksStr += "\n";
         }
 
         try {
-            Files.writeString(tasksFilePath, data, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.writeString(tasksFilePath, tasksStr, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -155,15 +155,15 @@ public class TaskManager {
 
         Path tasksFilePath = Paths.get(path);
 
-        String data;
+        String tasksStr;
         try {
-            data = Files.readString(tasksFilePath);
+            tasksStr = Files.readString(tasksFilePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String[] taskStrArr = data.split("\n");
-        for (String taskStr : taskStrArr) {
+        String[] tasksStrArr = tasksStr.split("\n");
+        for (String taskStr : tasksStrArr) {
             Task task = Task.convertFromString(taskStr);
             tasks.add(task);
         }

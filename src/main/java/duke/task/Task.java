@@ -1,7 +1,5 @@
 package duke.task;
 
-import java.util.Arrays;
-
 public class Task {
     protected String description;
     protected boolean isComplete;
@@ -58,35 +56,27 @@ public class Task {
         String[] taskStrArr = taskStr.split(" \\| ");
         String type = taskStrArr[0].trim();
         String isCompleteStr = taskStrArr[1].trim();
-        String description = taskStrArr[2].trim();
-        System.out.println(Arrays.toString(taskStrArr));
-
         boolean isComplete = isCompleteStr.equals("1");
+        String description = taskStrArr[2].trim();
 
         switch (type) {
         case "T":
             Todo todo = new Todo(description);
             todo.setComplete(isComplete);
-
             return todo;
         case "D":
             String by = taskStrArr[3].trim();
-
             Deadline deadline = new Deadline(description, by);
             deadline.setComplete(isComplete);
-
             return deadline;
         case "E":
             String at = taskStrArr[3].trim();
-
             Event event = new Event(description, at);
             event.setComplete(isComplete);
-
             return event;
         default:
             Task task = new Task(description);
             task.setComplete(isComplete);
-
             return task;
         }
     }
