@@ -1,7 +1,7 @@
 package duke.ui;
 
-import duke.task.List;
 import duke.task.TaskList;
+import duke.task.Task;
 
 import java.util.Scanner;
 
@@ -35,30 +35,30 @@ public class UI {
         reply("Good bye. Hope to see you again soon!");
     }
 
-    public void confirmAdd(TaskList taskList, List list) {
-        reply("Got it, I added this taskList to your list:\n"
-                + ARROW + taskList
-                + "\nNow you have " + list.getSize() + " taskList" + (list.getSize() == 1 ? "" : "s") + " in the list");
+    public void confirmAdd(Task task, TaskList taskList) {
+        reply("Got it, I added this task to your list:\n"
+                + ARROW + task
+                + "\nNow you have " + taskList.getSize() + " task" + (taskList.getSize() == 1 ? "" : "s") + " in the list");
     }
 
-    public void confirmMark(TaskList taskList) {
-        reply("Congratulations! You have done this taskList:\n"
-                + ARROW + taskList);
+    public void confirmMark(Task task) {
+        reply("Congratulations! You have done this task:\n"
+                + ARROW + task);
     }
 
-    public void confirmUnmark(TaskList taskList) {
-        reply("OK, I've marked this taskList as not done yet:\n"
-                + ARROW + taskList);
+    public void confirmUnmark(Task task) {
+        reply("OK, I've marked this task as not done yet:\n"
+                + ARROW + task);
     }
 
-    public void confirmDelete(TaskList taskList, List list) {
-        reply("Noted. I've removed this taskList:\n"
-                + ARROW + taskList
-                + "\nNow you have " + list.getSize() + " taskList" + (list.getSize() == 1 ? "" : "s") + " in the list");
+    public void confirmDelete(Task task, TaskList taskList) {
+        reply("Noted. I've removed this task:\n"
+                + ARROW + task
+                + "\nNow you have " + taskList.getSize() + " task" + (taskList.getSize() == 1 ? "" : "s") + " in the list");
     }
 
-    public void printList(List list) {
-        reply(list.toString());
+    public void printList(TaskList taskList) {
+        reply(taskList.toString());
     }
 
     public String getUserInput() {

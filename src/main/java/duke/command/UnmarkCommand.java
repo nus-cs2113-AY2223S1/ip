@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.task.List;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class UnmarkCommand extends Command {
@@ -12,8 +12,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(List list, UI ui) throws DukeException {
-        list.unmarkDone(index);
-        ui.confirmUnmark(list.findTask(index));
+    public void execute(TaskList taskList, UI ui) throws DukeException {
+        taskList.unmarkDone(index);
+        ui.confirmUnmark(taskList.findTask(index));
     }
 }

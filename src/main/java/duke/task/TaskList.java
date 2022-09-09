@@ -1,28 +1,54 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
+import java.util.ArrayList;
+
 public class TaskList {
-    private final String description;
-    private boolean isDone;
+    //I will use ArrayList because the maximum size is only 100
+    //In the future, it would be easier to implement DELETE
+    private final ArrayList<Task> list;
 
-    public TaskList(String description) {
-        this.description = description;
-        this.isDone = false;
+    public TaskList() {
+        this.list = new ArrayList<>();
     }
 
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
+    public Task findTask(int index) throws DukeException {
+        try {
+            return list.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! The task number is out of bound ☹"
+                    + "\nThere are only " + list.size() + " task(s) in your list");
+        }
     }
 
-    public String getDescription() {
-        return description;
+    public int getSize() {
+        return list.size();
     }
 
-    public boolean isDone() {
-        return this.isDone;
+    public void add(Task task) {
+        list.add(task);
+    }
+
+    public void markDone(int index) throws DukeException {
+        findTask(index).setDone(true);
+    }
+
+    public void unmarkDone(int index) throws DukeException {
+        findTask(index).setDone(false);
+    }
+
+    public void delete(int index) throws DukeException {
+        list.remove(findTask(index));
     }
 
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
+        StringBuilder listString = new StringBuilder((list.size() == 0 ? "There is nothing in your list right now" : "Here are " + list.size() + " tasks in your list:"));
+        int index = 1;
+        for (Task task : list) {
+            listString.append('\n').append("   ").append(index++).append(". ").append(task);
+        }
+        return String.valueOf(listString);
     }
 }
