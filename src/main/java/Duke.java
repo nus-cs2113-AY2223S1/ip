@@ -18,7 +18,7 @@ public class Duke {
         System.out.println("Hello! I'm Duke_HTT. \n What can I do for you?");
     }
 
-    public static void processInput(){
+    public static void processInput(){   
         Scanner scan = new Scanner ( System.in ); 
         String inData = scan.nextLine(); // user line of input
         String[] inLine = inData.split(" "); // code process line of input into an array
