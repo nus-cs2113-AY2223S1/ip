@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -42,7 +43,11 @@ public class Storage {
 
     public static void writeDataFile(List<Task> tasks, String path) throws DukeException {
         try {
-            FileWriter writer = new FileWriter(path);
+            File dataFile = new File(path);
+            if (!dataFile.getParentFile().exists()) {
+                dataFile.getParentFile().mkdirs();
+            }
+            FileWriter writer = new FileWriter(dataFile);
             for (Task task : tasks) {
                 writer.append(task.serialize());
                 writer.append("\n");
