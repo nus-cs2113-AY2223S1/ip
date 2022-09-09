@@ -35,9 +35,9 @@ public class Duke {
     public static void printMark(Task[] tasks, int taskId) {
         // if the task is alrdy done
         //else
-        if (tasks[taskId].isDone){
+        if (tasks[taskId].isDone) {
             System.out.println("This task is already done!");
-        } else{
+        } else {
             System.out.println("\tNice! I've marked this task as done:");
             tasks[taskId].setDone(tasks[taskId].isDone);
             System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
@@ -66,7 +66,20 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    private static final int TASK_SIZE=100;
+    private static void unmarkTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printUnmark(tasks, taskId);
+    }
+
+    private static void markTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printMark(tasks, taskId);
+    }
+
+
+
+
+    private static final int TASK_SIZE = 100;
 
 
     public static void main(String[] args) {
@@ -129,13 +142,20 @@ public class Duke {
                         continue;
                     }
                 } else if (type.equals("event")) {
-                    String details = getInputDetails(line);
-                    String breakAt[] = details.split("/at", 2);
-                    String detail = breakAt[0];
-                    String at = breakAt[1];
-                    Task e = new Event(detail, at);
-                    tasks[taskCount] = e;
-                } else{
+                    try{
+                        String details = getInputDetails(line);
+                        String breakAt[] = details.split("/at", 2);
+                        String detail = breakAt[0];
+                        String at = breakAt[1];
+                        Task e = new Event(detail, at);
+                        tasks[taskCount] = e;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please tell me when is the event.");
+                        System.out.println("Example: event (borrow book) /at (library)");
+                        continue;
+                    }
+
+                } else {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     continue;
                 }
@@ -144,14 +164,6 @@ public class Duke {
             }
         } while (!line.equals("bye"));
     }
-
-    private static void unmarkTask(Task[] tasks, String line) {
-        int taskId = getTaskId(line);
-        printUnmark(tasks, taskId);
-    }
-
-    private static void markTask(Task[] tasks, String line) {
-        int taskId = getTaskId(line);
-        printMark(tasks, taskId);
-    }
 }
+
+
