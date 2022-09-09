@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Arrays;
+
 public class Task {
     protected String description;
     protected boolean isComplete;
@@ -9,14 +11,14 @@ public class Task {
         this.isComplete = false;
     }
 
-    public String convertToString() {
+    public static String convertToString(Task task) {
         String taskStr = "";
 
-        if (this instanceof Todo) {
+        if (task instanceof Todo) {
             taskStr += "T";
-        } else if (this instanceof Deadline) {
+        } else if (task instanceof Deadline) {
             taskStr += "D";
-        } else if (this instanceof Event) {
+        } else if (task instanceof Event) {
             taskStr += "E";
         } else {
             taskStr += " ";
@@ -24,7 +26,7 @@ public class Task {
 
         taskStr += " | ";
 
-        if (this.isComplete) {
+        if (task.isComplete) {
             taskStr += "1";
         } else {
             taskStr += "0";
@@ -32,24 +34,61 @@ public class Task {
 
         taskStr += " | ";
 
-        if (this instanceof Todo) {
-            Todo todo = (Todo) this;
+        if (task instanceof Todo) {
+            Todo todo = (Todo) task;
             taskStr += todo.getDescription();
-        } else if (this instanceof Deadline) {
-            Deadline deadline = (Deadline) this;
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
             taskStr += deadline.getDescription();
             taskStr += " | ";
             taskStr += deadline.by;
-        } else if (this instanceof Event) {
-            Event event = (Event) this;
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
             taskStr += event.getDescription();
             taskStr += " | ";
             taskStr += event.at;
         } else {
-            taskStr += this.getDescription();
+            taskStr += task.getDescription();
         }
 
         return taskStr;
+    }
+
+    public static Task convertFromString(String taskStr) {
+        String[] taskStrArr = taskStr.split(" \\| ");
+        String type = taskStrArr[0].trim();
+        String isCompleteStr = taskStrArr[1].trim();
+        String description = taskStrArr[2].trim();
+        System.out.println(Arrays.toString(taskStrArr));
+
+        boolean isComplete = isCompleteStr.equals("1");
+
+        switch (type) {
+        case "T":
+            Todo todo = new Todo(description);
+            todo.setComplete(isComplete);
+
+            return todo;
+        case "D":
+            String by = taskStrArr[3].trim();
+
+            Deadline deadline = new Deadline(description, by);
+            deadline.setComplete(isComplete);
+
+            return deadline;
+        case "E":
+            String at = taskStrArr[3].trim();
+
+            Event event = new Event(description, at);
+            event.setComplete(isComplete);
+
+            return event;
+        default:
+            Task task = new Task(description);
+            task.setComplete(isComplete);
+
+            return task;
+        }
     }
 
     public void print() {

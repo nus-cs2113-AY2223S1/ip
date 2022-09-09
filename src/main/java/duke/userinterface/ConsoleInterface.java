@@ -23,7 +23,7 @@ public class ConsoleInterface {
 
     public ConsoleInterface() {
         scanner = new Scanner(System.in);
-        taskManager = new TaskManager();
+        taskManager = new TaskManager("./data/tasks.txt");
     }
 
     /**
@@ -112,7 +112,6 @@ public class ConsoleInterface {
             taskManager.getTask(taskNumberInt).print();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 
@@ -137,7 +136,6 @@ public class ConsoleInterface {
             taskManager.getTask(taskNumberInt).print();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 
@@ -253,7 +251,6 @@ public class ConsoleInterface {
             System.out.println("Now you have " + numTasks + " tasks in the list.");
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 

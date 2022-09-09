@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +12,10 @@ public class TaskManager {
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
+    }
+
+    public TaskManager(String path) {
+        loadTasks(path);
     }
 
     /**
@@ -136,7 +139,7 @@ public class TaskManager {
 
         String data = "";
         for (Task task : tasks) {
-            data += task.convertToString();
+            data += Task.convertToString(task);
             data += "\n";
         }
 
@@ -144,6 +147,25 @@ public class TaskManager {
             Files.writeString(tasksFilePath, data, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void loadTasks(String path) {
+        tasks = new ArrayList<>();
+
+        Path tasksFilePath = Paths.get(path);
+
+        String data;
+        try {
+            data = Files.readString(tasksFilePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String[] taskStrArr = data.split("\n");
+        for (String taskStr : taskStrArr) {
+            Task task = Task.convertFromString(taskStr);
+            tasks.add(task);
         }
     }
 }
