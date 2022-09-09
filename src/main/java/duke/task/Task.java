@@ -24,6 +24,7 @@ public class Task {
     public String formatTaskToStringToStore() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;

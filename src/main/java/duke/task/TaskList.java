@@ -49,6 +49,7 @@ public class TaskList {
         }
         return formattedString.toString();
     }
+
     @Override
     public String toString() {
         StringBuilder listString = new StringBuilder((taskList.size() == 0 ? "There is nothing in your list right now" : "Here are " + taskList.size() + " tasks in your list:"));
