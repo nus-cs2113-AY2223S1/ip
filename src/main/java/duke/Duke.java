@@ -10,11 +10,14 @@ import java.util.Scanner;
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;
 
-    /* Possible type of exceptions:
-        Wrong command
+    /*  Not done yet!
+    https://rollbar.com/blog/most-common-java-exceptions/
+        Possible type of exceptions:
+        Wrong command [NoSuchMethodException]
         Missing Arguments: description, time
-        Too many arguments
-        Wrong input
+        Too many arguments - all
+        Wrong parameters - mark, unmark, [ArrayIndexOutOfBoundsException]
+                         + [IllegalArgumentException]/[IllegalArgumentException]
      */
 
     public static void main(String[] args) {
