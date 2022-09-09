@@ -16,7 +16,8 @@ public class Printables {
             "'event <taskName>/<date>': Add a new todo task\n" +
             "'list': Lists out tasks in index order\n" +
             "'mark <taskNumber>': Mark a certain task as done\n" +
-            "'unmark <taskNumber>': Unmark a certain task that was done\n" +
+            "'unmark <taskNumber>': Unmark a certain task that was done\n"+
+            "'delete <taskNumber>': Delete the task from the list"+
             "'bye': Quit the system\n" + "____________________";
 
     public static String invalidBasicCommandMessage = "Commands 'list', 'help' and 'bye' can only be used alone" +

@@ -5,7 +5,7 @@ import java.util.List;
 import duke.tasks.*;
 
 public class TaskManager {
-    public static final String END_OF_LINE = "____________________\n";
+    public static final String END_OF_LINE = "\n____________________";
     private static List<Task> tasks = new ArrayList<Task>();
 
     public void addNewTodo(String taskName) {
@@ -28,10 +28,10 @@ public class TaskManager {
 
     public void listTasks() {
         System.out.println("Here is your list of tasks.");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
-        System.out.print(END_OF_LINE);
+        System.out.println((tasks.size()) + ". " + tasks.get(tasks.size() - 1).toString() + END_OF_LINE);
     }
 
     public void markTasks(boolean toMark, int taskIndex) throws DukeException.IllegalMarkTargetException {
@@ -55,5 +55,14 @@ public class TaskManager {
             System.out.println(tasks.get(taskIndex - 1).getTaskName()
                     + " has been unmarked!" + END_OF_LINE);
         }
+    }
+
+    public void deleteTask(int taskIndex) throws DukeException.IllegalDeleteTargetException {
+        if (taskIndex < 1 || taskIndex > tasks.size()) {
+            throw new DukeException.IllegalDeleteTargetException();
+        }
+        System.out.println("Deleted: " + tasks.get(taskIndex - 1).toString()
+                + "\nYou have " + (tasks.size() - 1) + " tasks in the list." + END_OF_LINE);
+        tasks.remove(taskIndex - 1);
     }
 }

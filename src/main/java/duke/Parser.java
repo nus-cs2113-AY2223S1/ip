@@ -12,6 +12,7 @@ public class Parser {
     private static final String COMMAND_TODOS = "todo";
     private static final String COMMAND_DEADLINES = "deadline";
     private static final String COMMAND_EVENTS = "event";
+    private static final String COMMAND_DELETE = "delete";
 
     public static boolean isOnline(String command, TaskManager taskManager) {
         String keyword = extractKeyword(command);
@@ -27,6 +28,7 @@ public class Parser {
             break;
         case COMMAND_HELP:
             System.out.println(Printables.helpManual);
+            break;
         case COMMAND_TODOS:
             try {
                 CommandTodo.processNewTodo(command, taskManager);
@@ -56,14 +58,21 @@ public class Parser {
             try {
                 CommandMarking.processMarking(command, taskManager, true);
             } catch (DukeException.IllegalNoMarkIndexException e) {
-                System.out.println("Please enter a task number to be marked");
+                System.out.println("Please enter a task number only to be marked");
             }
             break;
         case COMMAND_UNMARK:
             try {
                 CommandMarking.processMarking(command, taskManager, false);
             } catch (DukeException.IllegalNoMarkIndexException e) {
-                System.out.println("Please enter a task number to be marked");
+                System.out.println("Please enter a task number only to be unmarked");
+            }
+            break;
+        case COMMAND_DELETE:
+            try {
+                CommandDelete.processDelete(command, taskManager);
+            } catch (DukeException.IllegalDeleteIndexException e) {
+                System.out.println("Please enter a task number only to be deleted");
             }
             break;
         default:

@@ -3,18 +3,18 @@ package duke.commands;
 import duke.DukeException;
 import duke.TaskManager;
 
-public class CommandMarking {
-    public static void processMarking(String command, TaskManager taskManager, boolean toMark)
-            throws DukeException.IllegalNoMarkIndexException {
+public class CommandDelete {
+    public static void processDelete(String command, TaskManager taskManager)
+            throws DukeException.IllegalDeleteIndexException {
         String[] arrOfCommand = command.split(" ");
 
         if (arrOfCommand.length != 2 || !isInteger(arrOfCommand[1])) {
-            throw new DukeException.IllegalNoMarkIndexException();
+            throw new DukeException.IllegalDeleteIndexException();
         }
 
         try {
-            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]));
-        } catch (DukeException.IllegalMarkTargetException e) {
+            taskManager.deleteTask(Integer.parseInt(arrOfCommand[1]));
+        } catch (DukeException.IllegalDeleteTargetException e) {
             System.out.println("Index of task is out of range");
         }
     }
