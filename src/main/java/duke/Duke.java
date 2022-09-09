@@ -2,8 +2,8 @@ package duke;
 
 import duke.task.TaskManager;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import static java.util.Map.entry;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,16 +18,18 @@ public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final TaskManager TASK_MANAGER = new TaskManager();
 
-    public static final Map<String, Command> COMMANDS = Map.ofEntries(
-            entry("help", new Command("help", "Get help for the commands supported and their syntax")),
-            entry("list", new Command("list", "View all tasks with their task number")),
-            entry("todo", new Command("todo <description>", "Add a todo task")),
-            entry("deadline", new Command("deadline <description> /by <deadline-datetime>", "Add a task with its deadline")),
-            entry("event", new Command("event <description> /at <event-datetime>", "Add an event with its date and time")),
-            entry("mark", new Command("mark <task-number>", "Mark a task as done")),
-            entry("unmark", new Command("unmark <task-number>", "Unmark a task from done")),
-            entry("bye", new Command("bye", "Exit the application"))
-    );
+    public static final Map<String, Command> COMMANDS = new LinkedHashMap<>();
+
+    private static void initCommand() {
+        COMMANDS.put("help", new Command("help", "Get help for the commands supported and their syntax"));
+        COMMANDS.put("list", new Command("list", "View all tasks with their task number"));
+        COMMANDS.put("todo", new Command("todo <description>", "Add a todo task"));
+        COMMANDS.put("deadline", new Command("deadline <description> /by <deadline-datetime>", "Add a task with its deadline"));
+        COMMANDS.put("event", new Command("event <description> /at <event-datetime>", "Add an event with its date and time"));
+        COMMANDS.put("mark", new Command("mark <task-number>", "Mark a task as done"));
+        COMMANDS.put("unmark", new Command("unmark <task-number>", "Unmark a task from done"));
+        COMMANDS.put("bye", new Command("bye", "Exit the application"));
+    }
 
     private static void greet() {
         System.out.println(LOGO);
@@ -85,6 +87,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        initCommand();
+
         greet();
 
         while (true) {
