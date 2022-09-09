@@ -31,6 +31,9 @@ public class Duke {
         try {
             if (input.startsWith("list")) {
                 displayMessage(listManager.toString());
+            } else if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.substring("mark".length()).trim());
+                listManager.deleteItem(index);
             } else if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.substring("mark".length()).trim());
                 listManager.markDone(index);
