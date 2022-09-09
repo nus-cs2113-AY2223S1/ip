@@ -1,5 +1,11 @@
 package duke.task;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -37,6 +43,8 @@ public class TaskManager {
      */
     public void addTask(Task task) {
         tasks.add(task);
+
+        saveTasks();
     }
 
     /**
@@ -67,7 +75,11 @@ public class TaskManager {
         int taskIndex = taskNumber - 1;
         try {
             Task task = tasks.get(taskIndex);
+
             tasks.remove(taskIndex);
+
+            saveTasks();
+
             return task;
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
@@ -85,6 +97,8 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(true);
+
+            saveTasks();
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
         }
@@ -101,8 +115,35 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(false);
+
+            saveTasks();
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
+        }
+    }
+
+    public void saveTasks() {
+        Path dataDirectoryPath = Paths.get("./data/");
+        Path tasksFilePath = Paths.get("./data/tasks.txt");
+
+        if (Files.notExists(dataDirectoryPath)) {
+            try {
+                Files.createDirectories(dataDirectoryPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String data = "";
+        for (Task task : tasks) {
+            data += task.convertToString();
+            data += "\n";
+        }
+
+        try {
+            Files.writeString(tasksFilePath, data, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
