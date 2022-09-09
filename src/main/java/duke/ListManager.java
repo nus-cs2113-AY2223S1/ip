@@ -8,7 +8,11 @@ public class ListManager {
     List<Task> items;
 
     public ListManager() {
-        items = new ArrayList<>();
+        this(Storage.readDataFile());
+    }
+
+    public ListManager(List<Task> items) {
+        this.items = new ArrayList<>(items);
     }
 
     public Task getItem(int index) {
@@ -19,20 +23,23 @@ public class ListManager {
         }
     }
 
-    public void addItem(Task item) {
+    public void addItem(Task item) throws DukeException {
         items.add(item);
+        Storage.writeDataFile(items);
     }
 
-    public void markDone(int index) {
+    public void markDone(int index) throws DukeException {
         if (index >= 1 && index <= items.size()) {
             items.get(index - 1).markDone();
         }
+        Storage.writeDataFile(items);
     }
 
-    public void markUndone(int index) {
+    public void markUndone(int index) throws DukeException {
         if (index >= 1 && index <= items.size()) {
             items.get(index - 1).markUndone();
         }
+        Storage.writeDataFile(items);
     }
 
     public String toString() {

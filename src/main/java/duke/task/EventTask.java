@@ -21,4 +21,9 @@ public class EventTask extends Task {
         return "[E]" + super.toString() + " (at: " + eventDateTime + ")";
     }
 
+    @Override
+    public String serialize() {
+        return String.format("event %s /at %s", getName(), eventDateTime);
+    }
+
 }

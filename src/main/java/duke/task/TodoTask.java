@@ -14,4 +14,9 @@ public class TodoTask extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String serialize() {
+        return String.format("todo %s", getName());
+    }
 }
