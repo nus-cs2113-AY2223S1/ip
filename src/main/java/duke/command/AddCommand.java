@@ -1,14 +1,14 @@
 package duke.command;
 
 import duke.task.List;
-import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class AddCommand extends Command {
-    private final Task task;
+    private final TaskList task;
 
-    public AddCommand(Task task) {
-        this.task = task;
+    public AddCommand(TaskList taskList) {
+        this.task = taskList;
     }
 
     @Override

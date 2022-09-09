@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.task.List;
-import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class DeleteCommand extends Command {
@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(List list, UI ui) throws DukeException {
-        Task removedTask = list.findTask(index);
+        TaskList removedTask = list.findTask(index);
         list.delete(index);
         ui.confirmDelete(removedTask, list);
     }
