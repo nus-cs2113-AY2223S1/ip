@@ -14,8 +14,8 @@ public class TaskManager {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskManager(String path) {
-        loadTasks(path);
+    public TaskManager(String path, String filename) {
+        loadTasks(path, filename);
     }
 
     /**
@@ -119,10 +119,13 @@ public class TaskManager {
 
     /**
      * Saves tasks in task manager to file.
+     *
+     * @param path Path of the file to load.
+     * @param filename Name of the file to load.
      */
-    public void saveTasks() {
-        Path tasksDirectoryPath = Paths.get("./data/");
-        Path tasksFilePath = Paths.get("./data/tasks.txt");
+    public void saveTasks(String path, String filename) {
+        Path tasksDirectoryPath = Paths.get(path);
+        Path tasksFilePath = Paths.get(path + filename);
 
         if (Files.notExists(tasksDirectoryPath)) {
             try {
@@ -149,11 +152,12 @@ public class TaskManager {
      * Loads tasks from file into task manager.
      *
      * @param path Path of the file to load.
+     * @param filename Name of the file to load.
      */
-    public void loadTasks(String path) {
+    public void loadTasks(String path, String filename) {
         tasks = new ArrayList<>();
 
-        Path tasksFilePath = Paths.get(path);
+        Path tasksFilePath = Paths.get(path + filename);
 
         String tasksStr;
         try {
