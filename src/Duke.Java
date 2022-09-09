@@ -33,7 +33,7 @@ public class Duke extends Constants{
     public static void taskList(){ // check if get is 1 or 2
         ModifyList modifyList = new ModifyList();
         Scanner reader = new Scanner(System.in);
-        String input = reader.nextLine();
+        String input = reader.nextLine(); //.toLowerCase()?
 
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);
@@ -47,9 +47,10 @@ public class Duke extends Constants{
                             throw new Error(UNMARK_ERROR);
                         case MARK:
                             throw new Error(MARK_ERROR);
+                        case DEADLINE:
+                            throw new Error(DELETE_ERROR);
                         default:
                             throw new Error(INVALID_COMMAND);
-
                     }
                 }
                 catch (Error error) {
@@ -78,25 +79,39 @@ public class Duke extends Constants{
                         System.out.println(OUT_OF_BOUNDS);
                     }
                     break;
-                default:
+                case DELETE:
+                    int deleteIndex = Integer.parseInt(get[NUMBER]);
+                    try {
+                        modifyList.delete(deleteIndex);
+                    } catch (IndexOutOfBoundsException error) {
+                        System.out.println(OUT_OF_BOUNDS);
+                    }
+                    break;
+                case DEADLINE:
                     try {
                         modifyList.task(get[TASK], get[DETAILS]);
                     } catch (ArrayIndexOutOfBoundsException error) {
-                        if (get[TASK].equals(DEADLINE)) {
-                            System.out.println(DEADLINE_FORMAT_ERROR);
-                        } else if (get[TASK].equals(EVENT)) {
-                            System.out.println(EVENT_FORMAT_ERROR);
-                        }
+                        System.out.println(DEADLINE_FORMAT_ERROR);
                     }
                     break;
+                case EVENT:
+                    try {
+                        modifyList.task(get[TASK], get[DETAILS]);
+                    } catch (ArrayIndexOutOfBoundsException error) {
+                        System.out.println(EVENT_FORMAT_ERROR);
+                    }
+                    break;
+                case TODO:
+                    modifyList.task(get[TASK], get[DETAILS]); //error code here?
+                    break;
+                default:
+                    System.out.println(INVALID_COMMAND);
+                    break;
             }
-            }
-
+        }
             input = reader.nextLine(); // get next input indefinitely
         }
     }
-
-
     public static void main(String[] args) {
         greet();
         taskList();

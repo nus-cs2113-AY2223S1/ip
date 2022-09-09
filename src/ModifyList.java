@@ -26,6 +26,7 @@ public class ModifyList {
             case "todo":
                 Todo task = new Todo(details);
                 handleTask(task.getDescriptionAndStatus(), task);
+                break;
 
             case "deadline":
                 separateDetails = details.split("/");
@@ -34,22 +35,24 @@ public class ModifyList {
                 time = new StringBuilder(time).insert(time.indexOf(' '), ":").toString(); // add colon
                 Deadline deadline = new Deadline(description, time);
                 handleTask(deadline.getDescriptionAndStatus(), deadline);
-            case "event":
+                break;
 
+            case "event":
                 separateDetails = details.split("/");
                 description = separateDetails[0];
                 time = separateDetails[1];
                 time = new StringBuilder(time).insert(time.indexOf(' '), ":").toString(); // add colon
                 Event event = new Event(description, time);
                 handleTask(event.getDescriptionAndStatus(), event);
+                break;
         }
     }
 
     public void list() {
         int itemNumber = 1;
-        System.out.println(lineSeparator() + "Here are your list of tasks:\n");
+        System.out.println(lineSeparator() + "Here are your list of tasks:");
         for (Task task : tasks) {
-            System.out.println(itemNumber + "." + task.getDescriptionAndStatus() + "\n");
+            System.out.println(itemNumber + "." + task.getDescriptionAndStatus());
             itemNumber++;
         }
         System.out.println(lineSeparator());
@@ -71,5 +74,13 @@ public class ModifyList {
                     "The following task been marked as not done yet:\n" +
                     tasks.get(index - 1).getDescriptionAndStatus() + "\n" +
                     lineSeparator());
+    }
+    public void delete(int index) {
+        System.out.println(lineSeparator() +
+                "OK! I will remove the following task:\n" +
+                tasks.get(index - 1).getDescriptionAndStatus() + "\n" +
+                "Total tasks in list: " + tasks.size() + '\n' +
+                lineSeparator());
+        Task task = tasks.remove(index - 1);
     }
 }
