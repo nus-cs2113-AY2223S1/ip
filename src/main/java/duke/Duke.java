@@ -3,19 +3,19 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.manager.CommandManager;
-import duke.task.List;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class Duke {
 
     private final UI ui;
-    private final List list;
+    private final TaskList taskList;
     private static final String EXIT_PREFIX = "bye";
     private boolean isActive = true;
 
     public Duke() {
         ui = new UI();
-        list = new List();
+        taskList = new TaskList();
     }
 
     public void exit() {
@@ -28,7 +28,7 @@ public class Duke {
             try {
                 String input = ui.getUserInput();
                 Command command = CommandManager.manageCommand(input);
-                command.execute(list, ui);
+                command.execute(taskList, ui);
 
                 if (input.startsWith(EXIT_PREFIX)) {
                     exit();

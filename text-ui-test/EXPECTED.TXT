@@ -9,27 +9,27 @@ How can I help you?
  |____/ \__,_|_| |_|\__,_|_| |_|\__,_| 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-There is nothing in your list right now
+There is nothing in your taskList right now
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Sorry, I do not understand your input
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [T][ ] watch lecture
-Now you have 1 task in the list
+Now you have 1 task in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 1 tasks in your list:
+Here are 1 tasks in your taskList:
    1. [T][ ] watch lecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-Now you have 2 tasks in the list
+Now you have 2 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 2 tasks in your list:
+Here are 2 tasks in your taskList:
    1. [T][ ] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,17 +38,17 @@ Congratulations! You have done this task:
 ----->  [D][X] Level-4 CS2113 (due: Mon 28th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 2 tasks in your list:
+Here are 2 tasks in your taskList:
    1. [T][ ] watch lecture
    2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-Now you have 3 tasks in the list
+Now you have 3 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your list:
+Here are 3 tasks in your taskList:
    1. [T][ ] watch lecture
    2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -62,7 +62,7 @@ Congratulations! You have done this task:
 ----->  [E][X] Orbital Splashdown (at: Wed 24th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your list:
+Here are 3 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][X] Orbital Splashdown (at: Wed 24th Aug)
@@ -72,7 +72,7 @@ OK, I've marked this task as not done yet:
 ----->  [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your list:
+Here are 3 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][X] Orbital Splashdown (at: Wed 24th Aug)
@@ -82,35 +82,35 @@ OK, I've marked this task as not done yet:
 ----->  [E][ ] Orbital Splashdown (at: Wed 24th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your list:
+Here are 3 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [D][ ] Java Coding Exercises (due: tonight)
-Now you have 4 tasks in the list
+Now you have 4 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 4 tasks in your list:
+Here are 4 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
    4. [D][ ] Java Coding Exercises (due: tonight)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [T][ ] go buy some grocery
-Now you have 5 tasks in the list
+Now you have 5 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [T][ ] go to the gym
-Now you have 6 tasks in the list
+Now you have 6 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 6 tasks in your list:
+Here are 6 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -123,7 +123,7 @@ Congratulations! You have done this task:
 ----->  [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 6 tasks in your list:
+Here are 6 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -132,12 +132,12 @@ Here are 6 tasks in your list:
    6. [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [E][ ] Meeting with friend (at: Utown 9pm)
-Now you have 7 tasks in the list
+Now you have 7 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your list:
+Here are 7 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -151,7 +151,7 @@ Congratulations! You have done this task:
 ----->  [T][X] go buy some grocery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your list:
+Here are 7 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -165,7 +165,7 @@ OK, I've marked this task as not done yet:
 ----->  [T][ ] go buy some grocery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your list:
+Here are 7 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -175,12 +175,12 @@ Here are 7 tasks in your list:
    7. [E][ ] Meeting with friend (at: Utown 9pm)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your list:
+Got it, I added this task to your taskList:
 ----->  [E][ ] Weekly project meeting (at: Mon 11am-1pm)
-Now you have 8 tasks in the list
+Now you have 8 tasks in the taskList
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 8 tasks in your list:
+Here are 8 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
@@ -195,7 +195,7 @@ Congratulations! You have done this task:
 ----->  [E][X] Meeting with friend (at: Utown 9pm)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 8 tasks in your list:
+Here are 8 tasks in your taskList:
    1. [T][X] watch lecture
    2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
    3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)

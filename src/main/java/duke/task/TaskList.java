@@ -4,12 +4,12 @@ import duke.exception.DukeException;
 
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     //I will use ArrayList because the maximum size is only 100
     //In the future, it would be easier to implement DELETE
     private ArrayList<Task> list;
 
-    public List() {
+    public TaskList() {
         this.list = new ArrayList<>();
     }
 

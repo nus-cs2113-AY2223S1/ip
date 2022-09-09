@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.task.List;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class MarkCommand extends Command {
@@ -12,8 +12,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(List list, UI ui) throws DukeException {
-        list.markDone(index);
-        ui.confirmMark(list.findTask(index));
+    public void execute(TaskList taskList, UI ui) throws DukeException {
+        taskList.markDone(index);
+        ui.confirmMark(taskList.findTask(index));
     }
 }

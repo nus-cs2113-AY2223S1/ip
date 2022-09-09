@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.task.List;
+import duke.task.TaskList;
 import duke.task.Task;
 
 import java.util.Scanner;
@@ -35,10 +35,10 @@ public class UI {
         reply("Good bye. Hope to see you again soon!");
     }
 
-    public void confirmAdd(Task task, List list) {
-        reply("Got it, I added this task to your list:\n"
+    public void confirmAdd(Task task, TaskList taskList) {
+        reply("Got it, I added this task to your taskList:\n"
                 + ARROW + task + '\n'
-                + "Now you have " + list.getSize() + " task" + (list.getSize() == 1 ? "" : "s") + " in the list");
+                + "Now you have " + taskList.getSize() + " task" + (taskList.getSize() == 1 ? "" : "s") + " in the taskList");
     }
 
     public void confirmMark(Task task) {
@@ -51,8 +51,8 @@ public class UI {
                 + ARROW + task);
     }
 
-    public void printList(List list) {
-        reply(list.toString());
+    public void printList(TaskList taskList) {
+        reply(taskList.toString());
     }
 
     public String getUserInput() {

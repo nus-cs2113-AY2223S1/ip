@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.task.List;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class ExitCommand extends Command {
     @Override
-    public void execute(List list, UI ui) {
+    public void execute(TaskList taskList, UI ui) {
         ui.bye();
     }
 }

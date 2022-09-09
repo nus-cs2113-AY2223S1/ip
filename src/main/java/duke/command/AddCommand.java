@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.task.List;
+import duke.task.TaskList;
 import duke.task.Task;
 import duke.ui.UI;
 
@@ -12,8 +12,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(List list, UI ui) {
-        list.add(task);
-        ui.confirmAdd(task, list);
+    public void execute(TaskList taskList, UI ui) {
+        taskList.add(task);
+        ui.confirmAdd(task, taskList);
     }
 }

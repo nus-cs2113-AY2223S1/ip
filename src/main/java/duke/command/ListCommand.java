@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.task.List;
+import duke.task.TaskList;
 import duke.ui.UI;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(List list, UI ui) {
-        ui.printList(list);
+    public void execute(TaskList taskList, UI ui) {
+        ui.printList(taskList);
     }
 }
