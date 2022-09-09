@@ -1,8 +1,10 @@
+//package duke;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    private static Task[] taskList = new Task[100];
+    public static final int MAX_TASK_LIST_SIZE = 100;
+    private static Task[] taskList = new Task[MAX_TASK_LIST_SIZE];
     private static int taskSize = 0;
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -70,7 +72,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException{
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
