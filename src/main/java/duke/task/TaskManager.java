@@ -7,16 +7,42 @@ import duke.exceptions.MissingTaskNumberException;
 import duke.exceptions.TaskAlreadyMarkedException;
 import duke.exceptions.TaskAlreadyUnmarkedException;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class TaskManager {
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks;
     private int tasksCount = 0;
 
-    public void printAcknowledgement() {
+    public TaskManager() {
+        tasks = new ArrayList<>();
+    }
+
+    public TaskManager(ArrayList<Task> tasks, int tasksCount) {
+        this.tasks = tasks;
+        this.tasksCount = tasksCount;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void printAddTaskAcknowledgement() {
         String acknowledgement = "____________________________________________________________\n"
-                + "Got it. I've added this task: \n"
-                + " " + tasks[tasksCount].toString();
+                + "Got it. I've added this task:\n"
+                + " " + tasks.get(tasksCount).toString();
         System.out.println(acknowledgement);
         this.tasksCount++;
+        System.out.println("Now you have " + this.tasksCount + " task(s) in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void printDeleteTaskAcknowledgement(int taskIndex) {
+        String acknowledgement = "____________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + " " + tasks.get(taskIndex).toString();
+        System.out.println(acknowledgement);
+        this.tasksCount--;
         System.out.println("Now you have " + this.tasksCount + " task(s) in the list.");
         System.out.println("____________________________________________________________");
     }
@@ -43,22 +69,29 @@ public class TaskManager {
         indexOfTime++;
         String time = "";
         for (int i = indexOfTime; i < text.length; i++) {
-            time = time + " " + text[i];
+            if (i < text.length-1) { //if it is the last word
+                time = time + text[i] + " ";
+            } else {
+                time += text[i];
+            }
         }
         if (type.equals("deadline")) {
-            tasks[tasksCount] = new Deadline(task, time);
+            Task newTask = new Deadline(task, time);
+            tasks.add(newTask);
         } else if (type.equals("event")) {
-            tasks[tasksCount] = new Event(task, time);
+            Task newTask = new Event(task, time);
+            tasks.add(newTask);
         }
     }
 
     public void handleTask(String type, String description) {
         if (type.equals("todo")) {
-            tasks[tasksCount] = new Todo(description);
+            Task newTask = new Todo(description);
+            tasks.add(newTask);
         } else {
             this.handleTaskWithTime(type, description);
         }
-        this.printAcknowledgement();
+        this.printAddTaskAcknowledgement();
     }
     public void addTask(String type, String curr) throws EmptyDescriptionException, UnknownCommandException {
         if (!(type.equals("todo") || type.equals("deadline") || type.equals("event"))) { //type given is invalid
@@ -70,6 +103,22 @@ public class TaskManager {
             } else {
                 String description = assembleTaskDescription(text);
                 handleTask(type, description);
+            }
+        }
+    }
+
+    public void deleteTask(String type, String curr) throws AccessTaskOutOfBoundsException, MissingTaskNumberException {
+        String[] text = curr.split(" ");
+        if (text.length == 1) { //user did not specify which task to delete
+            throw new MissingTaskNumberException();
+        } else {
+            int taskNumber = Integer.parseInt(text[1]);
+            if (taskNumber > this.tasksCount) {
+                throw new AccessTaskOutOfBoundsException();
+            } else {
+                int taskIndex = taskNumber - 1;
+                this.printDeleteTaskAcknowledgement(taskIndex);
+                tasks.remove(taskIndex);
             }
         }
     }
@@ -86,6 +135,15 @@ public class TaskManager {
         } else if (type.equals("unmark")) {
             try {
                 this.handleMarkAsUndone(curr);
+            } catch (MissingTaskNumberException e) {
+                e.printMissingTaskNumberError();
+            }
+        } else if (type.equals("delete")) {
+            try {
+                this.deleteTask(type, curr);
+            } catch (AccessTaskOutOfBoundsException e) {
+                e.printAccessTaskOutOfBoundsError();
+                printNumberOfTasks();
             } catch (MissingTaskNumberException e) {
                 e.printMissingTaskNumberError();
             }
@@ -108,7 +166,7 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < tasksCount; i++){
-            System.out.println((i+1) + "." + tasks[i].toString());
+            System.out.println((i+1) + "." + tasks.get(i).toString());
         }
         System.out.println("____________________________________________________________");
     }
@@ -135,10 +193,10 @@ public class TaskManager {
             throw new AccessTaskOutOfBoundsException();
         } else {
             int taskIndex = taskNumber - 1;
-            if (!tasks[taskIndex].isDone) { //only if task is undone
-                tasks[taskIndex].isDone = true;
+            if (!tasks.get(taskIndex).isDone) { //only if task is undone
+                tasks.get(taskIndex).isDone = true;
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[taskIndex].toString());
+                System.out.println(tasks.get(taskIndex).toString());
                 System.out.println("____________________________________________________________");
                 return;
             }
@@ -168,10 +226,10 @@ public class TaskManager {
             throw new AccessTaskOutOfBoundsException();
         } else {
             int taskIndex = taskNumber - 1;
-            if (tasks[taskIndex].isDone) { //only if task is done
-                tasks[taskIndex].isDone = false;
+            if (tasks.get(taskIndex).isDone) { //only if task is done
+                tasks.get(taskIndex).isDone = false;
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskIndex].toString());
+                System.out.println(tasks.get(taskIndex).toString());
                 System.out.println("____________________________________________________________");
                 return;
             }
