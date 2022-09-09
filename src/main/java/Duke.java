@@ -128,7 +128,7 @@ public class Duke {
 
     // MAIN FUNCTION
     public static void main(String[] args) {
-        // test change for non-fast forward merge
+        // test change 2 for non-fast forward merge
         greetUser();
         processUserInput();
         printExitGreeting();
