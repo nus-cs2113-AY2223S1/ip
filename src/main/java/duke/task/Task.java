@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean status;
 
@@ -12,6 +12,8 @@ public class Task {
         this.name = name;
         this.status = false;
     }
+
+    public abstract String serialize();
 
     @Override
     public String toString() {
