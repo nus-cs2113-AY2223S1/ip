@@ -16,7 +16,8 @@ public class Duke {
     }
 
     public static String findTaskSpecifics(String details) {
-        return details.substring(details.indexOf(" "), details.indexOf("/"));
+        String typeOfTask = details.substring(details.indexOf(" "), details.indexOf("/"));
+        return typeOfTask;
     }
 
     public static void printDefaultTaskResponse(int number, Task[] tasks) {
