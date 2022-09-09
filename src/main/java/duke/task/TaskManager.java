@@ -6,6 +6,9 @@ import duke.exceptions.UnknownCommandException;
 import duke.exceptions.MissingTaskNumberException;
 import duke.exceptions.TaskAlreadyMarkedException;
 import duke.exceptions.TaskAlreadyUnmarkedException;
+import duke.storage.Storage;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -152,9 +155,14 @@ public class TaskManager {
                 this.addTask(type, curr);
             } catch (EmptyDescriptionException e) {
                 e.printEmptyDescriptionError();
-            } catch (UnknownCommandException e){
+            } catch (UnknownCommandException e) {
                 e.printUnknownCommandError();
             }
+        }
+        try {
+            Storage.saveFile(this.getTasks());
+        } catch (IOException e) {
+            System.out.println("Something went wrong trying to save the file: " + e.getMessage());
         }
     }
 
