@@ -47,8 +47,6 @@ public class TaskManager {
      */
     public void addTask(Task task) {
         tasks.add(task);
-
-        saveTasks();
     }
 
     /**
@@ -81,8 +79,6 @@ public class TaskManager {
             Task task = tasks.get(taskIndex);
             tasks.remove(taskIndex);
 
-            saveTasks();
-
             return task;
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
@@ -100,8 +96,6 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(true);
-
-            saveTasks();
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
         }
@@ -118,8 +112,6 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(false);
-
-            saveTasks();
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new TaskManagerException.TaskNotFoundException();
         }
