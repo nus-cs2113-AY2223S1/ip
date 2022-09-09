@@ -1,10 +1,10 @@
 package duke.task;
 
-public class Task {
+public class TaskList {
     private final String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public TaskList(String description) {
         this.description = description;
         this.isDone = false;
     }

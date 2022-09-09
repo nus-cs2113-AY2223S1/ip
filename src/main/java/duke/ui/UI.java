@@ -1,7 +1,7 @@
 package duke.ui;
 
 import duke.task.List;
-import duke.task.Task;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -35,20 +35,26 @@ public class UI {
         reply("Good bye. Hope to see you again soon!");
     }
 
-    public void confirmAdd(Task task, List list) {
-        reply("Got it, I added this task to your list:\n"
-                + ARROW + task + '\n'
-                + "Now you have " + list.getSize() + " task" + (list.getSize() == 1 ? "" : "s") + " in the list");
+    public void confirmAdd(TaskList taskList, List list) {
+        reply("Got it, I added this taskList to your list:\n"
+                + ARROW + taskList
+                + "\nNow you have " + list.getSize() + " taskList" + (list.getSize() == 1 ? "" : "s") + " in the list");
     }
 
-    public void confirmMark(Task task) {
-        reply("Congratulations! You have done this task:\n"
-                + ARROW + task);
+    public void confirmMark(TaskList taskList) {
+        reply("Congratulations! You have done this taskList:\n"
+                + ARROW + taskList);
     }
 
-    public void confirmUnmark(Task task) {
-        reply("OK, I've marked this task as not done yet:\n"
-                + ARROW + task);
+    public void confirmUnmark(TaskList taskList) {
+        reply("OK, I've marked this taskList as not done yet:\n"
+                + ARROW + taskList);
+    }
+
+    public void confirmDelete(TaskList taskList, List list) {
+        reply("Noted. I've removed this taskList:\n"
+                + ARROW + taskList
+                + "\nNow you have " + list.getSize() + " taskList" + (list.getSize() == 1 ? "" : "s") + " in the list");
     }
 
     public void printList(List list) {

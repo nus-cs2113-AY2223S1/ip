@@ -7,13 +7,13 @@ import java.util.ArrayList;
 public class List {
     //I will use ArrayList because the maximum size is only 100
     //In the future, it would be easier to implement DELETE
-    private ArrayList<Task> list;
+    private final ArrayList<TaskList> list;
 
     public List() {
         this.list = new ArrayList<>();
     }
 
-    public Task findTask(int index) throws DukeException {
+    public TaskList findTask(int index) throws DukeException {
         try {
             return list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -26,8 +26,8 @@ public class List {
         return list.size();
     }
 
-    public void add(Task task) {
-        list.add(task);
+    public void add(TaskList taskList) {
+        list.add(taskList);
     }
 
     public void markDone(int index) throws DukeException {
@@ -38,11 +38,15 @@ public class List {
         findTask(index).setDone(false);
     }
 
+    public void delete(int index) throws DukeException {
+        list.remove(findTask(index));
+    }
+
     @Override
     public String toString() {
         StringBuilder listString = new StringBuilder((list.size() == 0 ? "There is nothing in your list right now" : "Here are " + list.size() + " tasks in your list:"));
         int index = 1;
-        for (Task task : list) {
+        for (TaskList task : list) {
             listString.append('\n').append("   ").append(index++).append(". ").append(task);
         }
         return String.valueOf(listString);

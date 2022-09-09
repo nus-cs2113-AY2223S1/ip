@@ -1,16 +1,10 @@
 package duke.manager;
 
+import duke.command.*;
 import duke.exception.DukeException;
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.ListCommand;
-import duke.command.ExitCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-import duke.ui.UI;
 
 public class CommandManager {
     private static final String EXIT_PREFIX = "bye";
@@ -20,6 +14,7 @@ public class CommandManager {
     private static final String DEADLINE_PREFIX = "deadline";
     private static final String MARK_PREFIX = "mark";
     private static final String UNMARK_PREFIX = "unmark";
+    private static final String DELETE_PREFIX = "delete";
     private static final String DEADLINE_DIVIDER = "/by";
     private static final String EVENT_DIVIDER = "/at";
 
@@ -42,6 +37,8 @@ public class CommandManager {
             return manageMarkCommand(input);
         case UNMARK_PREFIX:
             return manageUnmarkCommand(input);
+        case DELETE_PREFIX:
+            return manageDeleteCommand(input);
         default:
             throw new DukeException("SORRY!!! I cannot understand this command ☹");
         }
@@ -126,6 +123,19 @@ public class CommandManager {
         }
         try {
             return new UnmarkCommand(Integer.parseInt(analysedInput[1].trim()));
+        } catch (NumberFormatException e) {
+            throw new DukeException("OOPS!!! Please check the task number, only integer is accepted ☹" + SUGGESTED_FORMAT);
+        }
+    }
+
+    private static Command manageDeleteCommand(String input) throws DukeException {
+        String SUGGESTED_FORMAT = "\nFollow this format: delete {task_number}";
+        String[] analysedInput = input.split(" ", 2);
+        if (analysedInput.length != 2) {
+            throw new DukeException("OOPS!!! The task number to be deleted is missing ☹" + SUGGESTED_FORMAT);
+        }
+        try {
+            return new DeleteCommand(Integer.parseInt(analysedInput[1].trim()));
         } catch (NumberFormatException e) {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted ☹" + SUGGESTED_FORMAT);
         }
