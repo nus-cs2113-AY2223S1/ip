@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class Duke {
 
     public static String getInputType(String line) {
-        String breakLine[] = line.split(" ", 2);
+        String[] breakLine = line.split(" ", 2);
         return breakLine[0];
     }
 
-    public static String getInputDetails(String line) {
-        String breakLine[] = line.split(" ", 2);
+    public static String getInputDetails(String line) throws DukeException{
+        String[] breakLine = line.split(" ", 2);
         return breakLine[1];
     }
 
@@ -33,8 +33,6 @@ public class Duke {
     }
 
     public static void printMark(Task[] tasks, int taskId) {
-        // if the task is alrdy done
-        //else
         if (tasks[taskId].isDone) {
             System.out.println("This task is already done!");
         } else {
@@ -66,21 +64,17 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    private static void unmarkTask(Task[] tasks, String line) {
+    private static void unmarkTask(Task[] tasks, String line) throws DukeException{
         int taskId = getTaskId(line);
         printUnmark(tasks, taskId);
     }
 
-    private static void markTask(Task[] tasks, String line) {
+    private static void markTask(Task[] tasks, String line) throws DukeException{
         int taskId = getTaskId(line);
         printMark(tasks, taskId);
     }
 
-
-
-
     private static final int TASK_SIZE = 100;
-
 
     public static void main(String[] args) {
         String line;
@@ -99,36 +93,43 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             }
-            if (type.equals("list")) {  // list out the items
+            switch (type) {
+            case "list":   // list out the items
                 printTaskList(tasks, taskCount);
-            } else if (type.equals("mark")) {
+                break;
+            case "mark":
                 try {
                     markTask(tasks, line);
-                } catch (NumberFormatException e) {
+                } catch (DukeException e) {
                     System.out.println("Please input the task number that you wanna mark");
                 }
-            } else if (type.equals("unmark")) {
+                break;
+            case "unmark":
                 try {
                     unmarkTask(tasks, line);
-                } catch (NumberFormatException e) {
+                } catch (DukeException e) {
                     System.out.println("Please input the task number that you wanna unmark");
                 }
 
-            } else if (type.equals("total")) {
+                break;
+            case "total":
                 System.out.println(taskCount);
-            } else {
-                if (type.equals("todo")) {
+                break;
+            default:
+                switch (type) {
+                case "todo":
                     try {
                         String details = getInputDetails(line);
                         Task t = new Todo(details);
                         tasks[taskCount] = t;
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty. Please tell me what you want to do");
                         System.out.println("Example: todo (return book)");
                         continue;
                     }
 
-                } else if (type.equals("deadline")) {
+                    break;
+                case "deadline":
                     try {
                         String details = getInputDetails(line);
                         String breakBy[] = details.split("/by", 2);
@@ -136,31 +137,34 @@ public class Duke {
                         String by = breakBy[1];
                         Task d = new Deadline(detail, by);
                         tasks[taskCount] = d;
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                         System.out.println("Please tell me when is the deadline.");
                         System.out.println("Example: deadline (return book) /by (Sunday)");
                         continue;
                     }
-                } else if (type.equals("event")) {
-                    try{
+                    break;
+                case "event":
+                    try {
                         String details = getInputDetails(line);
                         String breakAt[] = details.split("/at", 2);
                         String detail = breakAt[0];
                         String at = breakAt[1];
                         Task e = new Event(detail, at);
                         tasks[taskCount] = e;
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                         System.out.println("Please tell me when is the event.");
                         System.out.println("Example: event (borrow book) /at (library)");
                         continue;
                     }
 
-                } else {
+                    break;
+                default:
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     continue;
                 }
                 printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
+                break;
             }
         } while (!line.equals("bye"));
     }
