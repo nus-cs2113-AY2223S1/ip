@@ -57,6 +57,24 @@ public class TaskManager {
     }
 
     /**
+     * Deletes a task from list of tasks
+     *
+     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @return Task
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
+     */
+    public Task deleteTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
+        int taskIndex = taskNumber - 1;
+        try {
+            Task task = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            return task;
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new TaskManagerException.TaskNotFoundException();
+        }
+    }
+
+    /**
      * Marks a task as completed.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.

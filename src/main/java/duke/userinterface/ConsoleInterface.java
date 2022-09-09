@@ -15,6 +15,8 @@ public class ConsoleInterface {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
+
 
     private Scanner scanner;
     private TaskManager taskManager;
@@ -228,6 +230,33 @@ public class ConsoleInterface {
         System.out.println("Now you have " + numTasks + " tasks in the list.");
     }
 
+    /**
+     * Deletes a task from task manager.
+     *
+     * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
+     */
+    public void executeCommandDelete(String taskNumberStr) {
+        int taskNumberInt;
+        try {
+            taskNumberInt = Integer.parseInt(taskNumberStr);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("☹ OOPS!!! Your input " + taskNumberStr + " is not a number.");
+            return;
+        }
+
+        try {
+            Task task = taskManager.deleteTask(taskNumberInt);
+
+            System.out.println("Noted. I've removed this task:");
+            task.print();
+            int numTasks = taskManager.getNumTasks();
+            System.out.println("Now you have " + numTasks + " tasks in the list.");
+        } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
+            System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
+            return;
+        }
+    }
+
     public void executeInvalidCommand() {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
@@ -265,6 +294,9 @@ public class ConsoleInterface {
                 break;
             case COMMAND_EVENT:
                 executeCommandEvent(input.getArguments());
+                break;
+            case COMMAND_DELETE:
+                executeCommandDelete(input.getArguments());
                 break;
             default:
                 executeInvalidCommand();
