@@ -7,10 +7,14 @@ import java.util.ArrayList;
 public class TaskList {
     //I will use ArrayList because the maximum size is only 100
     //In the future, it would be easier to implement DELETE
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public Task findTask(int index) throws DukeException {
@@ -40,8 +44,8 @@ public class TaskList {
 
     public String formatTaskListToStringToStore() throws DukeException {
         StringBuilder formattedString = new StringBuilder();
-        for (int i = 0; i < getSize() - 1; i++) {
-            formattedString.append(findTask(i).formatTaskToStringToStore());
+        for (int i = 0; i < getSize(); i++) {
+            formattedString.append(findTask(i + 1).formatTaskToStringToStore());
         }
         return formattedString.toString();
     }
