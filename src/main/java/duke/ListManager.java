@@ -23,6 +23,10 @@ public class ListManager {
         items.add(item);
     }
 
+    public void deleteItem(int index) {
+        items.remove(index - 1);
+    }
+
     public void markDone(int index) {
         if (index >= 1 && index <= items.size()) {
             items.get(index - 1).markDone();

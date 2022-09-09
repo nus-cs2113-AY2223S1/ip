@@ -29,8 +29,15 @@ public class Duke {
     public static void processInput(String input) {
         // command types: read, return, list
         try {
-            if (input.startsWith("list")) {
+            if (input.trim().equals("")) {
+                return;
+            } else if (input.startsWith("list")) {
                 displayMessage(listManager.toString());
+            } else if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.substring("delete".length()).trim());
+                Task toDelete = listManager.getItem(index);
+                listManager.deleteItem(index);
+                displayMessage(String.format("OK, I've deleted %s", toDelete));
             } else if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.substring("mark".length()).trim());
                 listManager.markDone(index);
