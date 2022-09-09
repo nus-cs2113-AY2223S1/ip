@@ -1,4 +1,4 @@
-public class Task {
+public class Task extends TaskManager{
     protected String description;
     protected boolean isDone;
 

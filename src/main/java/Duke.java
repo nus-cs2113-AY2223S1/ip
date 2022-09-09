@@ -2,78 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String getInputType(String line) {
-        String[] breakLine = line.split(" ", 2);
-        return breakLine[0];
-    }
-
-    public static String getInputDetails(String line) throws DukeException{
-        String[] breakLine = line.split(" ", 2);
-        return breakLine[1];
-    }
-
-    public static void printTaskList(Task[] tasks, int taskCount) {
-        System.out.println("\t_____________________");
-        // if there are no task
-        if (taskCount == 0) {
-            System.out.println("There are no tasks yet!");
-        } else {
-            System.out.println("\tHere are the tasks in your list:");
-            for (int i = 0; i < taskCount; i += 1) {
-                System.out.println("\t" + (i + 1) + ". " + tasks[i]);
-            }
-        }
-        System.out.println("\t_____________________");
-    }
-
-    public static int getTaskId(String line) {
-        int markId = Integer.parseInt(line.replaceAll("[^0-9]", ""));    // gets the id
-        return (markId - 1);
-    }
-
-    public static void printMark(Task[] tasks, int taskId) {
-        if (tasks[taskId].isDone) {
-            System.out.println("This task is already done!");
-        } else {
-            System.out.println("\tNice! I've marked this task as done:");
-            tasks[taskId].setDone(tasks[taskId].isDone);
-            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
-        }
-    }
-
-    public static void printUnmark(Task[] tasks, int taskId) {
-        if (!tasks[taskId].isDone) {
-            System.out.println("this is already unmarked");
-        } else {
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            tasks[taskId].setDone(tasks[taskId].isDone);
-            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
-        }
-    }
-
-    public static void printSuccessfulAdd(Task[] tasks, int taskCount) {
-        System.out.println("\t_____________________");
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + "added: " + tasks[taskCount]);
-        System.out.println("\t_____________________\n");
-    }
+    private static final int TASK_SIZE = 100;
 
     public static void printIntroMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
-
-    private static void unmarkTask(Task[] tasks, String line) throws DukeException{
-        int taskId = getTaskId(line);
-        printUnmark(tasks, taskId);
-    }
-
-    private static void markTask(Task[] tasks, String line) throws DukeException{
-        int taskId = getTaskId(line);
-        printMark(tasks, taskId);
-    }
-
-    private static final int TASK_SIZE = 100;
 
     public static void main(String[] args) {
         String line;
@@ -86,27 +20,27 @@ public class Duke {
 
         do {
             line = in.nextLine();
-            String type = getInputType(line);
+            String type = TaskManager.getTaskType(line);
 
             if (type.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             }
             switch (type) {
-            case "list":   // list out the items
-                printTaskList(tasks, taskCount);
+            case "list":
+                TaskManager.printTaskList(tasks, taskCount);
                 break;
             case "mark":
                 try {
-                    markTask(tasks, line);
-                } catch (DukeException e) {
-                    System.out.println("Please input the task number that you wanna mark");
+                    TaskManager.markTask(tasks, line);
+                } catch (NumberFormatException | DukeException e) {
+                    System.out.println("Please input the task number that you want to mark.");
                 }
                 break;
             case "unmark":
                 try {
-                    unmarkTask(tasks, line);
-                } catch (DukeException e) {
+                    TaskManager.unmarkTask(tasks, line);
+                } catch (NumberFormatException | DukeException e) {
                     System.out.println("Please input the task number that you wanna unmark");
                 }
 
@@ -118,7 +52,7 @@ public class Duke {
                 switch (type) {
                 case "todo":
                     try {
-                        String details = getInputDetails(line);
+                        String details = TaskManager.getTaskDetails(line);
                         Task t = new Todo(details);
                         tasks[taskCount] = t;
                     } catch (ArrayIndexOutOfBoundsException | DukeException e) {
@@ -130,8 +64,8 @@ public class Duke {
                     break;
                 case "deadline":
                     try {
-                        String details = getInputDetails(line);
-                        String breakBy[] = details.split("/by", 2);
+                        String details = TaskManager.getTaskDetails(line);
+                        String[] breakBy = details.split("/by", 2);
                         String detail = breakBy[0];
                         String by = breakBy[1];
                         Task d = new Deadline(detail, by);
@@ -144,8 +78,8 @@ public class Duke {
                     break;
                 case "event":
                     try {
-                        String details = getInputDetails(line);
-                        String breakAt[] = details.split("/at", 2);
+                        String details = TaskManager.getTaskDetails(line);
+                        String[] breakAt = details.split("/at", 2);
                         String detail = breakAt[0];
                         String at = breakAt[1];
                         Task e = new Event(detail, at);
@@ -161,7 +95,7 @@ public class Duke {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     continue;
                 }
-                printSuccessfulAdd(tasks, taskCount);
+                TaskManager.printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
                 break;
             }
