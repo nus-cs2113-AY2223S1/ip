@@ -16,14 +16,15 @@ public class ConsoleInterface {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
-
+    public static final String TASKS_DIRECTORY_PATH = "./data/";
+    public static final String TASKS_FILENAME = "tasks.txt";
 
     private Scanner scanner;
     private TaskManager taskManager;
 
     public ConsoleInterface() {
         scanner = new Scanner(System.in);
-        taskManager = new TaskManager();
+        taskManager = new TaskManager(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
     }
 
     /**
@@ -107,12 +108,13 @@ public class ConsoleInterface {
 
         try {
             taskManager.markTaskAsCompleted(taskNumberInt);
+
             System.out.println("Nice! I've marked this task as done:");
-            System.out.print("  ");
             taskManager.getTask(taskNumberInt).print();
+
+            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 
@@ -132,12 +134,13 @@ public class ConsoleInterface {
 
         try {
             taskManager.markTaskAsUncompleted(taskNumberInt);
+
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.print("  ");
             taskManager.getTask(taskNumberInt).print();
+
+            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 
@@ -155,11 +158,13 @@ public class ConsoleInterface {
 
         Todo todo = new Todo(description);
         taskManager.addTask(todo);
+
         System.out.println("Got it. I've added this task:");
         todo.print();
-
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
+
+        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
     }
 
     /**
@@ -189,11 +194,13 @@ public class ConsoleInterface {
 
         Deadline deadline = new Deadline(description, by);
         taskManager.addTask(deadline);
+
         System.out.println("Got it. I've added this task:");
         deadline.print();
-
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
+
+        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
     }
 
     /**
@@ -223,11 +230,13 @@ public class ConsoleInterface {
 
         Event event = new Event(description, at);
         taskManager.addTask(event);
+
         System.out.println("Got it. I've added this task:");
         event.print();
-
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
+
+        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
     }
 
     /**
@@ -251,9 +260,10 @@ public class ConsoleInterface {
             task.print();
             int numTasks = taskManager.getNumTasks();
             System.out.println("Now you have " + numTasks + " tasks in the list.");
+
+            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
-            return;
         }
     }
 
