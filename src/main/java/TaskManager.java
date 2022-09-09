@@ -1,19 +1,26 @@
 public class TaskManager {
 
     public static final String TASK_ADDED = "Got it. I've added this task:\n";
-    public Task[] taskList = new Task[100];
+    public static final int MAX_NUMBER_OF_TASKS = 100;
+    public Tasks[] taskList = new Tasks[MAX_NUMBER_OF_TASKS];
     public int numOfTasks = 0;
+
+    public String checkCommandLength(String description) throws ArguementNotFoundException{
+        if(description.isEmpty()){
+            throw new ArguementNotFoundException();
+        }
+        return description;
+    }
 
     /**
      * Add a task into the list and prints an indication it has been added successfully
      *
      * @param task task to add
      */
-    public void addTask(Task task) {
+    public void addTask(Tasks task) {
         taskList[numOfTasks] = task;
         numOfTasks++;
-        System.out.println(
-                Duke.PRINT_LINE
+        System.out.println( Duke.PRINT_LINE
                         + TASK_ADDED
                         + task + "\n"
                         + "Now you have " + numOfTasks + " in the list.\n"
@@ -25,10 +32,17 @@ public class TaskManager {
      *
      * @param input input of user
      */
-    public void addToDo(String input) {
+    public void addToDo(String input){
         String todoTask = input.substring("todo".length(), input.length());
-        ToDo todo = new ToDo(todoTask);
-        addTask(todo);
+        try{
+            checkCommandLength(todoTask);
+            ToDo todo = new ToDo(todoTask);
+            addTask(todo);
+        } catch (ArguementNotFoundException e){
+            e.ArgumentNotFoundMessage();
+        }
+
+
     }
     /**
      * Adds an event type task to the list
