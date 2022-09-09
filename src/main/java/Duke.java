@@ -55,6 +55,11 @@ public class Duke {
         System.out.println("\t_____________________\n");
     }
 
+    public static void printIntroMessage() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+    }
+
 
     public static void main(String[] args) {
         String line;
@@ -63,8 +68,7 @@ public class Duke {
         Task[] tasks = new Task[100];
         int taskCount = 0;
 
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        printIntroMessage();
 
         do {
             line = in.nextLine();
@@ -78,20 +82,32 @@ public class Duke {
             if (type.equals("list")) {  // list out the items
                 printTaskList(tasks, taskCount);
             } else if (type.equals("mark")) {
-                int taskId = getTaskId(line);
-                printMark(tasks, taskId);
+                try {
+                    markTask(tasks, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input the task number that you wanna mark");
+                }
             } else if (type.equals("unmark")) {
-                int taskId = getTaskId(line);
-                printUnmark(tasks, taskId);
+                try {
+                    unmarkTask(tasks, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input the task number that you wanna unmark");
+                }
 
             } else if (type.equals("total")) {
                 System.out.println(taskCount);
             } else {
 
                 if (type.equals("todo")) {
-                    String details = getInputDetails(line);
-                    Task t = new Todo(details);
-                    tasks[taskCount] = t;
+                    try{
+                        String details = getInputDetails(line);
+                        Task t = new Todo(details);
+                        tasks[taskCount] = t;
+                    } catch(ArrayIndexOutOfBoundsException e){
+                        System.out.println("Please tell me what you want to do");
+                        continue;
+                    }
+
                 } else if (type.equals("deadline")) {
                     String details = getInputDetails(line);
                     String breakBy[] = details.split("/by", 2);
@@ -116,5 +132,15 @@ public class Duke {
         } while (!line.equals("bye"));
 
 
+    }
+
+    private static void unmarkTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printUnmark(tasks, taskId);
+    }
+
+    private static void markTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printMark(tasks, taskId);
     }
 }
