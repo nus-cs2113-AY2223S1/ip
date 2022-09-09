@@ -33,7 +33,7 @@ public class Task {
         } else {
             return STATUS_NOTDONE_ICON;
         }
-        
+
     }
 
     public String toString() {
