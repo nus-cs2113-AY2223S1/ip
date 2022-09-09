@@ -76,7 +76,11 @@ public class Duke {
         printMark(tasks, taskId);
     }
 
+
+
+
     private static final int TASK_SIZE = 100;
+
 
     public static void main(String[] args) {
         String line;
