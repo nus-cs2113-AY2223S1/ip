@@ -15,7 +15,7 @@ public class Event extends Task {
     @Override
     public String formattedInformation() {
         String divider = " | ";
-        String information = "E" + divider + (isDone ? "1" : "0") + divider + this.description + divider + this.dayAndTime;
-        return information;
+        String taskInformation = "E" + divider + (isDone ? "1" : "0") + divider + this.description + divider + this.dayAndTime;
+        return taskInformation;
     }
 }

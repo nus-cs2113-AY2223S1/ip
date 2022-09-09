@@ -12,7 +12,7 @@ public class Todo extends Task {
     @Override
     public String formattedInformation() {
         String divider = " | ";
-        String information = "T" + divider + (isDone ? "1" : "0") + divider + this.description;
-        return information;
+        String taskInformation = "T" + divider + (isDone ? "1" : "0") + divider + this.description;
+        return taskInformation;
     }
 }
