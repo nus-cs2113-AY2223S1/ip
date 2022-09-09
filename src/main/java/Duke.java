@@ -135,6 +135,9 @@ public class Duke {
                     String at = breakAt[1];
                     Task e = new Event(detail, at);
                     tasks[taskCount] = e;
+                } else{
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    continue;
                 }
                 printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
