@@ -33,7 +33,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String taskLine = scanner.nextLine();
-                String[] analysedTaskLine = taskLine.split(" | ");
+                String[] analysedTaskLine = taskLine.split(" \\| ");
                 Task task = handleTaskLine(analysedTaskLine);
                 list.add(task);
             }
