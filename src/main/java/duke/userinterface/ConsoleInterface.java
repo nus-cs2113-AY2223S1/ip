@@ -230,6 +230,11 @@ public class ConsoleInterface {
         System.out.println("Now you have " + numTasks + " tasks in the list.");
     }
 
+    /**
+     * Deletes a task from task manager.
+     *
+     * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
+     */
     public void executeCommandDelete(String taskNumberStr) {
         int taskNumberInt;
         try {
@@ -251,7 +256,6 @@ public class ConsoleInterface {
             return;
         }
     }
-
 
     public void executeInvalidCommand() {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
