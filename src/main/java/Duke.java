@@ -33,9 +33,15 @@ public class Duke {
     }
 
     public static void printMark(Task[] tasks, int taskId) {
-        System.out.println("\tNice! I've marked this task as done:");
-        tasks[taskId].setDone(tasks[taskId].isDone);
-        System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+        // if the task is alrdy done
+        //else
+        if (tasks[taskId].isDone){
+            System.out.println("This task is already done!");
+        } else{
+            System.out.println("\tNice! I've marked this task as done:");
+            tasks[taskId].setDone(tasks[taskId].isDone);
+            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+        }
     }
 
     public static void printUnmark(Task[] tasks, int taskId) {
@@ -60,12 +66,14 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
+    private static final int TASK_SIZE=100;
+
 
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[TASK_SIZE];
         int taskCount = 0;
 
         printIntroMessage();
@@ -78,7 +86,6 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             }
-
             if (type.equals("list")) {  // list out the items
                 printTaskList(tasks, taskCount);
             } else if (type.equals("mark")) {
@@ -97,24 +104,30 @@ public class Duke {
             } else if (type.equals("total")) {
                 System.out.println(taskCount);
             } else {
-
                 if (type.equals("todo")) {
-                    try{
+                    try {
                         String details = getInputDetails(line);
                         Task t = new Todo(details);
                         tasks[taskCount] = t;
-                    } catch(ArrayIndexOutOfBoundsException e){
-                        System.out.println("Please tell me what you want to do");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty. Please tell me what you want to do");
+                        System.out.println("Example: todo (return book)");
                         continue;
                     }
 
                 } else if (type.equals("deadline")) {
-                    String details = getInputDetails(line);
-                    String breakBy[] = details.split("/by", 2);
-                    String detail = breakBy[0];
-                    String by = breakBy[1];
-                    Task d = new Deadline(detail, by);
-                    tasks[taskCount] = d;
+                    try {
+                        String details = getInputDetails(line);
+                        String breakBy[] = details.split("/by", 2);
+                        String detail = breakBy[0];
+                        String by = breakBy[1];
+                        Task d = new Deadline(detail, by);
+                        tasks[taskCount] = d;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please tell me when is the deadline.");
+                        System.out.println("Example: deadline (return book) /by (Sunday)");
+                        continue;
+                    }
                 } else if (type.equals("event")) {
                     String details = getInputDetails(line);
                     String breakAt[] = details.split("/at", 2);
@@ -123,15 +136,10 @@ public class Duke {
                     Task e = new Event(detail, at);
                     tasks[taskCount] = e;
                 }
-
                 printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
-
             }
-
         } while (!line.equals("bye"));
-
-
     }
 
     private static void unmarkTask(Task[] tasks, String line) {
