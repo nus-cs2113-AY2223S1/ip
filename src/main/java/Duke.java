@@ -33,9 +33,15 @@ public class Duke {
     }
 
     public static void printMark(Task[] tasks, int taskId) {
-        System.out.println("\tNice! I've marked this task as done:");
-        tasks[taskId].setDone(tasks[taskId].isDone);
-        System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+        // if the task is alrdy done
+        //else
+        if (tasks[taskId].isDone) {
+            System.out.println("This task is already done!");
+        } else {
+            System.out.println("\tNice! I've marked this task as done:");
+            tasks[taskId].setDone(tasks[taskId].isDone);
+            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+        }
     }
 
     public static void printUnmark(Task[] tasks, int taskId) {
@@ -55,16 +61,35 @@ public class Duke {
         System.out.println("\t_____________________\n");
     }
 
+    public static void printIntroMessage() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+    }
+
+    private static void unmarkTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printUnmark(tasks, taskId);
+    }
+
+    private static void markTask(Task[] tasks, String line) {
+        int taskId = getTaskId(line);
+        printMark(tasks, taskId);
+    }
+
+
+
+
+    private static final int TASK_SIZE = 100;
+
 
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[TASK_SIZE];
         int taskCount = 0;
 
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        printIntroMessage();
 
         do {
             line = in.nextLine();
@@ -74,47 +99,71 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             }
-
             if (type.equals("list")) {  // list out the items
                 printTaskList(tasks, taskCount);
             } else if (type.equals("mark")) {
-                int taskId = getTaskId(line);
-                printMark(tasks, taskId);
+                try {
+                    markTask(tasks, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input the task number that you wanna mark");
+                }
             } else if (type.equals("unmark")) {
-                int taskId = getTaskId(line);
-                printUnmark(tasks, taskId);
+                try {
+                    unmarkTask(tasks, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input the task number that you wanna unmark");
+                }
 
             } else if (type.equals("total")) {
                 System.out.println(taskCount);
             } else {
-
                 if (type.equals("todo")) {
-                    String details = getInputDetails(line);
-                    Task t = new Todo(details);
-                    tasks[taskCount] = t;
-                } else if (type.equals("deadline")) {
-                    String details = getInputDetails(line);
-                    String breakBy[] = details.split("/by", 2);
-                    String detail = breakBy[0];
-                    String by = breakBy[1];
-                    Task d = new Deadline(detail, by);
-                    tasks[taskCount] = d;
-                } else if (type.equals("event")) {
-                    String details = getInputDetails(line);
-                    String breakAt[] = details.split("/at", 2);
-                    String detail = breakAt[0];
-                    String at = breakAt[1];
-                    Task e = new Event(detail, at);
-                    tasks[taskCount] = e;
-                }
+                    try {
+                        String details = getInputDetails(line);
+                        Task t = new Todo(details);
+                        tasks[taskCount] = t;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty. Please tell me what you want to do");
+                        System.out.println("Example: todo (return book)");
+                        continue;
+                    }
 
+                } else if (type.equals("deadline")) {
+                    try {
+                        String details = getInputDetails(line);
+                        String breakBy[] = details.split("/by", 2);
+                        String detail = breakBy[0];
+                        String by = breakBy[1];
+                        Task d = new Deadline(detail, by);
+                        tasks[taskCount] = d;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please tell me when is the deadline.");
+                        System.out.println("Example: deadline (return book) /by (Sunday)");
+                        continue;
+                    }
+                } else if (type.equals("event")) {
+                    try{
+                        String details = getInputDetails(line);
+                        String breakAt[] = details.split("/at", 2);
+                        String detail = breakAt[0];
+                        String at = breakAt[1];
+                        Task e = new Event(detail, at);
+                        tasks[taskCount] = e;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please tell me when is the event.");
+                        System.out.println("Example: event (borrow book) /at (library)");
+                        continue;
+                    }
+
+                } else {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    continue;
+                }
                 printSuccessfulAdd(tasks, taskCount);
                 taskCount += 1;
-
             }
-
         } while (!line.equals("bye"));
-
-
     }
 }
+
+
