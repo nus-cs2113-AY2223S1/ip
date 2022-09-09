@@ -15,14 +15,18 @@ public class Duke {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
     }
 
-    public static String findTaskSpecifics(String details) {
+    public static String findTaskSpecifics(String details) throws IllegalTaskException {
+        String[] taskDetails = details.split(" ");
+        if (taskDetails.length < 2) {
+            throw new IllegalTaskException();
+        }
         String typeOfTask = details.substring(details.indexOf(" "), details.indexOf("/"));
         return typeOfTask;
     }
 
     public static void printDefaultTaskResponse(int number, Task[] tasks) {
-        System.out.println("Got it. I've added this task:\n" + tasks[number].toString() + "\n"
-                + "Now you have " + (number + 1) + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + tasks[number].toString() +
+                "\n" + "Now you have " + (number + 1) + " tasks in the list.");
     }
 
     public static void sayGoodbye() {
@@ -31,26 +35,38 @@ public class Duke {
     }
 
     public static void insertDeadlineTask(String inputLine, Task[] tasks) {
-        String deadlineSpecifics = findTaskSpecifics(inputLine);
-        String deadline = inputLine.substring(inputLine.indexOf("/by") + 3);
-        tasks[numberOfTasks] = new Deadline(deadlineSpecifics, deadline);
-        printDefaultTaskResponse(numberOfTasks, tasks);
-        numberOfTasks++;
+        try {
+            String deadlineSpecifics = findTaskSpecifics(inputLine);
+            String deadline = inputLine.substring(inputLine.indexOf("/by") + 3);
+            tasks[numberOfTasks] = new Deadline(deadlineSpecifics, deadline);
+            printDefaultTaskResponse(numberOfTasks, tasks);
+            numberOfTasks++;
+        } catch (IllegalTaskException exception) {
+            System.out.println("Uh oh, the description of a deadline task cannot be empty. Try again.");
+        }
     }
 
     public static void insertToDoTask(String inputLine, Task[] tasks) {
-        String todoSpecifics = inputLine.substring(inputLine.indexOf(" "));
-        tasks[numberOfTasks] = new Todo(todoSpecifics);
-        printDefaultTaskResponse(numberOfTasks, tasks);
-        numberOfTasks++;
+        try {
+            String todoSpecifics = inputLine.substring(inputLine.indexOf(" "));
+            tasks[numberOfTasks] = new Todo(todoSpecifics);
+            printDefaultTaskResponse(numberOfTasks, tasks);
+            numberOfTasks++;
+        } catch (StringIndexOutOfBoundsException exception) {
+            System.out.println("Uh oh, the description of a todo task cannot be empty. Try again.");
+        }
     }
 
     public static void insertEventTask(String inputLine, Task[] tasks) {
-        String eventSpecifics = findTaskSpecifics(inputLine);
-        String eventDate = inputLine.substring(inputLine.indexOf("/at") + 3);
-        tasks[numberOfTasks] = new Event(eventSpecifics, eventDate);
-        printDefaultTaskResponse(numberOfTasks, tasks);
-        numberOfTasks++;
+        try {
+            String eventSpecifics = findTaskSpecifics(inputLine);
+            String eventDate = inputLine.substring(inputLine.indexOf("/at") + 3);
+            tasks[numberOfTasks] = new Event(eventSpecifics, eventDate);
+            printDefaultTaskResponse(numberOfTasks, tasks);
+            numberOfTasks++;
+        } catch (IllegalTaskException exception) {
+            System.out.println("Uh oh, the description of a event task cannot be empty. Try again");
+        }
     }
 
     public static void printTaskList(int numberOfTasks, Task[] tasks) {
