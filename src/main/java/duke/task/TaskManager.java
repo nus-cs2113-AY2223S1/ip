@@ -159,7 +159,7 @@ public class TaskManager {
         try {
             tasksStr = Files.readString(tasksFilePath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
 
         String[] tasksStrArr = tasksStr.split("\n");
