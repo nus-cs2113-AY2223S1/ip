@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
+import duke.tasks.Event;
+import duke.tasks.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -60,10 +68,18 @@ public class Duke {
                 break;
 
             case TODO_TRIGGER:
-                Todo latestTodo = new Todo(words[1]);
-                tasks.add(latestTodo);
-                printStatus(latestTodo, tasks.size());
-                break;
+                try {
+                    if (words[1] == "") {
+                        throw new DukeException("The description of a todo cannot be empty");
+                    } else {
+                        Todo latestTodo = new Todo(words[1]);
+                        tasks.add(latestTodo);
+                        printStatus(latestTodo, tasks.size());
+                        break;
+                    }
+                } catch (DukeException e) {
+                    System.out.println("error with todo command");
+                }
 
             case EVENT_TRIGGER:
                 dividerIndex = words[1].indexOf("/");
@@ -87,17 +103,22 @@ public class Duke {
 
             case MARK_TRIGGER:
                 // making sure there is valid numerical input after mark/unmark
-                if (userInput.matches("mark [0-9]+")) {
-                    int val = Integer.parseInt(words[1]);
-
-                    if (val < 0 || val > tasks.size()) {
-                        System.out.println("\tOut-of-bounds value entered, try again.\n");
-                        break;
-                    } else {
-                        tasks.get(val - 1).markDone();
-                        listTasks(tasks);
-                    }
-                } 
+                try {
+                    if (userInput.matches("mark [0-9]+")) {
+                        int val = Integer.parseInt(words[1]);
+    
+                        if (val < 0 || val > tasks.size()) {
+                            String errorMessage = "\tOut-of-bounds value entered, try again.\n";
+                            throw new DukeException(errorMessage);
+                        } else {
+                            tasks.get(val - 1).markDone();
+                            listTasks(tasks);
+                        }
+                    } 
+                } catch (DukeException e){
+                    System.out.println("error with mark command");
+                }
+                
 
             case UNMARK_TRIGGER:
                 // making sure there is valid numerical input after mark/unmark
@@ -128,7 +149,6 @@ public class Duke {
 
     // MAIN FUNCTION
     public static void main(String[] args) {
-        // test change 2 for non-fast forward merge
         greetUser();
         processUserInput();
         printExitGreeting();
