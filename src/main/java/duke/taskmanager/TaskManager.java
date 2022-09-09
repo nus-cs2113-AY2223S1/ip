@@ -78,12 +78,10 @@ public class TaskManager {
             throws WrongCommandException, TaskOutOfBoundsException, NoBackslashException {
         switch (firstWord) {
         case "mark":
-            int pos = Integer.parseInt(command.substring("mark ".length()));
-            tryMark(pos, true);
+            tryMark(command, true);
             break;
         case "unmark":
-            pos = Integer.parseInt(command.substring("unmark ".length()));
-            tryMark(pos, false);
+            tryMark(command, false);
             break;
         case "todo":
             tasks[oneBasedIndex] = new Todo(command, ' ');
@@ -115,11 +113,17 @@ public class TaskManager {
         }
     }
 
-    private static void tryMark(int pos, boolean done) throws TaskOutOfBoundsException {
-        if (pos >= oneBasedIndex || pos < 1) {
-            throw new TaskOutOfBoundsException();
+    private static void tryMark(String command, boolean done) throws TaskOutOfBoundsException {
+        try {
+            int startIdx = command.substring(0, command.indexOf(' ') + 1).length();
+            int pos = Integer.parseInt(command.substring(startIdx));
+            if (pos >= oneBasedIndex || pos < 1) {
+                throw new TaskOutOfBoundsException();
+            }
+            printMark(tasks[pos], done);
+        } catch (NumberFormatException e) {
+            formatOutput("☹ OOPS!!! You did not enter a number.");
         }
-        printMark(tasks[pos], done);
     }
 
     private static void checkExceptions(String command) throws EmptyException, WrongCommandException {
