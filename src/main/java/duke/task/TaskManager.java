@@ -34,7 +34,7 @@ public class TaskManager {
     /**
      * Returns number of tasks in task manager.
      *
-     * @return Number of tasks
+     * @return Number of tasks.
      */
     public int getNumTasks() {
         return tasks.size();
@@ -52,11 +52,11 @@ public class TaskManager {
     }
 
     /**
-     * Gets a task from list of tasks
+     * Gets a task from list of tasks.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
-     * @return Task
-     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
+     * @return Task.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
     public Task getTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -69,11 +69,11 @@ public class TaskManager {
     }
 
     /**
-     * Deletes a task from list of tasks
+     * Deletes a task from list of tasks.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
-     * @return Task
-     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
+     * @return Task.
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
     public Task deleteTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -93,7 +93,7 @@ public class TaskManager {
      * Marks a task as completed.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
-     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
     public void markTaskAsCompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -111,7 +111,7 @@ public class TaskManager {
      * Marks a task as uncompleted.
      *
      * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
-     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager
+     * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
     public void markTaskAsUncompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
@@ -125,6 +125,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Saves tasks in task manager to file.
+     */
     public void saveTasks() {
         Path tasksDirectoryPath = Paths.get("./data/");
         Path tasksFilePath = Paths.get("./data/tasks.txt");
@@ -150,6 +153,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Loads tasks from file into task manager.
+     *
+     * @param path Path of the file to load.
+     */
     public void loadTasks(String path) {
         tasks = new ArrayList<>();
 

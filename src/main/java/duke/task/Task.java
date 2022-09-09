@@ -9,6 +9,12 @@ public class Task {
         this.isComplete = false;
     }
 
+    /**
+     * Converts a Task object to a string.
+     *
+     * @param task Object to be converted.
+     * @return String representation of the converted object.
+     */
     public static String convertToString(Task task) {
         String taskStr = "";
 
@@ -52,6 +58,12 @@ public class Task {
         return taskStr;
     }
 
+    /**
+     * Converts a string into a Task object.
+     *
+     * @param taskStr String representation of the object to be converted.
+     * @return Task object from the converted string.
+     */
     public static Task convertFromString(String taskStr) {
         String[] taskStrArr = taskStr.split(" \\| ");
         String type = taskStrArr[0].trim();
