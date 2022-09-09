@@ -56,6 +56,17 @@ public class TaskManager {
         }
     }
 
+    public Task deleteTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
+        int taskIndex = taskNumber - 1;
+        try {
+            Task task = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            return task;
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new TaskManagerException.TaskNotFoundException();
+        }
+    }
+
     /**
      * Marks a task as completed.
      *
