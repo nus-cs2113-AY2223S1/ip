@@ -92,12 +92,6 @@ public class Duke {
         printUnmarkedTask(unmarkedTask);
     }
 
-    public static void addTask(String lineInput) {
-        Task task = new Task(lineInput);
-        tasks.add(task);
-        printAddedTask(task);
-    }
-
     public static void addDeadline(String[] inputWords) {
          try {
              Deadline deadline = getDeadline(inputWords);
@@ -132,6 +126,9 @@ public class Duke {
         }
     }
 
+    public static void printInvalidCommand() {
+        System.out.println(LINE_BREAK + "Oh no! I do not understand the command! \n" + LINE_BREAK);
+    }
     public static void main(String[] args) {
         System.out.println(LINE_BREAK + " Hello! I'm Duke\n" +
                 " What can I do for you?\n" + LINE_BREAK);
@@ -156,7 +153,7 @@ public class Duke {
             } else if (action.equalsIgnoreCase("deadline")){
                 addDeadline(inputWords);
             } else {
-                addTask(lineInput);
+                printInvalidCommand();
             }
             lineInput = in.nextLine();
         }
