@@ -1,9 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommandHandler {
-    private static Task[] tasks = new Task[100];
+    //private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks= new ArrayList<>();
     private static int taskCounter = 0;
     public static void drawLine() {    //print underscore symbol 50 times
         System.out.println("__________________________________________________");
@@ -15,10 +17,10 @@ public class CommandHandler {
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; ++i) {
-            char taskTypeCharacter = tasks[i].getType();
+            char taskTypeCharacter = tasks.get(i).getType();
             System.out.println(i+1 + ".[" + taskTypeCharacter + "]" +
-                    "[" + (tasks[i].isDone() ? "X] " : " ] ")
-                    + tasks[i]);
+                    "[" + (tasks.get(i).isDone() ? "X] " : " ] ")
+                    + tasks.get(i));
         }
         drawLine();
     }
@@ -29,26 +31,36 @@ public class CommandHandler {
         return taskID;
     }
     public static void unmarkTask(int taskID) throws DukeException {
-        if (tasks[taskID - 1].isDone() == false) {
+        if (tasks.get(taskID - 1).isDone() == false) {
             throw new DukeException(":( OOPS!!! Unable to unmark as this task has not been done yet");
         }
-        tasks[taskID-1].setDone(false);
+        tasks.get(taskID - 1).setDone(false);
         System.out.println("Okay, I've marked this task as not done yet:");
-        char taskTypeCharacter = tasks[taskID-1].getType();
-        System.out.println("[" + taskTypeCharacter + "]"+ "[ ] " + tasks[taskID-1]);
+        char taskTypeCharacter = tasks.get(taskID - 1).getType();
+        System.out.println("[" + taskTypeCharacter + "]"+ "[ ] " + tasks.get(taskID - 1));
         drawLine();
     }
 
     public static void markTask(int taskID) throws DukeException{
-        if (tasks[taskID - 1].isDone() == true) {
+        if (tasks.get(taskID - 1).isDone() == true) {
             throw new DukeException(":( OOPS!!! Unable to mark as this task has already been done");
         }
-        tasks[taskID-1].setDone(true);
+        tasks.get(taskID - 1).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
-        char taskTypeCharacter = tasks[taskID-1].getType();
-        System.out.println("[" + taskTypeCharacter + "]" + "[X] " + tasks[taskID-1]);
+        char taskTypeCharacter = tasks.get(taskID - 1).getType();
+        System.out.println("[" + taskTypeCharacter + "]" + "[X] " + tasks.get(taskID - 1));
         drawLine();
     }
+    private static void deleteTask(int taskID) {
+        System.out.println("Noted. I've removed this task:");
+        char taskTypeCharacter = tasks.get(taskID - 1).getType();
+        System.out.println("[" + taskTypeCharacter + "]"+ "[" + (tasks.get(taskID - 1).isDone() ? "X] " : " ] ") + tasks.get(taskID - 1));
+        tasks.remove(taskID - 1);
+        taskCounter--;
+        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+        drawLine();
+    }
+
     public static void createNewTask(String command) {
         command = command.trim();
         char taskType = command.toUpperCase().charAt(0);    //first char is the type in uppercase
@@ -116,17 +128,17 @@ public class CommandHandler {
     }
 
     private static void createNewToDo(ToDo toDo) {
-        tasks[taskCounter] = toDo;
+        tasks.add(toDo);
         taskCounter++;
         printAddedTask(toDo);
     }
     private static void createNewDeadline(Deadline deadline) {
-        tasks[taskCounter] = deadline;
+        tasks.add(deadline);
         taskCounter++;
         printAddedTask(deadline);
     }
     private static void createNewEvent(Event event) {
-        tasks[taskCounter] = event;
+        tasks.add(event);
         taskCounter++;
         printAddedTask(event);
     }
@@ -161,7 +173,7 @@ public class CommandHandler {
                 } catch (NullPointerException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
-                } catch (ArrayIndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
                 }
@@ -176,7 +188,16 @@ public class CommandHandler {
                 } catch (NullPointerException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
-                } catch (ArrayIndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(":( OOPS!!! This task does not exist.");
+                    drawLine();
+                }
+            }
+            else if (command.contains("delete")) {
+                int taskID = getTaskID(command);
+                try {
+                    deleteTask(taskID);
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
                 }
