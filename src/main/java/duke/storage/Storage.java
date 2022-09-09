@@ -12,8 +12,8 @@ import duke.task.Event;
 import duke.task.TaskManager;
 
 public class Storage {
-    private static final String FILE_DIRECTORY = "src/main/java/duke/data";
-    private static final String FILE_PATH = "src/main/java/duke/data/duke.txt";
+    private static final String FILE_DIRECTORY = "./data";
+    private static final String FILE_PATH = "./data/duke.txt";
     private static int tasksCount = 0;
 
     public static int getTasksCount() {
