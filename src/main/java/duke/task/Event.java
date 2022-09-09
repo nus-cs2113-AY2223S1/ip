@@ -28,4 +28,9 @@ public class Event extends Task {
                 this.date
             );
     }
+
+    @Override
+    public String getTaskData() {
+        return "E" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + date;
+    }
 }

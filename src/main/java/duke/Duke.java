@@ -2,7 +2,9 @@ package duke;
 
 import duke.command.*;
 import duke.exception.InvalidCommandTypeException;
+import duke.io.DataFileManager;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -64,12 +66,15 @@ public class Duke {
     public static void main(String[] args) {
         String input, output;
         TaskManager taskManager = new TaskManager();
+        DataFileManager dataFileManager = new DataFileManager();
+
         Scanner sc = new Scanner(System.in);
 
         output = "Hello! I'm Duckymomo\n"
                 + "What can I do for you?";
 
         formatAndPrint(output);
+        taskManager.setTaskData(dataFileManager.loadProgramData());
 
         input = sc.nextLine();
         while (true) {
@@ -85,6 +90,11 @@ public class Duke {
             switch (command.getCommandType()) {
             case EXIT:
                 formatAndPrint("Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                try {
+                    dataFileManager.saveProgramData(taskManager.getTaskData());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 return;
             case LIST:
                 output = taskManager.getAllTasks();
@@ -116,4 +126,6 @@ public class Duke {
         }
 
     }
+
+
 }

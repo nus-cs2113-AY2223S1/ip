@@ -28,7 +28,7 @@ public class CommandEvent extends Command {
     protected void parse() {
         int indexOfAtFlag = rawArguments.indexOf("/at");
 
-        description = rawArguments.substring(0, indexOfAtFlag);
+        description = rawArguments.substring(0, indexOfAtFlag - 1);
         date = rawArguments.substring(indexOfAtFlag + "/at ".length());
     }
 

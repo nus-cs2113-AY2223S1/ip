@@ -28,7 +28,7 @@ public class CommandDeadline extends Command {
     protected void parse() {
         int indexOfByFlag = rawArguments.indexOf("/by");
 
-        description = rawArguments.substring(0, indexOfByFlag);
+        description = rawArguments.substring(0, indexOfByFlag - 1);
         date = rawArguments.substring(indexOfByFlag + "/by ".length());
     }
 

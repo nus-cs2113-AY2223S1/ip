@@ -117,4 +117,17 @@ public class TaskManager {
         return output.toString();
     }
 
+    public String getTaskData() {
+        StringBuilder output = new StringBuilder();
+        for (Task task : tasks) {
+            output.append(task.getTaskData());
+            output.append(System.lineSeparator());
+        }
+        return output.toString();
+    }
+
+    public void setTaskData(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 }
