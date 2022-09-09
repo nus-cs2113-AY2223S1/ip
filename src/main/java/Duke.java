@@ -2,16 +2,15 @@ import java.util.Scanner;
 
 public class Duke {
     static TaskManager tasks = new TaskManager();
-    static String PRINT_LINE = "____________________________________________________________\n";
+    static final String PRINT_LINE = "____________________________________________________________\n";
 
     public static void main(String[] args) {
 
         WelcomeLogo();
-        System.out.println(
-                PRINT_LINE +
-                        " Hello! I'm King Bob\n" +
-                        " What can I do for you?\n" +
-                        PRINT_LINE
+        System.out.println( PRINT_LINE
+                        + " Hello! I'm King Bob\n"
+                        + " What can I do for you?\n"
+                        + PRINT_LINE
         );
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
@@ -29,7 +28,7 @@ public class Duke {
             } else if (command.startsWith("unmark")) {
                 taskNum = Integer.parseInt(command.substring(command.length() - 1));
                 tasks.unmarkTask(taskNum);
-            } else if (command.equals("list")) { // list
+            } else if (command.equals("list")) {
                 tasks.printList();
             } else if (command.startsWith("todo")) {
                 tasks.addToDo(command);
@@ -37,6 +36,8 @@ public class Duke {
                 tasks.addEvent(command);
             } else if (command.startsWith("deadline")) {
                 tasks.addDeadline(command);
+            } else {
+                UnknownCommandDetection();
             }
 
         } while (isFinished != true);
@@ -47,7 +48,15 @@ public class Duke {
         );
     }
 
-    public static void WelcomeLogo(){
+    private static void UnknownCommandDetection() {
+        try {
+            throw new UnknownCommandException();
+        } catch (UnknownCommandException e) {
+            e.UnknownCommandMessage();
+        }
+    }
+
+    public static void WelcomeLogo() {
         String logo = "⠀⠀⠀⠀⠀⣠⡾⣿⣷⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⣠⣤⣴⠋⠀⢻⣿⣧⣈⢳⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠰⡇⢀⣿⣀⠀⠿⠋⠙⠛⠀⡟⢦⠀⠀⠀⠀⠀⠀⠀⢀⣠⠶⠛⠉⣁⣀⣀⣀⣈⠉⠛⠶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +

@@ -1,4 +1,4 @@
-public class ToDo extends Task {
+public class ToDo extends Tasks {
 
     public ToDo(String description) {
 
