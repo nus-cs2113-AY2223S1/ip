@@ -9,6 +9,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
+    }
+
+    @Override
+    public String formattedInformation() {
+        String divider = " | ";
+        String information = "D" + divider + (isDone ? "1" : "0") + divider + this.description + divider + this.deadline;
+        return information;
     }
 }
