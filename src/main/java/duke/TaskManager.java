@@ -104,6 +104,20 @@ public class TaskManager {
         return output;
     }
 
+    public String deleteTask(int taskNum) {
+        String output;
+        if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
+            output = "Not a valid task number\n";
+        } else {
+            Task task =  tasks.get(taskNum-1);
+            output = "Noted, I've removed this task:\n"
+                    + "  " + task.toString() + "\n"
+                    + "Now you have " + (tasks.size() - 1) + " tasks in the list.\n";
+            tasks.remove(taskNum-1);
+        }
+        return output;
+    }
+
     /**
      * Returns all completed and uncompleted tasks as a numbered list
      * @return String output Numbered tasks and their completion statuses

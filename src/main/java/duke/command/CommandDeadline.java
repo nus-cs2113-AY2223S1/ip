@@ -1,10 +1,13 @@
 package duke.command;
-import duke.exception.*;
+import duke.exception.NotIntegerException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandDeadline extends Command {
 
     private static final int MIN_ARGUMENTS = 3;
-    private static final String[] FLAGS = {"/by"};
+    private static final ArrayList<String> FLAGS = new ArrayList<>(Arrays.asList("/by"));
 
     private String description = null;
 

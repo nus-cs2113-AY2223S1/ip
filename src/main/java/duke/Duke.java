@@ -53,6 +53,9 @@ public class Duke {
         case "event":
             command = new CommandEvent(rawArguments);
             break;
+        case "delete":
+            command = new CommandDelete(rawArguments);
+            break;
         default:
             throw new InvalidCommandTypeException();
         }
@@ -105,6 +108,9 @@ public class Duke {
             case EVENT:
                 CommandEvent commandEvent = (CommandEvent) command;
                 output = taskManager.addEvent(commandEvent.getDescription(), commandEvent.getDate());
+                break;
+            case DELETE:
+                output = taskManager.deleteTask(((CommandDelete) command).getTaskNum());
                 break;
             default:
                 output = "Error, major bug";
