@@ -15,8 +15,4 @@ public class Deadline extends Task {
         return "[D]" + this.getStatus() + " " + this.getDescription();
     }
 
-    @Override
-    public String fileFormat() {
-        return "D | " + this.getStatus() + " | " + this.description + " | " + this.by;
-    }
 }

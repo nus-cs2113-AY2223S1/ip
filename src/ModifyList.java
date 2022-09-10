@@ -9,46 +9,7 @@ import java.io.FileWriter;
 
 public class ModifyList extends Constants{
     private final List<Task> tasks = new ArrayList<Task>();
-    File taskData = new File("data.txt");
 
-    public void dataFromFile() {
-        if (taskData.length() != 0) {
-            System.out.println("Loading existing file data.../n");
-            loadFileData(); //or createNewFile?
-        }
-    }
-    public void saveToFile() {
-        try {
-            FileWriter fw = new FileWriter(taskData);
-            for (Task task : tasks) {
-                fw.write(task.fileFormat() + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException error) {
-            System.out.println(FILE_NOT_FOUND);
-        }
-    }
-    private void appendToFile(String textToAppend) {
-        try {
-            FileWriter fw = new FileWriter(taskData, true);
-            fw.write(textToAppend + System.lineSeparator());
-            fw.close();
-        } catch (IOException error) {
-            System.out.println(FILE_NOT_FOUND);
-        }
-    }
-    public void loadFileData() {
-        try {
-            //clear array list?
-            Scanner s = new Scanner(taskData);
-            while (s.hasNext()) {
-                String task = s.nextLine();
-                //make new task
-            }
-        } catch (FileNotFoundException error) {
-            System.out.println(FILE_NOT_FOUND);
-        }
-    }
     public static String line() {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     }
@@ -61,7 +22,6 @@ public class ModifyList extends Constants{
             "Total tasks in list: " + tasks.size() + '\n' +
             line()
         );
-        appendToFile(task.fileFormat());
     }
 
     public void task(String taskType, String details) throws Error{
@@ -117,7 +77,6 @@ public class ModifyList extends Constants{
                 task.getDescriptionAndStatus() + "\n" +
                 line()
             );
-            saveToFile();
     }
     public void unmark(int index) {
             Task task = tasks.get(index - 1);
@@ -129,7 +88,6 @@ public class ModifyList extends Constants{
                     task.getDescriptionAndStatus() + "\n" +
                     line()
             );
-            saveToFile();
     }
     public void delete(int index) {
         Task task = tasks.get(index - 1);
@@ -141,6 +99,5 @@ public class ModifyList extends Constants{
             "Total tasks in list: " + tasks.size() + '\n' +
             line()
         );
-        saveToFile();
     }
 }

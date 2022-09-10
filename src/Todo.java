@@ -9,8 +9,4 @@ public class Todo extends Task {
         return "[T][" + this.getStatus() + "] " + this.getDescription();
     }
 
-    @Override
-    public String fileFormat() {
-        return "T | " + this.getStatus() + " | " + this.description;
-    }
 }

@@ -22,6 +22,5 @@ public abstract class Task {
     public String getDescriptionAndStatus() {
         return getStatus() + " " + getDescription();
     }
-    public abstract String fileFormat();
 
 }
