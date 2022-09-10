@@ -1,9 +1,12 @@
 package duke;
 
 import duke.command.Menu;
+import duke.command.DukeFile;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,7 +25,7 @@ public class Duke {
         case "deadline":
             // Fallthrough
         case "event":
-            dukeMenu.addTask(instruction, inputValue);
+            dukeMenu.addTask(instruction, inputValue, false);
             break;
         case "delete":
             dukeMenu.deleteTask(inputValue);
@@ -31,7 +34,7 @@ public class Duke {
             dukeMenu.list();
             break;
         case "mark":
-            dukeMenu.mark(inputValue);
+            dukeMenu.mark(inputValue, false);
             break;
         case "unmark":
             dukeMenu.unmark(inputValue);
@@ -44,11 +47,36 @@ public class Duke {
         }
     }
 
+    public static void saveFile(Menu dukeMenu, String instruction) throws IOException {
+        switch (instruction) {
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            DukeFile.rewriteDukeFile(dukeMenu);
+            break;
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            DukeFile.appendDukeFile(dukeMenu);
+            break;
+        default:
+            // No action for other command or invalid command
+            break;
+        }
+    }
+
     public static void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
         try {
             executeInstruction(dukeMenu, instruction, inputValue);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            saveFile(dukeMenu, instruction);
+        } catch (DukeException exception) {
+            System.out.println(exception.getMessage());
+        } catch (IOException exception){
+            dukeMenu.displayErrorMessage();
         }
     }
 
@@ -56,7 +84,7 @@ public class Duke {
         Menu dukeMenu = new Menu();
         String userInput = "", instruction = "", inputValue = "";
         Scanner in = new Scanner(System.in);
-
+        DukeFile.readDukeFile(dukeMenu);
         dukeMenu.greet();
         while (!instruction.equals("bye")) {
             userInput = in.nextLine();

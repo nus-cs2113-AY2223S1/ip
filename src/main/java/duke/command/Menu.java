@@ -21,6 +21,10 @@ public class Menu {
         this.tasks = new ArrayList<>();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public static void greet() {
         displayGreetingMessage();
     }
@@ -34,7 +38,7 @@ public class Menu {
         displayListingMessage(listContent);
     }
 
-    public void addTask(String taskType, String userInput) throws DukeException {
+    public void addTask(String taskType, String userInput, boolean isSilent) throws DukeException {
         String taskName;
         String[] splits;
         switch (taskType) {
@@ -59,7 +63,9 @@ public class Menu {
             break;
         }
         String taskDetail = tasks.get(tasks.size() - 1).getTaskFullDetails();
-        displayTaskAdditionMessage(taskDetail, tasks.size());
+        if(!isSilent){
+            displayTaskAdditionMessage(taskDetail, tasks.size());
+        }
     }
 
     public void deleteTask(String inputValue) throws DukeException {
@@ -70,12 +76,14 @@ public class Menu {
         displayTaskDeletionMessage(taskDetail, tasks.size());
     }
 
-    public void mark(String inputValue) throws DukeException {
+    public void mark(String inputValue, boolean isSilent) throws DukeException {
         checkTaskIndexInput(inputValue);
         int taskIndex = Integer.parseInt(inputValue);
         tasks.get(taskIndex - 1).setDone(true);
         String taskName = tasks.get(taskIndex - 1).getTaskName();
-        displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
+        if (!isSilent) {
+            displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
+        }
     }
 
     public void unmark(String inputValue) throws DukeException {
@@ -142,6 +150,12 @@ public class Menu {
         System.out.println(output);
     }
 
+    public void displayErrorMessage() {
+        String output = DIVIDER + System.lineSeparator()
+                + "Something went wrong!" + System.lineSeparator()
+                + DIVIDER;
+        System.out.println(output);
+    }
     public boolean containsTaskDescription(String userInput, String separator) {
         // Trim description from userInput
         String[] splits = userInput.split(separator, 2);
