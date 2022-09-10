@@ -2,11 +2,12 @@ package duke;
 
 import duke.error.ErrorHandler;
 import duke.error.exceptions.*;
-import duke.input.InputValidator;
+import duke.io.InputValidator;
 import duke.tasks.TaskList;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 import duke.tasks.tasktypes.ToDoTask;
+import duke.ui.StringFormatting;
 import duke.ui.UserInterface;
 
 public class Duke {
@@ -18,6 +19,7 @@ public class Duke {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_DELETE = "delete";
 
     /** TaskList class that contains all items */
     public static final TaskList TASK_LIST = new TaskList();
@@ -45,6 +47,8 @@ public class Duke {
                     unmarkAndConfirm(input);
                 } else if (InputValidator.isAddInput(input)) {
                     addAndConfirm(input);
+                } else if (InputValidator.isDeleteInput(input)){
+                    deleteAndConfirm(input);
                 } else {
                     throw new NotRecognizedException(input);
                 }
@@ -64,9 +68,8 @@ public class Duke {
      */
     private static void markAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
-        UserInterface.print("Marked task \""
-                + TASK_LIST.getTextOfItem(markItem(input) - 1)
-                + "\" as done.");
+        UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
+                TASK_LIST.getTextOfItem(markItem(input) - 1), true));
     }
 
     /**
@@ -79,9 +82,8 @@ public class Duke {
      */
     private static void unmarkAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
-        UserInterface.print("Marked task \""
-                + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
-                + "\" as not yet done.");
+        UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
+                TASK_LIST.getTextOfItem(unmarkItem(input) - 1), false));
     }
 
     /**
@@ -90,11 +92,25 @@ public class Duke {
      * @param input input string
      */
     private static void addAndConfirm(String input) {
-        UserInterface.print("Added \""
-                + TASK_LIST.getTextOfItem(addItem(input))
-                + "\" to your list.\nThere " + (TASK_LIST.getItemCount() == 1 ? "is" : "are")
-                + " now " + TASK_LIST.getItemCount() + " task"
-                + (TASK_LIST.getItemCount() == 1 ? "" : "s") + ".");
+        UserInterface.print(StringFormatting.formatAddString(
+                TASK_LIST.getTextOfItem(addItem(input))) + "\n"
+                + StringFormatting.formatNumberOfTasksString(
+                        TASK_LIST.getItemCount()));
+    }
+
+    /**
+     * Deletes item and prints confirmation.
+     *
+     * @param input input
+     * @throws NotAnIntegerException  If word after command is not an integer.
+     * @throws ItemNotFoundException  If there is no item at given index.
+     */
+    private static void deleteAndConfirm(String input) throws
+            NotAnIntegerException, ItemNotFoundException {
+        UserInterface.print(StringFormatting.formatDeleteString(
+                deleteItem(input)) + "\n"
+                + StringFormatting.formatNumberOfTasksString(
+                TASK_LIST.getItemCount()));
     }
 
     /**
@@ -124,6 +140,21 @@ public class Duke {
         } else {
             return TASK_LIST.addItem(new ToDoTask(task));
         }
+    }
+
+    /**
+     * Deletes item in list.
+     * <br><b>NOTE: Operates on 1-based indexing logic</b>, but converts it
+     * to 0-based indexing for {@link TaskList} class
+     *
+     * @param input input string to find index
+     * @return String of deleted item
+     * @throws NotAnIntegerException If word after command is not an integer
+     * @throws ItemNotFoundException If item is already marked
+     */
+    private static String deleteItem(String input) throws NotAnIntegerException, ItemNotFoundException {
+        int itemIndex = extractNumber(input) - 1;
+        return TASK_LIST.deleteItem(itemIndex);
     }
 
     /**
@@ -181,13 +212,13 @@ public class Duke {
      * Prints a greeting for when the program is run
      */
     private static void greet() {
-        UserInterface.print("Good morning!\nWhat would you like to do today?");
+        UserInterface.print(StringFormatting.getGreeting());
     }
 
     /**
      * Prints a goodbye message for when the program is terminated via user commands
      */
     private static void exit() {
-        UserInterface.print("Alright, see you around then!");
+        UserInterface.print(StringFormatting.getGoodbye());
     }
 }

@@ -86,6 +86,24 @@ public class TaskList {
     }
 
     /**
+     * Delete item from list.
+     *
+     * @param index <b>0-based</b> index of item to delete
+     * @return text of the deleted item
+     * @throws ItemNotFoundException if item is not within the bounds of the list
+     */
+    public String deleteItem(int index) throws ItemNotFoundException{
+        try {
+            String itemText = getTextOfItem(index);
+            items.remove(index);
+            itemCount--;
+            return itemText;
+        } catch (IndexOutOfBoundsException e) {
+            throw new ItemNotFoundException(index);
+        }
+    }
+
+    /**
      * Returns the text content of each item (without done, deadline tracker etc.)
      *
      * @param index <b>0-based</b> index of desired item
