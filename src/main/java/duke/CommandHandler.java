@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandHandler {
@@ -138,7 +140,8 @@ public class CommandHandler {
         drawLine();
     }
 
-    public static void executeUserCommands() {
+    public static void executeUserCommands(DukeFile df) {
+        loadTasks(df);
         Scanner in = new Scanner(System.in);
         String command;
         do {
@@ -184,6 +187,75 @@ public class CommandHandler {
             else {
                 createNewTask(command);
             }
+            try {
+                df.saveFile(df.getFile(), getTaskList());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         } while (command != "bye");
     }
+
+    private static String getTaskList() {
+        String taskList = "";
+        for (int i = 0; i < taskCounter; ++i) {
+            char taskType = tasks[i].getType();
+            taskList += tasks[i].getType() + " | ";
+            taskList += (tasks[i].isDone() ? "1" : "0") + " | ";
+            switch(taskType) {
+            case 'T':
+                taskList += tasks[i].getName() + "\n";
+                break;
+            case 'D':
+            case 'E':
+                taskList += tasks[i].getName() + " | " + tasks[i].getDateTime() + "\n";
+                break;
+            default:
+            }
+        }
+        return taskList;
+    }
+    private static void loadTasks(DukeFile df) {
+        try {
+            String taskList = df.loadFile(df.getFile());
+            while(taskList.length() > 0 && taskList.charAt(taskList.length()-1) == '/') {
+                String taskName, taskDateTime;
+                int ind_pipe;
+                int ind_backslash = taskList.indexOf("/");
+                String task = taskList.substring(0, ind_backslash);
+                taskList = taskList.substring(ind_backslash + 1);
+                char taskType = task.charAt(0);
+                boolean isDone = task.charAt(4) == '1';
+                switch(taskType) {
+                case 'T':
+                    taskName = task.substring(8);
+                    tasks[taskCounter] = new ToDo(taskName, isDone, taskType);
+                    taskCounter++;
+                    break;
+                case 'D':
+                    task = task.substring(8);
+                    ind_pipe = task.indexOf("|");
+                    taskName = task.substring(0, ind_pipe - 1);
+                    taskDateTime = task.substring(ind_pipe + 2);
+                    tasks[taskCounter] = new Deadline(taskName, isDone, taskType, taskDateTime);
+                    taskCounter++;
+                    break;
+                case 'E':
+                    task = task.substring(8);
+                    ind_pipe = task.indexOf("|");
+                    taskName = task.substring(0, ind_pipe - 1);
+                    taskDateTime = task.substring(ind_pipe + 2);
+                    tasks[taskCounter] = new Event(taskName, isDone, taskType, taskDateTime);
+                    taskCounter++;
+                    break;
+                default:
+                    System.out.println("File is incompatible, cannot be read");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File does not exist");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+

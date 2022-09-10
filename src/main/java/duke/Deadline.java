@@ -7,6 +7,9 @@ public class Deadline extends Task{
         super(name, isDone, type);
         this.datetime = datetime;
     }
+    public String getDateTime() {
+        return this.datetime;
+    }
     public String toString() {
         return super.toString() + " (by: " + datetime + ")";
     }

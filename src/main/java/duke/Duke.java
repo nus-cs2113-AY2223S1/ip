@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.FileNotFoundException;
+
 public class Duke {
     public static void drawLine() {    //print underscore symbol 50 times
         System.out.println("__________________________________________________");
@@ -19,6 +21,13 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         CommandHandler handler = new CommandHandler();
         welcomeUser();
-        handler.executeUserCommands();
+        DukeFile df = new DukeFile();
+//        try {
+//            df.printFileContents(df.getFile());
+//            drawLine();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File does not exist");
+//        }
+        handler.executeUserCommands(df);
     }
 }

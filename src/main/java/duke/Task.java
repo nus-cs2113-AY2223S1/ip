@@ -1,6 +1,6 @@
 package duke;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
     private char type;
@@ -31,4 +31,5 @@ public class Task {
     public void setType(char type) {
         this.type = type;
     }
+    public abstract String getDateTime();
 }
