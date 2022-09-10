@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.util.ArrayList;
 import duke.command.InputManager;
 import duke.command.Parser;
 import duke.exception.MissingDeadlineDescriptionException;
@@ -10,8 +11,7 @@ import duke.exception.NonIntegerTaskNumberException;
 import duke.exception.OutOfBoundsTaskNumberException;
 
 public abstract class TaskManager {
-    private static final int MAX_NUM_OF_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_NUM_OF_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void addTask(String type, String input) {
         final String ADD_PHRASE_START = "added: ";
@@ -34,7 +34,7 @@ public abstract class TaskManager {
         }
 
         // change to zero-index
-        tasks[Task.getTaskCount() - 1] = newTask;
+        tasks.add(newTask);
 
         System.out.println(ADD_PHRASE_START + newTask);
         System.out.println(ADD_PHRASE_END);
@@ -42,7 +42,7 @@ public abstract class TaskManager {
 
     public static void printList() {
         for (int i = 0; i < Task.getTaskCount(); i += 1) {
-            System.out.println(Integer.toString(i + 1) + ". " + tasks[i]);
+            System.out.println(Integer.toString(i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -62,10 +62,10 @@ public abstract class TaskManager {
             return;
         }
 
-        tasks[taskNum].setDone();
+        tasks.get(taskNum).setDone();
 
         System.out.println("Completed! The following task is marked as done:");
-        System.out.println(tasks[taskNum]);
+        System.out.println(tasks.get(taskNum));
     }
 
     public static void unmarkTask(String input) {
@@ -84,9 +84,9 @@ public abstract class TaskManager {
             return;
         }
 
-        tasks[taskNum].setUndone();
+        tasks.get(taskNum).setUndone();
 
         System.out.println("Oh no! The following task is marked as undone:");
-        System.out.println(tasks[taskNum]);
+        System.out.println(tasks.get(taskNum));
     }
 }
