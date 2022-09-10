@@ -6,6 +6,7 @@ import duke.taskings.Event;
 import duke.taskings.Task;
 import duke.taskings.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -59,7 +60,10 @@ public class Duke {
     public static void main(String[] args) {
 
         // array storing the Task objects.
-        Task[] tasks = new Task[101];
+//        Task[] tasks = new Task[101];
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        tasks.add(new Todo("initial case"));
+
 
         //stores the number of words in the user's string input.
         int numOfWords;
@@ -85,12 +89,13 @@ public class Duke {
                     printNumOfTasks(0);
                 } else {
                     for (int i = 1; i < taskIndex; i += 1) {
-                        System.out.println(i + ". " + tasks[i].printList());
+                        System.out.println(i + ". " + tasks.get(i).printList());
                     }
                 }
                 System.out.println("____________________________________________________________");
 
-            } else if (numOfWords >= 2) {
+            }
+            else if (numOfWords >= 2) {
                 // check if the user input has 2 words before checking for commands "mark" and "unmark"
                 String[] parsedInput = inData.split(" ");
 
@@ -100,9 +105,14 @@ public class Duke {
                         int unmarkedIndex = Integer.parseInt(parsedInput[1]);
                         if (checkIfWithinBounds(unmarkedIndex, taskIndex)) {
                             //checks if the user input command is within the current bound of the tasks array.
-                            tasks[unmarkedIndex].setDone(false);
+//
+//
+//                            tasks[unmarkedIndex].setDone(false);
+                            tasks.get(unmarkedIndex).setDone(false);
+
+
                             System.out.println("OK, I've marked this task as NOT done yet:");
-                            System.out.println("[" + tasks[unmarkedIndex].getTaskType() + "]" + "[" + tasks[unmarkedIndex].getStatusIcon() + "] " + tasks[unmarkedIndex].getDescription());
+                            System.out.println("[" + tasks.get(unmarkedIndex).getTaskType() + "]" + "[" + tasks.get(unmarkedIndex).getStatusIcon() + "] " + tasks.get(unmarkedIndex).getDescription());
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -119,9 +129,9 @@ public class Duke {
                         int markedIndex = Integer.parseInt(parsedInput[1]);
                         if (checkIfWithinBounds(markedIndex, taskIndex)) {
                             // checks if the user input command is within the current bound of the tasks array.
-                            tasks[markedIndex].setDone(true);
+                            tasks.get(markedIndex).setDone(true);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("[" + tasks[markedIndex].getTaskType() + "]" + "[" + tasks[markedIndex].getStatusIcon() + "] " + tasks[markedIndex].getDescription());
+                            System.out.println("[" + tasks.get(markedIndex).getTaskType() + "]" + "[" + tasks.get(markedIndex).getStatusIcon() + "] " + tasks.get(markedIndex).getDescription());
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -131,8 +141,25 @@ public class Duke {
                         System.out.println("Invalid mark command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
-
-                } else if (taskIndex < 101) {
+                } else if (numOfWords == 2 && parsedInput[0].equals("delete")){
+                    try {
+                        int markedIndex = Integer.parseInt(parsedInput[1]);
+                        if (checkIfWithinBounds(markedIndex, taskIndex)) {
+                            // checks if the user input command is within the current bound of the tasks array.
+                            tasks.remove(markedIndex);
+                            System.out.println("Task removed!!");
+                            taskIndex -= 1;
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid delete command - non numeric index detected.");
+                        System.out.println("____________________________________________________________");
+                    } catch (DukeException e) {
+                        System.out.println("Invalid delete command - Index out of bounds.");
+                        System.out.println("____________________________________________________________");
+                    }
+                }
+                else if (taskIndex < 101) {
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
                     for (int i = 1; i < numOfWords; i += 1) {
@@ -142,9 +169,10 @@ public class Duke {
 
                     switch (parsedInput[0]) {
                     case "todo":
-                        tasks[taskIndex] = new Todo(taskDescription);
-                        tasks[taskIndex].setTaskType("T");
-                        System.out.println(tasks[taskIndex]);
+//                        tasks[taskIndex] = new Todo(taskDescription);
+                        tasks.add(new Todo(taskDescription));
+                        tasks.get(taskIndex).setTaskType("T");
+                        System.out.println(tasks.get(taskIndex));
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
                         break;
@@ -157,10 +185,12 @@ public class Duke {
                             taskDescription = tempArray[0];
                             deadline = tempArray[1];
                         }
-                        tasks[taskIndex] = new Deadline(taskDescription, deadline);
-                        tasks[taskIndex].setTaskType("D");
+//                        tasks[taskIndex] = new Deadline(taskDescription, deadline);
 
-                        System.out.println(tasks[taskIndex]);
+                        tasks.add(new Deadline(taskDescription,deadline));
+                        tasks.get(taskIndex).setTaskType("D");
+
+                        System.out.println(tasks.get(taskIndex));
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
                         break;
@@ -173,9 +203,11 @@ public class Duke {
                             taskDescription = tempArray[0];
                             eventPeriod = tempArray[1];
                         }
-                        tasks[taskIndex] = new Event(taskDescription, eventPeriod);
-                        tasks[taskIndex].setTaskType("E");
-                        System.out.println(tasks[taskIndex]);
+//                        tasks[taskIndex] = new Event(taskDescription, eventPeriod);
+                        tasks.add(new Event(taskDescription,eventPeriod));
+
+                        tasks.get(taskIndex).setTaskType("E");
+                        System.out.println(tasks.get(taskIndex));
                         printNumOfTasks(taskIndex);
                         taskIndex += 1;
                         break;
