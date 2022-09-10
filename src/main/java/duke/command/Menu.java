@@ -8,6 +8,7 @@ import duke.task.Todo;
 
 public class Menu {
     private Task[] tasks;
+
     private int taskCount;
     private static final String DIVIDER = "____________________________________________________________";
     private static final int MAX_TASK_SIZE = 100;
@@ -18,6 +19,14 @@ public class Menu {
     public Menu() {
         this.tasks = new Task[MAX_TASK_SIZE];
         this.taskCount = INITIAL_TASK_COUNT;
+    }
+
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public Task[] getTasks() {
+        return tasks;
     }
 
     public static void greet() {
@@ -33,7 +42,7 @@ public class Menu {
         displayListingMessage(listContent);
     }
 
-    public void addTask(String taskType, String userInput) throws DukeException {
+    public void addTask(String taskType, String userInput, boolean isSilent) throws DukeException {
         String taskName;
         String[] splits;
         switch (taskType) {
@@ -58,17 +67,23 @@ public class Menu {
             break;
         }
         taskCount++;
-        displayTaskAdditionMessage(tasks[taskCount - 1].getTaskFullDetails(), taskCount);
+
+        if(!isSilent){
+            displayTaskAdditionMessage(tasks[taskCount - 1].getTaskFullDetails(), taskCount);
+        }
     }
 
-    public void mark(String inputValue) throws DukeException {
+    public void mark(String inputValue, boolean isSilent) throws DukeException {
+        String taskName = "";
         if (isCorrectMarkUnmarkFormat(inputValue)) {
             int taskIndex = Integer.parseInt(inputValue);
             tasks[taskIndex - 1].setDone(true);
-            String taskName = tasks[taskIndex - 1].getTaskName();
-            displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
+            taskName = tasks[taskIndex - 1].getTaskName();
         } else {
             throw new InvalidMarkOrUnmarkIndexException();
+        }
+        if(!isSilent) {
+            displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
         }
     }
 
@@ -132,7 +147,7 @@ public class Menu {
 
     public void displayErrorMessage() {
         String output = DIVIDER + System.lineSeparator()
-                + "Invalid input!" + System.lineSeparator()
+                + "Something went wrong!" + System.lineSeparator()
                 + DIVIDER;
         System.out.println(output);
     }
