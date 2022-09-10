@@ -12,4 +12,14 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toOutputFileFormat() {
+        String out = "deadline " + description + " /by " + by;
+        if (this.isDone) {
+            return (out + " X");
+        } else {
+            return (out + " O");
+        }
+    }
 }

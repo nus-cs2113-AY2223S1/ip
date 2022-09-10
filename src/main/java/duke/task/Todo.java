@@ -9,4 +9,14 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toOutputFileFormat() {
+        String out = "todo " + description;
+        if (this.isDone) {
+            return (out + " X");
+        } else {
+            return (out + " O");
+        }
+    }
 }
