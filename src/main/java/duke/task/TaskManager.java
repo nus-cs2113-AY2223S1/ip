@@ -13,6 +13,10 @@ public abstract class TaskManager {
     private static final int MAX_NUM_OF_TASKS = 100;
     private static Task[] tasks = new Task[MAX_NUM_OF_TASKS];
 
+    public static Task[] getTasks() {
+        return tasks;
+    }
+
     public static void addTask(String type, String input) {
         final String ADD_PHRASE_START = "added: ";
         // add one because newTask has not been created yet

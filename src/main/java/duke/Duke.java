@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import duke.command.FileManager;
 import duke.command.InputManager;
 
 public abstract class Duke {
@@ -25,8 +28,22 @@ public abstract class Duke {
     }
 
     public static void main(String[] args) {
+        final String FILE_PATH = "ip/data/duke.txt";
+
+        try {
+            FileManager.readFile(FILE_PATH);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         printIntroduction();
         InputManager.readInputs();
         printExit();
+
+        try {
+            FileManager.writeFile(FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Unable to save");
+        }
     }
 }
