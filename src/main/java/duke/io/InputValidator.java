@@ -1,4 +1,4 @@
-package duke.input;
+package duke.io;
 
 import duke.Duke;
 import duke.error.exceptions.NoCommandArgumentException;
@@ -201,6 +201,20 @@ public class InputValidator {
     }
 
     /**
+     * Checks if the keyword {@link Duke#COMMAND_DELETE} is present at front of input string
+     *
+     * @param input input string to check
+     * @return boolean, true or false
+     * @throws NoCommandArgumentException When no command argument is given
+     * @throws TooManyWordsException      If there is more than one space-separated
+     *                                    substring after the command.
+     */
+    public static boolean isDeleteInput(String input) throws
+            NoCommandArgumentException, TooManyWordsException {
+        return stringContainsEnforceOneWord(input, Duke.COMMAND_DELETE);
+    }
+
+    /**
      * Check if the given input contains a substring at the start
      *
      * @param input     input to be checked
@@ -252,4 +266,5 @@ public class InputValidator {
     public static int splitCount(String input, String separator) {
         return input.split(separator).length;
     }
+
 }
