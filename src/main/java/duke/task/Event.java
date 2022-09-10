@@ -10,6 +10,10 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
+    public String getEventTime() {
+        return eventTime;
+    }
+
     @Override
     public String getTaskDetails() {
         return "[E]" + super.getTaskDetails() + " (at: " + eventTime + ")";

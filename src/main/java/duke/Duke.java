@@ -8,6 +8,9 @@ import duke.task.Todo;
 import duke.text.ErrorText;
 import duke.text.InfoText;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +30,28 @@ public class Duke {
         System.out.println(String.format("%s\n%s\n%s\n%s", DASH, logo, InfoText.INFO_WELCOME, DASH));
     }
 
-    public static void markDone(ArrayList<Task> tasks, String input, boolean isDone) {
+    public static void writeToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter("data/data.txt");
+            for (int i = 0; i < tasks.size(); i++) {
+                String taskType = Character.toString(tasks.get(i).getTaskDetails().charAt(1));
+                String taskStatus = tasks.get(i).getStatusIcon().equals("X") ? "1" : "0";
+                String taskDescription = tasks.get(i).getDescription();
+                String textToWrite = String.format("%s | %s | %s", taskType, taskStatus, taskDescription);
+                if (taskType.equals("D")) {
+                    textToWrite += String.format(" | %s", tasks.get(i).getDueBy());
+                } else if (taskType.equals("E")) {
+                    textToWrite += String.format(" | %s", tasks.get(i).getEventTime());
+                }
+                fw.write(textToWrite + System.lineSeparator());
+            }
+            fw.close();
+        } catch(IOException e) {
+            System.out.println(String.format("%s\n%s %s\n%s", DASH, ErrorText.ERROR_FILE_IO, e.getMessage(), DASH));
+        }
+    }
+
+    public static void markDone(ArrayList<Task> tasks, String input, boolean isDone) throws IOException {
         System.out.println(DASH);
         try {
             int taskIndex = Integer.parseInt(input) - 1;
@@ -38,6 +62,7 @@ public class Duke {
                 System.out.println(String.format("%s", InfoText.INFO_TASK_UNMARKED));
             }
             System.out.println(String.format("    * %s", tasks.get(taskIndex).getTaskDetails()));
+            writeToFile(tasks);
         } catch (NumberFormatException e) {
             System.out.println(String.format("%s", ErrorText.ERROR_INVALID_STATUS_FORMAT));
         } catch (IndexOutOfBoundsException e) {
@@ -60,13 +85,27 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws TodoNoDescriptionException {
+    public static void main(String[] args) throws TodoNoDescriptionException, IOException {
         printGreeting();
         boolean isLoop = true;
         Scanner in = new Scanner(System.in);
         String command, input;
         String[] inputSplits;
         ArrayList<Task> tasks = new ArrayList<>();
+
+        //@@author chydarren-reused
+        // Reused from https://stackoverflow.com/a/38985883
+        // with minor modifications
+        File directory = new File("data");
+        if(!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File file = new File("data/data.txt");
+        if(!file.exists()) {
+            file.createNewFile();
+        }
+        //@@author
 
         while (isLoop) {
             input = in.nextLine();
@@ -102,6 +141,7 @@ public class Duke {
                     Todo todo = new Todo(input);
                     tasks.add(todo);
                     printNewTask(todo.getTaskDetails(), tasks.size());
+                    writeToFile(tasks);
                 } catch (TodoNoDescriptionException e) {
                     System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_TODO_FORMAT, DASH));
                 }
@@ -112,6 +152,7 @@ public class Duke {
                     Deadline deadline = new Deadline(inputSplits[0], inputSplits[1]);
                     tasks.add(deadline);
                     printNewTask(deadline.getTaskDetails(), tasks.size());
+                    writeToFile(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_DEADLINE_FORMAT, DASH));
                 }
@@ -122,6 +163,7 @@ public class Duke {
                     Event event = new Event(inputSplits[0], inputSplits[1]);
                     tasks.add(event);
                     printNewTask(event.getTaskDetails(), tasks.size());
+                    writeToFile(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_EVENT_FORMAT, DASH));
                 }

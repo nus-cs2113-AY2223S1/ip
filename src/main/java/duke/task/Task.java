@@ -24,4 +24,12 @@ public class Task {
     public String getTaskDetails() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String getDueBy() {
+        return getDueBy();
+    }
+
+    public String getEventTime() {
+        return getEventTime();
+    }
 }
