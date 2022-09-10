@@ -81,7 +81,7 @@ public class Duke extends Constants{
                 default:
                     try {
                         modifyList.task(get[TASK], get[DETAILS]);
-                    } catch (ArrayIndexOutOfBoundsException error) {
+                    } catch (ArrayIndexOutOfBoundsException | Error error) {
                         if (get[TASK].equals(DEADLINE)) {
                             System.out.println(DEADLINE_FORMAT_ERROR);
                         } else if (get[TASK].equals(EVENT)) {

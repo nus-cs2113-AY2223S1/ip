@@ -131,16 +131,4 @@ public class ModifyList extends Constants{
         );
         saveToFile();
     }
-    public void delete(int index) {
-        Task task = tasks.get(index - 1);
-        tasks.remove(index - 1);
-        System.out.println(
-                line() +
-                        "OK! I will remove the following task:\n" +
-                        task.getDescriptionAndStatus() + "\n" +
-                        "Total tasks in list: " + tasks.size() + '\n' +
-                        line()
-        );
-        saveToFile();
-    }
 }
