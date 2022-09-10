@@ -1,8 +1,10 @@
 package duke.task;
 import duke.DukeException;
+import java.util.ArrayList;
 
 public class TaskManager {
-    protected Task[] tasks;
+
+    protected ArrayList<Task> myTasks;
     protected int taskCount;
 
     private final int START_INDEX_TODO = 5;
@@ -13,7 +15,7 @@ public class TaskManager {
 
 
     public TaskManager() {
-        tasks = new Task[100];
+        myTasks = new ArrayList<>();
         taskCount = 0;
     }
 
@@ -37,6 +39,9 @@ public class TaskManager {
         case "event":
             addEvent(input);
             break;
+        case "delete":
+            deleteTask(input);
+            break;
         default:
             throw new DukeException();
         }
@@ -45,8 +50,9 @@ public class TaskManager {
     public void addTodo(String input) {
         try {
             String myTask = input.substring(START_INDEX_TODO);
-            tasks[taskCount] = new Todo(myTask);
-            System.out.println("Added: " + tasks[taskCount].toString());
+            Todo newTodo = new Todo(myTask);
+            myTasks.add(newTodo);
+            System.out.println("Added: " + newTodo);
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
         } catch (StringIndexOutOfBoundsException e){
@@ -59,8 +65,9 @@ public class TaskManager {
             int indexSlash = input.indexOf('/');
             String myTask = input.substring(START_INDEX_DEADLINE, indexSlash-1);
             String by = input.substring(indexSlash+4);
-            tasks[taskCount] = new Deadline(myTask, by);
-            System.out.println("Added: " + tasks[taskCount].toString());
+            Deadline newDeadline = new Deadline(myTask, by);
+            myTasks.add(newDeadline);
+            System.out.println("Added: " + newDeadline);
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
         } catch (StringIndexOutOfBoundsException e) {
@@ -73,8 +80,8 @@ public class TaskManager {
             int indexSlash = input.indexOf('/');
             String myTask = input.substring(START_INDEX_EVENT, indexSlash-1);
             String at = input.substring(indexSlash+4);
-            tasks[taskCount] = new Event(myTask, at);
-            System.out.println("Added: " + tasks[taskCount].toString());
+            Event newEvent = new Event(myTask, at);
+            System.out.println("Added: " + newEvent);
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
         } catch (StringIndexOutOfBoundsException e) {
@@ -86,9 +93,9 @@ public class TaskManager {
         int taskNum = Integer.parseInt(input.substring(input.length() - 1));
         taskNum--;
         if (taskNum >= 0 && taskNum < taskCount) {
-            tasks[taskNum].isDone = true;
+            myTasks.get(taskNum).isDone = true;
             System.out.println("Marked: ");
-            System.out.println(tasks[taskNum].toString());
+            System.out.println(myTasks.get(taskNum).toString());
         }
     }
 
@@ -96,18 +103,29 @@ public class TaskManager {
         int taskNum = Integer.parseInt(input.substring(input.length() - 1));
         taskNum--;
         if (taskNum >= 0 && taskNum < taskCount) {
-            tasks[taskNum].isDone = false;
+            myTasks.get(taskNum).isDone = false;
             System.out.println("Unmarked: ");
-            System.out.println(tasks[taskNum].toString());
+            System.out.println(myTasks.get(taskNum).toString());
         }
     }
 
     public void print() {
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < myTasks.size(); i++) {
             System.out.print(i+1);
             System.out.print(". ");
-            System.out.println(tasks[i].toString());
+            System.out.println(myTasks.get(i).toString());
         }
     }
 
+    public void deleteTask(String input) {
+        int taskNum = Integer.parseInt(input.substring(input.length() - 1));
+        taskNum--;
+        if (taskNum >= 0 && taskNum < taskCount) {
+            System.out.println("Deleting task:");
+            System.out.println(myTasks.get(taskNum).toString());
+            myTasks.remove(taskNum);
+            taskCount--;
+            System.out.println("Remaining task count " + myTasks.size());
+        }
+    }
 }
