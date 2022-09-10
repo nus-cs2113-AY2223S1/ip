@@ -1,5 +1,11 @@
+package duke;
 import java.util.Scanner;
-
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidCommandException;
 public class Duke {
     public static void generateTaskStatus(String taskIcon, String statusIcon, String description) {
         System.out.println("\t[" + taskIcon + "]" + "[" + statusIcon + "] " + description);
