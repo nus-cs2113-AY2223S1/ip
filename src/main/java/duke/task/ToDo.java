@@ -24,4 +24,8 @@ public class ToDo extends Task {
                 super.description);
     }
 
+    @Override
+    public String getTaskData() {
+        return "T" + " | " + (isDone ? 1 : 0) + " | " + description;
+    }
 }

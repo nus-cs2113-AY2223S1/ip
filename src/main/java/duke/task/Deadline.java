@@ -28,4 +28,9 @@ public class Deadline extends Task {
                 this.by
         );
     }
+
+    @Override
+    public String getTaskData() {
+        return "D" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + by;
+    }
 }
