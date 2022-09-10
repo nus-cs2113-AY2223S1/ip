@@ -14,4 +14,6 @@ public class Constants {
     public static final String MARK_ERROR = "Please input a task number to mark";
     public static final String DEADLINE_FORMAT_ERROR = "Please remember to add '/' before your deadline!";
     public static final String EVENT_FORMAT_ERROR = "Please remember to add '/' before your event timing!";
+    public static final String FILE_NOT_FOUND = "File not found! Please ensure file path is correct!";
+
 }

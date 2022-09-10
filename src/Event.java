@@ -13,6 +13,9 @@ public class Event extends Task {
     public String getDescriptionAndStatus() {
         return "[E]" + this.getStatus() + " " + this.getDescription();
     }
-
+    @Override
+    public String fileFormat() {
+        return "E | " + this.getStatus() + " | " + this.description + " | " + this.at;
+    }
 
 }
