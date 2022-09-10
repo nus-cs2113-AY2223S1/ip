@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandHandler {
@@ -27,11 +29,10 @@ public class CommandHandler {
     public static int getTaskID(String command) {
         command = command.trim();
         String[] words = command.split(" ");
-        int taskID = Integer.parseInt(words[1]);
-        return taskID;
+        return Integer.parseInt(words[1]);
     }
     public static void unmarkTask(int taskID) throws DukeException {
-        if (tasks.get(taskID - 1).isDone() == false) {
+        if (!tasks.get(taskID - 1).isDone()) {
             throw new DukeException(":( OOPS!!! Unable to unmark as this task has not been done yet");
         }
         tasks.get(taskID - 1).setDone(false);
@@ -42,7 +43,7 @@ public class CommandHandler {
     }
 
     public static void markTask(int taskID) throws DukeException{
-        if (tasks.get(taskID - 1).isDone() == true) {
+        if (tasks.get(taskID - 1).isDone()) {
             throw new DukeException(":( OOPS!!! Unable to mark as this task has already been done");
         }
         tasks.get(taskID - 1).setDone(true);
@@ -150,7 +151,8 @@ public class CommandHandler {
         drawLine();
     }
 
-    public static void executeUserCommands() {
+    public static void executeUserCommands(DukeFile df) {
+        loadTasks(df);
         Scanner in = new Scanner(System.in);
         String command;
         do {
@@ -170,10 +172,7 @@ public class CommandHandler {
                 } catch (DukeException e) {
                     e.printErrorMessage();
                     drawLine();
-                } catch (NullPointerException e) {
-                    System.out.println(":( OOPS!!! This task does not exist.");
-                    drawLine();
-                } catch (IndexOutOfBoundsException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
                 }
@@ -185,10 +184,7 @@ public class CommandHandler {
                 } catch (DukeException e) {
                     e.printErrorMessage();
                     drawLine();
-                } catch (NullPointerException e) {
-                    System.out.println(":( OOPS!!! This task does not exist.");
-                    drawLine();
-                } catch (IndexOutOfBoundsException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println(":( OOPS!!! This task does not exist.");
                     drawLine();
                 }
@@ -205,6 +201,76 @@ public class CommandHandler {
             else {
                 createNewTask(command);
             }
+            try {
+                df.saveFile(df.getFile(), getTaskListAsString());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         } while (command != "bye");
     }
+
+    private static String getTaskListAsString() {
+        String taskList = "";
+        for (int i = 0; i < taskCounter; ++i) {
+            char taskType = tasks.get(i).getType();
+            taskList += tasks.get(i).getType() + " | ";
+            taskList += (tasks.get(i).isDone() ? "1" : "0") + " | ";
+            switch(taskType) {
+            case 'T':
+                taskList += tasks.get(i).getName() + "\n";
+                break;
+            case 'D':
+            case 'E':
+                taskList += tasks.get(i).getName() + " | " + tasks.get(i).getDateTime() + "\n";
+                break;
+            default:
+                System.out.println("Task list in invalid format");
+            }
+        }
+        return taskList;
+    }
+    private static void loadTasks(DukeFile df) {
+        try {
+            String taskList = df.loadFile(df.getFile());
+            while(taskList.length() > 0 && taskList.charAt(taskList.length()-1) == '/') {
+                String taskName, taskDateTime;
+                int ind_pipe;
+                int ind_backslash = taskList.indexOf("/");
+                String task = taskList.substring(0, ind_backslash);
+                taskList = taskList.substring(ind_backslash + 1);
+                char taskType = task.charAt(0);
+                boolean isDone = task.charAt(4) == '1';
+                switch(taskType) {
+                case 'T':
+                    taskName = task.substring(8);
+                    tasks.add(taskCounter, new ToDo(taskName, isDone, taskType));
+                    taskCounter++;
+                    break;
+                case 'D':
+                    task = task.substring(8);
+                    ind_pipe = task.indexOf("|");
+                    taskName = task.substring(0, ind_pipe - 1);
+                    taskDateTime = task.substring(ind_pipe + 2);
+                    tasks.add(taskCounter, new Deadline(taskName, isDone, taskType, taskDateTime));
+                    taskCounter++;
+                    break;
+                case 'E':
+                    task = task.substring(8);
+                    ind_pipe = task.indexOf("|");
+                    taskName = task.substring(0, ind_pipe - 1);
+                    taskDateTime = task.substring(ind_pipe + 2);
+                    tasks.add(taskCounter, new Event(taskName, isDone, taskType, taskDateTime));
+                    taskCounter++;
+                    break;
+                default:
+                    System.out.println("File is incompatible, cannot be read");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File does not exist");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
