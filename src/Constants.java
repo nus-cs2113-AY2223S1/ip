@@ -11,7 +11,7 @@ public class Constants {
     public static final int NUMBER = 1;
     public static final int DETAILS = 1;
     public static final String OUT_OF_BOUNDS = "Sorry, there is no such task. Please input a correct number";
-    public static final String INVALID_COMMAND = "(ㅠ﹏ㅠ) I'm sorry, but I don't know what that means ☹ Please input a proper command!\n";
+    public static final String INVALID_COMMAND = "ㅠ﹏ㅠ Sorry, please input a proper command!\n";
     public static final String UNMARK_ERROR = "Please input a task number to unmark";
     public static final String MARK_ERROR = "Please input a task number to mark";
     public static final String DELETE_ERROR = "Please input a task number for me to delete the task :)";
