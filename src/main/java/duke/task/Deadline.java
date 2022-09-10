@@ -1,10 +1,12 @@
 package duke.task;
 
 import duke.EmptyDescriptionException;
+import duke.NoSpecficTimeException;
+import duke.NoSpecificDeadlineException;
 import duke.task.Task;
 
 public class Deadline extends Task {
-    public Deadline(String task) throws EmptyDescriptionException {
+    public Deadline(String task) throws EmptyDescriptionException, NoSpecificDeadlineException, NoSpecficTimeException {
         // Call constructor of super class and change formatting to braces
         super(task.replace("/by", "(by:") + ")");
         // Print out deadline added

@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -14,91 +15,110 @@ public class Duke {
         MARK,
         ADD,
         BYE,
+        DELETE,
         ERROR
     }
-    public static final int maxLength = 100;
-    private static Task[] tasks = new Task[maxLength];
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void showWelcomeMessage() {
         // Pikachu logo to show in front
         final String logo =
                         "⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿\n";
+                        "⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿\n";
 
         System.out.println(logo);
-        System.out.println("{\\__／}\n" +
-                "(• w •）\n" +
-                "／ >\uDDA4 Hey! How can I help you?");
+        System.out.println("Hello! How can I help you?");
     }
+
     public static void markOrUnmarkTask(String command) {
         String markOrUnmark = command.split(" ")[0];
-        int taskNumber = Integer.parseInt(command.split(" ")[1]);
-        tasks[taskNumber - 1].setStatusIcon(markOrUnmark);
-        tasks[taskNumber - 1].printTask(taskNumber - 1);
+        int index = Integer.parseInt(command.split(" ")[1]) - 1;
+        tasks.get(index).setStatusIcon(markOrUnmark);
+        tasks.get(index).printTask(index);
     }
-    public static void printCompleteMessage(int numOfItem) {
-        if (numOfItem > 1) {
-            System.out.println("You now have " + numOfItem + " tasks.");
+
+    public static void printNumberOfTask() {
+        if (tasks.size() > 1) {
+            System.out.println("You now have " + tasks.size() + " tasks.");
         } else {
-            System.out.println("You now have " + numOfItem + " task.");
+            System.out.println("You now have " + tasks.size() + " task.");
         }
     }
-    public static void addTask(String command, int index) {
+
+    public static void addTask(String command) {
         boolean isTodo = command.contains("todo");
         boolean isEvent = command.contains("event");
         boolean isDeadline = command.contains("deadline");
 
 
         try {
-
             if (isTodo) {
-                tasks[index] = new Todo(command.replace("todo ", ""));
+                tasks.add(new Todo(command.replace("todo", "").trim()));
             } else if (isEvent) {
-                tasks[index] = new Event(command.replace("event ", ""));
+                tasks.add(new Event(command.replace("event", "").trim()));
             } else if (isDeadline) {
-                tasks[index] = new Deadline(command.replace("deadline ", ""));
+                tasks.add(new Deadline(command.replace("deadline", "").trim()));
             }
-            int numOfItem = index + 1;
-            printCompleteMessage(numOfItem);
+            printNumberOfTask();
         } catch (EmptyDescriptionException emptyException) {
-            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("OOPS!!! The description cannot be empty.");
+        } catch (NoSpecificDeadlineException e) {
+            System.out.println("You did not enter the deadline. Please re-enter the deadline by including '/by'.");
+        } catch (NoSpecficTimeException e) {
+            System.out.println("You did not specify the time for the event. Please re-enter the event by including '/at'. ");
         }
     }
+
+    public static void printDeletedTask(int deleteNumber) {
+        System.out.println("  [T][ ] " + tasks.get(deleteNumber).getTask());
+    }
+
+    public static void deleteTask(String command) {
+        int deleteNumber = Integer.parseInt(command.split(" ")[1]) - 1;
+        printDeletedTask(deleteNumber);
+        tasks.remove(deleteNumber);
+        printNumberOfTask();
+    }
+
     public static void farewellMessage() {
+        //Goodbye
         System.out.println("Bye bye!");
     }
-    public static void printAllTasks(int index) {
-        for (int i = 0; i < index; i += 1) {
-            tasks[i].printTask(i);
+
+    public static void printAllTasks() {
+        for (int i = 0; i < tasks.size(); i += 1) {
+            tasks.get(i).printTask(i);
         }
     }
-    public static TaskType identifyTask(String command) {
-        boolean isList = command.contains("list");
-        boolean isAdd = command.contains("todo") || command.contains("deadline") || command.contains("event");
-        boolean isMarkedOrUnmarked = command.contains("mark") || command.contains("unmark");
-        boolean isBye = command.contains("bye");
 
-        if (isList) {
+    public static TaskType identifyTask(String command) {
+        String commandType = command.split(" ")[0];
+
+        switch (commandType) {
+        case "list":
             return TaskType.LIST;
-        } else if (isMarkedOrUnmarked) {
+        case "mark":
             return TaskType.MARK;
-        } else if (isAdd) {
+        case "todo":
+        case "deadline":
+        case "event":
             return TaskType.ADD;
-        } else if (isBye) {
+        case "bye":
             return TaskType.BYE;
-        } else {
+        case "delete":
+            return TaskType.DELETE;
+        default:
             return TaskType.ERROR;
         }
-
-
     }
 
 
@@ -124,14 +144,16 @@ public class Duke {
                     markOrUnmarkTask(command);
                     break;
                 case LIST:
-                    printAllTasks(index);
+                    printAllTasks();
                     break;
                 case ADD:
-                    addTask(command, index);
-                    index += 1;
+                    addTask(command);
                     break;
                 case BYE:
                     farewellMessage();
+                    break;
+                case DELETE:
+                    deleteTask(command);
                     break;
                 case ERROR:
                     throw new IncorrectCommandException();
