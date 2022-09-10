@@ -5,15 +5,45 @@ import Duke.task.Event;
 import Duke.task.Task;
 import Duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
+
+    private static void writeToFile(String filePath, Integer cnt, ArrayList list) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < cnt; i++) {
+            fw.write(list.get(i).toString() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static void getFileContents(String filePath, ArrayList list) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            list.add(s.nextLine());
+        }
+    }
     public static void main(String[] args) throws EmptyToDo, IllegalCommand {
+
         String line = "____________________________________________________________\n";
         Scanner cmd = new Scanner(System.in);
         Task[] list = new Task[100];
         int cnt = 0;
         Boolean isLast = false;
+        File storedList = new File("data/duke.txt");
+
+        try {
+            getFileContents("data/duke.txt" , list);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
 
         System.out.println(line + " Hello! I'm Tommy\n" + " What can I do for you?\n" + line);
 
