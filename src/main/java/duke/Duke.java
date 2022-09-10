@@ -5,6 +5,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -17,7 +21,10 @@ public class Duke {
         ERROR
     }
     public static final int maxLength = 100;
+    private static int index = 0;
     private static Task[] tasks = new Task[maxLength];
+    private static String filePath = "./data/duke.txt";
+
     public static void showWelcomeMessage() {
         // Pikachu logo to show in front
         final String logo =
@@ -38,27 +45,87 @@ public class Duke {
                 "(• w •）\n" +
                 "／ >\uDDA4 Hey! How can I help you?");
     }
-    public static void markOrUnmarkTask(String command) {
+    public static void markOrUnmarkTask(String command) throws IOException {
         String markOrUnmark = command.split(" ")[0];
         int taskNumber = Integer.parseInt(command.split(" ")[1]);
-        tasks[taskNumber - 1].setStatusIcon(markOrUnmark);
-        tasks[taskNumber - 1].printTask(taskNumber - 1);
+        int taskIndex = taskNumber - 1;
+        String task = tasks[taskIndex].getTask();
+
+        tasks[taskIndex].setStatusIcon(markOrUnmark);
+        tasks[taskIndex].printTask(taskIndex);
+        editTask(task, markOrUnmark);
     }
-    public static void printCompleteMessage(int numOfItem) {
+
+
+    public static void editTask(String task, String markOrUnmark) throws IOException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String text = "";
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            if (currentLine.contains(task)) {
+                text += changeMarkValue(currentLine, markOrUnmark) + System.lineSeparator();
+            } else {
+                text += currentLine + System.lineSeparator();
+            }
+        }
+
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(text);
+        fw.close();
+
+
+
+    }
+    public static String changeMarkValue(String currentLine, String markOrUnmark) {
+        if (markOrUnmark.equals("mark")) {
+            return currentLine.replace(" | 0 | ", " | 1 | ");
+        }
+        return currentLine.replace(" | 1 | ", " | 0 | ");
+    }
+    public static void printNumOfItems(int numOfItem) {
         if (numOfItem > 1) {
             System.out.println("You now have " + numOfItem + " tasks.");
         } else {
             System.out.println("You now have " + numOfItem + " task.");
         }
     }
-    public static void addTask(String command, int index) {
+    public static void addTask(String command) {
         boolean isTodo = command.contains("todo");
         boolean isEvent = command.contains("event");
         boolean isDeadline = command.contains("deadline");
 
 
         try {
+            String taskType = "";
+            if (isTodo) {
+                tasks[index] = new Todo(command.replace("todo ", ""));
+                taskType = "todo";
+            } else if (isEvent) {
+                tasks[index] = new Event(command.replace("event ", ""));
+                taskType = "event";
+            } else if (isDeadline) {
+                tasks[index] = new Deadline(command.replace("deadline ", ""));
+                taskType = "deadline";
+            }
+            addCompleteMessage(taskType);
+            appendToFile(taskType);
+            index += 1;
 
+        } catch (EmptyDescriptionException emptyException) {
+            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
+        }
+
+    }
+
+    public static void reAddTask(String command, int index) {
+        boolean isTodo = command.contains("todo");
+        boolean isEvent = command.contains("event");
+        boolean isDeadline = command.contains("deadline");
+
+        try {
             if (isTodo) {
                 tasks[index] = new Todo(command.replace("todo ", ""));
             } else if (isEvent) {
@@ -66,11 +133,32 @@ public class Duke {
             } else if (isDeadline) {
                 tasks[index] = new Deadline(command.replace("deadline ", ""));
             }
-            int numOfItem = index + 1;
-            printCompleteMessage(numOfItem);
         } catch (EmptyDescriptionException emptyException) {
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
         }
+    }
+
+    public static void addCompleteMessage(String type) {
+        boolean isTodo = type.equals("todo");
+        boolean isEvent = type.equals("event");
+        boolean isDeadline = type.equals("deadline");
+        int numOfItem = index + 1;
+
+        System.out.println("Got it. I added to the list.");
+
+        if (isTodo) {
+            System.out.println("  [D][ ] " + tasks[index].getTask());
+        } else if (isEvent) {
+            System.out.println("  [E][ ] " + tasks[index].getTask());
+        } else if (isDeadline){
+            System.out.println("  [T][ ] " + tasks[index].getTask());
+        }
+
+
+        printNumOfItems(numOfItem);
+
     }
     public static void farewellMessage() {
         System.out.println("Bye bye!");
@@ -100,14 +188,59 @@ public class Duke {
 
 
     }
+    private static void appendToFile(String taskType) throws IOException {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            String appendTask = tasks[index].getTask();
 
+            if (taskType.equals("todo")) {
+                fw.write("T | 0 | " + appendTask + System.lineSeparator());
+            } else if (taskType.equals("deadline")) {
+                fw.write("D | 0 | " + appendTask + System.lineSeparator());
+            } else {
+                fw.write("E | 0 | " + appendTask + System.lineSeparator());
+            }
+            fw.close();
 
-    public static void main(String[] args) {
-        int index = 0;
+        } catch (IOException exception) {
+            System.out.println("Error writing to file.");
+        }
+    }
+
+    public static void load() throws FileNotFoundException {
+
+        File f = new File(filePath);
+
+        if (f.exists()) {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String entry = s.nextLine();
+                String[] entries = entry.split("\\s\\|\\s");
+
+                String entryType = entries[0];
+                String entryText = entries[2];
+                String command;
+                if (entryType.equals("T")) {
+                    command = "todo " + entryText;
+                } else if (entryType.equals("D")) {
+                    command = "deadline " + entryText;
+                } else {
+                    command = "event " + entryText;
+                }
+
+                reAddTask(command, index);
+                index += 1;
+            }
+        }
+
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
         boolean isGoodbye;
         String command;
 
         showWelcomeMessage();
+        load();
 
         Scanner in = new Scanner(System.in);
 
@@ -127,8 +260,7 @@ public class Duke {
                     printAllTasks(index);
                     break;
                 case ADD:
-                    addTask(command, index);
-                    index += 1;
+                    addTask(command);
                     break;
                 case BYE:
                     farewellMessage();
@@ -138,6 +270,8 @@ public class Duke {
                 }
             } catch (IncorrectCommandException incorrectCommand) {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (IOException e) {
+                System.out.println("Unable to write to file");
             }
         } while (!isGoodbye);
     }
