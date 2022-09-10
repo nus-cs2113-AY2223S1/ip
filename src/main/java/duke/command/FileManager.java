@@ -36,30 +36,11 @@ public class FileManager {
     public static void writeFile(String filePath) throws IOException {
         final String WRITING_FILE_START = "Writing file outputs...";
         final String WRITING_FILE_END = "Done writing file outputs!";
-        
-        ArrayList<Task> tasks = TaskManager.getTasks();
 
         System.out.println(WRITING_FILE_START);
 
-        FileWriter fw = new FileWriter(filePath);
-        try {
-            fw.write(Parser.parseFileOutputs(tasks.get(0).toString()) + System.lineSeparator());
-        } catch (InvalidOutputException e) {
-            System.out.println("Invalid output line");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Nothing in list!");
-        }
-        fw.close();
-
-        fw = new FileWriter(filePath, true);
-        for (int i = 1; i < Task.getTaskCount(); i += 1) {
-            try {
-                fw.write(Parser.parseFileOutputs(tasks.get(i).toString()) + System.lineSeparator());
-            } catch (InvalidOutputException e) {
-                System.out.println("Invalid output line");
-            }
-        }
-        fw.close();
+        writeFirstLine(filePath);
+        writeRemainingLines(filePath);
 
         System.out.println(WRITING_FILE_END);
     }
@@ -83,5 +64,33 @@ public class FileManager {
         } catch (DukeException e) {
             System.out.println("Bad file input :(");
         }
+    }
+
+    private static void writeFirstLine(String filePath) throws IOException {
+        ArrayList<Task> tasks = TaskManager.getTasks();
+
+        FileWriter fw = new FileWriter(filePath);
+        try {
+            fw.write(Parser.parseFileOutputs(tasks.get(0).toString()) + System.lineSeparator());
+        } catch (InvalidOutputException e) {
+            System.out.println("Invalid output line");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Nothing in list!");
+        }
+        fw.close();
+    }
+
+    private static void writeRemainingLines(String filePath) throws IOException {
+        ArrayList<Task> tasks = TaskManager.getTasks();
+
+        FileWriter fw = new FileWriter(filePath, true);
+        for (int i = 1; i < Task.getTaskCount(); i += 1) {
+            try {
+                fw.write(Parser.parseFileOutputs(tasks.get(i).toString()) + System.lineSeparator());
+            } catch (InvalidOutputException e) {
+                System.out.println("Invalid output line");
+            }
+        }
+        fw.close();
     }
 }
