@@ -60,7 +60,6 @@ public class Duke {
     public static void main(String[] args) {
 
         // array storing the Task objects.
-//        Task[] tasks = new Task[101];
         ArrayList<Task> tasks = new ArrayList<Task>();
         tasks.add(new Todo("initial case"));
 
@@ -94,9 +93,8 @@ public class Duke {
                 }
                 System.out.println("____________________________________________________________");
 
-            }
-            else if (numOfWords >= 2) {
-                // check if the user input has 2 words before checking for commands "mark" and "unmark"
+            } else if (numOfWords >= 2) {
+                // check if the user input has 2 words before checking for commands "mark" , "unmark" or "delete"
                 String[] parsedInput = inData.split(" ");
 
                 if (numOfWords == 2 && parsedInput[0].equals("unmark")) {
@@ -105,9 +103,6 @@ public class Duke {
                         int unmarkedIndex = Integer.parseInt(parsedInput[1]);
                         if (checkIfWithinBounds(unmarkedIndex, taskIndex)) {
                             //checks if the user input command is within the current bound of the tasks array.
-//
-//
-//                            tasks[unmarkedIndex].setDone(false);
                             tasks.get(unmarkedIndex).setDone(false);
 
 
@@ -141,7 +136,7 @@ public class Duke {
                         System.out.println("Invalid mark command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
-                } else if (numOfWords == 2 && parsedInput[0].equals("delete")){
+                } else if (numOfWords == 2 && parsedInput[0].equals("delete")) {
                     try {
                         int markedIndex = Integer.parseInt(parsedInput[1]);
                         if (checkIfWithinBounds(markedIndex, taskIndex)) {
@@ -158,8 +153,7 @@ public class Duke {
                         System.out.println("Invalid delete command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
-                }
-                else if (taskIndex < 101) {
+                } else if (taskIndex < 101) {
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
                     for (int i = 1; i < numOfWords; i += 1) {
@@ -169,7 +163,6 @@ public class Duke {
 
                     switch (parsedInput[0]) {
                     case "todo":
-//                        tasks[taskIndex] = new Todo(taskDescription);
                         tasks.add(new Todo(taskDescription));
                         tasks.get(taskIndex).setTaskType("T");
                         System.out.println(tasks.get(taskIndex));
@@ -185,9 +178,8 @@ public class Duke {
                             taskDescription = tempArray[0];
                             deadline = tempArray[1];
                         }
-//                        tasks[taskIndex] = new Deadline(taskDescription, deadline);
 
-                        tasks.add(new Deadline(taskDescription,deadline));
+                        tasks.add(new Deadline(taskDescription, deadline));
                         tasks.get(taskIndex).setTaskType("D");
 
                         System.out.println(tasks.get(taskIndex));
@@ -203,8 +195,7 @@ public class Duke {
                             taskDescription = tempArray[0];
                             eventPeriod = tempArray[1];
                         }
-//                        tasks[taskIndex] = new Event(taskDescription, eventPeriod);
-                        tasks.add(new Event(taskDescription,eventPeriod));
+                        tasks.add(new Event(taskDescription, eventPeriod));
 
                         tasks.get(taskIndex).setTaskType("E");
                         System.out.println(tasks.get(taskIndex));
