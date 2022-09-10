@@ -141,9 +141,16 @@ public class Duke {
                         int markedIndex = Integer.parseInt(parsedInput[1]);
                         if (checkIfWithinBounds(markedIndex, taskIndex)) {
                             // checks if the user input command is within the current bound of the tasks array.
+
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("[" + tasks.get(markedIndex).getTaskType() + "]" + "[" + tasks.get(markedIndex).getStatusIcon() + "] " + tasks.get(markedIndex).getDescription());
                             tasks.remove(markedIndex);
-                            System.out.println("Task removed!!");
                             taskIndex -= 1;
+                            if (taskIndex == 1) {
+                                printNumOfTasks(0);
+                            } else {
+                                printNumOfTasks(taskIndex -1);
+                            }
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
