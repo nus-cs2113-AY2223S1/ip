@@ -1,5 +1,6 @@
 package duke.command;
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -35,27 +36,32 @@ public class FileManager {
     public static void writeFile(String filePath) throws IOException {
         final String WRITING_FILE_START = "Writing file outputs...";
         final String WRITING_FILE_END = "Done writing file outputs!";
+        
+        ArrayList<Task> tasks = TaskManager.getTasks();
 
-        Task[] tasks = TaskManager.getTasks();
+        System.out.println(WRITING_FILE_START);
 
         FileWriter fw = new FileWriter(filePath);
         try {
-            fw.write(Parser.parseFileOutputs(tasks[0].toString()) + System.lineSeparator());
+            fw.write(Parser.parseFileOutputs(tasks.get(0).toString()) + System.lineSeparator());
         } catch (InvalidOutputException e) {
-            System.out.println("bad");
+            System.out.println("Invalid output line");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Nothing in list!");
         }
         fw.close();
 
         fw = new FileWriter(filePath, true);
         for (int i = 1; i < Task.getTaskCount(); i += 1) {
             try {
-                fw.write(Parser.parseFileOutputs(tasks[i].toString()) + System.lineSeparator());
+                fw.write(Parser.parseFileOutputs(tasks.get(i).toString()) + System.lineSeparator());
             } catch (InvalidOutputException e) {
-                // TODO: handle exception
-                System.out.println("bad");
+                System.out.println("Invalid output line");
             }
         }
         fw.close();
+
+        System.out.println(WRITING_FILE_END);
     }
 
     private static void executeLine(String line) {

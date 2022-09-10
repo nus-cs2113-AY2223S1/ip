@@ -13,7 +13,7 @@ import duke.exception.OutOfBoundsTaskNumberException;
 public abstract class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static Task[] getTasks() {
+    public static ArrayList<Task> getTasks() {
         return tasks;
     }
 
