@@ -1,10 +1,12 @@
 package duke.task;
 
 import duke.EmptyDescriptionException;
+import duke.NoSpecficTimeException;
+import duke.NoSpecificDeadlineException;
 import duke.task.Task;
 
 public class Event extends Task {
-    public Event(String task) throws EmptyDescriptionException {
+    public Event(String task) throws EmptyDescriptionException, NoSpecificDeadlineException, NoSpecficTimeException {
         // Call constructor for superclass and change formatting to brackets
         super(task.replace("/at", "(at:") + ")");
         // Print out event added
