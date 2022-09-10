@@ -40,6 +40,36 @@ public abstract class TaskManager {
         System.out.println(ADD_PHRASE_END);
     }
 
+    public static void deleteTask(String input) {
+        int taskNum;
+
+        try {
+            taskNum = Parser.parseTaskNumber(InputManager.DELETE_PHRASE, input);
+        } catch (MissingTaskNumberException e) {
+            System.out.println("Missing task number");
+            return;
+        } catch (NonIntegerTaskNumberException e) {
+            System.out.println("Non-integer task number");
+            return;
+        } catch (OutOfBoundsTaskNumberException e) {
+            System.out.println("Out of bounds task number");
+            return;
+        }
+
+        final String DELETE_PHRASE_START = "deleted: ";
+        // minus one becuase task has not been deleted yet
+        final String DELETE_PHRASE_END =
+                "There are " + Integer.toString(Task.getTaskCount() - 1) + " task(s) in your list.";
+
+        System.out.println(DELETE_PHRASE_START);
+        System.out.println(tasks.get(taskNum));
+
+        tasks.remove(taskNum);
+        Task.deleteTask();
+
+        System.out.println(DELETE_PHRASE_END);
+    }
+
     public static void printList() {
         for (int i = 0; i < Task.getTaskCount(); i += 1) {
             System.out.println(Integer.toString(i + 1) + ". " + tasks.get(i));

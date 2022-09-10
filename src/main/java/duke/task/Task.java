@@ -1,4 +1,5 @@
 package duke.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -40,5 +41,9 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public static void deleteTask() {
+        taskCount -= 1;
     }
 }
