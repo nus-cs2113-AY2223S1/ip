@@ -2,6 +2,7 @@ package duke;
 
 import duke.error.ErrorHandler;
 import duke.error.exceptions.*;
+import duke.io.FileManager;
 import duke.io.InputValidator;
 import duke.tasks.TaskList;
 import duke.tasks.tasktypes.DeadlineTask;
@@ -22,9 +23,10 @@ public class Duke {
     public static final String COMMAND_DELETE = "delete";
 
     /** TaskList class that contains all items */
-    public static final TaskList TASK_LIST = new TaskList();
+    public static TaskList TASK_LIST;
 
     public static void main(String[] args) {
+        TASK_LIST = FileManager.LoadTaskList();
         greet();
         programBody();
         exit();
@@ -70,6 +72,7 @@ public class Duke {
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
                 TASK_LIST.getTextOfItem(markItem(input) - 1), true));
+        FileManager.save();
     }
 
     /**
@@ -84,6 +87,7 @@ public class Duke {
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
         UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
                 TASK_LIST.getTextOfItem(unmarkItem(input) - 1), false));
+        FileManager.save();
     }
 
     /**
@@ -96,6 +100,7 @@ public class Duke {
                 TASK_LIST.getTextOfItem(addItem(input))) + "\n"
                 + StringFormatting.formatNumberOfTasksString(
                         TASK_LIST.getItemCount()));
+        FileManager.save();
     }
 
     /**
@@ -111,6 +116,7 @@ public class Duke {
                 deleteItem(input)) + "\n"
                 + StringFormatting.formatNumberOfTasksString(
                 TASK_LIST.getItemCount()));
+        FileManager.save();
     }
 
     /**
@@ -219,6 +225,7 @@ public class Duke {
      * Prints a goodbye message for when the program is terminated via user commands
      */
     private static void exit() {
+        FileManager.save();
         UserInterface.print(StringFormatting.getGoodbye());
     }
 }
