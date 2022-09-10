@@ -2,7 +2,8 @@ package duke;
 
 import duke.error.ErrorHandler;
 import duke.error.exceptions.*;
-import duke.input.InputValidator;
+import duke.io.FileManager;
+import duke.io.InputValidator;
 import duke.tasks.TaskList;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
@@ -20,9 +21,10 @@ public class Duke {
     public static final String COMMAND_UNMARK = "unmark";
 
     /** TaskList class that contains all items */
-    public static final TaskList TASK_LIST = new TaskList();
+    public static TaskList TASK_LIST;
 
     public static void main(String[] args) {
+        TASK_LIST = FileManager.LoadTaskList();
         greet();
         programBody();
         exit();
@@ -67,6 +69,7 @@ public class Duke {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(markItem(input) - 1)
                 + "\" as done.");
+        FileManager.save();
     }
 
     /**
@@ -82,6 +85,7 @@ public class Duke {
         UserInterface.print("Marked task \""
                 + TASK_LIST.getTextOfItem(unmarkItem(input) - 1)
                 + "\" as not yet done.");
+        FileManager.save();
     }
 
     /**
@@ -95,6 +99,7 @@ public class Duke {
                 + "\" to your list.\nThere " + (TASK_LIST.getItemCount() == 1 ? "is" : "are")
                 + " now " + TASK_LIST.getItemCount() + " task"
                 + (TASK_LIST.getItemCount() == 1 ? "" : "s") + ".");
+        FileManager.save();
     }
 
     /**
@@ -188,6 +193,7 @@ public class Duke {
      * Prints a goodbye message for when the program is terminated via user commands
      */
     private static void exit() {
+        FileManager.save();
         UserInterface.print("Alright, see you around then!");
     }
 }

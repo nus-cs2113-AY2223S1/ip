@@ -1,7 +1,12 @@
 package duke.tasks;
 
 import duke.error.exceptions.NoStateChangeException;
+import duke.io.FileManager;
+import duke.tasks.tasktypes.DeadlineTask;
 import duke.ui.DialogBox;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Abstract superclass that list items inherit from. <br><br>
@@ -10,9 +15,10 @@ import duke.ui.DialogBox;
  * <li>{@link duke.tasks.tasktypes.EventTask}</li></ul>
  */
 public abstract class Task {
+    /** Status icon */
+    private static final String STATUS_ICON = "■";
     /** Text that each item contains */
     private final String TEXT;
-
     /** Field that tracks if task is marked as done or not */
     private boolean isDone;
 
@@ -28,12 +34,21 @@ public abstract class Task {
     }
 
     /**
+     * Getter for the {@link Task#STATUS_ICON} icon that denotes if a task is done or not
+     *
+     * @return String
+     */
+    public static String getStatusIcon() {
+        return STATUS_ICON;
+    }
+
+    /**
      * Parses Task item as string. <br>Example: <code>[ ][T] go grocery shopping</code>
      *
      * @return item expressed as a string
      */
     public String toString() {
-        return "[" + getStatusIcon() + "]" + "[" + getTypeIcon() + "] " + TEXT
+        return "[" + getStatusIconConditional() + "]" + "[" + getTypeIcon() + "] " + TEXT
                 + DialogBox.rightAlign(getPostFix());
     }
 
@@ -60,13 +75,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the type icon based on item type.
-     *
-     * @return the type icon that represents the item type
-     */
-    protected abstract String getTypeIcon();
-
-    /**
      * Overridden in the case of certain methods that attach
      * other comments to the back of tasks.
      *
@@ -77,11 +85,25 @@ public abstract class Task {
     }
 
     /**
+     * Abstract method for the type icon of each subclass.
+     */
+    protected abstract String getTypeIcon();
+
+    /**
      * Status icon that changes when item is marked done or not done.
      *
      * @return String of status icon
      */
-    private String getStatusIcon() {
-        return isDone ? "■" : " ";
+    protected String getStatusIconConditional() {
+        return isDone ? STATUS_ICON : " ";
+    }
+
+    /**
+     * Returns {@link List} with relevant details for saving.
+     *
+     * @return List of strings containing details of {@link Task} instance.
+     */
+    public List<String> getSaveItems() {
+        return Arrays.asList(getTypeIcon(), getStatusIconConditional(), getText());
     }
 }

@@ -1,4 +1,4 @@
-package duke.input;
+package duke.io;
 
 import duke.Duke;
 import duke.error.exceptions.NoCommandArgumentException;

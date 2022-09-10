@@ -2,6 +2,7 @@ package duke.tasks;
 
 import duke.error.exceptions.ItemNotFoundException;
 import duke.error.exceptions.NoStateChangeException;
+import duke.io.FileManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class TaskList {
     /** List containing item */
-    private final List<Task> items;
+    private final List<Task> tasks;
 
     /** Count of number of items in list */
     private int itemCount = 0;
@@ -20,7 +21,15 @@ public class TaskList {
      * Constructor that initializes list of task items.
      */
     public TaskList() {
-        items = new ArrayList<>();
+        tasks = new ArrayList<>();
+    }
+
+    public String getSaveString() {
+        String bufferString = "";
+        for (Task task : tasks) {
+            bufferString += FileManager.formatSeparatedString(task.getSaveItems()) + "\n";
+        }
+        return bufferString;
     }
 
     /**
@@ -30,7 +39,7 @@ public class TaskList {
      * @return returns the <b>0-based</b> index of the added item
      */
     public int addItem(Task item) {
-        items.add(item);
+        tasks.add(item);
         return ++itemCount - 1;
     }
 
@@ -45,7 +54,7 @@ public class TaskList {
         int itemCounter = 1;
 
         // append each item to string (with attached prefix and line break)
-        for (Task item : items) {
+        for (Task item : tasks) {
             String prefix = itemCounter++ + ". ";
             if (Integer.toString(itemCounter - 1).length() == 1) {
                 outputString.append("0");
@@ -65,7 +74,7 @@ public class TaskList {
      */
     public void markItem(int index) throws ItemNotFoundException, NoStateChangeException {
         try {
-            items.get(index).setDone(true);
+            tasks.get(index).setDone(true);
         } catch (IndexOutOfBoundsException e) {
             throw new ItemNotFoundException(index);
         }
@@ -79,7 +88,7 @@ public class TaskList {
      */
     public void unmarkItem(int index) throws ItemNotFoundException, NoStateChangeException {
         try {
-            items.get(index).setDone(false);
+            tasks.get(index).setDone(false);
         } catch (IndexOutOfBoundsException e) {
             throw new ItemNotFoundException(index);
         }
@@ -92,7 +101,7 @@ public class TaskList {
      * @return text content of desired item
      */
     public String getTextOfItem(int index) {
-        return items.get(index).getText();
+        return tasks.get(index).getText();
     }
 
     public int getItemCount() {
