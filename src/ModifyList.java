@@ -1,24 +1,30 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 
-public class ModifyList {
+public class ModifyList extends Constants{
     private final List<Task> tasks = new ArrayList<Task>();
 
-
-    public static String lineSeparator() {
+    public static String line() {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     }
 
     private void handleTask(String taskDetails, Task task) {
         tasks.add(task);
-        System.out.println(lineSeparator() +
-                "Noted. Following task has been added: " + '\n' + taskDetails + "\n" +
-                "Total tasks in list: " + tasks.size() + '\n' +
-                lineSeparator());
+        System.out.println(
+            line() +
+            "Noted. Following task has been added: " + '\n' + taskDetails + "\n" +
+            "Total tasks in list: " + tasks.size() + '\n' +
+            line()
+        );
     }
 
-    public void task(String taskType, String details){
+    public void task(String taskType, String details) throws Error{
         String[] separateDetails;
         String description;
         String time;
@@ -26,50 +32,72 @@ public class ModifyList {
             case "todo":
                 Todo task = new Todo(details);
                 handleTask(task.getDescriptionAndStatus(), task);
+                break;
 
             case "deadline":
-                separateDetails = details.split("/");
+                separateDetails = details.split("/by", 2);
+                if (separateDetails.length != 2) {
+                    throw new Error(DEADLINE_FORMAT_ERROR);
+                }
                 description = separateDetails[0];
-                time = separateDetails[1];
-                time = new StringBuilder(time).insert(time.indexOf(' '), ":").toString(); // add colon
+                time = "by:" + separateDetails[1];
                 Deadline deadline = new Deadline(description, time);
                 handleTask(deadline.getDescriptionAndStatus(), deadline);
-            case "event":
+                break;
 
-                separateDetails = details.split("/");
+            case "event":
+                separateDetails = details.split("/at", 2);
+                if (separateDetails.length != 2) {
+                    throw new Error(EVENT_FORMAT_ERROR);
+                }
                 description = separateDetails[0];
-                time = separateDetails[1];
-                time = new StringBuilder(time).insert(time.indexOf(' '), ":").toString(); // add colon
+                time = "at:" + separateDetails[1];
                 Event event = new Event(description, time);
                 handleTask(event.getDescriptionAndStatus(), event);
+                break;
         }
     }
 
     public void list() {
         int itemNumber = 1;
-        System.out.println(lineSeparator() + "Here are your list of tasks:\n");
+        System.out.println(line() + "Here are your list of tasks:");
         for (Task task : tasks) {
-            System.out.println(itemNumber + "." + task.getDescriptionAndStatus() + "\n");
+            System.out.println(itemNumber + "." + task.getDescriptionAndStatus());
             itemNumber++;
         }
-        System.out.println(lineSeparator());
+        System.out.println(line());
     }
     public void mark(int index) {
             Task task = tasks.get(index - 1);
             task.setDone(true);
             tasks.set(index - 1, task);
-            System.out.println(lineSeparator() +
-                    "The following task been marked as completed:\n" +
-                    tasks.get(index - 1).getDescriptionAndStatus() + "\n" +
-                    lineSeparator());
+            System.out.println(
+                line() +
+                "The following task been marked as completed:\n" +
+                task.getDescriptionAndStatus() + "\n" +
+                line()
+            );
     }
     public void unmark(int index) {
             Task task = tasks.get(index - 1);
             task.setDone(false);
             tasks.set(index - 1, task);
-            System.out.println(lineSeparator() +
+            System.out.println(
+                    line() +
                     "The following task been marked as not done yet:\n" +
-                    tasks.get(index - 1).getDescriptionAndStatus() + "\n" +
-                    lineSeparator());
+                    task.getDescriptionAndStatus() + "\n" +
+                    line()
+            );
+    }
+    public void delete(int index) {
+        Task task = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println(
+            line() +
+            "OK! I will remove the following task:\n" +
+            task.getDescriptionAndStatus() + "\n" +
+            "Total tasks in list: " + tasks.size() + '\n' +
+            line()
+        );
     }
 }

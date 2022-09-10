@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     public String description;
     public boolean isDone;
     public Task(String description) {
@@ -16,10 +16,11 @@ public class Task {
         return description;
     }
     public String getStatus() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return (this.isDone ? "√" : "✕");
     }
 
     public String getDescriptionAndStatus() {
         return getStatus() + " " + getDescription();
     }
+
 }
