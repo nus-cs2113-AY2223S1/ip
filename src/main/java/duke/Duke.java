@@ -1,7 +1,12 @@
 package duke;
 
 import duke.error.ErrorHandler;
-import duke.error.exceptions.*;
+import duke.error.exceptions.DukeException;
+import duke.error.exceptions.ItemNotFoundException;
+import duke.error.exceptions.ListEmptyException;
+import duke.error.exceptions.NoStateChangeException;
+import duke.error.exceptions.NotAnIntegerException;
+import duke.error.exceptions.NotRecognizedException;
 import duke.io.FileManager;
 import duke.io.InputValidator;
 import duke.tasks.TaskList;
@@ -49,7 +54,7 @@ public class Duke {
                     unmarkAndConfirm(input);
                 } else if (InputValidator.isAddInput(input)) {
                     addAndConfirm(input);
-                } else if (InputValidator.isDeleteInput(input)){
+                } else if (InputValidator.isDeleteInput(input)) {
                     deleteAndConfirm(input);
                 } else {
                     throw new NotRecognizedException(input);
@@ -99,7 +104,7 @@ public class Duke {
         UserInterface.print(StringFormatting.formatAddString(
                 TASK_LIST.getTextOfItem(addItem(input))) + "\n"
                 + StringFormatting.formatNumberOfTasksString(
-                        TASK_LIST.getItemCount()));
+                TASK_LIST.getItemCount()));
         FileManager.save();
     }
 
@@ -107,8 +112,8 @@ public class Duke {
      * Deletes item and prints confirmation.
      *
      * @param input input
-     * @throws NotAnIntegerException  If word after command is not an integer.
-     * @throws ItemNotFoundException  If there is no item at given index.
+     * @throws NotAnIntegerException If word after command is not an integer.
+     * @throws ItemNotFoundException If there is no item at given index.
      */
     private static void deleteAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException {

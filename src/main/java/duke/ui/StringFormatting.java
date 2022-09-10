@@ -1,13 +1,17 @@
 package duke.ui;
 
+import duke.Duke;
+
 /**
  * Class to help with formatting strings for printing in the UI.
- *
  */
 public class StringFormatting {
 
     private static final String STRING_GREETING = "Good morning!\nWhat would you like to do today?";
-    private static final String STRING_GOODBYE = "Alright, see you around then!";
+    private static final String STRING_GOODBYE = "Alright! Your list has been saved "
+            + "successfully. \n\nSee you around!";
+
+    private static final String STRING_LOADED = "A save file was found and automatically loaded.";
 
     /**
      * Formats a string to say how many tasks there are based on given integer.
@@ -18,8 +22,8 @@ public class StringFormatting {
      */
     public static String formatNumberOfTasksString(int numberOfTasks) {
         return "\nThere " + (numberOfTasks == 1 ? "is" : "are")
-                + " now " + numberOfTasks + " task"
-                + (numberOfTasks == 1 ? "" : "s") + ".";
+                + " currently " + numberOfTasks + " task"
+                + (numberOfTasks == 1 ? "" : "s") + " in your list.";
     }
 
     /**
@@ -28,7 +32,8 @@ public class StringFormatting {
      * @return greetings string
      */
     public static String getGreeting() {
-        return STRING_GREETING;
+        return STRING_GREETING + "\n\n" + STRING_LOADED
+                + formatNumberOfTasksString(Duke.TASK_LIST.getItemCount());
     }
 
     /**
@@ -44,7 +49,7 @@ public class StringFormatting {
      * Formats string for marking/unmarking confirmation.
      *
      * @param textOfItem task text
-     * @param done true if task is being marked done, false if not.
+     * @param done       true if task is being marked done, false if not.
      * @return formatted string
      */
     public static String formatMarkOrUnmarkString(String textOfItem, boolean done) {

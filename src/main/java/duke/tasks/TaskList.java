@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that keeps track of each To-Do item added to the program.
+ * Class that keeps track of each task item added to the program.
  */
 public class TaskList {
     /** List containing item */
@@ -24,6 +24,12 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Makes save string from all tasks in the list and concatenates into a single string
+     * to be written to a file.
+     *
+     * @return save string
+     */
     public String getSaveString() {
         String bufferString = "";
         for (Task task : tasks) {
@@ -101,7 +107,7 @@ public class TaskList {
      * @return text of the deleted item
      * @throws ItemNotFoundException if item is not within the bounds of the list
      */
-    public String deleteItem(int index) throws ItemNotFoundException{
+    public String deleteItem(int index) throws ItemNotFoundException {
         try {
             String itemText = getTextOfItem(index);
             tasks.remove(index);

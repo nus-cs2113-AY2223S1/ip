@@ -15,11 +15,11 @@ public class EventTask extends Task {
     /** Keyword to mark when an event is supposed to happen */
     public static final String COMMAND_AT = "/at";
 
+    /** Icon denoting task type. */
+    private static final String TYPE_ICON = "E";
+
     /** Contains text following the {@link EventTask#COMMAND_AT} command. */
     private final String EVENT;
-
-    /** Icon denoting type. */
-    private static final String TYPE_ICON = "E";
 
     /**
      * Splits the text into two and initializes
@@ -34,31 +34,12 @@ public class EventTask extends Task {
 
     /**
      * Checks if command is equal to {@link EventTask#TYPE_ICON}
+     *
      * @param command command string
      * @return true if it is equal
      */
     public static boolean isCommand(String command) {
         return command.trim().equals(TYPE_ICON);
-    }
-
-    /**
-     * Provides type icon to be used in string formatting.
-     *
-     * @return Type icon "E" for "Event".
-     */
-    @Override
-    public String getTypeIcon() {
-        return "E";
-    }
-
-    /**
-     * Add a postfix that denotes when something happens
-     * (e.g. <code>(at 3:00 pm)</code> )
-     *
-     * @return postfix string
-     */
-    protected String getPostFix() {
-        return "(at: " + EVENT + ")";
     }
 
     /**
@@ -84,6 +65,26 @@ public class EventTask extends Task {
         }
 
         return bufferTask;
+    }
+
+    /**
+     * Provides type icon to be used in string formatting.
+     *
+     * @return Type icon "E" for "Event".
+     */
+    @Override
+    public String getTypeIcon() {
+        return "E";
+    }
+
+    /**
+     * Add a postfix that denotes when something happens
+     * (e.g. <code>(at 3:00 pm)</code> )
+     *
+     * @return postfix string
+     */
+    protected String getPostFix() {
+        return "(at: " + EVENT + ")";
     }
 
     /**

@@ -1,15 +1,13 @@
 package duke.tasks;
 
 import duke.error.exceptions.NoStateChangeException;
-import duke.io.FileManager;
-import duke.tasks.tasktypes.DeadlineTask;
 import duke.ui.DialogBox;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Abstract superclass that list items inherit from. <br><br>
+ * Abstract superclass that items in {@link TaskList} inherit from. <br><br>
  * <b>Subclasses: </b>
  * <ul><li>{@link duke.tasks.tasktypes.ToDoTask}</li> <li>{@link duke.tasks.tasktypes.DeadlineTask}</li>
  * <li>{@link duke.tasks.tasktypes.EventTask}</li></ul>

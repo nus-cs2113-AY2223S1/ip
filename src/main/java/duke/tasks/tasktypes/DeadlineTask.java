@@ -14,12 +14,10 @@ import java.util.regex.Pattern;
 public class DeadlineTask extends Task {
     /** Keyword to mark when a task needs to be done by */
     public static final String COMMAND_BY = "/by";
-
-    /** Contains text following the {@link DeadlineTask#COMMAND_BY} command. */
-    private final String DEADLINE;
-
     /** Icon denoting type. */
     private static final String TYPE_ICON = "D";
+    /** Contains text following the {@link DeadlineTask#COMMAND_BY} command. */
+    private final String DEADLINE;
 
     /**
      * Splits the text into two and initializes
@@ -34,31 +32,12 @@ public class DeadlineTask extends Task {
 
     /**
      * Checks if command is equal to {@link DeadlineTask#TYPE_ICON}
+     *
      * @param command command string
      * @return true if it is equal
      */
     public static boolean isCommand(String command) {
         return command.trim().equals(TYPE_ICON);
-    }
-
-    /**
-     * Provides type icon to be used in string formatting.
-     *
-     * @return Type icon "D" for "Deadline".
-     */
-    @Override
-    public String getTypeIcon() {
-        return "D";
-    }
-
-    /**
-     * Add a postfix that denotes a deadline.
-     * (e.g. <code>(by 4:00 pm)</code> )
-     *
-     * @return postfix string
-     */
-    protected String getPostFix() {
-        return "(by: " + DEADLINE + ")";
     }
 
     /**
@@ -84,6 +63,26 @@ public class DeadlineTask extends Task {
         }
 
         return bufferTask;
+    }
+
+    /**
+     * Provides type icon to be used in string formatting.
+     *
+     * @return Type icon "D" for "Deadline".
+     */
+    @Override
+    public String getTypeIcon() {
+        return "D";
+    }
+
+    /**
+     * Add a postfix that denotes a deadline.
+     * (e.g. <code>(by 4:00 pm)</code> )
+     *
+     * @return postfix string
+     */
+    protected String getPostFix() {
+        return "(by: " + DEADLINE + ")";
     }
 
     /**
