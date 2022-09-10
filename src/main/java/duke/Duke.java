@@ -17,6 +17,16 @@ public class Duke {
 
     public static void executeInstruction(Menu dukeMenu, String instruction, String inputValue) throws DukeException {
         switch (instruction) {
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            dukeMenu.addTask(instruction, inputValue);
+            break;
+        case "delete":
+            dukeMenu.deleteTask(inputValue);
+            break;
         case "list":
             dukeMenu.list();
             break;
@@ -28,13 +38,6 @@ public class Duke {
             break;
         case "bye":
             dukeMenu.quit();
-            break;
-        case "todo":
-            // Fallthrough
-        case "deadline":
-            // Fallthrough
-        case "event":
-            dukeMenu.addTask(instruction, inputValue);
             break;
         default:
             throw new InvalidCommandException();

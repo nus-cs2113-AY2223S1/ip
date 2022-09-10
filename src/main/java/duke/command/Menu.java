@@ -1,23 +1,24 @@
 package duke.command;
 
+import duke.Duke;
 import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 public class Menu {
-    private Task[] tasks;
-    private int taskCount;
+    private ArrayList<Task> tasks;
+    private static final int MAX_TASK_SIZE = 1000000000;
+    private static final int MAX_TASK_STRING_LENGTH = 9;
     private static final String DIVIDER = "____________________________________________________________";
-    private static final int MAX_TASK_SIZE = 100;
-    private static final int INITIAL_TASK_COUNT = 0;
     private static final boolean IS_MARK_METHOD = true;
     private static final boolean IS_UNMARK_METHOD = false;
 
     public Menu() {
-        this.tasks = new Task[MAX_TASK_SIZE];
-        this.taskCount = INITIAL_TASK_COUNT;
+        this.tasks = new ArrayList<>();
     }
 
     public static void greet() {
@@ -26,8 +27,8 @@ public class Menu {
 
     public void list() {
         String listContent = "";
-        for (int i = 0; i < taskCount; i++) {
-            listContent += String.format("%d.%s", i + 1, tasks[i].getTaskFullDetails());
+        for (int i = 0; i < tasks.size(); i++) {
+            listContent += String.format("%d.%s", i + 1, tasks.get(i).getTaskFullDetails());
             listContent += System.lineSeparator();
         }
         displayListingMessage(listContent);
@@ -40,47 +41,49 @@ public class Menu {
         case "todo":
             checkTodoFormat(userInput);
             taskName = userInput;
-            tasks[taskCount] = new Todo(taskName);
+            tasks.add(new Todo(taskName));
             break;
         case "deadline":
             checkDeadlineFormat(userInput);
             splits = splitTaskName(" /by ", userInput);
             // Task name: splits[0], deadline: splits[1]
-            tasks[taskCount] = new Deadline(splits[0], splits[1]);
+            tasks.add(new Deadline(splits[0], splits[1]));
             break;
         case "event":
             checkEventFormat(userInput);
             splits = splitTaskName(" /at ", userInput);
             // Task name: splits[0], deadline: splits[1]
-            tasks[taskCount] = new Event(splits[0], splits[1]);
+            tasks.add(new Event(splits[0], splits[1]));
             break;
         default:
             break;
         }
-        taskCount++;
-        displayTaskAdditionMessage(tasks[taskCount - 1].getTaskFullDetails(), taskCount);
+        String taskDetail = tasks.get(tasks.size() - 1).getTaskFullDetails();
+        displayTaskAdditionMessage(taskDetail, tasks.size());
+    }
+
+    public void deleteTask(String inputValue) throws DukeException {
+        checkTaskIndexInput(inputValue);
+        int taskIndex = Integer.parseInt(inputValue);
+        String taskDetail = tasks.get(taskIndex - 1).getTaskFullDetails();
+        tasks.remove(taskIndex - 1);
+        displayTaskDeletionMessage(taskDetail, tasks.size());
     }
 
     public void mark(String inputValue) throws DukeException {
-        if (isCorrectMarkUnmarkFormat(inputValue)) {
-            int taskIndex = Integer.parseInt(inputValue);
-            tasks[taskIndex - 1].setDone(true);
-            String taskName = tasks[taskIndex - 1].getTaskName();
-            displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
-        } else {
-            throw new InvalidMarkOrUnmarkIndexException();
-        }
+        checkTaskIndexInput(inputValue);
+        int taskIndex = Integer.parseInt(inputValue);
+        tasks.get(taskIndex - 1).setDone(true);
+        String taskName = tasks.get(taskIndex - 1).getTaskName();
+        displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
     }
 
     public void unmark(String inputValue) throws DukeException {
-        if (isCorrectMarkUnmarkFormat(inputValue)) {
-            int taskIndex = Integer.parseInt(inputValue);
-            this.tasks[taskIndex - 1].setDone(false);
-            String taskName = this.tasks[taskIndex - 1].getTaskName();
-            displayMarkOrUnmarkMessage(taskName, IS_UNMARK_METHOD);
-        } else {
-            throw new InvalidMarkOrUnmarkIndexException();
-        }
+        checkTaskIndexInput(inputValue);
+        int taskIndex = Integer.parseInt(inputValue);
+        tasks.get(taskIndex - 1).setDone(false);
+        String taskName = tasks.get(taskIndex - 1).getTaskName();
+        displayMarkOrUnmarkMessage(taskName, IS_UNMARK_METHOD);
     }
 
     public void quit() {
@@ -112,6 +115,15 @@ public class Menu {
         System.out.println(output);
     }
 
+    private static void displayTaskDeletionMessage(String taskDetails, int count) {
+        String output = DIVIDER + System.lineSeparator()
+                + "Noted. I've removed this task:" + System.lineSeparator()
+                + "\t" + taskDetails + System.lineSeparator()
+                + "Now you have " + count + " tasks in the list" + System.lineSeparator()
+                + DIVIDER;
+        System.out.println(output);
+    }
+
     private static void displayMarkOrUnmarkMessage(String taskName, boolean isMarkMethod) {
         String output = DIVIDER + System.lineSeparator();
         if (isMarkMethod) {
@@ -126,13 +138,6 @@ public class Menu {
     private static void displayExitMessage() {
         String output = DIVIDER + System.lineSeparator()
                 + "Bye. Hope to see you again soon!" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
-
-    public void displayErrorMessage() {
-        String output = DIVIDER + System.lineSeparator()
-                + "Invalid input!" + System.lineSeparator()
                 + DIVIDER;
         System.out.println(output);
     }
@@ -203,21 +208,19 @@ public class Menu {
         }
     }
 
-    public boolean isCorrectMarkUnmarkFormat(String inputValue) {
+    public void checkTaskIndexInput(String inputValue) throws DukeException {
         // Check if the string only contains digits
         if (!inputValue.matches("^\\d+$")) {
-            return false;
+            throw new InvalidIndexException();
         }
-        // Check if the string length is not more than 3 characters (Max task is only 100)
-        if (inputValue.length() > 3) {
-            return false;
+        // Check that the index will not exceed 1000000000
+        if (inputValue.length() > MAX_TASK_STRING_LENGTH) {
+            throw new InvalidIndexException();
         }
         int taskIndex = Integer.parseInt(inputValue);
-        if (taskIndex > 0 && taskIndex <= this.taskCount) {
-            return true;
-        } else {
-            // Invalid input format for mark and unmark feature
-            return false;
+        if (taskIndex <= 0 || taskIndex > tasks.size()) {
+            // Out-of-bound task index
+            throw new InvalidIndexException();
         }
     }
 
