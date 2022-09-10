@@ -41,7 +41,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             System.out.println(String.format("%s", ErrorText.ERROR_INVALID_STATUS_FORMAT));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(String.format("%s", ErrorText.ERROR_INVALID_STATUS_TASK));
+            System.out.println(String.format("%s", ErrorText.ERROR_INVALID_TASK_INDEX));
         }
         System.out.println(DASH);
     }
@@ -125,6 +125,22 @@ public class Duke {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_EVENT_FORMAT, DASH));
                 }
+                break;
+            case "delete":
+                System.out.println(DASH);
+                try {
+                    int taskIndex = Integer.parseInt(input) - 1;
+                    String taskDetails = tasks.get(taskIndex).getTaskDetails();
+                    tasks.remove(taskIndex);
+                    System.out.println(String.format("%s", InfoText.INFO_TASK_DELETED));
+                    System.out.println(String.format("    * %s", taskDetails));
+                    System.out.println(String.format("%s", String.format(String.valueOf(InfoText.INFO_TASK_COUNT), tasks.size())));
+                } catch (NumberFormatException e) {
+                    System.out.println(String.format("%s", ErrorText.ERROR_INVALID_DELETE_FORMAT));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(String.format("%s", ErrorText.ERROR_INVALID_TASK_INDEX));
+                }
+                System.out.println(DASH);
                 break;
             default:
                 System.out.println(String.format("%s\n%s\n%s", DASH, ErrorText.ERROR_INVALID_COMMAND, DASH));
