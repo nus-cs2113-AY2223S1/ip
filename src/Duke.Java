@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke extends Constants{
-    public static String lineSeparator() {
+    public static String line() {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     }
 
@@ -15,22 +15,24 @@ public class Duke extends Constants{
 
     public static void greet() {
         System.out.println(
-                "Hello from\n" +
-                        botLogo() +
-                        lineSeparator() +
-                        "Hello! I'm Jackson, your personal chat-bot! :)\n" +
-                        "What service are you looking for?\n" +
-                        lineSeparator());
+            "Hello from\n" +
+            botLogo() +
+            line() +
+            "Hello! I'm Jackson, your personal chat-bot! :)\n" +
+            "What service are you looking for?\n" +
+            line()
+        );
     }
 
     public static void exit() {
         System.out.println(
-                lineSeparator() +
-                        "Leaving already? :( Come back soon!\n" +
-                        lineSeparator());
+            line() +
+            "Leaving already? :( Come back soon!\n" +
+            line()
+        );
     }
 
-    public static void taskList(){ // check if get is 1 or 2
+    public static void taskList() throws Error{ // check if get is 1 or 2
         ModifyList modifyList = new ModifyList();
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine(); //.toLowerCase()?
@@ -64,45 +66,53 @@ public class Duke extends Constants{
                     modifyList.list();
                     break;
                 case UNMARK:
-                    int unmarkIndex = Integer.parseInt(get[NUMBER]);
                     try {
+                        int unmarkIndex = Integer.parseInt(get[NUMBER]);
                         modifyList.unmark(unmarkIndex);
-                    } catch (IndexOutOfBoundsException error) {
+                    }
+                    catch (IndexOutOfBoundsException error) {
                         System.out.println(OUT_OF_BOUNDS);
                     }
+                    catch (NumberFormatException error) {
+                        System.out.println(NOT_INTEGER);
+                    }
                     break;
+
                 case MARK:
-                    int markIndex = Integer.parseInt(get[NUMBER]);
                     try {
+                        int markIndex = Integer.parseInt(get[NUMBER]);
                         modifyList.mark(markIndex);
-                    } catch (IndexOutOfBoundsException error) {
+                    }
+                    catch (IndexOutOfBoundsException error) {
                         System.out.println(OUT_OF_BOUNDS);
                     }
+                    catch (NumberFormatException error) {
+                        System.out.println(NOT_INTEGER);
+                    }
                     break;
+
                 case DELETE:
-                    int deleteIndex = Integer.parseInt(get[NUMBER]);
                     try {
+                        int deleteIndex = Integer.parseInt(get[NUMBER]);
                         modifyList.delete(deleteIndex);
-                    } catch (IndexOutOfBoundsException error) {
+                    }
+                    catch (IndexOutOfBoundsException error) {
                         System.out.println(OUT_OF_BOUNDS);
                     }
+                    catch (NumberFormatException error) {
+                        System.out.println(NOT_INTEGER);
+                    }
                     break;
+
                 case DEADLINE:
-                    try {
-                        modifyList.task(get[TASK], get[DETAILS]);
-                    } catch (ArrayIndexOutOfBoundsException error) {
-                        System.out.println(DEADLINE_FORMAT_ERROR);
-                    }
-                    break;
                 case EVENT:
+                case TODO:
                     try {
                         modifyList.task(get[TASK], get[DETAILS]);
-                    } catch (ArrayIndexOutOfBoundsException error) {
-                        System.out.println(EVENT_FORMAT_ERROR);
                     }
-                    break;
-                case TODO:
-                    modifyList.task(get[TASK], get[DETAILS]); //error code here?
+                    catch (Error error) {
+                        System.out.println(error.getMessage());
+                    }
                     break;
                 default:
                     System.out.println(INVALID_COMMAND);
@@ -112,7 +122,7 @@ public class Duke extends Constants{
             input = reader.nextLine(); // get next input indefinitely
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Error {
         greet();
         taskList();
         exit();
