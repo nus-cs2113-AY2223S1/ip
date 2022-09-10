@@ -24,7 +24,7 @@ public class Duke {
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static String filePath = "./data/duke.txt";
+    private static String filePath = "duke.txt";
 
     public static void showWelcomeMessage() {
         // Pikachu logo to show in front
