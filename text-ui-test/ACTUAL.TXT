@@ -4,18 +4,23 @@ Hello! I'm Timmy
 
 Added: [T][ ] return book
 Total tasks = 1
+Unable to write to file
 
 Added: [D][ ] return book (by: Sunday)
 Total tasks = 2
+Unable to write to file
 
 Added: [E][ ] project meeting (at: Mon 2-4pm)
 Total tasks = 3
+Unable to write to file
 
 Added: [D][ ] do homework (by: no idea :-p)
 Total tasks = 4
+Unable to write to file
 
 Marked: 
 [D][X] return book (by: Sunday)
+Unable to write to file
 
 1. [T][ ] return book
 2. [D][X] return book (by: Sunday)
@@ -24,6 +29,7 @@ Marked:
 
 Marked: 
 [E][X] project meeting (at: Mon 2-4pm)
+Unable to write to file
 
 1. [T][ ] return book
 2. [D][X] return book (by: Sunday)
@@ -32,6 +38,7 @@ Marked:
 
 Unmarked: 
 [D][ ] return book (by: Sunday)
+Unable to write to file
 
 1. [T][ ] return book
 2. [D][ ] return book (by: Sunday)
@@ -40,6 +47,7 @@ Unmarked:
 
 Unmarked: 
 [E][ ] project meeting (at: Mon 2-4pm)
+Unable to write to file
 
 1. [T][ ] return book
 2. [D][ ] return book (by: Sunday)

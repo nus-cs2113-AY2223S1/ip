@@ -1,8 +1,11 @@
 package duke.task;
 import duke.DukeException;
+import duke.FileSaver;
+import java.io.File;
+import java.io.IOException;
 
 public class TaskManager {
-    protected Task[] tasks;
+    public Task[] tasks;
     protected int taskCount;
 
     private final int START_INDEX_TODO = 5;
@@ -15,6 +18,20 @@ public class TaskManager {
     public TaskManager() {
         tasks = new Task[100];
         taskCount = 0;
+    }
+
+    public void handleInput(String input) {
+        String command;
+        if (input.contains(" ")) {
+            command = input.substring(0, input.indexOf(" "));
+        } else {
+            command = input;
+        }
+        try {
+            handleInput(input, command);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void handleInput(String input, String command) throws DukeException {
@@ -49,6 +66,7 @@ public class TaskManager {
             System.out.println("Added: " + tasks[taskCount].toString());
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
+            FileSaver.updateFile(tasks, taskCount);
         } catch (StringIndexOutOfBoundsException e){
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         }
@@ -63,6 +81,7 @@ public class TaskManager {
             System.out.println("Added: " + tasks[taskCount].toString());
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
+            FileSaver.updateFile(tasks, taskCount);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Deadline format: " + DEADLINE_FORMAT);
         }
@@ -77,6 +96,7 @@ public class TaskManager {
             System.out.println("Added: " + tasks[taskCount].toString());
             taskCount++;
             System.out.println("Total tasks = " + taskCount);
+            FileSaver.updateFile(tasks, taskCount);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Event format: " + EVENT_FORMAT);
         }
@@ -89,6 +109,7 @@ public class TaskManager {
             tasks[taskNum].isDone = true;
             System.out.println("Marked: ");
             System.out.println(tasks[taskNum].toString());
+            FileSaver.updateFile(tasks, taskCount);
         }
     }
 
@@ -99,6 +120,7 @@ public class TaskManager {
             tasks[taskNum].isDone = false;
             System.out.println("Unmarked: ");
             System.out.println(tasks[taskNum].toString());
+            FileSaver.updateFile(tasks, taskCount);
         }
     }
 
