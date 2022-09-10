@@ -4,14 +4,14 @@ import Duke.task.Deadline;
 import Duke.task.Event;
 import Duke.task.Task;
 import Duke.task.Todo;
-
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) throws EmptyToDo, IllegalCommand {
         String line = "____________________________________________________________\n";
         Scanner cmd = new Scanner(System.in);
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         int cnt = 0;
         Boolean isLast = false;
 
@@ -29,16 +29,20 @@ public class Duke {
             if (input.contains("unmark")) {
                 String a = input.substring(7);
                 int index = Integer.parseInt(a) - 1;
-                list[index].setUnDone();
+                Task toSet = list.get(index);
+                toSet.setUnDone();
+                list.set(index, toSet);
                 System.out.println(line + " OK, I've marked this Duke.task as not done yet:");
-                System.out.println(list[index].toString());
+                System.out.println(list.get(index).toString());
                 System.out.println(line);
             } else if (input.contains("mark")) {
                 String a = input.substring(5);
                 int index = Integer.parseInt(a) - 1;
-                list[index].setDone();
+                Task toSet = list.get(index);
+                toSet.setDone();
+                list.set(index, toSet);
                 System.out.println(line + "Nice! I've marked this Duke.task as done:");
-                System.out.println(list[index].toString());
+                System.out.println(list.get(index).toString());
                 System.out.println(line);
             } else {
                 try {
@@ -47,9 +51,9 @@ public class Duke {
                         if (second == null) {
                             throw new EmptyToDo();
                         }
-                        list[cnt] = new Todo(second);
+                        list.add(new Todo(second));
                         System.out.println(line + " Got it. I've added this Duke.task:");
-                        System.out.println("\t" + list[cnt].toString());
+                        System.out.println("\t" + list.get(cnt).toString());
                         cnt++;
                         System.out.println(" Now you have " + cnt + " tasks in the list.");
                         System.out.println(line);
@@ -58,9 +62,9 @@ public class Duke {
                         String arr2[] = second.split("/by", 2);
                         String desc = arr2[0];
                         String deadline = arr2[1];
-                        list[cnt] = new Deadline(desc, deadline);
+                        list.add(new Deadline(desc, deadline));
                         System.out.println(line + " Got it. I've added this Duke.task:");
-                        System.out.println("\t" + list[cnt].toString());
+                        System.out.println("\t" + list.get(cnt).toString());
                         cnt++;
                         System.out.println(" Now you have " + cnt + " tasks in the list.");
                         System.out.println(line);
@@ -69,9 +73,9 @@ public class Duke {
                         String event[] = second.split("/at", 2);
                         String name = event[0];
                         String time = event[1];
-                        list[cnt] = new Event(name, time);
+                        list.add(new Event(name, time));
                         System.out.println(line + " Got it. I've added this Duke.task:");
-                        System.out.println("\t" + list[cnt].toString());
+                        System.out.println("\t" + list.get(cnt).toString());
                         cnt++;
                         System.out.println(" Now you have " + cnt + " tasks in the list.");
                         System.out.println(line);
@@ -80,8 +84,18 @@ public class Duke {
                         System.out.println(line);
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < cnt; i++) {
-                            System.out.println("\t" + (i + 1) + "." + list[i].toString());
+                            System.out.println("\t" + (i + 1) + "." + list.get(i).toString());
                         }
+                        System.out.println(line);
+                        break;
+                    case "delete":
+                        System.out.println(line);
+                        System.out.println("Noted. I've removed this task:");
+                        int index = Integer.parseInt(second) - 1;
+                        System.out.println("\t" + list.get(index).toString());
+                        list.remove(index);
+                        cnt--;
+                        System.out.println(" Now you have " + cnt + " tasks in the list.");
                         System.out.println(line);
                         break;
                     case "bye":
