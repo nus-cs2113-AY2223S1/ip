@@ -119,6 +119,24 @@ public abstract class Parser {
             }
 
             break;
+        case InputManager.DELETE_PHRASE:
+            try {
+                taskNumString = input.substring(InputManager.DELETE_PHRASE.length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new MissingTaskNumberException();
+            }
+
+            try {
+                taskNumInt = Integer.parseInt(taskNumString);
+            } catch (NumberFormatException e) {
+                throw new NonIntegerTaskNumberException();
+            }
+
+            if (!isValidTaskNumber(taskNumInt)) {
+                throw new OutOfBoundsTaskNumberException();
+            }
+
+            break;
         default:
             taskNumInt = 1;
             break;

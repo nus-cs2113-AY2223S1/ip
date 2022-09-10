@@ -17,6 +17,8 @@ mark 3
 list
 unmark 3
 list
+delete 1
+list
 test
 todo
 deadline
@@ -29,5 +31,8 @@ mark 999
 unmark 999
 mark this
 unmark this
+delete
+delete -1
+delete 999
 list
 bye

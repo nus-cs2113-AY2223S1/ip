@@ -1,4 +1,5 @@
 package duke.command;
+
 import java.util.Scanner;
 import duke.Duke;
 import duke.exception.DukeException;
@@ -14,6 +15,7 @@ public abstract class InputManager {
     public static final String BY_PHRASE = "/by";
     public static final String EVENT_PHRASE = "event";
     public static final String AT_PHRASE = "/at";
+    public static final String DELETE_PHRASE = "delete";
 
     public static void readInputs() {
         Scanner in = new Scanner(System.in);
@@ -53,6 +55,8 @@ public abstract class InputManager {
             TaskManager.addTask(DEADLINE_PHRASE, input);
         } else if (input.startsWith(EVENT_PHRASE)) {
             TaskManager.addTask(EVENT_PHRASE, input);
+        } else if (input.startsWith(DELETE_PHRASE)) {
+            TaskManager.deleteTask(input);
         } else {
             throw new DukeException();
         }
