@@ -10,6 +10,10 @@ public class Deadline extends Task {
         this.dueBy = dueBy;
     }
 
+    public String getDueBy() {
+        return dueBy;
+    }
+
     @Override
     public String getTaskDetails() {
         return "[D]" + super.getTaskDetails() + " (by: " + dueBy + ")";
