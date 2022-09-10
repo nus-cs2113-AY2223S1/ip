@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ModifyList extends Constants{
     private final List<Task> tasks = new ArrayList<>();
-    File file = new File("data.txt");
+    File file = new File("./src/data.txt");
     public static String line() {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     }
@@ -89,7 +89,7 @@ public class ModifyList extends Constants{
                     throw new Error(DEADLINE_FORMAT_ERROR);
                 }
                 description = separateDetails[0];
-                time = "by:" + separateDetails[1];
+                time = "(by:" + separateDetails[1] + ")";
                 Deadline deadline = new Deadline(description, time);
                 handleTask(deadline.getDescriptionAndStatus(), deadline);
                 break;
@@ -100,7 +100,7 @@ public class ModifyList extends Constants{
                     throw new Error(EVENT_FORMAT_ERROR);
                 }
                 description = separateDetails[0];
-                time = "at:" + separateDetails[1];
+                time = "(at:" + separateDetails[1] + ")";
                 Event event = new Event(description, time);
                 handleTask(event.getDescriptionAndStatus(), event);
                 break;
