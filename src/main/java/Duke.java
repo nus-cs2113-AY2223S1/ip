@@ -15,6 +15,16 @@ public class Duke {
         System.out.printf("Now you have %d tasks in the list.\n",noOfTasks);
     }
 
+    public static boolean isValidCommand(String s){
+        String[] validCommandArray = {"bye", "list","unmark","mark","todo","deadline","event"};
+        for(int i = 0; i < validCommandArray.length; i++) {
+            if(s.equals(validCommandArray[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -32,6 +42,26 @@ public class Duke {
         int addCount = 0;
         do {
             input = in.nextLine();
+            try {
+                String[] inputStrings = input.split(" ");
+                if(!isValidCommand(inputStrings[0])){
+                    throw new InvalidCommandException();
+                }
+                if(inputStrings.length == 1 && !inputStrings[0].equals("list")){
+                    throw new EmptyDescriptionException(inputStrings[0]);
+                }
+            } catch (InvalidCommandException e){
+                drawLine();
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                drawLine();
+                continue;
+            }
+            catch(EmptyDescriptionException e) {
+                drawLine();
+                System.out.println("OOPS!!! The description of a " + e.getMessage() + " cannot be empty.");
+                drawLine();
+                continue;
+            }
             if(input.equals("bye")){
                 drawLine();
                 System.out.println("Bye. Hope to see you again soon!");
