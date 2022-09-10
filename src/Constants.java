@@ -18,4 +18,5 @@ public class Constants {
     public static final String DEADLINE_FORMAT_ERROR = "Invalid deadline format! Please remember to add '/by' before your deadline!";
     public static final String EVENT_FORMAT_ERROR = "Invalid event format! Please remember to add '/at' before your event timing!";
     public static final String NOT_INTEGER = "Please input a number!";
+    public static final String FILE_NOT_FOUND = "File not found! Please ensure file path is correct!";
 }

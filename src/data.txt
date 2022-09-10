@@ -1,0 +1,5 @@
+T ┊ ✕ ┊ a
+E ┊ √ ┊ b  ┊ at: 1
+E ┊ ✕ ┊ a  ┊ (at: 23)
+T ┊ ✕ ┊ adsasd
+E ┊ ✕ ┊ sdasd  ┊ (at: asdasds)

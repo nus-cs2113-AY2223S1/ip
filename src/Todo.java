@@ -8,5 +8,9 @@ public class Todo extends Task {
     public String getDescriptionAndStatus() {
         return "[T][" + this.getStatus() + "] " + this.getDescription();
     }
+    @Override
+    public String fileFormat() {
+        return "T ┊ " + this.getStatus() + " ┊ " + this.description;
+    }
 
 }

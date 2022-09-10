@@ -32,8 +32,9 @@ public class Duke extends Constants{
         );
     }
 
-    public static void taskList() throws Error{ // check if get is 1 or 2
+    public static void taskList() { // check if get is 1 or 2
         ModifyList modifyList = new ModifyList();
+        modifyList.loadFileData();
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine(); //.toLowerCase()?
 
