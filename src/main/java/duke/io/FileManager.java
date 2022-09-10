@@ -37,6 +37,9 @@ public class FileManager {
     /** Separator to be used for loading/saving files */
     private static final String SEPARATOR = "|";
 
+    /** Boolean flag that triggers if file was loaded. */
+    private static boolean wasLoaded = false;
+
     /**
      * Loads and populates a {@link TaskList} instance if the file exists. If not,
      * returns an empty {@link TaskList} item.
@@ -47,6 +50,8 @@ public class FileManager {
         if (file.exists()) {
             return parseFile();
         } else {
+            File directory = new File(FILE_DIRECTORY_LOCATION);
+            directory.mkdir();
             return new TaskList();
         }
     }
@@ -68,6 +73,7 @@ public class FileManager {
                 tasks.addItem(parseRow(row));
             }
             fileScanner.close();
+            wasLoaded = true;
             return tasks;
         } catch (IOException e) {
             // if file has an issue with opening/closing, return empty task list and delete file
@@ -147,5 +153,14 @@ public class FileManager {
      */
     public static String getPath() {
         return FILE_PATH;
+    }
+
+    /**
+     * Getter for {@link FileManager#wasLoaded} field.
+     *
+     * @return true if a file was loaded.
+     */
+    public static boolean wasLoaded() {
+        return wasLoaded;
     }
 }

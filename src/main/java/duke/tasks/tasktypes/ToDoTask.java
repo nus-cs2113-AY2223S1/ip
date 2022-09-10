@@ -42,7 +42,7 @@ public class ToDoTask extends Task {
         ToDoTask bufferTask = new ToDoTask(text);
         // Load in "done" state
         try {
-            if (icon.trim().equals(Task.getStatusIcon())) {
+            if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
         } catch (NoStateChangeException e) {

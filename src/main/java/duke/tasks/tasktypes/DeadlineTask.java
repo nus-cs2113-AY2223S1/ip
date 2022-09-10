@@ -55,7 +55,7 @@ public class DeadlineTask extends Task {
         DeadlineTask bufferTask = new DeadlineTask(text + "/by" + subcommand);
         // Load in "done" state
         try {
-            if (icon.trim().equals(Task.getStatusIcon())) {
+            if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
         } catch (NoStateChangeException e) {
@@ -92,6 +92,6 @@ public class DeadlineTask extends Task {
      */
     @Override
     public List<String> getSaveItems() {
-        return Arrays.asList(getTypeIcon(), getStatusIconConditional(), getText(), DEADLINE);
+        return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText(), DEADLINE);
     }
 }

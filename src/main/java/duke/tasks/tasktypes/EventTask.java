@@ -57,7 +57,7 @@ public class EventTask extends Task {
         EventTask bufferTask = new EventTask(text + "/at" + subcommand);
         // Load in "done" state
         try {
-            if (icon.trim().equals(Task.getStatusIcon())) {
+            if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
         } catch (NoStateChangeException e) {
@@ -94,6 +94,6 @@ public class EventTask extends Task {
      */
     @Override
     public List<String> getSaveItems() {
-        return Arrays.asList(getTypeIcon(), getStatusIconConditional(), getText(), EVENT);
+        return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText(), EVENT);
     }
 }

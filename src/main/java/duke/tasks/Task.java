@@ -97,11 +97,20 @@ public abstract class Task {
     }
 
     /**
+     * Status icon for saving (because ■ doesn't play nice with reading/writing)
+     *
+     * @return String of status icon
+     */
+    protected String getStatusIconSave() {
+        return isDone ? "X" : " ";
+    }
+
+    /**
      * Returns {@link List} with relevant details for saving.
      *
      * @return List of strings containing details of {@link Task} instance.
      */
     public List<String> getSaveItems() {
-        return Arrays.asList(getTypeIcon(), getStatusIconConditional(), getText());
+        return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText());
     }
 }

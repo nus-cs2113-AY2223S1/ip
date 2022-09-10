@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.Duke;
+import duke.io.FileManager;
 
 /**
  * Class to help with formatting strings for printing in the UI.
@@ -10,8 +11,8 @@ public class StringFormatting {
     private static final String STRING_GREETING = "Good morning!\nWhat would you like to do today?";
     private static final String STRING_GOODBYE = "Alright! Your list has been saved "
             + "successfully. \n\nSee you around!";
-
-    private static final String STRING_LOADED = "A save file was found and automatically loaded.";
+    private static final String STRING_LOADED = "A save file was found and loaded successfully.";
+    private static final String STRING_NOT_LOADED = "No save file was found, or the format was improper.";
 
     /**
      * Formats a string to say how many tasks there are based on given integer.
@@ -32,8 +33,13 @@ public class StringFormatting {
      * @return greetings string
      */
     public static String getGreeting() {
-        return STRING_GREETING + "\n\n" + STRING_LOADED
-                + formatNumberOfTasksString(Duke.TASK_LIST.getItemCount());
+        String bufferString = STRING_GREETING + "\n\n";
+        if (FileManager.wasLoaded()) {
+            bufferString += STRING_LOADED;
+        } else {
+            bufferString += STRING_NOT_LOADED;
+        }
+        return bufferString + formatNumberOfTasksString(Duke.TASK_LIST.getItemCount());
     }
 
     /**
