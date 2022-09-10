@@ -1,25 +1,50 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.FileWriter;
 
 
 public class ModifyList extends Constants{
-    private final List<Task> tasks = new ArrayList<Task>();
-    File taskData = new File("data.txt");
-
-    public void dataFromFile() {
-        if (taskData.length() != 0) {
-            System.out.println("Loading existing file data.../n");
-            loadFileData(); //or createNewFile?
+    private final List<Task> tasks = new ArrayList<>();
+    File file = new File("data.txt");
+    public static String line() {
+        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    }
+    public static Task taskFromFile(String task) {
+        String[] reconstruct = task.split(" ┊ ");
+        switch (reconstruct[0]) {
+            case "T":
+                return new Todo(reconstruct[2]);
+            case "E":
+            case "D":
+                return new Event(reconstruct[2], reconstruct[3]);
+            default:
+                return null;
         }
     }
-    public void saveToFile() {
+    public void loadFileData() {
         try {
-            FileWriter fw = new FileWriter(taskData);
+            if (file.length() != 0){
+                System.out.println("Loading existing file data...\n");
+                Scanner s = new Scanner(file);
+                while (s.hasNext()) {
+                    String task = s.nextLine();
+                    tasks.add(taskFromFile(task));
+                }
+            }
+            else {
+                System.out.println("No existing file data...creating empty list\n");
+            }
+        } catch (FileNotFoundException error) {
+            System.out.println(FILE_NOT_FOUND);
+        }
+    }
+    public void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter(file);
             for (Task task : tasks) {
                 fw.write(task.fileFormat() + System.lineSeparator());
             }
@@ -28,31 +53,15 @@ public class ModifyList extends Constants{
             System.out.println(FILE_NOT_FOUND);
         }
     }
-    private void appendToFile(String textToAppend) {
+    public void appendToFile(String textToAppend) {
         try {
-            FileWriter fw = new FileWriter(taskData, true);
+            FileWriter fw = new FileWriter(file, true);
             fw.write(textToAppend + System.lineSeparator());
             fw.close();
         } catch (IOException error) {
             System.out.println(FILE_NOT_FOUND);
         }
     }
-    public void loadFileData() {
-        try {
-            //clear array list?
-            Scanner s = new Scanner(taskData);
-            while (s.hasNext()) {
-                String task = s.nextLine();
-                //make new task
-            }
-        } catch (FileNotFoundException error) {
-            System.out.println(FILE_NOT_FOUND);
-        }
-    }
-    public static String line() {
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-    }
-
     private void handleTask(String taskDetails, Task task) {
         tasks.add(task);
         System.out.println(
@@ -117,7 +126,7 @@ public class ModifyList extends Constants{
                         task.getDescriptionAndStatus() + "\n" +
                         line()
         );
-        saveToFile();
+        writeToFile();
     }
     public void unmark(int index) {
         Task task = tasks.get(index - 1);
@@ -129,6 +138,6 @@ public class ModifyList extends Constants{
                         task.getDescriptionAndStatus() + "\n" +
                         line()
         );
-        saveToFile();
+        writeToFile();
     }
 }

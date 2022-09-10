@@ -11,11 +11,11 @@ public class Event extends Task {
 
     @Override
     public String getDescriptionAndStatus() {
-        return "[E]" + this.getStatus() + " " + this.getDescription();
+        return "[E][" + this.getStatus() + "] " + this.getDescription();
     }
     @Override
     public String fileFormat() {
-        return "E | " + this.getStatus() + " | " + this.description + " | " + this.at;
+        return "E ┊ " + this.getStatus() + " ┊ " + this.description + " ┊ " + this.at;
     }
 
 }

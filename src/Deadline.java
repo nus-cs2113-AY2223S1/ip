@@ -12,10 +12,10 @@ public class Deadline extends Task {
 
     @Override
     public String getDescriptionAndStatus() {
-        return "[D]" + this.getStatus() + " " + this.getDescription();
+        return "[D][" + this.getStatus() + "] " + this.getDescription();
     }
     @Override
     public String fileFormat() {
-        return "D | " + this.getStatus() + " | " + this.description + " | " + this.by;
+        return "D ┊ " + this.getStatus() + " ┊ " + this.description + " ┊ " + this.by;
     }
 }

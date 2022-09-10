@@ -6,11 +6,11 @@ public class Todo extends Task {
 
     @Override
     public String getDescriptionAndStatus() {
-        return "[T]" + this.getStatus() + " " + this.getDescription();
+        return "[T][" + this.getStatus() + "] " + this.getDescription();
     }
     @Override
     public String fileFormat() {
-        return "T | " + this.getStatus() + " | " + this.description;
+        return "T ┊ " + this.getStatus() + " ┊ " + this.description;
     }
 
 }
