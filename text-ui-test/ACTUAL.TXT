@@ -1,0 +1,74 @@
+Hello! I'm Timmy
+ What can I do for you?
+ 
+
+The system cannot find the path specified
+Added: [T][ ] return book
+Total tasks = 1
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+Added: [D][ ] return book (by: Sunday)
+Total tasks = 2
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+Added: [E][ ] project meeting (at: Mon 2-4pm)
+Total tasks = 3
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+Added: [D][ ] do homework (by: no idea :-p)
+Total tasks = 4
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+Marked: 
+[D][X] return book (by: Sunday)
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+1. [T][ ] return book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+
+Marked: 
+[E][X] project meeting (at: Mon 2-4pm)
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+1. [T][ ] return book
+2. [D][X] return book (by: Sunday)
+3. [E][X] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+
+Unmarked: 
+[D][ ] return book (by: Sunday)
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+1. [T][ ] return book
+2. [D][ ] return book (by: Sunday)
+3. [E][X] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+
+Unmarked: 
+[E][ ] project meeting (at: Mon 2-4pm)
+Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+
+1. [T][ ] return book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+
+Deleting task:
+[T][ ] return book
+Remaining task count 3
+
+1. [D][ ] return book (by: Sunday)
+2. [E][ ] project meeting (at: Mon 2-4pm)
+3. [D][ ] do homework (by: no idea :-p)
+
+Deleting task:
+[E][ ] project meeting (at: Mon 2-4pm)
+Remaining task count 2
+
+1. [D][ ] return book (by: Sunday)
+2. [D][ ] do homework (by: no idea :-p)
+
+Bye. Hope to see you again soon
+

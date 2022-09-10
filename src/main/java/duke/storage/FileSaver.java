@@ -1,4 +1,4 @@
-package duke;
+package duke.storage;
 
 import duke.task.Task;
 import duke.task.TaskManager;
@@ -10,8 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileSaver{
-    private static final String FILE_DIRECTORY = "src/main/java/data";
-    private static final String FILE_PATH = "src/main/java/data/duke.txt";
+    private static final String FILE_DIRECTORY = "data";
+    private static final String FILE_PATH = "data/duke.txt";
 
     public static TaskManager readFile() throws IOException {
         return readFile(FILE_PATH, FILE_DIRECTORY);
@@ -43,6 +43,7 @@ public class FileSaver{
                 reader.markAsDone("mark " + taskCount);
             }
         }
+        System.out.println(" ");
         return reader;
     }
 
