@@ -1,21 +1,19 @@
 package duke.task;
 
-import duke.task.Task;
-
 public class Event extends Task {
-    private String eventTime;
+    private String time;
 
-    public Event(String description, String eventTime) {
+    public Event(String description, String time) {
         super(description);
-        this.eventTime = eventTime;
+        this.time = time;
     }
 
-    public String getEventTime() {
-        return eventTime;
+    public String getTime() {
+        return time;
     }
 
     @Override
     public String getTaskDetails() {
-        return "[E]" + super.getTaskDetails() + " (at: " + eventTime + ")";
+        return "[E]" + super.getTaskDetails() + " (at: " + getTime() + ")";
     }
 }

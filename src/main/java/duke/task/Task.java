@@ -1,35 +1,37 @@
 package duke.task;
 
 public class Task {
-    private String description;
+    private String title;
     private Boolean isDone;
+    protected static final String DONE = "X";
+    protected static final String NOT_DONE= " ";
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String title) {
+        this.title = title;
         this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setStatus(Boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    public String getTaskDetails() {
-        return "[" + getStatusIcon() + "] " + description;
     }
 
     public String getDueBy() {
         return getDueBy();
     }
 
-    public String getEventTime() {
-        return getEventTime();
+    public String getTime() {
+        return getTime();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? DONE : NOT_DONE);
+    }
+
+    public String getTaskDetails() {
+        return "[" + getStatusIcon() + "] " + title;
+    }
+
+    public void setStatus(Boolean isDone) {
+        this.isDone = isDone;
     }
 }

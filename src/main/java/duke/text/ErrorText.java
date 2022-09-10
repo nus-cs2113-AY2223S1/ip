@@ -12,7 +12,7 @@ public enum ErrorText {
 
     ERROR_FILE_IO("    Doraemon encountered an issue when writing to Nobita's file:");
 
-    final String text;
+    public final String text;
 
     ErrorText(String text) {
         this.text = text;
