@@ -13,6 +13,10 @@ import duke.exception.OutOfBoundsTaskNumberException;
 public abstract class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    public static Task[] getTasks() {
+        return tasks;
+    }
+
     public static void addTask(String type, String input) {
         final String ADD_PHRASE_START = "added: ";
         // add one because newTask has not been created yet

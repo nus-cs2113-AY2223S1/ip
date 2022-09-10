@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidOutputException;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
 import duke.exception.MissingTaskNumberException;
@@ -146,6 +148,105 @@ public abstract class Parser {
         taskNumInt -= 1;
 
         return taskNumInt;
+    }
+
+    public static String[] parseFileInputs(String line) throws InvalidInputException {
+        String[] parts = line.split(", ");
+
+        String taskType = parts[0];
+        String markStatus = parts[1];
+        String taskDescription = parts[2];
+
+        String inputTask;
+        switch (taskType) {
+        case InputManager.TODO_PHRASE:
+            inputTask = InputManager.TODO_PHRASE + " " + taskDescription;
+
+            break;
+
+        case InputManager.DEADLINE_PHRASE:
+            inputTask = InputManager.DEADLINE_PHRASE + " " + taskDescription + " /by " + parts[3];
+
+            break;
+
+        case InputManager.EVENT_PHRASE:
+            inputTask = InputManager.EVENT_PHRASE + " " + taskDescription + " /at " + parts[3];
+
+            break;
+
+        default:
+            throw new InvalidInputException();
+        }
+
+        String inputMark;
+        if (markStatus.equals("0")) {
+            inputMark = InputManager.UNMARK_PHRASE + " " + (Task.getTaskCount() + 1);
+        } else if (markStatus.equals("1")) {
+            inputMark = InputManager.MARK_PHRASE + " " + (Task.getTaskCount() + 1);
+        } else {
+            throw new InvalidInputException();
+        }
+
+        String[] fileData = {inputTask, inputMark};
+
+        return fileData;
+    }
+
+    public static String parseFileOutputs(String line) throws InvalidOutputException {
+        String[] parts = line.split("]");
+
+        String taskType = parts[0].substring(parts[0].length() - 1);
+        String markStatus = parts[1].substring(parts[1].length() - 1);
+
+        String outputTask;
+        String description;
+        String extra = "";
+        switch (taskType) {
+        case "T":
+            outputTask = "todo";
+            description = parts[2].substring(1);
+
+            break;
+
+        case "D":
+            outputTask = "deadline";
+            int byIndex = parts[2].indexOf(" (by: ");
+            description = parts[2].substring(1, byIndex);
+            extra = parts[2].substring(byIndex + 6, parts[2].length() - 1);
+
+            break;
+
+        case "E":
+            int atIndex = parts[2].indexOf(" (at: ");
+            description = parts[2].substring(1, atIndex);
+            extra = parts[2].substring(atIndex + 6, parts[2].length() - 1);
+
+            outputTask = "event";
+
+            break;
+
+        default:
+            throw new InvalidOutputException();
+        }
+
+        String outputMark;
+        if (markStatus.equals(" ")) {
+            outputMark = "0";
+        } else if (markStatus.equals("X")) {
+            outputMark = "1";
+        } else {
+            throw new InvalidOutputException();
+        }
+
+        String fileData;
+        if (extra.isBlank()) {
+            fileData = outputTask + ", " + outputMark + ", " + description;
+        }
+        else {
+            fileData = outputTask + ", " + outputMark + ", " + description + ", " + extra;
+        }
+
+        return fileData;
     }
 
     private static boolean isValidTaskNumber(int taskNum) {

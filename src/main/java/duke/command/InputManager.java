@@ -39,6 +39,8 @@ public abstract class InputManager {
 
             System.out.println(Duke.HORIZONTAL_LINE + System.lineSeparator());
         }
+
+        in.close();
     }
 
     public static void handleInput(String input) throws DukeException {
