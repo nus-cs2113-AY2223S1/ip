@@ -90,6 +90,7 @@ public class Duke {
             break;
         case "delete":
             taskNumber = retrieveTaskNumber(parameters);
+            taskManager.removeTask(taskNumber);
             break;
         case "todo":
             taskManager.addTask(new Todo(parameters));
