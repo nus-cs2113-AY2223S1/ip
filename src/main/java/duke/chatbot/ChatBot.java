@@ -20,9 +20,9 @@ public class ChatBot {
                 + InfoText.INFO_DASH);
     }
 
-    public String constructTaskActionInfo(Enum taskActionInfo) {
+    public String constructTaskActionInfo(Enum taskActionInfo, String taskDetails) {
         return taskActionInfo + System.lineSeparator()
-                + "    * " + tasks.get(tasks.size()-1).getTaskDetails() + System.lineSeparator()
+                + "    * " + taskDetails + System.lineSeparator()
                 + String.format("%s", String.format(String.valueOf(InfoText.INFO_TASK_COUNT), tasks.size()));
     }
 
@@ -112,7 +112,8 @@ public class ChatBot {
             default:
                 break;
             }
-            output = constructTaskActionInfo(InfoText.INFO_TASK_ADDED);
+            output = constructTaskActionInfo(InfoText.INFO_TASK_ADDED,
+                    tasks.get(tasks.size()-1).getTaskDetails());
         } catch (TodoNoDescriptionException | ArrayIndexOutOfBoundsException e) {
             output = String.valueOf(invalidFormatType);
         }
@@ -127,8 +128,9 @@ public class ChatBot {
         if (taskIndex == -1) {
             return;
         }
+        String taskDetails = tasks.get(taskIndex).getTaskDetails();
         tasks.remove(taskIndex);
-        output = constructTaskActionInfo(InfoText.INFO_TASK_DELETED);
+        output = constructTaskActionInfo(InfoText.INFO_TASK_DELETED, taskDetails);
         printOutput(output);
         FileOperation.writeToFile(this, tasks);
     }
