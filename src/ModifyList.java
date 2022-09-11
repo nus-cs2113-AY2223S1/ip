@@ -17,10 +17,10 @@ public class ModifyList extends Constants{
         String[] reconstruct = task.split(" ┊ ");
         switch (reconstruct[0]) {
             case "T":
-                return new Todo(reconstruct[2]);
+                return new Todo(reconstruct[2], reconstruct[1].equals("√"));
             case "E":
             case "D":
-                return new Event(reconstruct[2], reconstruct[3]);
+                return new Event(reconstruct[2], reconstruct[3], reconstruct[1].equals("√"));
             default:
                 return null;
         }
@@ -79,7 +79,7 @@ public class ModifyList extends Constants{
         String time;
         switch (taskType) {
             case "todo":
-                Todo task = new Todo(details);
+                Todo task = new Todo(details, false);
                 handleTask(task.getDescriptionAndStatus(), task);
                 break;
 
@@ -90,7 +90,7 @@ public class ModifyList extends Constants{
                 }
                 description = separateDetails[0];
                 time = "(by:" + separateDetails[1] + ")";
-                Deadline deadline = new Deadline(description, time);
+                Deadline deadline = new Deadline(description, time, false);
                 handleTask(deadline.getDescriptionAndStatus(), deadline);
                 break;
 
@@ -101,7 +101,7 @@ public class ModifyList extends Constants{
                 }
                 description = separateDetails[0];
                 time = "(at:" + separateDetails[1] + ")";
-                Event event = new Event(description, time);
+                Event event = new Event(description, time, false);
                 handleTask(event.getDescriptionAndStatus(), event);
                 break;
         }

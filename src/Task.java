@@ -1,9 +1,9 @@
 public abstract class Task {
     public String description;
     public boolean isDone;
-    public Task(String description) {
+    public Task(String description, boolean status) {
         this.description = description;
-        isDone = false;
+        this.isDone = status;
     }
 
     public void setDone(boolean status) {

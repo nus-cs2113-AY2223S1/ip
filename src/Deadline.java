@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     String by;
-    public Deadline(String description, String dueDate) {
-        super(description);
+    public Deadline(String description, String dueDate, boolean status) {
+        super(description, status);
         by = dueDate;
     }
 
