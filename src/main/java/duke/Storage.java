@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "/src/main/java/duke/data.txt";
+    private static final String FILE_PATH = "data.txt";
 
     public static void loadData(TaskManager taskManager) throws FileNotFoundException {
-        String filePath = System.getProperty("user.dir") + FILE_PATH;
+        String filePath = FILE_PATH;
         File data = new File(filePath);
         Scanner scanner = new Scanner(data);
 
@@ -89,7 +89,7 @@ public class Storage {
     }
 
     public static void saveData(TaskManager taskManager) throws IOException {
-        String filePath = System.getProperty("user.dir") + FILE_PATH;
+        String filePath = FILE_PATH;
         FileWriter fw = new FileWriter(filePath);
         fw.write(taskManager.saveTaskList());
         fw.close();

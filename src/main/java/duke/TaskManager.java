@@ -37,7 +37,9 @@ public class TaskManager {
         for (int i = 0; i < tasks.size() - 1; i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
-        System.out.println((tasks.size()) + ". " + tasks.get(tasks.size() - 1).toString() + END_OF_LINE);
+        if (tasks.size() > 0) {
+            System.out.println((tasks.size()) + ". " + tasks.get(tasks.size() - 1).toString() + END_OF_LINE);
+        }
     }
 
     public void markTasks(boolean toMark, int taskIndex, boolean toPrint) throws DukeException.IllegalMarkTargetException {
