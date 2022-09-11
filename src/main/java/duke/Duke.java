@@ -24,27 +24,13 @@ public class Duke {
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
+
     private static String filePath = "duke.txt";
 
     public static void showWelcomeMessage() {
-        // Pikachu logo to show in front
-        final String logo =
-                        "⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿\n" +
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿\n";
 
-        System.out.println(logo);
-        System.out.println("Hello! How can I help you?");
+        System.out.println("Hey! How can I help you?");
     }
-
 
     public static void markOrUnmarkTask(String command) throws IOException {
         String markOrUnmark = command.split(" ")[0];
@@ -64,7 +50,6 @@ public class Duke {
             System.out.println("You now have " + tasks.size() + " task.");
         }
     }
-
 
     public static void editTask(int index, String markOrUnmark) throws IOException {
         File f = new File(filePath);
@@ -87,14 +72,12 @@ public class Duke {
 
     }
 
-
     public static String changeMarkValue(String currentLine, String markOrUnmark) {
         if (markOrUnmark.equals("mark")) {
             return currentLine.replace(" | 0 | ", " | 1 | ");
         }
         return currentLine.replace(" | 1 | ", " | 0 | ");
     }
-
 
     public static void addTask(String command) {
         boolean isTodo = command.contains("todo");
@@ -163,7 +146,6 @@ public class Duke {
         printNumberOfTask();
     }
 
-
     public static void addCompleteMessage(String type) {
         boolean isTodo = type.equals("todo");
         boolean isEvent = type.equals("event");
@@ -173,11 +155,11 @@ public class Duke {
         int lastIndex = tasks.size() - 1;
 
         if (isTodo) {
-            System.out.println("  [D][ ] " + tasks.get(lastIndex).getTask());
+            System.out.println("  [T][ ] " + tasks.get(lastIndex).getTask());
         } else if (isEvent) {
             System.out.println("  [E][ ] " + tasks.get(lastIndex).getTask());
         } else if (isDeadline){
-            System.out.println("  [T][ ] " + tasks.get(lastIndex).getTask());
+            System.out.println("  [D][ ] " + tasks.get(lastIndex).getTask());
         }
 
 
