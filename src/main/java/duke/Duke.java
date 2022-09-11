@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.exception.ExceptionType;
 import duke.task.TaskManager;
 
 public class Duke {
@@ -28,43 +29,58 @@ public class Duke {
                 break;
             case "list":
                 UI.respond(Command.LIST);
+
                 break;
             case "mark":
                 try {
-                    TaskManager.markAsDone(Integer.parseInt(arguments.trim()));
-                    UI.respond(Command.MARK, TaskManager.Tasks[Integer.parseInt(arguments.trim())].listTask());
+                    String task = taskManager.markAsDone(Integer.parseInt(arguments.trim()));
+                    UI.respond(Command.MARK, task);
                 } catch (DukeException e) {
                     UI.respond(e);
+                } catch (NumberFormatException e) {
+                    UI.respond(new DukeException(ExceptionType.INVALID_TASK_NUMBER));
                 }
                 break;
             case "unmark":
                 try {
-                    TaskManager.markAsNotDone(Integer.parseInt(arguments.trim()));
-                    UI.respond(Command.UNMARK, TaskManager.Tasks[Integer.parseInt(arguments.trim())].listTask());
+                    String task = taskManager.markAsNotDone(Integer.parseInt(arguments.trim()));
+                    UI.respond(Command.UNMARK, task);
                 } catch (DukeException e) {
                     UI.respond(e);
+                } catch (NumberFormatException e) {
+                    UI.respond(new DukeException(ExceptionType.INVALID_TASK_NUMBER));
+                }
+                break;
+            case "delete":
+                try {
+                    String task = taskManager.deleteTask(Integer.parseInt(arguments.trim()));
+                    UI.respond(Command.DELETE, task);
+                } catch (DukeException e) {
+                    UI.respond(e);
+                } catch (NumberFormatException e) {
+                    UI.respond(new DukeException(ExceptionType.INVALID_TASK_NUMBER));
                 }
                 break;
             case "todo":
                 try {
-                    TaskManager.addTask(Command.TODO, arguments.trim());
-                    UI.respond(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
+                    String task = taskManager.addTask(Command.TODO, arguments.trim());
+                    UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
                 }
                 break;
             case "event":
                 try {
-                    TaskManager.addTask(Command.EVENT, arguments.trim());
-                    UI.respond(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
+                    String task = taskManager.addTask(Command.EVENT, arguments.trim());
+                    UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
                 }
                 break;
             case "deadline":
                 try {
-                    TaskManager.addTask(Command.DEADLINE, arguments.trim());
-                    UI.respond(Command.ADD, TaskManager.Tasks[TaskManager.getTasksCount()].listTask());
+                    String task = taskManager.addTask(Command.DEADLINE, arguments.trim());
+                    UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
                 }

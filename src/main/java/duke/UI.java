@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.task.Task;
 import duke.task.TaskManager;
 
 import java.util.Scanner;
@@ -45,9 +46,9 @@ public class UI {
             System.out.println("Howdy!");
             break;
         case LIST:
-            System.out.println("You have " + TaskManager.getTasksCount() + " tasks");
-            for (int taskNumber = 1; taskNumber <= TaskManager.getTasksCount(); taskNumber++) {
-                System.out.println(TaskManager.listTask(taskNumber));
+            System.out.println("You have " + TaskManager.Tasks.size() + " tasks");
+            for (Task task : TaskManager.Tasks) {
+                System.out.println(task.listTask());
             }
             break;
         case HELP:
@@ -90,6 +91,10 @@ public class UI {
             break;
         case UNMARK:
             System.out.println("Boo! I've marked this task as not done yet:");
+            System.out.println(arguments);
+            break;
+        case DELETE:
+            System.out.println("Task deleted:");
             System.out.println(arguments);
             break;
         default:
