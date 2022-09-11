@@ -94,8 +94,26 @@ public class Duke {
         }
     }
 
-    public static void delete(int index) {
-
+    public static void delete(String[] words) {
+        if (words.length == 2) {
+            if (taskList.size() > 0) {
+                try {
+                    int d = Integer.parseInt(words[1]);
+                    Task tempTask = taskList.get(d - 1);
+                    taskList.remove(d - 1);
+                    System.out.printf("Noted. I've removed this task:\n" + "%s\n" +
+                            "Now you have %d tasks in the list.\n", tempTask.print(), taskList.size());
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.printf("Error: enter an integer between 1 - %d\n", taskList.size());
+                } catch (NumberFormatException ex) {
+                    System.out.println("Usage: delete <integer>");
+                }
+            } else {
+                System.out.println("Error: list is empty!");
+            }
+        } else {
+            System.out.println("Usage: delete <integer>");
+        }
     }
 
     public static void printLine() {
@@ -127,6 +145,7 @@ public class Duke {
                 String[] words = line.split("\\s+");
                 if (words.length == 0) {
                     System.out.println("Enter a valid command.");
+                    printLine();
                     continue;
                 }
                 switch (words[0]) {
@@ -152,9 +171,16 @@ public class Duke {
                 case "unmark":
                     mark(false, words);
                     break;
+                case "delete":
+                    delete(words);
+                    break;
+                default:
+                    System.out.println("Oops! I don't understand that command. Try again.");
+                    break;
                 }
+            } else {
+                System.out.println("Oops! I don't understand that command. Try again.");
             }
-            System.out.println("Oops! I don't understand that command. Try again.");
             printLine();
         }
     }
