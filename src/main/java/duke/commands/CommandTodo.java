@@ -10,6 +10,6 @@ public class CommandTodo {
         if(spacePosition < 0) {
             throw new DukeException.IllegalTodoException();
         }
-        taskManager.addNewTodo(command.substring(spacePosition + 1));
+        taskManager.addNewTodo(command.substring(spacePosition + 1), true);
     }
 }

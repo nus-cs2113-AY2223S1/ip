@@ -15,5 +15,7 @@ public class DukeException {
     }
     public static class IllegalTodoException extends Exception {
     }
+    public static class IllegalReadFromSaveData extends Exception {
+    }
 }
 

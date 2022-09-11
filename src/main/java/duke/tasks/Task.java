@@ -3,6 +3,11 @@ package duke.tasks;
 public class Task {
     private String taskName;
     private boolean isDone;
+    protected String type;
+
+    public String getType() {
+        return type;
+    }
 
     public Task(String taskName) {
         this.taskName = taskName;
