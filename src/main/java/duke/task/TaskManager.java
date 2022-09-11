@@ -66,4 +66,7 @@ public class TaskManager {
         Tasks[taskNumber].markAsNotDone();
     }
 
+    public static void loadTask(Task task) {
+        Tasks[getTasksCount()] = task;
+    }
 }

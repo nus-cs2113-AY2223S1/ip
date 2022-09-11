@@ -2,7 +2,11 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.exception.ExceptionType;
 import duke.task.TaskManager;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
 
@@ -12,6 +16,22 @@ public class Duke {
     public static void main(String[] args) {
         UI console = new UI();
         TaskManager taskManager = new TaskManager();
+        try {
+            FileAccess.loadTasks();
+            UI.respond(Command.LOAD);
+            UI.respond(Command.LIST);
+        } catch (FileNotFoundException e) {
+            try {
+                FileAccess.createDataFile();
+                UI.respond(Command.CREATE_DATA_FILE);
+            } catch (IOException ex) {
+                UI.respond(new DukeException(ExceptionType.MISSING_DATA_FILE));
+                return;
+            }
+        } catch (DukeException e) {
+            UI.respond(e);
+            return;
+        }
         String input = UI.input();
         while (!input.equals("bye")) {
             String[] words = input.split(" ");
@@ -76,5 +96,14 @@ public class Duke {
             input = UI.input();
         }
         UI.respond(Command.BYE);
+        if (TaskManager.getTasksCount() > 0) {
+            try {
+                FileAccess.saveTasks();
+                UI.respond(Command.SAVE);
+            } catch (IOException e) {
+                UI.respond(new DukeException(ExceptionType.MISSING_DATA_FILE));
+                UI.output(e.getMessage());
+            }
+        }
     }
 }
