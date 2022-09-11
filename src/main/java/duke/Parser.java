@@ -21,7 +21,6 @@ public class Parser {
             System.out.println(Printables.invalidBasicCommandMessage);
             break;
         case COMMAND_BYE:
-            System.out.println(Printables.goodbyeMessage);
             return false;
         case COMMAND_LIST:
             taskManager.listTasks();

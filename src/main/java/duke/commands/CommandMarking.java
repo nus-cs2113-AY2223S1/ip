@@ -13,7 +13,7 @@ public class CommandMarking {
         }
 
         try {
-            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]));
+            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]), true);
         } catch (DukeException.IllegalMarkTargetException e) {
             System.out.println("Index of task is out of range");
         }

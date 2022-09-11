@@ -17,6 +17,6 @@ public class CommandDeadline {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String by = command.substring(dividerPosition + 1);
-        taskManager.addNewDeadline(taskName, by);
+        taskManager.addNewDeadline(taskName, by, true);
     }
 }

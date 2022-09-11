@@ -19,5 +19,7 @@ public class DukeException {
     }
     public static class IllegalDeleteTargetException extends Exception {
     }
+    public static class IllegalReadFromSaveData extends Exception {
+    }
 }
 

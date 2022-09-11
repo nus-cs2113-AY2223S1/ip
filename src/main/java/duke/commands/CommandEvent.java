@@ -17,6 +17,6 @@ public class CommandEvent {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String at = command.substring(dividerPosition + 1);
-        taskManager.addNewEvent(taskName, at);
+        taskManager.addNewEvent(taskName, at, true);
     }
 }
