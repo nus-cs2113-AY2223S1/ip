@@ -88,6 +88,9 @@ public class Duke {
             taskNumber = retrieveTaskNumber(parameters);
             taskManager.markTaskAsUndone(taskNumber);
             break;
+        case "delete":
+            taskNumber = retrieveTaskNumber(parameters);
+            break;
         case "todo":
             taskManager.addTask(new Todo(parameters));
             break;
@@ -106,9 +109,9 @@ public class Duke {
     }
 
     public static void validateFormat(String command, String parameters) throws IncorrectFormatException, NumberFormatException {
-        if (command.equals("list"))
+        if (command.equals("list") || command.equals("help"))
             return;
-        if (command.equals("mark") || command.equals("unmark")) {
+        if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
             if (parameters.isEmpty()) {
                 throw new IncorrectFormatException("Incorrect format! The task number that is to be marked as done/not done cannot be empty!");
             }
