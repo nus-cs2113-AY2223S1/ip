@@ -1,69 +1,75 @@
 package duke.task;
 
+import java.util.ArrayList;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.ExceptionType;
 
 public class TaskManager {
 
-    private static final int TASKS_LIMIT = 100;
-    public static Task[] Tasks = new Task[TASKS_LIMIT];
-
+    public static ArrayList<Task> Tasks;
     public TaskManager() {
+        Tasks = new ArrayList<>();
     }
 
-    public static int getTasksCount() {
-        return Task.tasksCount;
-    }
-
-    public static void addTask(Command taskType, String arguments) throws DukeException {
-        Task.tasksCount++;
+    public static String addTask(Command taskType, String arguments) throws DukeException {
         switch (taskType) {
         case TODO:
             try {
-                Tasks[Task.tasksCount] = new ToDo(arguments);
+                Tasks.add(new ToDo(arguments));
             } catch (DukeException e) {
-                Task.tasksCount--;
                 throw e;
             }
             break;
         case EVENT:
             try {
-                Tasks[Task.tasksCount] = new Event(arguments);
+                Tasks.add(new Event(arguments));
             } catch (DukeException e) {
-                Task.tasksCount--;
                 throw e;
             }
             break;
         case DEADLINE:
             try {
-                Tasks[Task.tasksCount] = new Deadline(arguments);
+                Tasks.add(new Deadline(arguments));
             } catch (DukeException e) {
-                Task.tasksCount--;
                 throw e;
             }
             break;
         default:
             break;
         }
+        return Tasks.get(Tasks.size() - 1).listTask();
     }
 
     public static String listTask(int taskNumber) {
-        return Tasks[taskNumber].listTask();
+        return Tasks.get(taskNumber - 1).listTask();
     }
 
-    public static void markAsDone(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > Task.tasksCount) {
-            throw new DukeException(ExceptionType.INVALID_TASK_NUMBER);
-        }
-        Tasks[taskNumber].markAsDone();
+    public static String markAsDone(int taskNumber) throws DukeException {
+        checkTaskNumberValid(taskNumber);
+        Task task = Tasks.get(taskNumber - 1);
+        task.markAsDone();
+        return task.listTask();
     }
 
-    public static void markAsNotDone(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > Task.tasksCount) {
+    public static String markAsNotDone(int taskNumber) throws DukeException {
+        checkTaskNumberValid(taskNumber);
+        Task task = Tasks.get(taskNumber - 1);
+        task.markAsNotDone();
+        return task.listTask();
+    }
+
+    public static String deleteTask(int taskNumber) throws DukeException {
+        checkTaskNumberValid(taskNumber);
+        String task = Tasks.get(taskNumber - 1).listTask();
+        Tasks.remove(taskNumber - 1);
+        return task;
+    }
+
+    private static void checkTaskNumberValid(int taskNumber) throws DukeException {
+        if (taskNumber < 1 || taskNumber > Tasks.size()) {
             throw new DukeException(ExceptionType.INVALID_TASK_NUMBER);
         }
-        Tasks[taskNumber].markAsNotDone();
     }
 
 }
