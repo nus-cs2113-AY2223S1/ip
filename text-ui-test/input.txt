@@ -17,10 +17,10 @@ list
 todo
 deadline
 event
-mark 5
+mark
 mark 500
 mark idk
-unmark 5
+unmark
 unmark 500
 unmark idk
 hi
