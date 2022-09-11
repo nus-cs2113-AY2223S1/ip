@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.ExceptionType;
@@ -8,6 +9,7 @@ import duke.exception.ExceptionType;
 public class TaskManager {
 
     public static ArrayList<Task> Tasks;
+
     public TaskManager() {
         Tasks = new ArrayList<>();
     }
@@ -72,4 +74,7 @@ public class TaskManager {
         }
     }
 
+    public static void loadTask(Task task) {
+        Tasks.add(task);
+    }
 }

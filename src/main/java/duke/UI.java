@@ -45,6 +45,12 @@ public class UI {
         case HI:
             System.out.println("Howdy!");
             break;
+        case CREATE_DATA_FILE:
+            System.out.println("Data file created under src/main/java/duke/data/data.txt");
+            break;
+        case LOAD:
+            System.out.println("Loading existing tasks......");
+            break;
         case LIST:
             System.out.println("You have " + TaskManager.Tasks.size() + " tasks");
             for (Task task : TaskManager.Tasks) {
@@ -67,6 +73,9 @@ public class UI {
                     "event {description} /{event time} - to add a new event task\n" +
                     "deadline {description} /{deadline time} - to add a new deadline task\n" +
                     "bye - to exit");
+            break;
+        case SAVE:
+            System.out.println("Saving tasks......");
             break;
         case BYE:
             System.out.println("Please don't go :(");
@@ -124,6 +133,12 @@ public class UI {
         case INVALID_TASK_NUMBER:
             System.out.println("Invalid task number: task does not exist\n" +
                     "Please try again");
+            break;
+        case MISSING_DATA_FILE:
+            System.out.println("data file not found");
+            break;
+        case LOAD_ERROR:
+            System.out.println("Error with loading task");
             break;
         default:
             System.out.println("Invalid input. Boo! Please type help for help");

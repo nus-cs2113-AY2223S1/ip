@@ -41,7 +41,7 @@ public abstract class Task {
         return '-';
     }
 
-    private char doneIcon() {
+    public char doneIcon() {
         if (this.isDone) {
             return 'X';
         }
@@ -63,6 +63,5 @@ public abstract class Task {
         }
         return arguments.substring(arguments.indexOf('/') + 1);
     }
-
 
 }

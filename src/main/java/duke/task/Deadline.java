@@ -16,6 +16,10 @@ public class Deadline extends Task {
         this.deadlineTime = deadlineTime;
     }
 
+    public String getDeadlineTime() {
+        return deadlineTime;
+    }
+
     @Override
     public char taskType() {
         return 'D';

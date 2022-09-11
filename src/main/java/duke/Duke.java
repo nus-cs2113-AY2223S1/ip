@@ -5,6 +5,9 @@ import duke.exception.DukeException;
 import duke.exception.ExceptionType;
 import duke.task.TaskManager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Duke {
 
     //Zhou Zhou
@@ -13,6 +16,24 @@ public class Duke {
     public static void main(String[] args) {
         UI console = new UI();
         TaskManager taskManager = new TaskManager();
+        try {
+            FileAccess.loadTasks();
+            if (TaskManager.Tasks.size() > 0) {
+                UI.respond(Command.LOAD);
+                UI.respond(Command.LIST);
+            }
+        } catch (FileNotFoundException e) {
+            try {
+                FileAccess.createDataFile();
+                UI.respond(Command.CREATE_DATA_FILE);
+            } catch (IOException ex) {
+                UI.respond(new DukeException(ExceptionType.MISSING_DATA_FILE));
+                return;
+            }
+        } catch (DukeException e) {
+            UI.respond(e);
+            return;
+        }
         String input = UI.input();
         while (!input.equals("bye")) {
             String[] words = input.split(" ");
@@ -33,7 +54,7 @@ public class Duke {
                 break;
             case "mark":
                 try {
-                    String task = taskManager.markAsDone(Integer.parseInt(arguments.trim()));
+                    String task = TaskManager.markAsDone(Integer.parseInt(arguments.trim()));
                     UI.respond(Command.MARK, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -43,7 +64,7 @@ public class Duke {
                 break;
             case "unmark":
                 try {
-                    String task = taskManager.markAsNotDone(Integer.parseInt(arguments.trim()));
+                    String task = TaskManager.markAsNotDone(Integer.parseInt(arguments.trim()));
                     UI.respond(Command.UNMARK, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -53,7 +74,7 @@ public class Duke {
                 break;
             case "delete":
                 try {
-                    String task = taskManager.deleteTask(Integer.parseInt(arguments.trim()));
+                    String task = TaskManager.deleteTask(Integer.parseInt(arguments.trim()));
                     UI.respond(Command.DELETE, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -63,7 +84,7 @@ public class Duke {
                 break;
             case "todo":
                 try {
-                    String task = taskManager.addTask(Command.TODO, arguments.trim());
+                    String task = TaskManager.addTask(Command.TODO, arguments.trim());
                     UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -71,7 +92,7 @@ public class Duke {
                 break;
             case "event":
                 try {
-                    String task = taskManager.addTask(Command.EVENT, arguments.trim());
+                    String task = TaskManager.addTask(Command.EVENT, arguments.trim());
                     UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -79,7 +100,7 @@ public class Duke {
                 break;
             case "deadline":
                 try {
-                    String task = taskManager.addTask(Command.DEADLINE, arguments.trim());
+                    String task = TaskManager.addTask(Command.DEADLINE, arguments.trim());
                     UI.respond(Command.ADD, task);
                 } catch (DukeException e) {
                     UI.respond(e);
@@ -92,5 +113,14 @@ public class Duke {
             input = UI.input();
         }
         UI.respond(Command.BYE);
+        if (TaskManager.Tasks.size() > 0) {
+            try {
+                FileAccess.saveTasks();
+                UI.respond(Command.SAVE);
+            } catch (IOException e) {
+                UI.respond(new DukeException(ExceptionType.MISSING_DATA_FILE));
+                UI.output(e.getMessage());
+            }
+        }
     }
 }
