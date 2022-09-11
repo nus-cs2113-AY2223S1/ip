@@ -13,7 +13,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello! I'm duke.Duke\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
 
         //tasks is an array list collection of task objects
         List<Task> tasks = new ArrayList<>();
@@ -92,9 +92,17 @@ public class Duke {
                         taskPrint(tasks, e);
                         break;
 
+                    case "delete":
+                        System.out.println("Noted. I've removed this task: \n  " + tasks.get(Integer.parseInt(splitInput[1]) - 1));
+
+                        tasks.remove(Integer.parseInt(splitInput[1]) - 1);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+                        break;
+
                     case "blah":
                     case "idk":
                         throw new UnknownInputException();
+
 
 
                     default:
@@ -111,6 +119,10 @@ public class Duke {
 
             catch (StringIndexOutOfBoundsException e) {
                 System.out.println("OOPS!!! You must have a ' /at ' for events OR a ' /by ' for deadlines!!\n");
+            }
+
+            catch (IndexOutOfBoundsException e) {
+                System.out.println("OOPS!!! You must input the right delete index number\n");
             }
 
             catch (EmptyDescriptionException e) {
@@ -138,7 +150,8 @@ public class Duke {
      */
     public static void taskPrint(List<Task> tasks, Task t) {
         tasks.add(t);
-        System.out.println("Got it. I've added this task: \n" + t);
+        System.out.println("Got it. I've added this task: \n  " + t);
         System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
     }
+
 }
