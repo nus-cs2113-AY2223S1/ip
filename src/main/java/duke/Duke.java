@@ -64,11 +64,8 @@ public class Duke {
 
     public static void markAsDone(ArrayList<Task> taskList, Scanner in) {
         try {
-            String markIndexString = in.nextLine().trim();
-            if (markIndexString.isEmpty()) {
-                throw new MissingListIndexException();
-            }
-            int markIndex = Integer.parseInt(markIndexString) - 1;
+            String markTaskIndex = readTaskIndex(in);
+            int markIndex = Integer.parseInt(markTaskIndex) - 1;
             taskList.get(markIndex).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + taskList.get(markIndex));
@@ -83,11 +80,8 @@ public class Duke {
 
     public static void markAsUndone(ArrayList<Task> taskList, Scanner in) {
         try {
-            String markIndexString = in.nextLine().trim();
-            if (markIndexString.isEmpty()) {
-                throw new MissingListIndexException();
-            }
-            int unmarkIndex = Integer.parseInt(markIndexString) - 1;
+            String unmarkTaskIndex = readTaskIndex(in);
+            int unmarkIndex = Integer.parseInt(unmarkTaskIndex) - 1;
             taskList.get(unmarkIndex).setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + taskList.get(unmarkIndex));
@@ -114,6 +108,45 @@ public class Duke {
             System.out.println((taskIndex) + "." +  task);
             taskIndex++;
         }
+    }
+
+    public static String readTaskIndex(Scanner in) throws MissingListIndexException {
+        String taskIndex = in.nextLine().trim();
+        if (taskIndex.isEmpty()) {
+            throw new MissingListIndexException();
+        }
+        return taskIndex;
+    }
+
+    public static boolean deleteTask(ArrayList<Task> taskList, Scanner in, int maxTaskIndex) {
+        boolean isEmptyList = (maxTaskIndex == 0);
+        if (isEmptyList) {
+            System.out.println("☹ OOPS!!! There is no task in the list.");
+            return false;
+        }
+
+        try {
+            String deleteTaskIndex = readTaskIndex(in);
+            int deleteIndex = Integer.parseInt(deleteTaskIndex) - 1;
+            String deletedTaskDescription = String.valueOf(taskList.get(deleteIndex));
+            taskList.remove(deleteIndex);
+
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deletedTaskDescription);
+            maxTaskIndex--;
+            boolean isEmptyListOrSingleTask = (maxTaskIndex == 0 || maxTaskIndex == 1);
+            String task = isEmptyListOrSingleTask ? "task" : "tasks";
+            System.out.println("Now you have " + maxTaskIndex + " " + task + " in the list.");
+
+            return true;
+        } catch (MissingListIndexException e) {
+            System.out.println("☹ OOPS!!! To delete a task, please specify the task index.\nPlease try again.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, the task index does not exist in the task list.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)");
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -174,6 +207,12 @@ public class Duke {
                     showEmptyEventDescriptionExceptionMessage();
                 } catch (MissingDateTimeReferenceException e) {
                     showMissingEventDateTimeReferenceExceptionMessage();
+                }
+                break;
+            case "delete":
+                boolean isDeleted = deleteTask(taskList, in, maxTaskIndex);
+                if (isDeleted) {
+                    maxTaskIndex--;
                 }
                 break;
             default:

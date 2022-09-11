@@ -27,4 +27,19 @@ hi
 lol
 deadline abc
 event 123
+delete
+delete 999
+delete idk
+delete 3
+list
+delete 1
+list
+delete 2
+list
+delete 1
+list
+todo xxx
+list
+delete 1
+list
 bye
