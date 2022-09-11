@@ -7,10 +7,9 @@ public enum ErrorText {
     ERROR_INVALID_TODO_FORMAT("    Nobita, the format is todo <description>, e.g. todo read books."),
     ERROR_INVALID_DEADLINE_FORMAT("    Nobita, the format is: deadline <description> /by <dueBy>, e.g. deadline marry Shizuka /by September 3rd."),
     ERROR_INVALID_EVENT_FORMAT("    Nobita, the format is: event <description> /at <eventTime>, e.g. event marry Shizuka /at September 3rd 10-12pm."),
-
     ERROR_INVALID_DELETE_FORMAT("    Nobita, the format is: delete <taskIndex>, e.g. delete 1."),
-
-    ERROR_FILE_IO("    Doraemon encountered an issue when writing to Nobita's file:");
+    ERROR_FILE_IO("    Doraemon encountered an issue when writing to Nobita's file:"),
+    ERROR_FILE_NOT_FOUND("    Doraemon could not find Nobita's file. Could it have been trapped in the 22nd century?");
 
     public final String text;
 

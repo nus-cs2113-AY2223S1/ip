@@ -3,8 +3,8 @@ package duke.task;
 public class Deadline extends Task {
     private String dueBy;
 
-    public Deadline(String title, String dueBy) {
-        super(title);
+    public Deadline(String title, String dueBy, boolean isDone) {
+        super(title, isDone);
         this.dueBy = dueBy;
     }
 

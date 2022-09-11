@@ -8,11 +8,9 @@ import duke.task.Todo;
 import duke.text.ErrorText;
 import duke.text.InfoText;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class Chatbot {
+public class ChatBot {
     private ArrayList<Task> tasks = new ArrayList<>();
     private String output;
 
@@ -28,28 +26,8 @@ public class Chatbot {
                 + String.format("%s", String.format(String.valueOf(InfoText.INFO_TASK_COUNT), tasks.size()));
     }
 
-    public void writeToFile() {
-        try {
-            FileWriter fw = new FileWriter("data/data.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                String taskType = Character.toString(tasks.get(i).getTaskDetails().charAt(1));
-                String taskStatus = tasks.get(i).getStatusIcon().equals("X") ? "1" : "0";
-                String taskTitle = tasks.get(i).getTitle();
-                String textToWrite = String.format("%s | %s | %s", taskType, taskStatus, taskTitle);
-                if (taskType.equals("D")) {
-                    textToWrite += String.format(" | %s", tasks.get(i).getDueBy());
-                } else if (taskType.equals("E")) {
-                    textToWrite += String.format(" | %s", tasks.get(i).getTime());
-                }
-                fw.write(textToWrite + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            output = String.valueOf(ErrorText.ERROR_FILE_IO);
-        }
-    }
-
     public void greet() {
+        FileOperation.readFromFile(this);
         output = "    *******     *******   *******       **" + System.lineSeparator()
                 + "    /**////**   **/////** /**////**     ****" + System.lineSeparator()
                 + "    /**    /** **     //**/**   /**    **//**" + System.lineSeparator()
@@ -58,7 +36,7 @@ public class Chatbot {
                 + "    /**    ** //**     ** /**  //** /**//////**" + System.lineSeparator()
                 + "    /*******   //*******  /**   //**/**     /**" + System.lineSeparator()
                 + "    ///////     ///////   //     // //      //" +  System.lineSeparator()
-                + InfoText.INFO_WELCOME;
+                + System.lineSeparator() + InfoText.INFO_GREET;
         printOutput(output);
     }
 
@@ -69,8 +47,8 @@ public class Chatbot {
 
     public void listTasks() {
         output = String.valueOf(InfoText.INFO_LIST) + System.lineSeparator();
-        for (int i = 0; i < tasks.size(); i++) {
-            output += "    " + tasks.get(i).getTaskDetails() + System.lineSeparator();
+        for (Task task : tasks) {
+            output += "    " + task.getTaskDetails() + System.lineSeparator();
         }
         output = output.substring(0, output.length()-1);
         printOutput(output);
@@ -90,16 +68,17 @@ public class Chatbot {
         return -1;
     }
 
-    public void markTask(String description, boolean isDone) {
+    public void markTask(String command, String description) {
         int taskIndex = validateIndex(description, ErrorText.ERROR_INVALID_STATUS_FORMAT);
         if (taskIndex == -1) {
             return;
         }
+        boolean isDone = command.equals("mark") ? true : false;
         tasks.get(taskIndex).setStatus(isDone);
         output = String.valueOf(isDone ? InfoText.INFO_TASK_MARKED : InfoText.INFO_TASK_UNMARKED);
         output += System.lineSeparator() + "    * " + tasks.get(taskIndex).getTaskDetails();
         printOutput(output);
-        writeToFile();
+        FileOperation.writeToFile(this, tasks);
     }
 
     public void checkTodoFormat(String description) throws TodoNoDescriptionException {
@@ -108,35 +87,39 @@ public class Chatbot {
         }
     }
 
-    public void addTask(String command, String description) {
+    public void addTask(String command, String description, boolean isDone, boolean isPrint) {
         Enum invalidFormatType = ErrorText.ERROR_INVALID_TODO_FORMAT;
         String[] descriptionSplits;
         try {
             switch (command) {
             case "todo":
                 checkTodoFormat(description);
-                Todo todo = new Todo(description);
+                Todo todo = new Todo(description, isDone);
                 tasks.add(todo);
                 break;
             case "deadline":
                 invalidFormatType = ErrorText.ERROR_INVALID_DEADLINE_FORMAT;
                 descriptionSplits = description.split(" /by ");
-                Deadline deadline = new Deadline(descriptionSplits[0], descriptionSplits[1]);
+                Deadline deadline = new Deadline(descriptionSplits[0], descriptionSplits[1], isDone);
                 tasks.add(deadline);
                 break;
             case "event":
                 invalidFormatType = ErrorText.ERROR_INVALID_EVENT_FORMAT;
                 descriptionSplits = description.split(" /at ");
-                Event event = new Event(descriptionSplits[0], descriptionSplits[1]);
+                Event event = new Event(descriptionSplits[0], descriptionSplits[1], isDone);
                 tasks.add(event);
+                break;
+            default:
                 break;
             }
             output = constructTaskActionInfo(InfoText.INFO_TASK_ADDED);
-            writeToFile();
         } catch (TodoNoDescriptionException | ArrayIndexOutOfBoundsException e) {
             output = String.valueOf(invalidFormatType);
         }
-        printOutput(output);
+        if (isPrint) {
+            printOutput(output);
+            FileOperation.writeToFile(this, tasks);
+        }
     }
 
     public void deleteTask(String description) {
@@ -144,11 +127,10 @@ public class Chatbot {
         if (taskIndex == -1) {
             return;
         }
-        String taskDetails = tasks.get(taskIndex).getTaskDetails();
         tasks.remove(taskIndex);
         output = constructTaskActionInfo(InfoText.INFO_TASK_DELETED);
         printOutput(output);
-        writeToFile();
+        FileOperation.writeToFile(this, tasks);
     }
 
     public void alertInvalidCommand() {

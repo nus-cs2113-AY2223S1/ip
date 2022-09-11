@@ -1,13 +1,13 @@
 package duke;
 
-import duke.chatbot.Chatbot;
+import duke.chatbot.ChatBot;
+import duke.exception.InvalidCommandException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    public static void runCommand(Chatbot chatbot, String command, String description) {
+    public static void runCommand(ChatBot chatbot, String command, String description) throws InvalidCommandException {
         switch(command) {
         case "bye":
             chatbot.bye();
@@ -16,43 +16,26 @@ public class Duke {
             chatbot.listTasks();
             break;
         case "mark":
-            chatbot.markTask(description, true);
-            break;
         case "unmark":
-            chatbot.markTask(description, false);
+            chatbot.markTask(command, description);
             break;
         case "todo":
         case "deadline":
         case "event":
-            chatbot.addTask(command, description);
+            chatbot.addTask(command, description, false, true);
             break;
         case "delete":
             chatbot.deleteTask(description);
             break;
         default:
-            chatbot.alertInvalidCommand();
-            break;
+            throw new InvalidCommandException();
         }
     }
 
     public static void main(String[] args) throws IOException {
-        Chatbot chatbot = new Chatbot();
+        ChatBot chatbot = new ChatBot();
         chatbot.greet();
         Scanner in = new Scanner(System.in);
-
-        //@@author chydarren-reused
-        // Reused from https://stackoverflow.com/a/38985883
-        // with minor modifications
-        File directory = new File("data");
-        if(!directory.exists()) {
-            directory.mkdir();
-        }
-
-        File file = new File("data/data.txt");
-        if(!file.exists()) {
-            file.createNewFile();
-        }
-        //@@author
 
         String input, command, description;
         do {
@@ -64,7 +47,11 @@ public class Duke {
                 command = input;
                 description = "";
             }
-            runCommand(chatbot, command, description);
+            try {
+                runCommand(chatbot, command, description);
+            } catch (InvalidCommandException e) {
+                chatbot.alertInvalidCommand();
+            }
         } while (!input.equals("bye"));
     }
 }

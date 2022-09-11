@@ -6,9 +6,9 @@ public class Task {
     protected static final String DONE = "X";
     protected static final String NOT_DONE= " ";
 
-    public Task(String title) {
+    public Task(String title, boolean isDone) {
         this.title = title;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDueBy() {
