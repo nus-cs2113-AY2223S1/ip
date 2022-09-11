@@ -15,5 +15,9 @@ public class DukeException {
     }
     public static class IllegalTodoException extends Exception {
     }
+    public static class IllegalDeleteIndexException extends Exception {
+    }
+    public static class IllegalDeleteTargetException extends Exception {
+    }
 }
 
