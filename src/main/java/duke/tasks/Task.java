@@ -7,6 +7,14 @@ public class Task {
     private static final String DONE_ICON = "X";
     private static final String NOT_DONE_ICON = " ";
 
+    public static String getDoneIcon() {
+        return DONE_ICON;
+    }
+
+    public static String getNotDoneIcon() {
+        return NOT_DONE_ICON;
+    }
+
     public Task(String description) {
         this.description = description;
         isDone = false;
@@ -35,6 +43,10 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
+    }
+
+    public String getTaskType () {
+        return "";
     }
 
 }

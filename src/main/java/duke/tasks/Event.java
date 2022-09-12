@@ -2,15 +2,24 @@ package duke.tasks;
 
 public class Event extends Task {
 
+    public String getTime() {
+        return at;
+    }
+
     private String at;
+
+    public static final String TASK_TYPE = "E";
 
     public Event(String description, String at) {
         super(description);
         this.at = at;
     }
 
-    @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (at: " + at + ")";
+    }
+
+    public String getTaskType() {
+        return TASK_TYPE;
     }
 }

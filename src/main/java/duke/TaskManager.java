@@ -1,6 +1,9 @@
 package duke;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
@@ -43,6 +46,11 @@ public class TaskManager {
     public TaskManager() {
         tasks = new ArrayList<>();
     }
+
+    public Task getTask(int taskNumber) {
+        return tasks.get(taskNumber);
+    }
+
 
     public static boolean isValidCommand(String command) {
         for (String validCommand : LIST_OF_COMMANDS) {
@@ -92,6 +100,11 @@ public class TaskManager {
         }
     }
 
+
+    public void loadTask(Task task) {
+        tasks.add(task);
+    }
+
     public void markTaskAsDone(int taskNumber) {
         if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
@@ -134,6 +147,29 @@ public class TaskManager {
         for (int taskNumber = 0; taskNumber < getTotalNumberOfTasks(); taskNumber++) {
             System.out.println("\t" + (taskNumber + 1) + ". " + tasks.get(taskNumber));
         }
+    }
+
+    public static Task initialiseTaskFromParameters(String taskType, String description, String status, String time) {
+        Task task;
+        switch (taskType) {
+        case Todo.TASK_TYPE:
+            task = new Todo(description);
+            break;
+        case Event.TASK_TYPE:
+            task = new Event(description, time);
+            break;
+        case Deadline.TASK_TYPE:
+            task = new Deadline(description, time);
+            break;
+        default:
+            System.out.println("Error in data file!");
+            Duke.exit(-1);
+            return null;
+        }
+        if (status.equals(Task.getDoneIcon())) {
+            task.markAsDone();
+        }
+        return task;
     }
 
 }

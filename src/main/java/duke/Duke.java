@@ -12,6 +12,7 @@ public class Duke {
 
     static TaskManager taskManager = new TaskManager();
     static Scanner scanner = new Scanner(System.in);
+    static FileDataManager fileDataManager = new FileDataManager();
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -21,6 +22,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
+        fileDataManager.loadData(taskManager);
         greet();
         processInput();
     }
@@ -65,7 +67,7 @@ public class Duke {
             command = retrieveCommand(input);
             parameters = retrieveParameters(input);
         }
-        exit();
+        exit(0);
     }
 
     public static void executeCommand(String command, String parameters) {
@@ -83,28 +85,33 @@ public class Duke {
         case "mark":
             taskNumber = retrieveTaskNumber(parameters);
             taskManager.markTaskAsDone(taskNumber);
+            fileDataManager.saveData(taskManager);
             break;
         case "unmark":
             taskNumber = retrieveTaskNumber(parameters);
             taskManager.markTaskAsUndone(taskNumber);
+            fileDataManager.saveData(taskManager);
             break;
         case "delete":
             taskNumber = retrieveTaskNumber(parameters);
             taskManager.removeTask(taskNumber);
+            fileDataManager.saveData(taskManager);
             break;
         case "todo":
             taskManager.addTask(new Todo(parameters));
+            fileDataManager.saveData(taskManager);
             break;
         case "deadline":
             description = retrieveTaskDescription(parameters, TaskManager.DEADLINE_SEPERATOR);
             deadline = retrieveTime(parameters, TaskManager.DEADLINE_SEPERATOR);
             taskManager.addTask(new Deadline(description, deadline));
+            fileDataManager.saveData(taskManager);
             break;
-
         case "event":
             description = retrieveTaskDescription(parameters, TaskManager.EVENT_SEPERATOR);
             deadline = retrieveTime(parameters, TaskManager.EVENT_SEPERATOR);
             taskManager.addTask(new Event(description, deadline));
+            fileDataManager.saveData(taskManager);
             break;
         }
     }
@@ -218,9 +225,10 @@ public class Duke {
     }
 
 
-    public static void exit() {
+    public static void exit(int status) {
         printLine();
         System.out.println("\t" + "Bye. Hope to see you again soon!");
         printLine();
+        System.exit(status);
     }
 }

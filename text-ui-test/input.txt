@@ -1,15 +1,14 @@
 help
-todo read book
 list
 mark -1
-mark 1
-deadline return book /by Sunday
 mark 2
+deadline finish assignment /by Sunday
+mark 5
 list
-unmark 1
-mark 3
-event project meeting /at Mon 2-4 pm
-mark 3
+unmark 2
+mark 6
+event soccer match /at Mon 2-4 pm
+mark 6
 unmark 2
 list
 deadline
@@ -25,13 +24,13 @@ event /at abc
 event acb /at
 list
 delete -1
-delete 4
-delete 2
+delete 7
+delete 6
+delete 5
 list
 todo study for exam
 list
-delete 1
-delete 1
+delete 5
 list
 remove 2
 bye
