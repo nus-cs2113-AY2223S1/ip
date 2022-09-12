@@ -1,13 +1,75 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
+    private static final String filePath = "data/duke.txt";
+    private static final String fileFolder = "data";
 
-    public static void main(String[] args) throws UnknownInputException {
+    public static void main(String[] args) throws UnknownInputException, IOException {
+        //create file if needed
+
+        File folder = new File(fileFolder);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        File f = new File(filePath);
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+        //System.out.println("full path: " + f.getAbsolutePath());
+        //System.out.println("file exists?: " + f.exists());
+        //System.out.println("is Directory?: " + f.isDirectory());
+        //delete later
+
+
+
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            File dataFile = new File(filePath);
+            Scanner scanner = new Scanner(dataFile);
+
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String category = line.substring(0, 1);
+                String descriptor = line.substring(8);
+                int dateIndex = descriptor.indexOf('|');
+                switch (category) {
+                    case "T":
+                        tasks.add(new Todo(descriptor));
+                        break;
+                    case "E":
+                        tasks.add(new Event(descriptor.substring(0, dateIndex - 1), descriptor.substring(dateIndex + 2)));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(descriptor.substring(0, dateIndex - 1), descriptor.substring(dateIndex + 2)));
+                        break;
+                    default:
+                        tasks.add(new Task(descriptor));
+                        break;
+                }
+                if (line.charAt(4) == 'X') {
+                    tasks.get(tasks.size() - 1).setStatus(Boolean.TRUE);
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+
+
+        //rest
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -16,20 +78,19 @@ public class Duke {
         System.out.println("Hello! I'm duke.Duke\nWhat can I do for you?\n");
 
         //tasks is an array list collection of task objects
-        List<Task> tasks = new ArrayList<>();
+        //List<Task> tasks = new ArrayList<>();
         String input = " ";
-        String description;
+        String description, numericString;
+        Integer markedNum;
         Scanner in = new Scanner(System.in);
-        Boolean isMarked;
         input = in.nextLine();
         input = input.trim();
 
+
+
         // duke runs until a "bye" is entered
-        while (tasks.size() < 100 && !input.equals("bye")) {
+        while (!input.equals("bye")) {
             String [] splitInput = input.split(" ");
-            isMarked = Boolean.FALSE;
-
-
 
             // list commands duke to list all the tasks stored and their completion status
             // try at the start cos of the errors possibly
@@ -42,22 +103,30 @@ public class Duke {
                         }
                         System.out.println();
                         break;
+
                     case "mark":
                         // mark x commands duke to mark the corresponding task as completed
-                        isMarked = Boolean.TRUE;
+                        numericString = input.substring(input.indexOf(" ") + 1);
+                        markedNum = Integer.parseInt(numericString) - 1;
+                        tasks.get(markedNum).setStatus(Boolean.TRUE);
+                        //print to CLI
                         System.out.println("Nice! I've marked this task as done: ");
-                        // without the break, both mark and unmark will trigger the similar process
+                        System.out.println("  " + tasks.get(markedNum) + "\n");
+                        //save
+                        writeToFile(filePath,tasks);
+                        break;
 
                     case "unmark":
                         // unmark x commands duke to mark the corresponding task as uncompleted
                         // Exceptions could occur
-                        String numericString = input.substring(input.indexOf(" ") + 1);
-                        int markedNum = Integer.parseInt(numericString) - 1;
-                        tasks.get(markedNum).setStatus(isMarked);
-                        if (!isMarked) {
-                            System.out.println("Oh no :( I've marked it as uncompleted: ");
-                        }
+                        numericString = input.substring(input.indexOf(" ") + 1);
+                        markedNum = Integer.parseInt(numericString) - 1;
+                        tasks.get(markedNum).setStatus(Boolean.FALSE);
+                        //print to CLI
+                        System.out.println("Oh no :( I've marked it as uncompleted: ");
                         System.out.println("  " + tasks.get(markedNum) + "\n");
+                        //save
+                        writeToFile(filePath,tasks);
                         break;
 
                     case "todo":
@@ -66,8 +135,11 @@ public class Duke {
                         }
                         description = input.substring(input.indexOf(" ") + 1);
                         Task td = new Todo(description);
-                        // this function does all the printing
+
+                        // print to CLI
                         taskPrint(tasks, td);
+                        //save
+                        appendToFile(filePath,td);
                         break;
 
                     case "deadline":
@@ -77,7 +149,10 @@ public class Duke {
                         description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /by "));
                         String by = input.substring(input.indexOf("/by ") + 4);
                         Task d = new Deadline(description, by);
+                        // print to CLI
                         taskPrint(tasks, d);
+                        //save
+                        appendToFile(filePath,d);
                         break;
 
                         //StringIndexOutOfBoundsException
@@ -89,7 +164,10 @@ public class Duke {
                         description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /at "));
                         String at = input.substring(input.indexOf("/at ") + 4);
                         Task e = new Event(description, at);
+                        // print to CLI
                         taskPrint(tasks, e);
+                        // save
+                        appendToFile(filePath,e);
                         break;
 
                     case "blah":
@@ -101,9 +179,14 @@ public class Duke {
                         // other calls causes duke to add the user-input to tasks
                         Task t = new Task(input);
                         tasks.add(t);
+                        //print to CLI
                         System.out.println("added: " + input + "\n");
+                        //save
+                        appendToFile(filePath,t);
                         break;
                 }
+
+            //EXCEPTIONS
             }
             catch (UnknownInputException e) {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-( \n");
@@ -130,6 +213,8 @@ public class Duke {
         System.out.println("Bye good friend! Hope to see you again soon!\n" + logo);
     }
 
+
+    //OTHER HELPER FUNCTIONS
     /**
      * Method for printing Tasks adding
      * @param tasks
@@ -141,4 +226,22 @@ public class Duke {
         System.out.println("Got it. I've added this task: \n" + t);
         System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
     }
+
+    private static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        String textToAdd = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            textToAdd = textToAdd + tasks.get(i).getSavedString() + System.lineSeparator();
+        }
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, Task t) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        String textToAppend = t.getSavedString() + System.lineSeparator();
+        fw.write(textToAppend);
+        fw.close();
+    }
+
 }

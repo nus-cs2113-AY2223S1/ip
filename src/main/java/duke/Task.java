@@ -3,6 +3,7 @@ package duke;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String category;
 
 
     /**
@@ -12,6 +13,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.category = "Task";
     }
 
     /**
@@ -22,13 +24,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /**
-     * Returns the Description of the task
-     * @return description
-     */
-    public String getDescription() {
-        return (description);
-    }
+
 
     /**
      * Sets Status to according to mark
@@ -37,10 +33,26 @@ public class Task {
         isDone = isMark;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Returns the Description of the task
+     * @return description
+     */
+    public String getDescription() {
+        return (description);
+    }
+
+    public String getSavedString() {
+        return "  | " + getStatusIcon() + " | " + description;
+    }
+
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() +"] " + description;
+        return "[ ]" + "[" + getStatusIcon() +"] " + description;
     }
 
 }
