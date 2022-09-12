@@ -21,11 +21,11 @@ public class ExceptionHandler {
 
         try {
             if (keyword.equals("mark")) {
-                tasks[taskPosition].markAsDone();
+                tasks[taskPosition].setDone(true);
                 System.out.println("Nice! I've marked this task as done:" + System.lineSeparator()
                         + tasks[taskPosition]);
             } else if (keyword.equals("unmark")) {
-                tasks[taskPosition].unmarkAsDone();
+                tasks[taskPosition].setDone(false);
                 System.out.println("OK, I've marked this task as not done yet:" + System.lineSeparator()
                         + tasks[taskPosition]);
             }

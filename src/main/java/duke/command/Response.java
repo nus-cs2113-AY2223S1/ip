@@ -7,21 +7,6 @@ import duke.task.Todo;
 
 public class Response {
 
-    public static void printLines() {
-        System.out.println("___________________________________________________________________________");
-    }
-
-    public static void printGreetings(String greeting) {
-        if (greeting.equals("hello")) {
-            // hello greeting
-            printLines();
-            System.out.println("Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?");
-            printLines();
-        }   else {
-            // bye greeting
-            System.out.println("Bye. Hope to see you again soon!");
-        }
-    }
     public static void markResponse(Task[] tasks, String description) {
 
         int taskPosition;
@@ -73,38 +58,33 @@ public class Response {
         }
     }*/
 
-    public static void listResponse(Task[] tasks, int count) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+    public static void listResponse(Task[] tasks, int taskNumber) {
+
+        if (taskNumber == 0) {
+            System.out.println("You don't have any tasks yet. Why not try creating some?");
+        }   else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskNumber; i++) {
+                System.out.println((i + 1) + "." + tasks[i]);
+            }
         }
     }
 
-    public static void toDoResponse(Task[] tasks, String description, int taskNum) {
+    public static void toDoResponse(Task[] tasks, String description, int taskNumber) {
 
-        tasks[taskNum] = new Todo(description);
-        System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                + tasks[taskNum] + System.lineSeparator() + "Now you have " + (taskNum + 1)
-                + " tasks in the list.");
+        tasks[taskNumber] = new Todo(description);
+        GenericPrint.printTaskMessages(tasks, taskNumber);
     }
 
-    public static void deadlineResponse(Task[] tasks, String description, String time, int taskNum) {
+    public static void deadlineResponse(Task[] tasks, String description, String time, int taskNumber) {
 
-        tasks[taskNum] = new Deadline(description, time);
-        System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                + tasks[taskNum] + System.lineSeparator() + "Now you have "
-                + (taskNum + 1)  + " tasks in the list.");
+        tasks[taskNumber] = new Deadline(description, time);
+        GenericPrint.printTaskMessages(tasks, taskNumber);
     }
 
-    public static void eventResponse(Task[] tasks, String description, String time, int taskNum) {
-        if (description.equals("")) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-            return;
-        }
+    public static void eventResponse(Task[] tasks, String description, String time, int taskNumber) {
 
-        tasks[taskNum] = new Event(description, time);
-        System.out.println("Got it. I've added this task:" + System.lineSeparator()
-                +  tasks[taskNum] + System.lineSeparator() + "Now you have "
-                + (taskNum + 1) + " tasks in the list.");
+        tasks[taskNumber] = new Event(description, time);
+        GenericPrint.printTaskMessages(tasks, taskNumber);
     }
 }

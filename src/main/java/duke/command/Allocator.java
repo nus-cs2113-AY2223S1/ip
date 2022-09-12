@@ -35,7 +35,7 @@ public class Allocator {
 
         switch (keyword) {
         case "bye":
-            Response.printGreetings("bye");
+            GenericPrint.printGreetings("bye");
             break;
         case "mark":
             Response.markResponse(tasks, description);

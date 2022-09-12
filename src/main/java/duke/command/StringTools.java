@@ -1,6 +1,7 @@
 package duke.command;
 
-import duke.exception.*;
+import duke.exception.MissingIndicatorException;
+import duke.exception.MissingIntegerException;
 
 import java.util.Arrays;
 
@@ -15,7 +16,12 @@ public class StringTools {
         return input[0].toLowerCase();
     }
 
+    public static String[] copyArray(String[] s, int start, int end) {
+        return Arrays.copyOfRange(s, start, end);
+    }
+
     public static String concatenate(String[] s) {
+
         String combinedString = "";
         for (int i = 0; i < s.length; i++) {
             combinedString += s[i];
@@ -26,11 +32,8 @@ public class StringTools {
         return combinedString;
     }
 
-    public static String[] copyArray(String[] s, int start, int end) {
-        return Arrays.copyOfRange(s, start, end);
-    }
-
     public static int searchArray(String[] s, String target) {
+
         for (int i = 0; i < s.length; i++) {
             if (s[i].equals(target)) {
                 return i;
@@ -40,6 +43,7 @@ public class StringTools {
     }
 
     public static int indicatorLocator(String[] s, String keyword) {
+
         switch (keyword) {
         case "deadline":
             return searchArray(s, "/by");
@@ -52,6 +56,7 @@ public class StringTools {
 
     public static String returnDescription(String[] s, String keyword) throws
             MissingIndicatorException, MissingIntegerException {
+
         switch (keyword) {
         case "mark":
         case "unmark":
@@ -79,6 +84,7 @@ public class StringTools {
     }
 
     public static String returnTime(String[] s, String keyword) throws MissingIndicatorException {
+
         switch (keyword) {
         case "event":
         case "deadline":
