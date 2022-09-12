@@ -1,8 +1,7 @@
 import exceptions.InvalidDeadlineException;
 import exceptions.InvalidEventException;
-import exceptions.InvalidMarkException;
+import exceptions.InvalidValueException;
 import exceptions.InvalidTodoException;
-import exceptions.InvalidUnmarkException;
 import exceptions.UnrecognisedCommandException;
 import tasks.Deadline;
 import tasks.Task;
@@ -30,9 +29,14 @@ public class Duke {
         System.out.println(line);
     }
 
-    public static void printStatus(Task latest, int total){
+    public static void printStatus(Task latest, int total, boolean isAdd){
+        String verb = "added";
+        if (!isAdd) {
+            verb = "removed";
+        }
+
         String line = "\t------------------------\n";
-        System.out.println(line + "\tGot it. I've added this task:\n\t" + latest);
+        System.out.println(line + "\tGot it. I've " + verb + " this task:\n\t" + latest);
         System.out.println("\n\tNow you have " + total + " task(s) in the list.\n" + line);
     }
 
@@ -45,6 +49,7 @@ public class Duke {
         final String EXIT_TRIGGER = "bye";
         final String MARK_TRIGGER = "mark";
         final String UNMARK_TRIGGER = "unmark";
+        final String DELETE_TRIGGER = "delete";
 
         // VARS
         String userInput = "";
@@ -77,7 +82,7 @@ public class Duke {
                     } else {
                         Todo latestTodo = new Todo(words[1]);
                         tasks.add(latestTodo);
-                        printStatus(latestTodo, tasks.size());
+                        printStatus(latestTodo, tasks.size(), true);
                         break;
                     }
                 } catch (InvalidTodoException t) {
@@ -97,7 +102,7 @@ public class Duke {
                     
                     Event latestEvent = new Event(taskDescription, timestamp);
                     tasks.add(latestEvent);
-                    printStatus(latestEvent, tasks.size());
+                    printStatus(latestEvent, tasks.size(), true);
                     break;
                 } catch (ArrayIndexOutOfBoundsException a) {
                     System.out.println("Missing details after 'event' keyword.");
@@ -119,7 +124,7 @@ public class Duke {
                     
                     Deadline latestDeadline = new Deadline(taskDescription, timestamp);
                     tasks.add(latestDeadline);
-                    printStatus(latestDeadline, tasks.size());
+                    printStatus(latestDeadline, tasks.size(), true);
                     break;
                 } catch (ArrayIndexOutOfBoundsException a) {
                     System.out.println("Missing details after 'deadline' keyword.");
@@ -136,13 +141,14 @@ public class Duke {
                         int val = Integer.parseInt(words[1]);
     
                         if (val < 0 || val > tasks.size()) {
-                            throw new InvalidMarkException();
+                            throw new InvalidValueException();
                         } else {
                             tasks.get(val - 1).markDone();
                             listTasks(tasks);
                         }
+                        break;
                     } 
-                } catch (InvalidMarkException m){
+                } catch (InvalidValueException v){
                     System.out.println("Can't mark: Out of bounds value entered!");
                     break;
                 } 
@@ -154,14 +160,38 @@ public class Duke {
                         int val = Integer.parseInt(words[1]);
 
                         if (val < 0 || val > tasks.size()) {
-                            throw new InvalidUnmarkException();
+                            throw new InvalidValueException();
                         } else {
                             tasks.get(val - 1).unmark();
                             listTasks(tasks);
                         }
+                        break;
                     } 
-                } catch (InvalidUnmarkException u) {
+                } catch (InvalidValueException v) {
                     System.out.println("Can't unmark: Out-of-bounds value entered!");
+                    break;
+                }
+            
+            case DELETE_TRIGGER:
+                try {
+                    // making sure there is valid numerical input after mark/unmark
+                    if (userInput.matches("delete [0-9]+")) {    
+                        int val = Integer.parseInt(words[1]);
+
+                        if (val < 0 || val > tasks.size()) {
+                            throw new InvalidValueException();
+                        } else {
+                            printStatus(tasks.get(val-1), tasks.size()-1, false);
+                            tasks.remove(val-1);
+                            listTasks(tasks);
+                        }
+                        break;
+                    } 
+                } catch (ArrayIndexOutOfBoundsException a) {
+                    System.out.println("Missing details after 'delete' keyword.");
+                    break;
+                } catch (InvalidValueException v) {
+                    System.out.println("Can't delete: Out-of-bounds value entered!");
                     break;
                 }
 
