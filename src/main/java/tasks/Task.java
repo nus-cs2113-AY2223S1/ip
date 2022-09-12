@@ -32,4 +32,7 @@ public class Task {
         return this.descriptionString + this.getStatusIcon();
     }
 
+    public String createFileString() {
+        return "";
+    }
 }
