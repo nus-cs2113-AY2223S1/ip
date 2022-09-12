@@ -2,12 +2,12 @@ package duke;
 
 import duke.tasks.Task;
 
-public class TaskManager {
-    Task[] tasks;
-    int numTasks;
-    static final int MAX_NUM_TASKS = 100;
+import java.util.ArrayList;
 
-    static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event"};
+public class TaskManager {
+    ArrayList<Task> tasks;
+
+    static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event", "delete"};
 
     public static final String DEADLINE_SEPERATOR = " /by ";
     public static final String EVENT_SEPERATOR = " /at ";
@@ -29,7 +29,10 @@ public class TaskManager {
             "\n\tmark a specific task as done; format: 'mark' [number of task]" +
             "\n\n\tunmark" +
             "\n\t------" +
-            " \n\tmark a specific task as not done; format 'unmark' [number of task]" +
+            "\n\tmark a specific task as not done; format: 'unmark' [number of task]" +
+            "\n\n\tdelete" +
+            "\n\t------" +
+            "\n\tdelete a specific task from the list of tasks; format: 'delete' [number of task]" +
             "\n\n\tlist" +
             "\n\t----" +
             " \n\tlist out all tasks and their completion status" +
@@ -38,8 +41,7 @@ public class TaskManager {
             " \n\texit the program";
 
     public TaskManager() {
-        tasks = new Task[MAX_NUM_TASKS];
-        numTasks = -1;
+        tasks = new ArrayList<>();
     }
 
     public static boolean isValidCommand(String command) {
@@ -54,49 +56,83 @@ public class TaskManager {
         System.out.println(HELP_MESSAGE);
     }
 
-    public Task[] getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    public int getTotalNumberOfTasks() {
+        return tasks.size();
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     public void addTask(Task task) {
-        tasks[++numTasks] = task;
+        tasks.add(task);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
-        System.out.println("\tNow you have " + (numTasks + 1) + " task(s) in the list.");
+        System.out.println("\tNow you have " + (getTotalNumberOfTasks()) + " task(s) in the list.");
+    }
+
+    public void removeTask(int taskNumber) {
+        if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
+            System.out.println("\tInvalid input! Please key in an existing task number!");
+            return;
+        }
+        Task task = tasks.get(taskNumber);
+        tasks.remove(taskNumber);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + task);
+
+        if (isEmpty()) {
+            System.out.println("Nothing in list right now!");
+        } else {
+            System.out.println("\tNow you have " + (getTotalNumberOfTasks()) + " task(s) in the list.");
+        }
     }
 
     public void markTaskAsDone(int taskNumber) {
-        if (taskNumber > numTasks || taskNumber < 0) {
+        if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
-        } else if (tasks[taskNumber].isDone()) {
-            System.out.println("\tThis task has already been marked as done!");
-        } else {
-            System.out.println("\tNice! I've marked this task as done: ");
-            tasks[taskNumber].markAsDone();
-            System.out.println("\t  " + tasks[taskNumber]);
+            return;
         }
+
+        if (tasks.get(taskNumber).isDone()) {
+            System.out.println("\tThis task has already been marked as done!");
+            return;
+        }
+
+        System.out.println("\tNice! I've marked this task as done: ");
+        tasks.get(taskNumber).markAsDone();
+        System.out.println("\t  " + tasks.get(taskNumber));
     }
 
     public void markTaskAsUndone(int taskNumber) {
-        if (taskNumber > numTasks || taskNumber < 0) {
+        if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
-        } else if (!tasks[taskNumber].isDone()) {
-            System.out.println("\tThis task has already been marked as not done!");
-        } else {
-            System.out.println("\tOK, I've marked this task as not done yet: ");
-            tasks[taskNumber].markAsUndone();
-            System.out.println("\t  " + tasks[taskNumber]);
+            return;
         }
+
+        if (!tasks.get(taskNumber).isDone()) {
+            System.out.println("\tThis task has already been marked as not done!");
+            return;
+        }
+
+        System.out.println("\tOK, I've marked this task as not done yet: ");
+        tasks.get(taskNumber).markAsUndone();
+        System.out.println("\t  " + tasks.get(taskNumber));
+
     }
 
     public void listTasks() {
-        if (numTasks == -1) {
+        if (isEmpty()) {
             System.out.println("\tNothing in list right now!");
             return;
         }
         System.out.println("\tHere are the tasks in your list: ");
-        for (int i = 0; i <= numTasks; i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+        for (int taskNumber = 0; taskNumber < getTotalNumberOfTasks(); taskNumber++) {
+            System.out.println("\t" + (taskNumber + 1) + ". " + tasks.get(taskNumber));
         }
     }
 

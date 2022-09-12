@@ -1,3 +1,4 @@
+help
 todo read book
 list
 mark -1
@@ -23,4 +24,14 @@ event /at
 event /at abc
 event acb /at
 list
+delete -1
+delete 4
+delete 2
+list
+todo study for exam
+list
+delete 1
+delete 1
+list
+remove 2
 bye
