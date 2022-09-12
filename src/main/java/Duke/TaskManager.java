@@ -1,3 +1,5 @@
+package Duke;
+
 public class TaskManager {
 
     private static final int RESIZE_FACTOR = 2;

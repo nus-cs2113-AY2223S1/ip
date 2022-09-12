@@ -1,3 +1,5 @@
+package Duke;
+
 public class InputParser {
 
     private String userCommand;
