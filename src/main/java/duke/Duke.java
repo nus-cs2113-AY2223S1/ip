@@ -95,6 +95,7 @@ public class Duke {
                     }
                 }
                 System.out.println("____________________________________________________________");
+
             } else if (numOfWords >= 2) {
                 // check if the user input has 2 words before checking for commands "mark" , "unmark" or "delete"
                 String[] parsedInput = inData.split(" ");
@@ -144,6 +145,7 @@ public class Duke {
                         int deleteIndex = Integer.parseInt(parsedInput[1]) - 1;
                         if (checkIfWithinBounds(deleteIndex, tasks.size())) {
                             // checks if the user input command is within the current bound of the tasks array.
+
                             System.out.println("Noted. I've removed this task:");
                             System.out.println("[" + tasks.get(deleteIndex).getTaskType() + "]" + "[" + tasks.get(deleteIndex).getStatusIcon() + "] " + tasks.get(deleteIndex).getDescription());
                             tasks.remove(deleteIndex);
@@ -154,6 +156,7 @@ public class Duke {
                                 printNumOfTasks(tasks.size());
                             }
                             FileOperation.writeToFile(tasks);
+
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -163,7 +166,9 @@ public class Duke {
                         System.out.println("Invalid delete command - Index out of bounds.");
                         System.out.println("____________________________________________________________");
                     }
+
                 } else {
+
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
                     for (int i = 1; i < numOfWords; i += 1) {
@@ -173,10 +178,12 @@ public class Duke {
 
                     switch (parsedInput[0]) {
                     case "todo":
+
                         tasks.add(new Todo("T", taskDescription, false));
                         FileOperation.writeToFile(tasks);
                         System.out.println(tasks.get(tasks.size()-1));
                         printNumOfTasks(tasks.size());
+
                         break;
                     case "deadline":
                         // find "/" break point before processing the description and the deadline
@@ -188,10 +195,12 @@ public class Duke {
                             deadline = tempArray[1];
                         }
 
+
                         tasks.add(new Deadline("D", taskDescription, false, deadline));
                         FileOperation.writeToFile(tasks);
                         System.out.println(tasks.get(tasks.size()-1));
                         printNumOfTasks(tasks.size());
+
                         break;
 
                     case "event":
@@ -202,10 +211,12 @@ public class Duke {
                             taskDescription = tempArray[0];
                             eventPeriod = tempArray[1];
                         }
+
                         tasks.add(new Event("E", taskDescription, false, eventPeriod));
                         FileOperation.writeToFile(tasks);
                         System.out.println(tasks.get(tasks.size()-1));
                         printNumOfTasks(tasks.size());
+
                         break;
                     default:
                         System.out.println("Unrecognised command");
