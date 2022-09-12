@@ -1,4 +1,3 @@
-mark 1
 todo first task
 deadline homework /by tomorrow
 event cca /at friday
