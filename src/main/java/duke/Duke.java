@@ -1,11 +1,13 @@
 package duke;
 
 import duke.command.Allocator;
+import duke.command.ExceptionHandler;
 import duke.command.Response;
 import duke.command.StringTools;
 import duke.task.Task;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;
@@ -15,7 +17,7 @@ public class Duke {
         Possible type of exceptions:
         Wrong command [NoSuchMethodException]
         Missing Arguments: description, time
-        Too many arguments - all
+        Too many arguments - all minus todo, deadline, event
         Wrong parameters - mark, unmark, [ArrayIndexOutOfBoundsException]
                          + [IllegalArgumentException]/[IllegalArgumentException]
      */
@@ -36,7 +38,10 @@ public class Duke {
             if (keyword.equals("bye")) {
                 isDone = true;
             }
-            Allocator.processInput(splitInput, keyword, tasks);
+
+            Response.printLines();
+            ExceptionHandler.handleTooManyArguments(splitInput, keyword, tasks);
+            Response.printLines();
         }
 
     }

@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.exception.*;
+
 import java.util.Arrays;
 
 public class StringTools {
@@ -28,52 +30,65 @@ public class StringTools {
         return Arrays.copyOfRange(s, start, end);
     }
 
-    public static int searchArray(String[] s, String indicator) {
+    public static int searchArray(String[] s, String target) {
         for (int i = 0; i < s.length; i++) {
-            if (s[i].equals(indicator)) {
+            if (s[i].equals(target)) {
                 return i;
             }
         }
         return -1; //not found
     }
 
-    public static int indicatorLocator(String[] s) {
-        String keyword = returnKeyword(s);
+    public static int indicatorLocator(String[] s, String keyword) {
         switch (keyword) {
         case "deadline":
             return searchArray(s, "/by");
         case "event":
             return searchArray(s, "/at");
         default:
-            return 2;
+            return 0;
         }
     }
 
-    public static String returnDescription(String[] s, String keyword) {
+    public static String returnDescription(String[] s, String keyword) throws
+            MissingIndicatorException, MissingIntegerException {
         switch (keyword) {
         case "mark":
         case "unmark":
-            return s[1];
+        case "delete":
+            try {
+                return s[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingIntegerException();
+            }
         case "todo":
-            String[] truncatedInput = StringTools.copyArray(s, 1, s.length);
-            return StringTools.concatenate(truncatedInput);
+            String[] truncatedInput = copyArray(s, 1, s.length);
+            return concatenate(truncatedInput);
         case "event":
         case "deadline":
-            int indicatorPosition = StringTools.indicatorLocator(s);
-            String[] splitDescription = StringTools.copyArray(s, 1, indicatorPosition);
-            return StringTools.concatenate(splitDescription);
+            try {
+                int indicatorPosition = indicatorLocator(s, keyword);
+                String[] splitDescription = copyArray(s, 1, indicatorPosition);
+                return concatenate(splitDescription);
+            } catch (IllegalArgumentException e) {
+                throw new MissingIndicatorException();
+            }
         default:
             return "";
         }
     }
 
-    public static String returnTime(String[] s, String keyword) {
+    public static String returnTime(String[] s, String keyword) throws MissingIndicatorException {
         switch (keyword) {
         case "event":
         case "deadline":
-            int indicatorPosition = StringTools.indicatorLocator(s);
-            String[] splitTime = StringTools.copyArray(s, indicatorPosition + 1, s.length);
-            return StringTools.concatenate(splitTime);
+            try {
+                int indicatorPosition = indicatorLocator(s, keyword);
+                String[] splitTime = copyArray(s, indicatorPosition + 1, s.length);
+                return concatenate(splitTime);
+            } catch (IllegalArgumentException e) {
+                throw new MissingIndicatorException();
+            }
         default:
             return "";
         }

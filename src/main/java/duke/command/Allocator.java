@@ -1,18 +1,35 @@
 package duke.command;
 
+import duke.exception.MissingDescriptionException;
+import duke.exception.MissingIndicatorException;
+import duke.exception.MissingIntegerException;
+import duke.exception.MissingTimeException;
 import duke.task.Task;
 
 public class Allocator {
 
     public static void processInput(String[] splitInput, String keyword, Task[] tasks) {
 
-        Response.printLines();
-        String description = StringTools.returnDescription(splitInput, keyword);
-        String time = StringTools.returnTime(splitInput, keyword);
-        int taskNumber = Task.getTaskNumber();
-        allocateForResponse(tasks, keyword, description, time, taskNumber);
-        Response.printLines();
-
+        try {
+            String description = StringTools.returnDescription(splitInput, keyword);
+            ExceptionHandler.checkDescription(description, keyword);
+            String time = StringTools.returnTime(splitInput, keyword);
+            ExceptionHandler.checkTime(time, keyword);
+            int taskNumber = Task.getTaskNumber();
+            allocateForResponse(tasks, keyword, description, time, taskNumber);
+        } catch (MissingIntegerException e) {
+            System.out.println("☹ OOPS!!! You did not give me enough arguments! :-(");
+        } catch (MissingIndicatorException e) {
+            if (keyword.equals("deadline")) {
+                System.out.println("☹ OOPS!!! You did not type /by! :-(");
+            }   else if (keyword.equals("event")) {
+                System.out.println("☹ OOPS!!! You did not type /at! :-(");
+            }
+        } catch (MissingDescriptionException e) {
+            System.out.println("☹ OOPS!!! The description of a " + keyword + " cannot be empty.");
+        } catch (MissingTimeException e) {
+            System.out.println("☹ OOPS!!! You didn't give me the time for the " + keyword + " ! :-(");
+        }
     }
     public static void allocateForResponse(Task[] tasks, String keyword, String description, String time, int taskNumber) {
 
@@ -39,7 +56,7 @@ public class Allocator {
             Response.eventResponse(tasks, description, time, taskNumber);
             break;
         default:
-
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             break;
         }
     }
