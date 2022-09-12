@@ -1,6 +1,6 @@
 package duke;
 
-import duke.command.Processor;
+import duke.command.Allocator;
 import duke.command.Response;
 import duke.command.StringTools;
 import duke.task.Task;
@@ -36,7 +36,7 @@ public class Duke {
             if (keyword.equals("bye")) {
                 isDone = true;
             }
-            Processor.processInput(splitInput, keyword, tasks);
+            Allocator.processInput(splitInput, keyword, tasks);
         }
 
     }

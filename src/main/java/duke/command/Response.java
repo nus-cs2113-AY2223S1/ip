@@ -22,17 +22,37 @@ public class Response {
             System.out.println("Bye. Hope to see you again soon!");
         }
     }
-    public static void markResponse(Task[] tasks, int position) {
-        tasks[position].markAsDone();
-        System.out.println("Nice! I've marked this task as done:" + System.lineSeparator()
-                + tasks[position]);
+    public static void markResponse(Task[] tasks, String description) {
+
+        int taskPosition;
+        try {
+            taskPosition = ExceptionHandler.handleNotInteger(description);
+            ExceptionHandler.handleOutOfBounds(tasks, taskPosition, "mark");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't think " + description + " is a number. :-(");
+        } catch (NullPointerException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
+        }
     }
 
-    public static void unmarkResponse(Task[] tasks, int position) {
-        tasks[position].unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:" + System.lineSeparator()
-                + tasks[position]);
+    public static void unmarkResponse(Task[] tasks, String description) {
+
+        int taskPosition;
+        try {
+            taskPosition = ExceptionHandler.handleNotInteger(description);
+            ExceptionHandler.handleOutOfBounds(tasks, taskPosition, "unmark");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't think " + description + " is a number. :-(");
+        } catch (NullPointerException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
+        }
     }
+
+
 
     public static void listResponse(Task[] tasks, int count) {
         System.out.println("Here are the tasks in your list:");
