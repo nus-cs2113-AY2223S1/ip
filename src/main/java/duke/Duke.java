@@ -5,12 +5,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static final String DEADLINE_INFO_SEPARATOR = "/by";
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final int CAPACITY = 100;
 
     private static final String INTRO_MESSAGE = "Hello! I'm Duke";
     public static final String QUERY_COMMAND_MESSAGE = "What can I do for you?";
@@ -20,7 +20,7 @@ public class Duke {
     public static final String MARK_TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     public static final String EVENT_INFO_SEPARATOR = "/at";
 
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static String commandWord;
     private static String commandInfo;
@@ -28,7 +28,6 @@ public class Duke {
     private static String time;
 
     public static void main(String[] args) {
-        initTaskList();
         printWelcomeMessage();
         while (true) {
             String inputString = getUserInput();
@@ -54,7 +53,7 @@ public class Duke {
             changeTaskStatus(false);
             break;
         case "todo":
-            createTodo();
+            createToDo();
             break;
         case "deadline":
             handleCreateDeadlineCommand();
@@ -62,11 +61,22 @@ public class Duke {
         case "event":
             handleCreateEventCommand();
             break;
+        case "delete":
+            handleDelete();
+            break;
         case "bye":
             exitProgramme();
         default:
             throw new InvalidCommandException();
         }
+    }
+
+    private static void handleDelete() {
+        int taskIndex = Integer.parseInt(commandInfo) - 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + tasks.get(taskIndex).getTaskInfo());
+        System.out.println("Now you have " + tasks.size() + " in the list.");
+        tasks.remove(taskIndex);
     }
 
     private static void separateCommandWordAndCommandInfo(String inputString) {
@@ -101,8 +111,9 @@ public class Duke {
 
     private static void createEvent() {
         Event newEvent = new Event(description, time);
-        tasks[Task.getTaskCount() - 1] = newEvent;
+        tasks.add(newEvent);
         newEvent.echo();
+        printTasksCount();
     }
 
 
@@ -116,17 +127,19 @@ public class Duke {
 
     private static void createDeadline() {
         Deadline newDeadline = new Deadline(description, time);
-        tasks[Task.getTaskCount() - 1] = newDeadline;
+        tasks.add(newDeadline);
         newDeadline.echo();
+        printTasksCount();
     }
 
-    private static void createTodo() throws EmptyDescriptionException {
+    private static void createToDo() throws EmptyDescriptionException {
         if (commandInfo.length() == 0) {
             throw new EmptyDescriptionException("todo");
         }
-        Todo newTodo = new Todo(commandInfo);
-        tasks[Task.getTaskCount() -1] = newTodo;
-        newTodo.echo();
+        Todo newToDo = new Todo(commandInfo);
+        tasks.add(newToDo);
+        newToDo.echo();
+        printTasksCount();
     }
     private static void getDescriptionAndTime(String separator) {
         description = getSubStringBeforeSeparator(commandInfo, separator).trim();
@@ -135,7 +148,7 @@ public class Duke {
 
     private static void changeTaskStatus(boolean isMarkAsDone) {
         int taskIndex = Integer.parseInt(commandInfo) - 1;
-        Task targetTask = tasks[taskIndex];
+        Task targetTask = tasks.get(taskIndex);
         if (isMarkAsDone) {
             targetTask.setIsDone(true);
             System.out.println(MARK_TASK_DONE_MESSAGE);
@@ -151,9 +164,6 @@ public class Duke {
         System.exit(0);
     }
 
-    private static void initTaskList() {
-        tasks = new Task[CAPACITY];
-    }
     private static void printWelcomeMessage() {
         System.out.println(INTRO_MESSAGE);
         System.out.println(QUERY_COMMAND_MESSAGE);
@@ -162,11 +172,13 @@ public class Duke {
         return SCANNER.nextLine();
     }
 
-
+    private static void printTasksCount() {
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
     private static void listTasks() {
         System.out.println(PRINT_LIST_MESSAGE);
-        for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks[i].getTaskInfo());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks.get(i).getTaskInfo());
         }
     }
 
