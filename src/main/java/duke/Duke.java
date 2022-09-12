@@ -14,27 +14,21 @@ public class Duke {
     private static final String fileFolder = "data";
 
     public static void main(String[] args) throws UnknownInputException, IOException {
-        //create file if needed
-
+        //create folder if needed
         File folder = new File(fileFolder);
         if (!folder.exists()) {
             folder.mkdir();
         }
 
+        //create file if needed
         File f = new File(filePath);
         if (!f.exists()) {
             f.createNewFile();
         }
 
-        //System.out.println("full path: " + f.getAbsolutePath());
-        //System.out.println("file exists?: " + f.exists());
-        //System.out.println("is Directory?: " + f.isDirectory());
-        //delete later
-
-
-
+        //create tasks arraylist from file
+        //tasks is an array list collection of task objects
         ArrayList<Task> tasks = new ArrayList<>();
-
         try {
             File dataFile = new File(filePath);
             Scanner scanner = new Scanner(dataFile);
@@ -69,7 +63,7 @@ public class Duke {
 
 
 
-        //rest
+        //Duke
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -77,8 +71,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
 
-        //tasks is an array list collection of task objects
-        //List<Task> tasks = new ArrayList<>();
+        //some initialization
         String input = " ";
         String description, numericString;
         Integer markedNum;
@@ -155,8 +148,6 @@ public class Duke {
                         appendToFile(filePath,d);
                         break;
 
-                        //StringIndexOutOfBoundsException
-
                     case "event":
                         if (splitInput.length == 1) {
                             throw new EmptyDescriptionException();
@@ -172,16 +163,15 @@ public class Duke {
 
                     case "delete":
                         System.out.println("Noted. I've removed this task: \n  " + tasks.get(Integer.parseInt(splitInput[1]) - 1));
-
                         tasks.remove(Integer.parseInt(splitInput[1]) - 1);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+                        // save
+                        writeToFile(filePath,tasks);
                         break;
 
                     case "blah":
                     case "idk":
                         throw new UnknownInputException();
-
-
 
                     default:
                         // other calls causes duke to add the user-input to tasks
