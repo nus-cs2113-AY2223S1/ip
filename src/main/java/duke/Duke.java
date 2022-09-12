@@ -1,22 +1,62 @@
 package duke;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class Duke {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void addTask(Task task) {
+    public static void addTask(Task task, boolean isPrint) {
         taskList.add(task);
-        System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
-                task.print(), taskList.size());
+        if (isPrint) {
+            System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
+                    task.print(), taskList.size());
+        }
+    }
+
+    private static void loadFromFile(String path) throws FileNotFoundException {
+        File f = new File(path);
+        System.out.println("Path: " + f.getAbsolutePath());
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] words = s.nextLine().split("\\|");
+            switch (words[0]) {
+            case "T":
+                Todo todo = new Todo(words[2], words[1].equals("1"));
+                addTask(todo, false);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(words[2], words[1].equals("1"), words[3]);
+                addTask(deadline, false);
+                break;
+            case "E":
+                Event event = new Event(words[2], words[1].equals("1"), words[3]);
+                addTask(event, false);
+                break;
+            default:
+                System.out.println("Error reading data from file: Invalid format");
+                break;
+            }
+        }
+    }
+
+    private static void writeToFile(String path) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        for (int i = 0; i < taskList.size(); i++) {
+            fw.write(taskList.get(i).printToFile());
+        }
+        fw.close();
     }
 
     public  static  void todo(String line, String[] words) {
         if (words.length >= 2) {
             String task = line.substring(line.indexOf(' ') + 1);
-            Todo todo = new Todo(task);
-            addTask(todo);
+            Todo todo = new Todo(task, false);
+            addTask(todo, true);
         } else {
             System.out.println("Usage: todo <task>");
         }
@@ -26,9 +66,9 @@ public class Duke {
         try {
             String task = line.substring(line.indexOf(' ')+1, line.indexOf("/by")-1);
             String date = line.substring(line.indexOf("/by")+4);
-            Deadline deadline = new Deadline(task, date);
-            addTask(deadline);
-        } catch (StringIndexOutOfBoundsException ex) {
+            Deadline deadline = new Deadline(task, false, date);
+            addTask(deadline, true);
+        } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
             System.out.println("Usage: deadline <task> /by <date>");
         }
     }
@@ -37,9 +77,9 @@ public class Duke {
         try {
             String task = line.substring(line.indexOf(' ')+1, line.indexOf("/at")-1);
             String date = line.substring(line.indexOf("/at")+4);
-            Event event = new Event(task, date);
-            addTask(event);
-        } catch (StringIndexOutOfBoundsException ex) {
+            Event event = new Event(task, false, date);
+            addTask(event, true);
+        } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
             System.out.println("Usage: event <task> /at <date>");
         }
     }
@@ -86,7 +126,7 @@ public class Duke {
                         System.out.printf("Error: enter an integer between 1 - %d\n", taskList.size());
                     }
                 }
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException numberFormatException) {
                 System.out.println("Usage: mark <integer>");
             }
         } else {
@@ -126,6 +166,30 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+
+        // Read file
+        String pathname = new String("data/duke.txt");
+        try {
+            loadFromFile(pathname);
+        } catch (FileNotFoundException fileNotFoundException) {
+            System.out.println("Error reading data from file: File or directory does not exist. Creating new file.");
+            try {
+                File file = new File(pathname);
+                if (!file.getParentFile().mkdirs()) {
+                    System.out.println("Error creating parent folder(s)");
+                }
+                if (file.createNewFile()) {
+                    System.out.printf("File created at %s\n", pathname);
+                } else {
+                    System.out.printf("File already exists at %s\n", pathname);
+                }
+            } catch (IOException ioException) {
+                System.out.printf("Error creating file: Could not create file at %s\n", pathname);
+                ioException.printStackTrace();
+            }
+        }
+
+        // Wait for input
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -134,11 +198,16 @@ public class Duke {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         printLine();
 
-        // Wait for input
+        // Handle user input
         while (true) {
             line = in.nextLine();
             printLine();
             if (line.equals("bye")) {
+                try {
+                    writeToFile(pathname);
+                } catch (IOException ioException) {
+                    System.out.println("Error writing to file");
+                }
                 bye();
                 break;
             } else if (!line.equals("")) {
@@ -161,7 +230,7 @@ public class Duke {
                 case "list":
                     try {
                         list();
-                    } catch (ArrayEmptyException e) {
+                    } catch (ArrayEmptyException arrayEmptyException) {
                         System.out.println("No items in list! Type something to add to list.");
                     }
                     break;
