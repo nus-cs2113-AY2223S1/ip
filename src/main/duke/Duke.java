@@ -4,14 +4,16 @@ import main.duke.exception.DukeException;
 import main.duke.task.Deadline;
 import main.duke.task.Event;
 import main.duke.task.Task;
+import org.w3c.dom.ls.LSOutput;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Duke {
 
     /* Variables for Duke's use */
-    private static Task[] taskList;
+    private static ArrayList<Task> taskList;
     private static int listIndex;
     private static Scanner scanner;
 
@@ -42,7 +44,7 @@ public class Duke {
     /* Initialize variables for Duke's use */
     private static void init() {
         scanner = new Scanner(System.in);
-        taskList = new Task[TASK_LIMIT];
+        taskList = new ArrayList<Task>();
         listIndex = 0;
     }
 
@@ -79,18 +81,20 @@ public class Duke {
             boolean matchesMark = markPattern.matcher(input).find();
             Pattern unmarkPattern = Pattern.compile("^unmark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
             boolean matchesUnmark = unmarkPattern.matcher(input).find();
-
+            Pattern deletePattern = Pattern.compile("^delete[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
+            boolean matchesDelete = deletePattern.matcher(input).find();
             //if the item is to be marked or unmarked, follow the correct steps to extract the index
             if (matchesMark || matchesUnmark) {
                 markOrUnmark(matchesMark, input);
-
-                //Otherwise, create a new task
+            } else if (matchesDelete) {
+                deleteTask(input);
+            //Otherwise, create a new task
             } else {
                 try {
                     Task task = createTask(input);
                     System.out.println(H_LINE + INDENT
                             + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
-                    taskList[listIndex] = task;
+                    taskList.add(listIndex, task);
                     listIndex++;
                 } catch (DukeException dukeException) {
                     System.out.println(H_LINE + INDENT
@@ -166,11 +170,31 @@ public class Duke {
         return index;
     }
 
+    /* Delete a task */
+    private static void deleteTask(String input) {
+        System.out.println(H_LINE + INDENT + "Deleting...");
+        int deleteIndex = "delete".length();
+        String number = input.substring(deleteIndex).replaceAll(" ", "");
+        int index = Integer.valueOf(number) - 1;
+        if (index >= listIndex) {
+            System.out.print(INDENT + "Trying to delete an item outside of list length? Failed.");
+        } else if (index < 0) {
+            System.out.print(INDENT + "Trying to delete an item that is too small? Failed.");
+        } else {
+            taskList.remove(index);
+            System.out.print(INDENT + "Success!");
+            listIndex--;
+            printList();
+        }
+        System.out.println(H_LINE + "\n");
+    }
+
+
     /* Either mark or unmark a task */
     private static void markOrUnmark(boolean toMark, String input) {
         String markString = toMark ? "Mark" : "Unmark";
         System.out.print(H_LINE + INDENT + markString + "ing...");
-        int markIndex = toMark ? 4 : 6;
+        int markIndex = toMark ? "mark".length() : "unmark".length();
         String number = input.substring(markIndex).replaceAll(" ", "");
         int index = Integer.valueOf(number) - 1;
         if (index >= listIndex) {
@@ -179,9 +203,9 @@ public class Duke {
             System.out.print(INDENT + "Trying to " + markString + " an item that is too small? Failed.");
         } else {
             if (toMark) {
-                taskList[index].mark();
+                taskList.get(index).mark();
             } else {
-                taskList[index].unmark();
+                taskList.get(index).unmark();
             }
             System.out.print(INDENT + "Success!");
             printList();
@@ -201,7 +225,7 @@ public class Duke {
         }
         System.out.print(INDENT + "Here's your current task list:");
         for (int i = 0; i < listIndex; i++) {
-            Task task = taskList[i];
+            Task task = taskList.get(i);
             System.out.print(INDENT + (i + 1) + "." + task);
         }
     }
