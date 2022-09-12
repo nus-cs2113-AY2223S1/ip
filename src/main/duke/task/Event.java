@@ -14,6 +14,10 @@ public class Event extends Task {
         return super.toString() + "(at: " + date + ")";
     }
 
+    public String dataString() {
+        return super.toString() + "/at " + date;
+    }
+
     public String getDate() {
         return date;
     }

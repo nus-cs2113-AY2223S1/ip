@@ -5,6 +5,10 @@ import main.duke.task.Deadline;
 import main.duke.task.Event;
 import main.duke.task.Task;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -30,11 +34,17 @@ public class Duke {
         //Print introduction to Duke
         introduction();
 
+        //Load in tasks if a data file exists, and show them to the user
+        loadTasksOrError();
+
         //Re-iterate what the user types, store in list, and unmark / mark
         while (!respondToUser()) {
         }
 
-        //If the user exits, salute them goodbye
+        //Once the user exists, save the current lists of tasks in a data file
+        saveTasksOrError();
+
+        //Salute them goodbye
         goodBye();
 
     }
@@ -48,13 +58,13 @@ public class Duke {
 
     /* Print introduction to Duke */
     private static void introduction() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "     ____        _        \n"
+                + "    |  _ \\ _   _| | _____ \n"
+                + "    | | | | | | | |/ / _ \\\n"
+                + "    | |_| | |_| |   <  __/\n"
+                + "    |____/ \\__,_|_|\\_\\___|\n";
         String introText = "\n    Hello! I'm Duke\n    What can I do for you?";
-        String introduction = logo + H_LINE + introText + H_LINE + "\n";
+        String introduction = logo + H_LINE + introText + H_LINE;
         System.out.println(introduction);
     }
 
@@ -84,14 +94,18 @@ public class Duke {
             if (matchesMark || matchesUnmark) {
                 markOrUnmark(matchesMark, input);
 
-                //Otherwise, create a new task
+            //Otherwise, create a new task
             } else {
                 try {
+                    if (listIndex > TASK_LIMIT) {
+                        throw new DukeException("Adding this task exceeds the task limit of " + TASK_LIMIT);
+                    }
                     Task task = createTask(input);
                     System.out.println(H_LINE + INDENT
                             + "Success!" + INDENT + "Added: " + (listIndex + 1) + ". " + task + H_LINE + "\n");
                     taskList[listIndex] = task;
                     listIndex++;
+
                 } catch (DukeException dukeException) {
                     System.out.println(H_LINE + INDENT
                             + dukeException.getMessage() + INDENT + "Task not added: "
@@ -208,8 +222,147 @@ public class Duke {
 
     /* Print a goodbye message from the Duke */
     private static void goodBye() {
-        String goodByeText = "\n    Bye. Hope to see you again soon!";
-        String goodBye = H_LINE + goodByeText + H_LINE;
-        System.out.println(goodBye);
+        String goodByeText = "    Bye. Hope to see you again soon!" + H_LINE;
+        System.out.print(goodByeText);
+    }
+
+    private static void loadTasksOrError() {
+        try {
+            loadTasks();
+            System.out.print(INDENT + "Loaded tasks from data file successfully!");
+            printList();
+            System.out.println(H_LINE + "\n");
+        } catch (DukeException dukeException) {
+            System.out.println(INDENT
+                    + dukeException.getMessage() + INDENT + "No tasks loaded." + H_LINE + "\n");
+        }
+
+    }
+
+    private static void loadTasks() throws DukeException {
+        if (foundTaskFile()) {
+            System.out.print(H_LINE + INDENT + "Found a data file! Loading it in...");
+            try {
+                File taskFile = new File("./data/tasks.txt");
+                Scanner scanner = new Scanner(taskFile);
+                if (!scanner.hasNext()) {
+                    throw new DukeException("Found an empty file!");
+                }
+                String firstText = scanner.nextLine();
+                if (!firstText.equals("start")) {
+                    throw new DukeException("File is not formatted correctly (could not find start).");
+                }
+                String taskString = scanner.nextLine();
+                while (!taskString.equals("finish")) {
+                    convertStringToTask(taskString);
+                    if (listIndex >= TASK_LIMIT) {
+                        throw new DukeException("File is not formatted correctly (could not find end). Or, tried to add too many tasks.");
+                    }
+                    taskString = scanner.nextLine();
+                }
+            } catch (FileNotFoundException fileException) {
+                throw new DukeException("Unable to load the data text file.");
+            }
+        } else {
+            System.out.print(H_LINE);
+            throw new DukeException("No previous data found!");
+        }
+    }
+
+    private static void convertStringToTask(String taskString) throws DukeException {
+        Pattern taskPattern = Pattern.compile("^\\[[TDE]\\]\\[[X\\s]\\]\\s+.+$");
+        boolean matchesTask = taskPattern.matcher(taskString).find();
+        if (!matchesTask) {
+            throw new DukeException("File is not formatted correctly (could not properly read tasks) for task: " + taskString);
+        }
+        Task task;
+        String taskType = taskString.substring(1, 2);
+        String mark = taskString.substring(4, 5);
+        int descriptionIndex = "[T][ ] ".length();
+
+        switch (taskType) {
+        case "T":
+            task = createTodo("todo " + taskString.substring(descriptionIndex));
+            break;
+        case "D":
+            task = createDeadline("deadline " + taskString.substring(descriptionIndex));
+            break;
+        case "E":
+            task = createEvent("event " + taskString.substring(descriptionIndex));
+            break;
+        default:
+            throw new DukeException("An incorrectly formatted task was passed in to the data: " + taskString);
+        }
+
+        switch (mark) {
+        case "X":
+            task.mark();
+            break;
+        case " ":
+            task.unmark();
+            break;
+        default:
+            throw new DukeException("An incorrectly marked task was passed in to the data: " + taskString);
+        }
+
+        taskList[listIndex] = task;
+        listIndex++;
+    }
+
+    private static boolean foundTaskFile() {
+        File dataFolder = new File("./data");
+        if (!dataFolder.exists()) {
+            return false;
+        }
+        File taskFile = new File("./data/tasks.txt");
+        if (!taskFile.exists()) {
+            return false;
+        }
+        return true;
+    }
+
+    private static void saveTasksOrError() {
+        try {
+            saveTasks();
+        } catch (DukeException dukeException) {
+            System.out.println(H_LINE + INDENT
+                    + dukeException.getMessage() + INDENT + "Unable to save tasks." + H_LINE + "\n");
+        }
+
+        System.out.println(H_LINE + INDENT + "Saved tasks to data file successfully!");
+    }
+
+    private static void saveTasks() throws DukeException {
+        try {
+            File taskFile = ensureExists();
+            FileWriter fw = new FileWriter(taskFile);
+            fw.write("start" + System.lineSeparator());
+            for (int i = 0; i < listIndex; i++) {
+                fw.write(taskList[i].dataString() + System.lineSeparator());
+            }
+            fw.write("finish");
+            fw.close();
+        } catch (DukeException dukeException) {
+            throw dukeException;
+        } catch (IOException e) {
+            throw new DukeException("Unknown error with saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static File ensureExists() throws DukeException {
+
+        File dataFolder = new File("./data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+        File taskFile = new File("./data/tasks.txt");
+        if (!taskFile.exists()) {
+            try {
+                taskFile.createNewFile();
+            } catch (Exception e) {
+                throw new DukeException("Unable to create a data text file.");
+            }
+        }
+        return taskFile;
     }
 }

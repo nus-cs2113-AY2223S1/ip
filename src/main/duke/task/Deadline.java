@@ -14,6 +14,10 @@ public class Deadline extends Task {
         return super.toString() + "(by: " + dueDate + ")";
     }
 
+    public String dataString() {
+        return super.toString() + "/by " + dueDate;
+    }
+
     public String getDueDate() {
         return dueDate;
     }
