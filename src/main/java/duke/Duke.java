@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,24 +13,24 @@ public class Duke {
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
 
-    private static void markCommand(String input, int count, Task[] tasks) throws DukeException {
+    private static void markCommand(String input, int count, ArrayList<Task> tasks) throws DukeException {
         String[] words = input.split(" ");
         int num = Integer.parseInt(words[1]);
         if (num <= (count)) {
-            tasks[num - 1].markDone();
-            System.out.println("wa so fast done liao\n" + SPACER + tasks[num - 1].toString() + System.lineSeparator()
+            tasks.get(num - 1).markDone();
+            System.out.println("wa so fast done liao\n" + SPACER + tasks.get(num - 1).toString() + System.lineSeparator()
                     + DIVIDER);
         } else {
             throw new DukeException();
         }
     }
 
-    private static void unmarkCommand(String input, int count, Task[] tasks) throws DukeException {
+    private static void unmarkCommand(String input, int count, ArrayList<Task> tasks) throws DukeException {
         String[] words = input.split(" ");
         int num = Integer.parseInt(words[1]);
         if (num <= (count)) {
-            tasks[num - 1].markUndone();
-            System.out.println("can make up your mind\n" + SPACER + tasks[num - 1].toString() + System.lineSeparator()
+            tasks.get(num-1).markUndone();
+            System.out.println("can make up your mind\n" + SPACER + tasks.get(num - 1).toString() + System.lineSeparator()
                     + DIVIDER);
         } else {
             throw new DukeException();
@@ -64,7 +65,7 @@ public class Duke {
         return new Event(description, at);
     }
 
-    private static void listCommand(Task[] tasks) {
+    private static void listCommand(ArrayList<Task> tasks) {
         int counter = 1;
         System.out.println("come uncle show you your tasks");
         for (Task task : tasks) {
@@ -77,8 +78,21 @@ public class Duke {
         System.out.println(DIVIDER);
     }
 
-    private static void printStatement(Task[] tasks, int count) {
-        System.out.println("add task liao" + System.lineSeparator() + SPACER + tasks[count].toString()
+    private static void deleteCommand(ArrayList<Task> tasks, String input, int count) throws DukeException{
+        String[] words = input.split(" ");
+        int num = Integer.parseInt(words[1]);
+        if (num <= count) {
+            System.out.println("delete task liao" + System.lineSeparator() + SPACER + tasks.get(num - 1).toString()
+                    + System.lineSeparator() + "you still have " + (count - 1) + " tasks left" + System.lineSeparator()
+                    + DIVIDER);
+            tasks.remove(num - 1);
+        } else {
+            throw new DukeException();
+        }
+    }
+
+    private static void printStatement(ArrayList<Task> tasks, int count) {
+        System.out.println("add task liao" + System.lineSeparator() + SPACER + tasks.get(count).toString()
                 + System.lineSeparator() + "you still have " + (count + 1) + " tasks left" + System.lineSeparator()
                 + DIVIDER);
     }
@@ -102,7 +116,8 @@ public class Duke {
         System.out.println("What you want?");
 
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        //Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int matchCount = 0;
         boolean run = true;
         while (run) {
@@ -122,7 +137,7 @@ public class Duke {
                 try {
                     markCommand(line, matchCount, tasks);
                 } catch(DukeException e) {
-                    System.out.println("you only have " + (matchCount) + "tasks");
+                    System.out.println("you only have " + (matchCount) + " tasks");
                 }
 
                 break;
@@ -130,12 +145,12 @@ public class Duke {
                 try {
                     unmarkCommand(line, matchCount, tasks);
                 } catch (DukeException e) {
-                    System.out.println("you only have " + (matchCount) + "tasks");
+                    System.out.println("you only have " + (matchCount) + " tasks");
                 }
                 break;
             case "deadline":
                 try {
-                    tasks[matchCount] = deadlineCommand(line);
+                    tasks.add(deadlineCommand(line));
                     printStatement(tasks, matchCount);
                     matchCount += 1;
                 } catch(DukeException e) {
@@ -144,7 +159,7 @@ public class Duke {
                 break;
             case "todo":
                 try {
-                    tasks[matchCount] = todoCommand(line);
+                    tasks.add(todoCommand(line));
                     printStatement(tasks, matchCount);
                     matchCount += 1;
                 } catch (DukeException e) {
@@ -153,11 +168,19 @@ public class Duke {
                 break;
             case "event":
                 try {
-                    tasks[matchCount] = eventCommand(line);
+                    tasks.add(eventCommand(line));
                     printStatement(tasks, matchCount);
                     matchCount += 1;
                 } catch(DukeException e) {
                     System.out.println("Please key in a valid deadline input (missing '/' or missing description)");
+                }
+                break;
+            case "delete":
+                try {
+                    deleteCommand(tasks, line, matchCount);
+                    matchCount -= 1;
+                } catch(DukeException e) {
+                    System.out.println("you only have " + matchCount + " tasks");
                 }
                 break;
             default:
