@@ -11,6 +11,9 @@ import tasks.Todo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Duke {
 
@@ -18,6 +21,94 @@ public class Duke {
     public static void greetUser() {
         String line = "------------------------\n";
         System.out.println(line + "Hello! I'm Juke!\nWhat can I do for you?\n" + line);
+    }
+
+    public static File getMakeFile() {
+        try {
+            File folder = new File("data/");
+            File file = new File("data/stored.txt");
+            
+            if (!folder.exists() && !folder.isDirectory()) {
+                // need to create folder as determined by the path string
+                folder.mkdirs();
+                file.createNewFile();
+                return file;
+            }
+            else if (!file.exists() && folder.isDirectory()) {
+                // need to create file as determined by the path string
+                file.createNewFile();
+                return file;
+            }
+            return file;
+
+        } catch (Exception e) {
+            System.out.println("File i/o error.");
+            return null;
+        }
+    }
+
+    // ArrayLists are passed by reference
+    public static void insertPreviousItems(File f, ArrayList<Task> tasks) {
+        try {
+            Scanner fileScanner = new Scanner(f);
+        
+            while (fileScanner.hasNext()) {
+                String lineInput = fileScanner.nextLine();
+                String[] words = lineInput.split("\\|", 4);
+
+                switch (words[0]) {
+                case "T":
+                    Todo newTodo = new Todo(words[2]);
+                    if (words[1].equals("Y")) {
+                        newTodo.markDone();
+                    }
+                    tasks.add(newTodo);
+                    break;
+
+                case "E":
+                    Event newEvent = new Event(words[2], words[3]);
+                    if (words[1].equals("Y")) {
+                        newEvent.markDone();
+                    }
+                    tasks.add(newEvent);
+                    break;
+
+                case "D":
+                    Deadline newDeadline = new Deadline(words[2], words[3]);
+                    if (words[1].equals("Y")) {
+                        newDeadline.markDone();
+                    }
+                    tasks.add(newDeadline);
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            fileScanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("error accessing file");
+        }    
+    }
+
+    public static void updateFile(ArrayList<Task> tasks) { 
+        try {
+            File f = new File("data/stored.txt");
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+
+            FileWriter fw = new FileWriter(f);
+            for (int i = 0; i < tasks.size(); i++) {
+                fw.write(tasks.get(i).createFileString() + "\n");
+            }
+
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("File i/o error");
+        }
     }
 
     public static void listTasks(ArrayList<Task> tasks) {
@@ -48,13 +139,16 @@ public class Duke {
 
         // VARS
         String userInput = "";
-        Scanner scanObj = new Scanner(System.in);
+        Scanner userInputScanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<Task>();
+
+        // READ CURR ITEMS FROM FILE
+        insertPreviousItems(getMakeFile(), tasks);
 
         // JUKE LOGIC
         while (!userInput.equals("bye")) {
             // Read user input, splits it into 2 strings- the command and the remaining (if exists)
-            userInput = scanObj.nextLine();
+            userInput = userInputScanner.nextLine();
             String[] words = userInput.split(" ", 2);
             
             // variables for Tasks with timestamps
@@ -68,6 +162,8 @@ public class Duke {
                 break;
 
             case EXIT_TRIGGER:
+                // save latest state to file
+                updateFile(tasks);
                 break;
 
             case TODO_TRIGGER:
@@ -142,6 +238,7 @@ public class Duke {
                             listTasks(tasks);
                         }
                     } 
+                    break;
                 } catch (InvalidMarkException m){
                     System.out.println("Can't mark: Out of bounds value entered!");
                     break;
@@ -160,6 +257,7 @@ public class Duke {
                             listTasks(tasks);
                         }
                     } 
+                    break;
                 } catch (InvalidUnmarkException u) {
                     System.out.println("Can't unmark: Out-of-bounds value entered!");
                     break;
@@ -176,7 +274,7 @@ public class Duke {
             }
         }
 
-        scanObj.close();
+        userInputScanner.close();
     }
 
     public static void printExitGreeting() {
