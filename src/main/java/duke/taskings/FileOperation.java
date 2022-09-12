@@ -1,4 +1,4 @@
-package duke;
+package duke.taskings;
 
 import duke.taskings.Task;
 import duke.taskings.Todo;

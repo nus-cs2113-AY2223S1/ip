@@ -5,9 +5,8 @@ import duke.taskings.Deadline;
 import duke.taskings.Event;
 import duke.taskings.Task;
 import duke.taskings.Todo;
-import duke.FileOperation;
+import duke.taskings.FileOperation;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,7 +65,6 @@ public class Duke {
 
         //stores the number of words in the user's string input.
         int numOfWords;
-
 
         String inData;
         Scanner scan = new Scanner(System.in);
@@ -175,7 +173,7 @@ public class Duke {
                     case "todo":
                         tasks.add(new Todo("T", taskDescription, false));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
+                        System.out.println(tasks.get(tasks.size() - 1));
                         printNumOfTasks(tasks.size());
                         break;
                     case "deadline":
@@ -190,7 +188,7 @@ public class Duke {
 
                         tasks.add(new Deadline("D", taskDescription, false, deadline));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
+                        System.out.println(tasks.get(tasks.size() - 1));
                         printNumOfTasks(tasks.size());
                         break;
 
@@ -204,7 +202,7 @@ public class Duke {
                         }
                         tasks.add(new Event("E", taskDescription, false, eventPeriod));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
+                        System.out.println(tasks.get(tasks.size() - 1));
                         printNumOfTasks(tasks.size());
                         break;
                     default:
