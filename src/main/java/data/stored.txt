@@ -1,3 +1,2 @@
-T|Y|do
 D|N|hello| sun
-E|N|ok| hfh
+E|Y|ok| hfh
