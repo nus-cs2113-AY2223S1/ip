@@ -1,2 +1,0 @@
-D|N|hello| sun
-E|Y|ok| hfh

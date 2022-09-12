@@ -24,8 +24,8 @@ public class Duke {
 
     public static File getMakeFile() {
         try {
-            File folder = new File("data/");
-            File file = new File("data/stored.txt");
+            File folder = new File("../data/");
+            File file = new File("../data/stored.txt");
             
             if (!folder.exists() && !folder.isDirectory()) {
                 // need to create folder as determined by the path string
@@ -93,7 +93,7 @@ public class Duke {
 
     public static void updateFile(ArrayList<Task> tasks) { 
         try {
-            File f = new File("data/stored.txt");
+            File f = new File("../data/stored.txt");
             if (f.exists()) {
                 f.delete();
             }
