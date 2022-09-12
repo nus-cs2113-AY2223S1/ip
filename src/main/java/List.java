@@ -1,10 +1,16 @@
 public class List {
+    public static final int arraySize = 100;
     private static int amountOfItems = 0;
     private static Task[] tasks;
-
+    public static final String deadline = "deadline";
+    public static final String todo = "todo";
+    public static final String event = "event";
+    public static final String by = " /by ";
+    public static final String at = " /at ";
+    public static final String space = " ";
 
     public List() {
-        tasks = new Task[100];
+        tasks = new Task[arraySize];
     }
 
     public int getListSize() {
@@ -12,50 +18,63 @@ public class List {
     }
 
     public void addTask(String input) {
-        if (input.contains("/by") || input.split(" ")[0].equals("deadline")) {
-            if (input.split(" ", 2)[0].equals("deadline")) {
-                input = input.split(" ", 2)[1];
-            }
-            String[] details = input.split(" /by ");
-            tasks[amountOfItems] = new Deadline(details[0], details[1]);
-            tasks[amountOfItems] = new Deadline(details[0], details[1]);
-        } else if (input.contains("/at") || input.split(" ")[0].equals("event")) {
-            if (input.split(" ", 2)[0].equals("event")) {
-                input = input.split(" ", 2)[1];
-            }
-            String[] details = input.split(" /at ");
-            tasks[amountOfItems] = new Event(details[0], details[1]);
-        } else {
-            if (input.split(" ", 2)[0].equals("todo")) {
-                input = input.split(" ", 2)[1];
-            }
-            tasks[amountOfItems] = new Todo(input);
+        try{
+            translateTask(input);
+            printTaskAdd();
+        } catch (DukeException e){
+            Message.printError();
         }
-        Message.printingHorizontalLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[amountOfItems]);
-        System.out.println("Now you have " + (amountOfItems + 1) + " tasks in the list.");
-        Message.printingHorizontalLine();
-        amountOfItems++;
     }
 
     public void printingList() {
-        Message.printingHorizontalLine();
+        Message.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < amountOfItems; i++) {
             System.out.print(i + 1 + ". ");
             System.out.println(tasks[i]);
         }
-        Message.printingHorizontalLine();
+        Message.printHorizontalLine();
     }
 
-    public void markingItem(int i) {
-        tasks[i-1].markDone();
+    public void markItemDone(int i) {
+        tasks[i - 1].markDone();
     }
 
-    public void unmarkingItem(int i) {
-        tasks[i-1].unmarkDone();
+    public void unmarkItemDone(int i) {
+        tasks[i - 1].unmarkDone();
     }
 
+    public void translateTask(String input) throws DukeException {
+        String[] divideByFirstSpace = input.split(space, 2);
+        if (divideByFirstSpace.length < 2 || divideByFirstSpace[1].equals("")){
+            throw new DukeException();
+        }
+        switch (divideByFirstSpace[0]) {
+            case deadline: {
+                String[] details = divideByFirstSpace[1].split(by);
+                tasks[amountOfItems] = new Deadline(details[0], details[1]);
+                break;
+            }
+            case event: {
+                String[] details = divideByFirstSpace[1].split(at);
+                tasks[amountOfItems] = new Event(details[0], details[1]);
+                break;
+            }
+            case todo:
+                tasks[amountOfItems] = new Todo(divideByFirstSpace[1]);
+                break;
+            default:
+                throw new DukeException();
+        }
+    }
+
+    public void printTaskAdd() {
+        Message.printHorizontalLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks[amountOfItems]);
+        System.out.println("Now you have " + (amountOfItems + 1) + " tasks in the list.");
+        Message.printHorizontalLine();
+        amountOfItems++;
+    }
 
 }

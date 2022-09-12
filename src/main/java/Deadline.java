@@ -1,14 +1,14 @@
 public class Deadline extends Task {
-    private String date;
+    private String byDate;
 
     public Deadline(String description, String date) {
         super(description);
-        this.date = date;
+        this.byDate = date;
     }
 
     @Override
     public String toString() {
-        return "[D][" + getMarking() + "] " + getDescription() + " (by: " + date + ")";
+        return "[D][" + getIsDoneMarking() + "] " + getDescription() + " (by: " + byDate + ")";
     }
 
 }

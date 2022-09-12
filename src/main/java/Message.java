@@ -1,25 +1,34 @@
 public class Message {
-    public static void printingGreeting() {
-        printingHorizontalLine();
-        System.out.println("Hello I'm Duke");
-        System.out.println("Hello what can I do for you?");
-        printingHorizontalLine();
+    public static final String helloMessage = "Hello I'm Duke\n what can I do for you?";
+    public static final String byeMessage = "Bye. Hope to see you soon";
+
+    public static void printGreeting() {
+        printHorizontalLine();
+        System.out.println(helloMessage);
+        printHorizontalLine();
     }
 
     public static void printingExit() {
-        printingHorizontalLine();
-        System.out.println("Bye. Hope to see you soon");
-        printingHorizontalLine();
+        printHorizontalLine();
+        System.out.println(byeMessage);
+        printHorizontalLine();
     }
 
-    public static void printingHorizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println("-----------------------------------------------------------");
     }
 
-    public static void printingEcho(String line) {
-        printingHorizontalLine();
-        System.out.println(line);
-        printingHorizontalLine();
+    public static void printHorizontalErrorLine() {
+        System.out.println("!                                                         !");
     }
+
+
+
+    public static void printError(){
+        printHorizontalErrorLine();
+        System.out.println("Invalid input, enter again in a correct format");
+        printHorizontalErrorLine();
+    }
+
 
 }

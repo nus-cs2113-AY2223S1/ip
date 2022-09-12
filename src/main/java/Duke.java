@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static List dukeList = new List();
+    private static int Invalid = -1;
+    public static final String markDone = "mark";
+    public static final String bye = "bye";
+    public static final String list = "list";
+    public static final String space = " ";
+    public static final String unmarkDone = "unmark";
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -9,32 +16,65 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        Message.printingGreeting();
+        Message.printGreeting();
         echo();
     }
 
     public static void echo(){
-        List dukeList = new List();
-        String[] words;
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        while (!line.equals("bye")){
-            words = line.split(" ");
-            if (line.equals("list")){
-                dukeList.printingList();
-            } else if (words[0].equals("unmark")){
-                int TaskNumber = Integer.parseInt(words[1]);
-                dukeList.unmarkingItem(TaskNumber);
-            } else if (words[0].equals("mark")) {
-                int TaskNumber = Integer.parseInt(words[1]);
-                dukeList.markingItem(TaskNumber);
-            } else {
-                dukeList.addTask(line);
+        while (!line.equals(bye)){
+            try {
+                translateInput(line);
+            } catch (DukeException e) {
+                Message.printError();
             }
             line = in.nextLine();
         }
         Message.printingExit();
+    }
+
+    public static int checkInteger(String[] wordsInput) throws DukeException {
+        if (wordsInput.length != 2 || wordsInput[1].equals("")){
+            throw new DukeException();
+        }
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(wordsInput[1]);
+        } catch (NumberFormatException e){
+            throw new DukeException();
+        }
+        if (taskNumber > dukeList.getListSize()){
+            throw new DukeException();
+        }
+        return taskNumber;
+    }
+
+    private static String[] splitInput(String input) throws DukeException {
+        String[] wordsInput;
+        try {
+            wordsInput = input.split(space);
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new DukeException();
+        }
+        return wordsInput;
+    }
+
+    public static void translateInput(String input) throws DukeException{
+        if (input.equals(list)) {
+            dukeList.printingList();
+            return;
+        }
+        String[] wordsInput = splitInput(input);
+        if (wordsInput[0].equals(unmarkDone)){
+            dukeList.unmarkItemDone(checkInteger(wordsInput));
+        } else if (wordsInput[0].equals(markDone)) {
+            dukeList.markItemDone(checkInteger(wordsInput));
+        } else {
+            dukeList.addTask(input);
+        }
+
     }
 
 }

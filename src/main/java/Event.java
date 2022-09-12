@@ -1,14 +1,14 @@
 public class Event extends Task {
-    private String date;
+    private String atDate;
 
     public Event(String description, String date) {
         super(description);
-        this.date = date;
+        this.atDate = date;
     }
 
     @Override
     public String toString() {
-        return "[E][" + getMarking() + "] " + getDescription() + " (at: " + date + ")";
+        return "[E][" + getIsDoneMarking() + "] " + getDescription() + " (at: " + atDate + ")";
     }
 
 }
