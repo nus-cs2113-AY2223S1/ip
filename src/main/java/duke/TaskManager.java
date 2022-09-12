@@ -1,9 +1,17 @@
 package duke;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class TaskManager {
     Task[] tasks;
+
+    public int getNumTasks() {
+        return numTasks;
+    }
+
     int numTasks;
     static final int MAX_NUM_TASKS = 100;
 
@@ -42,6 +50,11 @@ public class TaskManager {
         numTasks = -1;
     }
 
+    public Task getTask(int taskNumber) {
+        return tasks[taskNumber];
+    }
+
+
     public static boolean isValidCommand(String command) {
         for (String validCommand : LIST_OF_COMMANDS) {
             if (command.equals(validCommand))
@@ -63,6 +76,11 @@ public class TaskManager {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + (numTasks + 1) + " task(s) in the list.");
+    }
+
+
+    public void loadTask(Task task) {
+        tasks[++numTasks] = task;
     }
 
     public void markTaskAsDone(int taskNumber) {
@@ -98,6 +116,29 @@ public class TaskManager {
         for (int i = 0; i <= numTasks; i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks[i]);
         }
+    }
+
+    public static Task initialiseTaskFromParameters(String taskType, String description, String status, String time) {
+        Task task;
+        switch (taskType) {
+        case Todo.TASK_TYPE:
+            task = new Todo(description);
+            break;
+        case Event.TASK_TYPE:
+            task = new Event(description, time);
+            break;
+        case Deadline.TASK_TYPE:
+            task = new Deadline(description, time);
+            break;
+        default:
+            System.out.println("Error in data file!");
+            Duke.exit(-1);
+            return null;
+        }
+        if (status.equals(Task.getDoneIcon())) {
+            task.markAsDone();
+        }
+        return task;
     }
 
 }
