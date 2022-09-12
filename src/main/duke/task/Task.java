@@ -66,4 +66,8 @@ public class Task {
                 + getMark() + "] "
                 + getDescription();
     }
+
+    public String dataString() {
+        return toString();
+    }
 }
