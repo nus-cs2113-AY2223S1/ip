@@ -43,21 +43,6 @@ public class Response {
         }
     }
 
-    /*public static void deleteResponse(Task[] tasks, String description) {
-
-        int taskPosition;
-        try {
-            taskPosition = ExceptionHandler.handleNotInteger(description);
-            ExceptionHandler.handleOutOfBounds(tasks, taskPosition, "delete");
-        } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't think " + description + " is a number. :-(");
-        } catch (NullPointerException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, but you don't have " + description + " number of tasks. :-(");
-        }
-    }*/
-
     public static void listResponse(Task[] tasks, int taskNumber) {
 
         if (taskNumber == 0) {

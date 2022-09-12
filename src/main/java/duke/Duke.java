@@ -4,7 +4,6 @@ import duke.command.*;
 import duke.task.Task;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;

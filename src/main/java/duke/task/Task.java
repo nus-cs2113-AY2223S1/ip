@@ -6,7 +6,6 @@ public class Task {
 
     private static int taskNumber = 0;
 
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
