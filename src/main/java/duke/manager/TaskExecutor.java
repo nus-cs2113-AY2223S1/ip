@@ -48,7 +48,7 @@ public class TaskExecutor {
         Task task = TaskList.get(taskPosition);
         System.out.println("Noted. I've removed this task:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + task + System.lineSeparator()
-                + "Now you have " + taskList.getSize() + "tasks in the list.");
+                + "Now you have " + taskList.getSize() + " tasks in the list.");
         TaskList.deleteTask(taskPosition);
     }
 
@@ -69,6 +69,7 @@ public class TaskExecutor {
 
     public static void execute(TaskList taskList, Command c) {
         String keyword = c.getKeyword();
+        //System.out.println("got into execute");
         switch (keyword) {
         case "bye":
             c.setBye(true);
@@ -95,7 +96,7 @@ public class TaskExecutor {
             eventResponse(taskList, c.getArgument(true), c.getArgument(false));
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + keyword);
+            break;
         }
     }
 }

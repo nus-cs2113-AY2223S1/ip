@@ -33,7 +33,7 @@ public class ExceptionChecker {
     public static int checkIntegerType(String description) throws NumberFormatException {
         int taskPosition;
         try {
-            taskPosition = Integer.parseInt(description) - 1;
+            taskPosition = Integer.parseInt(description);
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }
@@ -80,7 +80,7 @@ public class ExceptionChecker {
         }
     }
 
-    public static void checkCommand(TaskList taskList, String input, String description, String time, String keyword) {
+    public static void isLegal(TaskList taskList, String input, String description, String time, String keyword) {
         int taskPosition;
         try {
             switch (keyword) {

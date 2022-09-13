@@ -5,11 +5,11 @@ public class MarkCommand extends Command {
     private String taskPosition;
 
     public MarkCommand() {
-
+        super();
     }
 
     @Override
-    public void setArgument(String argument) {
+    public void setArgument(String argument, int i) {
         this.taskPosition = argument;
     }
 

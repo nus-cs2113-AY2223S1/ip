@@ -55,13 +55,13 @@ public class UserInterface {
     public static void printAddTaskMessage(ArrayList taskList, Task newTask) {
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + newTask + System.lineSeparator()
-                + "Now you have " + taskList.size() + "tasks in the list.");
+                + "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public static void printDeleteTaskMessage(ArrayList taskList, Task newTask) {
         System.out.println("Here are the tasks in your list:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + newTask + System.lineSeparator()
-                + "Now you have " + taskList.size() + "tasks in the list.");
+                + "Now you have " + taskList.size() + " tasks in the list.");
     }
 
 }

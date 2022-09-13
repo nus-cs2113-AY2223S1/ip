@@ -1,15 +1,16 @@
 package duke.manager;
 
 import duke.command.*;
+import duke.exception.NoSuchCommandException;
 import duke.task.TaskList;
 
 import java.util.Scanner;
 
 public class Manager {
 
-    public static Command commandCreator(String input) {
+    public static Command commandCreator(String input) throws NoSuchCommandException {
         String keyword = Parser.getKeyword(input);
-        Command c = null;
+        Command c;
         switch (keyword) {
         case "bye":
         case "list":
@@ -34,8 +35,7 @@ public class Manager {
             c = new DeadlineCommand();
             break;
         default:
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            break;
+            throw new NoSuchCommandException();
         }
         return c;
     }
@@ -47,17 +47,22 @@ public class Manager {
         boolean isBye = false;
         while (!isBye) {
             // read in the next line of input
-            String input = UserInterface.readInput(in);
-            // initialise Command
-            Command c = commandCreator(input);
-            // parse
-            c = Parser.parse(taskList, c, input);
-            UserInterface.printBorderLines();
-            // execute
-            TaskExecutor.execute(taskList, c);
-            UserInterface.printBorderLines();
-            // change isBye state if command = "bye"
-            isBye = c.isBye();
+            try {
+                String input = UserInterface.readInput(in);
+                // initialise Command
+                UserInterface.printBorderLines();
+                Command c = commandCreator(input);
+                // parse
+                c = Parser.parse(taskList, c, input);
+                // execute
+                TaskExecutor.execute(taskList, c);
+                UserInterface.printBorderLines();
+                // change isBye state if command = "bye"
+                isBye = c.isBye();
+            } catch (NoSuchCommandException e) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                UserInterface.printBorderLines();
+            }
         }
         UserInterface.printGoodbye();
     }

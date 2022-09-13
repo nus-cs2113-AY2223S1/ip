@@ -64,7 +64,7 @@ public class Parser {
         case "event":
             return searchArray(splitInput, "/at");
         default:
-            return 0;
+            return -1;
         }
     }
 
@@ -72,6 +72,7 @@ public class Parser {
 
         // parse keyword portion
         String keyword = getKeyword(input);
+        c.setKeyword(keyword);
         String time = "";
         String description = "";
         String taskPosition;
@@ -80,36 +81,33 @@ public class Parser {
         switch (keyword) {
         case "bye":
         case "list":
-            ExceptionChecker.checkCommand(taskList, input, description, time, keyword);
+            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
             break;
         case "mark":
         case "unmark":
         case "delete":
-            ExceptionChecker.checkCommand(taskList, input, description, time, keyword);
+            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
             taskPosition = getTaskPosition(input);
-            c.setArgument(taskPosition);
+            c.setArgument(taskPosition, 0);
             break;
         case "todo":
             description = getDescription(input, -1);
-            ExceptionChecker.checkCommand(taskList, input, description, time, keyword);
-            c.setArgument(description);
+            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
+            c.setArgument(description, 0);
             break;
         case "event":
         case "deadline":
             flagPosition = getFlagPosition(input, keyword);
             description = getDescription(input, flagPosition);
             time = getTime(input, flagPosition);
-            ExceptionChecker.checkCommand(taskList, input, description, time, keyword);
-            c.setArgument(description);
-            c.setArgument(time);
+            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
+            c.setArgument(description, 0);
+            c.setArgument(time, 1);
+            // to convert argument to array
             break;
         default:
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             break;
         }
-
         return c;
     }
-
-
 }

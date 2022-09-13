@@ -3,10 +3,11 @@ package duke.command;
 public class ByeOrListCommand extends Command {
 
     public ByeOrListCommand() {
+        super();
     }
 
     @Override
-    public void setArgument(String argument) {
+    public void setArgument(String argument, int i) {
     }
 
     @Override

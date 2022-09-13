@@ -7,6 +7,10 @@ public abstract class Command {
 
     public String getKeyword() {
         return keyword;
+
+    }
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public boolean isBye() {
@@ -17,7 +21,9 @@ public abstract class Command {
         isBye = b;
     }
 
-    public abstract void setArgument(String argument);
+
+
+    public abstract void setArgument(String argument, int i);
 
     public abstract String getArgument(boolean b);
 
