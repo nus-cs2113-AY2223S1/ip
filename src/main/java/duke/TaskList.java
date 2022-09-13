@@ -21,6 +21,7 @@ public class TaskList {
     public Task findTask(int index) {
         return taskList.get(index);
     }
+
     public void addTask(Task toAdd) {
         taskList.add(toAdd);
     }
