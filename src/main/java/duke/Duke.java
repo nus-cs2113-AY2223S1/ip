@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /*
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
 
@@ -96,6 +97,7 @@ public class Duke {
                 + System.lineSeparator() + "you still have " + (count + 1) + " tasks left" + System.lineSeparator()
                 + DIVIDER);
     }
+    */
 
     public static void main(String[] args) {
 
@@ -117,12 +119,22 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         //Task[] tasks = new Task[100];
-        ArrayList<Task> tasks = new ArrayList<>();
-        int matchCount = 0;
+        //ArrayList<Task> tasks = new ArrayList<>();
+        //TaskList tasks1 = new TaskList();
+        //int matchCount = 0;
+
         boolean run = true;
         while (run) {
             String line = in.nextLine();
+            Command command = new Command(line);
+            if (line.equals("bye")) {
+                run = false;
+                System.out.println("bye bye");
+            } else {
+                command.handleCommand();
+            }
             //String[] words = line.split(" ");
+            /*
             String[] input = line.split(" ", 2);
             String mainCommand = input[0];
             switch (mainCommand) {
@@ -151,6 +163,7 @@ public class Duke {
             case "deadline":
                 try {
                     tasks.add(deadlineCommand(line));
+                    tasks1.addTask(deadlineCommand(line));
                     printStatement(tasks, matchCount);
                     matchCount += 1;
                 } catch(DukeException e) {
@@ -187,6 +200,8 @@ public class Duke {
                 System.out.println("Huh? What saying you?\n" + DIVIDER);
                 break;
             }
+
+             */
         }
     }
 }
