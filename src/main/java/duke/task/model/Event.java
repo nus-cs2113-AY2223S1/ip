@@ -25,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskManager.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description, this.datetime);
+        return String.join(TaskManager.FILE_STRING_SEPARATOR, "E", this.getStatusValue(), this.description, this.datetime);
     }
 }
