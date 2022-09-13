@@ -43,4 +43,9 @@ public abstract class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public String toSaveString() {
+        return (isDone ? "1" : "0") + "|" + description;
+
+    }
 }

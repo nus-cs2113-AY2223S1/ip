@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         DukeManager.print(" Hello! I'm Matthew\n" + " What can I do for you?");
-
+        DukeManager.load();
         while (true) {
             String line = in.nextLine();
             if (line.equals("bye")) {
@@ -26,7 +26,9 @@ public class Duke {
                 DukeManager.delete(line);
             } else {
                 DukeManager.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                continue;
             }
+            DukeManager.save();
         }
         DukeManager.print("Bye. Hope to see you again soon!");
     }

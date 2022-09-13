@@ -19,4 +19,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + this.at + ")";
     }
+
+    @Override
+    public String toSaveString() {
+        return "E|" + super.toSaveString() + "|" + at;
+    }
 }

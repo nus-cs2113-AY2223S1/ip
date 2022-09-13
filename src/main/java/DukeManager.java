@@ -1,18 +1,27 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.Scanner;
 
 public class DukeManager {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String ADD_CONFIRMATION_MESSAGE = "Got it. I've added this task:";
+    private static final Path directoryPath = Paths.get(".","data");
+    private static final Path filePath = Paths.get(".","data", "duke.txt");
     private static ArrayList<Task> inputs = new ArrayList<>();
 
     /**
      * Returns a string with formatted user inputs.
      *
-     * @param inputs list of user input.
      * @return Formatted string to print
      */
-    public static String formatList(ArrayList inputs) {
+
+    public static String formatList() {
         String formattedString = HORIZONTAL_LINE;
         for (int i = 0; i < inputs.size(); i++) {
             if (inputs.get(i) == null) {
@@ -24,12 +33,93 @@ public class DukeManager {
         return formattedString;
     }
 
+    public static String saveList() {
+        String formattedString = "";
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i) == null) {
+                break;
+            }
+            formattedString += inputs.get(i).toSaveString() + "\n";
+        }
+        return formattedString;
+    }
+
+    public static void checkExists() throws IOException {
+        boolean directoryExists = Files.exists(directoryPath);
+        boolean fileExists = Files.exists(filePath);
+        if (!directoryExists) {
+            Files.createDirectories(directoryPath);
+        }
+        if (!fileExists) {
+            Files.createFile(filePath);
+        }
+    }
+
+    public static void save() {
+        try {
+            checkExists();
+        } catch (IOException e) {
+            print("Something went wrong when trying to save: " + e.getMessage());
+            return;
+        }
+        String pathName = "./data/duke.txt";
+        try {
+            FileWriter fw = new FileWriter(pathName);
+            fw.write(saveList());
+            fw.close();
+        } catch (IOException e) {
+            print("☹ OOPS!!! Something went wrong when trying to save: " + e.getMessage());
+            return;
+        }
+    }
+
+    public static void load() {
+        if (Files.exists(directoryPath) && Files.exists(filePath)) {
+            File f = new File(String.valueOf(filePath)); // create a File for the given file path
+            Scanner s = null;
+            try {
+                s = new Scanner(f); // create a Scanner using the File as the source
+            } catch (FileNotFoundException e) {
+                print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+            }
+            while (s.hasNext()) {
+                String[] line = s.nextLine().split("\\|");
+                Task newTask = null;
+                if (line[0].equals("T")) {
+                    try {
+                        newTask = new Todo(line[2]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                } else if (line[0].equals("D")) {
+                    try {
+                        newTask = new Deadline(line[2], line[3]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                } else {
+                    try {
+                        newTask = new Event(line[2], line[3]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                }
+                if (line[1].equals("1")) {
+                    newTask.markAsDone();
+                } else {
+                    newTask.markAsNotDone();
+                }
+                inputs.add(newTask);
+            }
+        }
+    }
+
     public static void print(String string) {
         System.out.println(HORIZONTAL_LINE + string + "\n" + HORIZONTAL_LINE);
     }
 
     public static void list() {
-        System.out.println(formatList(inputs));
+        System.out.println(formatList());
     }
 
     public static void delete(String line) {
