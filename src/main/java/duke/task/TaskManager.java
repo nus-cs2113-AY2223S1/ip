@@ -143,6 +143,7 @@ public class TaskManager {
     public void saveTasks() {
         if (taskCount == 0) {
             System.out.println(Message.NO_TASKS_MESSAGE);
+            return;
         }
 
         Path directoryPath = Paths.get(FileHandler.HOME_DIRECTORY, "data");
