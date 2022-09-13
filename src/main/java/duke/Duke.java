@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -19,11 +21,11 @@ public class Duke {
         echo();
     }
 
-    public static void echo(){
+    public static void echo() {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        while (!line.equals(bye)){
+        while (!line.equals(bye)) {
             try {
                 translateInput(line);
             } catch (DukeException e) {
@@ -35,16 +37,16 @@ public class Duke {
     }
 
     public static int checkInteger(String[] wordsInput) throws DukeException {
-        if (wordsInput.length != 2 || wordsInput[1].equals("")){
+        if (wordsInput.length != 2 || wordsInput[1].equals("")) {
             throw new DukeException();
         }
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(wordsInput[1]);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new DukeException();
         }
-        if (taskNumber > dukeList.getListSize()){
+        if (taskNumber > dukeList.getListSize()) {
             throw new DukeException();
         }
         return taskNumber;
@@ -54,19 +56,19 @@ public class Duke {
         String[] wordsInput;
         try {
             wordsInput = input.split(space);
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException();
         }
         return wordsInput;
     }
 
-    public static void translateInput(String input) throws DukeException{
+    public static void translateInput(String input) throws DukeException {
         if (input.equals(list)) {
             dukeList.printList();
             return;
         }
         String[] wordsInput = splitInput(input);
-        if (wordsInput[0].equals(unmarkDone)){
+        if (wordsInput[0].equals(unmarkDone)) {
             dukeList.unmarkItemDone(checkInteger(wordsInput));
         } else if (wordsInput[0].equals(markDone)) {
             dukeList.markItemDone(checkInteger(wordsInput));

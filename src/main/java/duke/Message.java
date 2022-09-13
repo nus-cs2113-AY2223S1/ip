@@ -1,3 +1,4 @@
+package duke;
 public class Message {
     public static final String helloMessage = "Hello I'm Duke\n what can I do for you?";
     public static final String byeMessage = "Bye. Hope to see you soon";

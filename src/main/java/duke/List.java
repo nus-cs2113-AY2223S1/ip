@@ -1,3 +1,4 @@
+package duke;
 public class List {
     public static final int arraySize = 100;
     private static int amountOfItems = 0;
