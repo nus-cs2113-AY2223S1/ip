@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static List dukeList = new List();
-    private static int Invalid = -1;
+    private static final List dukeList = new List();
     public static final String markDone = "mark";
     public static final String bye = "bye";
     public static final String list = "list";
@@ -63,7 +62,7 @@ public class Duke {
 
     public static void translateInput(String input) throws DukeException{
         if (input.equals(list)) {
-            dukeList.printingList();
+            dukeList.printList();
             return;
         }
         String[] wordsInput = splitInput(input);
@@ -74,7 +73,6 @@ public class Duke {
         } else {
             dukeList.addTask(input);
         }
-
     }
 
 }

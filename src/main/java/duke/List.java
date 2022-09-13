@@ -1,7 +1,7 @@
 public class List {
     public static final int arraySize = 100;
     private static int amountOfItems = 0;
-    private static Task[] tasks;
+    private static duke.task.Task[] tasks;
     public static final String deadline = "deadline";
     public static final String todo = "todo";
     public static final String event = "event";
@@ -10,7 +10,7 @@ public class List {
     public static final String space = " ";
 
     public List() {
-        tasks = new Task[arraySize];
+        tasks = new duke.task.Task[arraySize];
     }
 
     public int getListSize() {
@@ -20,13 +20,13 @@ public class List {
     public void addTask(String input) {
         try{
             translateTask(input);
-            printTaskAdd();
+            printTaskAdded();
         } catch (DukeException e){
             Message.printError();
         }
     }
 
-    public void printingList() {
+    public void printList() {
         Message.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < amountOfItems; i++) {
@@ -52,23 +52,23 @@ public class List {
         switch (divideByFirstSpace[0]) {
             case deadline: {
                 String[] details = divideByFirstSpace[1].split(by);
-                tasks[amountOfItems] = new Deadline(details[0], details[1]);
+                tasks[amountOfItems] = new duke.task.Deadline(details[0], details[1]);
                 break;
             }
             case event: {
                 String[] details = divideByFirstSpace[1].split(at);
-                tasks[amountOfItems] = new Event(details[0], details[1]);
+                tasks[amountOfItems] = new duke.task.Event(details[0], details[1]);
                 break;
             }
             case todo:
-                tasks[amountOfItems] = new Todo(divideByFirstSpace[1]);
+                tasks[amountOfItems] = new duke.task.Todo(divideByFirstSpace[1]);
                 break;
             default:
                 throw new DukeException();
         }
     }
 
-    public void printTaskAdd() {
+    public void printTaskAdded() {
         Message.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks[amountOfItems]);
