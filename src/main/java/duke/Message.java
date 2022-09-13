@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.TaskManager;
-
 public final class Message {
     public static final String GREETING_MESSAGE = "Hello! I'm Ever\n" +
             "What can I do for you?";
@@ -13,8 +11,7 @@ public final class Message {
     public static final String MAXIMUM_TASKS_REACHED_ERROR_MESSAGE = "Maximum number of tasks reached";
 
     /** Task Number Error Messages **/
-    public static final String WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE = "Sorry, task number should lies between 1 to " +
-            TaskManager.MAX_TASK + " tasks stored. Type \"list\" for viewing all the tasks.";
+    public static final String WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE = "Sorry, the task number is out of range. Type \"list\" for viewing all the tasks.";
     public static final String WRONG_TASK_NUMBER_ERROR_MESSAGE = "Sorry, the selected task has not been created yet. Type \"list\" to see the task numbers.";
     public static final String MISSING_TASK_NUMBER_ERROR_MESSAGE = "Sorry, you have not provide the task number.";
     public static final String WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE = "Invalid input. Please type an integer for the task number.";
