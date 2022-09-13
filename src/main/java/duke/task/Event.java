@@ -10,4 +10,9 @@ public class Event extends Task{
     public String getTaskInfo() {
         return "[E]" + super.getTaskInfo() + " (at: " + this.time + ")";
     }
+    @Override
+    public String toString () {
+        int isDoneInNumber = this.isDone ? 1 : 0;
+        return String.format("E | %d | %s | %s", isDoneInNumber, description, time) + System.lineSeparator();
+    }
 }

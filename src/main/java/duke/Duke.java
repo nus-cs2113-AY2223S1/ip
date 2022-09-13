@@ -5,10 +5,16 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static final String DEADLINE_INFO_SEPARATOR = "/by";
+    public static final String DUKE_TXT = "data/duke.txt";
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final int CAPACITY = 100;
 
@@ -20,7 +26,7 @@ public class Duke {
     public static final String MARK_TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     public static final String EVENT_INFO_SEPARATOR = "/at";
 
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static String commandWord;
     private static String commandInfo;
@@ -28,7 +34,11 @@ public class Duke {
     private static String time;
 
     public static void main(String[] args) {
-        initTaskList();
+        try {
+            readDukeTxt();
+        } catch (IOException e) {
+            System.out.println("Error occurred when reading duke txt");
+        }
         printWelcomeMessage();
         while (true) {
             String inputString = getUserInput();
@@ -38,10 +48,47 @@ public class Duke {
                 System.out.println(e.getExceptionDescription());
             } catch (InvalidCommandException e) {
                 System.out.println(e.getExceptionDescription());
+            } catch (IOException e) {
+            System.out.println("Error writing to duke txt");
             }
         }
     }
-    private static void executeCommand(String inputString) throws EmptyDescriptionException, InvalidCommandException {
+
+    private static void readDukeTxt() throws IOException {
+        File dukeTxt = new File(DUKE_TXT);
+        File dukeTxtFolder = new File (dukeTxt.getParentFile().getAbsolutePath());
+        dukeTxtFolder.mkdir();
+        dukeTxt.createNewFile();
+
+        Scanner taskListScanner = new Scanner(dukeTxt);
+        while (taskListScanner.hasNext()) {
+            String taskString = taskListScanner.nextLine();
+            int FirstSeparatorIndex = taskString.indexOf("|");
+            int SecondSeparatorIndex = taskString.indexOf("|", FirstSeparatorIndex + 1);
+            boolean isDone = Integer.parseInt(taskString.substring(FirstSeparatorIndex + 1,SecondSeparatorIndex).trim()) == 1 ? true : false;
+            commandInfo = taskString.substring(SecondSeparatorIndex + 1).trim();
+            if (taskString.startsWith("T")) {
+                Todo addedToDo = new Todo(commandInfo);
+                tasks.add(addedToDo);
+            } else if (taskString.startsWith("D")) {
+                int ThirdSeparatorIndex = commandInfo.indexOf("|");
+                description = commandInfo.substring(0, ThirdSeparatorIndex).trim();
+                time = commandInfo.substring(ThirdSeparatorIndex + 1).trim();
+                Deadline addedDeadline = new Deadline(description, time);
+                tasks.add(addedDeadline);
+            } else if (taskString.startsWith("E")) {
+                int ThirdSeparatorIndex = commandInfo.indexOf("|");
+                description = commandInfo.substring(0, ThirdSeparatorIndex).trim();
+                time = commandInfo.substring(ThirdSeparatorIndex + 1).trim();
+                Event addedEvent = new Event(description, time);
+                tasks.add(addedEvent);
+            }
+            if (isDone) {
+                tasks.get(tasks.size() - 1).setIsDone(true);
+            }
+        }
+    }
+    private static void executeCommand(String inputString) throws EmptyDescriptionException, InvalidCommandException, IOException {
         separateCommandWordAndCommandInfo(inputString);
         switch (commandWord) {
         case "list":
@@ -68,7 +115,37 @@ public class Duke {
             throw new InvalidCommandException();
         }
     }
+    private static void overWriteDukeTxt() throws IOException {
+        String newText = generateNewText();
+        writeToFile(DUKE_TXT, newText);
+    }
 
+    private static String generateNewText() {
+        String newText = "";
+        for (Task task : tasks) {
+            newText += task.toString();
+        }
+        return newText;
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(textToAdd);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while writing to duke txt: " + e.getMessage());
+        }
+    }
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true); // create a FileWriter in append mode
+            fileWriter.write(textToAppend);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while appending to duke txt: " + e.getMessage());
+        }
+    }
     private static void separateCommandWordAndCommandInfo(String inputString) {
         commandWord = getSubStringBeforeSeparator(inputString, " ");
         commandInfo = getSubStringAfterSeparator(inputString, " ", 0);
@@ -91,7 +168,7 @@ public class Duke {
         return inputString.substring(0,separatorIndex);
     }
 
-    private static void handleCreateEventCommand() throws EmptyDescriptionException {
+    private static void handleCreateEventCommand() throws EmptyDescriptionException, IOException {
         if (commandInfo.length() == 0) {
             throw new EmptyDescriptionException("event");
         }
@@ -99,14 +176,16 @@ public class Duke {
         createEvent();
     }
 
-    private static void createEvent() {
+    private static void createEvent() throws IOException {
         Event newEvent = new Event(description, time);
-        tasks[Task.getTaskCount() - 1] = newEvent;
+        tasks.add(newEvent);
         newEvent.echo();
+        printTasksCount();
+        appendToFile(DUKE_TXT, newEvent.toString());
     }
 
 
-    private static void handleCreateDeadlineCommand() throws EmptyDescriptionException {
+    private static void handleCreateDeadlineCommand() throws EmptyDescriptionException, IOException {
         if (commandInfo.length() == 0) {
             throw new EmptyDescriptionException("deadline");
         }
@@ -114,28 +193,32 @@ public class Duke {
         createDeadline();
     }
 
-    private static void createDeadline() {
+    private static void createDeadline() throws IOException {
         Deadline newDeadline = new Deadline(description, time);
-        tasks[Task.getTaskCount() - 1] = newDeadline;
+        tasks.add(newDeadline);
         newDeadline.echo();
+        printTasksCount();
+        appendToFile(DUKE_TXT,newDeadline.toString());
     }
 
-    private static void createTodo() throws EmptyDescriptionException {
+    private static void createTodo() throws EmptyDescriptionException, IOException {
         if (commandInfo.length() == 0) {
             throw new EmptyDescriptionException("todo");
         }
-        Todo newTodo = new Todo(commandInfo);
-        tasks[Task.getTaskCount() -1] = newTodo;
-        newTodo.echo();
+        Todo newToDo = new Todo(commandInfo);
+        tasks.add(newToDo);
+        newToDo.echo();
+        printTasksCount();
+        appendToFile(DUKE_TXT,newToDo.toString());
     }
     private static void getDescriptionAndTime(String separator) {
         description = getSubStringBeforeSeparator(commandInfo, separator).trim();
         time = getSubStringAfterSeparator(commandInfo, separator, 2).trim();
     }
 
-    private static void changeTaskStatus(boolean isMarkAsDone) {
+    private static void changeTaskStatus(boolean isMarkAsDone) throws IOException {
         int taskIndex = Integer.parseInt(commandInfo) - 1;
-        Task targetTask = tasks[taskIndex];
+        Task targetTask = tasks.get(taskIndex);
         if (isMarkAsDone) {
             targetTask.setIsDone(true);
             System.out.println(MARK_TASK_DONE_MESSAGE);
@@ -144,6 +227,7 @@ public class Duke {
             System.out.println(MARK_TASK_UNDONE_MESSAGE);
         }
         System.out.println("  " + targetTask.getTaskInfo());
+        overWriteDukeTxt();
     }
 
     private static void exitProgramme() {
@@ -151,9 +235,7 @@ public class Duke {
         System.exit(0);
     }
 
-    private static void initTaskList() {
-        tasks = new Task[CAPACITY];
-    }
+
     private static void printWelcomeMessage() {
         System.out.println(INTRO_MESSAGE);
         System.out.println(QUERY_COMMAND_MESSAGE);
@@ -162,11 +244,13 @@ public class Duke {
         return SCANNER.nextLine();
     }
 
-
+    private static void printTasksCount() {
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
     private static void listTasks() {
         System.out.println(PRINT_LIST_MESSAGE);
-        for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks[i].getTaskInfo());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks.get(i).getTaskInfo());
         }
     }
 

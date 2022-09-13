@@ -8,7 +8,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskCount++;
     }
 
     public static int getTaskCount() {
@@ -18,13 +17,9 @@ public class Task {
     public void echo() {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + getTaskInfo());
-        System.out.printf("Now you have %d tasks in the list." + System.lineSeparator(), Task.getTaskCount());
     }
     public String getTaskInfo() {
         return "[" + getStatusIcon() + "] " + this.description;
-    }
-    public boolean isDone() {
-        return isDone;
     }
 
     public String getStatusIcon() {
