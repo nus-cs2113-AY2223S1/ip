@@ -48,7 +48,7 @@ public class Duke {
         if (initialiseSuccessful) {
             if (list.getTaskListSize() != 0) {
                 printOutput(list.getCompleteList());
-            } else {
+            } else if (toSave) {
                 try {
                     list.addMarkdownHeader();
                 } catch (IOException e) {
