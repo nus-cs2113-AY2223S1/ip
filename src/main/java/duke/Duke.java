@@ -121,12 +121,13 @@ public class Duke {
         writeToFile(newText);
     }
 
-    private static void handleDelete() {
+    private static void handleDelete() throws IOException {
         int taskIndex = Integer.parseInt(commandInfo) - 1;
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + tasks.get(taskIndex).getTaskInfo());
-        System.out.println("Now you have " + tasks.size() + " in the list.");
         tasks.remove(taskIndex);
+        printTasksCount();
+        overWriteDukeTxt();
     }
 
     private static String generateNewText() {

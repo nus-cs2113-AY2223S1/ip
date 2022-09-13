@@ -1,3 +1,2 @@
 T | 1 | test
-D | 1 | check | 7pm
-E | 0 | do | 2ska
+T | 1 | check
