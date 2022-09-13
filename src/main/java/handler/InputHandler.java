@@ -12,6 +12,7 @@ public class InputHandler {
     private static final String BYE = "bye";
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
+    private static final String DELETE = "DELETE";
 
     public static void handleInput() {
         while (true) {
@@ -32,21 +33,18 @@ public class InputHandler {
                     TaskHandler.handleDeadline(input);
                 } catch (DukeException e) {
                     System.out.println("deadline missing some info...");
-                    ;
                 }
             } else if (input.startsWith(EVENT)) {
                 try {
                     TaskHandler.handleEvent(input);
                 } catch (DukeException e) {
                     System.out.println("event missing some info...");
-                    ;
                 }
             } else if (input.startsWith(MARK)) {
                 try {
                     TaskHandler.handleMark(input);
                 } catch (DukeException e) {
                     System.out.println("mark what");
-                    ;
                 }
             } else if (input.startsWith(UNMARK)) {
                 try {
@@ -54,7 +52,10 @@ public class InputHandler {
                 } catch (DukeException e) {
                     System.out.println("unmark what");
                 }
-            } else {
+            } else if (input.startsWith(DELETE)) {
+                
+            }
+            else {
                 TaskHandler.handleInvalid(input);
             }
         }

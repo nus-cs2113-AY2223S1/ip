@@ -49,7 +49,7 @@ public class TaskHandler {
         }
         try {
             int target = Integer.parseInt(splitInput[1]);
-            TaskList.markTarget(target);
+            TaskList.unmarkTarget(target);
         } catch (NullPointerException e) {
             System.out.println("There is no task with that index");
         } catch (NumberFormatException e) {
