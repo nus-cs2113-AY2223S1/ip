@@ -1,20 +1,32 @@
 help
 list
-todo read book
+save
 todo
-event watch movie /at Sep 30th 6pm
-event watch TV show
+todo read book
+todo exercise
 event
-deadline submit quiz /by Sep 6th 23:59
-deadline submit
+event watch TV show
+event watch movie /at Sep 30th 6pm
 deadline
+deadline submit
+deadline submit quiz /by Sep 6th 23:59
 list
+mark
+mark two
 mark 2
 mark 3
-mark 4
+mark 7
 list
+unmark
+unmark one
 unmark 2
 unmark 0
+list
+save
+delete
+delete one
+delete 5
+delete 2
 list
 
 byebye

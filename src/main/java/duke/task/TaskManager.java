@@ -139,7 +139,7 @@ public class TaskManager {
 
     public void saveTasks() {
         if (tasks.isEmpty()) {
-            System.out.println(Message.NO_TASKS_MESSAGE);
+            System.out.println(Message.NO_TASKS_MESSAGE + " " + Message.HELP_MESSAGE);
             return;
         }
 

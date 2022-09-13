@@ -1,0 +1,4 @@
+T | 0 | read book
+T | 0 | exercise
+E | 1 | watch movie | Sep 30th 6pm
+D | 0 | submit quiz | Sep 6th 23:59
