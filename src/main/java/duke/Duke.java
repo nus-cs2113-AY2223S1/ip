@@ -139,10 +139,29 @@ public class Duke {
         System.out.println("  [T][ ] " + tasks.get(deleteNumber).getTask());
     }
 
-    public static void deleteTask(String command) {
+    public static void removeFromFile(int deleteNumber) throws IOException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String text = "";
+        int currentIndex = 0;
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            if (deleteNumber != currentIndex) {
+                text += currentLine + System.lineSeparator();
+            }
+            currentIndex += 1;
+        }
+
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(text);
+        fw.close();
+    }
+
+    public static void deleteTask(String command) throws IOException {
         int deleteNumber = Integer.parseInt(command.split(" ")[1]) - 1;
         printDeletedTask(deleteNumber);
         tasks.remove(deleteNumber);
+        removeFromFile(deleteNumber);
         printNumberOfTask();
     }
 
@@ -173,9 +192,15 @@ public class Duke {
     }
 
     public static void printAllTasks() {
-        for (int i = 0; i < tasks.size(); i += 1) {
-            tasks.get(i).printTask(i);
+        boolean isEmpty = (tasks.size() == 0);
+        if (isEmpty) {
+          System.out.println("Great work! There's nothing in the to do list!");
+        } else {
+            for (int i = 0; i < tasks.size(); i += 1) {
+                tasks.get(i).printTask(i);
+            }
         }
+
     }
 
     public static TaskType identifyTask(String command) {
