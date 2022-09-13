@@ -22,7 +22,9 @@ public class Duke {
                 DukeManager.createEvent(line);
             } else if (line.startsWith("deadline")) {
                 DukeManager.createDeadline(line);
-            }  else {
+            } else if (line.startsWith("delete")) {
+                DukeManager.delete(line);
+            } else {
                 DukeManager.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }

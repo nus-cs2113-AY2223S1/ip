@@ -1,8 +1,10 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class DukeManager {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String ADD_CONFIRMATION_MESSAGE = "Got it. I've added this task:";
-    private static Task[] inputs = new Task[100];
-    private static int index = 0;
+    private static ArrayList<Task> inputs = new ArrayList<>();
 
     /**
      * Returns a string with formatted user inputs.
@@ -10,13 +12,13 @@ public class DukeManager {
      * @param inputs list of user input.
      * @return Formatted string to print
      */
-    public static String formatList(Task[] inputs) {
+    public static String formatList(ArrayList inputs) {
         String formattedString = HORIZONTAL_LINE;
-        for (int i = 0; i < inputs.length; i++) {
-            if (inputs[i] == null) {
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i) == null) {
                 break;
             }
-            formattedString += (i+1) + "." + inputs[i].toString() + "\n";
+            formattedString += (i+1) + "." + inputs.get(i).toString() + "\n";
         }
         formattedString += HORIZONTAL_LINE;
         return formattedString;
@@ -27,9 +29,27 @@ public class DukeManager {
     }
 
     public static void list() {
-        print(formatList(inputs));
+        System.out.println(formatList(inputs));
     }
 
+    public static void delete(String line) {
+        int input = -1;
+        try {
+            input = Integer.valueOf(line.replace("delete", "").strip());
+        } catch (NumberFormatException e) {
+            print("☹ OOPS!!! You must specify a number in the list to unmark. Format: unmark #");
+            return;
+        }
+        try {
+            Task task = inputs.get(input - 1);
+            inputs.remove(input - 1);
+            print("Noted. I've removed this task:\n" + task +"\nNow you have " + inputs.size() + " tasks in the list.");
+
+        } catch (IndexOutOfBoundsException e) {
+            print("☹ OOPS!!! You must specify a number in the list to delete. Format: delete #");
+            return;
+        }
+    }
     public static void unmark(String line) {
         int input = -1;
         try {
@@ -38,11 +58,11 @@ public class DukeManager {
             print("☹ OOPS!!! You must specify a number in the list to unmark. Format: unmark #");
             return;
         }
-        if (input >= 0 && input < index) {
+        if (input <= 0 || input > inputs.size()) {
             print("☹ OOPS!!! You must specify a number in the list.");
             return;
         }
-        Task task = inputs[input - 1];
+        Task task = inputs.get(input - 1);
         task.markAsNotDone();
         print("OK, I've marked this task as not done yet: \n  " + task);
     }
@@ -55,11 +75,11 @@ public class DukeManager {
             print("☹ OOPS!!! You must specify a number in the list to mark. Format: mark #");
             return;
         }
-        if (input < 0 || input > index) {
+        if (input <= 0 || input > inputs.size()) {
             print("☹ OOPS!!! You must specify a number in the list.");
             return;
         }
-        Task task = inputs[input - 1];
+        Task task = inputs.get(input - 1);
         task.markAsDone();
         print("Nice! I've marked this task as done: \n  " + task);
     }
@@ -73,9 +93,8 @@ public class DukeManager {
             print("☹ OOPS!!! The description of a todo cannot be empty.");
             return;
         }
-        inputs[index] = todo;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + todo + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(todo);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + todo + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
     public static void createEvent(String line) {
@@ -97,9 +116,8 @@ public class DukeManager {
             print("☹ OOPS!!! The description and date of an event cannot be empty.");
             return;
         }
-        inputs[index] = event;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + event + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(event);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + event + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
     public static void createDeadline(String line) {
@@ -124,8 +142,7 @@ public class DukeManager {
             print("☹ OOPS!!! The date and description of a deadline cannot be empty.");
             return;
         }
-        inputs[index] = deadline;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(deadline);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 }
