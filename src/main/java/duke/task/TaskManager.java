@@ -7,10 +7,17 @@ import duke.task.model.Deadline;
 import duke.task.model.Event;
 import duke.task.model.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class TaskManager {
     public static final int MAX_TASK = 100;
     private final Task[] tasks;
     private int taskCount;
+    public static final String FILE_STRING_SEPARATOR = " | ";
 
     public TaskManager() {
         tasks = new Task[MAX_TASK];
@@ -130,6 +137,34 @@ public class TaskManager {
             System.out.println("Syntax: " + Duke.COMMANDS.get("event").syntax);
         } catch (TaskCountExceedMaximumException e) {
             System.out.println(Message.MAXIMUM_TASKS_REACHED_ERROR_MESSAGE);
+        }
+    }
+
+    public void saveTasks() {
+        if (taskCount == 0) {
+            System.out.println(Message.NO_TASKS_MESSAGE);
+        }
+
+        Path directoryPath = Paths.get(FileHandler.HOME_DIRECTORY, "data");
+        Path dataFilePath = Paths.get(directoryPath.toString(), "duke.txt");
+
+        if (!Files.exists(directoryPath)) {
+            FileHandler.createDirectory(directoryPath);
+        }
+
+        if (!Files.exists(dataFilePath)) {
+            FileHandler.createFile(dataFilePath);
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(dataFilePath.toString());
+            for (int i = 0; i < taskCount; i++) {
+                fileWriter.write(tasks[i].getStringForSave() + System.lineSeparator());
+            }
+            fileWriter.close();
+            System.out.println(Message.SAVE_TASK_SUCCESSFUL_MESSAGE);
+        } catch (IOException e) {
+            System.out.println(Message.SAVE_TASK_FAIL_ERROR_MESSAGE);
         }
     }
 }

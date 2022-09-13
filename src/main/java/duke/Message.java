@@ -24,6 +24,14 @@ public final class Message {
     public static final String INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE = "Invalid input, please provide the description and deadline";
     public static final String INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE = "Invalid input, please provide the description and date time";
 
+    /** Save Task Messages **/
+    public static final String SAVE_TASK_FAIL_ERROR_MESSAGE = "Fail to save tasks. Try again ";
+    public static final String SAVE_TASK_SUCCESSFUL_MESSAGE = "File saved. Please check /data/duke.txt";
+
+    /** File handling messages **/
+    public static final String CREATE_FILE_FAIL_ERROR_MESSAGE = "Fails to create the file";
+    public static final String CREATE_DIRECTORY_FAIL_ERROR_MESSAGE = "Fails to create the directory";
+
     private Message() {
     }
 }

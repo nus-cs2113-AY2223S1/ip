@@ -28,6 +28,7 @@ public class Duke {
         COMMANDS.put("event", new Command("event <description> /at <event-datetime>", "Add an event with its date and time"));
         COMMANDS.put("mark", new Command("mark <task-number>", "Mark a task as done"));
         COMMANDS.put("unmark", new Command("unmark <task-number>", "Unmark a task from done"));
+        COMMANDS.put("save", new Command("save", "Save the tasks into a .txt file"));
         COMMANDS.put("bye", new Command("bye", "Exit the application"));
     }
 
@@ -76,6 +77,9 @@ public class Duke {
             break;
         case "event":
             TASK_MANAGER.addEventTask(input);
+            break;
+        case "save":
+            TASK_MANAGER.saveTasks();
             break;
         case "":
             System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);

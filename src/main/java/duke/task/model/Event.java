@@ -1,6 +1,7 @@
 package duke.task.model;
 
 import duke.task.Task;
+import duke.task.TaskManager;
 
 public class Event extends Task {
     private String datetime;
@@ -20,5 +21,10 @@ public class Event extends Task {
     public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
         String commandParameters = command.split(" ", 2)[1];
         return commandParameters.split(SEPARATOR);
+    }
+
+    @Override
+    public String getStringForSave() {
+        return String.join(TaskManager.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description, this.datetime);
     }
 }
