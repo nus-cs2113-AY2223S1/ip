@@ -20,6 +20,10 @@ public class Task {
         this.isDone = b;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String toString() {
         return  "[" + getStatusIcon() + "] " + description;
     }

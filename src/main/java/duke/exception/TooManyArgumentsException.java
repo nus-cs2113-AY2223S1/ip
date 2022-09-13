@@ -1,5 +1,5 @@
 package duke.exception;
 
-public class TooManyArguments extends Exception {
+public class TooManyArgumentsException extends Exception {
     // only for list, bye, mark, unmark, delete
 }
