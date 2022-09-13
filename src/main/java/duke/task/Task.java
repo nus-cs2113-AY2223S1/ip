@@ -27,7 +27,8 @@ public class Task {
     public void markUndone() {
         isDone = false;
     }
+
     public String toString() {
-        return "[" + getStatusIcon() + "] " +getDescription();
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 }
