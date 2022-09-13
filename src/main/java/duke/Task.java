@@ -29,5 +29,11 @@ public class Task {
     public String toString(){
         return ( this.index + "."+"["+this.getStatusIcon()+"] " + this.name);
     }
+    public String getStatusString() {
+        return (this.isDone ? "1" : "0");
+    }
+    public String recordString() {
+        return getStatusString() + " | " + name;
+    }
 
 }

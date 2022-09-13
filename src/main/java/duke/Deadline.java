@@ -1,5 +1,4 @@
 package duke;
-
 public class Deadline extends Task {
 
     protected String by;
@@ -15,6 +14,10 @@ public class Deadline extends Task {
         return newDeadline;
     }
 
+    @Override
+    public String recordString() {
+        return "D | " + super.recordString() + " | " + by;
+    }
     @Override
     public String toString() {
         return "  [D]" + "["+this.getStatusIcon()+"] " + this.name + " (by: " + by + ")";

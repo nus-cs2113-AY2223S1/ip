@@ -1,9 +1,9 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import DukeException.*;
-import duke.Communication;
-import duke.Task;
+import duke.DukeException.*;
 
 public class Duke {
     public static ArrayList<Task> ListOfTasks = new ArrayList<>();
@@ -14,11 +14,16 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+        Communication.greet();
+        Cache cache = new Cache(System.getProperty("user.dir") + "\\data\\duke.txt");
+        ListOfTasks = cache.printPath();
         proceed();
+        cache.update(ListOfTasks);
+
     }
     public static void proceed() throws todoException {
 
-        Communication.greet();
+
         Scanner sc = new Scanner(System.in);
         boolean isDone = false;
         String[] inputs;
@@ -83,4 +88,5 @@ public class Duke {
             }
         }
     }
+
 }
