@@ -4,13 +4,17 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String getStatusValue() {
+        return (isDone ? "1" : "0");
     }
 
     public String getDescription() {
@@ -33,4 +37,6 @@ public abstract class Task {
     public static String[] extractParameters(String command) {
         return new String[0];
     }
+
+    public abstract String getStringForSave();
 }

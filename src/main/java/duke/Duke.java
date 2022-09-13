@@ -29,6 +29,7 @@ public class Duke {
         COMMANDS.put("mark", new Command("mark <task-number>", "Mark a task as done"));
         COMMANDS.put("unmark", new Command("unmark <task-number>", "Unmark a task from done"));
         COMMANDS.put("delete", new Command("delete <task-number>", "Delete a task from the list"));
+        COMMANDS.put("save", new Command("save", "Save the tasks into a .txt file"));
         COMMANDS.put("bye", new Command("bye", "Exit the application"));
     }
 
@@ -80,6 +81,9 @@ public class Duke {
             break;
         case "delete":
             TASK_MANAGER.deleteTask(input);
+            break;
+        case "save":
+            TASK_MANAGER.saveTasks();
             break;
         case "":
             System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);
