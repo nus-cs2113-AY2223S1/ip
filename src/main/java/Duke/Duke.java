@@ -8,6 +8,7 @@ import Duke.Tasks.TaskList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 
@@ -83,7 +84,7 @@ public class Duke {
                     try {
                         doUnmarkAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printOutput("OOPS!!! Please input a number to unmark as done.");
+                        printError("OOPS!!! Please input a number to unmark as done.");
                     } catch (WrongArgumentException e) {
                         printError("OOPS, that task is not in the list.");
                     }
@@ -107,6 +108,15 @@ public class Duke {
                         doEventAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
                         printError("OOPS!!! The description of an event cannot be empty.");
+                    }
+                    break;
+                case "delete":
+                    try {
+                        deleteAction(inputSplitted[1]);
+                    } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
+                        printError("OOPS!!! Please input a number to delete.");
+                    } catch (WrongArgumentException e) {
+                        printError("OOPS, that task is not in the list.");
                     }
                     break;
                 default:
@@ -179,7 +189,8 @@ public class Duke {
         }
     }
 
-    private static void doTodoAction(String lineInput) throws EmptyArgumentException {
+    private static void doTodoAction(String lineInput)
+            throws EmptyArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
@@ -190,7 +201,8 @@ public class Duke {
         printOutput(output);
     }
 
-    private static void doDeadlineAction(String lineInput) throws EmptyArgumentException {
+    private static void doDeadlineAction(String lineInput)
+            throws EmptyArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
@@ -201,7 +213,8 @@ public class Duke {
         printOutput(output);
     }
 
-    private static void doEventAction(String lineInput) throws EmptyArgumentException {
+    private static void doEventAction(String lineInput)
+            throws EmptyArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
@@ -212,4 +225,21 @@ public class Duke {
         printOutput(output);
     }
 
+    private static void deleteAction(String lineInput)
+            throws EmptyArgumentException, WrongArgumentException {
+        if (lineInput.strip().isEmpty()) {
+            throw new EmptyArgumentException();
+        }
+        int index = Integer.parseInt(lineInput);
+        if (index > list.getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+        String description = "Noted. I've removed this task:\n";
+        description += list.getItemFromList(index);
+        list.deleteTaskFromList(index);
+        description += "Now you have "
+                + list.getTaskListSize()
+                + " tasks in the list";
+        printOutput(description);
+    }
 }

@@ -101,6 +101,10 @@ public class TaskList {
         return inputLists.size() - 1;
     }
 
+    public void deleteTaskFromList(int n) {
+        inputLists.remove(n - 1);
+    }
+
     public void markCompleted(int n, boolean bool) {
         inputLists.get(n - 1).setCompleted(bool);
     }
