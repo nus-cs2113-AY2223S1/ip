@@ -241,5 +241,12 @@ public class Duke {
                 + list.getTaskListSize()
                 + " tasks in the list";
         printOutput(description);
+        if (toSave) {
+            try {
+                list.updateWholeFile();
+            } catch (IOException e) {
+                printError("Something went wrong, error data: " + e.getMessage());
+            }
+        }
     }
 }
