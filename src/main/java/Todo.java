@@ -10,4 +10,8 @@ public class Todo extends Task{
     public String toString() {
         return getCommandIcon() + getStatusIcon() + getDescription();
     }
+
+    public String fileString(){
+        return ( "T," + getDone() + ","+ description.trim());
+    }
 }

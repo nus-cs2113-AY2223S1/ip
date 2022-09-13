@@ -1,11 +1,34 @@
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+
 public class Duke {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello, my name is Duke! \nWhat can I do for you?");
 
         Scanner myObj = new Scanner(System.in);
 
-        Task[] todoList = new Task[100];
+        Task[] todoList;
+
+        Path path = Paths.get("src","main","data");
+
+        try{
+            Files.createDirectories(path);
+        }catch (FileAlreadyExistsException ignored){}
+
+        try{
+            todoList = ReadFromFile.addFileContents(path);
+            System.out.println("I found some tasks saved, I have added them to the current session");
+        } catch (FileNotFoundException | DukeExceptions e){
+            System.out.println("File not found, creating one");
+            WriteToFile.createFile(path);
+            todoList = new Task[100];
+        }
+
 
         String userInput;
         String taskType;
@@ -44,6 +67,7 @@ public class Duke {
                         }
                     }
                     System.out.println(LINES);
+                    System.out.println(todoList[0].getDescription());
                     break;
 
                 case BYE:
@@ -140,6 +164,8 @@ public class Duke {
         System.out.println(LINES);
         System.out.println("\tBye. Hope to see you soon!");
         System.out.println(LINES);
+
+        WriteToFile.appendToFile(path, todoList);
     }
 }
 
