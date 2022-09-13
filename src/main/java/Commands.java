@@ -5,5 +5,6 @@ enum Commands {
     UNMARK,
     TODO,
     EVENT,
-    DEADLINE
+    DEADLINE,
+    DELETE
 }

@@ -1,11 +1,14 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args){
         System.out.println("Hello, my name is Duke! \nWhat can I do for you?");
 
+        ArrayList<Task> todoList = new ArrayList<>();
+
         Scanner myObj = new Scanner(System.in);
 
-        Task[] todoList = new Task[100];
 
         String userInput;
         String taskType;
@@ -14,7 +17,6 @@ public class Duke {
         final String LINES = "____________________________________________________________";
 
         int markedValue = 0;
-        int taskCounter;
 
         boolean bye = false;
 
@@ -36,13 +38,7 @@ public class Duke {
                 case LIST:
                     System.out.println(LINES);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < todoList.length; i++) {
-                        if (todoList[i] != null) {
-                            System.out.println("\t" + (i + 1) + ") " + todoList[i].toString());
-                        } else {
-                            break;
-                        }
-                    }
+                    for (int i = 0; i < todoList.size(); i++) { System.out.println("\t" + (i + 1) + ") " + todoList.get(i).toString());}
                     System.out.println(LINES);
                     break;
 
@@ -51,84 +47,80 @@ public class Duke {
                     break;
 
                 case MARK:
-                    todoList[markedValue].markAsDone();
+                    todoList.get(markedValue).markAsDone();
                     System.out.println(LINES);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(todoList[markedValue].getStatusIcon() + todoList[markedValue].getDescription());
+                    System.out.println(todoList.get(markedValue).getStatusIcon() + todoList.get(markedValue).getDescription());
                     System.out.println(LINES);
                     break;
 
                 case UNMARK:
-                    todoList[markedValue].unMark();
+                    todoList.get(markedValue).unMark();
                     System.out.println(LINES);
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(todoList[markedValue].getStatusIcon() + todoList[markedValue].getDescription());
+                    System.out.println(todoList.get(markedValue).getStatusIcon() + todoList.get(markedValue).getDescription());
                     System.out.println(LINES);
 
                 case TODO:
-                    taskCounter = 0;
-                    for (int i = 0; i < todoList.length; i++)
-                        if (todoList[i] == null) {
-                            try {
-                                Task newTask = new Todo(userInputNewValue);
+                    try {
+                        Task newTask = new Todo(userInputNewValue);
 
-                                todoList[i] = newTask;
-                                taskCounter = i;
-                                System.out.println(LINES);
-                                System.out.println("Got it. I've added this task: ");
-                                System.out.println(todoList[taskCounter].toString());
+                        todoList.add(newTask);
+                        System.out.println(LINES);
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(todoList.get(todoList.size() - 1).toString());
 
-                                taskString = taskCounter == 0 ? " task " : " tasks ";
+                        taskString = todoList.size() == 1 ? " task " : " tasks ";
 
-                                System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
-                                System.out.println(LINES);
-                            }
-                            catch (DukeExceptions e){
-                                System.out.println(LINES);
-                                System.out.println("TODO needs description");
-                                System.out.println(LINES);
-                            }
-                            break;
-                        }
+                        System.out.println("Now you have " + todoList.size() + taskString + "in the list.");
+                        System.out.println(LINES);
+                    }
+                    catch (DukeExceptions e){
+                        System.out.println(LINES);
+                        System.out.println("TODO needs description");
+                        System.out.println(LINES);
+                    }
 
                     break;
                 case DEADLINE:
-                    taskCounter = 0;
-                    for (int i = 0; i < todoList.length; i++)
-                        if (todoList[i] == null) {
-                            Task newTask = new Deadline(userInputNewValue);
-                            todoList[i] = newTask;
-                            taskCounter = i;
-                            break;
-                        }
+
+                    Task newDeadline = new Deadline(userInputNewValue);
+                    todoList.add(newDeadline);
+
                     System.out.println(LINES);
                     System.out.println("Got it. I've added this task: ");
-                    System.out.println(todoList[taskCounter].toString());
+                    System.out.println(todoList.get(todoList.size() - 1).toString());
 
-                    taskString = taskCounter == 0 ? " task " : " tasks ";
+                    taskString = todoList.size() == 1 ? " task " : " tasks ";
 
-                    System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
+                    System.out.println("Now you have " + todoList.size() + taskString + "in the list.");
                     System.out.println(LINES);
-                    break;
 
+                    break;
                 case EVENT:
-                    taskCounter = 0;
-                    for (int i = 0; i < todoList.length; i++)
-                        if (todoList[i] == null) {
-                            Task newTask = new Event(userInputNewValue);
-                            todoList[i] = newTask;
-                            taskCounter = i;
-                            break;
-                        }
+
+                    Task newEvent = new Event(userInputNewValue);
+                    todoList.add(newEvent);
+
                     System.out.println(LINES);
                     System.out.println("Got it. I've added this task: ");
-                    System.out.println(todoList[taskCounter].toString());
+                    System.out.println(todoList.get(todoList.size() - 1).toString());
 
-                    taskString = taskCounter == 0 ? " task " : " tasks ";
+                    taskString = todoList.size() == 1 ? " task " : " tasks ";
 
-                    System.out.println("Now you have " + (taskCounter + 1) + taskString + "in the list.");
+                    System.out.println("Now you have " + todoList.size() + taskString + "in the list.");
                     System.out.println(LINES);
                     break;
+                case DELETE:
+                    System.out.println(LINES);
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(todoList.get(markedValue).toString());
+
+                    taskString = todoList.size() == 2 ? " task " : " tasks ";
+
+                    System.out.println("Now you have " + (todoList.size() - 1) + taskString + "in the list.");
+                    System.out.println(LINES);
+                    todoList.remove(markedValue);
                 }
 
             } catch (Exception e) {
