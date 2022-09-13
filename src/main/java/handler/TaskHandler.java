@@ -8,18 +8,14 @@ import exception.DukeException;
 
 public class TaskHandler {
     private static final String BYE_MESSAGE = "Bye! ;)";
-    public static final int SPLIT_AMOUNT = 2;
+    private static final int SPLIT_AMOUNT = 2;
 
     public static void handleBye() {
         System.out.println(BYE_MESSAGE);
     }
 
-    public static void handleTodo(String input) throws DukeException {
-        String[] splitInput = input.split(" ", SPLIT_AMOUNT);
-        if (splitInput.length != SPLIT_AMOUNT) {
-            throw new DukeException();
-        }
-        Todo todo = new Todo(splitInput[1]);
+    public static void handleTodo(String input) {
+        Todo todo = new Todo(input);
         TaskList.addTodo(todo);
     }
 
@@ -27,64 +23,75 @@ public class TaskHandler {
         TaskList.printList();
     }
 
-    public static void handleMark(String input) throws DukeException {
-        String[] splitInput = input.split(" ", SPLIT_AMOUNT);
-        if (splitInput.length != SPLIT_AMOUNT) {
-            throw new DukeException();
-        }
+    public static void handleMark(String input) {
         try {
-            int target = Integer.parseInt(splitInput[1]);
+            int target = Integer.parseInt(input);
             TaskList.markTarget(target);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("There is no task with that index");
         } catch (NumberFormatException e) {
             System.out.println("Index is a number...");
         }
     }
 
-    public static void handleUnmark(String input) throws DukeException {
-        String[] splitInput = input.split(" ", SPLIT_AMOUNT);
-        if (splitInput.length != SPLIT_AMOUNT) {
-            throw new DukeException();
-        }
+    public static void handleUnmark(String input) {
+        int index = readIndex(input);
         try {
-            int target = Integer.parseInt(splitInput[1]);
-            TaskList.unmarkTarget(target);
-        } catch (NullPointerException e) {
-            System.out.println("There is no task with that index");
-        } catch (NumberFormatException e) {
-            System.out.println("Index is a number...");
+            TaskList.unmarkTarget(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index does not exist");
         }
     }
 
-    public static String[] splitTaskTime(String input) throws DukeException {
-        String[] splitInput = input.split(" ", SPLIT_AMOUNT);
-        if (splitInput.length != SPLIT_AMOUNT) {
-            throw new DukeException();
-        }
-        return splitInput[1].split(" /by ", SPLIT_AMOUNT);
+    private static String[] splitDeadlineTime(String input) throws DukeException {
+        return input.split(" /by ", SPLIT_AMOUNT);
+    }
+    private static String[] splitEventTime(String input) throws DukeException {
+        return input.split(" /at ", SPLIT_AMOUNT);
     }
 
     public static void handleDeadline(String input) throws DukeException {
-        String[] splitCommand = splitTaskTime(input);
+        String[] splitCommand = splitDeadlineTime(input);
         if (splitCommand.length != SPLIT_AMOUNT) {
             throw new DukeException();
         }
-        Deadline deadline = new Deadline(splitCommand[0], splitCommand[1]); //index 0 is description, index 1 is time
+        String description = splitCommand[0];
+        String by = splitCommand[1];
+        Deadline deadline = new Deadline(description, by);
         TaskList.addDeadLine(deadline);
     }
 
     public static void handleEvent(String input) throws DukeException {
-        String[] splitCommand = splitTaskTime(input);
+        String[] splitCommand = splitEventTime(input);
         if (splitCommand.length != SPLIT_AMOUNT) {
             throw new DukeException();
         }
-        Event event = new Event(splitCommand[0], splitCommand[1]); //index 0 is description, index 1 is time
+        String description = splitCommand[0];
+        String at = splitCommand[1];
+        Event event = new Event(description, at);
         TaskList.addEvent(event);
     }
 
+    public static void handleDelete(String input) {
+        int index = readIndex(input);
+        try {
+            TaskList.deleteTask(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index does not exist.");
+        }
+    }
+
+    private static int readIndex(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Index is a number...");
+        }
+        return -1;
+    }
     public static void handleInvalid(String input) {
         System.out.println("\"" + input + "\"" + " is not a valid command, please try again!");
     }
+
 
 }

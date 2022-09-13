@@ -58,7 +58,16 @@ public class TaskList {
         int index = 1;
         for (Task task : tasks) {
             System.out.println(index + ". " + task);
+            index++;
         }
+        System.out.println(LINE_DIVIDER);
+    }
+
+    public static void deleteTask(int index) {
+        System.out.println(tasks.get(index - 1) + " has been removed");
+        tasks.remove(index - 1);
+        taskCount--;
+        System.out.println("There are " + taskCount + "tasks left");
         System.out.println(LINE_DIVIDER);
     }
 }
