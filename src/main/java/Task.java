@@ -22,4 +22,10 @@ public class Task {
     public String getDescription() {
         return description;
     }
+    public int getDone(){
+        return isDone ? 1 : 0;
+    }
+    public String fileString(){
+        return ("");
+    }
 }
