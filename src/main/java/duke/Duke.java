@@ -1,7 +1,27 @@
 package duke;
 
+import duke.Tasks.Deadline;
+import duke.Tasks.Event;
+import duke.Tasks.Task;
+import duke.Tasks.Todo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+
 public class Duke {
     public static final String MARK_DONE = "mark ";
     public static final String MARK_UNDONE = "unmark ";
@@ -14,6 +34,7 @@ public class Duke {
     public static final String BY = "/by ";
     public static final String DELETE = "delete ";
     public static ArrayList <Task> taskList = new ArrayList<>();
+    public static final java.nio.file.Path DATA_STORAGE_PATH = java.nio.file.Paths.get(System.getProperty("user.dir"), "src", "main", "java", "duke", "data.txt");
 
     private static void printDashLine() {
         System.out.println("__________________________________________________ \n");
@@ -52,7 +73,7 @@ public class Duke {
         printDashLine();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = "  ____                 _     \n" +
                 " |  _ \\ ___  __ _  ___| |__  \n" +
                 " | |_) / _ \\/ _` |/ __| '_ \\ \n" +
@@ -67,7 +88,18 @@ public class Duke {
                 + "__________________________________________________ \n";
 
         System.out.println(intro);
-        //Task[] inputs = new Task[100];
+
+        if (!(java.nio.file.Files.exists(DATA_STORAGE_PATH))){
+            File file = new File (DATA_STORAGE_PATH.toString());
+            file.getParentFile().mkdirs();
+            System.out.println("Data Storage File successfully created \n");
+        }
+
+        try {
+            Storage.loadTasks();
+        } catch (FileNotFoundException e){
+            System.out.println ("File is not found!");
+        }
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -129,7 +161,7 @@ public class Duke {
             }
             input = in.nextLine();
         }
-
+        Storage.saveTasks();
         System.out.println("Bye. Hope to see you again soon! \n");
 
     }
@@ -147,6 +179,7 @@ public class Duke {
             printDashLine();
         }
 
+
     }
 
     private static void addDeadline(ArrayList <Task> taskList, String input) throws DukeException {
@@ -162,6 +195,7 @@ public class Duke {
             System.out.println("Got it. I have added this task:");
             System.out.println("Now you have " + taskList.size() + " tasks left");
             printDashLine();
+
         }
 
     }
@@ -192,6 +226,7 @@ public class Duke {
         }
         printDashLine();
     }
+
 }
 
 
