@@ -1,13 +1,11 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.command.Command;
+import duke.storage.Storage;
+import duke.task.TaskList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {

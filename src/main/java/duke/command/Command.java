@@ -1,8 +1,9 @@
-package duke;
+package duke.command;
 
+import duke.DukeException;
+import duke.task.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.Todo;
 
 
