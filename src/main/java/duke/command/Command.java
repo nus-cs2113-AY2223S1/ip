@@ -15,11 +15,11 @@ public class Command {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printNewTask(Task task) {
+    public static void printNewTask(Task task, int tasksSize) {
         printHorizontalLine();
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task);
-        System.out.println("     Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+        System.out.println("     Now you have " + tasksSize + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -45,6 +45,7 @@ public class Command {
         System.out.println("       " + task);
         printHorizontalLine();
     }
+
     static void tryAddEvent(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("event", "").trim().equals("")) {
@@ -57,15 +58,17 @@ public class Command {
             printHorizontalLine();
         }
     }
+
     static void addEvent(ArrayList<Task> tasks, String line) {
         String[] descriptionAt = line.replaceFirst("event ", "").split(" /at ");
         String eventDescription = descriptionAt[0];
         String at = descriptionAt[1];
         Event newEvent = new Event(eventDescription, at);
         tasks.add(newEvent);
-        int eventId = Task.getNumberOfTasks() - 1;
-        printNewTask(tasks.get(eventId));
+        int eventId = tasks.size() - 1;
+        printNewTask(tasks.get(eventId), tasks.size());
     }
+
     static void tryAddDeadline(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("deadline", "").trim().equals("")) {
@@ -78,14 +81,15 @@ public class Command {
             printHorizontalLine();
         }
     }
+
     private static void addDeadline(ArrayList<Task> tasks, String line) {
         String[] descriptionBy = line.replaceFirst("deadline ", "").split(" /by ");
         String deadlineDescription = descriptionBy[0];
         String by = descriptionBy[1];
         Deadline newDeadline = new Deadline(deadlineDescription, by);
         tasks.add(newDeadline);
-        int deadlineId = Task.getNumberOfTasks() - 1;
-        printNewTask(tasks.get(deadlineId));
+        int deadlineId = tasks.size() - 1;
+        printNewTask(tasks.get(deadlineId), tasks.size());
     }
 
     static void tryAddTodo(ArrayList<Task> tasks, String line) {
@@ -105,9 +109,10 @@ public class Command {
         String todoDescription = line.replaceFirst("todo ", "");
         Todo newTodo = new Todo(todoDescription);
         tasks.add(newTodo);
-        int todoId = Todo.getNumberOfTasks() - 1;
-        printNewTask(tasks.get(todoId));
+        int todoId = tasks.size() - 1;
+        printNewTask(tasks.get(todoId), tasks.size());
     }
+
     static void tryUnmarkTask(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("unmark", "").trim().equals("")) {
@@ -120,6 +125,7 @@ public class Command {
             printHorizontalLine();
         }
     }
+
     private static void unmarkTask(ArrayList<Task> tasks, String[] parsedInput) {
         int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(unmarkId).setNotDone();
@@ -143,6 +149,29 @@ public class Command {
         int markId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(markId).setDone();
         printMark(tasks.get(markId));
+    }
+
+    private static void deleteTask(ArrayList<Task> tasks, int deleteId) {
+        printHorizontalLine();
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("     " + tasks.get(deleteId));
+        System.out.println("     Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        printHorizontalLine();
+        tasks.remove(deleteId);
+    }
+
+    static void tryDeleteTask(ArrayList<Task> tasks, String[] parsedInput) {
+        int deleteId = Integer.parseInt(parsedInput[1]) - 1;
+        try {
+            if (deleteId > tasks.size()) {
+                throw new DukeException();
+            }
+            deleteTask(tasks, deleteId);
+        } catch (DukeException e) {
+            printHorizontalLine();
+            System.out.println("     T_T OOPS!!! There is no such task number");
+            printHorizontalLine();
+        }
     }
 
     public static void printWelcomeMessage() {

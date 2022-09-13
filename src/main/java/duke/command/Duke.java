@@ -14,7 +14,6 @@ public class Duke {
 
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
-//        Task[] tasks = new Task[MAX_TASK];
         ArrayList<Task> tasks = new ArrayList<>();
 
         untilBye:
@@ -44,6 +43,9 @@ public class Duke {
                 case "bye":
                     printByeMessage();
                     break untilBye;
+                case "delete":
+                    tryDeleteTask(tasks, parsedInput);
+                    break;
                 default:
                     throw new DukeException();
                     // Fallthrough
