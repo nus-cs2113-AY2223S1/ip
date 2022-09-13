@@ -6,9 +6,9 @@ public class Task {
     private String item;
     private boolean isCompleted;
 
-    protected Task(String item) {
+    protected Task(String item, boolean isCompleted) {
         this.item = item;
-        isCompleted = false;
+        this.isCompleted = isCompleted;
     }
 
     protected void setCompleted(Boolean isCompleted) {
@@ -21,6 +21,10 @@ public class Task {
 
     protected String getTaskName() {
         return item;
+    }
+
+    protected String getTime() {
+        return "";
     }
 
     protected String getCompleteDescription() {

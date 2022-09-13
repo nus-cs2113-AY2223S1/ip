@@ -1,15 +1,19 @@
 package Duke;
 
+import Duke.Exception.DataCorruptedException;
 import Duke.Exception.EmptyArgumentException;
 import Duke.Exception.WrongArgumentException;
 import Duke.Tasks.TaskType;
 import Duke.Tasks.TaskList;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 
 public class Duke {
     private static TaskList list = new TaskList();
+    private static boolean toSave = true;
 
     private static final String SEPARATOR = "____________________________________________________________";
 
@@ -19,14 +23,41 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        final String CONV_START = DUKE_LOGO + "Hello! I'm Duke.Duke";
+        final String CONV_START = DUKE_LOGO + "Hello! I'm Duke";
         final String CONV_END = "Bye. Hope to see you again soon!";
 
 
         printOutput(CONV_START);
+
+        boolean initialiseSuccessful = true;
+
+        try {
+            list.initialiseTaskFromFile();
+        } catch (FileNotFoundException e) {
+            printError("File not found. Make sure the data file is located in './data/data.md'"
+            + "\nSaving services disabled.");
+            toSave = false;
+        } catch (DataCorruptedException e) {
+            printError("File data corrupted. Please check data file again or delete entire content."
+            + "\nExiting program.");
+            initialiseSuccessful = false;
+        }
+
         Scanner in = new Scanner(System.in);
 
-        while (true) {
+        if (initialiseSuccessful) {
+            if (list.getTaskListSize() != 0) {
+                printOutput(list.getCompleteList());
+            } else {
+                try {
+                    list.addMarkdownHeader();
+                } catch (IOException e) {
+                    printError("Something wrong happen, error data: " + e.getMessage());
+                }
+            }
+        }
+
+        while (initialiseSuccessful) {
             System.out.println("What can I do for you?");
             String lineInput = in.nextLine();
             String[] inputSplitted = lineInput.split(" ",2);
@@ -116,6 +147,13 @@ public class Duke {
         String message = "Nice! I've marked this task as done:\n"
                 + list.getItemFromList(itemNumber);
         printOutput(message);
+        if (toSave) {
+            try {
+                list.updateWholeFile();
+            } catch (IOException e) {
+                printError("Something went wrong, error data: " + e.getMessage());
+            }
+        }
     }
 
     private static void doUnmarkAction(String lineInput)
@@ -132,13 +170,20 @@ public class Duke {
         String message = "OK, I've marked this task as not done yet:\n"
                 + list.getItemFromList(itemNumber);
         printOutput(message);
+        if (toSave) {
+            try {
+                list.updateWholeFile();
+            } catch (IOException e) {
+                printError("Something went wrong, error data: " + e.getMessage());
+            }
+        }
     }
 
     private static void doTodoAction(String lineInput) throws EmptyArgumentException {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.TODO);
+        int index = list.addTaskToList(lineInput, TaskType.TODO, false, toSave);
         String output = "I got you, added a todo:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
@@ -149,7 +194,7 @@ public class Duke {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.DEADLINE);
+        int index = list.addTaskToList(lineInput, TaskType.DEADLINE, false, toSave);
         String output = "I got you, added a deadline:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
@@ -160,7 +205,7 @@ public class Duke {
         if (lineInput.strip().isEmpty()) {
             throw new EmptyArgumentException();
         }
-        int index = list.addTaskToList(lineInput, TaskType.EVENT);
+        int index = list.addTaskToList(lineInput, TaskType.EVENT, false, toSave);
         String output = "I got you, added a event:\n"
                 + list.getItemFromList(index + 1)
                 + "\n Now you have " + (index + 1) + " tasks in the list.";
