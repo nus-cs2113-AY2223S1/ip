@@ -1,0 +1,3 @@
+T|1|1
+E|1|teo|se
+D|0|te|tes

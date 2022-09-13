@@ -1,25 +1,116 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.Scanner;
+
 public class DukeManager {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String ADD_CONFIRMATION_MESSAGE = "Got it. I've added this task:";
-    private static Task[] inputs = new Task[100];
-    private static int index = 0;
+    private static final Path directoryPath = Paths.get(".","data");
+    private static final Path filePath = Paths.get(".","data", "duke.txt");
+    private static ArrayList<Task> inputs = new ArrayList<>();
 
     /**
      * Returns a string with formatted user inputs.
      *
-     * @param inputs list of user input.
      * @return Formatted string to print
      */
-    public static String formatList(Task[] inputs) {
+    public static String formatList() {
         String formattedString = HORIZONTAL_LINE;
-        for (int i = 0; i < inputs.length; i++) {
-            if (inputs[i] == null) {
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i) == null) {
                 break;
             }
-            formattedString += (i+1) + "." + inputs[i].toString() + "\n";
+            formattedString += (i+1) + "." + inputs.get(i).toString() + "\n";
         }
         formattedString += HORIZONTAL_LINE;
         return formattedString;
+    }
+
+    public static String saveList() {
+        String formattedString = "";
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i) == null) {
+                break;
+            }
+            formattedString += inputs.get(i).toSaveString() + "\n";
+        }
+        return formattedString;
+    }
+
+    public static void checkExists() throws IOException {
+        boolean directoryExists = Files.exists(directoryPath);
+        boolean fileExists = Files.exists(filePath);
+        if (!directoryExists) {
+            Files.createDirectories(directoryPath);
+        }
+        if (!fileExists) {
+            Files.createFile(filePath);
+        }
+    }
+
+    public static void save() {
+        try {
+            checkExists();
+        } catch (IOException e) {
+            print("Something went wrong when trying to save: " + e.getMessage());
+            return;
+        }
+        String pathName = "./data/duke.txt";
+        try {
+            FileWriter fw = new FileWriter(pathName);
+            fw.write(saveList());
+            fw.close();
+        } catch (IOException e) {
+            print("☹ OOPS!!! Something went wrong when trying to save: " + e.getMessage());
+            return;
+        }
+    }
+
+    public static void load() {
+        if (Files.exists(directoryPath) && Files.exists(filePath)) {
+            File f = new File(String.valueOf(filePath)); // create a File for the given file path
+            Scanner s = null;
+            try {
+                s = new Scanner(f); // create a Scanner using the File as the source
+            } catch (FileNotFoundException e) {
+                print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+            }
+            while (s.hasNext()) {
+                String[] line = s.nextLine().split("\\|");
+                Task newTask = null;
+                if (line[0].equals("T")) {
+                    try {
+                        newTask = new Todo(line[2]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                } else if (line[0].equals("D")) {
+                    try {
+                        newTask = new Deadline(line[2], line[3]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                } else {
+                    try {
+                        newTask = new Event(line[2], line[3]);
+                    } catch (DukeException e) {
+                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                    }
+                }
+                if (line[1].equals("1")) {
+                    newTask.markAsDone();
+                } else {
+                    newTask.markAsNotDone();
+                }
+                inputs.add(newTask);
+            }
+        }
     }
 
     public static void print(String string) {
@@ -27,8 +118,9 @@ public class DukeManager {
     }
 
     public static void list() {
-        print(formatList(inputs));
+        System.out.println(formatList());
     }
+
 
     public static void unmark(String line) {
         int input = -1;
@@ -38,11 +130,11 @@ public class DukeManager {
             print("☹ OOPS!!! You must specify a number in the list to unmark. Format: unmark #");
             return;
         }
-        if (input >= 0 && input < index) {
+        if (input <= 0 || input > inputs.size()) {
             print("☹ OOPS!!! You must specify a number in the list.");
             return;
         }
-        Task task = inputs[input - 1];
+        Task task = inputs.get(input - 1);
         task.markAsNotDone();
         print("OK, I've marked this task as not done yet: \n  " + task);
     }
@@ -55,11 +147,11 @@ public class DukeManager {
             print("☹ OOPS!!! You must specify a number in the list to mark. Format: mark #");
             return;
         }
-        if (input < 0 || input > index) {
+        if (input <= 0 || input > inputs.size()) {
             print("☹ OOPS!!! You must specify a number in the list.");
             return;
         }
-        Task task = inputs[input - 1];
+        Task task = inputs.get(input - 1);
         task.markAsDone();
         print("Nice! I've marked this task as done: \n  " + task);
     }
@@ -73,9 +165,8 @@ public class DukeManager {
             print("☹ OOPS!!! The description of a todo cannot be empty.");
             return;
         }
-        inputs[index] = todo;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + todo + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(todo);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + todo + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
     public static void createEvent(String line) {
@@ -97,9 +188,8 @@ public class DukeManager {
             print("☹ OOPS!!! The description and date of an event cannot be empty.");
             return;
         }
-        inputs[index] = event;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + event + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(event);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + event + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
     public static void createDeadline(String line) {
@@ -124,8 +214,7 @@ public class DukeManager {
             print("☹ OOPS!!! The date and description of a deadline cannot be empty.");
             return;
         }
-        inputs[index] = deadline;
-        index++;
-        print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ index + " tasks in the list.");
+        inputs.add(deadline);
+        print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 }
