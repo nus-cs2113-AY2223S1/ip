@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.MissingDateTimeReferenceException;
+import duke.exception.MissingListIndexException;
 import duke.exception.UndefinedCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -9,9 +10,9 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    static final int MAX_TASK_SIZE = 100;
 
     public static String readTaskDescription(Scanner in) throws EmptyTaskDescriptionException {
         String taskDescription = in.nextLine().trim();
@@ -41,70 +42,111 @@ public class Duke {
         return taskDescription.substring(dateTimeIndex + 3).trim();
     }
 
-    public static void addToDoTask(Task[] tasks, int taskIndex, String todoTaskName) {
-        tasks[taskIndex] = new Todo(todoTaskName);
+    public static void addToDoTask(ArrayList<Task> taskList, String todoTaskName) {
+        taskList.add(new Todo(todoTaskName));
     }
 
-    public static void addDeadlineTask(Task[] tasks, int taskIndex, String deadlineTaskName, String deadlineTaskBy) {
-        tasks[taskIndex] = new Deadline(deadlineTaskName, deadlineTaskBy);
+    public static void addDeadlineTask(ArrayList<Task> taskList, String deadlineTaskName, String deadlineTaskBy) {
+        taskList.add(new Deadline(deadlineTaskName, deadlineTaskBy));
     }
 
-    public static void addEventTask(Task[] tasks, int taskIndex, String eventTaskName, String eventTaskAt) {
-        tasks[taskIndex] = new Event(eventTaskName, eventTaskAt);
+    public static void addEventTask(ArrayList<Task> taskList, String eventTaskName, String eventTaskAt) {
+        taskList.add(new Event(eventTaskName, eventTaskAt));
     }
 
-    public static void printTaskAddedMessage(Task[] tasks, int taskIndex) {
-        boolean isSingleTask = (taskIndex == 0);
+    public static void printTaskAddedMessage(ArrayList<Task> taskList, int maxTaskIndex) {
+        boolean isSingleTask = (maxTaskIndex == 0);
         String task = isSingleTask ? " task" : " tasks";
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskIndex]);
-        System.out.println("Now you have " + (taskIndex + 1) + task + " in the list.");
+        System.out.println("  " + taskList.get(maxTaskIndex));
+        System.out.println("Now you have " + (maxTaskIndex + 1) + task + " in the list.");
     }
 
-    public static void markAsDone(Task[] tasks, Scanner in) {
+    public static void markAsDone(ArrayList<Task> taskList, Scanner in) {
         try {
-            int markIndex = Integer.parseInt(in.next()) - 1;
-            tasks[markIndex].setDone(true);
+            String markTaskIndex = readTaskIndex(in);
+            int markIndex = Integer.parseInt(markTaskIndex) - 1;
+            taskList.get(markIndex).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks[markIndex]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.");
-        } catch (NullPointerException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, there is no such task found in the task list.");
+            System.out.println("  " + taskList.get(markIndex));
+        } catch (MissingListIndexException e) {
+            System.out.println("☹ OOPS!!! To mark a task, please specify the task index.\nPlease try again.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, the task index does not exist in the task list.");
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please kindly provide a numerical taskID.");
+            System.out.println("☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)");
         }
     }
 
-    public static void markAsUndone(Task[] tasks, Scanner in) {
+    public static void markAsUndone(ArrayList<Task> taskList, Scanner in) {
         try {
-            int unmarkIndex = Integer.parseInt(in.next()) - 1;
-            tasks[unmarkIndex].setDone(false);
+            String unmarkTaskIndex = readTaskIndex(in);
+            int unmarkIndex = Integer.parseInt(unmarkTaskIndex) - 1;
+            taskList.get(unmarkIndex).setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks[unmarkIndex]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.");
-        } catch (NullPointerException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, there is no such task found in the task list.");
+            System.out.println("  " + taskList.get(unmarkIndex));
+        } catch (MissingListIndexException e) {
+            System.out.println("☹ OOPS!!! To unmark a task, please specify the task index.\nPlease try again.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, the task index does not exist in the task list.");
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please kindly provide a numerical taskID.");
+            System.out.println("☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)");
         }
     }
 
-    public static void printList(Task[] tasks, int taskIndex) {
-        boolean hasNoTask = (taskIndex == 0);
+    public static void printList(ArrayList<Task> taskList, int maxTaskIndex) {
+        boolean hasNoTask = (maxTaskIndex == 0);
         if (hasNoTask) {
             System.out.println("There is no task in your list.");
             return;
         }
-        boolean isSingleTask = (taskIndex == 1);
-        String task = isSingleTask ? "is the task" : "are the tasks";
-        System.out.println("Here " + task + " in your list:");
-        taskIndex = 0;
-        while (tasks[taskIndex] != null) {
-            System.out.println((taskIndex + 1) + "." + tasks[taskIndex]);
+        boolean isSingleTask = (maxTaskIndex == 1);
+        String taskString = isSingleTask ? "is the task" : "are the tasks";
+        System.out.println("Here " + taskString + " in your list:");
+        int taskIndex = 1;
+        for (Task task : taskList) {
+            System.out.println((taskIndex) + "." +  task);
             taskIndex++;
         }
+    }
+
+    public static String readTaskIndex(Scanner in) throws MissingListIndexException {
+        String taskIndex = in.nextLine().trim();
+        if (taskIndex.isEmpty()) {
+            throw new MissingListIndexException();
+        }
+        return taskIndex;
+    }
+
+    public static boolean deleteTask(ArrayList<Task> taskList, Scanner in, int maxTaskIndex) {
+        boolean isEmptyList = (maxTaskIndex == 0);
+        if (isEmptyList) {
+            System.out.println("☹ OOPS!!! There is no task in the list.");
+            return false;
+        }
+
+        try {
+            String deleteTaskIndex = readTaskIndex(in);
+            int deleteIndex = Integer.parseInt(deleteTaskIndex) - 1;
+            String deletedTaskDescription = String.valueOf(taskList.get(deleteIndex));
+            taskList.remove(deleteIndex);
+
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deletedTaskDescription);
+            maxTaskIndex--;
+            boolean isEmptyListOrSingleTask = (maxTaskIndex == 0 || maxTaskIndex == 1);
+            String task = isEmptyListOrSingleTask ? "task" : "tasks";
+            System.out.println("Now you have " + maxTaskIndex + " " + task + " in the list.");
+
+            return true;
+        } catch (MissingListIndexException e) {
+            System.out.println("☹ OOPS!!! To delete a task, please specify the task index.\nPlease try again.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, the task index does not exist in the task list.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)");
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -115,26 +157,26 @@ public class Duke {
         Scanner in = new Scanner(System.in);    //create object that reads input
         String command = in.next();             //variable to store line (input)
 
-        Task[] tasks = new Task[MAX_TASK_SIZE];
-        int taskIndex = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+        int maxTaskIndex = 0;
         while (!command.equals("bye")) {
             switch (command) {
             case "list":
-                printList(tasks, taskIndex);
+                printList(taskList, maxTaskIndex);
                 break;
             case "unmark":
-                markAsUndone(tasks, in);
+                markAsUndone(taskList, in);
                 break;
             case "mark":
-                markAsDone(tasks, in);
+                markAsDone(taskList, in);
                 break;
             //Add Task
             case "todo":
                 try {
                     String todoTaskName = readTaskDescription(in);
-                    addToDoTask(tasks, taskIndex, todoTaskName);
-                    printTaskAddedMessage(tasks, taskIndex);
-                    taskIndex++;
+                    addToDoTask(taskList, todoTaskName);
+                    printTaskAddedMessage(taskList, maxTaskIndex);
+                    maxTaskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyToDoDescriptionExceptionMessage();
                 }
@@ -144,9 +186,9 @@ public class Duke {
                     String deadlineTask = readTaskDescription(in);
                     String deadlineTaskName = extractTaskName(deadlineTask ,"/by");
                     String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
-                    addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
-                    printTaskAddedMessage(tasks, taskIndex);
-                    taskIndex++;
+                    addDeadlineTask(taskList, deadlineTaskName, deadlineTaskBy);
+                    printTaskAddedMessage(taskList, maxTaskIndex);
+                    maxTaskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyDeadlineDescriptionExceptionMessage();
                 } catch (MissingDateTimeReferenceException e) {
@@ -158,13 +200,19 @@ public class Duke {
                     String eventTask = readTaskDescription(in);
                     String eventTaskName = extractTaskName(eventTask ,"/at");
                     String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
-                    addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
-                    printTaskAddedMessage(tasks, taskIndex);
-                    taskIndex++;
+                    addEventTask(taskList, eventTaskName, eventTaskAt);
+                    printTaskAddedMessage(taskList, maxTaskIndex);
+                    maxTaskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyEventDescriptionExceptionMessage();
                 } catch (MissingDateTimeReferenceException e) {
                     showMissingEventDateTimeReferenceExceptionMessage();
+                }
+                break;
+            case "delete":
+                boolean isDeleted = deleteTask(taskList, in, maxTaskIndex);
+                if (isDeleted) {
+                    maxTaskIndex--;
                 }
                 break;
             default:

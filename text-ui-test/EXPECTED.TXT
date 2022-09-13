@@ -75,12 +75,14 @@ Here are the tasks in your list:
 ☹ OOPS!!! The description of a todo cannot be empty.
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ☹ OOPS!!! The description of a event cannot be empty.
-☹ OOPS!!! I'm sorry, there is no such task found in the task list.
-☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.
-☹ OOPS!!! Please kindly provide a numerical taskID.
-☹ OOPS!!! I'm sorry, there is no such task found in the task list.
-☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.
-☹ OOPS!!! Please kindly provide a numerical taskID.
+☹ OOPS!!! To mark a task, please specify the task index.
+Please try again.
+☹ OOPS!!! I'm sorry, the task index does not exist in the task list.
+☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)
+☹ OOPS!!! To unmark a task, please specify the task index.
+Please try again.
+☹ OOPS!!! I'm sorry, the task index does not exist in the task list.
+☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ☹ OOPS!!! The description of a deadline requires a specific date/time denoted after '/by'.
@@ -89,6 +91,41 @@ Please try again.
 ☹ OOPS!!! The description of a event requires a date and specific start & end time denoted after '/at'.
 Example: event project meeting /at Mon 2-4pm
 Please try again.
+☹ OOPS!!! To delete a task, please specify the task index.
+Please try again.
+☹ OOPS!!! I'm sorry, the task index does not exist in the task list.
+☹ OOPS!!! Please kindly provide a valid task index. (numerical/exist)
+Noted. I've removed this task:
+  [E][ ] project meeting (at: Mon 2-4pm)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[D][ ] do homework (by: no idea :-p)
+Noted. I've removed this task:
+  [T][ ] borrow book
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[D][ ] return book (by: Sunday)
+2.[D][ ] do homework (by: no idea :-p)
+Noted. I've removed this task:
+  [D][ ] do homework (by: no idea :-p)
+Now you have 1 task in the list.
+Here is the task in your list:
+1.[D][ ] return book (by: Sunday)
+Noted. I've removed this task:
+  [D][ ] return book (by: Sunday)
+Now you have 0 task in the list.
+There is no task in your list.
+Got it. I've added this task:
+  [T][ ] xxx
+Now you have 1 task in the list.
+Here is the task in your list:
+1.[T][ ] xxx
+Noted. I've removed this task:
+  [T][ ] xxx
+Now you have 0 task in the list.
+There is no task in your list.
 {\__/}
 (´^ω^)ノ Bye. Hope to see you again soon!
 / v v/
