@@ -25,6 +25,6 @@ public class Deadline extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskManager.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description, this.deadlineDate);
+        return String.join(TaskManager.FILE_STRING_SEPARATOR, "D", this.getStatusValue(), this.description, this.deadlineDate);
     }
 }
