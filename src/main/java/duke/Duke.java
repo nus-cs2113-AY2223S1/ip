@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,14 +31,26 @@ public class Duke {
         System.out.println("What you want?");
 
         Scanner in = new Scanner(System.in);
-        TaskList tasks = new TaskList();
+        String filePath = "/data/duke.txt";
+        Storage storage = new Storage(filePath);
+        TaskList tasks;
         boolean run = true;
+        try {
+            tasks = new TaskList(storage.readFile());
+        } catch (FileNotFoundException e) {
+            tasks = new TaskList();
+        }
         while (run) {
             String line = in.nextLine();
             Command command = new Command(line, tasks);
             if (line.equals("bye")) {
                 run = false;
                 System.out.println("bye bye");
+                try {
+                    storage.writeFile(tasks);
+                } catch (IOException e) {
+                    System.out.println("error saving file");
+                }
             } else {
                 command.handleCommand();
             }
