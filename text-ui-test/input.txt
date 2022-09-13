@@ -6,6 +6,9 @@ mark 1
 list
 mark 2
 todo
+todo borrow book
 list
 blah
+delete 2
+list
 bye

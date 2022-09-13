@@ -1,6 +1,6 @@
 package duke;
 
-public class EmptyDescriptionException extends DukeException{
+public class EmptyDescriptionException extends Exception {
         private String task;
         public EmptyDescriptionException(String task) {
             this.task = task;

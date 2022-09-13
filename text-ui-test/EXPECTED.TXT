@@ -21,9 +21,20 @@ Here are the tasks in your list:
 Nice! I've marked this task as done:
   [D][X] weekly CS2113 quiz (by: Monday 9pm)
 OOPS!!! The description of a todo cannot be empty
+Got it. I've added this task:
+  [T][ ] borrow book
+Now you have 4 tasks in the list.
 Here are the tasks in your list:
 1.[T][X] Gao YunFan: Answer CS2113 tutorial questions
 2.[D][X] weekly CS2113 quiz (by: Monday 9pm)
 3.[E][ ] CS2113 lecture (at: Friday 4 to 6 pm)
+4.[T][ ] borrow book
 OOPS!!! I'm sorry, but I don't know what that means :-(
+Noted. I've removed this task:
+  [D][X] weekly CS2113 quiz (by: Monday 9pm)
+Now you have 4 in the list.
+Here are the tasks in your list:
+1.[T][X] Gao YunFan: Answer CS2113 tutorial questions
+2.[E][ ] CS2113 lecture (at: Friday 4 to 6 pm)
+3.[T][ ] borrow book
 Bye. Hope to see you again soon!
