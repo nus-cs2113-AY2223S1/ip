@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 
 public class Command {
     public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
@@ -21,11 +23,11 @@ public class Command {
         printHorizontalLine();
     }
 
-    public static void printTaskList(Task[] tasks) {
+    public static void printTaskList(ArrayList<Task> tasks) {
         printHorizontalLine();
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("     " + tasks[i].getId() + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
         printHorizontalLine();
     }
@@ -43,7 +45,7 @@ public class Command {
         System.out.println("       " + task);
         printHorizontalLine();
     }
-    static void tryAddEvent(Task[] tasks, String line) {
+    static void tryAddEvent(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("event", "").trim().equals("")) {
                 throw new DukeException();
@@ -55,15 +57,16 @@ public class Command {
             printHorizontalLine();
         }
     }
-    static void addEvent(Task[] tasks, String line) {
+    static void addEvent(ArrayList<Task> tasks, String line) {
         String[] descriptionAt = line.replaceFirst("event ", "").split(" /at ");
         String eventDescription = descriptionAt[0];
         String at = descriptionAt[1];
-        tasks[Event.getNumberOfTasks()] = new Event(eventDescription, at);
+        Event newEvent = new Event(eventDescription, at);
+        tasks.add(newEvent);
         int eventId = Task.getNumberOfTasks() - 1;
-        printNewTask(tasks[eventId]);
+        printNewTask(tasks.get(eventId));
     }
-    static void tryAddDeadline(Task[] tasks, String line) {
+    static void tryAddDeadline(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("deadline", "").trim().equals("")) {
                 throw new DukeException();
@@ -75,16 +78,17 @@ public class Command {
             printHorizontalLine();
         }
     }
-    private static void addDeadline(Task[] tasks, String line) {
+    private static void addDeadline(ArrayList<Task> tasks, String line) {
         String[] descriptionBy = line.replaceFirst("deadline ", "").split(" /by ");
         String deadlineDescription = descriptionBy[0];
         String by = descriptionBy[1];
-        tasks[Deadline.getNumberOfTasks()] = new Deadline(deadlineDescription, by);
+        Deadline newDeadline = new Deadline(deadlineDescription, by);
+        tasks.add(newDeadline);
         int deadlineId = Task.getNumberOfTasks() - 1;
-        printNewTask(tasks[deadlineId]);
+        printNewTask(tasks.get(deadlineId));
     }
 
-    static void tryAddTodo(Task[] tasks, String line) {
+    static void tryAddTodo(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("todo", "").trim().equals("")) {
                 throw new DukeException();
@@ -97,13 +101,14 @@ public class Command {
         }
     }
 
-    private static void addTodo(Task[] tasks, String line) {
+    private static void addTodo(ArrayList<Task> tasks, String line) {
         String todoDescription = line.replaceFirst("todo ", "");
-        tasks[Todo.getNumberOfTasks()] = new Todo(todoDescription);
+        Todo newTodo = new Todo(todoDescription);
+        tasks.add(newTodo);
         int todoId = Todo.getNumberOfTasks() - 1;
-        printNewTask(tasks[todoId]);
+        printNewTask(tasks.get(todoId));
     }
-    static void tryUnmarkTask(Task[] tasks, String line) {
+    static void tryUnmarkTask(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("unmark", "").trim().equals("")) {
                 throw new DukeException();
@@ -115,13 +120,13 @@ public class Command {
             printHorizontalLine();
         }
     }
-    private static void unmarkTask(Task[] tasks, String[] parsedInput) {
+    private static void unmarkTask(ArrayList<Task> tasks, String[] parsedInput) {
         int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
-        tasks[unmarkId].setNotDone();
-        printUnmark(tasks[unmarkId]);
+        tasks.get(unmarkId).setNotDone();
+        printUnmark(tasks.get(unmarkId));
     }
 
-    static void tryMarkTask(Task[] tasks, String line) {
+    static void tryMarkTask(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("mark", "").trim().equals("")) {
                 throw new DukeException();
@@ -134,10 +139,10 @@ public class Command {
         }
     }
 
-    private static void markTask(Task[] tasks, String[] parsedInput) {
+    private static void markTask(ArrayList<Task> tasks, String[] parsedInput) {
         int markId = Integer.parseInt(parsedInput[1]) - 1;
-        tasks[markId].setDone();
-        printMark(tasks[markId]);
+        tasks.get(markId).setDone();
+        printMark(tasks.get(markId));
     }
 
     public static void printWelcomeMessage() {
