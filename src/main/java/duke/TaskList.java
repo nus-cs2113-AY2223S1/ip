@@ -8,7 +8,7 @@ public class TaskList {
 
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
-    public ArrayList<Task> taskList;
+    protected ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;

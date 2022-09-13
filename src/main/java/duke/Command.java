@@ -7,13 +7,14 @@ import duke.task.Todo;
 
 
 public class Command {
-    private static TaskList tasks = new TaskList();
+    private final TaskList tasks;
     private final String command;
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
 
-    public Command(String command) {
+    public Command(String command, TaskList tasks) {
         this.command = command;
+        this.tasks = tasks;
     }
 
     private static void markCommand(String input, TaskList tasks) throws DukeException {

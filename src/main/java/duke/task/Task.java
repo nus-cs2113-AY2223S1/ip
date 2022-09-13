@@ -30,4 +30,11 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " +getDescription();
     }
+
+    public String taskToString() {
+        if (isDone) {
+            return "|" + "1" + "|" + description;
+        }
+        return "|" + "0" + "|" + description;
+    }
 }
