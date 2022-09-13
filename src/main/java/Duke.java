@@ -41,6 +41,18 @@ public class Duke {
                 }
 
             }
+            else if(inp.contains("delete")){
+                int num = Integer.parseInt(inp.substring(inp.indexOf(" ")+1))-1;
+                if(num>list.size()){
+                    System.out.println("Out of bounds of the list");
+                }
+                else{
+                    System.out.println("I have removed this task: ");
+                    System.out.println(list.get(num));
+                    list.remove(num);
+                    System.out.println("You now have "+list.size()+" tasks left in the list.");
+                }
+            }
             else {
                 try{
                     taskReader(inp);
