@@ -30,24 +30,22 @@ dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
-    echo "Test result: PASSED"
-
-    # convert to UNIX format
-    cp data/EXPECTED-DUKE.TXT data/EXPECTED-DUKE-UNIX.TXT
-    dos2unix data/duke.txt data/EXPECTED-DUKE-UNIX.TXT
-
-    # compare the save output to the expected save output
-    diff data/duke.txt data/EXPECTED-DUKE-UNIX.TXT
-    if [ $? -eq 0 ]
-    then
-        echo "Save test result: PASSED"
-        exit 0
-    else
-        echo "Save test result: FAILED"
-        exit 1
-    fi
-
+    echo "UI test result: PASSED"
 else
-    echo "Test result: FAILED"
+    echo "UI test result: FAILED"
+fi
+
+# convert to UNIX format
+cp data/EXPECTED-DUKE.TXT data/EXPECTED-DUKE-UNIX.TXT
+dos2unix data/duke.txt data/EXPECTED-DUKE-UNIX.TXT
+
+# compare the save output to the expected save output
+diff data/duke.txt data/EXPECTED-DUKE-UNIX.TXT
+if [ $? -eq 0 ]
+then
+    echo "Save test result: PASSED"
+    exit 0
+else
+    echo "Save test result: FAILED"
     exit 1
 fi
