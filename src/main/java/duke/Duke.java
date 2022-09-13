@@ -8,7 +8,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+
 
 public class Duke {
     static final int MAX_TASK_SIZE = 100;
@@ -67,12 +72,15 @@ public class Duke {
             tasks[markIndex].setDone(true);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks[markIndex]);
+            updateMarkStatusInDukeTextFile(markIndex, true);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.");
         } catch (NullPointerException e) {
             System.out.println("☹ OOPS!!! I'm sorry, there is no such task found in the task list.");
         } catch (NumberFormatException e) {
             System.out.println("☹ OOPS!!! Please kindly provide a numerical taskID.");
+        } catch (IOException e) {
+            showIOExceptionMessage();
         }
     }
 
@@ -82,12 +90,15 @@ public class Duke {
             tasks[unmarkIndex].setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + tasks[unmarkIndex]);
+            updateMarkStatusInDukeTextFile(unmarkIndex, false);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! I'm sorry, the taskID does not exist in the task list.");
         } catch (NullPointerException e) {
             System.out.println("☹ OOPS!!! I'm sorry, there is no such task found in the task list.");
         } catch (NumberFormatException e) {
             System.out.println("☹ OOPS!!! Please kindly provide a numerical taskID.");
+        } catch (IOException e) {
+            showIOExceptionMessage();
         }
     }
 
@@ -107,7 +118,134 @@ public class Duke {
         }
     }
 
+    private static void findDataFile(File dataFile) throws SecurityException {
+        boolean hasFileData = dataFile.mkdir();
+        if (!hasFileData) {
+            System.out.println("'data' directory has been created as it does not exist.");
+        }
+    }
+
+    private static void findDukeTextFile(File fileDuke) throws IOException {
+        boolean hasCreateFile = fileDuke.createNewFile();
+        if (hasCreateFile) {
+            System.out.println("'duke.txt' has been created as it does not exist.");
+        }
+    }
+
+    private static int loadDukeTextFile(Task[] tasks, File dukeFile) throws FileNotFoundException {
+        Scanner dukeScanner = new Scanner(dukeFile);
+        String taskDescription;
+        String dateTime;
+        int descriptionPartitionIndex;
+        int taskIndex = 0;
+        boolean isMarked;
+
+        while (dukeScanner.hasNext()) {
+            taskDescription = dukeScanner.nextLine().trim();
+            char taskType = taskDescription.charAt(0);
+            char marked = taskDescription.charAt(4);
+            taskDescription = taskDescription.substring(8);
+            String taskName;
+
+            switch (taskType) {
+            case 'T':
+                taskName = taskDescription.trim();
+                addToDoTask(tasks, taskIndex, taskName);
+                break;
+            case 'D':
+                descriptionPartitionIndex = taskDescription.indexOf("|");
+                taskName = taskDescription.substring(0, descriptionPartitionIndex - 1).trim();
+                dateTime = taskDescription.substring(descriptionPartitionIndex + 1).trim();
+                addDeadlineTask(tasks, taskIndex, taskName, dateTime);
+                break;
+            case 'E':
+                descriptionPartitionIndex = taskDescription.indexOf("|");
+                taskName = taskDescription.substring(0, descriptionPartitionIndex - 1).trim();
+                dateTime = taskDescription.substring(descriptionPartitionIndex + 1).trim();
+                addEventTask(tasks, taskIndex, taskName, dateTime);
+                break;
+            default:
+            }
+            isMarked = (marked == '1');
+            tasks[taskIndex].setDone(isMarked);
+
+            taskIndex++;
+        }
+        return taskIndex;
+    }
+
+    public static void updateMarkStatusInDukeTextFile(int lineToEdit, boolean isMarked) throws IOException, NullPointerException {
+        File dukeFile = new File("data/duke.txt");
+        Scanner dukeFileScanner = new Scanner(dukeFile);
+        StringBuilder taskDescriptions = new StringBuilder();
+        int lineNumber = 0;
+
+        while (dukeFileScanner.hasNext()) {
+            String currentLine = dukeFileScanner.nextLine();
+            if (lineNumber == lineToEdit) {
+                taskDescriptions.append(updateMarkStatus(isMarked, currentLine)).append(System.lineSeparator());
+            } else {
+                taskDescriptions.append(currentLine).append(System.lineSeparator());
+            }
+            lineNumber++;
+        }
+
+        FileWriter dukeFileWriter = new FileWriter("data/duke.txt");
+        dukeFileWriter.write(taskDescriptions.toString());
+        dukeFileWriter.close();
+    }
+
+    public static String updateMarkStatus(boolean isMarked, String currentLine) {
+        String markStatus = isMarked ? "1" : "0";
+        return currentLine.substring(0, 4) + markStatus + currentLine.substring(5);
+    }
+
+    public static void addTaskToDukeTextFile(String addedTaskDescription) throws IOException {
+        File dukeFile = new File("data/duke.txt");
+        Scanner dukeFileScanner = new Scanner(dukeFile);
+        String newDukeTextFileContent = copyFileContent(dukeFileScanner);
+        newDukeTextFileContent += addedTaskDescription + System.lineSeparator();
+        FileWriter dukeFileWriter = new FileWriter("data/duke.txt");
+        dukeFileWriter.write(newDukeTextFileContent);
+        dukeFileWriter.close();
+    }
+
+    private static String copyFileContent(Scanner dukeFileScanner) {
+        StringBuilder taskDescriptions = new StringBuilder();
+        while (dukeFileScanner.hasNext()) {
+            String currentLine = dukeFileScanner.nextLine();
+            taskDescriptions.append(currentLine).append(System.lineSeparator());
+        }
+        return taskDescriptions.toString();
+    }
+
     public static void main(String[] args) {
+        //Attempt to find 'data' directory; Directory created if not found
+        File dataFile = new File("data");
+        try {
+            findDataFile(dataFile);
+        } catch (SecurityException e) {
+            showSecurityExceptionMessage();
+        }
+
+        //Attempt to find 'duke.txt' text file; Text file created if not found
+        File dukeFile = new File("data/duke.txt");
+        try {
+            findDukeTextFile(dukeFile);
+        } catch (IOException e) {
+            showIOExceptionMessage();
+        }
+
+        Task[] tasks = new Task[MAX_TASK_SIZE];
+        int taskIndex = 0;
+
+        //Load task descriptions (if any) into list
+        try {
+            taskIndex = loadDukeTextFile(tasks ,dukeFile);
+        } catch (FileNotFoundException e) {
+            showDukeTextFileNotFoundMessage();
+        }
+
         //Greet
         showWelcomeMessage();
 
@@ -115,8 +253,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);    //create object that reads input
         String command = in.next();             //variable to store line (input)
 
-        Task[] tasks = new Task[MAX_TASK_SIZE];
-        int taskIndex = 0;
         while (!command.equals("bye")) {
             switch (command) {
             case "list":
@@ -134,9 +270,13 @@ public class Duke {
                     String todoTaskName = readTaskDescription(in);
                     addToDoTask(tasks, taskIndex, todoTaskName);
                     printTaskAddedMessage(tasks, taskIndex);
+                    String addedTaskDescription = "T | 0 | " + todoTaskName;
+                    addTaskToDukeTextFile(addedTaskDescription);
                     taskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyToDoDescriptionExceptionMessage();
+                } catch (IOException e) {
+                    showIOExceptionMessage();
                 }
                 break;
             case "deadline":
@@ -146,11 +286,15 @@ public class Duke {
                     String deadlineTaskBy   = extractTaskDateTime(deadlineTask ,"/by");
                     addDeadlineTask(tasks, taskIndex, deadlineTaskName, deadlineTaskBy);
                     printTaskAddedMessage(tasks, taskIndex);
+                    String addedTaskDescription = "D | 0 | " + deadlineTaskName + " | " + deadlineTaskBy;
+                    addTaskToDukeTextFile(addedTaskDescription);
                     taskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyDeadlineDescriptionExceptionMessage();
                 } catch (MissingDateTimeReferenceException e) {
                     showMissingDeadlineDateTimeReferenceExceptionMessage();
+                } catch (IOException e) {
+                    showIOExceptionMessage();
                 }
                 break;
             case "event":
@@ -160,11 +304,15 @@ public class Duke {
                     String eventTaskAt   = extractTaskDateTime(eventTask ,"/at");
                     addEventTask(tasks, taskIndex, eventTaskName, eventTaskAt);
                     printTaskAddedMessage(tasks, taskIndex);
+                    String addedTaskDescription = "E | 0 | " + eventTaskName + " | " + eventTaskAt;
+                    addTaskToDukeTextFile(addedTaskDescription);
                     taskIndex++;
                 } catch (EmptyTaskDescriptionException e) {
                     showEmptyEventDescriptionExceptionMessage();
                 } catch (MissingDateTimeReferenceException e) {
                     showMissingEventDateTimeReferenceExceptionMessage();
+                } catch (IOException e) {
+                    showIOExceptionMessage();
                 }
                 break;
             default:
@@ -175,6 +323,18 @@ public class Duke {
 
         //Exit
         showByeMessage();
+    }
+
+    private static void showDukeTextFileNotFoundMessage() {
+        System.out.println("duke.txt cannot be found");
+    }
+
+    private static void showIOExceptionMessage() {
+        System.out.println("IO Exception Triggered");
+    }
+
+    private static void showSecurityExceptionMessage() {
+        System.out.println("Security Exception Triggered");
     }
 
     private static void showMissingDeadlineDateTimeReferenceExceptionMessage() {
