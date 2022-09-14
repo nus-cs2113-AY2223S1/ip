@@ -33,6 +33,7 @@ public class InputParser {
             }
         case "list":
         case "bye":
+        case "save":
             break;
         case "":
             throw new IllegalInputException(EMPTY_INPUT_ERROR);

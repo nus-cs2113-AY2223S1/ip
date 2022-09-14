@@ -22,4 +22,9 @@ public class Event extends Task {
         super.printTask();
         System.out.println(" ("+this.timing+")");
     }
+
+    @Override
+    public String getSaveString(){
+        return taskType + "|" + isDone +  "|" + description + "|" + timing;
+    }
 }

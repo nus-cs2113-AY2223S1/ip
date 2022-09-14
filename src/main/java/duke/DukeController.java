@@ -1,10 +1,18 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class DukeController {
     protected ArrayList<Task> taskList = new ArrayList<Task>(0);
-    private final String GREETING_PART_ONE = "Hello! I'm duke.Duke";
+    private final String GREETING_PART_ONE = "Hello! I'm Duke!";
     private final String GREETING_PART_TWO = "What can I do for you?";
     private final String GOODBYE = "Bye. Hope to see you again soon!";
     private final String NUMBER_OF_TASKS_MESSAGE = "You now have %d tasks";
@@ -14,7 +22,59 @@ public class DukeController {
     private final String UPDATE_TASK_SUCCESS = "Nice! I've %sed this task:";
     private final String ILLEGAL_INDEX_ERROR = ":( %d is out of bounds of the task list";
     private final String UPDATE_TASK_FAILURE = ":( This task is already %sed";
+    private final int TASK_TYPE = 0;
+    private final int TASK_DESCRIPTION = 1;
+    private final int TASK_STATUS = 2;
+    private final int TASK_TIMING = 3;
+
     private String userInput;
+    private Path savedFilePath;
+
+    public void setHomePath(){
+        savedFilePath = Paths.get(".","data","duke.txt");
+    }
+
+    public void readData() throws FileNotFoundException {
+        File savedFile = savedFilePath.toFile();
+        Scanner fileScanner = new Scanner(savedFile);
+        while (fileScanner.hasNextLine()){
+            String[] data = fileScanner.nextLine().split(Pattern.quote("|"));
+            switch (data[TASK_TYPE]){
+            case "T":
+                ToDo oldToDo = new ToDo(data[TASK_DESCRIPTION]);
+                if (data[TASK_STATUS].equals("true")){
+                    oldToDo.setDone(true);
+                }
+                taskList.add(oldToDo);
+                break;
+            case "E":
+                Event oldEvent = new Event(data[TASK_DESCRIPTION], data[TASK_TIMING]);
+                if (data[TASK_STATUS].equals("true")){
+                    oldEvent.setDone(true);
+                }
+                taskList.add(oldEvent);
+                break;
+            case "D":
+                Deadline oldDeadline = new Deadline(data[TASK_DESCRIPTION], data[TASK_TIMING]);
+                if (data[TASK_STATUS].equals("true")){
+                    oldDeadline.setDone(true);
+                }
+                taskList.add(oldDeadline);
+                break;
+            default:
+            }
+        }
+    }
+    public void saveData() throws IOException {
+        File saveFile = new File(savedFilePath.toString());
+        FileWriter fileWriter = new FileWriter(saveFile);
+        for (Task task:taskList) {
+            String taskDetails = task.getSaveString();
+            fileWriter.write(taskDetails);
+            fileWriter.write('\n');
+        }
+        fileWriter.close();
+    }
 
     private final InputParser inputParser = new InputParser();
 
@@ -32,6 +92,13 @@ public class DukeController {
                 return;
             case "list":
                 printTaskList();
+                break;
+            case "save":
+                try {
+                    saveData();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case "todo":
             case "deadline":
