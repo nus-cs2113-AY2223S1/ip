@@ -5,7 +5,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 
 public class Command {
@@ -172,6 +177,82 @@ public class Command {
             System.out.println("     T_T OOPS!!! There is no such task number");
             printHorizontalLine();
         }
+    }
+
+    public static void readFile(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        int numberOfLine = 0;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] parsedLine = line.split(" \\| ");
+            numberOfLine += 1;
+            switch (parsedLine[0]) {
+            case "T":
+                tryAddTodo(tasks, "todo " + parsedLine[2]);
+                break;
+            case "D":
+                String deadline = "deadline " + parsedLine[2] + " /by " + parsedLine[3];
+                tryAddDeadline(tasks, deadline);
+                break;
+            case "E":
+                String event = "event " + parsedLine[2] + " /at " + parsedLine[3];
+                System.out.println(event);
+                tryAddEvent(tasks, event);
+                break;
+            }
+            switch (parsedLine[1]) {
+            case "1":
+                String mark = "mark " + numberOfLine;
+                tryMarkTask(tasks, mark);
+                break;
+            case "0":
+                String unmark = "unmark " + numberOfLine;
+                tryUnmarkTask(tasks, unmark);
+                break;
+            }
+        }
+    }
+
+    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < tasks.size(); i++) {
+            String line = "";
+            switch (tasks.get(i).getClass().getSimpleName()) {
+            case "Todo":
+                line = line + "T | ";
+                break;
+            case "Deadline":
+                line = line + "D | ";
+                break;
+            case "Event":
+                line = line + "E | ";
+                break;
+            }
+            switch (tasks.get(i).getStatusIcon()) {
+            case "X":
+                line = line + "1 | ";
+                break;
+            case " ":
+                line = line + "0 | ";
+                break;
+            }
+            line = line + tasks.get(i).getDescription();
+            switch (tasks.get(i).getClass().getSimpleName()) {
+            case "Deadline":
+                Deadline d = (Deadline) tasks.get(i);
+                line = line + " | " + d.getBy();
+                break;
+            case "Event":
+                Event e = (Event) tasks.get(i);
+                line = line + " | " + e.getAt();
+                break;
+            }
+            line = line + System.lineSeparator();
+            fw.write(line);
+        }
+        fw.close();
+
     }
 
     public static void printWelcomeMessage() {
