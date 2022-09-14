@@ -47,7 +47,7 @@ public class TaskManager {
         taskCount++;
         System.out.println("\tNow you have " + taskCount + " tasks in the list");
         System.out.println("  ____________________________________________________________");
-        addToFile(tasks.get(taskCount - 1));
+        addToFile(tasks.get(taskCount - 1), taskCount);
         return "done adding";
     }
 
@@ -103,6 +103,13 @@ public class TaskManager {
         } else {
             deleteTask(line);
         }
+
+        try {
+            editionToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
         return "done marking or deleting";
     }
 
@@ -175,7 +182,7 @@ public class TaskManager {
         taskCount++;
     }
 
-    public static void addToFile(Task t) {
+    public static void addToFile(Task t, int n) {
         String state;
         if (t.getStatus().equals("[X]")) {
             state = "X";
@@ -190,15 +197,28 @@ public class TaskManager {
         }
         try {
             writeToFile("data/duke.txt", type + "/" + state + "/" + t.getDescription()
-                    + "/" + addedInfo);
+                    + "/" + addedInfo, n);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
-    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+    public static void writeToFile(String filePath, String textToAdd, int n) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
-        fw.write(System.lineSeparator() + textToAdd);
+        if (n == 1) {
+            fw.write(textToAdd);
+        } else {
+            fw.write(System.lineSeparator() + textToAdd);
+        }
         fw.close();
+    }
+
+    public void editionToFile() throws IOException {
+        new FileWriter("data/duke.txt", false).close();
+        int n = 1;
+        for (Task t : tasks) {
+            addToFile(t, n);
+            n += 1;
+        }
     }
 }
