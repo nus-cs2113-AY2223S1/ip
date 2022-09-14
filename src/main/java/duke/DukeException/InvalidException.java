@@ -1,4 +1,4 @@
-package DukeException;
+package duke.DukeException;
 
 public class InvalidException extends Exception{
     private String message;

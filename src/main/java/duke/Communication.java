@@ -1,10 +1,12 @@
 package duke;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Communication {
     public static void greet(){
-        System.out.println("Hello! I'm Duke ");
+        System.out.println("Hello! I'm duke.Duke ");
         System.out.println("What can I do for you? \n");
     }
 
@@ -63,6 +65,41 @@ public class Communication {
 
     }
 
+    public static Event Events(String str, boolean isDone) {
+        String name = str.split(" \\| ",2)[0];
+        String at = str.split(" \\| ",2)[1];
 
+<<<<<<< HEAD
 
+=======
+        Event task = new Event(name, at);
+        if (isDone) {
+            task.UpdateStatus();
+        }
+        return task;
+>>>>>>> branch-Level-7
     }
+    public static ToDo ToDos(String name, boolean isDone) {
+        ToDo task = new ToDo(name);
+        if (isDone) {
+            task.UpdateStatus();
+        }
+        return task;
+    }
+    public static Deadline Deadlines(String str, boolean isDone) {
+        String name = str.split(" \\| ",2)[0];
+        String by = str.split(" \\| ",2)[1];
+
+        Deadline task = new Deadline(name, by);
+        if (isDone) {
+            task.UpdateStatus();
+        }
+        return task;
+    }
+    public static ArrayList<Task> loading(File file) throws FileNotFoundException {
+        ArrayList<Task> ListOfTasks = Cache.retrival(file);
+        return ListOfTasks;
+    }
+
+
+}
