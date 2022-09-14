@@ -35,18 +35,18 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void markTask(int taskNumber, String command, boolean isDone) throws TaskNumberOutOfBoundsException {
+    public void markTask(int taskNumber, String command, boolean isDone) throws TaskNumberOutOfBoundsException, TaskAlreadyMarkedException {
         try {
             String previousIcon = tasksList.get(taskNumber).getStatusIcon();
             if (previousIcon == "X") {
                 if (isDone) {
-                    System.out.println("This task has already been marked!");
+                    throw new TaskAlreadyMarkedException("marked");
                 } else {
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
             } else {
                 if (!isDone) {
-                    System.out.println("This task has already been unmarked!");
+                    throw new TaskAlreadyMarkedException("unmarked");
                 } else {
                     System.out.println("Nice! I've marked this task as done:");
                 }
