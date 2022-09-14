@@ -8,6 +8,9 @@ import duke.task.Todo;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 
 public class Command {
@@ -145,6 +148,41 @@ public class Command {
         int markId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(markId).setDone();
         printMark(tasks.get(markId));
+    }
+
+    public static void readFile(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        int numberOfLine = 0;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] parsedLine = line.split(" \\| ");
+            numberOfLine += 1;
+            switch (parsedLine[0]) {
+            case "T":
+                tryAddTodo(tasks, "todo " + parsedLine[2]);
+                break;
+            case "D":
+                String deadline = "deadline " + parsedLine[2] + " /by " + parsedLine[3];
+                tryAddDeadline(tasks, deadline);
+                break;
+            case "E":
+                String event = "event " + parsedLine[2] + " /at " + parsedLine[3];
+                System.out.println(event);
+                tryAddEvent(tasks, event);
+                break;
+            }
+            switch (parsedLine[1]) {
+            case "1":
+                String mark = "mark " + numberOfLine;
+                tryMarkTask(tasks, mark);
+                break;
+            case "0":
+                String unmark = "unmark " + numberOfLine;
+                tryUnmarkTask(tasks, unmark);
+                break;
+            }
+        }
     }
 
     public static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {

@@ -10,12 +10,17 @@ import static duke.command.Command.*;
 import java.util.ArrayList;
 
 public class Duke {
-    public static final int MAX_TASK = 100;
     public static void main(String[] args) {
 
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            readFile("data/duke.txt", tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
 
         untilBye:
         while (true) {
