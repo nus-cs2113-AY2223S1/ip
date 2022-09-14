@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+
 public class TaskManager {
 
     public static void printSuccessfulAdd(Task[] tasks, int taskCount) {

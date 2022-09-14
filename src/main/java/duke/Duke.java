@@ -1,3 +1,11 @@
+package duke;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Event;
+
+
 import java.util.Scanner;
 
 public class Duke {

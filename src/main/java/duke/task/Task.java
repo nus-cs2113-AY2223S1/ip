@@ -1,6 +1,10 @@
-public class Task extends TaskManager{
+package duke.task;
+
+import duke.TaskManager;
+
+public class Task extends TaskManager {
     protected String description;
-    protected boolean isDone;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
