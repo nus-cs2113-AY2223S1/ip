@@ -5,7 +5,7 @@ public class Duke {
     static Task[] tasks = new Task[100];
     static int taskCount = 0;
     static boolean isRunning = true;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NullCommandException {
         showWelcomeMessage();
         handleUserInput();
     }
@@ -35,19 +35,27 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
     
-    public static void addNewTask(){
-        String arr[] = inputText.split(" ");
-        if(arr[0].equals("todo")){
-            tasks[taskCount++] = new Todo(inputText.substring(5));
-        } else if (arr[0].equals("deadline")) {
-            tasks[taskCount++] = new Deadline(inputText.substring(9,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
-        }else {
-            tasks[taskCount++] = new Event(inputText.substring(6,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
+    public static void addNewTask(String command) {
+        try {
+            if(command.equals("todo")){
+                tasks[taskCount++] = new Todo(inputText.substring(5));
+            } else if (command.equals("deadline")) {
+                tasks[taskCount++] = new Deadline(inputText.substring(9,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
+            }else if(command.equals("event")){
+                tasks[taskCount++] = new Event(inputText.substring(6,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4));
+            }else{
+                throw new InvalidCommandException();
+            }
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:\n"+inputText +"\n"+"Now you have "+taskCount+ " tasks in the list.");
+            System.out.println("____________________________________________________________");
+
+        }catch (InvalidCommandException e) {
+            System.out.println("This is not a valid command.Please re-enter a valid command");
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:\n"+inputText +"\n"+"Now you have "+taskCount+ " tasks in the list.");
-        System.out.println("____________________________________________________________");
+
+
     }
     
     public static void handleMarkMessage(){
@@ -63,25 +71,31 @@ public class Duke {
         System.out.println("["+ tasks[position-1].getStatusIcon()+"] "+tasks[position-1].description);
     }
 
-    public static void handleUserInput(){
+    public static void handleUserInput() {
         Scanner in = new Scanner(System.in);
-        
-        while(isRunning){
-            inputText = in.nextLine();
-            inputText.trim();
-            if(inputText.equals("bye")) {
-                isRunning = false;
-                showExitMessage();
-            } else if (inputText.equals("list")) {
-                handleListMessage();
-            }else if ((inputText.substring(0,4).equals("mark")) || inputText.substring(0,6).equals("unmark") ) {
-                handleMarkMessage();
-            }
-            else{
-                addNewTask();
+            while(isRunning){
+                try {
+                    inputText = in.nextLine();
+                    inputText = inputText.trim();
+                    String splitText[] = inputText.split(" ");
+                    if(splitText.length == 0 || splitText[0].length() == 0) {
+                        throw new NullCommandException();
+                    } else if(splitText[0].equals("bye")) {
+                        isRunning = false;
+                        showExitMessage();
+                    } else if (splitText[0].equals("list")) {
+                        handleListMessage();
+                    }else if ((splitText[0].equals("mark")) || splitText[0].equals("unmark") ) {
+                        handleMarkMessage();
+                    }
+                    else{
+                        addNewTask(splitText[0]);
+                    }
+                }catch (NullCommandException e){
+                    System.out.println("Empty command. Please try again.");
+                }
             }
 
-        }
 
        
     }
