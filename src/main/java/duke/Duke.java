@@ -17,7 +17,7 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -41,17 +41,20 @@ public class Duke {
             case "mark":
                 try {
                     TaskManager.markTask(tasks, line);
-                } catch (NumberFormatException | DukeException e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Please input the task number that you want to mark.");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+                    System.out.println("There is no such item in your Task List.");
                 }
                 break;
             case "unmark":
                 try {
                     TaskManager.unmarkTask(tasks, line);
-                } catch (NumberFormatException | DukeException e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Please input the task number that you wanna unmark");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+                    System.out.println("There is no such item in your Task List.");
                 }
-
                 break;
             case "total":
                 System.out.println(taskCount);
