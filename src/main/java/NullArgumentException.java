@@ -1,2 +1,2 @@
-public class NullArgumentException extends Exception{
+public class NullArgumentException extends Exception {
 }

@@ -2,7 +2,10 @@
  * Storage class serve as a storage of all tasks and execute command
  * on the list of tasks
  */
-public class Storage {
+
+import java.util.ArrayList;
+
+public class Storage implements FormatChecker {
     private static final int TODO_LENGTH = 5;
     private static final int DEADLINE_LENGTH = 9;
     private static final int EVENT_LENGTH = 6;
@@ -13,10 +16,9 @@ public class Storage {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_NULL = "";
-    private static final int MAXIMUM_LIST_SIZE = 120;
-    private static final Task[] list = new Task[MAXIMUM_LIST_SIZE];
-    private static int size = 0;
+    private static final ArrayList<Task> list = new ArrayList<Task>();
 
     /**
      * Add item to list of tasks
@@ -24,18 +26,21 @@ public class Storage {
      * @param item tasks in the list
      */
     public static void add(Task item) {
-        list[size] = item;
-        size++;
-        System.out.format("added: %s%n%d items on list%n", item, size);
+        list.add(item);
+        System.out.format("added: %s%n%d items on list%n", item, list.size());
     }
 
     /**
      * List all items in storage
      */
     public static void listAll() {
-        for (int i = 0; i < size; i++) {
-            System.out.format("%d.%s%n", i + 1, list[i]);
+        int i = 1;
+        for (Task e : list) {
+            System.out.format("%d.%s%n", i++, e);
         }
+//        for (int i = 0; i < size; i++) {
+//            System.out.format("%d.%s%n", i + 1, list[i]);
+//        }
     }
 
     /**
@@ -45,24 +50,44 @@ public class Storage {
      */
     public static void toggleMarkStatus(String cmd) {
         String[] cmds = cmd.split(COMMAND_SEPARATOR);
-        String command = cmds[0];
-        String index = cmds[1];
 
         try {
+            String command = cmds[0];
+            int index = Integer.parseInt(cmds[1]) - 1;
+            FormatChecker.checkExcessArgument(cmd);
             if (command.equalsIgnoreCase(COMMAND_MARK)) {
-                list[Integer.parseInt(index) - 1].setIsDone(true);
+                list.get(index).setIsDone(true);
             } else if (command.equalsIgnoreCase(COMMAND_UNMARK)) {
-                list[Integer.parseInt(index) - 1].setIsDone(false);
+                list.get(index).setIsDone(false);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ExcessArgumentException e) {
             System.out.format("Exception: Wrong command Format%n" +
                     "Try the command in correct format: mark <index of task>%n");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to mark task %n" +
-                    "There are only %d tasks now~%n", size);
+                    "There are only %d tasks now~%n", list.size());
         }
 
         listAll();
+    }
+
+    public static void deleteTask(String cmd) {
+        String[] cmds = cmd.split(COMMAND_SEPARATOR);
+
+        try {
+            String indexString = cmds[1];
+            int index = Integer.parseInt(indexString) - 1;
+            FormatChecker.checkExcessArgument(cmd);
+            System.out.format("The following task is deleted:%n%s%n", list.get(index));
+            list.remove(index);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ExcessArgumentException e) {
+            System.out.format("Exception: Wrong command Format%n" +
+                    "Try the command in correct format: delete <index of task>%n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.format("Exception: Unable to delete task %n" +
+                    "There are only %d tasks now~%n", list.size());
+        }
+
     }
 
     /**
@@ -82,7 +107,7 @@ public class Storage {
             break;
         case COMMAND_TODO:
             try {
-                if(cmd.length() == TODO_LENGTH - 1) {
+                if (cmd.length() == TODO_LENGTH - 1) {
                     throw new WrongCommandFormatException();
                 }
                 add(new Todo(cmd.substring(TODO_LENGTH)));
@@ -94,7 +119,7 @@ public class Storage {
             break;
         case COMMAND_DEADLINE:
             try {
-                if(cmd.length() == DEADLINE_LENGTH - 1) {
+                if (cmd.length() == DEADLINE_LENGTH - 1) {
                     throw new WrongCommandFormatException();
                 }
                 add(new Deadline(cmd.substring(DEADLINE_LENGTH)));
@@ -106,7 +131,7 @@ public class Storage {
             break;
         case COMMAND_EVENT:
             try {
-                if(cmd.length() == EVENT_LENGTH - 1) {
+                if (cmd.length() == EVENT_LENGTH - 1) {
                     throw new WrongCommandFormatException();
                 }
                 add(new Event(cmd.substring(EVENT_LENGTH)));
@@ -115,6 +140,9 @@ public class Storage {
                         "Try the correct command format: " +
                         "event <description> /at: <time>%n");
             }
+            break;
+        case COMMAND_DELETE:
+            deleteTask(cmd);
             break;
         case COMMAND_NULL:
             throw new NullCommandException();

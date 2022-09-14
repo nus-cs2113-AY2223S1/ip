@@ -16,4 +16,10 @@ public interface FormatChecker {
         return separatorIndex;
     }
 
+    static void checkExcessArgument(String cmd) throws ExcessArgumentException {
+        if (cmd.split(" ").length > 2) {
+            throw new ExcessArgumentException();
+        }
+    }
+
 }
