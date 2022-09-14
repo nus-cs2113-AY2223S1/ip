@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    static final String OUTOFBOUNDS = "IndexBeyondBoundError";
-    static final String NONNUMERIC = "NonNumericError";
-    static final String WRONGFORMAT = "WrongFormatError";
+    static final String OUT_OF_BOUNDS = "IndexBeyondBoundError";
+    static final String NON_NUMERIC = "NonNumericError";
+    static final String WRONG_FORMAT = "WrongFormatError";
 
     /**
      * Checks if the checked index is within the current taskIndex and if it is above 0.
@@ -42,6 +42,7 @@ public class TaskManager {
     }
 
     public static void addTodo(ArrayList<Task> tasks, String taskDescription) {
+        Message.displayLineDivider();
         tasks.add(new Todo("T", taskDescription, false));
         Duke.FileOperation.writeToFile(tasks);
         System.out.println(tasks.get(tasks.size() - 1));
@@ -49,6 +50,7 @@ public class TaskManager {
     }
 
     public static void addDeadline(ArrayList<Task> tasks, String taskDescription) {
+        Message.displayLineDivider();
         // find "/" break point before processing the description and the deadline
         String deadline = taskDescription;
         if (taskDescription.contains("/by")) {
@@ -65,6 +67,7 @@ public class TaskManager {
     }
 
     public static void addEvent(ArrayList<Task> tasks, String taskDescription) {
+        Message.displayLineDivider();
         String eventPeriod = taskDescription;
         if (taskDescription.contains("/at")) {
             //update taskDescription and deadline
@@ -80,10 +83,9 @@ public class TaskManager {
     }
 
     public static void processDeleteCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
-
         try {
             if (numOfWords > 2) {
-                Message.showErrorMessage("delete", WRONGFORMAT);
+                Message.showErrorMessage("delete", WRONG_FORMAT);
             } else {
                 int deleteIndex = Integer.parseInt(userInput[1]) - 1;
                 if (checkIfWithinBounds(deleteIndex, tasks.size())) {
@@ -103,16 +105,16 @@ public class TaskManager {
                 }
             }
         } catch (NumberFormatException e) {
-            Message.showErrorMessage("delete", NONNUMERIC);
+            Message.showErrorMessage("delete", NON_NUMERIC);
         } catch (DukeException e) {
-            Message.showErrorMessage("delete", OUTOFBOUNDS);
+            Message.showErrorMessage("delete", OUT_OF_BOUNDS);
         }
     }
 
     public static void processCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
         try {
             if (numOfWords > 2) {
-                Message.showErrorMessage(command, WRONGFORMAT);
+                Message.showErrorMessage(command, WRONG_FORMAT);
             } else {
                 int index = Integer.parseInt(userInput[1]) - 1;
                 if (checkIfWithinBounds(index, tasks.size())) {
@@ -147,9 +149,9 @@ public class TaskManager {
                 }
             }
         } catch (NumberFormatException e) {
-            Message.showErrorMessage(command, NONNUMERIC);
+            Message.showErrorMessage(command, NON_NUMERIC);
         } catch (DukeException e) {
-            Message.showErrorMessage(command, OUTOFBOUNDS);
+            Message.showErrorMessage(command, OUT_OF_BOUNDS);
         }
     }
 

@@ -1,1 +1,4 @@
-T | X | hello 
+E | X | do this  |  tuesday morning 
+T |   | go shopping 
+E |   | say hi to cat  |  monday 
+D | X | do homework  |  sunday 
