@@ -46,13 +46,6 @@ public class TaskHandler {
         }
     }
 
-    private static String[] splitDeadlineTime(String input) throws DukeException {
-        return input.split(" /by ", SPLIT_AMOUNT);
-    }
-    private static String[] splitEventTime(String input) throws DukeException {
-        return input.split(" /at ", SPLIT_AMOUNT);
-    }
-
     public static void handleDeadline(String input) throws DukeException {
         String[] splitCommand = splitDeadlineTime(input);
         if (splitCommand.length != SPLIT_AMOUNT) {
@@ -91,6 +84,15 @@ public class TaskHandler {
             throw e;
         }
     }
+
+    private static String[] splitDeadlineTime(String input) throws DukeException {
+        return input.split(" /by ", SPLIT_AMOUNT);
+    }
+
+    private static String[] splitEventTime(String input) throws DukeException {
+        return input.split(" /at ", SPLIT_AMOUNT);
+    }
+
     public static void handleInvalid(String input) {
         System.out.println("\"" + input + "\"" + " is not a valid command, please try again!");
     }
