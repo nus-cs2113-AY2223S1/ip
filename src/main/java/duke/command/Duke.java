@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.task.Task;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static duke.command.Command.*;
@@ -14,7 +15,6 @@ public class Duke {
 
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
-//        Task[] tasks = new Task[MAX_TASK];
         ArrayList<Task> tasks = new ArrayList<>();
 
         untilBye:
@@ -54,6 +54,14 @@ public class Duke {
                 printHorizontalLine();
             }
         }
+
+        try {
+            writeToFile("data/duke.txt", tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
+
     }
 }
 

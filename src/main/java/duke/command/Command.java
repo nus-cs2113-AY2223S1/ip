@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -143,6 +145,46 @@ public class Command {
         int markId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(markId).setDone();
         printMark(tasks.get(markId));
+    }
+
+    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < tasks.size(); i++) {
+            String line = "";
+            switch (tasks.get(i).getClass().getSimpleName()) {
+            case "Todo":
+                line = line + "T | ";
+                break;
+            case "Deadline":
+                line = line + "D | ";
+                break;
+            case "Event":
+                line = line + "E | ";
+                break;
+            }
+            switch (tasks.get(i).getStatusIcon()) {
+            case "X":
+                line = line + "1 | ";
+                break;
+            case " ":
+                line = line + "0 | ";
+                break;
+            }
+            line = line + tasks.get(i).getDescription();
+            switch (tasks.get(i).getClass().getSimpleName()) {
+            case "Deadline":
+                Deadline d = (Deadline) tasks.get(i);
+                line = line + " | " + d.getBy();
+                break;
+            case "Event":
+                Event e = (Event) tasks.get(i);
+                line = line + " | " + e.getAt();
+                break;
+            }
+            line = line + System.lineSeparator();
+            fw.write(line);
+        }
+        fw.close();
     }
 
     public static void printWelcomeMessage() {
