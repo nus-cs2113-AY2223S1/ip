@@ -1,12 +1,16 @@
-package duke.command;
+package duke.task;
 
-import duke.task.Task;
+import duke.manager.UserInterface;
 
 import java.util.ArrayList;
 
 public class TaskList {
 
-    ArrayList<Task> taskList;
+    private static ArrayList<Task> taskList;
+
+    public TaskList() {
+        taskList = new ArrayList<>();
+    }
 
     /**
      * Adds a Task object into the ArrayList taskList.
@@ -15,6 +19,7 @@ public class TaskList {
      */
     public void addTask(Task newTask) {
         taskList.add(newTask);
+        UserInterface.printAddTaskMessage(newTask);
     }
 
     /**
@@ -23,9 +28,18 @@ public class TaskList {
      *
      * @param taskPosition indicates the position of the Task to delete.
      */
-    public void deleteTask(int taskPosition) {
+    public static void deleteTask(int taskPosition) {
+
+        Task task = get(taskPosition);
         taskList.remove(taskPosition);
+        UserInterface.printDeleteTaskMessage(task);
     }
 
+    public static Task get(int taskPosition) {
+        return taskList.get(taskPosition);
+    }
 
+    public static int getSize() {
+        return taskList.size();
+    }
 }
