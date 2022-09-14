@@ -23,10 +23,9 @@ public class TasksList {
         printAddTaskText(task);
     }
 
-    public void printTaskList() throws EmptyArgumentException {
+    public void printTaskList() throws TaskListEmptyException {
         if (getTasksListSize() == 0) {
-            System.out.println("List is empty!!");
-            throw new EmptyArgumentException();
+            throw new TaskListEmptyException();
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < getTasksListSize(); i++) {
@@ -36,11 +35,14 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void markTask(int taskNumber, String command, boolean isDone) throws EmptyArgumentException {
+    public void markTask(int taskNumber, String command, boolean isDone) throws TaskListEmptyException, TaskNumberOutOfBoundsException {
         String previousIcon = tasksList.get(taskNumber).getStatusIcon();
-        if (taskNumber == 0) {
-            throw new EmptyArgumentException();
+        if (getTasksListSize() == 0) {
+            throw new TaskListEmptyException();
         }
+//        if (taskNumber-1 > getTasksListSize()) {
+//            throw new WrongArgumentException();
+//        }
         if (previousIcon == "X") {
             if (isDone) {
                 System.out.println("This task has already been marked!");
@@ -58,6 +60,8 @@ public class TasksList {
         String newIcon = tasksList.get(taskNumber).getStatusIcon();
         System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
         printHorizontalLine();
+
+
     }
 
 }

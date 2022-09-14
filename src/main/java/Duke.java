@@ -28,15 +28,12 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void main(String[] args) throws EmptyArgumentException {
+    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, IndexOutOfBoundsException, TaskNumberOutOfBoundsException {
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
         while (true) {
             input = in.nextLine();
-            if (input.strip().isEmpty()) {
-                throw new EmptyArgumentException();
-            }
             String[] inputWords = input.split(" ", 2);
             switch (inputWords[0]) {
             case "bye":
@@ -46,13 +43,29 @@ public class Duke {
                 tasksList.printTaskList();
                 break;
             case "mark":
-                int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                tasksList.markTask(taskNumber, "mark", true);
-                break;
+                if (inputWords.length == 1) {
+                    String correctFormatMessage = "The command should be 'mark (task number to mark)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
+                try {
+                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                    tasksList.markTask(taskNumber, "mark", true);
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    throw new TaskNumberOutOfBoundsException();
+                }
             case "unmark":
-                taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                tasksList.markTask(taskNumber, "unmark", false);
-                break;
+                if (inputWords.length == 1) {
+                    String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
+                try {
+                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                    tasksList.markTask(taskNumber, "unmark", false);
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    throw new TaskNumberOutOfBoundsException();
+                }
             case "todo":
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 tasksList.addToTasksList(newTodo);
@@ -68,9 +81,10 @@ public class Duke {
                 tasksList.addToTasksList(newEvent);
                 break;
             default:
-                Task newTask = new Task(input, 'N');
-                tasksList.addToTasksList(newTask);
-                break;
+                throw new EmptyArgumentException();
+//                Task newTask = new Task(input, 'N');
+//                tasksList.addToTasksList(newTask);
+//                break;
             }
         }
     }
