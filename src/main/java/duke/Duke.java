@@ -36,7 +36,8 @@ public class Duke {
             break;
         case "mark":
         case "unmark":
-            status = action.markOrUnmark(taskLine, commandWord);
+        case "delete":
+            status = action.markingOrDeleting(taskLine, commandWord);
             break;
         case "todo":
         case "deadline":
