@@ -19,8 +19,6 @@ public abstract class Task {
         return status;
     }
 
-    public abstract String getStatusOfTypeTask();
-
     public void markAsDone() {
         isDone = true;
     }
@@ -28,6 +26,8 @@ public abstract class Task {
     public void unmarkAsDone() {
         isDone = false;
     }
+
+    public abstract String getStatusOfTypeTask();
 
     public abstract void markTypeTask();
 

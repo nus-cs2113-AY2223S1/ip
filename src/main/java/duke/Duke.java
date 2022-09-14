@@ -33,6 +33,7 @@ public class Duke {
     private static boolean isNotCommand = false;
     /** User input a task command without providing details */
     private static boolean isBlankDetail = false;
+    private static boolean isNotValidIndexOfChoice = false;
 
     /**
      * Checks a set of boolean variables to map out the types of command being called.
@@ -129,7 +130,7 @@ public class Duke {
      */
     public static void executeValidCommand(String[] splitUserInputs) throws DukeException {
         if (isList) {
-          printList();
+          getList();
         } else if (isBlankDetail) {
             throw new DukeException();
         } else if (isMarkOrUnmark) {
@@ -198,11 +199,20 @@ public class Duke {
      */
     private static void deleteTask(String[] splitUserInputs) {
         validateIndexOfChoice(splitUserInputs);
+        if (isNotValidIndexOfChoice) {
+            isNotValidIndexOfChoice = false;
+            return;
+        }
         countTask--;
-        printDeletedTask();
-        assignments.remove(indexOfChoice);
+        try {
+            printDeletedTask();
+            assignments.remove(indexOfChoice);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t Stop there! Please delete something that is within the list!");
+            countTask++;
+            return;
+        }
         indexTask--;
-
     }
 
     /**
@@ -216,6 +226,7 @@ public class Duke {
             indexOfChoice = readIndexOfChoice(splitUserInputs);
         } catch (DukeException e) {
             System.out.println("\t Hey! Please choose a positive digit that correspondence to the list.");
+            isNotValidIndexOfChoice = true;
         }
     }
 
@@ -228,20 +239,23 @@ public class Duke {
     public static void markOrUnmarkTask(String[] splitUserInputs) {
         validateIndexOfChoice(splitUserInputs);
         try {
-            if (isMark) {
-                assignments.get(indexOfChoice).markAsDone();
-            } else {
-                assignments.get(indexOfChoice).unmarkAsDone();
-            }
+            checkMarkOrUnmark();
         } catch (IndexOutOfBoundsException e) {
-            if (isMark) {
-                System.out.println("\t You are trying to mark a task that has not been specified!");
-            } else {
-                System.out.println("\t You are trying to unmark a task that has not been specified!");
-            }
+            printMarkOrUnmarkError();
             return;
         }
         printMarkOrUnmarkTask(isMark);
+    }
+
+    /**
+     * Check to see if the task is to be marked or unmarked.
+     */
+    private static void checkMarkOrUnmark() {
+        if (isMark) {
+            assignments.get(indexOfChoice).markAsDone();
+        } else {
+            assignments.get(indexOfChoice).unmarkAsDone();
+        }
     }
 
     /**
@@ -283,13 +297,24 @@ public class Duke {
     }
 
     /**
-     * Prints out a list of the tasks saved from the user inputs.
+     * Gets a list from the user inputs.
      */
-    public static void printList() {
+    public static void getList() {
         int numberOrder = 1;
+        if (indexTask == 0) {
+            System.out.println("\t There is no task in the list.");
+        } else {
+            printList(numberOrder);
+        }
+    }
 
+    /**
+     * Prints out a list of the tasks saved from the user inputs.
+     *
+     * @param numberOrder a numbering index that is used to index the task in the list.
+     */
+    private static void printList(int numberOrder) {
         System.out.println("\t Here are the tasks in your list:");
-
         for (int i = 0; i < indexTask; i++) {
             System.out.println("\t " + numberOrder + ".["
                     + assignments.get(i).getStatusOfTypeTask() + "]["
@@ -360,6 +385,20 @@ public class Duke {
             System.out.println("\t ☹ OH MAN!!! The description of an event cannot be empty.");
         } else if (isMarkOrUnmark) {
             System.out.println("\t ☹ OH MAN!!! You did not tell me which to (un)mark.");
+        } else if (isDelete) {
+            System.out.println("\t ☹ OH MAN!!! You did not tell me what to delete.");
+        }
+    }
+
+    /**
+     * Prints the error message of mark or unmark if the user is trying to specify
+     * a (un)mark on a task that does not exist.
+     */
+    private static void printMarkOrUnmarkError() {
+        if (isMark) {
+            System.out.println("\t You are trying to mark a task that has not been specified!");
+        } else {
+            System.out.println("\t You are trying to unmark a task that has not been specified!");
         }
     }
 

@@ -33,4 +33,7 @@ deadline
 delete 3
 delete 1
 list
+delete
+delete -1
+delete 100
 bye
