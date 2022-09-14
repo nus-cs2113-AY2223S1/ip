@@ -12,51 +12,79 @@ public class InputHandler {
     private static final String BYE = "bye";
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
+    private static final String DELETE = "delete";
 
     public static void handleInput() {
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             String input = UI.getInput();
-            if (input.startsWith(BYE)) {
+            String command = getCommand(input);
+            switch (command) {
+            case (BYE):
                 TaskHandler.handleBye();
+                exit = true;
                 break;
-            } else if (input.startsWith(TODO)) {
+            case (TODO):
                 try {
-                    TaskHandler.handleTodo(input);
-                } catch (DukeException e) {
+                    TaskHandler.handleTodo(getAction(input));
+                } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("todo what?");
                 }
-            } else if (input.startsWith(LIST)) {
+                break;
+            case (LIST):
                 TaskHandler.handleList();
-            } else if (input.startsWith(DEADLINE)) {
+                break;
+            case (DEADLINE):
                 try {
-                    TaskHandler.handleDeadline(input);
+                    TaskHandler.handleDeadline(getAction(input));
                 } catch (DukeException e) {
                     System.out.println("deadline missing some info...");
-                    ;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("deadline what?");
                 }
-            } else if (input.startsWith(EVENT)) {
+                break;
+            case (EVENT):
                 try {
-                    TaskHandler.handleEvent(input);
+                    TaskHandler.handleEvent(getAction(input));
                 } catch (DukeException e) {
                     System.out.println("event missing some info...");
-                    ;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("event what?");
                 }
-            } else if (input.startsWith(MARK)) {
+                break;
+            case (MARK):
                 try {
-                    TaskHandler.handleMark(input);
-                } catch (DukeException e) {
+                    TaskHandler.handleMark(getAction(input));
+                } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("mark what");
-                    ;
                 }
-            } else if (input.startsWith(UNMARK)) {
+                break;
+            case (UNMARK):
                 try {
-                    TaskHandler.handleUnmark(input);
-                } catch (DukeException e) {
+                    TaskHandler.handleUnmark(getAction(input));
+                } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("unmark what");
                 }
-            } else {
+                break;
+            case (DELETE):
+                try {
+                    TaskHandler.handleDelete(getAction(input));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("delete what?");
+                }
+                break;
+            default:
                 TaskHandler.handleInvalid(input);
             }
         }
     }
+
+    private static String getCommand(String input) {
+        return input.split(" ", 2)[0].trim();
+    }
+
+    private static String getAction(String input) throws ArrayIndexOutOfBoundsException {
+        return input.split(" ", 2)[1].trim();
+    }
+
 }
