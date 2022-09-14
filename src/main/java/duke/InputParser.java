@@ -22,6 +22,7 @@ public class InputParser {
         switch (userCommand){
         case "mark":
         case "unmark":
+        case "delete":
             if (parsedInput.length == 1){
                 throw new IllegalInputException(String.format(INVALID_TASK_INDEX_ERROR, userCommand));
             }

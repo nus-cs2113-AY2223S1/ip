@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class DukeController {
     protected ArrayList<Task> taskList = new ArrayList<Task>(0);
-    private final String GREETING_PART_ONE = "Hello! I'm duke.Duke";
+    private final String GREETING_PART_ONE = "Hello! I'm Duke!";
     private final String GREETING_PART_TWO = "What can I do for you?";
     private final String GOODBYE = "Bye. Hope to see you again soon!";
     private final String NUMBER_OF_TASKS_MESSAGE = "You now have %d tasks";
@@ -14,6 +14,7 @@ public class DukeController {
     private final String UPDATE_TASK_SUCCESS = "Nice! I've %sed this task:";
     private final String ILLEGAL_INDEX_ERROR = ":( %d is out of bounds of the task list";
     private final String UPDATE_TASK_FAILURE = ":( This task is already %sed";
+    private final String DELETE_TASK_SUCCESS = "Nice! I've deleted this task:";
     private String userInput;
 
     private final InputParser inputParser = new InputParser();
@@ -45,11 +46,16 @@ public class DukeController {
                     printNewLine();
                 }
                 break;
+            case "delete":
             case "mark":
             case "unmark":
                 try {
                     int taskIndex = inputParser.parseTaskIndex(parsedInput[1], userCommand);
-                    updateTaskStatus(taskIndex, userCommand);
+                    if (userCommand.equals("mark") || userCommand.equals("unmark")) {
+                        updateTaskStatus(taskIndex, userCommand);
+                    } else {
+                        deleteTask(taskIndex);
+                    }
                 } catch (IllegalInputException e){
                     System.out.println(e.getErrorMessage());
                     printNewLine();
@@ -138,5 +144,18 @@ public class DukeController {
         task.printTask();
         printNewLine();
     }
+
+    public void deleteTask(int index) throws IllegalInputException{
+        if (index > taskList.size() || index < 1){
+            throw new IllegalInputException(String.format(ILLEGAL_INDEX_ERROR,index));
+        }
+        index--;
+        System.out.println(String.format(DELETE_TASK_SUCCESS));
+        taskList.get(index).printTask();
+        taskList.remove(index);
+        printNewLine();
+    };
+
+    
 
 }
