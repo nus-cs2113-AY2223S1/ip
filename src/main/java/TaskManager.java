@@ -50,10 +50,16 @@ public class TaskManager {
      * @param input input of user
      */
     public void addEvent(String input) {
-        String eventTask = input.substring("event".length(), input.indexOf("/") - 1);
-        String eventDate = input.substring(input.indexOf("/at ") + "/at ".length());
-        Event event = new Event(eventTask, eventDate);
-        addTask(event);
+        try {
+            checkCommandLength(input.substring("event".length()));
+            String eventTask = input.substring("event".length(), input.indexOf("/") - 1);
+            String eventDate = input.substring(input.indexOf("/at ") + "/at ".length());
+            Event event = new Event(eventTask, eventDate);
+            addTask(event);
+        } catch (ArguementNotFoundException e){
+            e.ArgumentNotFoundMessage();
+        }
+
 
     }
 
@@ -63,10 +69,15 @@ public class TaskManager {
      * @param input input of user
      */
     public void addDeadline(String input) {
-        String deadlineTask = input.substring("deadline".length(), input.indexOf("/") - 1);
-        String deadlineDate = input.substring(input.indexOf("/by ") + "/by ".length());
-        Deadline deadline = new Deadline(deadlineTask, deadlineDate);
-        addTask(deadline);
+        try {
+            checkCommandLength(input.substring("deadline".length()));
+            String deadlineTask = input.substring("deadline".length(), input.indexOf("/") - 1);
+            String deadlineDate = input.substring(input.indexOf("/by ") + "/by ".length());
+            Deadline deadline = new Deadline(deadlineTask, deadlineDate);
+            addTask(deadline);
+        } catch (ArguementNotFoundException e) {
+            e.ArgumentNotFoundMessage();
+        }
 
     }
 
