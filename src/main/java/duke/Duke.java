@@ -13,6 +13,10 @@ import java.util.Scanner;
 
 public class Duke {
 
+    static final String OUTOFBOUNDS = "IndexBeyondBoundError";
+    static final String NONNUMERIC = "NonNumericError";
+
+
     /**
      * Returns the number of words within a string.
      *
@@ -26,21 +30,6 @@ public class Duke {
         }
         String[] words = input.split("\\s+");
         return words.length;
-    }
-
-    /**
-     * Prints the correct number of task message when called.
-     *
-     * @param numOfTasks the current count of tasking
-     */
-    public static void printNumOfTasks(int numOfTasks) {
-        if (numOfTasks == 0) {
-            System.out.println("There are no tasks");
-        } else if (numOfTasks == 1) {
-            System.out.println("There is only 1 task!");
-        } else {
-            System.out.println("There are " + numOfTasks + " tasks left :( ");
-        }
     }
 
     /**
@@ -70,12 +59,9 @@ public class Duke {
 
         String inData;
         Scanner scan = new Scanner(System.in);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
-        System.out.println("Enter <help> if you need the list of commands");
-        System.out.println("____________________________________________________________");
+        Message.greet();
         FileOperation.initialiseFile(tasks);
-        System.out.println("____________________________________________________________");
+        Message.displayLineDivider();
 
         while (true) {
             // continuously receive user input
@@ -85,16 +71,16 @@ public class Duke {
             if (inData.equals("list")) {
                 //print entire list if input is equal to "list"
                 int indexNum = 1;
-                System.out.println("Here are the tasks in your list:");
+                Message.getAcknowledgement("list");
                 if (tasks.size() == 0) {
-                    printNumOfTasks(0);
+                    Message.printNumOfTasks(0);
                 } else {
                     for (Task task : tasks) {
                         System.out.println(indexNum + ". " + task.printList());
                         indexNum += 1;
                     }
                 }
-                System.out.println("____________________________________________________________");
+                Message.displayLineDivider();
             } else if (numOfWords >= 2) {
                 // check if the user input has 2 words before checking for commands "mark" , "unmark" or "delete"
                 String[] parsedInput = inData.split(" ");
@@ -107,17 +93,15 @@ public class Duke {
                             //checks if the user input command is within the current bound of the tasks array.
                             tasks.get(unmarkedIndex).setDone(false);
 
-                            System.out.println("OK, I've marked this task as NOT done yet:");
-                            System.out.println("[" + tasks.get(unmarkedIndex).getTaskType() + "]" + "[" + tasks.get(unmarkedIndex).getStatusIcon() + "] " + tasks.get(unmarkedIndex).getDescription());
-                            System.out.println("____________________________________________________________");
+                            Message.getAcknowledgement("unmark");
+                            Message.getEntryFullStatus(tasks, unmarkedIndex);
+                            Message.displayLineDivider();
                             FileOperation.writeToFile(tasks);
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid unmark command - non numeric index detected.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("unmark", NONNUMERIC);
                     } catch (DukeException e) {
-                        System.out.println("Invalid unmark command - Index out of bounds.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("unmark", OUTOFBOUNDS);
                     }
 
                 } else if (numOfWords == 2 && parsedInput[0].equals("mark")) {
@@ -127,43 +111,43 @@ public class Duke {
                         if (checkIfWithinBounds(markedIndex, tasks.size())) {
                             // checks if the user input command is within the current bound of the tasks array.
                             tasks.get(markedIndex).setDone(true);
-                            System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("[" + tasks.get(markedIndex).getTaskType() + "]" + "[" + tasks.get(markedIndex).getStatusIcon() + "] " + tasks.get(markedIndex).getDescription());
-                            System.out.println("____________________________________________________________");
+                            Message.getAcknowledgement("mark");
+                            Message.getEntryFullStatus(tasks, markedIndex);
+                            Message.displayLineDivider();
                             FileOperation.writeToFile(tasks);
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid mark command - non numeric index detected.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("mark", NONNUMERIC);
                     } catch (DukeException e) {
-                        System.out.println("Invalid mark command - Index out of bounds.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("mark", OUTOFBOUNDS);
                     }
                 } else if (numOfWords == 2 && parsedInput[0].equals("delete")) {
                     try {
                         int deleteIndex = Integer.parseInt(parsedInput[1]) - 1;
                         if (checkIfWithinBounds(deleteIndex, tasks.size())) {
                             // checks if the user input command is within the current bound of the tasks array.
-                            System.out.println("Noted. I've removed this task:");
-                            System.out.println("[" + tasks.get(deleteIndex).getTaskType() + "]" + "[" + tasks.get(deleteIndex).getStatusIcon() + "] " + tasks.get(deleteIndex).getDescription());
+
+                            Message.getAcknowledgement("delete");
+                            Message.getEntryFullStatus(tasks, deleteIndex);
                             tasks.remove(deleteIndex);
                             FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
                             if (tasks.size() == 0) {
-                                printNumOfTasks(0);
+                                Message.printNumOfTasks(0);
                             } else {
-                                printNumOfTasks(tasks.size());
+                                Message.printNumOfTasks(tasks.size());
                             }
                             FileOperation.writeToFile(tasks);
-                            System.out.println("____________________________________________________________");
+
+                            Message.displayLineDivider();
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid delete command - non numeric index detected.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("delete", NONNUMERIC);
                     } catch (DukeException e) {
-                        System.out.println("Invalid delete command - Index out of bounds.");
-                        System.out.println("____________________________________________________________");
+                        Message.showErrorMessage("delete", OUTOFBOUNDS);
                     }
+
                 } else {
+
                     // Synthesized array after removing the command input.
                     StringBuilder synthesizedArr = new StringBuilder();
                     for (int i = 1; i < numOfWords; i += 1) {
@@ -173,10 +157,12 @@ public class Duke {
 
                     switch (parsedInput[0]) {
                     case "todo":
+
                         tasks.add(new Todo("T", taskDescription, false));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
-                        printNumOfTasks(tasks.size());
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        Message.printNumOfTasks(tasks.size());
+
                         break;
                     case "deadline":
                         // find "/" break point before processing the description and the deadline
@@ -188,10 +174,12 @@ public class Duke {
                             deadline = tempArray[1];
                         }
 
+
                         tasks.add(new Deadline("D", taskDescription, false, deadline));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
-                        printNumOfTasks(tasks.size());
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        Message.printNumOfTasks(tasks.size());
+
                         break;
 
                     case "event":
@@ -202,15 +190,15 @@ public class Duke {
                             taskDescription = tempArray[0];
                             eventPeriod = tempArray[1];
                         }
+
                         tasks.add(new Event("E", taskDescription, false, eventPeriod));
                         FileOperation.writeToFile(tasks);
-                        System.out.println(tasks.get(tasks.size()-1));
-                        printNumOfTasks(tasks.size());
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        Message.printNumOfTasks(tasks.size());
+
                         break;
                     default:
-                        System.out.println("Unrecognised command");
-                        System.out.println("____________________________________________________________");
-                        break;
+                        Message.showWrongCommand();
                     }
                 }
             } else {
@@ -218,24 +206,13 @@ public class Duke {
                     // exits the while loop if the user inputs is equal to "bye"
                     break;
                 } else if (inData.equals("help")) {
-                    System.out.println("Available commands:");
-                    System.out.println("1) todo ");
-                    System.out.println("2) event, use </at> to indicate time period");
-                    System.out.println("3) deadline use </by> to indicate deadline");
-                    System.out.println("4) mark <item number>  ");
-                    System.out.println("5) unmark <item number>)");
-                    System.out.println("6) list ");
-                    System.out.println("7) bye ");
-                    System.out.println("____________________________________________________________");
+                    Message.getHelp();
                 } else {
-                    System.out.println("Unrecognised command");
-                    System.out.println("____________________________________________________________");
+                    Message.showWrongCommand();
                 }
             }
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        Message.showExit();
 
     }
 }
