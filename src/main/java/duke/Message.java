@@ -53,6 +53,10 @@ public class Message {
             System.out.println("Invalid " + command + " command - Index out of bounds.");
             System.out.println(LINE_DIVIDER);
             break;
+        case "WrongFormatError":
+            System.out.println("Invalid " + command + " command - Wrong input format.");
+            System.out.println(LINE_DIVIDER);
+            break;
         default:
             showWrongCommand();
         }
@@ -84,7 +88,6 @@ public class Message {
     public static void getEntryFullStatus(ArrayList<Task> tasks, int index) {
         System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
     }
-
 
 
     /**
