@@ -23,4 +23,14 @@ unmark 6
 unmark 7
 unmark 8
 list
+hi
+todo
+todo
+event
+event
+deadline
+deadline
+delete 3
+delete 1
+list
 bye
