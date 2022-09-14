@@ -8,6 +8,9 @@ import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
@@ -44,6 +47,7 @@ public class TaskManager {
         taskCount++;
         System.out.println("\tNow you have " + taskCount + " tasks in the list");
         System.out.println("  ____________________________________________________________");
+        addToFile(tasks.get(taskCount - 1));
         return "done adding";
     }
 
@@ -94,7 +98,7 @@ public class TaskManager {
 
         if (commandWord.equals("mark")) {
             markTask(line);
-        } else if (commandWord.equals("unmark")){
+        } else if (commandWord.equals("unmark")) {
             unmarkTask(line);
         } else {
             deleteTask(line);
@@ -169,5 +173,32 @@ public class TaskManager {
         }
         tasks.get(taskCount).setCompletion(done);
         taskCount++;
+    }
+
+    public static void addToFile(Task t) {
+        String state;
+        if (t.getStatus().equals("[X]")) {
+            state = "X";
+        } else {
+            state = " ";
+        }
+        String type = t.getTaskType().substring(1, 2);
+        String addedInfo = t.getAddedInfo();
+        if (addedInfo.length() > 6) {
+            int i = t.getAddedInfo().indexOf(")");
+            addedInfo = t.getAddedInfo().substring(6, i);
+        }
+        try {
+            writeToFile("data/duke.txt", type + "/" + state + "/" + t.getDescription()
+                    + "/" + addedInfo);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(System.lineSeparator() + textToAdd);
+        fw.close();
     }
 }
