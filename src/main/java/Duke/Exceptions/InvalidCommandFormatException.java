@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class InvalidCommandFormatException extends Exception {
     private static final String ERROR_MESSAGE = "Invalid Command Format! ";
     protected static String correctFormatMessage;

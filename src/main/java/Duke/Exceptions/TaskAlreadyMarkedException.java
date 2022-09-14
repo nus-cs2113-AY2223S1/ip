@@ -1,3 +1,4 @@
+package Duke.Exceptions;
 public class TaskAlreadyMarkedException extends Exception {
     private static final String ERROR_MESSAGE = "This task has already been ";
     private static String markStatus;

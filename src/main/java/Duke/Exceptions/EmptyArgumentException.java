@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class EmptyArgumentException extends Exception {
     private static final String ERROR_MESSAGE = "Please provide a correct command!";
 

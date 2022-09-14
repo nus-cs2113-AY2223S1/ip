@@ -1,3 +1,4 @@
+package Duke.Exceptions;
 
 public class TaskListEmptyException extends Exception {
     private static final String ERROR_MESSAGE = "Task List is empty! ";

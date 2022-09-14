@@ -1,3 +1,10 @@
+package Duke.Tasks;
+
+import Duke.Exceptions.InvalidCommandFormatException;
+import Duke.Exceptions.TaskAlreadyMarkedException;
+import Duke.Exceptions.TaskListEmptyException;
+import Duke.Exceptions.TaskNumberOutOfBoundsException;
+
 import java.util.ArrayList;
 
 public class TasksList {
@@ -18,7 +25,7 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void addToTasksList(Task task) {
+    public void addToTasksList(Task task) throws InvalidCommandFormatException {
         tasksList.add(task);
         printAddTaskText(task);
     }

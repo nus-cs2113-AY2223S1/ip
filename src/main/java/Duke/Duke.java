@@ -1,7 +1,9 @@
-//package duke;
-import java.util.Scanner;
-import java.util.Arrays;
+package Duke;
 
+import Duke.Tasks.*;
+import Duke.Exceptions.*;
+
+import java.util.Scanner;
 
 public class Duke {
 
@@ -55,11 +57,11 @@ public class Duke {
                     String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
                 tasksList.markTask(taskNumber, "unmark", false);
                 break;
             case "todo":
-                if (inputWords.length == 1) {
+                if (inputWords.length < 2) {
                     String correctFormatMessage = "The command should be 'todo (task name)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
@@ -67,7 +69,7 @@ public class Duke {
                 tasksList.addToTasksList(newTodo);
                 break;
             case "deadline":
-                if (inputWords.length == 1) {
+                if (inputWords.length < 2) {
                     String correctFormatMessage = "The command should be 'deadline (task name) /by (deadline)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
@@ -76,7 +78,7 @@ public class Duke {
                 tasksList.addToTasksList(newDeadlineTask);
                 break;
             case "event":
-                if (inputWords.length == 1) {
+                if (inputWords.length < 2) {
                     String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
