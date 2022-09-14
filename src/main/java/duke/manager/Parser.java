@@ -81,32 +81,35 @@ public class Parser {
         switch (keyword) {
         case "bye":
         case "list":
-            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
-            break;
+            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+                break;
+            }
         case "mark":
         case "unmark":
         case "delete":
-            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
             taskPosition = getTaskPosition(input);
-            c.setArgument(taskPosition, 0);
-            break;
+            if (ExceptionChecker.isExceptionFree(taskList, input, taskPosition, time, keyword)) {
+                c.setArgument(taskPosition, 0);
+                break;
+            }
         case "todo":
             description = getDescription(input, -1);
-            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
-            c.setArgument(description, 0);
-            break;
+            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+                c.setArgument(description, 0);
+                break;
+            }
         case "event":
         case "deadline":
             flagPosition = getFlagPosition(input, keyword);
             description = getDescription(input, flagPosition);
             time = getTime(input, flagPosition);
-            ExceptionChecker.isLegal(taskList, input, description, time, keyword);
-            c.setArgument(description, 0);
-            c.setArgument(time, 1);
-            // to convert argument to array
-            break;
+            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+                c.setArgument(description, 0);
+                c.setArgument(time, 1);
+                break;
+            }
         default:
-            break;
+            c.setLegal(false);
         }
         return c;
     }

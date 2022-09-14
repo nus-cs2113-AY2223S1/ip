@@ -55,7 +55,9 @@ public class Manager {
                 // parse
                 c = Parser.parse(taskList, c, input);
                 // execute
-                TaskExecutor.execute(taskList, c);
+                if (c.isLegal()) {
+                    TaskExecutor.execute(taskList, c);
+                }
                 UserInterface.printBorderLines();
                 // change isBye state if command = "bye"
                 isBye = c.isBye();

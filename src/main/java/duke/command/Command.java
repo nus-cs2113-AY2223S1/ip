@@ -4,6 +4,7 @@ public abstract class Command {
 
     private String keyword;
     private boolean isBye;
+    private boolean isLegal = true;
 
     public String getKeyword() {
         return keyword;
@@ -21,7 +22,13 @@ public abstract class Command {
         isBye = b;
     }
 
+    public boolean isLegal() {
+        return isLegal;
+    }
 
+    public void setLegal(boolean legal) {
+        isLegal = legal;
+    }
 
     public abstract void setArgument(String argument, int i);
 

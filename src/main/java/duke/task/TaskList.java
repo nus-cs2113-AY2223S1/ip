@@ -1,13 +1,12 @@
 package duke.task;
 
-import duke.task.Task;
 import duke.manager.UserInterface;
 
 import java.util.ArrayList;
 
 public class TaskList {
 
-    static ArrayList<Task> taskList;
+    private static ArrayList<Task> taskList;
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -20,7 +19,7 @@ public class TaskList {
      */
     public void addTask(Task newTask) {
         taskList.add(newTask);
-        UserInterface.printAddTaskMessage(taskList, newTask);
+        UserInterface.printAddTaskMessage(newTask);
     }
 
     /**
@@ -30,20 +29,14 @@ public class TaskList {
      * @param taskPosition indicates the position of the Task to delete.
      */
     public static void deleteTask(int taskPosition) {
-        if (taskPosition < 0) {
-            System.out.println("Please give me a positive number instead!");
-            return;
-        }   else if (taskPosition < taskList.size()) {
-            System.out.println("☹ OOPS!!! You don't have that many tasks!");
-            return;
-        }
-        UserInterface.printDeleteTaskMessage(taskList, taskList.get(taskPosition));
+
+        Task task = get(taskPosition);
         taskList.remove(taskPosition);
+        UserInterface.printDeleteTaskMessage(task);
     }
 
     public static Task get(int taskPosition) {
-        Task task = taskList.get(taskPosition);
-        return task;
+        return taskList.get(taskPosition);
     }
 
     public static int getSize() {

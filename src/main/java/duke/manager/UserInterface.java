@@ -1,8 +1,8 @@
 package duke.manager;
 
 import duke.task.Task;
+import duke.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -52,16 +52,15 @@ public class UserInterface {
         return in.nextLine();
     }
 
-    public static void printAddTaskMessage(ArrayList taskList, Task newTask) {
+    public static void printAddTaskMessage(Task newTask) {
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + newTask + System.lineSeparator()
-                + "Now you have " + taskList.size() + " tasks in the list.");
+                + "Now you have " + TaskList.getSize() + " tasks in the list.");
     }
 
-    public static void printDeleteTaskMessage(ArrayList taskList, Task newTask) {
-        System.out.println("Here are the tasks in your list:" + System.lineSeparator()
+    public static void printDeleteTaskMessage(Task newTask) {
+        System.out.println("Noted. I've removed this task:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + newTask + System.lineSeparator()
-                + "Now you have " + taskList.size() + " tasks in the list.");
+                + "Now you have " + TaskList.getSize() + " tasks in the list.");
     }
-
 }

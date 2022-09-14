@@ -5,7 +5,6 @@ import duke.manager.Parser;
 
 public class ExceptionChecker {
 
-
     public static void checkFlagExistence(String input, String keyword) throws MissingFlagException {
 
         int flagPosition = Parser.getFlagPosition(input, keyword);
@@ -33,7 +32,7 @@ public class ExceptionChecker {
     public static int checkIntegerType(String description) throws NumberFormatException {
         int taskPosition;
         try {
-            taskPosition = Integer.parseInt(description);
+            taskPosition = Integer.parseInt(description) - 1;
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }
@@ -80,7 +79,7 @@ public class ExceptionChecker {
         }
     }
 
-    public static void isLegal(TaskList taskList, String input, String description, String time, String keyword) {
+    public static boolean isExceptionFree(TaskList taskList, String input, String description, String time, String keyword) {
         int taskPosition;
         try {
             switch (keyword) {
@@ -102,26 +101,39 @@ public class ExceptionChecker {
             case "deadline":
                 checkFlagExistence(input, keyword);
                 checkDescriptionAndTime(description, time);
+                break;
+            default:
+                break;
             }
         } catch (TooManyArgumentsException e) {
             System.out.println("☹ OOPS!!! You provided too many arguments!");
+            return false;
         } catch (NoTasksException e) {
             System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
+            return false;
         } catch (NumberFormatException e) {
             System.out.println("☹ OOPS!!! You did not provide me with an integer!");
+            return false;
         } catch (NullPointerException e) {
             System.out.println("☹ OOPS!!! You don't have that many tasks!");
+            return false;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You don't have that many tasks!");
+            return false;
         } catch (MissingDescriptionException e) {
             System.out.println("☹ OOPS!!! You did not provide a description for the task!");
+            return false;
         } catch (MissingTimeException e) {
             System.out.println("☹ OOPS!!! You did not provide a time for the task!");
+            return false;
         } catch (MissingDescriptionAndTimeException e) {
             System.out.println("☹ OOPS!!! You did not provide both a description and time for the task!");
+            return false;
         } catch (MissingFlagException e) {
             System.out.println("☹ OOPS!!! You did not provide a by or at flag!");
+            return false;
         }
+        return true;
     }
 }
 
