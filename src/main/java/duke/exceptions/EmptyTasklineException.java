@@ -1,5 +1,5 @@
 package duke.exceptions;
 
-public class EmptyTasklineException extends Exception{
+public class EmptyTasklineException extends Exception {
     
 }

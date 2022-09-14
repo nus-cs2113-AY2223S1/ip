@@ -25,7 +25,7 @@ public class Duke {
     }
 
     private static void specificCase(String line, TaskManager action, String commandWord,
-                                      String taskLine) throws EmptyCommandException {
+            String taskLine) throws EmptyCommandException {
         String status = "start";
         switch (commandWord) {
         case "bye":
