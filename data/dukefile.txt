@@ -1,1 +1,3 @@
-T | X | add 
+E | X | do this  |  tuesday morning 
+E |   | say hi to cat  |  monday 
+D |   | do homework  |  sunday 
