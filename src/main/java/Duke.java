@@ -19,10 +19,11 @@ public class Duke {
     public static final int BY_SEPARATOR_LENGTH = 4;        // "/by  "
     public static final int EVENT_STRING_LENGTH = 6;        // "event "
     public static final int AT_SEPARATOR_LENGTH = 4;        // "/at  "
+    public static final String DATA_FILE_PATH = "data.txt";
     public static ArrayList<Task> list = new ArrayList<Task>();
 
     public static void initializeFile() {
-        File f = new File("src/main/java/data.txt");
+        File f = new File(DATA_FILE_PATH);
         if (!f.exists()) {
             try {
                 f.createNewFile();
@@ -37,7 +38,7 @@ public class Duke {
     }
 
     public static void populateInitialList(String filePath) {
-        File f = new File("src/main/java/data.txt");
+        File f = new File(DATA_FILE_PATH);
         Scanner s = null;
         try {
             s = new Scanner(f);
@@ -223,7 +224,7 @@ public class Duke {
                     System.out.println("        ____________________________________________");
 
 
-                    String file = "src/main/java/data.txt";
+                    String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
@@ -249,7 +250,7 @@ public class Duke {
                             list.get(Integer.parseInt(line[1]) - 1).getTaskName());
                     System.out.println("        ____________________________________________");
 
-                    String file = "src/main/java/data.txt";
+                    String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
@@ -277,7 +278,7 @@ public class Duke {
                     System.out.println("        ____________________________________________");
 
 
-                    String file = "src/main/java/data.txt";
+                    String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
                 } catch (InvalidTodoCommandException e) {
@@ -312,7 +313,7 @@ public class Duke {
 
 
 
-                    String file = "src/main/java/data.txt";
+                    String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
                 } catch (MissingKeywordException e) {
@@ -350,7 +351,7 @@ public class Duke {
                     System.out.println("        ____________________________________________");
 
 
-                    String file = "src/main/java/data.txt";
+                    String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
                 } catch (MissingKeywordException e) {
@@ -380,8 +381,14 @@ public class Duke {
                     System.out.println("        ____________________________________________");
 
                     list.remove(Integer.parseInt(line[1]) - 1);
+
+                    String file = DATA_FILE_PATH;
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
                     System.out.println("OOPS!!! The list item number given is invalid.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -405,7 +412,7 @@ public class Duke {
         printWelcomeMessage();
 
         initializeFile();
-        String filePath = "src/main/java/data.txt";
+        String filePath = DATA_FILE_PATH;
         populateInitialList(filePath);
 
         handleInput();
