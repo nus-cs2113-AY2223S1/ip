@@ -65,6 +65,28 @@ public class Duke {
         System.out.println("____________________________________________");
     }
 
+    private static String getTaskIndicator(String[] line) {
+        String taskType = list.get(Integer.parseInt(line[1]) - 1).getTaskType();
+        String taskIndicator = "";
+        switch (taskType) {
+        case "ToDo":
+            taskIndicator = "[T]";
+            break;
+
+        case "Deadline":
+            taskIndicator = "[D]";
+            break;
+
+        case "Event":
+            taskIndicator = "[E]";
+            break;
+
+        default:
+            break;
+        }
+        return taskIndicator;
+    }
+
     public static void handleInput() {
         String input = "";
         Scanner in = new Scanner(System.in);
@@ -93,10 +115,11 @@ public class Duke {
 
                     list.get(Integer.parseInt(line[1]) - 1).setDone(true);
 
+                    String taskIndicator = getTaskIndicator(line);
                     String markDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
                     System.out.println("        ____________________________________________");
                     System.out.println("        Nice! I've marked this task as done:");
-                    System.out.println("            " + markDone + " " +
+                    System.out.println("            " + taskIndicator + markDone + " " +
                             list.get(Integer.parseInt(line[1]) - 1).getTaskName());
                     System.out.println("        ____________________________________________");
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
@@ -112,10 +135,11 @@ public class Duke {
 
                     list.get(Integer.parseInt(line[1]) - 1).setDone(false);
 
+                    String taskIndicator = getTaskIndicator(line);
                     String unmarkDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
                     System.out.println("        ____________________________________________");
                     System.out.println("        Ok. I've marked this task as not done yet:");
-                    System.out.println("            " + unmarkDone + " " +
+                    System.out.println("            " + taskIndicator + unmarkDone + " " +
                             list.get(Integer.parseInt(line[1]) - 1).getTaskName());
                     System.out.println("        ____________________________________________");
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
@@ -206,6 +230,30 @@ public class Duke {
                 }
                 break;
 
+            case "delete":
+                try {
+                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
+                        throw new InvalidListItemNumberException();
+                    }
+
+                    String taskIndicator = getTaskIndicator(line);
+                    String taskStatus = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
+                    System.out.println("        ____________________________________________");
+                    System.out.println("        Noted. I've removed this task:");
+                    System.out.println("            " + taskIndicator + taskStatus + " " +
+                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
+                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("        ____________________________________________");
+
+                    list.remove(Integer.parseInt(line[1]) - 1);
+                } catch (InvalidListItemNumberException | NumberFormatException e) {
+                    System.out.println("OOPS!!! The list item number given is invalid.");
+                }
+                break;
+
+            case "bye":
+                break;
+
             default:
                 try {
                     throw new InvalidCommandException();
@@ -216,6 +264,8 @@ public class Duke {
         }
         return;
     }
+
+
 
     public static void main(String[] args) throws InvalidCommandException {
         printWelcomeMessage();
