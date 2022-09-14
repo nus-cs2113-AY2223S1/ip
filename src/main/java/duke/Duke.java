@@ -1,18 +1,20 @@
 package duke;
 
-import duke.exception.DukeException;
-import duke.taskings.*;
-import duke.FileOperation;
+import duke.taskings.Deadline;
+import duke.taskings.Event;
+import duke.taskings.Task;
+import duke.taskings.Todo;
+import duke.taskings.TaskManager;
+
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-    static final String OUTOFBOUNDS = "IndexBeyondBoundError";
-    static final String NONNUMERIC = "NonNumericError";
-    static final String WRONGFORMAT = "WrongFormatError";
 
 
     /**
@@ -72,13 +74,13 @@ public class Duke {
                 String taskDescription = synthesizedArr.toString();
                 switch (command) {
                 case "mark":
-                    TaskManager.processMarkingCommand(tasks, numOfWords, "mark", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "mark", userInput);
                     break;
                 case "unmark":
-                    TaskManager.processMarkingCommand(tasks, numOfWords, "unmark", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "unmark", userInput);
                     break;
                 case "delete":
-                    TaskManager.processDeleteCommand(tasks, numOfWords, "delete", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "delete", userInput);
                     break;
                 case "todo":
                     TaskManager.addTodo(tasks, taskDescription);
@@ -91,10 +93,11 @@ public class Duke {
                     break;
                 default:
                     Message.showWrongCommand();
+
                 }
             } else {
                 Message.showWrongCommand();
             }
-        }// while loop
+        }
     }
 }
