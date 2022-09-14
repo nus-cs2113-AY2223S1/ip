@@ -14,7 +14,7 @@ public class ModifyList extends Constants {
         return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     }
 
-    public static Task taskFromFile(String task) {
+    public static Task taskFromFile(String task) throws Error {
         String[] reconstruct = task.split(" \\| ");
         switch (reconstruct[0]) {
             case "T":
@@ -24,20 +24,17 @@ public class ModifyList extends Constants {
             case "D":
                 return new Deadline(reconstruct[2], reconstruct[3], reconstruct[1].equals("X"));
             default:
-                return null; //for debugging
+                throw new Error(FILE_TASK_CONVERSION_ERROR);
         }
     }
 
-    public void loadFileData() throws Error{
+    public void loadFileData(){
         try {
             if (file.length() != 0) {
                 System.out.println("Loading existing file data...\n");
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
                     String task = s.nextLine();
-                    if (taskFromFile(task) == null) {
-                        throw new Error(FILE_TASK_CONVERSION_ERROR);
-                    }
                     tasks.add(taskFromFile(task));
                 }
             } else {
@@ -45,6 +42,9 @@ public class ModifyList extends Constants {
             }
         } catch (FileNotFoundException error) {
             System.out.println(FILE_NOT_FOUND);
+        } catch (Error error) {
+            System.out.println(error.getMessage());
+            System.exit(0);
         }
     }
 

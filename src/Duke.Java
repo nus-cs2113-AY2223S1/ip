@@ -32,7 +32,7 @@ public class Duke extends Constants{
         );
     }
 
-    public static void taskList() throws Error { // check if get is 1 or 2
+    public static void taskList(){ // check if get is 1 or 2
         ModifyList modifyList = new ModifyList();
         modifyList.loadFileData();
         Scanner reader = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class Duke extends Constants{
                     System.out.println(error.getMessage());
                 }
             }
-        else {
+            else {
             switch (get[TASK]) { //if input more than 1
                 case LIST:
                     System.out.println("Do you mean 'list'?\n");
