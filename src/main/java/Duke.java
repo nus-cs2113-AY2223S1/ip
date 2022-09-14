@@ -59,15 +59,27 @@ public class Duke {
                 tasksList.markTask(taskNumber, "unmark", false);
                 break;
             case "todo":
+                if (inputWords.length == 1) {
+                    String correctFormatMessage = "The command should be 'todo (task name)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 tasksList.addToTasksList(newTodo);
                 break;
             case "deadline":
+                if (inputWords.length == 1) {
+                    String correctFormatMessage = "The command should be 'deadline (task name) /by (deadline)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
                 String[] DescriptionWithTime = inputWords[1].split("/by ", 2);
                 Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newDeadlineTask);
                 break;
             case "event":
+                if (inputWords.length == 1) {
+                    String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
                 DescriptionWithTime = inputWords[1].split("/at ", 2);
                 Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newEvent);
