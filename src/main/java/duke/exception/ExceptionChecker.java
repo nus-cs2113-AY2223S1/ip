@@ -9,32 +9,25 @@ public class ExceptionChecker {
 
         int flagPosition = Parser.getFlagPosition(input, keyword);
         if (flagPosition < 0) {
-            throw new MissingFlagException();
+            throw new MissingFlagException(keyword);
         }
     }
 
-
-    public static void checkArrayAccess(TaskList taskList, int taskPosition) throws NullPointerException,
-            ArrayIndexOutOfBoundsException, NoTasksException {
-
-        if (taskList.getSize() == 0) {
+    public static void checkArrayAccess(int taskPosition) throws NoTasksException,
+            OutOfBoundsException {
+        if (TaskList.getSize() == 0) {
             throw new NoTasksException();
-        }
-        try {
-            taskList.get(taskPosition);
-        } catch (NullPointerException e) {
-            throw new NullPointerException();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException();
+        } else if (taskPosition < 0 || taskPosition >= TaskList.getSize()) {
+            throw new OutOfBoundsException();
         }
     }
 
-    public static int checkIntegerType(String description) throws NumberFormatException {
+    public static int checkIntegerType(String description) throws NotIntegerException {
         int taskPosition;
         try {
             taskPosition = Integer.parseInt(description) - 1;
         } catch (NumberFormatException e) {
-            throw new NumberFormatException();
+            throw new NotIntegerException(description);
         }
         return taskPosition;
     } // only for mark, unmark and delete
@@ -58,7 +51,8 @@ public class ExceptionChecker {
         }
     }
 
-    public static void checkNumberOfArguments(String input, String keyword) throws TooManyArgumentsException {
+    public static void checkNumberOfArguments(String input, String keyword) throws TooManyArgumentsException,
+            MissingIntegerException {
 
         // only for list, bye, mark, unmark, delete
         String[] splitInput = input.split(" ");
@@ -74,12 +68,14 @@ public class ExceptionChecker {
         case "delete":
             if (splitInput.length > 2) {
                 throw new TooManyArgumentsException();
+            }   else if (splitInput.length == 1) {
+                throw new MissingIntegerException(keyword);
             }
             break;
         }
     }
 
-    public static boolean isExceptionFree(TaskList taskList, String input, String description, String time, String keyword) {
+    public static boolean isExceptionFree(String input, String description, String time, String keyword) {
         int taskPosition;
         try {
             switch (keyword) {
@@ -92,7 +88,7 @@ public class ExceptionChecker {
             case "delete":
                 checkNumberOfArguments(input, keyword);
                 taskPosition = checkIntegerType(description);
-                checkArrayAccess(taskList, taskPosition);
+                checkArrayAccess(taskPosition);
                 break;
             case "todo":
                 checkDescription(description);
@@ -106,31 +102,31 @@ public class ExceptionChecker {
                 break;
             }
         } catch (TooManyArgumentsException e) {
-            System.out.println("☹ OOPS!!! You provided too many arguments!");
+            System.out.println(e.getMessage());
             return false;
         } catch (NoTasksException e) {
-            System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
+            System.out.println(e.getMessage());
             return false;
-        } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! You did not provide me with an integer!");
+        } catch (NotIntegerException e) {
+            System.out.println(e.getMessage());
             return false;
-        } catch (NullPointerException e) {
-            System.out.println("☹ OOPS!!! You don't have that many tasks!");
+        } catch (OutOfBoundsException e) {
+            System.out.println(e.getMessage());
             return false;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! You don't have that many tasks!");
+        } catch (MissingIntegerException e) {
+            System.out.println(e.getMessage());
             return false;
         } catch (MissingDescriptionException e) {
-            System.out.println("☹ OOPS!!! You did not provide a description for the task!");
+            System.out.println(e.getMessage());
             return false;
         } catch (MissingTimeException e) {
-            System.out.println("☹ OOPS!!! You did not provide a time for the task!");
+            System.out.println(e.getMessage());
             return false;
         } catch (MissingDescriptionAndTimeException e) {
-            System.out.println("☹ OOPS!!! You did not provide both a description and time for the task!");
+            System.out.println(e.getMessage());
             return false;
         } catch (MissingFlagException e) {
-            System.out.println("☹ OOPS!!! You did not provide a by or at flag!");
+            System.out.println(e.getMessage());
             return false;
         }
         return true;

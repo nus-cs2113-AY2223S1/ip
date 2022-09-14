@@ -30,7 +30,6 @@ public class UserInterface {
         System.out.println("Hello from \n" + DUKE_LOGO);
         printBorderLines();
         System.out.println("Hello! I'm Duke" + System.lineSeparator()
-                + "I am a basic task manager" + System.lineSeparator()
                 + "What can I do for you?");
         printBorderLines();
     }

@@ -53,19 +53,21 @@ public class Manager {
                 UserInterface.printBorderLines();
                 Command c = commandCreator(input);
                 // parse
-                c = Parser.parse(taskList, c, input);
+                Parser.parse(taskList, c, input);
                 // execute
                 if (c.isLegal()) {
                     TaskExecutor.execute(taskList, c);
                 }
-                UserInterface.printBorderLines();
                 // change isBye state if command = "bye"
                 isBye = c.isBye();
+                if (isBye) {
+                    UserInterface.printGoodbye();
+                }
+                UserInterface.printBorderLines();
             } catch (NoSuchCommandException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 UserInterface.printBorderLines();
             }
         }
-        UserInterface.printGoodbye();
     }
 }

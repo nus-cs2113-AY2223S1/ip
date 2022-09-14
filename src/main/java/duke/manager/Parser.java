@@ -81,20 +81,20 @@ public class Parser {
         switch (keyword) {
         case "bye":
         case "list":
-            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+            if (ExceptionChecker.isExceptionFree(input, description, time, keyword)) {
                 break;
             }
         case "mark":
         case "unmark":
         case "delete":
             taskPosition = getTaskPosition(input);
-            if (ExceptionChecker.isExceptionFree(taskList, input, taskPosition, time, keyword)) {
+            if (ExceptionChecker.isExceptionFree(input, taskPosition, time, keyword)) {
                 c.setArgument(taskPosition, 0);
                 break;
             }
         case "todo":
             description = getDescription(input, -1);
-            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+            if (ExceptionChecker.isExceptionFree(input, description, time, keyword)) {
                 c.setArgument(description, 0);
                 break;
             }
@@ -103,7 +103,7 @@ public class Parser {
             flagPosition = getFlagPosition(input, keyword);
             description = getDescription(input, flagPosition);
             time = getTime(input, flagPosition);
-            if (ExceptionChecker.isExceptionFree(taskList, input, description, time, keyword)) {
+            if (ExceptionChecker.isExceptionFree(input, description, time, keyword)) {
                 c.setArgument(description, 0);
                 c.setArgument(time, 1);
                 break;
