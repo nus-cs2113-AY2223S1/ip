@@ -35,32 +35,29 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void markTask(int taskNumber, String command, boolean isDone) throws TaskListEmptyException, TaskNumberOutOfBoundsException {
-        String previousIcon = tasksList.get(taskNumber).getStatusIcon();
-        if (getTasksListSize() == 0) {
-            throw new TaskListEmptyException();
-        }
-//        if (taskNumber-1 > getTasksListSize()) {
-//            throw new WrongArgumentException();
-//        }
-        if (previousIcon == "X") {
-            if (isDone) {
-                System.out.println("This task has already been marked!");
+    public void markTask(int taskNumber, String command, boolean isDone) throws TaskNumberOutOfBoundsException {
+        try {
+            String previousIcon = tasksList.get(taskNumber).getStatusIcon();
+            if (previousIcon == "X") {
+                if (isDone) {
+                    System.out.println("This task has already been marked!");
+                } else {
+                    System.out.println("OK, I've marked this task as not done yet:");
+                }
             } else {
-                System.out.println("OK, I've marked this task as not done yet:");
+                if (!isDone) {
+                    System.out.println("This task has already been unmarked!");
+                } else {
+                    System.out.println("Nice! I've marked this task as done:");
+                }
             }
-        } else {
-            if (!isDone) {
-                System.out.println("This task has already been unmarked!");
-            } else {
-                System.out.println("Nice! I've marked this task as done:");
-            }
+            tasksList.get(taskNumber).setDone(isDone);
+            String newIcon = tasksList.get(taskNumber).getStatusIcon();
+            System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
+            printHorizontalLine();
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNumberOutOfBoundsException();
         }
-        tasksList.get(taskNumber).setDone(isDone);
-        String newIcon = tasksList.get(taskNumber).getStatusIcon();
-        System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
-        printHorizontalLine();
-
 
     }
 

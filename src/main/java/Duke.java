@@ -28,7 +28,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, IndexOutOfBoundsException, TaskNumberOutOfBoundsException {
+    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException {
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
@@ -47,25 +47,17 @@ public class Duke {
                     String correctFormatMessage = "The command should be 'mark (task number to mark)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                try {
-                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                    tasksList.markTask(taskNumber, "mark", true);
-                    break;
-                } catch (IndexOutOfBoundsException e) {
-                    throw new TaskNumberOutOfBoundsException();
-                }
+                int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                tasksList.markTask(taskNumber, "mark", true);
+                break;
             case "unmark":
                 if (inputWords.length == 1) {
                     String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                try {
-                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                    tasksList.markTask(taskNumber, "unmark", false);
-                    break;
-                } catch (IndexOutOfBoundsException e) {
-                    throw new TaskNumberOutOfBoundsException();
-                }
+                taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                tasksList.markTask(taskNumber, "unmark", false);
+                break;
             case "todo":
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 tasksList.addToTasksList(newTodo);
@@ -82,9 +74,6 @@ public class Duke {
                 break;
             default:
                 throw new EmptyArgumentException();
-//                Task newTask = new Task(input, 'N');
-//                tasksList.addToTasksList(newTask);
-//                break;
             }
         }
     }
