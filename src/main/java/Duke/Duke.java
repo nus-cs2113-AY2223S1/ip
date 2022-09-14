@@ -30,7 +30,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, TaskAlreadyMarkedException {
+    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException {
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
