@@ -10,9 +10,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static final String OUTOFBOUNDS = "IndexBeyondBoundError";
-    static final String NONNUMERIC = "NonNumericError";
-    static final String WRONGFORMAT = "WrongFormatError";
 
 
     /**
@@ -72,13 +69,13 @@ public class Duke {
                 String taskDescription = synthesizedArr.toString();
                 switch (command) {
                 case "mark":
-                    TaskManager.processMarkingCommand(tasks, numOfWords, "mark", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "mark", userInput);
                     break;
                 case "unmark":
-                    TaskManager.processMarkingCommand(tasks, numOfWords, "unmark", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "unmark", userInput);
                     break;
                 case "delete":
-                    TaskManager.processDeleteCommand(tasks, numOfWords, "delete", userInput);
+                    TaskManager.processCommand(tasks, numOfWords, "delete", userInput);
                     break;
                 case "todo":
                     TaskManager.addTodo(tasks, taskDescription);

@@ -109,7 +109,7 @@ public class TaskManager {
         }
     }
 
-    public static void processMarkingCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
+    public static void processCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
         try {
             if (numOfWords > 2) {
                 Message.showErrorMessage(command, WRONGFORMAT);
@@ -117,16 +117,33 @@ public class TaskManager {
                 int index = Integer.parseInt(userInput[1]) - 1;
                 if (checkIfWithinBounds(index, tasks.size())) {
                     // checks if the user input command is within the current bound of the tasks array.
-                    if (command.equals("mark")) {
+                    switch (command) {
+                    case "mark":
                         tasks.get(index).setDone(true);
-                    } else {
+                        Message.getAcknowledgement(command);
+                        Message.getEntryFullStatus(tasks, index);
+                        Message.displayLineDivider();
+                        break;
+                    case "unmark":
                         tasks.get(index).setDone(false);
+                        Message.getAcknowledgement(command);
+                        Message.getEntryFullStatus(tasks, index);
+                        Message.displayLineDivider();
+                        break;
+                    case "delete":
+                        Message.getAcknowledgement(command);
+                        Message.getEntryFullStatus(tasks, index);
+                        tasks.remove(index);
+                        if (tasks.size() == 0) {
+                            Message.printNumOfTasks(0);
+                        } else {
+                            Message.printNumOfTasks(tasks.size());
+                        }
+                        break;
+                    default:
+                        break;
                     }
-
-                    Message.getAcknowledgement(command);
-                    Message.getEntryFullStatus(tasks, index);
-                    Message.displayLineDivider();
-                    FileOperation.writeToFile(tasks);
+                    FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
                 }
             }
         } catch (NumberFormatException e) {
