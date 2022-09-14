@@ -1,11 +1,19 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    // static variables
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int taskCounter = 0;
 
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
+    static String COMMAND_WORD_LIST = "list";
+    static String COMMAND_WORD_MARK = "mark";
+    static String COMMAND_WORD_UNMARK = "unmark";
+    static String COMMAND_WORD_TODO = "todo";
+    static String COMMAND_WORD_DEADLINE = "deadline";
+    static String COMMAND_WORD_EVENT = "event";
+    static String COMMAND_WORD_DELETE = "delete";
+    static String COMMAND_WORD_EXIT = "bye";
 
     // class methods
     static void errorMessage() {
@@ -17,54 +25,63 @@ public class Duke {
     static boolean checkSpace(String line) {
         // in the case of "todo"
         if (!line.contains(" ")) {
-            return false;
+            throw new IllegalArgumentException("No task name included");
         }
 
         // in the case of "todo "
         int spaceLocation = line.indexOf(" ");
         if (spaceLocation == line.length()) {
-            return false;
+            throw new IllegalArgumentException("No task name included");
         }
 
         return true;
+    }
+
+    static void handleMark(String line) {
+        String markIndex = line.split(" ")[1];
+        int taskIndex = Integer.parseInt(markIndex) - 1;
+        Task task = tasks.get(taskIndex);
+        markTask(task);
+    }
+
+    static void handleUnmark(String line) {
+        String markIndex = line.split(" ")[1];
+        int taskIndex = Integer.parseInt(markIndex) - 1;
+        Task task = tasks.get(taskIndex);
+        unmarkTask(task);
+    }
+
+    static void handleCommand(String command, String line) {
+        if (command.matches(COMMAND_WORD_LIST)) {
+            listTasks();
+        } else if (command.matches(COMMAND_WORD_MARK)) {
+            handleMark(line);
+        } else if (command.matches(COMMAND_WORD_UNMARK)) {
+            handleUnmark(line);
+        } else if (command.matches(COMMAND_WORD_TODO)) {
+            addTaskSpecial(line, "todo");
+        } else if (command.matches(COMMAND_WORD_EVENT)) {
+            addTaskSpecial(line, "event");
+        } else if (command.matches(COMMAND_WORD_DEADLINE)) {
+            addTaskSpecial(line, "deadline");
+        } else if (command.matches(COMMAND_WORD_DELETE)) {
+            deleteTask(line);
+        } else {
+            errorMessage();
+        }
     }
 
     public static void main(String[] args) {
         greet();
         Scanner input = new Scanner(System.in);
         String line = input.nextLine();
-        String command = line.split(" ")[0];
+        int COMMAND_INDEX = 0;
+        String command = line.split(" ")[COMMAND_INDEX];
 
-        while (!command.matches("bye")) {
-            switch (command) {
-            case "list":
-                listTasks();
-                break;
-            case "mark":
-                int index = Integer.parseInt(line.split(" ")[1]) - 1;
-                markTask(taskList[index]);
-                break;
-            case "unmark":
-                index = Integer.parseInt(line.split(" ")[1]) - 1;
-                unmarkTask(taskList[index]);
-                break;
-            case "todo":
-                addTaskSpecial(line, "todo");
-                break;
-            case "deadline":
-                addTaskSpecial(line, "deadline");
-                break;
-            case "event":
-                addTaskSpecial(line, "event");
-                break;
-                
-
-            default:
-                errorMessage();
-                break;
-            }
+        while (!command.matches(COMMAND_WORD_EXIT)) {
+            handleCommand(command, line);
             line = input.nextLine();
-            command = line.split(" ")[0];
+            command = line.split(" ")[COMMAND_INDEX];
         }
         exit(); 
     }
@@ -94,7 +111,7 @@ public class Duke {
 
     // Method to add normal tasks
     public static void addTask(Task task) {
-        taskList[taskCounter] = task;
+        tasks.add(task);
         taskCounter += 1;
         System.out.println(HORIZONTAL_LINE);
         System.out.println("added: " + task.name);
@@ -104,10 +121,14 @@ public class Duke {
     // Method to list tasks
     public static void listTasks() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCounter; ++i) {
-            Task task = taskList[i];
-            System.out.println(task.toString());
+        if (taskCounter == 0) {
+            System.out.println("You have no tasks in your list");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskCounter; ++i) {
+                Task task = tasks.get(i);
+                System.out.println(task.toString());
+            }
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -150,7 +171,7 @@ public class Duke {
         switch (type) {
         case "todo":
             Todo todoTask = new Todo(name);
-            taskList[taskCounter] = todoTask;
+            tasks.add(todoTask);
             taskCounter += 1;
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Got it. I've added this task:");
@@ -161,7 +182,7 @@ public class Duke {
         case "deadline":
             String deadlineDate = name.substring(name.indexOf(divider) + 3, name.length());
             Deadline deadlineTask = new Deadline(name, deadlineDate);
-            taskList[taskCounter] = deadlineTask;
+            tasks.add(deadlineTask);
             taskCounter += 1;
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Got it. I've added this task:");
@@ -172,7 +193,7 @@ public class Duke {
         case "event":
             String eventDate = name.substring(name.indexOf(divider) + 3, name.length());
             Event eventTask = new Event(name, eventDate);
-            taskList[taskCounter] = eventTask;
+            tasks.add(eventTask);
             taskCounter += 1;
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Got it. I've added this task:");
@@ -181,5 +202,17 @@ public class Duke {
             System.out.println(HORIZONTAL_LINE);
             break;
         }
+    }
+
+    private static void deleteTask(String line) {
+        String taskIndex = line.split(" ")[1];
+        int listIndex = Integer.parseInt(taskIndex) - 1;
+        Task task = tasks.get(listIndex);
+        tasks.remove(listIndex);
+        taskCounter -= 1;
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.toString());
+        System.out.println(HORIZONTAL_LINE);
     }
 }
