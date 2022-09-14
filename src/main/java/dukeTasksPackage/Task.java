@@ -1,10 +1,11 @@
 package dukeTasksPackage;
 
 public class Task {
-    protected String description;
-    protected int number;
-    protected  char status = ' ';
-    protected char alphabet = ' ';
+    public String description;
+    public int number;
+    public  char status = ' ';
+
+
     public boolean isDone;
     public void markAsDone(Task t) {
         System.out.println("Good job! You have completed another task! I've marked this task as done:\n" + "    [X] " + t.description);
@@ -17,9 +18,9 @@ public class Task {
         t.status = ' ';
     }
 
-    @Override
-    public String toString() {
-        return "   [" + alphabet + "]" + " [" + status + "] " + description;
-    }
+//    @Override
+//    public String toString() {
+//        return "   [" + alphabet + "]" + " [" + status + "] " + description;
+//    }
 
 }

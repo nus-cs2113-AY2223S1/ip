@@ -7,7 +7,6 @@ public class Event extends Task {
     public Event(String description, String time) {
         this.description = description;
         this.time = time;
-        this.alphabet = 'E';
     }
 
     @Override

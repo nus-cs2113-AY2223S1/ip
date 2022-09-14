@@ -8,7 +8,6 @@ public class Deadline extends Task {
         this.description = description;
         this.status = status;
         this.by = by;
-        this.alphabet = 'D';
     }
 
     @Override
