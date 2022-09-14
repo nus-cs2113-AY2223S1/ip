@@ -1,4 +1,3 @@
-import javax.sound.sampled.Line;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public interface FileIO {
         File file = new File("/Users/bromine/ip/Saves/Tasks");
         Scanner sc = new Scanner(file);
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         while (sc.hasNext()) {
             String line = sc.nextLine();
 
@@ -21,15 +20,19 @@ public interface FileIO {
             String taskType = args[0];
             String description = args[4];
             String time = (args.length > 5 ? args[6] : "");
-            Boolean isDone = (Integer.parseInt(args[2]) == 1 ? true : false);
+            Boolean isDone = (Integer.parseInt(args[2]) == 1);
 
-            if (taskType.equals("T")) {
+            switch (taskType) {
+            case "T":
                 tasks.add(new Todo(description, isDone));
-            } else if (taskType.equals("D")) {
+                break;
+            case "D":
                 tasks.add(new Deadline(description, isDone, time));
-            } else if (taskType.equals("E")) {
+                break;
+            case "E":
                 tasks.add(new Event(description, isDone, time));
-            } else {
+                break;
+            default:
                 throw new CorruptedDataFileException();
             }
         }
@@ -38,18 +41,18 @@ public interface FileIO {
     }
 
     static void writeFile(ArrayList<Task> Tasks) throws IOException {
-        FileWriter fw = new FileWriter("/Users/bromine/ip/Saves/Tasks_edited");
-        String taskFileFormat = "";
+        FileWriter fw = new FileWriter("/Users/bromine/ip/Saves/Tasks");
+        StringBuilder taskFileFormat = new StringBuilder();
 
         for (Task task : Tasks) {
-            taskFileFormat = taskFileFormat + task.getTaskType() + " | " +
-                    (task.getIsDone() ? "1" : "0") + " | " + task.getDescription();
+            taskFileFormat.append(task.getTaskType()).append(" | ")
+                    .append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getDescription());
             if (!task.getTaskType().equals("T")) {
-                taskFileFormat = taskFileFormat + " | " + task.getTime();
+                taskFileFormat.append(" | ").append(task.getTime());
             }
-            taskFileFormat += String.format("%n");
+            taskFileFormat.append(String.format("%n"));
         }
-        fw.write(taskFileFormat);
+        fw.write(taskFileFormat.toString());
         fw.close();
     }
 

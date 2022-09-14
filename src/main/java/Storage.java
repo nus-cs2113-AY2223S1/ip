@@ -1,11 +1,13 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * Storage class serve as a storage of all tasks and execute command
  * on the list of tasks
  */
 
-import java.util.ArrayList;
-
-public class Storage implements FormatChecker {
+public class Storage implements FormatChecker, FileIO {
     private static final int TODO_LENGTH = 5;
     private static final int DEADLINE_LENGTH = 9;
     private static final int EVENT_LENGTH = 6;
@@ -18,7 +20,29 @@ public class Storage implements FormatChecker {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_NULL = "";
-    private static final ArrayList<Task> list = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
+    public void loadSave() {
+        try {
+            tasks = FileIO.loadFile();
+        } catch (CorruptedDataFileException e) {
+            System.out.println("The saved file is corrupted.");
+        } catch (FileNotFoundException e) {
+            System.out.println("The saved file is not found");
+        }
+        System.out.println("Saved file is successfully loaded!");
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
+    }
+
+    public void writeSave() {
+        try {
+            FileIO.writeFile(tasks);
+        } catch (IOException e) {
+            System.out.format("IO exception occurs:%n%s", e.getMessage());
+        }
+    }
 
     /**
      * Add item to list of tasks
@@ -26,8 +50,8 @@ public class Storage implements FormatChecker {
      * @param item tasks in the list
      */
     public static void add(Task item) {
-        list.add(item);
-        System.out.format("added: %s%n%d items on list%n", item, list.size());
+        tasks.add(item);
+        System.out.format("added: %s%n%d items on list%n", item, tasks.size());
     }
 
     /**
@@ -35,12 +59,9 @@ public class Storage implements FormatChecker {
      */
     public static void listAll() {
         int i = 1;
-        for (Task e : list) {
-            System.out.format("%d.%s%n", i++, e);
+        for (Task task : tasks) {
+            System.out.format("%d.%s%n", i++, task);
         }
-//        for (int i = 0; i < size; i++) {
-//            System.out.format("%d.%s%n", i + 1, list[i]);
-//        }
     }
 
     /**
@@ -56,16 +77,16 @@ public class Storage implements FormatChecker {
             int index = Integer.parseInt(cmds[1]) - 1;
             FormatChecker.checkExcessArgument(cmd);
             if (command.equalsIgnoreCase(COMMAND_MARK)) {
-                list.get(index).setIsDone(true);
+                tasks.get(index).setIsDone(true);
             } else if (command.equalsIgnoreCase(COMMAND_UNMARK)) {
-                list.get(index).setIsDone(false);
+                tasks.get(index).setIsDone(false);
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ExcessArgumentException e) {
             System.out.format("Exception: Wrong command Format%n" +
                     "Try the command in correct format: mark <index of task>%n");
         } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to mark task %n" +
-                    "There are only %d tasks now~%n", list.size());
+                    "There are only %d tasks now~%n", tasks.size());
         }
 
         listAll();
@@ -78,14 +99,14 @@ public class Storage implements FormatChecker {
             String indexString = cmds[1];
             int index = Integer.parseInt(indexString) - 1;
             FormatChecker.checkExcessArgument(cmd);
-            System.out.format("The following task is deleted:%n%s%n", list.get(index));
-            list.remove(index);
+            System.out.format("The following task is deleted:%n%s%n", tasks.get(index));
+            tasks.remove(index);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ExcessArgumentException e) {
             System.out.format("Exception: Wrong command Format%n" +
                     "Try the command in correct format: delete <index of task>%n");
         } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to delete task %n" +
-                    "There are only %d tasks now~%n", list.size());
+                    "There are only %d tasks now~%n", tasks.size());
         }
 
     }
@@ -149,6 +170,8 @@ public class Storage implements FormatChecker {
         default:
             throw new UnknownCommandException();
         }
+
+        writeSave();
     }
 
 }
