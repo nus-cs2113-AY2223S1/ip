@@ -24,12 +24,14 @@ public class Duke {
         fw.close();
     }
 
-    private static void getFileContents(String filePath, ArrayList list) throws FileNotFoundException {
+    private static int getFileContents(String filePath, Integer cnt, ArrayList list) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            list.add(s.nextLine());
+            list.add(cnt, s.nextLine());
+            cnt++;
         }
+        return cnt;
     }
     public static void main(String[] args) throws EmptyToDo, IllegalCommand {
 
@@ -39,9 +41,10 @@ public class Duke {
         int cnt = 0;
         Boolean isLast = false;
         File storedList = new File("data/duke.txt");
+        String fileLocation = storedList.getAbsolutePath();
 
         try {
-            getFileContents("data/duke.txt" , list);
+            cnt = getFileContents(fileLocation, cnt, list);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -145,6 +148,12 @@ public class Duke {
                 }
             }
         } while (!isLast);
+
+        try {
+            writeToFile(fileLocation, cnt, list);
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
 
         System.out.println(line + " Bye. Hope to see you again soon!\n" + line);
     }
