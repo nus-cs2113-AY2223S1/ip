@@ -1,10 +1,13 @@
 package duke.command;
 
 import duke.DukeException;
+import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+
+import java.io.IOException;
 
 
 public class Command {
@@ -13,9 +16,11 @@ public class Command {
     public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String SPACER = "  ";
 
-    public Command(String command, TaskList tasks) {
+    private final String filePath;
+    public Command(String command, TaskList tasks, String filePath) {
         this.command = command;
         this.tasks = tasks;
+        this.filePath = filePath;
     }
 
     private static void markCommand(String input, TaskList tasks) throws DukeException {
@@ -23,7 +28,7 @@ public class Command {
         int num = Integer.parseInt(words[1]);
         if (num <= (tasks.getSize())) {
             tasks.findTask(num - 1).markDone();
-            System.out.println("wa so fast done liao\n" + SPACER + tasks.findTask(num - 1).toString() + System.lineSeparator()
+            System.out.println("that was fast\n" + SPACER + tasks.findTask(num - 1).toString() + System.lineSeparator()
                     + DIVIDER);
         } else {
             throw new DukeException();
@@ -35,7 +40,7 @@ public class Command {
         int num = Integer.parseInt(words[1]);
         if (num <= (tasks.getSize())) {
             tasks.findTask(num - 1).markUndone();
-            System.out.println("can make up your mind\n" + SPACER + tasks.findTask(num - 1).toString() + System.lineSeparator()
+            System.out.println("can you make up your mind\n" + SPACER + tasks.findTask(num - 1).toString() + System.lineSeparator()
                     + DIVIDER);
         } else {
             throw new DukeException();
@@ -74,7 +79,7 @@ public class Command {
         String[] words = command.split(" ");
         int num = Integer.parseInt(words[1]);
         if (num <= tasks.getSize()) {
-            System.out.println("delete task liao" + System.lineSeparator() + SPACER + tasks.findTask(num - 1).toString()
+            System.out.println("task deleted" + System.lineSeparator() + SPACER + tasks.findTask(num - 1).toString()
                     + System.lineSeparator() + "you still have " + (tasks.getSize() - 1) + " tasks left" + System.lineSeparator()
                     + DIVIDER);
             tasks.deleteTask(num - 1);
@@ -84,7 +89,7 @@ public class Command {
     }
 
     private static void printStatement(TaskList tasks) {
-        System.out.println("add task liao" + System.lineSeparator() + SPACER + tasks.findTask(tasks.getSize() - 1).toString()
+        System.out.println("task added" + System.lineSeparator() + SPACER + tasks.findTask(tasks.getSize() - 1).toString()
                 + System.lineSeparator() + "you still have " + (tasks.getSize()) + " tasks left" + System.lineSeparator()
                 + DIVIDER);
     }
@@ -93,6 +98,7 @@ public class Command {
         int numOfTasks = tasks.getSize();
         String[] input = command.split(" ", 2);
         String mainCommand = input[0];
+        Storage storage = new Storage(filePath);
         switch (mainCommand) {
         case "list":
             tasks.listTask();
@@ -100,50 +106,68 @@ public class Command {
         case "mark":
             try {
                 markCommand(command, tasks);
+                storage.writeFile(tasks);
             } catch (DukeException e) {
                 System.out.println("you only have " + (numOfTasks) + " tasks");
+            } catch (IOException e) {
+                System.out.println("cannot update file");
             }
             break;
         case "unmark":
             try {
                 unmarkCommand(command, tasks);
+                storage.writeFile(tasks);
             } catch (DukeException e) {
                 System.out.println("you only have " + (numOfTasks) + " tasks");
+            } catch (IOException e) {
+                System.out.println("cannot update file");
             }
             break;
         case "deadline":
             try {
                 tasks.addTask(deadlineCommand(command));
+                storage.appendTask(deadlineCommand(command).taskToString());
                 printStatement(tasks);
             } catch (DukeException e) {
                 System.out.println("Please key in a valid deadline input (missing '/' or missing description)");
+            } catch (IOException e) {
+                System.out.println("cannot append task");
             }
             break;
         case "todo":
             try {
                 tasks.addTask(todoCommand(command));
+                storage.appendTask(todoCommand(command).taskToString());
                 printStatement(tasks);
             } catch (DukeException e) {
-                System.out.println("aiya todo description cannot be empty.");
+                System.out.println("todo description cannot be empty.");
+            } catch (IOException e) {
+                System.out.println("cannot append task");
             }
             break;
         case "event":
             try {
                 tasks.addTask(eventCommand(command));
+                storage.appendTask(eventCommand(command).taskToString());
                 printStatement(tasks);
             } catch (DukeException e) {
                 System.out.println("Please key in a valid deadline input (missing '/' or missing description)");
+            } catch (IOException e) {
+                System.out.println("cannot append task");
             }
             break;
         case "delete":
             try {
                 deleteCommand(tasks, command);
+                storage.writeFile(tasks);
             } catch (DukeException e) {
                 System.out.println("you only have " + numOfTasks + " tasks");
+            } catch (IOException e) {
+                System.out.println("cannot update file");
             }
             break;
         default:
-            System.out.println("Huh? What saying you?\n" + DIVIDER);
+            System.out.println("What are you saying?\n" + DIVIDER);
             break;
         }
     }

@@ -25,11 +25,11 @@ public class Duke {
                 + " | |_| | | | | (__| |  __/ \n"
                 + "  \\__,_|_| |_|\\___|_|\\___| \n";
 
-        System.out.println("Oi I'm\n" + logo2);
+        System.out.println("Hello I'm\n" + logo2);
         System.out.println("What you want?");
 
         Scanner in = new Scanner(System.in);
-        String filePath = "/data/duke.txt";
+        String filePath = "./data/duke.txt";
         Storage storage = new Storage(filePath);
         TaskList tasks;
         boolean run = true;
@@ -40,7 +40,7 @@ public class Duke {
         }
         while (run) {
             String line = in.nextLine();
-            Command command = new Command(line, tasks);
+            Command command = new Command(line, tasks, filePath);
             if (line.equals("bye")) {
                 run = false;
                 System.out.println("bye bye");

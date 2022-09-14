@@ -22,6 +22,8 @@ public class Storage {
 
     public ArrayList<Task> readFile() throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
+        String directory = filePath.substring(0, filePath.lastIndexOf("/"));
+        new File(directory).mkdir();
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
@@ -30,9 +32,15 @@ public class Storage {
             Task task = stringToTask(toBeConverted);
             tasks.add(task);
         }
-
         return tasks;
     }
+
+    public void appendTask(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend + System.lineSeparator());
+        fw.close();
+    }
+
     public Task stringToTask(String toBeConverted) {
         String[] words = toBeConverted.split("\\|");
         Task convertedTask = null;
@@ -51,20 +59,22 @@ public class Storage {
         }
         if (words[1].equals("1")) {
             convertedTask.markDone();
-        } else if (words[1].equals("0")){
+        } else if (words[1].equals("0")) {
             convertedTask.markUndone();
         }
         return convertedTask;
     }
+
     public void writeFile(TaskList tasks) throws IOException {
         StringBuilder toWrite = new StringBuilder(tasks.findTask(0).taskToString());
         toWrite.append(System.lineSeparator());
         for (int i = 1; i < tasks.getSize(); i += 1) {
             toWrite.append(tasks.findTask(i).taskToString()).append(System.lineSeparator());
         }
-            FileWriter fw = new FileWriter(filePath);
-            fw.write(toWrite.toString());
-            fw.close();
-
+        String directory = filePath.substring(0, filePath.lastIndexOf("/"));
+        new File(directory).mkdir();
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(toWrite.toString());
+        fw.close();
     }
 }
