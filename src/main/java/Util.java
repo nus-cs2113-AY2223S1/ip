@@ -29,6 +29,14 @@ public class Util {
         System.out.println("     Now you have "+listLength+" tasks in the list.");
         printSplitLine();
     }
+    
+    public static void printDeleteResponse(String response, int listLength){
+        printSplitLine();
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("     "+response);
+        System.out.println("     Now you have "+listLength+" tasks in the list.");
+        printSplitLine();
+    }
 
     public static void printMarkResponse(String response){
         printSplitLine();
