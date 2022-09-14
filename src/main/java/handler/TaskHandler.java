@@ -8,6 +8,7 @@ import exception.DukeException;
 
 public class TaskHandler {
     private static final String BYE_MESSAGE = "Bye! ;)";
+    private static final String INDEX_NOT_FOUND = "There are no tasks with that index";
     private static final int SPLIT_AMOUNT = 2;
 
     public static void handleBye() {
@@ -25,8 +26,8 @@ public class TaskHandler {
 
     public static void handleMark(String input) {
         try {
-            int target = Integer.parseInt(input);
-            TaskList.markTarget(target);
+            int index = readIndex(input);
+            TaskList.markTarget(index);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("There is no task with that index");
         } catch (NumberFormatException e) {
@@ -35,9 +36,11 @@ public class TaskHandler {
     }
 
     public static void handleUnmark(String input) {
-        int index = readIndex(input);
         try {
+            int index = readIndex(input);
             TaskList.unmarkTarget(index);
+        } catch (NumberFormatException e) {
+            System.out.println("Index is an integer");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Index does not exist");
         }
@@ -73,25 +76,22 @@ public class TaskHandler {
     }
 
     public static void handleDelete(String input) {
-        int index = readIndex(input);
         try {
+            int index = readIndex(input);
             TaskList.deleteTask(index);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Index does not exist.");
         }
     }
 
-    private static int readIndex(String input) {
+    private static int readIndex(String input) throws NumberFormatException {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Index is a number...");
+            throw e;
         }
-        return -1;
     }
     public static void handleInvalid(String input) {
         System.out.println("\"" + input + "\"" + " is not a valid command, please try again!");
     }
-
-
 }
