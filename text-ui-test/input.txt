@@ -1,0 +1,10 @@
+list
+todo reading books
+deadline essay /by tmr
+event attend tut /at monday morn
+list
+mark 2
+list
+unmark 2
+list
+bye
