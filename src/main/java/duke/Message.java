@@ -116,6 +116,11 @@ public class Message {
         case"FailedFileCreation":
             System.out.println("File creation error occurred.");
             break;
+        case "FailedFileInput":
+            System.out.println("Cannot write into file.");
+            break;
+        default:
+            break;
         }
     }
 }

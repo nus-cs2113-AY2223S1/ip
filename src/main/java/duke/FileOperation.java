@@ -19,9 +19,12 @@ public class FileOperation {
 
     static final String MISSING_FILE = "MissingFile";
     static final String FAILED_CREATION = "FailedFileCreation";
+    static final String FILE_INPUT_FAILED = "FailedFileInput";
     static final String DEADLINE = "D";
     static final String EVENT = "E";
     static final String TODO = "T";
+    static final String MARKED = "X";
+
 
     /**
      * to check if file exists, then start storing file inputs back into the current tasks array
@@ -36,24 +39,24 @@ public class FileOperation {
                 String[] parsedStoredTask = input.nextLine().split(" \\| ");
                 switch (parsedStoredTask[0]) {
                 case TODO:
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Todo("T", parsedStoredTask[2], true));
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Todo(TODO, parsedStoredTask[2], true));
                     } else {
-                        tasks.add(new Todo("T", parsedStoredTask[2], false));
+                        tasks.add(new Todo(TODO, parsedStoredTask[2], false));
                     }
                     break;
                 case EVENT:
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Event("E", parsedStoredTask[2], true, parsedStoredTask[3]));
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Event(EVENT, parsedStoredTask[2], true, parsedStoredTask[3]));
                     } else {
-                        tasks.add(new Event("E", parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Event(EVENT, parsedStoredTask[2], false, parsedStoredTask[3]));
                     }
                     break;
                 case DEADLINE:
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Deadline("D", parsedStoredTask[2], true, parsedStoredTask[3]));
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], true, parsedStoredTask[3]));
                     } else {
-                        tasks.add(new Deadline("D", parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], false, parsedStoredTask[3]));
                     }
                     break;
                 default:
@@ -135,9 +138,7 @@ public class FileOperation {
             file.close();
 
         } catch (IOException e) {
-            System.out.println("Cannot write into file.");
+            Message.showFileError(FILE_INPUT_FAILED);
         }
-
     }
-
 }

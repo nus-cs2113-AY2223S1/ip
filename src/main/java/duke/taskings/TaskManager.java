@@ -2,6 +2,7 @@ package duke.taskings;
 
 import duke.Duke;
 import duke.Message;
+import duke.FileOperation;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class TaskManager {
     public static void addTodo(ArrayList<Task> tasks, String taskDescription) {
         Message.displayLineDivider();
         tasks.add(new Todo("T", taskDescription, false));
-        Duke.FileOperation.writeToFile(tasks);
+        FileOperation.writeToFile(tasks);
         System.out.println(tasks.get(tasks.size() - 1));
         Message.printNumOfTasks(tasks.size());
     }
@@ -61,7 +62,7 @@ public class TaskManager {
         }
 
         tasks.add(new Deadline("D", taskDescription, false, deadline));
-        Duke.FileOperation.writeToFile(tasks);
+        FileOperation.writeToFile(tasks);
         System.out.println(tasks.get(tasks.size() - 1));
         Message.printNumOfTasks(tasks.size());
     }
@@ -77,7 +78,7 @@ public class TaskManager {
         }
 
         tasks.add(new Event("E", taskDescription, false, eventPeriod));
-        Duke.FileOperation.writeToFile(tasks);
+        FileOperation.writeToFile(tasks);
         System.out.println(tasks.get(tasks.size() - 1));
         Message.printNumOfTasks(tasks.size());
     }
@@ -93,13 +94,13 @@ public class TaskManager {
                     Message.getAcknowledgement("delete");
                     Message.getEntryFullStatus(tasks, deleteIndex);
                     tasks.remove(deleteIndex);
-                    Duke.FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
+                    FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
                     if (tasks.size() == 0) {
                         Message.printNumOfTasks(0);
                     } else {
                         Message.printNumOfTasks(tasks.size());
                     }
-                    Duke.FileOperation.writeToFile(tasks);
+                    FileOperation.writeToFile(tasks);
 
                     Message.displayLineDivider();
                 }
@@ -145,7 +146,7 @@ public class TaskManager {
                     default:
                         break;
                     }
-                    Duke.FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
+                    FileOperation.writeToFile(tasks); // to update the file with the updated tasks array
                 }
             }
         } catch (NumberFormatException e) {
