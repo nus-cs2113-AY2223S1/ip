@@ -3,7 +3,7 @@ public class Todo extends Task implements FormatChecker{
     private static final String TODO_MARK = "[T]";
 
     /**
-     * Deafult constructor for a Todo instance
+     * Default constructor for a Todo instance
      *
      * @param description description of Todo
      */

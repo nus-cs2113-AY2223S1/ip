@@ -45,12 +45,14 @@ public class Storage {
      */
     public static void toggleMarkStatus(String cmd) {
         String[] cmds = cmd.split(COMMAND_SEPARATOR);
+        String command = cmds[0];
+        String index = cmds[1];
 
         try {
-            if (cmds[0].equalsIgnoreCase(COMMAND_MARK)) {
-                list[Integer.parseInt(cmds[1]) - 1].setIsDone(true);
-            } else if (cmds[0].equalsIgnoreCase(COMMAND_UNMARK)) {
-                list[Integer.parseInt(cmds[1]) - 1].setIsDone(false);
+            if (command.equalsIgnoreCase(COMMAND_MARK)) {
+                list[Integer.parseInt(index) - 1].setIsDone(true);
+            } else if (command.equalsIgnoreCase(COMMAND_UNMARK)) {
+                list[Integer.parseInt(index) - 1].setIsDone(false);
             }
         } catch (NumberFormatException e) {
             System.out.format("Exception: Wrong command Format%n" +
