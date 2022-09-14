@@ -9,6 +9,11 @@ public class Deadline extends Task {
         this.dueTime = descriptions[1];
     }
 
+    public Deadline(String description, boolean isDone, String dueTime) {
+        super(description,isDone);
+        this.dueTime = dueTime;
+    }
+
     protected String getDueTime() {
         return this.dueTime;
     }
@@ -23,6 +28,12 @@ public class Deadline extends Task {
         String response = "[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + getDescription() + "(by:"
                 + getDueTime() + ")";
         return response;
+    }
+
+    @Override
+    public String getStorageFormat(){
+        String status = isDone ? "1" : "0";
+        return getTaskType()+" | "+status+" | "+description+" | "+dueTime;
     }
 
     protected String[] parseDescriptions(String commandArgs) throws DukeException {

@@ -8,8 +8,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone){
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void setStringState(Boolean state) {
         this.isDone = state;
+    }
+
+    public String getStorageFormat(){
+        String status = isDone ? "1" : "0";
+        return getTaskType()+" | "+status+" | "+getDescription();
     }
 
     protected String getDescription() {
@@ -31,7 +41,5 @@ public class Task {
     protected String assembleResponse() {
         String response = "[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + getDescription();
         return response;
-    }
-
-    
+    } 
 }

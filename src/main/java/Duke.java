@@ -2,10 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
     static TaskManager taskManager = new TaskManager();
+    static Record record = new Record();
     static boolean isProgramEnd = false;
 
     public static void main(String[] args) {
         Util.showWelcomeMessage();
+        record.restoreFromDisk(taskManager);
         handleUserInput();
     }
 
