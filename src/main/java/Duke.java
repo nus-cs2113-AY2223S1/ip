@@ -33,26 +33,13 @@ public class Duke {
                 inputString = "mark";
             } else if (inputs[0].equals("unmark")) {
                 inputString = "unmark";
-            } else if (inputs[0].equals("delete")){
-                inputString = "delete";
             }
             try {
                 if (inputString.equals("bye")) {
                     isDone = true;
                     Communication.bye();
                     break;
-                }else if (inputString.equals("delete")) {
-                    TaskIndex = Integer.parseInt(inputs[1])-1 ;
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(ListOfTasks.get(TaskIndex));
-                    Communication.delete(ListOfTasks.get(TaskIndex));
-                    ListOfTasks.remove(TaskIndex);
-                    for (int i = TaskIndex ; i < ListOfTasks.size();i++){
-                        ListOfTasks.get(i).UpdateRemoval();
-                    }
-                    System.out.println("Now you have " +ListOfTasks.size() +" tasks in the list.");
-                }else if (inputString.equals("list")) {
-                    System.out.println("Here are the tasks in your list!");
+                } else if (inputString.equals("list")) {
                     Communication.list(ListOfTasks);
 
                 } else if (inputString.equals("read book")) {

@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d32fdde-6ff2-4475-b4f6-e2f8889253b3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/DukeException/DukeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/DukeException/InvalidException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/DukeException/todoException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Communication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Deadline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/duke/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Communication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/duke/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Deadline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/duke/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/duke/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/duke/ToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/ToDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/ToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/ToDo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +36,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/hao/y2s1/CS2113/src&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/hao/y2s1/CS2113/src"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

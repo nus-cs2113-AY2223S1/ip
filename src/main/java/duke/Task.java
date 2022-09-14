@@ -26,13 +26,6 @@ public class Task {
         System.out.println("Now you have "+currTotal+" tasks in the list");
     }
     //...
-    public void UpdateRemoval(){
-        this.index -=1;
-    }
-    public static void removeTask(Task task){
-        currTotal -=1;
-
-    }
     public String toString(){
         return ( this.index + "."+"["+this.getStatusIcon()+"] " + this.name);
     }

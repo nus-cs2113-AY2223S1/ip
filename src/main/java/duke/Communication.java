@@ -21,9 +21,6 @@ public class Communication {
             System.out.println(task.toString());
         }
     }
-    public static void delete(Task task){
-        Task.removeTask(task);
-    }
     public static void mark(Task task){
         System.out.println("Nice! I've marked this task as done:");
         task.UpdateStatus();
@@ -62,7 +59,6 @@ public class Communication {
         return newTodo;
 
     }
-
 
 
     }
