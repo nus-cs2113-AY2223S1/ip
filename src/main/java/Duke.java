@@ -1,6 +1,7 @@
 import dukeExceptionsPackage.*;
 import dukeTasksPackage.*;
 
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -13,12 +14,57 @@ public class Duke {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
 
-    private static void checkInput(String input) throws DukeException {
-
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
     }
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+    private static void clearFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath, false);
+        PrintWriter pw = new PrintWriter(fw, false);
+        pw.flush();
+        pw.close();
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        String directoryPath = "C:\\Users\\cwxky\\projects\\cs2113-git\\data";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+            System.out.println("Directory has been created!");
+        } else {
+            System.out.println("Directory already exists.");
+        }
+        String textFilePath = "C:\\Users\\cwxky\\projects\\cs2113-git\\data\\duke.txt";
+        File textFile = new File(textFilePath);
+        try {
+            if (!textFile.exists()) {
+                textFile.createNewFile();
+                System.out.println("File has been created!");
+            } else {
+                System.out.println("File already exists.");
+                clearFile(textFilePath);
+            }
+        } catch (IOException e) {
+            System.out.println("Duke has failed to make the file");
+        }
+
         String line;
         ArrayList<Task> tasksList = new ArrayList<Task>();
+        ArrayList<String> taskOverrideList = new ArrayList<String>();
         int count = 0;
         Scanner in = new Scanner(System.in);
         System.out.println("Duke: Hello! I'm Duke\n" + "Duke: What can I do for you?");
@@ -40,8 +86,11 @@ public class Duke {
                             System.out.println(tasksList.get(i));
                         }
                     }
+                    printFileContents(textFilePath);
                 } catch (EmptyListException e) {
                     System.out.println(e.getExceptionMessage());
+                } catch (FileNotFoundException f) {
+                    System.out.println("File not found.");
                 }
                 break;
             case COMMAND_MARK:
@@ -55,12 +104,20 @@ public class Duke {
                             throw new IllegalMarkingException("already marked");
                         } else {
                             toBeChanged.markAsDone(toBeChanged);
+                            String textToAdd = toBeChanged.toFileString();
+                            taskOverrideList.set(itemNumber, textToAdd);
+                            writeToFile(textFilePath, taskOverrideList.get(0));
+                            for (int i = 1; i < taskOverrideList.size(); i++) {
+                                appendToFile(textFilePath, taskOverrideList.get(i));
+                            }
                         }
                     }
                 } catch (IllegalMarkingException e) {
                     System.out.println(e.getExceptionMessage());
                 } catch (IllegalTaskNumber f) {
                     System.out.println(f.getExceptionMessage());
+                } catch (IOException g) {
+                    System.out.println("Something went wrong. I am unable to mark this task.");
                 }
                 break;
             case COMMAND_UNMARK:
@@ -72,6 +129,12 @@ public class Duke {
                         Task toBeChanged = tasksList.get(itemNumber);
                         if (toBeChanged.isDone) {
                             toBeChanged.markAsUndone(toBeChanged);
+                            String textToAdd = toBeChanged.toFileString();
+                            taskOverrideList.set(itemNumber, textToAdd);
+                            writeToFile(textFilePath, taskOverrideList.get(0));
+                            for (int i = 1; i < taskOverrideList.size(); i++) {
+                                appendToFile(textFilePath, taskOverrideList.get(i));
+                            }
                         } else {
                             throw new IllegalUnmarkingException("still unmarked");
                         }
@@ -80,6 +143,8 @@ public class Duke {
                     System.out.println(e.getExceptionMessage());
                 } catch (IllegalTaskNumber f) {
                     System.out.println(f.getExceptionMessage());
+                } catch (IOException g) {
+                    System.out.println("Something went wrong. I am unable to unmark this task.");
                 }
                 break;
             case COMMAND_TODO:
@@ -95,10 +160,15 @@ public class Duke {
                             tasksList.add(td);
                             System.out.println("Got it. I've added this task: " + System.lineSeparator() +
                                     td + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
+                            String textToAdd = "T | " + td.status + " | " + td.description + System.lineSeparator();
+                            taskOverrideList.add(textToAdd);
+                            appendToFile(textFilePath, textToAdd);
                         }
                     }
-                } catch (EmptyDescriptionException e){
+                } catch (EmptyDescriptionException e) {
                     System.out.println(e.getExceptionMessage());
+                } catch (IOException f) {
+                    System.out.println("Something went wrong. I am unable to add the todo task.");
                 }
                 break;
             case COMMAND_DEADLINE:
@@ -118,12 +188,17 @@ public class Duke {
                             tasksList.add(d);
                             System.out.println("Got it. I've added this task: " + System.lineSeparator() +
                                     d + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
+                            String textToAdd = "D | " + d.status + " | " + d.description + "| " + by + System.lineSeparator();
+                            taskOverrideList.add(textToAdd);
+                            appendToFile(textFilePath, textToAdd);
                         }
                     }
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getExceptionMessage());
                 } catch (UnrecognisedDeadlineException f) {
                     System.out.println(f.getExceptionMessage());
+                } catch (IOException g) {
+                    System.out.println("Something went wrong. I am unable to add the deadline task.");
                 }
                 break;
             case COMMAND_EVENT:
@@ -143,12 +218,17 @@ public class Duke {
                             tasksList.add(e);
                             System.out.println("Got it. I've added this task: " + System.lineSeparator() +
                                     e + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list.");
+                            String textToAdd = "E | " + e.status + " | " + e.description + "| " + time + System.lineSeparator();
+                            taskOverrideList.add(textToAdd);
+                            appendToFile(textFilePath, textToAdd);
                         }
                     }
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getExceptionMessage());
                 } catch (UnrecognisedEventException f) {
                     System.out.println(f.getExceptionMessage());
+                } catch (IOException g) {
+                    System.out.println("Something went wrong. I am unable to add the event task.");
                 }
                 break;
             default:

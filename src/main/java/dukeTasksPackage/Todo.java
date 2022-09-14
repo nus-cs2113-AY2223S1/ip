@@ -14,5 +14,9 @@ public class Todo extends Task {
     public String toString() {
         return "   [" + alphabet + "]" + " [" + status + "] " + description;
     }
+
+    public String toFileString() {
+        return "T | " + status + " | " + description + System.lineSeparator();
+    }
 }
 
