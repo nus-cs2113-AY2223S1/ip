@@ -25,4 +25,10 @@ public class Deadline extends Task {
         super.printTask();
         System.out.println(" ("+this.by+")");
     }
+
+    @Override
+    public String getSaveString(){
+        return taskType + "|" + isDone +  "|" + description + "|" + by;
+    }
+
 }
