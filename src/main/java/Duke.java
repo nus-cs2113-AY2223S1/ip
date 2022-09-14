@@ -5,9 +5,14 @@ import Exceptions.*;
 //import Tasks.ToDo;
 import Tasks.*;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Duke {
     public static final int DEADLINE_STRING_LENGTH = 9;     // "deadline "
@@ -16,34 +21,128 @@ public class Duke {
     public static final int AT_SEPARATOR_LENGTH = 4;        // "/at  "
     public static ArrayList<Task> list = new ArrayList<Task>();
 
-    public static void printList(ArrayList<Task> list) {
-            System.out.println("        ____________________________________________");
-            for (int i = 1; i <= list.size(); i += 1) {
-                String taskType = list.get(i-1).getTaskType();
-                String markDoneStatus = list.get(i-1).isDone()?"[X]":"[ ]";
-
-                switch(taskType) {
-                case "ToDo":
-                    System.out.println("        [T]" + markDoneStatus + " " + i + ". " + list.get(i-1).getTaskName());
-                    break;
-
-                case "Deadline":
-                    String deadline = list.get(i-1).getTaskDeadline();
-                    System.out.println("        [D]" + markDoneStatus + " " + i + ". " + list.get(i-1).getTaskName() +
-                            " (by: " + deadline + ")");
-                    break;
-
-                case "Event":
-                    String eventTime = list.get(i-1).getEventTime();
-                    System.out.println("        [E]" + markDoneStatus + " " + i + ". " + list.get(i-1).getTaskName() +
-                            " (at: " + eventTime + ")");
-                    break;
-
-                default:
-                    break;
-                }
+    public static void initializeFile() {
+        File f = new File("src/main/java/data.txt");
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating 'data.txt'");
             }
-            System.out.println("        ____________________________________________");
+        }
+
+//        System.out.println("full path: " + f.getAbsolutePath());
+//        System.out.println("file exists?: " + f.exists());
+//        System.out.println("is Directory?: " + f.isDirectory());
+    }
+
+    public static void populateInitialList(String filePath) {
+        File f = new File("src/main/java/data.txt");
+        Scanner s = null;
+        try {
+            s = new Scanner(f);
+            s.useDelimiter(System.lineSeparator());
+        } catch (FileNotFoundException e) {
+            System.out.println("'data.txt' not found");
+        }
+
+        while (s.hasNext()) {
+            String nextTask = s.next();
+            String[] taskParameters = nextTask.split(" \\| ");
+
+            switch (taskParameters[0]) {
+            case "T":
+                list.add(new ToDo(taskParameters[2], Boolean.parseBoolean(taskParameters[1])));
+                break;
+
+            case "D":
+                list.add(new Deadline(taskParameters[2], Boolean.parseBoolean(taskParameters[1]), taskParameters[3]));
+                break;
+
+            case "E":
+                list.add(new Event(taskParameters[2], Boolean.parseBoolean(taskParameters[1]), taskParameters[3]));
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    public static String taskListToString(ArrayList<Task> list) {
+        String outputList = "";
+        String tempTaskString = "";
+        for (int i = 1; i <= list.size(); i += 1) {
+            String taskType = list.get(i - 1).getTaskType();
+            String markDoneStatus = list.get(i - 1).isDone() ? "1" : "0";
+
+            switch (taskType) {
+            case "ToDo":
+                tempTaskString = "T | " + markDoneStatus + " | " + list.get(i - 1).getTaskName() + System.lineSeparator();
+                outputList += tempTaskString;
+                break;
+
+            case "Deadline":
+                String deadline = list.get(i - 1).getTaskDeadline();
+                tempTaskString = "D | " + markDoneStatus + " | " + list.get(i - 1).getTaskName() +
+                        " | " + deadline + System.lineSeparator();
+                outputList += tempTaskString;
+                break;
+
+            case "Event":
+                String eventTime = list.get(i - 1).getEventTime();
+                tempTaskString = "E | " + markDoneStatus + " | " + list.get(i - 1).getTaskName() +
+                        " | " + eventTime + System.lineSeparator();
+                outputList += tempTaskString;
+                break;
+
+            default:
+                break;
+            }
+        }
+        return outputList;
+    }
+
+    public static void printList(ArrayList<Task> list) {
+        System.out.println("        ____________________________________________");
+        for (int i = 1; i <= list.size(); i += 1) {
+            String taskType = list.get(i - 1).getTaskType();
+            String markDoneStatus = list.get(i - 1).isDone() ? "[X]" : "[ ]";
+
+            switch (taskType) {
+            case "ToDo":
+                System.out.println("        [T]" + markDoneStatus + " " + i + ". " + list.get(i - 1).getTaskName());
+                break;
+
+            case "Deadline":
+                String deadline = list.get(i - 1).getTaskDeadline();
+                System.out.println("        [D]" + markDoneStatus + " " + i + ". " + list.get(i - 1).getTaskName() +
+                        " (by: " + deadline + ")");
+                break;
+
+            case "Event":
+                String eventTime = list.get(i - 1).getEventTime();
+                System.out.println("        [E]" + markDoneStatus + " " + i + ". " + list.get(i - 1).getTaskName() +
+                        " (at: " + eventTime + ")");
+                break;
+
+            default:
+                break;
+            }
+        }
+        System.out.println("        ____________________________________________");
     }
 
     private static void printGoodbyeMessage() {
@@ -122,8 +221,15 @@ public class Duke {
                     System.out.println("            " + taskIndicator + markDone + " " +
                             list.get(Integer.parseInt(line[1]) - 1).getTaskName());
                     System.out.println("        ____________________________________________");
+
+
+                    String file = "src/main/java/data.txt";
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
                     System.out.println("OOPS!!! The list item number given is invalid.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -142,8 +248,14 @@ public class Duke {
                     System.out.println("            " + taskIndicator + unmarkDone + " " +
                             list.get(Integer.parseInt(line[1]) - 1).getTaskName());
                     System.out.println("        ____________________________________________");
+
+                    String file = "src/main/java/data.txt";
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (InvalidListItemNumberException | NumberFormatException e) {
                     System.out.println("OOPS!!! The list item number given is invalid.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -163,8 +275,15 @@ public class Duke {
                             .replace("[", "").replace("]", ""));
                     System.out.println("        Now you have " + list.size() + " tasks in the list.");
                     System.out.println("        ____________________________________________");
+
+
+                    String file = "src/main/java/data.txt";
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (InvalidTodoCommandException e) {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -190,12 +309,20 @@ public class Duke {
                     System.out.println("        [D][ ] " + deadlineName + " (by: " + taskDeadline + ")");
                     System.out.println("        Now you have " + list.size() + " tasks in the list.");
                     System.out.println("        ____________________________________________");
+
+
+
+                    String file = "src/main/java/data.txt";
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (MissingKeywordException e) {
                     System.out.println("OOPS!!! You did not include '/by'.");
                 } catch (MissingTaskException e) {
                     System.out.println("OOPS!!! You did not indicate the task.");
                 } catch (MissingDateException e) {
                     System.out.println("OOPS!!! You did not indicate the deadline.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -221,12 +348,19 @@ public class Duke {
                     System.out.println("        [E][ ] " + eventName + " (at: " + eventTime + ")");
                     System.out.println("        Now you have " + list.size() + " tasks in the list.");
                     System.out.println("        ____________________________________________");
+
+
+                    String file = "src/main/java/data.txt";
+                    String newListText = taskListToString(list);
+                    writeToFile(file, newListText);
                 } catch (MissingKeywordException e) {
                     System.out.println("OOPS!!! You did not include '/at'.");
                 } catch (MissingTaskException e) {
                     System.out.println("OOPS!!! You did not indicate the task.");
                 } catch (MissingDateException e) {
                     System.out.println("OOPS!!! You did not indicate the event date.");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
                 break;
 
@@ -269,6 +403,11 @@ public class Duke {
 
     public static void main(String[] args) throws InvalidCommandException {
         printWelcomeMessage();
+
+        initializeFile();
+        String filePath = "src/main/java/data.txt";
+        populateInitialList(filePath);
+
         handleInput();
         printGoodbyeMessage();
     }
