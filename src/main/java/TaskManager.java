@@ -49,7 +49,7 @@ public class TaskManager {
         case "unmark":
             index = Integer.valueOf(commandArgs);
             taskList.get(index-1).setStringState(false);
-            response = taskList.get(index).getResponse();
+            response = taskList.get(index-1).getResponse();
             Util.printUnmarkResponse(response);
             break;
         case "bye":
