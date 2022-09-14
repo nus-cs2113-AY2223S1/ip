@@ -1,6 +1,5 @@
 import dukeExceptionsPackage.*;
 import dukeTasksPackage.*;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -12,10 +11,9 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String MESSAGE_DELETE = "Duke: Noted. I have deleted the task below: ";
 
-    private static void checkInput(String input) throws DukeException {
-
-    }
     public static void main(String[] args) {
         String line;
         ArrayList<Task> tasksList = new ArrayList<Task>();
@@ -150,6 +148,14 @@ public class Duke {
                 } catch (UnrecognisedEventException f) {
                     System.out.println(f.getExceptionMessage());
                 }
+                break;
+            case COMMAND_DELETE:
+                itemNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                Task toBeRemoved = tasksList.get(itemNumber);
+                tasksList.remove(itemNumber);
+                System.out.println(MESSAGE_DELETE);
+                System.out.println(toBeRemoved.toString());
+                System.out.println("You now have " + tasksList.size() + " tasks in the list.");
                 break;
             default:
                 try {
