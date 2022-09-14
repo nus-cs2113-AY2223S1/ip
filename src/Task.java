@@ -16,7 +16,7 @@ public abstract class Task {
         return description;
     }
     public String getStatus() {
-        return (this.isDone ? "√" : "✕");
+        return (this.isDone ? "X" : " ");
     }
 
     public String getDescriptionAndStatus() {

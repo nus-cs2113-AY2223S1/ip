@@ -10,7 +10,7 @@ public class Todo extends Task {
     }
     @Override
     public String fileFormat() {
-        return "T ┊ " + this.getStatus() + " ┊ " + this.description;
+        return "T | " + this.getStatus() + " | " + this.description;
     }
 
 }

@@ -7,7 +7,7 @@ public class Deadline extends Task {
 
     @Override
     public String getDescription() {
-        return this.description + this.by;
+        return this.description + " " + this.by;
     }
 
     @Override
@@ -16,6 +16,6 @@ public class Deadline extends Task {
     }
     @Override
     public String fileFormat() {
-        return "D ┊ " + this.getStatus() + " ┊ " + this.description + " ┊ " + this.by;
+        return "D | " + this.getStatus() + " | " + this.description + " | " + this.by;
     }
 }

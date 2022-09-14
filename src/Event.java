@@ -6,7 +6,7 @@ public class Event extends Task {
     }
     @Override
     public String getDescription() {
-        return this.description + this.at;
+        return this.description + " " + this.at;
     }
 
     @Override
@@ -15,7 +15,7 @@ public class Event extends Task {
     }
     @Override
     public String fileFormat() {
-        return "E ┊ " + this.getStatus() + " ┊ " + this.description + " ┊ " + this.at;
+        return "E | " + this.getStatus() + " | " + this.description + " | " + this.at;
     }
 
 }
