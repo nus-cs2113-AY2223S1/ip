@@ -1,7 +1,67 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Duke
+What can I do for you?
+	_____________________
+There are no tasks yet!
+	_____________________
+	_____________________
+	Got it. I've added this task:
+	added: [T][ ] borrow book
+	_____________________
 
+	_____________________
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	_____________________
+	_____________________
+	Got it. I've added this task:
+	added: [D][ ] return book (by: Sunday)
+	_____________________
+
+	_____________________
+	Got it. I've added this task:
+	added: [E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+
+	_____________________
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+	Nice! I've marked this task as done:
+	[X] borrow book
+	Nice! I've marked this task as done:
+	[X] return book
+	Nice! I've marked this task as done:
+	[X] project meeting
+	_____________________
+	Here are the tasks in your list:
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Sunday)
+	3. [E][X] project meeting (at: Mon 2-4pm)
+	_____________________
+	OK, I've marked this task as not done yet:
+	[ ] borrow book
+	OK, I've marked this task as not done yet:
+	[ ] return book
+	OK, I've marked this task as not done yet:
+	[ ] project meeting
+	_____________________
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+	_____________________
+	Got it. I've added this task:
+	added: [D][ ] do homework (by: no idea :-p)
+	_____________________
+
+	_____________________
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (at: Mon 2-4pm)
+	4. [D][ ] do homework (by: no idea :-p)
+	_____________________
+Bye. Hope to see you again soon!
