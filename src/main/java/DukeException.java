@@ -1,48 +1,32 @@
 public class DukeException extends Exception{
     private String errorType;
+
     public DukeException(String str){
         super();
         errorType = str;
     }
 
     void handleError(){
+        String errorMessage;
         switch(errorType){
         case "TaskTypeError":
-            printTaskTypeErrorMessage();
+            errorMessage = "     OOPS!!! I'm sorry, but I don't know what that means :-(";
             break;
         case "TodoDescriptionError":
-            printTodoDescriptionErrorMessage();
+            errorMessage = "     OOPS!!! The description of a todo cannot be empty.";
             break;
         case "EventDescriptionError":
-            printEventDescriptionErrorMessage();
+            errorMessage = "     OOPS!!! The description of a event is wrong.";
             break;
         case "DeadlineDescriptionError":
-            printDeadlineDescriptionErrorMessage();
+            errorMessage = "     OOPS!!! The description of a deadline is wrong.";
             break;
+        case "RestorationFileCorrupted":
+            errorMessage = "     OOPS!!! File Restoration Corrupted. Restoration Process Stopped.";
+            break;
+        default:
+            errorMessage = "     OOPS!!! Some unknown errors happen.";
         }
-    }
-
-    void printTaskTypeErrorMessage(){
-        Util.printSplitLine();
-        System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        Util.printSplitLine();
-    }
-
-    void printTodoDescriptionErrorMessage(){
-        Util.printSplitLine();
-        System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
-        Util.printSplitLine();
-    }
-
-    void printEventDescriptionErrorMessage(){
-        Util.printSplitLine();
-        System.out.println("     ☹ OOPS!!! The description of a event is wrong.");
-        Util.printSplitLine();
-    }
-
-    void printDeadlineDescriptionErrorMessage(){
-        Util.printSplitLine();
-        System.out.println("     ☹ OOPS!!! The description of a deadline is wrong.");
-        Util.printSplitLine();
+        Util.printErrorMessage(errorMessage);
     }
 }

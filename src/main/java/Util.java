@@ -52,4 +52,10 @@ public class Util {
         printSplitLine();
     }
 
+    public static void printErrorMessage(String errorMessage){
+        printSplitLine();
+        System.out.println(errorMessage);
+        printSplitLine();
+    }
+
 }
