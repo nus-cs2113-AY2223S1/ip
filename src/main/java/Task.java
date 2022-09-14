@@ -6,7 +6,8 @@ public class Task {
     private static final String UNCHECK_MARK = "[]";
     protected static final String DEADLINE_IDENTIFIER = "/by: ";
     protected static final String EVENT_IDENTIFIER = "/at: ";
-
+    protected static final String taskType = "Task";
+    protected String time;
     /**
      * Default constructor for Task instance
      *
@@ -17,6 +18,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
     /**
      * Empty constructor for Task instance
      */
@@ -34,6 +39,22 @@ public class Task {
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public String getTime() {
+        return this.time;
     }
 
     @Override

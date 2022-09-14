@@ -1,6 +1,7 @@
 public class Todo extends Task implements FormatChecker{
 
     private static final String TODO_MARK = "[T]";
+    private static final String taskType = "T";
 
     /**
      * Default constructor for a Todo instance
@@ -12,9 +13,19 @@ public class Todo extends Task implements FormatChecker{
         FormatChecker.checkNullString(description);
     }
 
+    public Todo(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     @Override
     public String getStatusIcon() {
         return TODO_MARK + super.getStatusIcon();
+    }
+
+    @Override
+    public String getTaskType() {
+        return taskType;
     }
 
     @Override

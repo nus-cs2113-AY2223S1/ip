@@ -45,9 +45,12 @@ public class Duke {
 
     public static void main(String[] args) {
         greet();
+        Storage storage = new Storage();
+        storage.loadSave();
+        separateLine();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        Storage storage = new Storage();
+
         while (!line.equalsIgnoreCase(COMMAND_BYE)) {
             separateLine();
             try {

@@ -1,8 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * Storage class serve as a storage of all tasks and execute command
  * on the list of tasks
  */
-public class Storage {
+public class Storage implements FileIO {
     private static final int TODO_LENGTH = 5;
     private static final int DEADLINE_LENGTH = 9;
     private static final int EVENT_LENGTH = 6;
@@ -16,8 +21,30 @@ public class Storage {
     private static final String COMMAND_NULL = "";
     private static final int MAXIMUM_LIST_SIZE = 120;
     private static final Task[] list = new Task[MAXIMUM_LIST_SIZE];
+    private ArrayList<Task> tasks = new ArrayList<Task>();
     private static int size = 0;
 
+    public void loadSave() {
+        try {
+            this.tasks = FileIO.loadFile();
+        } catch (CorruptedDataFileException e) {
+            System.out.println("The saved file is corrupted.");
+        } catch (FileNotFoundException e) {
+            System.out.println("The saved file is not found");
+        }
+        System.out.println("Saved file is successfully loaded!");
+        for(Task task : tasks) {
+            System.out.println(task);
+        }
+    }
+
+    public void writeSave() {
+        try {
+            FileIO.writeFile(tasks);
+        } catch (IOException e) {
+            System.out.format("IO exception occurs:%n%s", e.getMessage());
+        }
+    }
     /**
      * Add item to list of tasks
      *
@@ -121,6 +148,8 @@ public class Storage {
         default:
             throw new UnknownCommandException();
         }
+        
+        writeSave();
     }
 
 }

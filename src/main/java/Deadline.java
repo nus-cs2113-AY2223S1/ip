@@ -1,16 +1,17 @@
 public class Deadline extends Task implements FormatChecker {
     private static final String DEADLINE_MARK = "[D]";
-    private String by;
+    private static final String taskType = "D";
+    private String time;
 
     /**
      * Default constructor for Deadline instance
      *
      * @param description description of Deadline
-     * @param by time of deadline
+     * @param time time of deadline
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String time) {
         super(description);
-        this.by = by;
+        this.time = time;
     }
 
     /**
@@ -24,20 +25,18 @@ public class Deadline extends Task implements FormatChecker {
             int identifierIndex = FormatChecker.findIdentifierIndex(DEADLINE_IDENTIFIER, complexString);
             this.description = complexString.substring(0, identifierIndex);
             FormatChecker.checkNullString(this.description);
-            this.by = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
-            FormatChecker.checkNullString(this.by);
+            this.time = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
+            FormatChecker.checkNullString(this.time);
             this.isDone = false;
         } catch (WrongCommandFormatException e) {
             throw new WrongCommandFormatException();
         }
     }
 
-    public String getBy() {
-        return this.by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
+    public Deadline(String description, Boolean isDone, String time) {
+        this.description = description;
+        this.isDone = isDone;
+        this.time = time;
     }
 
     @Override
@@ -46,7 +45,17 @@ public class Deadline extends Task implements FormatChecker {
     }
 
     @Override
+    public String getTaskType() {
+        return taskType;
+    }
+
+    @Override
+    public String getTime() {
+        return this.time;
+    }
+
+    @Override
     public String toString() {
-        return String.format("%s %s(by: %s)", this.getStatusIcon(), description, this.by);
+        return String.format("%s %s(by: %s)", this.getStatusIcon(), description, this.time);
     }
 }

@@ -1,16 +1,17 @@
 public class Event extends Task implements FormatChecker{
     private static final String EVENT_MARK = "[E]";
-    private String at;
+    private static final String taskType = "E";
+    private String time;
 
     /**
      * Default constructor for Event instance
      *
      * @param description description of Event
-     * @param at time of event
+     * @param time time of event
      */
-    public Event(String description, String at) {
+    public Event(String description, String time) {
         super(description);
-        this.at = at;
+        this.time = time;
     }
 
     /**
@@ -24,20 +25,18 @@ public class Event extends Task implements FormatChecker{
             int identifierIndex = FormatChecker.findIdentifierIndex(EVENT_IDENTIFIER, complexString);
             this.description = complexString.substring(0, identifierIndex);
             FormatChecker.checkNullString(this.description);
-            this.at = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
-            FormatChecker.checkNullString(this.at);
+            this.time = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
+            FormatChecker.checkNullString(this.time);
             this.isDone = false;
         } catch (WrongCommandFormatException e) {
             throw new WrongCommandFormatException();
         }
     }
 
-    public String getAt() {
-        return this.at;
-    }
-
-    public void setAt(String at) {
-        this.at = at;
+    public Event(String description, Boolean isDone, String time) {
+        this.description = description;
+        this.isDone = isDone;
+        this.time = time;
     }
 
     @Override
@@ -46,7 +45,17 @@ public class Event extends Task implements FormatChecker{
     }
 
     @Override
+    public String getTaskType() {
+        return taskType;
+    }
+
+    @Override
+    public String getTime() {
+        return this.time;
+    }
+
+    @Override
     public String toString() {
-        return String.format("%s %s(at: %s)", this.getStatusIcon(), description, this.at);
+        return String.format("%s %s(at: %s)", this.getStatusIcon(), description, this.time);
     }
 }
