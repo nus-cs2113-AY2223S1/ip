@@ -1,18 +1,23 @@
-import Exceptions.*;
-//import Tasks.Deadline;
-//import Tasks.Event;
-//import Tasks.Task;
-//import Tasks.ToDo;
-import Tasks.*;
+import Exceptions.MissingDateException;
+import Exceptions.InvalidListItemNumberException;
+import Exceptions.MissingKeywordException;
+import Exceptions.MissingTaskException;
+import Exceptions.InvalidCommandException;
+import Exceptions.InvalidTodoCommandException;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Duke {
     public static final int DEADLINE_STRING_LENGTH = 9;     // "deadline "
@@ -31,10 +36,6 @@ public class Duke {
                 System.out.println("An error occurred while creating 'data.txt'");
             }
         }
-
-//        System.out.println("full path: " + f.getAbsolutePath());
-//        System.out.println("file exists?: " + f.exists());
-//        System.out.println("is Directory?: " + f.isDirectory());
     }
 
     public static void populateInitialList(String filePath) {
@@ -50,18 +51,34 @@ public class Duke {
         while (s.hasNext()) {
             String nextTask = s.next();
             String[] taskParameters = nextTask.split(" \\| ");
+            Boolean taskStatus = null;
 
             switch (taskParameters[0]) {
             case "T":
-                list.add(new ToDo(taskParameters[2], Boolean.parseBoolean(taskParameters[1])));
+                if (Objects.equals(taskParameters[1], "1")) {
+                    taskStatus = true;
+                } else if ((Objects.equals(taskParameters[1], "0"))) {
+                    taskStatus = false;
+                }
+                list.add(new ToDo(taskParameters[2], taskStatus));
                 break;
 
             case "D":
-                list.add(new Deadline(taskParameters[2], Boolean.parseBoolean(taskParameters[1]), taskParameters[3]));
+                if (Objects.equals(taskParameters[1], "1")) {
+                    taskStatus = true;
+                } else if ((Objects.equals(taskParameters[1], "0"))) {
+                    taskStatus = false;
+                }
+                list.add(new Deadline(taskParameters[2], taskStatus, taskParameters[3]));
                 break;
 
             case "E":
-                list.add(new Event(taskParameters[2], Boolean.parseBoolean(taskParameters[1]), taskParameters[3]));
+                if (Objects.equals(taskParameters[1], "1")) {
+                    taskStatus = true;
+                } else if ((Objects.equals(taskParameters[1], "0"))) {
+                    taskStatus = false;
+                }
+                list.add(new Event(taskParameters[2], taskStatus, taskParameters[3]));
                 break;
 
             default:
@@ -85,13 +102,15 @@ public class Duke {
     public static String taskListToString(ArrayList<Task> list) {
         String outputList = "";
         String tempTaskString = "";
+
         for (int i = 1; i <= list.size(); i += 1) {
             String taskType = list.get(i - 1).getTaskType();
             String markDoneStatus = list.get(i - 1).isDone() ? "1" : "0";
 
             switch (taskType) {
             case "ToDo":
-                tempTaskString = "T | " + markDoneStatus + " | " + list.get(i - 1).getTaskName() + System.lineSeparator();
+                tempTaskString = "T | " + markDoneStatus + " | " + list.get(i - 1).getTaskName() +
+                        System.lineSeparator();
                 outputList += tempTaskString;
                 break;
 
@@ -118,6 +137,7 @@ public class Duke {
 
     public static void printList(ArrayList<Task> list) {
         System.out.println("        ____________________________________________");
+
         for (int i = 1; i <= list.size(); i += 1) {
             String taskType = list.get(i - 1).getTaskType();
             String markDoneStatus = list.get(i - 1).isDone() ? "[X]" : "[ ]";
@@ -168,6 +188,7 @@ public class Duke {
     private static String getTaskIndicator(String[] line) {
         String taskType = list.get(Integer.parseInt(line[1]) - 1).getTaskType();
         String taskIndicator = "";
+
         switch (taskType) {
         case "ToDo":
             taskIndicator = "[T]";
@@ -312,7 +333,6 @@ public class Duke {
                     System.out.println("        ____________________________________________");
 
 
-
                     String file = DATA_FILE_PATH;
                     String newListText = taskListToString(list);
                     writeToFile(file, newListText);
@@ -405,7 +425,6 @@ public class Duke {
         }
         return;
     }
-
 
 
     public static void main(String[] args) throws InvalidCommandException {
