@@ -4,6 +4,9 @@ import duke.exceptions.EmptyCommandException;
 
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Duke {
 
     public static void response(String line, TaskManager action) {
@@ -48,10 +51,26 @@ public class Duke {
         }
     }
 
+    public static void readFile(File f, TaskManager action) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] parts = line.split("|");
+            action.addExistingTasksInFile(parts);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String line;
         TaskManager action = new TaskManager();
+
+        File f = new File("data/duke.txt");
+        try {
+            readFile(f, action);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         action.greet();
         do {

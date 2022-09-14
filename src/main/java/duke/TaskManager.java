@@ -130,4 +130,24 @@ public class TaskManager {
                 + tasks[index].getDescription() + tasks[index].getAddedInfo());
         System.out.println("  ____________________________________________________________");
     }
+
+    public void addExistingTasksInFile(String[] parts) {
+        String taskType = parts[0];
+        String taskState = parts[1];
+        String taskDescription = parts[2];
+        String taskAdditional = parts[3];
+        if (taskType.equals("T")) {
+            tasks[taskCount] = new Todo(taskDescription);
+        } else if (taskType.equals("D")) {
+            tasks[taskCount] = new Deadline(taskDescription, taskAdditional);
+        } else {
+            tasks[taskCount] = new Event(taskDescription, taskAdditional);
+        }
+        boolean done = true;
+        if (taskState.equals(" ")) {
+            done = false;
+        }
+        tasks[taskCount].setCompletion(done);
+        taskCount++;
+    }
 }
