@@ -172,10 +172,20 @@ public class Duke {
                     taskList.addEvent(description, dateTime);
                     System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
                     break;
+                
+                case ("delete"):
+                    printLine();
+                    int tasknumber = Integer.parseInt(inputList[1]);
+                    Task temp = taskList.getTask(tasknumber-1);
+                    taskList.deleteTask(tasknumber-1);
+                    System.out.println("Removed:");
+                    System.out.println(" [E][ ] " + temp.description);
+                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+                    break;
 
                 default: //unknown command
-                printLine();
-                System.out.println("Sorry, I don't understand what that means :( ");
+                    printLine();
+                    System.out.println("Sorry, I don't understand what that means :( ");
                 break;
             }
         }
