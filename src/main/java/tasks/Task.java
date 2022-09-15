@@ -1,10 +1,14 @@
+package tasks;
+
 /**
  * Tasks to be added with attribute to track completion status
- * */
+ */
 
 public abstract class Task {
     protected final String taskDescription;
+    protected final String DONE_SYMBOL = "\u2713";
     protected boolean isDone;
+
     // constructor
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -20,14 +24,15 @@ public abstract class Task {
         return this.isDone;
     }
 
-    public void markDone(){
+    public void markDone() {
         isDone = true;
     }
 
     /**
      * Abstract that serves as base for formatting taskDescription
+     *
      * @return String describing task
-     * */
+     */
     public abstract String showTask();
 
 }

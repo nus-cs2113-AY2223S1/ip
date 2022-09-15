@@ -1,6 +1,14 @@
-import org.w3c.dom.events.EventException;
+package tasks;
 
 import java.util.ArrayList;
+
+import exceptions.DeadlineException;
+import exceptions.DoneFormatException;
+import exceptions.DoneRangeException;
+import exceptions.DoneAlreadyCompletedException;
+import exceptions.ToDoException;
+import exceptions.EventException;
+
 
 /**
  * Add the ability to store whatever text entered by the user and display them back to the user when requested.
@@ -71,7 +79,7 @@ public class TaskList {
 
                 addTodo(userInput);
             } catch (ToDoException e) {
-                System.out.println("OOPS!!! Todo command must follow the format: todo <task description>");
+                System.out.println("OOPS!!! tasks.Todo command must follow the format: todo <task description>");
             }
         } else if (command.equals(EVENT)) {
             try {
@@ -79,7 +87,7 @@ public class TaskList {
                 String at = userInput.replaceAll(GET_AT_DELIMITER, "");
                 addEvent(taskDescription, at);
             } catch (EventException e) {
-                System.out.println("OOPS!!! Event command must follow the format: <task description> /at <time/date>");
+                System.out.println("OOPS!!! tasks.Event command must follow the format: <task description> /at <time/date>");
             }
         } else if (command.equals(DEADLINE)) {
             try {
@@ -87,7 +95,7 @@ public class TaskList {
                 String by = userInput.replaceAll(GET_BY_DELIMITER, "");
                 addDeadline(taskDescription, by);
             } catch (DeadlineException e) {
-                System.out.println("OOPS!!! Deadline command must follow the format: <task description> /by <time/date>");
+                System.out.println("OOPS!!! tasks.Deadline command must follow the format: <task description> /by <time/date>");
             }
         }
     }
