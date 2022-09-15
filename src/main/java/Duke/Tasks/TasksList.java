@@ -65,7 +65,26 @@ public class TasksList {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNumberOutOfBoundsException();
         }
-
     }
 
+    public void printDeleteTaskText(Task task) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(task.taskStatusWithDescriptionText());
+        System.out.println("Now you have " + getTasksListSize() + " tasks in the list.");
+        printHorizontalLine();
+    }
+
+    public void deleteTask(int taskNumber) throws TaskListEmptyException, TaskNumberOutOfBoundsException {
+        try {
+            if (getTasksListSize() == 0) {
+                throw new TaskListEmptyException();
+            } else {
+                Task taskToBeRemoved = tasksList.get(taskNumber);
+                tasksList.remove(taskNumber);
+                printDeleteTaskText(taskToBeRemoved);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNumberOutOfBoundsException();
+        }
+    }
 }

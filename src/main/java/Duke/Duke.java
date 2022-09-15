@@ -86,6 +86,14 @@ public class Duke {
                 Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newEvent);
                 break;
+            case "delete":
+                if (inputWords.length < 2) {
+                    String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
+                    throw new InvalidCommandFormatException(correctFormatMessage);
+                }
+                taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
+                tasksList.deleteTask(taskNumber);
+                break;
             default:
                 throw new EmptyArgumentException();
             }
