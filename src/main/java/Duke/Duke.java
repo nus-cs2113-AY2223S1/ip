@@ -3,11 +3,14 @@ package Duke;
 import Duke.Tasks.*;
 import Duke.Exceptions.*;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.*;
 
 public class Duke {
     private static TasksList tasksList = new TasksList();
@@ -76,12 +79,17 @@ public class Duke {
         }
     }
 
-    public static void loadTaskstoDataFile() throws IOException {
-        FileWriter fw = new FileWriter(DATA_FILE_PATH);
-        for (int i = 0; i < tasksList.getTasksListSize(); i++) {
-            fw.write(tasksList.printTaskToDataFile(i));
-        }
+    public static void loadTasktoDataFile(int taskNumber) throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
+        fw.write(tasksList.printTaskToDataFile(taskNumber));
         fw.close();
+    }
+
+    public static void updateTaskDoneInDataFile(int taskNumber) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));
+        String updatedTaskToLoadInDataFile = tasksList.printTaskToDataFile(taskNumber).replace("\n", "");
+        lines.set(taskNumber, updatedTaskToLoadInDataFile);
+        Files.write(Paths.get(DATA_FILE_PATH), lines);
     }
 
     public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException {
@@ -94,7 +102,6 @@ public class Duke {
             String[] inputWords = input.split(" ", 2);
             switch (inputWords[0]) {
             case "bye":
-                loadTaskstoDataFile();
                 printExitText();
                 break;
             case "list":
@@ -107,6 +114,7 @@ public class Duke {
                 }
                 int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
                 tasksList.markTask(taskNumber, "mark", true);
+                updateTaskDoneInDataFile(taskNumber);
                 break;
             case "unmark":
                 if (inputWords.length == 1) {
@@ -115,6 +123,7 @@ public class Duke {
                 }
                 taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
                 tasksList.markTask(taskNumber, "unmark", false);
+                updateTaskDoneInDataFile(taskNumber);
                 break;
             case "todo":
                 if (inputWords.length < 2) {
@@ -124,6 +133,8 @@ public class Duke {
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 tasksList.addToTasksList(newTodo);
                 tasksList.printAddTaskText(newTodo);
+                taskNumber = tasksList.getTasksListSize() - 1;
+                loadTasktoDataFile(taskNumber);
                 break;
             case "deadline":
                 if (inputWords.length < 2) {
@@ -134,6 +145,8 @@ public class Duke {
                 Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newDeadlineTask);
                 tasksList.printAddTaskText(newDeadlineTask);
+                taskNumber = tasksList.getTasksListSize() - 1;
+                loadTasktoDataFile(taskNumber);
                 break;
             case "event":
                 if (inputWords.length < 2) {
@@ -144,6 +157,8 @@ public class Duke {
                 Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newEvent);
                 tasksList.printAddTaskText(newEvent);
+                taskNumber = tasksList.getTasksListSize() - 1;
+                loadTasktoDataFile(taskNumber);
                 break;
             default:
                 throw new EmptyArgumentException();
