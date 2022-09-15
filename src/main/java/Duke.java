@@ -2,8 +2,10 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
+import java.io.File;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private static final String EVENT = "event";
@@ -13,7 +15,11 @@ public class Duke {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final int LENGTH = 100;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        String path = "duke.txt";
+        File f = new File(path);
+
+
         welcomeMsg();
 
         Scanner input = new Scanner(System.in);
@@ -30,7 +36,13 @@ public class Duke {
                 markTask(val, tasks, false, "OK, I've marked this task as not done yet:");
             } else if (val.contains("mark")){
                 markTask(val, tasks, true, "Nice! I've marked this task as done:");
-            } else{
+            } else if (val.contains("save")){
+                try{
+                    saveTask(path, tasks);
+                } catch (IOException e){
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+            }else{
                 length += addTask(val, tasks, length);
             }
             System.out.println(SEPARATOR);
@@ -39,6 +51,18 @@ public class Duke {
 
         byeMsg();
     }
+
+    private static void saveTask(String path, Task[] tasks) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        String textToAppend = "";
+        for(int i = 0; i < tasks.length; i++){
+            textToAppend += tasks[i] + "\n";
+        }
+        fw.write(textToAppend);
+        fw.close();
+        System.out.println("saved");
+    }
+
 
     private static int addTask(String val, Task[] tasks, int length) {
         if(val.contains(TODO)){
