@@ -78,7 +78,10 @@ public class Parser {
         if (analysedEvent[1].trim().length() == 0) {
             throw new DukeException("OOPS!!! The event time cannot be empty ☹" + SUGGESTED_FORMAT);
         }
-        Event event = new Event(analysedEvent[0].trim(), analysedEvent[1].trim());
+        if (!DateParser.isValidDate(analysedEvent[1].trim())) {
+            throw new DukeException("OOPS!!! I cannot recognize the date\n" + "Follow this format: yyyy-mm-dd");
+        }
+        Event event = new Event(analysedEvent[0].trim(), DateParser.formatDateToString(analysedEvent[1].trim()));
         return new AddCommand(event);
     }
 
@@ -98,7 +101,11 @@ public class Parser {
         if (analysedDeadline[1].trim().length() == 0) {
             throw new DukeException("OOPS!!! The deadline due time cannot be empty ☹" + SUGGESTED_FORMAT);
         }
-        Deadline deadline = new Deadline(analysedDeadline[0].trim(), analysedDeadline[1].trim());
+        if (!DateParser.isValidDate(analysedDeadline[1].trim())) {
+            throw new DukeException("OOPS!!! I cannot recognize the date\n" + "Follow this format: yyyy-mm-dd");
+        }
+
+        Deadline deadline = new Deadline(analysedDeadline[0].trim(), DateParser.formatDateToString(analysedDeadline[1].trim()));
         return new AddCommand(deadline);
     }
 
