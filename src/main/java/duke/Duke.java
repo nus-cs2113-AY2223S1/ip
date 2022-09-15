@@ -93,11 +93,6 @@ public class Duke {
             switch (command.getCommandType()) {
             case EXIT:
                 formatAndPrint("Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                try {
-                    dataFileManager.saveProgramData(taskManager.getTaskData());
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
                 return;
             case LIST:
                 output = taskManager.getAllTasks();
@@ -125,6 +120,11 @@ public class Duke {
             default:
                 output = "Error, major bug";
                 break;
+            }
+            try {
+                dataFileManager.saveProgramData(taskManager.getTaskData());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
 
             formatAndPrint(output);

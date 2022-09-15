@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -96,7 +97,7 @@ public class DataFileManager {
                     output.add(event);
                     break;
                 default:
-                    throw new Exception();
+                    throw new InputMismatchException();
                 }
             }
         } catch (Exception e) {
