@@ -47,7 +47,6 @@ public class TaskManager {
         tasks.remove(taskId);
     }
 
-
     public static void printMark(ArrayList<Task> tasks, int taskId) {
         if (tasks.get(taskId).isDone) {
             System.out.println("\tThis task is already done!");

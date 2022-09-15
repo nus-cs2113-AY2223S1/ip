@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-//    private static final int TASK_SIZE = 100;
-
     public static void printIntroMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
@@ -117,7 +115,6 @@ public class Duke {
             }
         } while (!line.equals("bye"));
     }
-
 }
 
 
