@@ -14,6 +14,8 @@ public class Duke {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String MESSAGE_DELETE = "Duke: Noted. I have deleted the task below: ";
+    private static final String COMMAND_CLEAR = "clear";
+    private static final String MESSAGE_CLEAR = "file has been cleared";
 
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
@@ -56,7 +58,6 @@ public class Duke {
                 System.out.println("File has been created!");
             } else {
                 System.out.println("File already exists.");
-                clearFile(textFilePath);
             }
         } catch (IOException e) {
             System.out.println("Duke has failed to make the file");
@@ -75,6 +76,7 @@ public class Duke {
             switch (words[0]) {
             case COMMAND_BYE:
                 System.out.println(MESSAGE_BYE);
+
                 break;
             case COMMAND_LIST:
                 try {
@@ -243,6 +245,14 @@ public class Duke {
                 System.out.println(MESSAGE_DELETE);
                 System.out.println(toBeRemoved.toString());
                 System.out.println("You now have " + tasksList.size() + " tasks in the list.");
+                break;
+            case COMMAND_CLEAR:
+                try {
+                    clearFile(textFilePath);
+                    System.out.println(COMMAND_CLEAR);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong. I am unable to clear the file.");
+                }
                 break;
             default:
                 try {
