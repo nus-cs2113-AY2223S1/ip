@@ -4,6 +4,7 @@ import Duke.Exceptions.InvalidCommandFormatException;
 import Duke.Exceptions.TaskAlreadyMarkedException;
 import Duke.Exceptions.TaskListEmptyException;
 import Duke.Exceptions.TaskNumberOutOfBoundsException;
+import Duke.Exceptions.TaskNumberNotNumberException;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void markTask(int taskNumber, String command, boolean isDone) throws TaskNumberOutOfBoundsException {
+    public void markTask(int taskNumber, String command, boolean isDone) throws TaskNumberOutOfBoundsException, TaskNumberNotNumberException {
         try {
             String previousIcon = tasksList.get(taskNumber).getStatusIcon();
             if (previousIcon == "X") {

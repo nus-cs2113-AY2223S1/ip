@@ -107,7 +107,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException {
+    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException, TaskNumberNotNumberException {
         loadTasksToTasksList();
         printGreeting();
         String input;
@@ -123,67 +123,88 @@ public class Duke {
                 tasksList.printTaskList();
                 break;
             case "mark":
-                if (inputWords.length == 1) {
-                    String correctFormatMessage = "The command should be 'mark (task number to mark)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
+                try {
+                    if (inputWords.length == 1) {
+                        String correctFormatMessage = "The command should be 'mark (task number to mark)'.";
+                        throw new InvalidCommandFormatException(correctFormatMessage);
+                    }
+                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
+                    tasksList.markTask(taskNumber, "mark", true);
+                    updateTaskDoneInDataFile(taskNumber,"edit");
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TaskNumberNotNumberException();
                 }
-                int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                tasksList.markTask(taskNumber, "mark", true);
-                updateTaskDoneInDataFile(taskNumber,"edit");
-                break;
             case "unmark":
-                if (inputWords.length == 1) {
-                    String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
+                try {
+                    if (inputWords.length == 1) {
+                        String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
+                        throw new InvalidCommandFormatException(correctFormatMessage);
+                    }
+                    int taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
+                    tasksList.markTask(taskNumber, "unmark", false);
+                    updateTaskDoneInDataFile(taskNumber,"edit");
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TaskNumberNotNumberException();
                 }
-                taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
-                tasksList.markTask(taskNumber, "unmark", false);
-                updateTaskDoneInDataFile(taskNumber,"edit");
-                break;
             case "todo":
-                if (inputWords.length < 2) {
+                try {
+                    if (inputWords.length < 2) {
+                        String correctFormatMessage = "The command should be 'todo (task name)'.";
+                        throw new InvalidCommandFormatException(correctFormatMessage);
+                    }
+                    Todo newTodo = new Todo(inputWords[1], 'T');
+                    tasksList.addToTasksList(newTodo);
+                    tasksList.printAddTaskText(newTodo);
+                    int taskNumber = tasksList.getTasksListSize() - 1;
+                    loadTasktoDataFile(taskNumber);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
                     String correctFormatMessage = "The command should be 'todo (task name)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                Todo newTodo = new Todo(inputWords[1], 'T');
-                tasksList.addToTasksList(newTodo);
-                tasksList.printAddTaskText(newTodo);
-                taskNumber = tasksList.getTasksListSize() - 1;
-                loadTasktoDataFile(taskNumber);
-                break;
             case "deadline":
-                if (inputWords.length < 2) {
+                try {
+                    String[] DescriptionWithTime = inputWords[1].split("/by ", 2);
+                    Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
+                    tasksList.addToTasksList(newDeadlineTask);
+                    tasksList.printAddTaskText(newDeadlineTask);
+                    int taskNumber = tasksList.getTasksListSize() - 1;
+                    loadTasktoDataFile(taskNumber);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
                     String correctFormatMessage = "The command should be 'deadline (task name) /by (deadline)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                String[] DescriptionWithTime = inputWords[1].split("/by ", 2);
-                Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
-                tasksList.addToTasksList(newDeadlineTask);
-                tasksList.printAddTaskText(newDeadlineTask);
-                taskNumber = tasksList.getTasksListSize() - 1;
-                loadTasktoDataFile(taskNumber);
-                break;
+
             case "event":
-                if (inputWords.length < 2) {
+                try {
+                    String[] DescriptionWithTime = inputWords[1].split("/at ", 2);
+                    Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
+                    tasksList.addToTasksList(newEvent);
+                    tasksList.printAddTaskText(newEvent);
+                    int taskNumber = tasksList.getTasksListSize() - 1;
+                    loadTasktoDataFile(taskNumber);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
                     String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
                     throw new InvalidCommandFormatException(correctFormatMessage);
                 }
-                DescriptionWithTime = inputWords[1].split("/at ", 2);
-                Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
-                tasksList.addToTasksList(newEvent);
-                tasksList.printAddTaskText(newEvent);
-                taskNumber = tasksList.getTasksListSize() - 1;
-                loadTasktoDataFile(taskNumber);
-                break;
+
             case "delete":
-                if (inputWords.length < 2) {
-                    String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
+                try {
+                    if (inputWords.length < 2) {
+                        String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
+                        throw new InvalidCommandFormatException(correctFormatMessage);
+                    }
+                    int taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
+                    tasksList.deleteTask(taskNumber);
+                    updateTaskDoneInDataFile(taskNumber,"delete");
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TaskNumberNotNumberException();
                 }
-                taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
-                tasksList.deleteTask(taskNumber);
-                updateTaskDoneInDataFile(taskNumber,"delete");
-                break;
             default:
                 throw new EmptyArgumentException();
             }
