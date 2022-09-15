@@ -14,6 +14,6 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui) throws DukeException {
         taskList.unmarkDone(index);
-        ui.confirmUnmark(taskList.findTask(index));
+        ui.confirmUnmark(taskList.getTask(index));
     }
 }

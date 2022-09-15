@@ -15,6 +15,7 @@ public class Parser {
     private static final String MARK_PREFIX = "mark";
     private static final String UNMARK_PREFIX = "unmark";
     private static final String DELETE_PREFIX = "delete";
+    private static final String FIND_PREFIX = "find";
     private static final String DEADLINE_DIVIDER = "/by";
     private static final String EVENT_DIVIDER = "/at";
 
@@ -39,6 +40,8 @@ public class Parser {
             return manageUnmarkCommand(input);
         case DELETE_PREFIX:
             return manageDeleteCommand(input);
+        case FIND_PREFIX:
+            return manageFindCommand(input);
         default:
             throw new DukeException("SORRY!!! I cannot understand this command ☹");
         }
@@ -139,5 +142,14 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted ☹" + SUGGESTED_FORMAT);
         }
+    }
+
+    private static Command manageFindCommand(String input) throws DukeException {
+        String SUGGESTED_FORMAT = "\nFollow this format: find {keyword}";
+        String[] analysedInput = input.split(" ", 2);
+        if (analysedInput.length != 2) {
+            throw new DukeException("OOPS!!! The keyword is missing ☹" + SUGGESTED_FORMAT);
+        }
+        return new FindCommand(analysedInput[1].trim());
     }
 }

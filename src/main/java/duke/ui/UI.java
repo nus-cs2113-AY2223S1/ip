@@ -61,6 +61,10 @@ public class UI {
         reply(taskList.toString());
     }
 
+    public void printResultList(TaskList taskList) {
+        reply(taskList.toStringFindResult());
+    }
+
     public String getUserInput() {
         System.out.print("Enter command: ");
         return scanner.nextLine();
