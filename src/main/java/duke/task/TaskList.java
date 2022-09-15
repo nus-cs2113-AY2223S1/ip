@@ -15,7 +15,7 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public Task findTask(int index) throws DukeException {
+    public Task getTask(int index) throws DukeException {
         try {
             return taskList.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -33,23 +33,42 @@ public class TaskList {
     }
 
     public void markDone(int index) throws DukeException {
-        findTask(index).setDone(true);
+        getTask(index).setDone(true);
     }
 
     public void unmarkDone(int index) throws DukeException {
-        findTask(index).setDone(false);
+        getTask(index).setDone(false);
     }
 
     public void delete(int index) throws DukeException {
-        taskList.remove(findTask(index));
+        taskList.remove(getTask(index));
+    }
+
+    public TaskList findTasksByKeyword(String keyword) {
+        TaskList result = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 
     public String formatTaskListToStringToStore() throws DukeException {
         StringBuilder formattedString = new StringBuilder();
         for (int i = 0; i < getSize(); i++) {
-            formattedString.append(findTask(i + 1).formatTaskToStringToStore());
+            formattedString.append(getTask(i + 1).formatTaskToStringToStore());
         }
         return formattedString.toString();
+    }
+
+    public String toStringFindResult() {
+        StringBuilder listString = new StringBuilder((taskList.size() == 0 ? "There is no matching task in your list" : "Here are " + taskList.size() + " matching tasks in your list:"));
+        int index = 1;
+        for (Task task : taskList) {
+            listString.append('\n').append("   ").append(index++).append(". ").append(task);
+        }
+        return String.valueOf(listString);
     }
 
     @Override
