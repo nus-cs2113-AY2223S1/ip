@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Duke {
     private static TasksList tasksList = new TasksList();
-    private static final String DATA_FILE_PATH = "./data/data.txt";
+    private static final String DATA_FILE_PATH = "data/data.txt";
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -46,22 +46,22 @@ public class Duke {
         }
     }
 
-    private static void loadTasksToTasksList() throws InvalidCommandFormatException{
+    private static void loadTasksToTasksList() throws InvalidCommandFormatException, FileNotFoundException{
         try {
             File dataFile = new File(DATA_FILE_PATH);
             Scanner s = new Scanner(dataFile);
             while (s.hasNext()) {
-                String[] fileWords = s.nextLine().split("\\|");
-                switch (fileWords[ 0 ]) {
-                case "T":
-                    Todo todoTask = new Todo(fileWords[ 2 ], 'T');
+                String[] fileWords = s.nextLine().split("\\| ");
+                switch (fileWords[0].charAt(0)) {
+                case 'T':
+                    Todo todoTask = new Todo(fileWords[2], 'T');
                     tasksList.addToTasksList(todoTask);
                     break;
-                case "D":
-                    Deadline deadlineTask = new Deadline(fileWords[ 2 ], 'D', fileWords[ 3 ]);
+                case 'D':
+                    Deadline deadlineTask = new Deadline(fileWords[2], 'D', fileWords[ 3 ]);
                     tasksList.addToTasksList(deadlineTask);
                     break;
-                case "E":
+                case 'E':
                     Event eventTask = new Event(fileWords[ 2 ], 'E', fileWords[ 3 ]);
                     tasksList.addToTasksList(eventTask);
                     break;
@@ -79,10 +79,7 @@ public class Duke {
     public static void loadTaskstoDataFile() throws IOException {
         FileWriter fw = new FileWriter(DATA_FILE_PATH);
         for (int i = 0; i < tasksList.getTasksListSize(); i++) {
-//            System.out.println(tasksList.getTask(i));
-//            System.out.println(tasksList.getTaskDescription(i));
-//            fw.write(tasksList.getTaskDescription(i));
-            System.out.println(tasksList.printTaskToDataFile(i));
+            fw.write(tasksList.printTaskToDataFile(i));
         }
         fw.close();
     }
@@ -126,6 +123,7 @@ public class Duke {
                 }
                 Todo newTodo = new Todo(inputWords[1], 'T');
                 tasksList.addToTasksList(newTodo);
+                tasksList.printAddTaskText(newTodo);
                 break;
             case "deadline":
                 if (inputWords.length < 2) {
@@ -135,6 +133,7 @@ public class Duke {
                 String[] DescriptionWithTime = inputWords[1].split("/by ", 2);
                 Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newDeadlineTask);
+                tasksList.printAddTaskText(newDeadlineTask);
                 break;
             case "event":
                 if (inputWords.length < 2) {
@@ -144,6 +143,7 @@ public class Duke {
                 DescriptionWithTime = inputWords[1].split("/at ", 2);
                 Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
                 tasksList.addToTasksList(newEvent);
+                tasksList.printAddTaskText(newEvent);
                 break;
             default:
                 throw new EmptyArgumentException();

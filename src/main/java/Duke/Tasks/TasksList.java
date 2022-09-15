@@ -27,7 +27,6 @@ public class TasksList {
 
     public void addToTasksList(Task task) {
         tasksList.add(task);
-        printAddTaskText(task);
     }
 
     public void printTaskList() throws TaskListEmptyException {
@@ -68,6 +67,6 @@ public class TasksList {
     }
 
     public String printTaskToDataFile(int taskNumber) {
-        return tasksList.get(taskNumber).taskDataFileText();
+        return tasksList.get(taskNumber).taskDataFileText() + "\n";
     }
 }
