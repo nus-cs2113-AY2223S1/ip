@@ -204,7 +204,8 @@ public class Duke {
         String lineDivider = "____________________________________________________________\n";
         System.out.println("\t" + lineDivider
                 + "\t Hello! I'm Flash\n"
-                + "\t What can I do for you?\n"
+                + getDataFileStatus()
+                + "\n\t What can I do for you?\n"
                 + "\t" + lineDivider);
         return lineDivider;
     }
@@ -268,6 +269,12 @@ public class Duke {
         } else if (isEvent) {
             System.out.println("\t ☹ OH MAN!!! The description of an event cannot be empty.");
         }
+    }
+
+    private static String getDataFileStatus() {
+        DataFile file = new DataFile();
+        String fileStatus = file.getDataFile();
+        return fileStatus;
     }
 
     public static void main(String[] args) {
