@@ -1,15 +1,22 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
     static final int MAX_TASKS = 100;
     static final String EXCEPTION_1 = "Empty Description";
     static final String EXCEPTION_2 = "Other Command";
     static final String EXCEPTION_3 = "Mark/Unmark Out of Bounds";
+    static final String EXCEPTION_4 = "File Not Found";
 
-    public static Task[] tasks = new Task[MAX_TASKS];
-    public static int position = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static int numberOfTasks = 0;
 
     public static void printDivider() {
         System.out.println("\t----------------------------------------------------");
@@ -44,12 +51,51 @@ public class Duke {
             System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means...");
             break;
         case EXCEPTION_3 :
-            //Mark/Unmark index out of bounds
+            //Mark/Unmark/Delete index out of bounds
             System.out.println("\t☹ OOPS!!! Please provide a valid task index...");
+        case EXCEPTION_4:
+            //File not found
+            System.out.println("\t☹ OOPS!!! Unfortunately file is not found...");
         }
 
         System.out.println();
         printDivider();
+    }
+
+    public static void readFile() throws FileNotFoundException {
+        File file = new File("files/duke.txt");
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] words = line.split(" ");
+            try {
+                Task currentTask = createTask(line, words[0], words);
+                addTask(currentTask, true);
+            } catch (DukeException e) {
+                printExceptionMessage(EXCEPTION_2);
+            }
+        }
+    }
+
+    public static void appendToFile(String command) throws IOException {
+        FileWriter fw = new FileWriter("files/duke.txt", true);
+        fw.write(command + "\n");
+        fw.close();
+    }
+
+    public static void rewriteFile() throws IOException {
+        FileWriter fw = new FileWriter("files/duke.txt");
+        for (Task task : tasks) {
+            if (task instanceof Todo) {
+                fw.write("todo " + task.description);
+            } else if (task instanceof Deadline) {
+                fw.write("deadline " + task.description + " /by " + ((Deadline) task).by);
+            } else if (task instanceof Event) {
+                fw.write("event " + task.description + " /at " + ((Event) task).at);
+            }
+        }
+        fw.close();
     }
 
     public static void performAction(String[] words, String firstWord, String command) throws DukeException{
@@ -63,12 +109,23 @@ public class Duke {
             //Print the list
             printList();
         } else if (firstWord.equals("todo") | firstWord.equals("deadline") | firstWord.equals("event")) {
-            //Add to-do, deadline, or event to list
+            //Add a task to the list
             try {
                 Task currentTask = createTask(command, words[0], words);
-                addTask(currentTask);
+                addTask(currentTask, false);
+                appendToFile(command);
             } catch (DukeException e) {
                 printExceptionMessage(EXCEPTION_1);
+            } catch (IOException e) {
+                printExceptionMessage(EXCEPTION_4);
+            }
+        } else if (firstWord.equals("delete")) {
+            //Remove a task from the list
+            removeTask(Integer.parseInt(words[1]) - 1);
+            try {
+                rewriteFile();
+            } catch (IOException e) {
+                printExceptionMessage(EXCEPTION_4);
             }
         } else {
             throw new DukeException();
@@ -99,25 +156,45 @@ public class Duke {
         return newTask;
     }
 
-    public static void addTask(Task currentTask) {
-        tasks[position] = currentTask;
-        position++;
+    public static void addTask(Task currentTask, boolean isFile) {
+        tasks.add(currentTask);
+        numberOfTasks++;
 
-        printDivider();
-        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
-        System.out.print("\t  ");
-        System.out.println(currentTask);
-        System.out.println("\tNow you have " + Integer.toString(position) + " task(s) in the list! 凸(￣ヘ￣)");
-        System.out.println("");
-        printDivider();
+        if (!isFile) {
+            printDivider();
+            System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
+            System.out.print("\t  ");
+            System.out.println(currentTask);
+            System.out.println("\tNow you have " + Integer.toString(numberOfTasks) + " task(s) in the list! 凸(￣ヘ￣)");
+            System.out.println("");
+            printDivider();
+        }
+    }
+
+    public static void removeTask(int index) {
+        try {
+            Task removedTask = tasks.get(index);
+            tasks.remove(index);
+            numberOfTasks--;
+
+            printDivider();
+            System.out.println("\tNoted! (๑˃ᴗ˂)ﻭ I've removed this task:");
+            System.out.print("\t  ");
+            System.out.println(removedTask);
+            System.out.println("\tNow you have " + numberOfTasks + " task(s) in the list! 凸(￣ヘ￣)");
+            System.out.println("");
+            printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            printExceptionMessage(EXCEPTION_3);
+        }
     }
 
     public static void printList() {
         printDivider();
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < position; i++) {
-            System.out.print("\t" + Integer.toString(i + 1) + ".");
-            System.out.println(tasks[i]);
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(tasks.get(i));
         }
         System.out.println();
         printDivider();
@@ -125,7 +202,7 @@ public class Duke {
 
     public static void markAsDone(String index) {
         try {
-            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsDone();
 
             printDivider();
@@ -141,7 +218,7 @@ public class Duke {
 
     public static void markAsUndone(String index) {
         try {
-            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsUndone();
 
             printDivider();
@@ -156,6 +233,12 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            printExceptionMessage(EXCEPTION_4);
+        }
+
         printGreeting();
 
         String userInput = "";
