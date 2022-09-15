@@ -213,11 +213,16 @@ public class Duke {
                             throw new UnrecognisedEventException(message);
                         } else {
                             String description = line.substring(line.indexOf("event") + 6, line.indexOf("/"));
-                            String time = line.substring(line.indexOf("at") + 3);
+                            String time = line.substring(line.indexOf("/at") + 4);
                             Event e = new Event(description, time);
                             tasksList.add(e);
-                            System.out.println("Got it. I've added this task: " + System.lineSeparator() +
-                                    e + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list.");
+                            if (tasksList.size() == 1) {
+                                System.out.println("Got it. I've added this task: " + System.lineSeparator() +
+                                        e + System.lineSeparator() + "Now you have 1 task in the list.");
+                            } else {
+                                System.out.println("Got it. I've added this task: " + System.lineSeparator() +
+                                        e + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list.");
+                            }
                             String textToAdd = "E | " + e.status + " | " + e.description + "| " + time + System.lineSeparator();
                             taskOverrideList.add(textToAdd);
                             appendToFile(textFilePath, textToAdd);
