@@ -67,4 +67,9 @@ public class TaskList{
     public int getSize(){
         return size;
     }
+
+    public void deleteTask(int index){
+        list.remove(index);
+        this.size--;
+    }
 }
