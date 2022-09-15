@@ -1,4 +1,4 @@
-package duke.command;
+package duke.ui.parser;
 import duke.exception.*;
 
 import java.util.ArrayList;

@@ -4,19 +4,21 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.ui.parser.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * API to query and edit Task objects
  */
-public class TaskManager {
+public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Default Constructor
      */
-    public TaskManager() {
+    public TaskList() {
     }
 
     /**
@@ -37,7 +39,7 @@ public class TaskManager {
      * @param taskDescription Name of task
      * @return String Notification string for the added todo task
      */
-    public String addToDo(String taskDescription) {
+    private String addToDo(String taskDescription) {
         String output = addTask(new ToDo(taskDescription));
         return output;
     }
@@ -48,7 +50,7 @@ public class TaskManager {
      * @param by Deadline
      * @return String Notification string for the added deadline task
      */
-    public String addDeadline(String taskDescription, String by) {
+    private String addDeadline(String taskDescription, String by) {
         String output = addTask(new Deadline(taskDescription, by));
         return output;
     }
@@ -59,7 +61,7 @@ public class TaskManager {
      * @param at When the event takes place
      * @return String Notification string for the added event task
      */
-    public String addEvent(String taskDescription, String at) {
+    private String addEvent(String taskDescription, String at) {
         String output = addTask(new Event(taskDescription, at));
         return output;
     }
@@ -70,7 +72,7 @@ public class TaskManager {
      * @return String Output Message for task status
      */
 
-    public String markTask(int taskNum) {
+    private String markTask(int taskNum) {
         String output;
         if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
             output = "Not a valid task number\n";
@@ -90,7 +92,7 @@ public class TaskManager {
      * @return String output Message for task status
      */
 
-    public String unmarkTask(int taskNum) {
+    private String unmarkTask(int taskNum) {
         String output;
         if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
             output = "Not a valid task number\n";
@@ -104,7 +106,7 @@ public class TaskManager {
         return output;
     }
 
-    public String deleteTask(int taskNum) {
+    private String deleteTask(int taskNum) {
         String output;
         if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
             output = "Not a valid task number\n";
@@ -138,6 +140,43 @@ public class TaskManager {
             output.append(System.lineSeparator());
         }
         return output.toString();
+    }
+
+    public String executeCommand(Command command) {
+        String output;
+
+        switch (command.getCommandType()) {
+        case EXIT:
+            output = "Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+            break;
+        case LIST:
+            output = getAllTasks();
+            break;
+        case TODO:
+            output = addToDo(((CommandToDo) command).getDescription());
+            break;
+        case MARK:
+            output = markTask(((CommandMark) command).getTaskNum());
+            break;
+        case UNMARK:
+            output = unmarkTask(((CommandUnmark) command).getTaskNum());
+            break;
+        case DEADLINE:
+            CommandDeadline commandDeadline = (CommandDeadline) command;
+            output = addDeadline(commandDeadline.getDescription(), commandDeadline.getDate());
+            break;
+        case EVENT:
+            CommandEvent commandEvent = (CommandEvent) command;
+            output = addEvent(commandEvent.getDescription(), commandEvent.getDate());
+            break;
+        case DELETE:
+            output = deleteTask(((CommandDelete) command).getTaskNum());
+            break;
+        default:
+            output = "Error, major bug";
+            break;
+        }
+        return output;
     }
 
     public void setTaskData(ArrayList<Task> tasks) {

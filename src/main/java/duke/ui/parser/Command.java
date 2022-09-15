@@ -1,4 +1,4 @@
-package duke.command;
+package duke.ui.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;

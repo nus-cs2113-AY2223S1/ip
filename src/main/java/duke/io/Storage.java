@@ -17,26 +17,30 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class DataFileManager {
-    private final String DATA_FILE_NAME = "dukeData.txt";
-    private final String DATA_DIRECTORY_NAME = "data";
-    private final Path DATA_FILE_PATH = Paths.get(DATA_DIRECTORY_NAME + "/" + DATA_FILE_NAME);
-    private final Path DATA_DIRECTORY_PATH = Paths.get(DATA_DIRECTORY_NAME);
+public class Storage {
+    private final String dataFileName;
+    private final String dataDirectoryName;
+    private final Path dataFilePath;
+    private final Path dataDirectoryPath;
 
-    public DataFileManager() {
+    public Storage (String dataFileName, String dataDirectoryName) {
+        this.dataFileName = dataFileName;
+        this.dataDirectoryName = dataDirectoryName;
+        this.dataFilePath = Paths.get(dataFileName + "/" + dataDirectoryName);
+        this.dataDirectoryPath = Paths.get(dataDirectoryName);
     }
 
     public void saveProgramData(String dataToWrite) throws IOException {
 
-        if (!Files.exists(DATA_DIRECTORY_PATH)) {
-            Files.createDirectories(DATA_DIRECTORY_PATH);
+        if (!Files.exists(dataDirectoryPath)) {
+            Files.createDirectories(dataDirectoryPath);
         }
 
-        if (!Files.exists(DATA_FILE_PATH)) {
-            new File(DATA_DIRECTORY_NAME + "/" + DATA_FILE_NAME);
+        if (!Files.exists(dataFilePath)) {
+            new File(dataDirectoryName + "/" + dataFileName);
         }
 
-        try (FileWriter fw = new FileWriter(DATA_DIRECTORY_NAME + "/" + DATA_FILE_NAME)) {
+        try (FileWriter fw = new FileWriter(dataDirectoryName + "/" + dataFileName)) {
             fw.write(dataToWrite);
         }
     }
@@ -45,12 +49,12 @@ public class DataFileManager {
     public ArrayList<Task> loadProgramData() {
         ArrayList<Task> output = new ArrayList<>();
 
-        if (!Files.exists(DATA_DIRECTORY_PATH) || !Files.exists(DATA_FILE_PATH)) {
+        if (!Files.exists(dataDirectoryPath) || !Files.exists(dataFilePath)) {
             return new ArrayList<>();
         }
 
 
-        File f = new File(DATA_DIRECTORY_NAME + "/" + DATA_FILE_NAME);
+        File f = new File(dataDirectoryName + "/" + dataFileName);
         Scanner sc;
         try {
             sc = new Scanner(f);

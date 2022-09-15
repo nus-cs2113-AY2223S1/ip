@@ -1,29 +1,34 @@
-package duke.command;
+package duke.ui.parser;
 import duke.exception.NotIntegerException;
 
 import java.util.ArrayList;
 
-public class CommandList extends Command {
+public class CommandExit extends Command {
 
     private static final int NUM_OF_ARGUMENTS = 0;
     private static final ArrayList<String> FLAGS = new ArrayList<>();
 
 
-    public CommandList(String rawArguments) {
+    public CommandExit(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
         super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;
-        super.commandType = CommandType.LIST;
+        super.commandType = CommandType.EXIT;
+
     }
 
-
     @Override
-    protected void checkArgument() throws NotIntegerException {
+    public void checkArgument() throws NotIntegerException {
     }
 
     @Override
     protected void parse() {
     }
+
+
 }
+
+
+
