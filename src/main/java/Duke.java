@@ -7,6 +7,8 @@ import java.util.Vector;
 public class Duke {
     public static final int EVENT_KEYWORD_LENGTH = 6;
     public static final int DEADLINE_KEYWORD_LENGTH = 9;
+    public static Vector<Task> tasks = new Vector<>(); // list of tasks
+    
 
     protected static void printGreet(){
         String logo = " ____        _        \n"
@@ -18,11 +20,34 @@ public class Duke {
         System.out.println("Hello! I'm Duke_HTT. \n What can I do for you?");
     }
 
+    protected static String getTaskMark(String[] inLine) {
+        int inputTaskIndex = Integer.parseInt(inLine[1]);
+        String taskType = tasks.get(inputTaskIndex - 1).getTaskType();
+        String taskMark = "";
+        switch (taskType) {
+        case "ToDo":
+            taskMark = "[T]";
+            break;
+
+        case "Deadline":
+            taskMark = "[D]";
+            break;
+
+        case "Event":
+            taskMark = "[E]";
+            break;
+
+        default:
+            break;
+        }
+        return taskMark;
+    }
+
     public static void processInput(){   
         Scanner scan = new Scanner ( System.in ); 
         String inData = scan.nextLine(); // user line of input
         String[] inLine = inData.split(" "); // code process line of input into an array
-        Vector<Task> tasks = new Vector<>(); // list of tasks
+        
         boolean isFirstLine = false; 
 
         while (!inData.equals("bye")){
@@ -48,6 +73,7 @@ public class Duke {
 
                 tasks.get(taskIndex).setTaskDone(true);
                 
+                String taskMark = getTaskMark(inLine);
                 String doneMark;
                 if (tasks.get(taskIndex).getTaskDone()){
                     doneMark = "[X]";
@@ -55,7 +81,7 @@ public class Duke {
                     doneMark = "[ ]";
                 }
 
-                System.out.println("Nice! I've marked this task as done: \n" + doneMark +
+                System.out.println("Nice! I've marked this task as done: \n" + taskMark + doneMark +
                         tasks.get(taskIndex).getTaskTitle());
             } catch (InvalidListIndexException | NumberFormatException e) {
                 System.out.println("Error - List index given invalid. Please check again.");
@@ -69,7 +95,9 @@ public class Duke {
                 }
 
                 tasks.get(taskIndex).setTaskDone(false);
-                
+
+
+                String taskMark = getTaskMark(inLine);
                 String doneMark;
                 if (tasks.get(taskIndex).getTaskDone()){
                     doneMark = "[X]";
@@ -77,7 +105,7 @@ public class Duke {
                     doneMark = "[ ]";
                 }
 
-                System.out.println("Nice! I've marked this task as not done: \n" + doneMark +
+                System.out.println("Nice! I've marked this task as not done: \n" + taskMark + doneMark +
                         tasks.get(taskIndex).getTaskTitle());
             } catch (InvalidListIndexException | NumberFormatException e) {
                 System.out.println("Error - List index given invalid. Please check again.");
@@ -154,6 +182,33 @@ public class Duke {
                 } catch (InvalidTaskDateException e) {
                     System.out.println("Error - input a deadline date.");
                 }
+                break;
+
+            case "delete":
+            try {
+                if ((inputTaskIndex) > tasks.size() || (inputTaskIndex) < 1) {
+                    throw new InvalidListIndexException();
+                }
+
+                String taskMark = getTaskMark(inLine);
+                String doneMark;
+                if (tasks.get(taskIndex).getTaskDone()){
+                    doneMark = "[X]";
+                } else{
+                    doneMark = "[ ]";
+                }
+                System.out.println("Noted. I have removed this task:");
+                System.out.println(taskMark + doneMark + " " +
+                        tasks.get(taskIndex).getTaskTitle());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                tasks.remove(taskIndex);
+            } catch (InvalidListIndexException | NumberFormatException e) {
+                System.out.println("Error - List index given invalid. Please check again.");
+            }
+            break;
+
+            case "bye":
                 break;
 
             default:
