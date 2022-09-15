@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-
     private static void printLine(){
         System.out.println("---------------------------------------------------");
     }
@@ -15,6 +14,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        FileHandler.initFiles();
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
@@ -66,6 +66,7 @@ public class Duke {
                     try{
                         description = getStringFromList(inputList, 1, inputList.length);
                         taskList.searchTask(description).markAsDone();
+                        FileHandler.markAsDone(taskList.getTaskIndex(description));
                     } catch (NullPointerException e){ //invalid 
                         System.out.println("Please enter a valid task! ");
                         break;
@@ -87,6 +88,7 @@ public class Duke {
                     try{
                         description = getStringFromList(inputList, 1, inputList.length);
                         taskList.searchTask(description).markAsNotDone();
+                        FileHandler.markAsNotDone(taskList.getTaskIndex(description));
                     } catch (NullPointerException e){
                         System.out.println("Please enter a valid task! ");
                         break;

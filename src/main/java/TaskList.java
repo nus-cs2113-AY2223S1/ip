@@ -8,18 +8,21 @@ public class TaskList{
 
     public void addToDo(String description){
         ToDo toDo = new ToDo(description);
+        FileHandler.addTask(toDo);
         list.add(toDo);
         this.size++;
     }
 
     public void addDeadline(String description, String dueDate){
         Deadline deadline = new Deadline(description, dueDate);
+        FileHandler.addTask(deadline);
         list.add(deadline);
         this.size++;
     }
 
     public void addEvent(String description, String dateTime){
         Event event = new Event(description, dateTime);
+        FileHandler.addTask(event);
         list.add(event);
         this.size++;
     }
@@ -62,6 +65,16 @@ public class TaskList{
             if (tempTask.description.equals(task_description)) return tempTask;
         }
         return null;
+    }
+
+    public int getTaskIndex(String task_description){
+        int index;
+        for (int i=0; i<size; i++){
+            index = i;
+            Task tempTask = this.getTask(i);
+            if (tempTask.description.equals(task_description)) return index;
+        }
+        return -1;
     }
 
     public int getSize(){
