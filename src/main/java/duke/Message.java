@@ -63,6 +63,7 @@ public class Message {
     }
 
     public static void getAcknowledgement(String command) {
+        System.out.println(LINE_DIVIDER);
         switch (command) {
         case "mark":
             System.out.println("Nice! I've marked this task as done:");
@@ -82,6 +83,7 @@ public class Message {
         default:
             System.out.println("Error displaying acknowledgement message. Please inform adminstrator to fix");
         }
+        System.out.println(LINE_DIVIDER);
     }
 
 
@@ -102,6 +104,23 @@ public class Message {
             System.out.println("There is only 1 task!");
         } else {
             System.out.println("There are " + numOfTasks + " tasks left :( ");
+        }
+    }
+
+
+    public static void showFileError(String errorType){
+        switch(errorType){
+        case"MissingFile":
+            System.out.println("File not found.");
+        break;
+        case"FailedFileCreation":
+            System.out.println("File creation error occurred.");
+            break;
+        case "FailedFileInput":
+            System.out.println("Cannot write into file.");
+            break;
+        default:
+            break;
         }
     }
 }

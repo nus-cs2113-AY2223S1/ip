@@ -1,2 +1,3 @@
-T | X | 123 
-D |   | do something  |  tues 
+E | X | do this  |  tuesday morning 
+E |   | say hi to cat  |  monday 
+D |   | do homework  |  sunday 
