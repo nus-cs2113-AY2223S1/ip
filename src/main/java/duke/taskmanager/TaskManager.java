@@ -158,7 +158,8 @@ public class TaskManager {
                 command.equals("unmark") ||
                 command.equals("todo") ||
                 command.equals("deadline") ||
-                command.equals("event")) {
+                command.equals("event") ||
+                command.equals("delete")) {
             throw new EmptyException();
         } else {
             throw new WrongCommandException();
