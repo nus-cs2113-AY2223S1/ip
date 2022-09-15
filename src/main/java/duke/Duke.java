@@ -24,8 +24,6 @@ public class Duke {
 
         ArrayList<Task> tasks = new ArrayList<>();
 
-        int taskCount = 0;
-
         printIntroMessage();
 
         do {
@@ -38,7 +36,16 @@ public class Duke {
             }
             switch (type) {
             case "list":
-                TaskManager.printTaskList(tasks, taskCount);
+                TaskManager.printTaskList(tasks);
+                break;
+            case "delete":
+                try {
+                    TaskManager.deleteTask(tasks, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("\tPlease input the task number that you want to delete.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\tThere is no such item in your Task List.");
+                }
                 break;
             case "mark":
                 try {
@@ -59,15 +66,19 @@ public class Duke {
                 }
                 break;
             case "total":
-                System.out.println(taskCount);
+                int total = tasks.size();
+                if (total == 1) {
+                    System.out.println("\tYou have 1 task");
+                } else {
+                    System.out.println("\tYou have " + total + " tasks!!!");
+                }
                 break;
             case "todo":
                 try {
                     String details = TaskManager.getTaskDetails(line);
                     Task t = new Todo(details);
                     tasks.add(t);
-                    TaskManager.printSuccessfulAdd(tasks, taskCount);
-                    taskCount += 1;
+                    TaskManager.printSuccessfulAdd(tasks);
                 } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                     System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty. Please tell me what you want to do");
                     System.out.println("\tExample: todo (return book)");
@@ -81,8 +92,7 @@ public class Duke {
                     String by = breakBy[1];
                     Task d = new Deadline(detail, by);
                     tasks.add(d);
-                    TaskManager.printSuccessfulAdd(tasks, taskCount);
-                    taskCount += 1;
+                    TaskManager.printSuccessfulAdd(tasks);
                 } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                     System.out.println("\tPlease tell me when is the deadline.");
                     System.out.println("\tExample: deadline (return book) /by (Sunday)");
@@ -96,8 +106,7 @@ public class Duke {
                     String at = breakAt[1];
                     Task e = new Event(detail, at);
                     tasks.add(e);
-                    TaskManager.printSuccessfulAdd(tasks, taskCount);
-                    taskCount += 1;
+                    TaskManager.printSuccessfulAdd(tasks);
                 } catch (ArrayIndexOutOfBoundsException | DukeException e) {
                     System.out.println("\tPlease tell me when is the event.");
                     System.out.println("\tExample: event (borrow book) /at (library)");
