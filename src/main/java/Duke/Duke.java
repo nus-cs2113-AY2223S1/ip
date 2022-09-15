@@ -20,6 +20,9 @@ public class Duke {
             case ("unmark"):
                 taskManager.setTask(Integer.parseInt(parameters[0]) - 1, false);
                 break;
+            case ("delete"):
+                taskManager.deleteTask(Integer.parseInt(parameters[0]) - 1);
+                break;
             case ("todo"):
                 taskManager.addTodo(parameters[0]);
                 break;

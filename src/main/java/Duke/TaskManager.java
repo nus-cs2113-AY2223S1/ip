@@ -27,7 +27,6 @@ public class TaskManager {
     }
 
     private void printSummary() {
-        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         System.out.println("Beep boop, now you have " + taskCount + " tasks");
 
         if(taskCount == NUM_TASK){
@@ -54,6 +53,8 @@ public class TaskManager {
         taskCount += 1;
 
         System.out.println("added: " + descriptionTask);
+
+        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         printSummary();
     }
 
@@ -62,6 +63,8 @@ public class TaskManager {
         taskCount += 1;
 
         System.out.println("HELLO BEEP, added a new ToDo: ");
+
+        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         printSummary();
     }
 
@@ -70,6 +73,8 @@ public class TaskManager {
         taskCount += 1;
 
         System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
+
+        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         printSummary();
     }
 
@@ -78,6 +83,8 @@ public class TaskManager {
         taskCount += 1;
 
         System.out.println("OH NO BEEP BEEP, a new Event: ");
+
+        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         printSummary();
     }
 
@@ -100,6 +107,17 @@ public class TaskManager {
         }
 
         System.out.println("\t" + tasks.get(taskIndex).toString());
+    }
+
+    public void deleteTask(int taskIndex) {
+        final String MESSAGE_DELETE = "Noted. I've removed this task: ";
+
+        System.out.println(MESSAGE_DELETE);
+        System.out.println("\t" + tasks.get(taskIndex).toString());
+        tasks.remove(taskIndex);
+        taskCount -= 1;
+
+        printSummary();
     }
 
 }
