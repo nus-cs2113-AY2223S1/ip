@@ -9,12 +9,16 @@ import duke.taskmanager.tasks.Event;
 import duke.taskmanager.tasks.Task;
 import duke.taskmanager.tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static final int TASKS_SIZE = 100;
     public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
-    public static Task[] tasks = new Task[TASKS_SIZE];
+    public static ArrayList<Task> tasks = new ArrayList<>() {
+        {
+            add(new Todo("Todo buffer for one based input", ' '));
+        }
+    };
     private static int oneBasedIndex = 1;
     public static void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
@@ -28,12 +32,18 @@ public class TaskManager {
                 + " tasks in the list.");
         oneBasedIndex++;
     }
+    public static void printTaskAfterDelete(Task task) {
+        oneBasedIndex--;
+        formatOutput("Noted. I've removed this task:" + System.lineSeparator()
+                + task + System.lineSeparator() + "Now you have " + (oneBasedIndex - 1)
+                + " tasks in the list.");
+    }
 
     public static void printList() {
         StringBuilder s = new StringBuilder();
         s.append("Here are the tasks in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
-            s.append(i).append(".").append(tasks[i]).append(System.lineSeparator());
+            s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
         }
         formatOutput(s.toString());
     }
@@ -84,16 +94,33 @@ public class TaskManager {
             tryMark(command, false);
             break;
         case "todo":
-            tasks[oneBasedIndex] = new Todo(command, ' ');
-            printTask(tasks[oneBasedIndex]);
+            tasks.add(new Todo(command, ' '));
+            printTask(tasks.get(oneBasedIndex));
             break;
         case "deadline":
             //Fallthrough
         case "event":
             tryDeadlineOrEvent(command,firstWord);
             break;
+        case "delete":
+            tryDelete(command);
+            break;
         default:
             throw new WrongCommandException();
+        }
+    }
+
+    private static void tryDelete(String command) throws TaskOutOfBoundsException {
+        try {
+            int startIdx = "delete ".length();
+            int pos = Integer.parseInt(command.substring(startIdx));
+            if (pos >= oneBasedIndex || pos < 1) {
+                throw new TaskOutOfBoundsException();
+            }
+            printTaskAfterDelete(tasks.get(pos));
+            tasks.remove(pos);
+        } catch (NumberFormatException e) {
+            formatOutput("☹ OOPS!!! You did not enter a number.");
         }
     }
 
@@ -101,13 +128,13 @@ public class TaskManager {
         if (command.contains("/")){
             switch (firstWord) {
             case "deadline":
-                tasks[oneBasedIndex] = new Deadline(command, '/');
+                tasks.add(new Deadline(command, '/'));
                 break;
             case "event":
-                tasks[oneBasedIndex] = new Event(command, '/');
+                tasks.add(new Event(command, '/'));
                 break;
             }
-            printTask(tasks[oneBasedIndex]);
+            printTask(tasks.get(oneBasedIndex));
         } else {
             throw new NoBackslashException();
         }
@@ -120,7 +147,7 @@ public class TaskManager {
             if (pos >= oneBasedIndex || pos < 1) {
                 throw new TaskOutOfBoundsException();
             }
-            printMark(tasks[pos], done);
+            printMark(tasks.get(pos), done);
         } catch (NumberFormatException e) {
             formatOutput("☹ OOPS!!! You did not enter a number.");
         }

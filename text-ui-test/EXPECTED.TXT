@@ -47,10 +47,15 @@ Nice! I've marked this task as done:
 ------------------------------------------------------------
 
 ------------------------------------------------------------
+Noted. I've removed this task:
+[D][ ] return book  (by: Sunday)
+Now you have 2 tasks in the list.
+------------------------------------------------------------
+
+------------------------------------------------------------
 Here are the tasks in your list:
 1.[T][X] borrow book
-2.[D][ ] return book  (by: Sunday)
-3.[E][ ] project meeting  (at: Mon 2-4pm)
+2.[E][ ] project meeting  (at: Mon 2-4pm)
 
 ------------------------------------------------------------
 
