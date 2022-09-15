@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
-import duke.manager.CommandManager;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
@@ -34,7 +34,7 @@ public class Duke {
         while (isActive) {
             try {
                 String input = ui.getUserInput();
-                Command command = CommandManager.manageCommand(input);
+                Command command = Parser.manageCommand(input);
                 command.execute(taskList, ui);
 
                 if (input.startsWith(EXIT_PREFIX)) {

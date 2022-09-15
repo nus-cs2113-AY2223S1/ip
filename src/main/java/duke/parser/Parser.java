@@ -1,4 +1,4 @@
-package duke.manager;
+package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
@@ -6,7 +6,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-public class CommandManager {
+public class Parser {
     private static final String EXIT_PREFIX = "bye";
     private static final String LIST_PREFIX = "list";
     private static final String TODO_PREFIX = "todo";
