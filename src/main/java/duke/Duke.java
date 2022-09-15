@@ -69,9 +69,13 @@ public class Duke {
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] words = line.split(" ");
+            String[] commandWords = line.substring(2).split(" ");
             try {
-                Task currentTask = createTask(line, words[0], words);
+                Task currentTask = createTask(line.substring(2), commandWords[0], commandWords);
                 addTask(currentTask, true);
+                if (words[0].equals("1")) {
+                    markAsDone(String.valueOf(numberOfTasks), true);
+                }
             } catch (DukeException e) {
                 printExceptionMessage(EXCEPTION_2);
             }
@@ -80,19 +84,25 @@ public class Duke {
 
     public static void appendToFile(String command) throws IOException {
         FileWriter fw = new FileWriter("files/duke.txt", true);
-        fw.write(command + "\n");
+        fw.write("0 " + command + "\n");
         fw.close();
     }
 
     public static void rewriteFile() throws IOException {
         FileWriter fw = new FileWriter("files/duke.txt");
+        String number;
         for (Task task : tasks) {
+            if (task.isDone) {
+                number = "1";
+            } else {
+                number = "0";
+            }
             if (task instanceof Todo) {
-                fw.write("todo " + task.description);
+                fw.write(number + " todo " + task.description + "\n");
             } else if (task instanceof Deadline) {
-                fw.write("deadline " + task.description + " /by " + ((Deadline) task).by);
+                fw.write(number + " deadline " + task.description + " /by " + ((Deadline) task).by + "\n");
             } else if (task instanceof Event) {
-                fw.write("event " + task.description + " /at " + ((Event) task).at);
+                fw.write(number + " event " + task.description + " /at " + ((Event) task).at + "\n");
             }
         }
         fw.close();
@@ -101,10 +111,10 @@ public class Duke {
     public static void performAction(String[] words, String firstWord, String command) throws DukeException{
         if (firstWord.equals("mark")) {
             //Mark task as done
-            markAsDone(words[1]);
+            markAsDone(words[1], false);
         } else if (firstWord.equals("unmark")) {
             //Mark task as undone
-            markAsUndone(words[1]);
+            markAsUndone(words[1], false);
         } else if (firstWord.equals("list")) {
             //Print the list
             printList();
@@ -200,35 +210,45 @@ public class Duke {
         printDivider();
     }
 
-    public static void markAsDone(String index) {
+    public static void markAsDone(String index, boolean isFile) {
         try {
             Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsDone();
+            rewriteFile();
 
-            printDivider();
-            System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
-            System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
-            System.out.println("\tWell done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
-            System.out.println("");
-            printDivider();
+            if (!isFile) {
+                printDivider();
+                System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
+                System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                System.out.println("\tWell done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
+                System.out.println("");
+                printDivider();
+            }
         } catch (NullPointerException e) {
             printExceptionMessage(EXCEPTION_3);
+        } catch (IOException e) {
+            printExceptionMessage(EXCEPTION_4);
         }
     }
 
-    public static void markAsUndone(String index) {
+    public static void markAsUndone(String index, boolean isFile) {
         try {
             Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsUndone();
+            rewriteFile();
 
-            printDivider();
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
-            System.out.println("\tYou better stop procrastinating, friend.. (╥﹏╥)");
-            System.out.println("");
-            printDivider();
+            if (!isFile) {
+                printDivider();
+                System.out.println("\tOK, I've marked this task as not done yet:");
+                System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                System.out.println("\tYou better stop procrastinating, friend.. (╥﹏╥)");
+                System.out.println("");
+                printDivider();
+            }
         } catch (NullPointerException e) {
             printExceptionMessage(EXCEPTION_3);
+        } catch (IOException e) {
+            printExceptionMessage(EXCEPTION_4);
         }
     }
 
