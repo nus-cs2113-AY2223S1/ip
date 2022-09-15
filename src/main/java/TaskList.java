@@ -39,15 +39,23 @@ public class TaskList {
 
         userInput = userInput.replaceAll(START_LINE_DELIMITER + command + SPACE_DELIMITER, "");
 
-        if(command.equals(DONE)){
-            markAsDone(userInput);
-        } else if (command.equals(LIST)) {
+        if (command.equals(LIST)) {
             String taskList = getTaskList();
             System.out.println(
                     "______________________________________\n" +
                     taskList +
                     "______________________________________"
             );
+        } else if (command.equals(DONE)) {
+            try{
+                markAsDone(userInput);
+            } catch (DoneFormatException e){
+                System.out.println("OOPS!!! Done command must follow the format: done <index>");
+            } catch (DoneAlreadyCompletedException e){
+                System.out.println("OOPS!!! The task has already been completed!");
+            } catch (DoneRangeException e){
+                System.out.println("OOPS!!! The index is out of range for the number of tasks! Please enter a valid index");
+            }
         } else if (command.equals(TODO)){
             addTodo(userInput);
         } else if (command.equals(EVENT)) {
@@ -119,7 +127,7 @@ public class TaskList {
     /**
      * Function sets task in task-list to be done
      * */
-    public static void markAsDone(String userInput){
+    public static void markAsDone(String userInput) throws DoneFormatException, DoneRangeException, DoneAlreadyCompletedException {
         int index =  Integer.parseInt(userInput) - 1;
         taskList.get(index).markDone();
         System.out.println(

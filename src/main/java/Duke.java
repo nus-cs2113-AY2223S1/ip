@@ -97,7 +97,7 @@ public class Duke {
         // Initialise instance of TaskList
         TaskList taskList = new TaskList();
 
-        System.out.println("Please enter your taskList command: (send 'bye' to exit) ");
+        System.out.println("Please enter your taskList command: (send 'bye' to exit)");
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
@@ -112,8 +112,5 @@ public class Duke {
         }
         printGoodbyeMessage();
     }
-
-    // print formatted message
-
 }
 
