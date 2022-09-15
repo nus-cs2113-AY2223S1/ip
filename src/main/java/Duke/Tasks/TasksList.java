@@ -25,7 +25,7 @@ public class TasksList {
         printHorizontalLine();
     }
 
-    public void addToTasksList(Task task) throws InvalidCommandFormatException {
+    public void addToTasksList(Task task) {
         tasksList.add(task);
         printAddTaskText(task);
     }
@@ -65,7 +65,9 @@ public class TasksList {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNumberOutOfBoundsException();
         }
-
     }
 
+    public String printTaskToDataFile(int taskNumber) {
+        return tasksList.get(taskNumber).taskDataFileText();
+    }
 }

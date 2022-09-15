@@ -4,10 +4,14 @@ import Duke.Tasks.*;
 import Duke.Exceptions.*;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
-
     private static TasksList tasksList = new TasksList();
+    private static final String DATA_FILE_PATH = "./data/data.txt";
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -25,12 +29,66 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void echo(String input) {
-        System.out.println(input);
-        printHorizontalLine();
+    private static void createDataFile() {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            if (!file.getParentFile().mkdirs()) {
+                System.out.println("Error creating parent folder(s)");
+            }
+            if (file.createNewFile()) {
+                System.out.printf("File created at %s\n", DATA_FILE_PATH);
+            } else {
+                System.out.printf("File already exists at %s\n", DATA_FILE_PATH);
+            }
+        } catch (IOException ioException) {
+            System.out.printf("Error creating file: Could not create file at %s\n", DATA_FILE_PATH);
+            ioException.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException {
+    private static void loadTasksToTasksList() throws InvalidCommandFormatException{
+        try {
+            File dataFile = new File(DATA_FILE_PATH);
+            Scanner s = new Scanner(dataFile);
+            while (s.hasNext()) {
+                String[] fileWords = s.nextLine().split("\\|");
+                switch (fileWords[ 0 ]) {
+                case "T":
+                    Todo todoTask = new Todo(fileWords[ 2 ], 'T');
+                    tasksList.addToTasksList(todoTask);
+                    break;
+                case "D":
+                    Deadline deadlineTask = new Deadline(fileWords[ 2 ], 'D', fileWords[ 3 ]);
+                    tasksList.addToTasksList(deadlineTask);
+                    break;
+                case "E":
+                    Event eventTask = new Event(fileWords[ 2 ], 'E', fileWords[ 3 ]);
+                    tasksList.addToTasksList(eventTask);
+                    break;
+                default:
+                    System.out.println("Error reading data from file: Invalid format");
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not found! Give me a moment to create it!");
+            createDataFile();
+        }
+    }
+
+    public static void loadTaskstoDataFile() throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH);
+        for (int i = 0; i < tasksList.getTasksListSize(); i++) {
+//            System.out.println(tasksList.getTask(i));
+//            System.out.println(tasksList.getTaskDescription(i));
+//            fw.write(tasksList.getTaskDescription(i));
+            System.out.println(tasksList.printTaskToDataFile(i));
+        }
+        fw.close();
+    }
+
+    public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException {
+        loadTasksToTasksList();
         printGreeting();
         String input;
         Scanner in = new Scanner(System.in);
@@ -39,6 +97,7 @@ public class Duke {
             String[] inputWords = input.split(" ", 2);
             switch (inputWords[0]) {
             case "bye":
+                loadTaskstoDataFile();
                 printExitText();
                 break;
             case "list":

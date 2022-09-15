@@ -12,4 +12,9 @@ public class Event extends Task {
         String startTimeText = "(at: " + startTime + ")";
         return super.taskStatusWithDescriptionText() + startTimeText;
     }
+
+    @Override
+    public String taskDataFileText() {
+        return super.taskDataFileText() + "| " + startTime;
+    }
 }

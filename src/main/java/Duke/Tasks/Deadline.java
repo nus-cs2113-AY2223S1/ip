@@ -11,4 +11,9 @@ public class Deadline extends Task {
         String deadlineText = "(by: " + deadline + ")";
         return super.taskStatusWithDescriptionText() + deadlineText;
     }
+
+    @Override
+    public String taskDataFileText() {
+        return super.taskDataFileText() + "| " + deadline;
+    }
 }
