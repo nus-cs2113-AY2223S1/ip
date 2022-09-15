@@ -1,5 +1,6 @@
 package duke.file;
 
+import duke.Message;
 import duke.taskings.Task;
 import duke.taskings.Todo;
 import duke.taskings.Event;
@@ -17,6 +18,15 @@ import java.util.Scanner;
 
 public class FileOperation {
 
+    static final String MISSING_FILE = "MissingFile";
+    static final String FAILED_CREATION = "FailedFileCreation";
+    static final String FILE_INPUT_FAILED = "FailedFileInput";
+    static final String DEADLINE = "D";
+    static final String EVENT = "E";
+    static final String TODO = "T";
+    static final String MARKED = "X";
+
+
     /**
      * to check if file exists, then start storing file inputs back into the current tasks array
      *
@@ -29,25 +39,25 @@ public class FileOperation {
             while (input.hasNext()) {
                 String[] parsedStoredTask = input.nextLine().split(" \\| ");
                 switch (parsedStoredTask[0]) {
-                case "T":
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Todo("T", parsedStoredTask[2], true));
+                case TODO:
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Todo(TODO, parsedStoredTask[2], true));
                     } else {
-                        tasks.add(new Todo("T", parsedStoredTask[2], false));
+                        tasks.add(new Todo(TODO, parsedStoredTask[2], false));
                     }
                     break;
-                case "E":
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Event("E", parsedStoredTask[2], true, parsedStoredTask[3]));
+                case EVENT:
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Event(EVENT, parsedStoredTask[2], true, parsedStoredTask[3]));
                     } else {
-                        tasks.add(new Event("E", parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Event(EVENT, parsedStoredTask[2], false, parsedStoredTask[3]));
                     }
                     break;
-                case "D":
-                    if (parsedStoredTask[1].equals("X")) {
-                        tasks.add(new Deadline("D", parsedStoredTask[2], true, parsedStoredTask[3]));
+                case DEADLINE:
+                    if (parsedStoredTask[1].equals(MARKED)) {
+                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], true, parsedStoredTask[3]));
                     } else {
-                        tasks.add(new Deadline("D", parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], false, parsedStoredTask[3]));
                     }
                     break;
                 default:
@@ -55,7 +65,7 @@ public class FileOperation {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            Message.showFileError(MISSING_FILE);
         }
 
     }
@@ -72,7 +82,7 @@ public class FileOperation {
             file.createNewFile();
             return file;
         } catch (Exception e) {
-            System.out.println("File creation error occurred.");
+            Message.showFileError(FAILED_CREATION);
         }
         return null;
     }
@@ -110,15 +120,15 @@ public class FileOperation {
             String textToWrite = "";
             for (Task task : tasks) {
                 switch (task.getTaskType()) {
-                case "D":
+                case DEADLINE:
                     textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getBy());
 
                     break;
-                case "E":
+                case EVENT:
                     textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getAt());
 
                     break;
-                case "T":
+                case TODO:
                     textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription());
                     break;
                 default:
@@ -129,9 +139,7 @@ public class FileOperation {
             file.close();
 
         } catch (IOException e) {
-            System.out.println("Cannot write into file.");
+            Message.showFileError(FILE_INPUT_FAILED);
         }
-
     }
-
 }

@@ -1,8 +1,7 @@
 package duke.taskings;
 
-import duke.Duke;
 import duke.Message;
-import duke.FileOperation;
+import duke.file.FileOperation;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;

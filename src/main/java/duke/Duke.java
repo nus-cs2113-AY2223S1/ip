@@ -1,16 +1,10 @@
 package duke;
 
-import duke.taskings.Deadline;
-import duke.taskings.Event;
+
+import duke.file.FileOperation;
 import duke.taskings.Task;
-import duke.taskings.Todo;
 import duke.taskings.TaskManager;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
