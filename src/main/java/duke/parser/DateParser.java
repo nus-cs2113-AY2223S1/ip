@@ -17,7 +17,7 @@ public class DateParser {
 
     public static boolean isValidDate(String date) {
         try {
-            LocalDate dateTest = LocalDate.parse(date);
+            LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             return false;
         }

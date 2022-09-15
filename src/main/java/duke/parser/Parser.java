@@ -18,8 +18,7 @@ public class Parser {
     private static final String DEADLINE_DIVIDER = "/by";
     private static final String EVENT_DIVIDER = "/at";
 
-
-    public static Command manageCommand(String input) throws DukeException {
+    public static Command parseCommand(String input) throws DukeException {
         input = input.trim();
         String[] mainCommand = input.split(" ", 2);
         switch (mainCommand[0].toLowerCase()) {
