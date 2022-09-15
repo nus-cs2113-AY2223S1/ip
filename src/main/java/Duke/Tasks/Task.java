@@ -29,4 +29,10 @@ public class Task {
         output += this.description;
         return output;
     }
+
+    public String taskDataFileText() {
+        String isDoneString = (this.isDone) ? "1" : "0";
+        String text = taskType + " | " + isDoneString + " | " + description;
+        return text;
+    }
 }
