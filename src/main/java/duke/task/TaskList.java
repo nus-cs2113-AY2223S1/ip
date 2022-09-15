@@ -44,9 +44,9 @@ public class TaskList {
         taskList.remove(getTask(index));
     }
 
-    public TaskList findTasksByKeyword(String keyword) throws DukeException {
+    public TaskList findTasksByKeyword(String keyword) {
         TaskList result = new TaskList();
-        for (Task task: taskList) {
+        for (Task task : taskList) {
             if (task.getDescription().contains(keyword)) {
                 result.add(task);
             }
@@ -70,6 +70,7 @@ public class TaskList {
         }
         return String.valueOf(listString);
     }
+
     @Override
     public String toString() {
         StringBuilder listString = new StringBuilder((taskList.size() == 0 ? "There is nothing in your list right now" : "Here are " + taskList.size() + " tasks in your list:"));
