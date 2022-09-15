@@ -1,4 +1,5 @@
 package duke;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -6,6 +7,8 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
+import java.util.ArrayList;
+
 public class Duke {
     public static void generateTaskStatus(String taskIcon, String statusIcon, String description) {
         System.out.println("\t[" + taskIcon + "]" + "[" + statusIcon + "] " + description);
@@ -22,7 +25,7 @@ public class Duke {
     }
 
     public static boolean isValidCommand(String s){
-        String[] validCommandArray = {"bye", "list","unmark","mark","todo","deadline","event"};
+        String[] validCommandArray = {"bye", "list","unmark","mark","todo","deadline","event", "delete"};
         for(int i = 0; i < validCommandArray.length; i++) {
             if(s.equals(validCommandArray[i])){
                 return true;
@@ -44,7 +47,9 @@ public class Duke {
         drawLine();
         Scanner in = new Scanner(System.in);
         String input;
-        Task[] taskArray = new Task[100];
+//        Task[] taskArray = new Task[100];
+        ArrayList<Task> taskArray = new ArrayList<Task>();
+
         int addCount = 0;
         do {
             input = in.nextLine();
@@ -75,57 +80,62 @@ public class Duke {
             } else if (input.equals("list")){
                 drawLine();
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 1; i <= addCount; i++){
-                    generateTaskStatus(taskArray[i-1].getTaskIcon(), taskArray[i-1].getStatusIcon(), taskArray[i-1].getDescription());
+                for (int i = 1; i <= taskArray.size(); i++){
+                    generateTaskStatus(taskArray.get(i-1).getTaskIcon(), taskArray.get(i-1).getStatusIcon(), taskArray.get(i-1).getDescription());
                 }
                 drawLine();
             } else if (input.contains("unmark")){
                 String[] inputWords = input.split(" ");
                 int choiceToUnMark = Integer.parseInt(inputWords[1]);
-                taskArray[choiceToUnMark - 1].unMarkTask();
+                taskArray.get(choiceToUnMark - 1).unMarkTask();
                 System.out.println("OK, I've marked this task as not done yet:");
-                generateTaskStatus(taskArray[choiceToUnMark-1].getTaskIcon(), taskArray[choiceToUnMark-1].getStatusIcon(),taskArray[choiceToUnMark-1].getDescription() );
+                generateTaskStatus(taskArray.get(choiceToUnMark - 1).getTaskIcon(), taskArray.get(choiceToUnMark - 1).getStatusIcon(),taskArray.get(choiceToUnMark - 1).getDescription() );
                 drawLine();
 
             } else if (input.contains("mark")){
                 String[] inputWords = input.split(" ");
                 int choiceToMark = Integer.parseInt(inputWords[1]);
-                taskArray[choiceToMark - 1].markTask();
+                taskArray.get(choiceToMark - 1).markTask();
                 System.out.println("Nice! I've marked this task as done:");
-                generateTaskStatus(taskArray[choiceToMark-1].getTaskIcon(), taskArray[choiceToMark-1].getStatusIcon(), taskArray[choiceToMark-1].getDescription());
+                generateTaskStatus(taskArray.get(choiceToMark - 1).getTaskIcon(), taskArray.get(choiceToMark - 1).getStatusIcon(), taskArray.get(choiceToMark - 1).getDescription());
                 drawLine();
             } else if(input.contains("todo")) {
-                taskArray[addCount] = new Todo(input);
+                taskArray.add(new Todo(input));
                 drawLine();
                 addedMsg();
-                generateTaskStatus(taskArray[addCount].getTaskIcon(), taskArray[addCount].getStatusIcon(), taskArray[addCount].getDescription());
-                addCount +=1;
-                taskCountReminder(addCount);
+                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                taskCountReminder(taskArray.size());
                 drawLine();
             } else if (input.contains("deadline")) {
-                taskArray[addCount] = new Deadline(input);
+                taskArray.add(new Deadline(input));
                 drawLine();
                 addedMsg();
-                generateTaskStatus(taskArray[addCount].getTaskIcon(), taskArray[addCount].getStatusIcon(), taskArray[addCount].getDescription());
-                addCount +=1;
-                taskCountReminder(addCount);
+                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                taskCountReminder(taskArray.size());
                 drawLine();
             } else if (input.contains("event")) {
-                taskArray[addCount] = new Event(input);
+                taskArray.add(new Event(input));
                 drawLine();
                 addedMsg();
-                generateTaskStatus(taskArray[addCount].getTaskIcon(), taskArray[addCount].getStatusIcon(), taskArray[addCount].getDescription());
-                addCount +=1;
-                taskCountReminder(addCount);
+                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                taskCountReminder(taskArray.size());
+                drawLine();
+            } else if (input.contains("delete")) {
+                drawLine();
+                String[] inputWords = input.split(" ");
+                int choiceToRemove = Integer.parseInt(inputWords[1]);
+                System.out.println("Noted. I have removed this task:");
+                generateTaskStatus(taskArray.get(choiceToRemove-1).getTaskIcon(), taskArray.get(choiceToRemove-1).getStatusIcon(), taskArray.get(choiceToRemove-1).getDescription());
+                taskArray.remove(choiceToRemove - 1);
+                taskCountReminder(taskArray.size());
                 drawLine();
             }
             else {
-                taskArray[addCount] = new Task(input);
+                taskArray.add(new Task(input));
                 drawLine();
                 addedMsg();
-                generateTaskStatus(taskArray[addCount].getTaskIcon(), taskArray[addCount].getStatusIcon(), taskArray[addCount].getDescription());
-                addCount +=1;
-                taskCountReminder(addCount);
+                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                taskCountReminder(taskArray.size());
                 drawLine();
             }
         } while (!input.equals("bye"));
