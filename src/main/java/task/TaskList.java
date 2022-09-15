@@ -1,8 +1,5 @@
 package task;
 
-import file.FileManager;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -72,15 +69,5 @@ public class TaskList {
         taskCount--;
         System.out.println("There are " + taskCount + "tasks left");
         System.out.println(LINE_DIVIDER);
-    }
-
-    public static void storeTasks() {
-        try {
-            for (Task task : tasks) {
-                FileManager.writeToFile(task);
-            }
-        } catch (IOException e) {
-            System.out.println("An IO error has occurred");
-        }
     }
 }

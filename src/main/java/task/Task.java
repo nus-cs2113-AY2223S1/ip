@@ -17,9 +17,6 @@ public class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
-    public int getStatusInNumber() {
-        return isDone ? 1 : 0;
-    }
 
     public String getDescription() {
         return description;
