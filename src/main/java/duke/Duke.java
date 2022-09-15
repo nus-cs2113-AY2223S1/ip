@@ -9,9 +9,23 @@ import java.io.FileNotFoundException;
 public class Duke {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
+    public static final String PATHNAME = "data/duke.txt";
+
+    private static void writeToFile(String path) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        for (int i = 0; i < taskList.size(); i++) {
+            fw.write(taskList.get(i).printToFile());
+        }
+        fw.close();
+    }
 
     public static void addTask(Task task, boolean isPrint) {
         taskList.add(task);
+        try {
+            writeToFile(PATHNAME);
+        } catch (IOException ioException) {
+            System.out.println("Error updating file");
+        }
         if (isPrint) {
             System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
                     task.print(), taskList.size());
@@ -42,14 +56,6 @@ public class Duke {
                 break;
             }
         }
-    }
-
-    private static void writeToFile(String path) throws IOException {
-        FileWriter fw = new FileWriter(path);
-        for (int i = 0; i < taskList.size(); i++) {
-            fw.write(taskList.get(i).printToFile());
-        }
-        fw.close();
     }
 
     public  static  void todo(String line, String[] words) {
@@ -119,6 +125,7 @@ public class Duke {
                                     taskList.get(d - 1).print());
                         }
                     }
+                    writeToFile(PATHNAME);
                 } else { // Invalid index
                     if (taskList.size() == 0) {
                         System.out.println("Error: list is empty");
@@ -128,6 +135,8 @@ public class Duke {
                 }
             } catch (NumberFormatException numberFormatException) {
                 System.out.println("Usage: mark <integer>");
+            } catch (IOException ioException) {
+                System.out.println("Error updating file");
             }
         } else {
             System.out.println("Usage: mark <integer>");
@@ -143,10 +152,13 @@ public class Duke {
                     taskList.remove(d - 1);
                     System.out.printf("Noted. I've removed this task:\n" + "%s\n" +
                             "Now you have %d tasks in the list.\n", tempTask.print(), taskList.size());
+                    writeToFile(PATHNAME);
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.printf("Error: enter an integer between 1 - %d\n", taskList.size());
                 } catch (NumberFormatException ex) {
                     System.out.println("Usage: delete <integer>");
+                } catch (IOException ioException) {
+                    System.out.println("Error updating file");
                 }
             } else {
                 System.out.println("Error: list is empty!");
@@ -168,23 +180,22 @@ public class Duke {
     public static void main(String[] args) {
 
         // Read file
-        String pathname = new String("data/duke.txt");
         try {
-            loadFromFile(pathname);
+            loadFromFile(PATHNAME);
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("Error reading data from file: File or directory does not exist. Creating new file.");
             try {
-                File file = new File(pathname);
+                File file = new File(PATHNAME);
                 if (!file.getParentFile().mkdirs()) {
                     System.out.println("Error creating parent folder(s)");
                 }
                 if (file.createNewFile()) {
-                    System.out.printf("File created at %s\n", pathname);
+                    System.out.printf("File created at %s\n", PATHNAME);
                 } else {
-                    System.out.printf("File already exists at %s\n", pathname);
+                    System.out.printf("File already exists at %s\n", PATHNAME);
                 }
             } catch (IOException ioException) {
-                System.out.printf("Error creating file: Could not create file at %s\n", pathname);
+                System.out.printf("Error creating file: Could not create file at %s\n", PATHNAME);
                 ioException.printStackTrace();
             }
         }
@@ -203,11 +214,11 @@ public class Duke {
             line = in.nextLine();
             printLine();
             if (line.equals("bye")) {
-                try {
-                    writeToFile(pathname);
-                } catch (IOException ioException) {
-                    System.out.println("Error writing to file");
-                }
+//                try {
+//                    writeToFile(pathname);
+//                } catch (IOException ioException) {
+//                    System.out.println("Error writing to file");
+//                }
                 bye();
                 break;
             } else if (!line.equals("")) {
