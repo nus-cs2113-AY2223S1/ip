@@ -37,7 +37,7 @@ public class TaskManager {
         }
     }
 
-    public static void unmarkTask(Task[] tasks, String line) throws DukeException {
+    public static void unmarkTask(Task[] tasks, String line) {
         int taskId = getTaskId(line);
         printUnmark(tasks, taskId);
     }
@@ -52,7 +52,7 @@ public class TaskManager {
         }
     }
 
-    public static void markTask(Task[] tasks, String line) throws DukeException {
+    public static void markTask(Task[] tasks, String line) {
         int taskId = getTaskId(line);
         printMark(tasks, taskId);
     }
