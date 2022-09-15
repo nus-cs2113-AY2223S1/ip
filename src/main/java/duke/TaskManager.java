@@ -196,7 +196,7 @@ public class TaskManager {
             addedInfo = t.getAddedInfo().substring(6, i);
         }
         try {
-            writeToFile("data/duke.txt", type + "/" + state + "/" + t.getDescription()
+            writeToFile("duke.txt", type + "/" + state + "/" + t.getDescription()
                     + "/" + addedInfo, n);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -214,7 +214,7 @@ public class TaskManager {
     }
 
     public void editionToFile() throws IOException {
-        new FileWriter("data/duke.txt", false).close();
+        new FileWriter("duke.txt", false).close();
         int n = 1;
         for (Task t : tasks) {
             addToFile(t, n);

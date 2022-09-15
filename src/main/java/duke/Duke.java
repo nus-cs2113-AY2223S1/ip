@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.EmptyCommandException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.io.File;
@@ -61,12 +62,18 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         String line;
         TaskManager action = new TaskManager();
 
-        File f = new File("data/duke.txt");
+        File f = new File("duke.txt");
+        try {
+            f.createNewFile();
+            System.out.println("File have been created.");
+        } catch (Exception e) {
+            System.out.println("File creation failed with exception.");
+        }
         try {
             readFile(f, action);
         } catch (FileNotFoundException e) {
