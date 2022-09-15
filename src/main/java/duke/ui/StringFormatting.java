@@ -69,7 +69,7 @@ public class StringFormatting {
      * @return formatted string
      */
     public static String formatAddString(String textOfItem) {
-        return "Added " + textOfItem + " to your list.";
+        return "Added \"" + textOfItem + "\" to your list.";
     }
 
     /**
@@ -79,6 +79,6 @@ public class StringFormatting {
      * @return formatted string
      */
     public static String formatDeleteString(String textOfItem) {
-        return "Deleted task " + textOfItem + " from your list.";
+        return "Deleted task \"" + textOfItem + "\" from your list.";
     }
 }

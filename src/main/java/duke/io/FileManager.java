@@ -1,7 +1,6 @@
 package duke.io;
 
 import duke.Duke;
-import duke.error.exceptions.CouldNotSaveException;
 import duke.error.exceptions.SaveFileFormatException;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
