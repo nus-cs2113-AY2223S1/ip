@@ -76,7 +76,7 @@ public class InputParser {
         switch (userCommand) {
             case ("todo"): //Fallthrough
             case ("mark"): //Fallthrough
-            case ("unmark"):
+            case ("unmark"): //
                 parameters = new String[]{ inputBuffer };
                 break;
             case ("deadline"):
