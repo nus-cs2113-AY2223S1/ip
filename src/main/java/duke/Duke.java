@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,8 +9,8 @@ public class Duke {
     static final String EXCEPTION_2 = "Other Command";
     static final String EXCEPTION_3 = "Mark/Unmark Out of Bounds";
 
-    public static Task[] tasks = new Task[MAX_TASKS];
-    public static int position = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static int numberOfTasks = 0;
 
     public static void printDivider() {
         System.out.println("\t----------------------------------------------------");
@@ -44,7 +45,7 @@ public class Duke {
             System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means...");
             break;
         case EXCEPTION_3 :
-            //Mark/Unmark index out of bounds
+            //Mark/Unmark/Delete index out of bounds
             System.out.println("\t☹ OOPS!!! Please provide a valid task index...");
         }
 
@@ -63,13 +64,16 @@ public class Duke {
             //Print the list
             printList();
         } else if (firstWord.equals("todo") | firstWord.equals("deadline") | firstWord.equals("event")) {
-            //Add to-do, deadline, or event to list
+            //Add a task to the list
             try {
                 Task currentTask = createTask(command, words[0], words);
                 addTask(currentTask);
             } catch (DukeException e) {
                 printExceptionMessage(EXCEPTION_1);
             }
+        } else if (firstWord.equals("delete")) {
+            //Remove a task from the list
+            removeTask(Integer.parseInt(words[1]) - 1);
         } else {
             throw new DukeException();
         }
@@ -100,24 +104,42 @@ public class Duke {
     }
 
     public static void addTask(Task currentTask) {
-        tasks[position] = currentTask;
-        position++;
+        tasks.add(currentTask);
+        numberOfTasks++;
 
         printDivider();
         System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
         System.out.print("\t  ");
         System.out.println(currentTask);
-        System.out.println("\tNow you have " + Integer.toString(position) + " task(s) in the list! 凸(￣ヘ￣)");
+        System.out.println("\tNow you have " + numberOfTasks + " task(s) in the list! 凸(￣ヘ￣)");
         System.out.println("");
         printDivider();
+    }
+
+    public static void removeTask(int index) {
+        try {
+            Task removedTask = tasks.get(index);
+            tasks.remove(index);
+            numberOfTasks--;
+
+            printDivider();
+            System.out.println("\tNoted! (๑˃ᴗ˂)ﻭ I've removed this task:");
+            System.out.print("\t  ");
+            System.out.println(removedTask);
+            System.out.println("\tNow you have " + numberOfTasks + " task(s) in the list! 凸(￣ヘ￣)");
+            System.out.println("");
+            printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            printExceptionMessage(EXCEPTION_3);
+        }
     }
 
     public static void printList() {
         printDivider();
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < position; i++) {
-            System.out.print("\t" + Integer.toString(i + 1) + ".");
-            System.out.println(tasks[i]);
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.println(tasks.get(i));
         }
         System.out.println();
         printDivider();
@@ -125,7 +147,7 @@ public class Duke {
 
     public static void markAsDone(String index) {
         try {
-            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsDone();
 
             printDivider();
@@ -141,7 +163,7 @@ public class Duke {
 
     public static void markAsUndone(String index) {
         try {
-            Task currentTask = tasks[Integer.parseInt(index) - 1];
+            Task currentTask = tasks.get(Integer.parseInt(index) - 1);
             currentTask.markAsUndone();
 
             printDivider();
