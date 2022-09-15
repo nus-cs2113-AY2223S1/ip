@@ -1,4 +1,5 @@
 package Duke;
+import java.util.ArrayList;
 
 public class TaskManager {
 
@@ -6,16 +7,16 @@ public class TaskManager {
     private static int NUM_TASK;
     private static int taskCount;
 
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
 
     public TaskManager() {
         NUM_TASK = 100;
         taskCount = 0;
-        tasks = new Task[NUM_TASK];
+        tasks = new ArrayList<Task>(NUM_TASK);
     }
 
     private void resize() {
-        Task[] buffer = new Task[NUM_TASK * RESIZE_FACTOR];
+        ArrayList<Task> buffer = new ArrayList<Task>(NUM_TASK * RESIZE_FACTOR);
 
         if (taskCount >= 0) {
             System.arraycopy(tasks, 0, buffer, 0, taskCount);
@@ -26,29 +27,30 @@ public class TaskManager {
     }
 
     private void printSummary() {
-        System.out.println("\t" + tasks[taskCount - 1].toString());
+        System.out.println("\t" + tasks.get(taskCount - 1).toString());
         System.out.println("Beep boop, now you have " + taskCount + " tasks");
 
         if(taskCount == NUM_TASK){
             System.out.println("BEEP BEEP BEEEEEEP! LIST FULL!!! Increasing list capacity");
             resize();
         }
+
     }
 
     public void clearAllTask() {
         taskCount = 0;
-        tasks = new Task[NUM_TASK];
+        tasks = new ArrayList<Task>(NUM_TASK);
     }
 
     public static void listAllTask() {
         System.out.println("Beep beep, listing out the tasks....Loading.....");
         for(int i = 0; i < taskCount; i++){
-            System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
+            System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 
     public void addTask(String descriptionTask) {
-        tasks[taskCount] = new Task(descriptionTask);
+        tasks.add( new Task(descriptionTask));
         taskCount += 1;
 
         System.out.println("added: " + descriptionTask);
@@ -56,7 +58,7 @@ public class TaskManager {
     }
 
     public void addTodo(String descriptionToDo) {
-        tasks[taskCount] = new Todo(descriptionToDo);
+        tasks.add( new Todo(descriptionToDo));
         taskCount += 1;
 
         System.out.println("HELLO BEEP, added a new ToDo: ");
@@ -64,7 +66,7 @@ public class TaskManager {
     }
 
     public void addDeadline(String description, String deadlineBy) {
-        tasks[taskCount] = new Deadline(description, deadlineBy);
+        tasks.add( new Deadline(description, deadlineBy) );
         taskCount += 1;
 
         System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
@@ -72,7 +74,7 @@ public class TaskManager {
     }
 
     public void addEvent(String description, String eventAt) {
-        tasks[taskCount] = new Event(description, eventAt);
+        tasks.add( new Event(description, eventAt));
         taskCount += 1;
 
         System.out.println("OH NO BEEP BEEP, a new Event: ");
@@ -84,7 +86,7 @@ public class TaskManager {
         final String MESSAGE_NOT_DONE = "OK, I've marked this task as not done yet:";
         final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
-        tasks[taskIndex].setStatus(isDone);
+        tasks.get(taskIndex).setStatus(isDone);
 
         if (taskIndex > taskCount) { //to add exception here
             System.out.println(ERROR_OUT_OF_BOUND);
@@ -93,11 +95,11 @@ public class TaskManager {
 
         if (isDone) {
             System.out.println(MESSAGE_DONE);
-            System.out.println("\t" + tasks[taskIndex].toString());
         } else {
             System.out.println(MESSAGE_NOT_DONE);
-            System.out.println("\t" + tasks[taskIndex].toString());
         }
+
+        System.out.println("\t" + tasks.get(taskIndex).toString());
     }
 
 }
