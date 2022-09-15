@@ -9,13 +9,57 @@ import duke.taskmanager.tasks.Event;
 import duke.taskmanager.tasks.Task;
 import duke.taskmanager.tasks.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskManager {
     public static final int TASKS_SIZE = 100;
     public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     public static Task[] tasks = new Task[TASKS_SIZE];
+
     private static int oneBasedIndex = 1;
+
+    public TaskManager() {
+        try {
+            File f = new File("data/duke.txt"); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                StringBuilder command = new StringBuilder();
+                switch (line.charAt(1)) {
+                case 'T':
+                    command.append("todo");
+                    command.append(line.substring("[ ][ ]".length()));
+                    break;
+                case 'D':
+                    command.append("deadline");
+                    command.append(line.substring("[ ][ ]".length(), line.indexOf('('))).append("/by ");
+                    command.append(line.substring(line.indexOf('(') + "(by: ".length(),line.indexOf(')')));
+                    break;
+                case 'E':
+                    command.append("event");
+                    command.append(line.substring("[ ][ ]".length(), line.indexOf('('))).append("/at ");
+                    command.append(line.substring(line.indexOf('(') + "(at: ".length(),line.indexOf(')')));
+                    break;
+                default:
+                    break;
+                }
+                System.out.println(command);
+                tryCommand(String.valueOf(command));
+                Character mark = line.charAt(4);
+                if (mark.equals('X')) {
+                    tryCommand("mark " + (oneBasedIndex - 1));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found sorry.");
+        }
+
+    }
+
     public static void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
     }
@@ -50,6 +94,25 @@ public class TaskManager {
             }
             command = in.nextLine().trim();
         }
+        try {
+            saveTasks();
+        } catch (IOException e) {
+            System.out.println("I/O error...");
+        }
+    }
+
+    private static void saveTasks() throws IOException {
+        File file = new File("data/duke.txt");
+        FileWriter fw;
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        fw = new FileWriter(file);
+        StringBuilder textToAppend = new StringBuilder();
+        for (int i = 1; i < oneBasedIndex; i++) {
+            textToAppend.append(tasks[i]).append(System.lineSeparator());
+        }
+        fw.write(String.valueOf(textToAppend));
+        fw.close();
     }
 
     private static void tryCommand(String command) {

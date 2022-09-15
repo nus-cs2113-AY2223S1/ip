@@ -29,7 +29,8 @@ public class Duke {
 
     public static void main(String[] args) {
         greet();
-        TaskManager.receiveCommands();
+        TaskManager duke = new TaskManager();
+        duke.receiveCommands();
         bye();
     }
 }
