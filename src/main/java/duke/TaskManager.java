@@ -3,12 +3,14 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    public static void printSuccessfulAdd(Task[] tasks, int taskCount) {
+    public static void printSuccessfulAdd(ArrayList<Task> tasks, int taskCount) {
         System.out.println("\t_____________________");
         System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + "added: " + tasks[taskCount]);
+        System.out.println("\t" + "added: " + tasks.get(taskCount));
         System.out.println("\t_____________________\n");
     }
 
@@ -27,45 +29,49 @@ public class TaskManager {
         return breakLine[1];
     }
 
-    public static void printUnmark(Task[] tasks, int taskId) {
-        if (!tasks[taskId].isDone) {
-            System.out.println("this is already unmarked");
+    public static void printUnmark(ArrayList<Task> tasks, int taskId) {
+        if (!tasks.get(taskId).isDone) {
+            System.out.println("\tThis task is already unmarked!");
         } else {
             System.out.println("\tOK, I've marked this task as not done yet:");
-            tasks[taskId].setDone(tasks[taskId].isDone);
-            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+            tasks.get(taskId).setDone(tasks.get(taskId).isDone);
+            System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
         }
     }
 
-    public static void unmarkTask(Task[] tasks, String line) {
+    public static void unmarkTask(ArrayList<Task> tasks, String line) {
         int taskId = getTaskId(line);
         printUnmark(tasks, taskId);
     }
 
-    public static void printMark(Task[] tasks, int taskId) {
-        if (tasks[taskId].isDone) {
-            System.out.println("This task is already done!");
+    public static void printMark(ArrayList<Task> tasks, int taskId) {
+        if (tasks.get(taskId).isDone) {
+            System.out.println("\tThis task is already done!");
         } else {
             System.out.println("\tNice! I've marked this task as done:");
-            tasks[taskId].setDone(tasks[taskId].isDone);
-            System.out.println("\t" + tasks[taskId].getStatusIcon() + tasks[taskId].getDescription());
+            tasks.get(taskId).setDone(tasks.get(taskId).isDone);
+            System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
         }
     }
 
-    public static void markTask(Task[] tasks, String line) {
+    public static void markTask(ArrayList<Task> tasks, String line) {
         int taskId = getTaskId(line);
         printMark(tasks, taskId);
     }
 
-    public static void printTaskList(Task[] tasks, int taskCount) {
+    public static void printTaskList(ArrayList<Task> tasks, int taskCount) {
         System.out.println("\t_____________________");
         // if there are no task
-        if (taskCount == 0) {
+        if (tasks.size() == 0) {
             System.out.println("There are no tasks yet!");
         } else {
             System.out.println("\tHere are the tasks in your list:");
-            for (int i = 0; i < taskCount; i += 1) {
-                System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+//            for (Task task: tasks){
+//                System.out.println(task);
+//            }
+            for (int i = 0; i < taskCount;i++)
+            {
+                System.out.println("\t" + (i + 1) + ". " + tasks.get(i));
             }
         }
         System.out.println("\t_____________________");
