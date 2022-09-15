@@ -3,6 +3,9 @@ import dukeTasksPackage.*;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import static java.lang.System.exit;
+
 public class Duke {
     private static final String COMMAND_BYE = "bye";
     private static final String MESSAGE_BYE = "Duke: Bye. Hope to see you again soon!";
@@ -76,7 +79,7 @@ public class Duke {
             switch (words[0]) {
             case COMMAND_BYE:
                 System.out.println(MESSAGE_BYE);
-
+                System.exit(0);
                 break;
             case COMMAND_LIST:
                 try {
@@ -249,7 +252,7 @@ public class Duke {
             case COMMAND_CLEAR:
                 try {
                     clearFile(textFilePath);
-                    System.out.println(COMMAND_CLEAR);
+                    System.out.println(MESSAGE_CLEAR);
                 } catch (IOException e) {
                     System.out.println("Something went wrong. I am unable to clear the file.");
                 }
