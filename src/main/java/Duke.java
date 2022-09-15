@@ -72,7 +72,6 @@ public class Duke {
 
     /** Helper function to format message to be printed */
     public static final String DIVIDER = "______________________________________";
-
     public static void printFormattedMessage(String message) {
         System.out.println(DIVIDER);
         System.out.println(message + DIVIDER);
@@ -115,5 +114,6 @@ public class Duke {
         }
         printGoodbyeMessage();
     }
+
 }
 
