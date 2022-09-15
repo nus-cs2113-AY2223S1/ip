@@ -12,6 +12,11 @@ public class Task{
         this.taskDone = false;
     }
 
+    public Task(String taskTitle, boolean taskDone){ // constructor with taskDone
+        this.taskTitle = taskTitle;
+        this.taskDone = taskDone;
+    }
+
     //get methods
     public String getTaskTitle(){
         return this.taskTitle;

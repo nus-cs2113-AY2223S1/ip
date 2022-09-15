@@ -6,4 +6,10 @@ public class Deadline extends Task {
         super.setTaskType("Deadline");
         super.setTaskDeadline(deadline);
     }
+
+    public Deadline(String taskTitle, boolean taskDone, String deadline) {
+        super(taskTitle, taskDone);
+        super.setTaskType("Deadline");
+        super.setTaskDeadline(deadline);
+    }
 }
