@@ -49,7 +49,7 @@ public class Duke {
         }
     }
 
-    private static void loadTasksToTasksList() throws InvalidCommandFormatException, FileNotFoundException{
+    private static void loadTasksToTasksList() {
         try {
             File dataFile = new File(DATA_FILE_PATH);
             Scanner s = new Scanner(dataFile);
@@ -80,16 +80,31 @@ public class Duke {
     }
 
     public static void loadTasktoDataFile(int taskNumber) throws IOException {
-        FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
-        fw.write(tasksList.printTaskToDataFile(taskNumber));
-        fw.close();
+        try {
+            FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
+            fw.write(tasksList.printTaskToDataFile(taskNumber));
+            fw.close();
+        } catch (IOException ioException) {
+            System.out.printf("Error has occured when loading the task to data file.");
+            ioException.printStackTrace();
+        }
+
     }
 
-    public static void updateTaskDoneInDataFile(int taskNumber) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));
-        String updatedTaskToLoadInDataFile = tasksList.printTaskToDataFile(taskNumber).replace("\n", "");
-        lines.set(taskNumber, updatedTaskToLoadInDataFile);
-        Files.write(Paths.get(DATA_FILE_PATH), lines);
+    public static void updateTaskDoneInDataFile(int taskNumber, String commandType) throws IOException {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));
+            String updatedTaskToLoadInDataFile = "";
+            if (commandType.equals("edit")) {
+                updatedTaskToLoadInDataFile = tasksList.printTaskToDataFile(taskNumber).replace("\n", "");
+            }
+            lines.set(taskNumber, updatedTaskToLoadInDataFile);
+            lines.removeIf(String::isEmpty);
+            Files.write(Paths.get(DATA_FILE_PATH), lines);
+        } catch (IOException ioException) {
+            System.out.printf("Error has occured when updating the task in data file.");
+            ioException.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws EmptyArgumentException, InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException {
@@ -114,7 +129,7 @@ public class Duke {
                 }
                 int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
                 tasksList.markTask(taskNumber, "mark", true);
-                updateTaskDoneInDataFile(taskNumber);
+                updateTaskDoneInDataFile(taskNumber,"edit");
                 break;
             case "unmark":
                 if (inputWords.length == 1) {
@@ -123,7 +138,7 @@ public class Duke {
                 }
                 taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
                 tasksList.markTask(taskNumber, "unmark", false);
-                updateTaskDoneInDataFile(taskNumber);
+                updateTaskDoneInDataFile(taskNumber,"edit");
                 break;
             case "todo":
                 if (inputWords.length < 2) {
@@ -167,6 +182,7 @@ public class Duke {
                 }
                 taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
                 tasksList.deleteTask(taskNumber);
+                updateTaskDoneInDataFile(taskNumber,"delete");
                 break;
             default:
                 throw new EmptyArgumentException();
