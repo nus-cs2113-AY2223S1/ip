@@ -195,7 +195,7 @@ public class Duke {
             printDivider();
         }
     }
-    
+
     public static void removeTask(int index) {
         try {
             Task removedTask = tasks.get(index);
