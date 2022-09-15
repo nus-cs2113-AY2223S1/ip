@@ -1,4 +1,7 @@
 package duke;
+
+import duke.task.Task;
+
 public class Message {
     public static final String helloMessage = "Hello I'm Duke\n what can I do for you?";
     public static final String byeMessage = "Bye. Hope to see you soon";
@@ -30,6 +33,7 @@ public class Message {
         System.out.println("Invalid input, enter again in a correct format");
         printHorizontalErrorLine();
     }
+
 
 
 }

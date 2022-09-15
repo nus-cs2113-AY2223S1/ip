@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Duke {
     private static final List dukeList = new List();
     public static final String markDone = "mark";
+    public static final String delete = "delete";
     public static final String bye = "bye";
     public static final String list = "list";
     public static final String space = " ";
@@ -72,6 +73,8 @@ public class Duke {
             dukeList.unmarkItemDone(checkInteger(wordsInput));
         } else if (wordsInput[0].equals(markDone)) {
             dukeList.markItemDone(checkInteger(wordsInput));
+        } else if (wordsInput[0].equals(delete)) {
+            dukeList.deleteTask(checkInteger(wordsInput));
         } else {
             dukeList.addTask(input);
         }

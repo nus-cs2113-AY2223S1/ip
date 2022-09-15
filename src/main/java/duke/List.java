@@ -1,8 +1,12 @@
 package duke;
+import duke.task.Deadline;
+import duke.task.Todo;
+import duke.task.Event;
+import duke.task.Task;
+
+import java.util.ArrayList;
 public class List {
-    public static final int arraySize = 100;
-    private static int amountOfItems = 0;
-    private static duke.task.Task[] tasks;
+    public static ArrayList<duke.task.Task> tasks = new ArrayList<>();
     public static final String deadline = "deadline";
     public static final String todo = "todo";
     public static final String event = "event";
@@ -11,11 +15,11 @@ public class List {
     public static final String space = " ";
 
     public List() {
-        tasks = new duke.task.Task[arraySize];
+
     }
 
     public int getListSize() {
-        return amountOfItems;
+        return tasks.size();
     }
 
     public void addTask(String input) {
@@ -26,23 +30,38 @@ public class List {
             Message.printError();
         }
     }
+    public static void printTaskDeleted(Task taskToDelete) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(taskToDelete);
+        System.out.println("Now you have "+ tasks.size() + "tasks in the list.");
+    }
+
+    public void deleteTask(int index) throws DukeException {
+        try{
+            Task taskToDelete = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            printTaskDeleted(taskToDelete);
+        } catch (IndexOutOfBoundsException e){
+            throw new DukeException();
+        }
+    }
 
     public void printList() {
         Message.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < amountOfItems; i++) {
+        for (int i=0; i < tasks.size(); i ++) {
             System.out.print(i + 1 + ". ");
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
         Message.printHorizontalLine();
     }
 
     public void markItemDone(int i) {
-        tasks[i - 1].markDone();
+        tasks.get(i - 1).markDone();
     }
 
     public void unmarkItemDone(int i) {
-        tasks[i - 1].unmarkDone();
+        tasks.get(i - 1).unmarkDone();
     }
 
     public void translateTask(String input) throws DukeException {
@@ -53,16 +72,16 @@ public class List {
         switch (divideByFirstSpace[0]) {
             case deadline: {
                 String[] details = divideByFirstSpace[1].split(by);
-                tasks[amountOfItems] = new duke.task.Deadline(details[0], details[1]);
+                tasks.add(new Deadline(details[0], details[1]));
                 break;
             }
             case event: {
                 String[] details = divideByFirstSpace[1].split(at);
-                tasks[amountOfItems] = new duke.task.Event(details[0], details[1]);
+                tasks.add(new Event(details[0], details[1]));
                 break;
             }
             case todo:
-                tasks[amountOfItems] = new duke.task.Todo(divideByFirstSpace[1]);
+                tasks.add(new Todo(divideByFirstSpace[1]));
                 break;
             default:
                 throw new DukeException();
@@ -72,10 +91,9 @@ public class List {
     public void printTaskAdded() {
         Message.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[amountOfItems]);
-        System.out.println("Now you have " + (amountOfItems + 1) + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
         Message.printHorizontalLine();
-        amountOfItems++;
     }
 
 }
