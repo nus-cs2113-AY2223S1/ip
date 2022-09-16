@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class to represent the user interface through the command line
+ */
 public class Ui {
     private static final String GREETING = "Hello! I'm Timmy\n What can I do for you?\n \n";
     private static final String GOODBYE = "Bye. Hope to see you again soon\n";
@@ -10,6 +13,9 @@ public class Ui {
                                         "|____/ \\__,_|_|\\_\\___|";
     public static final String DASH = "____________________________________________________________";
 
+    /**
+     * Method to welcome the user after program starts
+     */
     public static void welcomeUser() {
         System.out.println(GREETING);
         System.out.println(DASH);
@@ -17,6 +23,9 @@ public class Ui {
         System.out.println(DASH);
     }
 
+    /**
+     * Method to say goodbye to the user after program exits
+     */
     public static void goodbyeUser() {
         System.out.println(GOODBYE);
         System.out.println(DASH);

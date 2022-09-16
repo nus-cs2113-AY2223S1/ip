@@ -2,7 +2,17 @@ package duke;
 
 import duke.exceptions.DukeException;
 
+/**
+ * Class that handles user inputs and carries out the appropriate action
+ * Throws relevant errors
+ */
 public class Parser {
+
+    /**
+     * Method to handle the user input. Splits "input" into the command
+     * @param input user input
+     * @param myTaskList task manager to carry out the tasks
+     */
     public static void handleInput(String input, TaskList myTaskList) {
         String command;
         if (input.contains(" ")) {
@@ -17,6 +27,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle the user input and carry out the relevant method
+     * @param input user input
+     * @param command the command from the user
+     * @param myTaskList task manager to carry out the tasks
+     * @throws DukeException if command is unknown or invalid
+     */
     public static void handleInput(String input, String command, TaskList myTaskList) throws DukeException {
         switch (command) {
         case "list":
