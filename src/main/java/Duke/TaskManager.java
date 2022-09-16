@@ -8,10 +8,13 @@ public class TaskManager {
 
     private static Task[] tasks;
 
+    private static boolean hasLoadHistory;
+
     public TaskManager() {
         NUM_TASK = 100;
         taskCount = 0;
         tasks = new Task[NUM_TASK];
+        hasLoadHistory = false;
     }
 
     private void resize() {
@@ -41,9 +44,11 @@ public class TaskManager {
     }
 
     public static void listAllTask() {
-        System.out.println("Beep beep, listing out the tasks....Loading.....");
-        for(int i = 0; i < taskCount; i++){
-            System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
+        if(hasLoadHistory) {
+            System.out.println("Beep beep, listing out the tasks....Loading.....");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
+            }
         }
     }
 
@@ -51,32 +56,40 @@ public class TaskManager {
         tasks[taskCount] = new Task(descriptionTask);
         taskCount += 1;
 
-        System.out.println("added: " + descriptionTask);
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("added: " + descriptionTask);
+            printSummary();
+        }
     }
 
     public void addTodo(String descriptionToDo) {
         tasks[taskCount] = new Todo(descriptionToDo);
         taskCount += 1;
 
-        System.out.println("HELLO BEEP, added a new ToDo: ");
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("HELLO BEEP, added a new ToDo: ");
+            printSummary();
+        }
     }
 
     public void addDeadline(String description, String deadlineBy) {
         tasks[taskCount] = new Deadline(description, deadlineBy);
         taskCount += 1;
 
-        System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
+            printSummary();
+        }
     }
 
     public void addEvent(String description, String eventAt) {
         tasks[taskCount] = new Event(description, eventAt);
         taskCount += 1;
 
-        System.out.println("OH NO BEEP BEEP, a new Event: ");
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("OH NO BEEP BEEP, a new Event: ");
+            printSummary();
+        }
     }
 
     public void setTask(int taskIndex, boolean isDone) {
@@ -86,18 +99,24 @@ public class TaskManager {
 
         tasks[taskIndex].setStatus(isDone);
 
-        if (taskIndex > taskCount) { //to add exception here
-            System.out.println(ERROR_OUT_OF_BOUND);
-            return;
-        }
+        if (hasLoadHistory) {
+            if (taskIndex > taskCount) { //to add exception here
+                System.out.println(ERROR_OUT_OF_BOUND);
+                return;
+            }
 
-        if (isDone) {
-            System.out.println(MESSAGE_DONE);
-            System.out.println("\t" + tasks[taskIndex].toString());
-        } else {
-            System.out.println(MESSAGE_NOT_DONE);
-            System.out.println("\t" + tasks[taskIndex].toString());
+            if (isDone) {
+                System.out.println(MESSAGE_DONE);
+                System.out.println("\t" + tasks[taskIndex].toString());
+            } else {
+                System.out.println(MESSAGE_NOT_DONE);
+                System.out.println("\t" + tasks[taskIndex].toString());
+            }
         }
+    }
+
+    public void setHasLoaded(boolean hasLoad) {
+        hasLoadHistory = hasLoad;
     }
 
 }
