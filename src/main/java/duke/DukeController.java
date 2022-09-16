@@ -23,16 +23,19 @@ public class DukeController {
     private final String ILLEGAL_INDEX_ERROR = ":( %d is out of bounds of the task list";
     private final String UPDATE_TASK_FAILURE = ":( This task is already %sed";
     private final String DELETE_TASK_SUCCESS = "Nice! I've deleted this task:";
+    private final String SAVE_FILE_SUCCESS = "Nice! I've saved all your tasks!";
+    private final String LOAD_FILE_SUCCESS = "Nice! I've loaded your tasks from previous sessions!";
+    private final String CREATE_DIRECTORY_FAILED = "Please create an empty directory named %s in the folder containing ur .jar file!";
     private final int TASK_TYPE = 0;
-    private final int TASK_DESCRIPTION = 1;
-    private final int TASK_STATUS = 2;
+    private final int TASK_STATUS = 1;
+    private final int TASK_DESCRIPTION = 2;
     private final int TASK_TIMING = 3;
-
+    private final String DATA_DIRECTORY = "data";
     private String userInput;
     private Path savedFilePath;
 
     public void setHomePath(){
-        savedFilePath = Paths.get(".","data","duke.txt");
+        savedFilePath = Paths.get("data","duke.txt");
     }
 
     public void readData() throws FileNotFoundException {
@@ -65,8 +68,19 @@ public class DukeController {
             default:
             }
         }
+        System.out.println(LOAD_FILE_SUCCESS);
+        printNewLine();
     }
     public void saveData() throws IOException {
+        File dataDirectory = new File(DATA_DIRECTORY);
+        if (!dataDirectory.exists()) {
+                boolean isDirectoryCreated = dataDirectory.mkdir();
+                if (!isDirectoryCreated) {
+                    System.out.println(CREATE_DIRECTORY_FAILED);
+                    printNewLine();
+                    return;
+                }
+        }
         File saveFile = new File(savedFilePath.toString());
         FileWriter fileWriter = new FileWriter(saveFile);
         for (Task task:taskList) {
@@ -75,6 +89,8 @@ public class DukeController {
             fileWriter.write('\n');
         }
         fileWriter.close();
+        System.out.println(SAVE_FILE_SUCCESS);
+        printNewLine();
     }
 
     private final InputParser inputParser = new InputParser();
@@ -94,13 +110,6 @@ public class DukeController {
             case "list":
                 printTaskList();
                 break;
-            case "save":
-                try {
-                    saveData();
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
             case "todo":
             case "deadline":
             case "event":
@@ -108,8 +117,12 @@ public class DukeController {
                     String[] details = inputParser.parseTaskInformation(parsedInput[1], userCommand);
                     Task newTask = generateTask(userCommand, details);
                     addTask(newTask);
+                    saveData();
                 } catch (IllegalInputException e) {
                     System.out.println(e.getErrorMessage());
+                    printNewLine();
+                } catch (IOException e){
+                    System.out.println(e.getMessage());
                     printNewLine();
                 }
                 break;
@@ -123,8 +136,12 @@ public class DukeController {
                     } else {
                         deleteTask(taskIndex);
                     }
+                    saveData();
                 } catch (IllegalInputException e){
                     System.out.println(e.getErrorMessage());
+                    printNewLine();
+                } catch (IOException e){
+                    System.out.println(e.getMessage());
                     printNewLine();
                 }
                 break;
