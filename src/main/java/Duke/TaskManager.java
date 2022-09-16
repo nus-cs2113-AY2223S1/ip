@@ -9,10 +9,13 @@ public class TaskManager {
 
     private static ArrayList<Task> tasks;
 
+    private static boolean hasLoadHistory;
+
     public TaskManager() {
         NUM_TASK = 100;
         taskCount = 0;
         tasks = new ArrayList<Task>(NUM_TASK);
+        hasLoadHistory = false;
     }
 
     private void resize() {
@@ -38,13 +41,16 @@ public class TaskManager {
 
     public void clearAllTask() {
         taskCount = 0;
-        tasks = new ArrayList<Task>(NUM_TASK);
+        tasks = new ArrayList<>(NUM_TASK);
     }
 
     public static void listAllTask() {
-        System.out.println("Beep beep, listing out the tasks....Loading.....");
-        for(int i = 0; i < taskCount; i++){
-            System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+
+        if(hasLoadHistory) {
+            System.out.println("Beep beep, listing out the tasks....Loading.....");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+            }
         }
     }
 
@@ -52,40 +58,44 @@ public class TaskManager {
         tasks.add( new Task(descriptionTask));
         taskCount += 1;
 
-        System.out.println("added: " + descriptionTask);
-
-        System.out.println("\t" + tasks.get(taskCount - 1).toString());
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("added: " + descriptionTask);
+            System.out.println("\t" + tasks.get(taskCount - 1).toString());
+            printSummary();
+        }
     }
 
     public void addTodo(String descriptionToDo) {
         tasks.add( new Todo(descriptionToDo));
         taskCount += 1;
 
-        System.out.println("HELLO BEEP, added a new ToDo: ");
-
-        System.out.println("\t" + tasks.get(taskCount - 1).toString());
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("HELLO BEEP, added a new ToDo: ");
+            System.out.println("\t" + tasks.get(taskCount - 1).toString());
+            printSummary();
+        }
     }
 
     public void addDeadline(String description, String deadlineBy) {
         tasks.add( new Deadline(description, deadlineBy) );
         taskCount += 1;
 
-        System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
-
-        System.out.println("\t" + tasks.get(taskCount - 1).toString());
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
+            System.out.println("\t" + tasks.get(taskCount - 1).toString());
+            printSummary();
+        }
     }
 
     public void addEvent(String description, String eventAt) {
         tasks.add( new Event(description, eventAt));
         taskCount += 1;
 
-        System.out.println("OH NO BEEP BEEP, a new Event: ");
-
-        System.out.println("\t" + tasks.get(taskCount - 1).toString());
-        printSummary();
+        if(hasLoadHistory) {
+            System.out.println("OH NO BEEP BEEP, a new Event: ");
+            System.out.println("\t" + tasks.get(taskCount - 1).toString());
+            printSummary();
+        }
     }
 
     public void setTask(int taskIndex, boolean isDone) {
@@ -95,18 +105,20 @@ public class TaskManager {
 
         tasks.get(taskIndex).setStatus(isDone);
 
-        if (taskIndex > taskCount) { //to add exception here
-            System.out.println(ERROR_OUT_OF_BOUND);
-            return;
-        }
+        if (hasLoadHistory) {
+            if (taskIndex > taskCount) { //to add exception here
+                System.out.println(ERROR_OUT_OF_BOUND);
+                return;
+            }
 
-        if (isDone) {
-            System.out.println(MESSAGE_DONE);
-        } else {
-            System.out.println(MESSAGE_NOT_DONE);
+            if (isDone) {
+                System.out.println(MESSAGE_DONE);
+                System.out.println("\t" + tasks.get(taskIndex).toString());
+            } else {
+                System.out.println(MESSAGE_NOT_DONE);
+                System.out.println("\t" + tasks.get(taskIndex).toString());
+            }
         }
-
-        System.out.println("\t" + tasks.get(taskIndex).toString());
     }
 
     public void deleteTask(int taskIndex) {
@@ -118,6 +130,10 @@ public class TaskManager {
         taskCount -= 1;
 
         printSummary();
+    }
+
+    public void setHasLoaded(boolean hasLoad) {
+        hasLoadHistory = hasLoad;
     }
 
 }

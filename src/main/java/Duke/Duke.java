@@ -1,10 +1,19 @@
 package Duke;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 public class Duke {
     public static Scanner sc;
+    public static DataManager dataManager = new DataManager();
+
     public static TaskManager taskManager = new TaskManager();
     public static InputParser parser = new InputParser();
+
+    //need to refactor to remove redundant inputs
+    public static ArrayList<String> userSessionInput = new ArrayList<String>();
 
     public static void executeUserInput() throws UnknownCommandException {
         String command = parser.getCommand();
@@ -38,6 +47,29 @@ public class Duke {
 
     }
 
+    public static void loadPastSession(){
+        dataManager.loadData();
+
+        List<String> pastData = dataManager.getData();
+
+        for(String userInput: pastData) {
+            try {
+                parser.parseUserInput(userInput);
+                executeUserInput();
+            } catch (UnknownCommandException e) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (DukeException e) {
+                System.out.println("☹ OOPS!!! The description cannot be empty.");
+            }
+        }
+
+        for(var pastCommand: pastData) {
+            userSessionInput.add(pastCommand);
+        }
+
+        taskManager.setHasLoaded(true);
+    }
+
     public static void greetUser() {
 
         final String LOGO = "\n"
@@ -65,6 +97,8 @@ public class Duke {
     public static boolean isToExit(String userInput) {
         if (userInput.equals("bye")) {
             System.out.println("BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>");
+            dataManager.writeData(userSessionInput);
+
             return true;
         }
         return false;
@@ -72,10 +106,15 @@ public class Duke {
 
     public static void main(String[] args) {
         greetUser();
+        loadPastSession();
+
         sc = new Scanner(System.in);
         String userInput = sc.nextLine();
 
         while (!isToExit(userInput)) {
+
+            userSessionInput.add(userInput);
+
             try {
                 parser.parseUserInput(userInput);
                 executeUserInput();
