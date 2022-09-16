@@ -92,6 +92,7 @@ public class Duke {
 
     public static void main(String[] args) {
         initCommand();
+        TASK_MANAGER.loadTasks();
 
         greet();
 
