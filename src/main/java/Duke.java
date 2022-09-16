@@ -7,10 +7,14 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.nio.Buffer;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 
 public class Duke {
@@ -38,6 +42,8 @@ public class Duke {
     private static final int MAX_TASK = 100;
     private static final int SEPARATOR_LEN = 50;
     private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final String DUKE_DUMP_FILE = "duke.txt";
+
 
     private static void showSeparator() {
         String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
@@ -125,6 +131,7 @@ public class Duke {
         Task new_task = new Task(taskDescription);
         tasks.add(new_task);
         System.out.println(">>>Added: " + new_task);
+        dumpTask(new_task);
         showTaskCount();
     }
 
@@ -165,6 +172,19 @@ public class Duke {
         System.out.println("Noted. I've removed this task:");
         System.out.println(">>>" + tmp_task);
         showTaskCount();
+    }
+
+    private static void dumpTask(Task task) {
+        try {
+            File file_name = new File(DUKE_DUMP_FILE);
+            file_name.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
+            out.write(String.valueOf(task) + "\r\n");
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addTodo(String todoDescription) throws IllegalArgsNumException {
