@@ -18,8 +18,8 @@ public class Task {
     @Override
     public String toString() {
         if (isMarked) {
-            return "[√]" + description;
+            return "[T][√]" + description;
         }
-        else return "[ ]" + description;
+        else return "[T][ ]" + description;
     }
 }

@@ -104,6 +104,9 @@ public class Duke {
                     handleAddEventException(e);
                 }
                 break;
+            case "delete":
+                deleteTask(Integer.valueOf(arg2));
+                break;
             default:
                 try {
                     addTask(input);
@@ -153,6 +156,15 @@ public class Duke {
             System.out.println(tasks.get(taskId-1));
         }
         showSeparator();
+    }
+
+    private static void deleteTask(int num) {
+        if (num <= 0 || num > tasks.size()) return;
+        Task tmp_task = tasks.get(num - 1);
+        tasks.remove(num - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(">>>" + tmp_task);
+        showTaskCount();
     }
 
     private static void addTodo(String todoDescription) throws IllegalArgsNumException {
