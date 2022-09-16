@@ -133,16 +133,17 @@ public class TaskList {
     }
 
     public void findTask(String input) {
-        String keyword = input.substring(START_INDEX_FIND);
-        int counter = 1;
-        for (Task myTask : myTasks) {
-            if (myTask.description.contains(keyword)) {
-                System.out.println(counter + ": " + myTask.toString());
-                counter++;
+        try {
+            String keyword = input.substring(START_INDEX_FIND);
+            int counter = 1;
+            for (Task myTask : myTasks) {
+                if (myTask.description.contains(keyword)) {
+                    System.out.println(counter + ": " + myTask.toString());
+                    counter++;
+                }
             }
-        }
-        if (counter == 1) {
-            System.out.println("No such task containing keyword");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! The description of find cannot be empty.");
         }
     }
 
