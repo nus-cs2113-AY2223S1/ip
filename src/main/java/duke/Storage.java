@@ -1,7 +1,6 @@
-package duke.storage;
+package duke;
 
 import duke.task.Task;
-import duke.task.TaskManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,15 +8,18 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileSaver{
+public class Storage{
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
 
-    public static TaskManager readFile() throws IOException {
+    public Storage() {
+    }
+
+    public static TaskList readFile() throws IOException {
         return readFile(FILE_PATH, FILE_DIRECTORY);
     }
 
-    public static TaskManager readFile(String filePath, String fileDirectory) throws IOException {
+    public static TaskList readFile(String filePath, String fileDirectory) throws IOException {
         File fileDir = new File(fileDirectory);
         if (!fileDir.exists()) {
             fileDir.mkdir();
@@ -30,27 +32,31 @@ public class FileSaver{
         return readTask(myScanner);
     }
 
-    public static TaskManager readTask(Scanner myScanner) {
-        TaskManager reader = new TaskManager();
+    public static TaskList readTask(Scanner myScanner) {
+        TaskList reader = new TaskList();
         int taskCount = 0;
         while (myScanner.hasNext() && taskCount < 100) {
             String output = myScanner.nextLine();
             String inputTask = output.substring(0, output.length() - 2);
             String done = output.substring(output.length() - 1);
-            reader.handleInput(inputTask);
+            Parser.handleInput(inputTask, reader);
             taskCount++;
             if (done.equals("X")) {
                 reader.markAsDone("mark " + taskCount);
             }
         }
+        System.out.println(Ui.DASH);
+        System.out.println("Previously saved task: ");
+        reader.print();
+        System.out.println(Ui.DASH);
         System.out.println(" ");
         return reader;
     }
 
     public static void writeToFile(ArrayList<Task> myTasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (int i=0; i < myTasks.size(); ++i) {
-            fw.append(myTasks.get(i).toOutputFileFormat() + "\n");
+        for (Task myTask : myTasks) {
+            fw.append(myTask.toOutputFileFormat()).append("\n");
         }
         fw.close();
     }

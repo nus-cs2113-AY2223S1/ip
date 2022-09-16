@@ -2,73 +2,112 @@ Hello! I'm Timmy
  What can I do for you?
  
 
-The system cannot find the path specified
-Added: [T][ ] return book
+____________________________________________________________
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+____________________________________________________________
+Added deadline: [D][ ] do homework (by: no idea :-p)
 Total tasks = 1
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
-
-Added: [D][ ] return book (by: Sunday)
+Added deadline: [D][ ] return book (by: Sunday)
 Total tasks = 2
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
-
-Added: [E][ ] project meeting (at: Mon 2-4pm)
+Added event: [E][ ] project meeting (at: Mon 2-4pm)
 Total tasks = 3
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
-
-Added: [D][ ] do homework (by: no idea :-p)
+Added deadline: [D][ ] do homework (by: no idea :-p)
 Total tasks = 4
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
+____________________________________________________________
+Previously saved task: 
+1. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+ 
+Added todo: [T][ ] return book
+Total tasks = 5
+
+Added deadline: [D][ ] return book (by: Sunday)
+Total tasks = 6
+
+Added event: [E][ ] project meeting (at: Mon 2-4pm)
+Total tasks = 7
+
+Added deadline: [D][ ] do homework (by: no idea :-p)
+Total tasks = 8
 
 Marked: 
 [D][X] return book (by: Sunday)
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
 
-1. [T][ ] return book
+1. [D][ ] do homework (by: no idea :-p)
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (at: Mon 2-4pm)
 4. [D][ ] do homework (by: no idea :-p)
+5. [T][ ] return book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (at: Mon 2-4pm)
+8. [D][ ] do homework (by: no idea :-p)
 
 Marked: 
 [E][X] project meeting (at: Mon 2-4pm)
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
 
-1. [T][ ] return book
+1. [D][ ] do homework (by: no idea :-p)
 2. [D][X] return book (by: Sunday)
 3. [E][X] project meeting (at: Mon 2-4pm)
 4. [D][ ] do homework (by: no idea :-p)
+5. [T][ ] return book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (at: Mon 2-4pm)
+8. [D][ ] do homework (by: no idea :-p)
 
 Unmarked: 
 [D][ ] return book (by: Sunday)
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
 
-1. [T][ ] return book
+1. [D][ ] do homework (by: no idea :-p)
 2. [D][ ] return book (by: Sunday)
 3. [E][X] project meeting (at: Mon 2-4pm)
 4. [D][ ] do homework (by: no idea :-p)
+5. [T][ ] return book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (at: Mon 2-4pm)
+8. [D][ ] do homework (by: no idea :-p)
 
 Unmarked: 
 [E][ ] project meeting (at: Mon 2-4pm)
-Error: src\main\java\data\duke.txt (The system cannot find the path specified)
 
-1. [T][ ] return book
+1. [D][ ] do homework (by: no idea :-p)
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (at: Mon 2-4pm)
 4. [D][ ] do homework (by: no idea :-p)
+5. [T][ ] return book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (at: Mon 2-4pm)
+8. [D][ ] do homework (by: no idea :-p)
 
 Deleting task:
-[T][ ] return book
-Remaining task count 3
+[D][ ] do homework (by: no idea :-p)
+Remaining task count 7
 
 1. [D][ ] return book (by: Sunday)
 2. [E][ ] project meeting (at: Mon 2-4pm)
 3. [D][ ] do homework (by: no idea :-p)
+4. [T][ ] return book
+5. [D][ ] return book (by: Sunday)
+6. [E][ ] project meeting (at: Mon 2-4pm)
+7. [D][ ] do homework (by: no idea :-p)
 
 Deleting task:
 [E][ ] project meeting (at: Mon 2-4pm)
-Remaining task count 2
+Remaining task count 6
 
 1. [D][ ] return book (by: Sunday)
 2. [D][ ] do homework (by: no idea :-p)
+3. [T][ ] return book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+6. [D][ ] do homework (by: no idea :-p)
 
 Bye. Hope to see you again soon
 
+____________________________________________________________

@@ -1,11 +1,16 @@
-package duke.task;
+package duke;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.MarkedTaskException;
 import duke.exceptions.UnmarkedTaskException;
-import duke.storage.FileSaver;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
 
     protected ArrayList<Task> myTasks;
 
@@ -17,50 +22,8 @@ public class TaskManager {
     private final String NO_TASKS = "No current tasks";
 
 
-    public TaskManager() {
+    public TaskList() {
         myTasks = new ArrayList<>();
-    }
-
-    public void handleInput(String input) {
-        String command;
-        if (input.contains(" ")) {
-            command = input.substring(0, input.indexOf(" "));
-        } else {
-            command = input;
-        }
-        try {
-            handleInput(input, command);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void handleInput(String input, String command) throws DukeException {
-        switch (command) {
-        case "list":
-            print();
-            break;
-        case "mark":
-            markAsDone(input);
-            break;
-        case "unmark":
-            removeMark(input);
-            break;
-        case "todo":
-            addTodo(input);
-            break;
-        case "deadline":
-            addDeadline(input);
-            break;
-        case "event":
-            addEvent(input);
-            break;
-        case "delete":
-            deleteTask(input);
-            break;
-        default:
-            throw new DukeException();
-        }
     }
 
     public void addTodo(String input) {
@@ -70,7 +33,7 @@ public class TaskManager {
             myTasks.add(newTodo);
             System.out.println("Added todo: " + newTodo);
             System.out.println("Total tasks = " + myTasks.size());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (StringIndexOutOfBoundsException e){
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         }
@@ -85,7 +48,7 @@ public class TaskManager {
             myTasks.add(newDeadline);
             System.out.println("Added deadline: " + newDeadline);
             System.out.println("Total tasks = " + myTasks.size());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Deadline format: " + DEADLINE_FORMAT);
         }
@@ -100,7 +63,7 @@ public class TaskManager {
             myTasks.add(newEvent);
             System.out.println("Added event: " + newEvent);
             System.out.println("Total tasks = " + myTasks.size());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Event format: " + EVENT_FORMAT);
         }
@@ -116,7 +79,7 @@ public class TaskManager {
             myTasks.get(taskNum).isDone = true;
             System.out.println("Marked: ");
             System.out.println(myTasks.get(taskNum).toString());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Task ID not within range");
         } catch (NullPointerException e) {
@@ -138,7 +101,7 @@ public class TaskManager {
             myTasks.get(taskNum).isDone = false;
             System.out.println("Unmarked: ");
             System.out.println(myTasks.get(taskNum).toString());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Task ID not within range");
         } catch (NullPointerException e) {
@@ -158,7 +121,7 @@ public class TaskManager {
             System.out.println(myTasks.get(taskNum).toString());
             myTasks.remove(taskNum);
             System.out.println("Remaining task count " + myTasks.size());
-            FileSaver.updateFile(myTasks);
+            Storage.updateFile(myTasks);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Task ID not within range");
         } catch (NullPointerException e) {
