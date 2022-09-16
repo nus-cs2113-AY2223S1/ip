@@ -10,6 +10,7 @@ import duke.task.Todo;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 
 public class Duke {
@@ -36,8 +37,7 @@ public class Duke {
     private static final String[] ILLEGAL_ARGS = {"blah"};
     private static final int MAX_TASK = 100;
     private static final int SEPARATOR_LEN = 50;
-    private static int taskCount = 0;
-    private static Task[] tasks = new Task[MAX_TASK];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     private static void showSeparator() {
         String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
@@ -57,7 +57,7 @@ public class Duke {
     }
 
     private static void showTaskCount() {
-        System.out.printf("Now we have %d tasks in the list.\n", taskCount);
+        System.out.printf("Now we have %d tasks in the list.\n", tasks.size());
         showSeparator();
     }
 
@@ -119,37 +119,38 @@ public class Duke {
         if (Arrays.asList(ILLEGAL_ARGS).contains(taskDescription)) {
             throw new IllegalArgsTypeException();
         }
-        tasks[taskCount] = new Task(taskDescription);
-        System.out.println(">>>Added: " + tasks[taskCount++]);
+        Task new_task = new Task(taskDescription);
+        tasks.add(new_task);
+        System.out.println(">>>Added: " + new_task);
         showTaskCount();
     }
 
     private static void listTask() {
-        if (taskCount == 0) {
+        if (tasks.size() == 0) {
             System.out.println(">>>No Current Tasks.");
         } else {
             System.out.println(">>>Current Tasks:");
-            for (int i = 0; i < taskCount; i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 System.out.print(">>>" + (i + 1) + ".");
-                System.out.println(tasks[i]);
+                System.out.println(tasks.get(i));
             }
         }
         showSeparator();
     }
 
     private static void markTask(int taskId, boolean setMark) {
-        if (taskId <= 0 || taskId > taskCount) {
+        if (taskId <= 0 || taskId > tasks.size()) {
             System.out.println(">>>Pls Enter the Right TaskId!");
         }
         else {
-            tasks[taskId-1].setMarked(setMark);
+            tasks.get(taskId-1).setMarked(setMark);
             if (setMark) {
                 System.out.println(">>>Nice! I've marked this task as done:");
             }
             else {
                 System.out.println(">>>OK, I've marked this task as not done yet:");
             }
-            System.out.println(tasks[taskId-1]);
+            System.out.println(tasks.get(taskId-1));
         }
         showSeparator();
     }
@@ -158,8 +159,9 @@ public class Duke {
         if (todoDescription.equals("")) {
             throw new IllegalArgsNumException();
         }
-        tasks[taskCount] = new Todo(todoDescription);
-        System.out.println(">>>Added: " + tasks[taskCount++]);
+        Task new_todo = new Todo(todoDescription);
+        tasks.add(new_todo);
+        System.out.println(">>>Added: " + new_todo);
         showTaskCount();
     }
 
@@ -174,8 +176,9 @@ public class Duke {
         }
 
         String by = str.split("/")[1];
-        tasks[taskCount] = new Deadline(description, by);
-        System.out.println(">>>Added: " + tasks[taskCount++]);
+        Task new_deadline = new Deadline(description, by);
+        tasks.add(new_deadline);
+        System.out.println(">>>Added: " + new_deadline);
         showTaskCount();
     }
 
@@ -190,8 +193,9 @@ public class Duke {
         }
 
         String duration = str.split("/")[1];
-        tasks[taskCount] = new Event(description, duration);
-        System.out.println(">>>Added: " + tasks[taskCount++]);
+        Task new_event = new Event(description, duration);
+        tasks.add(new_event);
+        System.out.println(">>>Added: " + new_event);
         showTaskCount();
     }
     private static void handleAddTaskException() {
