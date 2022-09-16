@@ -1,6 +1,7 @@
+package duke.tasks;
 public class Task {
     protected String name;
-    protected boolean isDone;
+    public boolean isDone;
     protected String type;
 
     public Task(String name) {
@@ -20,6 +21,9 @@ public class Task {
     public String getType() {
         return this.type;
     }
+    public String getName() { return this.name; }
+
+    public boolean getIsDone() { return this.isDone; }
 
     public void setType(String type) {
         this.type = type;
@@ -29,4 +33,5 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.name; 
     }
+    public String getDate() { return ""; }
 }

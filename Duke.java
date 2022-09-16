@@ -1,4 +1,13 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import duke.error.DukeException;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
 import java.util.ArrayList;
 
 public class Duke {
@@ -6,6 +15,10 @@ public class Duke {
     private static int taskCounter = 0;
 
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
+    static String FILE_PATH = "./data/duke.txt";
+    static String FILE_SEPARATOR = "-";
+    static String LINE_DIVIDER = "/";
+
     static String COMMAND_WORD_LIST = "list";
     static String COMMAND_WORD_MARK = "mark";
     static String COMMAND_WORD_UNMARK = "unmark";
@@ -20,6 +33,46 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("I don't know what that means :(");
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    static String findTaskType(Task task) {
+        String type = "";
+        if (task instanceof Todo) {
+            type = "T";
+        } else if (task instanceof Event) {
+            type = "E";
+        } else if (task instanceof Deadline) {
+            type = "D";
+        }
+        return type;
+    }
+
+    static String writeText() {
+        String text = "";
+        for (Task task : tasks) {
+            String type = findTaskType(task);
+            String date = task.getDate();
+            String name = task.getName();
+            System.out.println(name);
+            text += type + FILE_SEPARATOR + name + FILE_SEPARATOR + date
+                    + System.lineSeparator();
+        }
+        return text;
+    }
+
+    static void saveFile() {
+        try {
+            String text = writeText();
+            writeToFile(text);
+        } catch (IOException e) {
+            System.out.println ("The file does not exist yet!");
+        }
     }
 
     static boolean checkSpace(String line) {
@@ -59,15 +112,54 @@ public class Duke {
         } else if (command.matches(COMMAND_WORD_UNMARK)) {
             handleUnmark(line);
         } else if (command.matches(COMMAND_WORD_TODO)) {
-            addTaskSpecial(line, "todo");
+            addTodo(line);
         } else if (command.matches(COMMAND_WORD_EVENT)) {
-            addTaskSpecial(line, "event");
+            addEvent(line);
         } else if (command.matches(COMMAND_WORD_DEADLINE)) {
-            addTaskSpecial(line, "deadline");
+            addDeadline(line);
         } else if (command.matches(COMMAND_WORD_DELETE)) {
             deleteTask(line);
         } else {
             errorMessage();
+        }
+    }
+
+    static void handleFile(String line) {
+        String[] words = line.split(FILE_SEPARATOR);
+        for (String word : words) {
+            System.out.println(word);
+        }
+        String taskType = words[0];
+        String taskName = words[1];
+        Task task = new Task("");
+        if (taskType.matches("T")) {
+            task = new Todo(taskName);
+            tasks.add(task);
+        } else if (taskType.matches("E")) {
+            String taskDate = words[2];
+            task = new Event(taskName, taskDate);
+            tasks.add(task);
+        } else if (taskType.matches("D")) {
+            String taskDate = words[2];
+            task = new Deadline(taskName, taskDate);
+            tasks.add(task);
+        }
+        taskCounter += 1;
+        printAddMessage(task);
+        saveFile();
+    }
+
+    static void loadFile() {
+        try {
+            File data = new File(FILE_PATH);
+            Scanner fileReader = new Scanner(data);
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                handleFile(line);
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("No previous usage of Duke");
+            System.out.println("Loading a new save");
         }
     }
 
@@ -88,11 +180,11 @@ public class Duke {
 
     // Method to greet user when they enter Duke
     public static void greet() {
+        loadFile();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(HORIZONTAL_LINE);
-        
     }
 
     // Method to print the same command as user input
@@ -114,7 +206,7 @@ public class Duke {
         tasks.add(task);
         taskCounter += 1;
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("added: " + task.name);
+        System.out.println("added: " + task.getName());
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -138,7 +230,7 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         task.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + task.getStatusIcon() + "] " + task.name);
+        System.out.println("[" + task.getStatusIcon() + "] " + task.getName());
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -147,61 +239,81 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         task.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + task.getStatusIcon() + "] " + task.name);
+        System.out.println("[" + task.getStatusIcon() + "] " + task.getName());
         System.out.println(HORIZONTAL_LINE);
     }
 
+    static boolean checkDivider(String line) throws DukeException {
+        if (!line.contains(LINE_DIVIDER)) {
+            throw new DukeException("Don't forget to add a date!");
+        }
+        return true;
+    }
+
     // Method to add todo, deadline and event tasks
-    public static void addTaskSpecial(String name, String type) {
-        String divider = "/";
-        if (!checkSpace(name)) {
-            errorMessage();
-            return;
+    static void printAddMessage(Task task) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+    public static void addTodo(String line) {
+        try {
+            checkSpace(line);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Don't forget to include your task!");
         }
 
-        if (!name.contains(divider)) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Please add a date");
-            System.out.println(HORIZONTAL_LINE);
-            greet();
-            return;
+        int spaceIndex = line.indexOf(" ");
+        String taskName = line.substring(spaceIndex + 1);
+        Todo task = new Todo(taskName);
+        tasks.add(task);
+        taskCounter += 1;
+        printAddMessage(task);
+        saveFile();
+    }
+
+    public static void addEvent(String line) {
+        try {
+            checkSpace(line);
+            checkDivider(line);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Don't forget to include your task!");
+        } catch (DukeException e) {
+            System.out.println("Don't forget to include your deadline!");
         }
 
-        name = name.substring(name.indexOf(" "), name.length());
-        switch (type) {
-        case "todo":
-            Todo todoTask = new Todo(name);
-            tasks.add(todoTask);
-            taskCounter += 1;
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(todoTask.toString());
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
-            System.out.println(HORIZONTAL_LINE);
-            break;
-        case "deadline":
-            String deadlineDate = name.substring(name.indexOf(divider) + 3, name.length());
-            Deadline deadlineTask = new Deadline(name, deadlineDate);
-            tasks.add(deadlineTask);
-            taskCounter += 1;
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(deadlineTask.toString());
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
-            System.out.println(HORIZONTAL_LINE);
-            break;
-        case "event":
-            String eventDate = name.substring(name.indexOf(divider) + 3, name.length());
-            Event eventTask = new Event(name, eventDate);
-            tasks.add(eventTask);
-            taskCounter += 1;
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(eventTask.toString());
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
-            System.out.println(HORIZONTAL_LINE);
-            break;
+        int spaceIndex = line.indexOf(" ");
+        int dividerIndex = line.indexOf(LINE_DIVIDER);
+        String taskName = line.substring(spaceIndex + 1, dividerIndex);
+        String taskDate = line.substring(dividerIndex);
+        Event task = new Event(taskName, taskDate);
+        tasks.add(task);
+        taskCounter += 1;
+        printAddMessage(task);
+        saveFile();
+    }
+
+    public static void addDeadline(String line) {
+        try {
+            checkSpace(line);
+            checkDivider(line);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Don't forget to include your task!");
+        } catch (DukeException e) {
+            System.out.println("Don't forget to include the deadline!");
         }
+
+        int spaceIndex = line.indexOf(" ");
+        int dividerIndex = line.indexOf(LINE_DIVIDER);
+        String taskName = line.substring(spaceIndex + 1, dividerIndex);
+        String taskDate = line.substring(dividerIndex);
+        Deadline task = new Deadline(taskName, taskDate);
+        tasks.add(task);
+        taskCounter += 1;
+        printAddMessage(task);
+        saveFile();
     }
 
     private static void deleteTask(String line) {
