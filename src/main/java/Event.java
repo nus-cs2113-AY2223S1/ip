@@ -7,8 +7,17 @@ public class Event extends Task{
         date = dat;
     }
 
+    public String getDate(){
+        return date;
+    }
+
     @Override
     public String toString() {
         return "[E]"+super.toString()+" (at: "+date+")";
+    }
+
+    @Override
+    public String classInfo() {
+        return "Event";
     }
 }

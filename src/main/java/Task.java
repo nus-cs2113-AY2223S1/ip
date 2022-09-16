@@ -30,11 +30,21 @@ public class Task {
         }
     }
 
+    public boolean getDone(){
+        return isDone;
+    }
+
     public String toString() {
         if (isDone) {
             return "[X] " + name;
         } else {
             return "[ ] " + name;
         }
+    }
+    public String classInfo(){
+        return "Task";
+    }
+    public String getDate(){
+        return "";
     }
 }

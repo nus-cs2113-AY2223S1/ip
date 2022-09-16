@@ -1,5 +1,8 @@
 package main.java;
 
+import java.io.*;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.*;
 public class Duke {
     public static ArrayList<Task> list = new ArrayList<>();
@@ -14,6 +17,7 @@ public class Duke {
 
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you");
+        fileToList();
         String inp = in.nextLine();
         while(!inp.equals("bye")){
             if(inp.equals("list")) {
@@ -31,13 +35,13 @@ public class Duke {
                     if(inp.contains("unmark")){
                         System.out.println("I have marked this task as not done yet");
                         list.get(num).setDone(false);
-                        System.out.println(list.get(num));
                     }
                     else{
                         System.out.println("I have marked this task as complete");
                         list.get(num).setDone(true);
-                        System.out.println(list.get(num));
                     }
+                    System.out.println(list.get(num));
+                    listToFile();
                 }
 
             }
@@ -51,11 +55,13 @@ public class Duke {
                     System.out.println(list.get(num));
                     list.remove(num);
                     System.out.println("You now have "+list.size()+" tasks left in the list.");
+                    listToFile();
                 }
             }
             else {
                 try{
                     taskReader(inp);
+                    listToFile();
                 }
                 catch (DukeException e){
                     e.printError();
@@ -64,7 +70,7 @@ public class Duke {
             inp = in.nextLine();
         }
         System.out.println();
-
+        listToFile();
         System.out.println("Bye");
     }
     public static void taskReader(String inp) throws DukeException{
@@ -116,10 +122,90 @@ public class Duke {
             list.add(new Todo(tas, false));
             printLastTask();
         }
+        else{
+            System.out.println("I don't know what this command means");
+        }
     }
     public static void printLastTask(){
         System.out.println("Got it. I have added this task: ");
         System.out.println(list.get(list.size()-1));
         System.out.println("Now you have "+list.size()+" tasks in your list.");
+    }
+    public static void listToFile(){
+        try{
+            File f = new File("docs/duke.txt");
+            try{
+                if(!(f.createNewFile())){
+                    f.delete();
+                    f = new File("docs/duke.txt");
+                }
+            }
+            catch(IOException e){
+
+            }
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(Task t : list){
+                String don;
+                System.out.println("here");
+                if(t.getDone()){
+                    don = "True";
+                }
+                else{
+                    don = "False";
+                }
+                if(t.classInfo().equals("Todo") || t.classInfo().equals("Task")){
+                    System.out.println("todo file");
+                    bw.write("T," + don + "," + t.getName() + System.lineSeparator());
+                }
+                else if(t.classInfo().equals("Event")){
+                    System.out.println("event file");
+                    bw.write("E,"+don+","+t.getName()+","+t.getDate()+System.lineSeparator());
+                }
+                else if(t.classInfo().equals("Deadline")){
+                    System.out.println("deadline file");
+                    bw.write("D,"+don+","+t.getName()+","+t.getDate()+System.lineSeparator());
+                }
+            }
+            bw.flush();
+            bw.close();
+        }
+        catch (IOException e){
+            System.out.println("Problem with file");
+        }
+
+    }
+    public static void fileToList(){
+
+        File f = new File("docs/duke.txt");
+
+        try{
+            if(!(f.createNewFile())){
+                Scanner sc = new Scanner(f);
+                while(sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    String[] lin = line.split(",");
+                    Boolean temp;
+                    if(lin[1].equals("True")){
+                        temp = true;
+                    }
+                    else{
+                        temp = false;
+                    }
+                    if(lin[0].equals("T")){
+                        list.add(new Todo(lin[2], temp));
+                    }
+                    else if(lin[0].equals("D")){
+                        list.add(new Deadline(lin[2], temp, lin[4]));
+                    }
+                    else if(lin[0].equals("E")){
+                        list.add(new Event(lin[2], temp, lin[4]));
+                    }
+                }
+            }
+        }
+        catch (IOException e){
+            System.out.println("Problem occured with the file");
+        }
     }
 }
