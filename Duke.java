@@ -59,7 +59,6 @@ public class Duke {
             String type = findTaskType(task);
             String date = task.getDate();
             String name = task.getName();
-            System.out.println(name);
             text += type + FILE_SEPARATOR + name + FILE_SEPARATOR + date
                     + System.lineSeparator();
         }
@@ -126,9 +125,6 @@ public class Duke {
 
     static void handleFile(String line) {
         String[] words = line.split(FILE_SEPARATOR);
-        for (String word : words) {
-            System.out.println(word);
-        }
         String taskType = words[0];
         String taskName = words[1];
         Task task = new Task("");
