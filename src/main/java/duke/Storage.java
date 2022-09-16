@@ -8,6 +8,10 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class to write to and read from the text files
+ * Saves the files in the right folder in the right name
+ */
 public class Storage{
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
@@ -15,10 +19,22 @@ public class Storage{
     public Storage() {
     }
 
+    /**
+     * Method to read file
+     * @return links to the second read file method below
+     * @throws IOException
+     */
     public static TaskList readFile() throws IOException {
         return readFile(FILE_PATH, FILE_DIRECTORY);
     }
 
+    /**
+     * Method to read file
+     * @param filePath the file path
+     * @param fileDirectory the file directory
+     * @return a readTask method to go over each line in the input text file
+     * @throws IOException if error in file path or file directory
+     */
     public static TaskList readFile(String filePath, String fileDirectory) throws IOException {
         File fileDir = new File(fileDirectory);
         if (!fileDir.exists()) {
@@ -32,6 +48,11 @@ public class Storage{
         return readTask(myScanner);
     }
 
+    /**
+     * Method to read each line in the input text file
+     * @param myScanner the scanner reading the file
+     * @return a task manager containing the relevant classes
+     */
     public static TaskList readTask(Scanner myScanner) {
         TaskList reader = new TaskList();
         int taskCount = 0;
@@ -53,6 +74,11 @@ public class Storage{
         return reader;
     }
 
+    /**
+     * Method to write to the output file
+     * @param myTasks the list of tasks
+     * @throws IOException if error in output file
+     */
     public static void writeToFile(ArrayList<Task> myTasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task myTask : myTasks) {
@@ -61,6 +87,10 @@ public class Storage{
         fw.close();
     }
 
+    /**
+     * Method to update the output when there are changes
+     * @param myTasks the list of tasks
+     */
     public static void updateFile(ArrayList<Task> myTasks) {
         try{
             writeToFile(myTasks);

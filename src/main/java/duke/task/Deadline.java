@@ -8,11 +8,19 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Method to convert the deadline to print format
+     * @return string in print format
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Method to convert the deadline to output file format
+     * @return string to output file
+     */
     @Override
     public String toOutputFileFormat() {
         String out = "deadline " + description + " /by " + by;
