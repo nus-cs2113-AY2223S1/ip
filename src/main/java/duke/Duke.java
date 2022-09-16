@@ -1,22 +1,26 @@
 package duke;
 
 import duke.command.DukeException;
+import duke.datafile.DataFile;
+import duke.datafile.EditDataFile;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
 
     private static ArrayList<Task> assignments = new ArrayList<>();
+    /** Level-7 add on */
+    private static DataFile file = new EditDataFile();
     private static final int COMMAND_INDEX = 0;
     private static final int TASK_DETAIL_INDEX = 1;
     /** Minus 1 to convert user input index which starts from 1 to 0 for array indexing */
     private static final int OFFSET_TO_ARRAY_INDEX = 1;
-
+    private static final int NO_TASK = 0;
     /** Use to track the number of Task that is added */
     private static int indexTask = 0;
     /** Index that the user have chosen to (un)mark or delete a task */
@@ -165,6 +169,7 @@ public class Duke {
         assignments.get(indexTask).markTypeTask();
         printTypeOfTaskDetail();
         indexTask++;
+        saveToFile();
     }
 
     /**
@@ -177,6 +182,7 @@ public class Duke {
         assignments.get(indexTask).markTypeTask();
         printTypeOfTaskDetail();
         indexTask++;
+        saveToFile();
     }
 
     /**
@@ -190,6 +196,7 @@ public class Duke {
         assignments.get(indexTask).markTypeTask();
         printTypeOfTaskDetail();
         indexTask++;
+        saveToFile();
     }
 
     /**
@@ -213,6 +220,7 @@ public class Duke {
             return;
         }
         indexTask--;
+        saveToFile();
     }
 
     /**
@@ -245,6 +253,7 @@ public class Duke {
             return;
         }
         printMarkOrUnmarkTask(isMark);
+        saveToFile();
     }
 
     /**
@@ -291,7 +300,8 @@ public class Duke {
         String lineDivider = "____________________________________________________________";
         System.out.println("\t" + lineDivider
                 + "\n\t Hello! I'm Flash\n"
-                + "\t What can I do for you?\n"
+                + file.getDataFileStatus()
+                + "\n\t What can I do for you?\n"
                 + "\t" + lineDivider + "\n");
         return lineDivider;
     }
@@ -301,7 +311,7 @@ public class Duke {
      */
     public static void getList() {
         int numberOrder = 1;
-        if (indexTask == 0) {
+        if (indexTask == NO_TASK) {
             System.out.println("\t There is no task in the list.");
         } else {
             printList(numberOrder);
@@ -402,9 +412,86 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String getTaskDetail(int index) {
+        String statusOfTypeTask = assignments.get(index).getStatusOfTypeTask();
+        String changeStatusOfDone = changeStatusOfDone(assignments.get(index).getStatusOfDone());
+        String changeTaskDetails = changeDetailDisplay(index);
+        return statusOfTypeTask + " | " + changeStatusOfDone + " | " + changeTaskDetails;
+    }
 
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String changeStatusOfDone(String statusOfDone) {
+        if (statusOfDone.contains("X")) {
+            statusOfDone = "1";
+        } else {
+            statusOfDone = "0";
+        }
+        return statusOfDone;
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String changeDetailDisplay(int index) {
+        String changeTaskDetails = assignments.get(index).getDescription();
+        if (assignments.get(index).getStatusOfTypeTask().contains("E")) {
+            changeTaskDetails = assignments.get(index)
+                    .getDescription().replace("/at", "|");
+        } else if (assignments.get(index).getStatusOfTypeTask().contains("D")) {
+            changeTaskDetails = assignments.get(index)
+                    .getDescription().replace("/by", "|");
+        }
+        return changeTaskDetails;
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static void saveToFile() {
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 0; i < indexTask; i++) {
+            taskList.append(getTaskDetail(i)).append("\n");
+        }
+        file.saveToFile(taskList.toString());
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static void addTaskFromDataFile() {
+        int numOfTask = file.storeDataFileContents().size();
+        ArrayList<String> taskList = file.storeDataFileContents();
+        String[] task;
+        for(int i = 0; i < numOfTask; i++) {
+            task = taskList.get(i).split("\\|");
+            if (task[COMMAND_INDEX].contains("T")) {
+                addTask(new ToDo(task[2].trim()));
+                assignments.get(indexTask).markTypeTask();
+            } else if (task[COMMAND_INDEX].contains("D")) {
+                String taskDetail = task[2].trim() + " /by" + task[3];
+                addTask(new Deadline(taskDetail));
+                assignments.get(indexTask).markTypeTask();
+            } else if (task[COMMAND_INDEX].contains("E")) {
+                String taskDetail = task[2].trim() + " /at" + task[3];
+                addTask(new Event(taskDetail));
+                assignments.get(indexTask).markTypeTask();
+            }
+            if (task[1].contains("1")) {
+                assignments.get(indexTask).markAsDone();
+            }
+            indexTask++;
+        }
+    }
+
+    public static void main(String[] args) {
         String lineDivider = printWelcomeMessage();
+        //LEVEL 7 add on
+        addTaskFromDataFile();
         Scanner in = new Scanner(System.in);
 
         while (!isBye) {

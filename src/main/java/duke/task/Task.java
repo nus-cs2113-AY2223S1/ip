@@ -19,6 +19,10 @@ public abstract class Task {
         return status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void markAsDone() {
         isDone = true;
     }
