@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String LINE_BREAK = "______________________________________________\n";
+    private static final String DEADLINE_DELIMITER = "/by";
+    private static final String EVENT_DELIMITER = "/at";
+
+    private static final int TASK_START_INDEX = 1;
+    private static final int RIGHT_SHIFT_INDEX = 1;
 
     public static void printList() {
         System.out.println(LINE_BREAK);
@@ -26,6 +31,9 @@ public class Duke {
         System.out.println();
     }
 
+    public static void printEmptyDescription() {
+        System.out.println(LINE_BREAK + "Oh No! The description of an event cannot be empty.\n" + LINE_BREAK);
+    }
     public static void printAddedTask(Task task) {
         System.out.println(LINE_BREAK + "Got it. I've added this task: ");
         System.out.println(" " + task.toString());
@@ -36,36 +44,49 @@ public class Duke {
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
-        String[] taskNameWords = Arrays.copyOfRange(inputWords, 1, inputWords.length);
+        String[] taskNameWords = Arrays.copyOfRange(inputWords, TASK_START_INDEX, inputWords.length);
         String taskName = String.join(" ", taskNameWords);
         ToDo toDo = new ToDo(taskName);
         return toDo;
     }
 
-    public static Deadline getDeadline(String[] inputWords) throws NoDescriptionException, InvalidTaskFormatException {
+    public static void checkForTaskExceptions(String[] inputWords, String delimiter) throws NoDescriptionException, InvalidTaskFormatException {
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
-        if (!Arrays.asList(inputWords).contains("/by")) {
+        if (!Arrays.asList(inputWords).contains(delimiter)) {
             throw new InvalidTaskFormatException();
         }
-        int indexOfBy = Arrays.asList(inputWords).indexOf("/by");
-        String deadlineName = String.join(" ", Arrays.copyOfRange(inputWords, 1, indexOfBy));
-        String dueDate = String.join(" ", Arrays.copyOfRange(inputWords, indexOfBy + 1, inputWords.length));
+    }
+    public static int getIndexOfDelimiter(String[] inputWords, String delimiter) {
+        int index = Arrays.asList(inputWords).indexOf(delimiter);
+        return index;
+    }
+
+    public static String getTaskName(String[] inputWords, int index) {
+        String[] taskNameArray = Arrays.copyOfRange(inputWords, TASK_START_INDEX, index);
+        String taskName = String.join(" ", taskNameArray);
+        return taskName;
+    }
+
+    public static String getTaskDate(String[] inputWords, int index) {
+
+        String[] taskDateArray = Arrays.copyOfRange(inputWords, index + RIGHT_SHIFT_INDEX, inputWords.length);
+        String taskDate = String.join(" ", taskDateArray);
+        return taskDate;
+    }
+    public static Deadline getDeadline(String[] inputWords) throws NoDescriptionException, InvalidTaskFormatException {
+        int index = getIndexOfDelimiter(inputWords, DEADLINE_DELIMITER);
+        String deadlineName = getTaskName(inputWords, index);
+        String dueDate = getTaskDate(inputWords, index);
         Deadline deadline = new Deadline(deadlineName, dueDate);
         return deadline;
     }
 
     public static Event getEvent(String[] inputWords) throws NoDescriptionException, InvalidTaskFormatException {
-        if (inputWords.length == 1) {
-            throw new NoDescriptionException();
-        }
-        if (!Arrays.asList(inputWords).contains("/at")) {
-            throw new InvalidTaskFormatException();
-        }
-        int indexOfAt = Arrays.asList(inputWords).indexOf("/at");
-        String eventName = String.join(" ", Arrays.copyOfRange(inputWords, 1, indexOfAt));
-        String timeOfEvent = String.join(" ", Arrays.copyOfRange(inputWords, indexOfAt + 1, inputWords.length));
+        int index = getIndexOfDelimiter(inputWords, EVENT_DELIMITER);
+        String eventName = getTaskName(inputWords, index);
+        String timeOfEvent = getTaskDate(inputWords, index);
         Event event = new Event(eventName, timeOfEvent);
         return event;
     }
@@ -92,13 +113,17 @@ public class Duke {
         printUnmarkedTask(unmarkedTask);
     }
 
+    public static void addTask(Task task) {
+        tasks.add(task);
+        printAddedTask(task);
+    }
     public static void addDeadline(String[] inputWords) {
          try {
+             checkForTaskExceptions(inputWords, DEADLINE_DELIMITER);
              Deadline deadline = getDeadline(inputWords);
-             tasks.add(deadline);
-             printAddedTask(deadline);
+             addTask(deadline);
          } catch (NoDescriptionException e) {
-             System.out.println(LINE_BREAK + "Oh No! The description of a deadline cannot be empty.\n" + LINE_BREAK);
+             printEmptyDescription();
          } catch (InvalidTaskFormatException e) {
              printInvalidDeadline();
          }
@@ -106,11 +131,11 @@ public class Duke {
 
     public static void addEvent(String[] inputWords) {
         try {
+            checkForTaskExceptions(inputWords, EVENT_DELIMITER);
             Event event = getEvent(inputWords);
-            tasks.add(event);
-            printAddedTask(event);
+            addTask(event);
         } catch (NoDescriptionException e) {
-            System.out.println(LINE_BREAK + "Oh No! The description of an event cannot be empty.\n" + LINE_BREAK);
+            printEmptyDescription();
         } catch (InvalidTaskFormatException e) {
             printInvalidEvent();
         }
