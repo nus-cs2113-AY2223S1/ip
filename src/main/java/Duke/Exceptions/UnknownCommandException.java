@@ -1,4 +1,9 @@
-public class UnknownCommandException extends DukeException{
+package Duke.Exceptions;
+
+import Duke.Duke;
+import Duke.Exceptions.DukeException;
+
+public class UnknownCommandException extends DukeException {
 
     public void UnknownCommandMessage(){
         System.out.println(

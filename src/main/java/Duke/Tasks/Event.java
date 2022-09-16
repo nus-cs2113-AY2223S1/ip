@@ -1,3 +1,5 @@
+package Duke.Tasks;
+
 public class Event extends Tasks {
     protected String at;
 
