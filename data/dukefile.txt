@@ -1,6 +1,2 @@
-E | X | do this  |  tuesday morning 
-E |   | say hi to cat  |  monday 
-D | X | do homework  |  sunday 
-T |   | go have dinner 
-T | X | finish dinner 
-T |   | do shopping 
+D |   | cook food  | 2022-09-11
+D |   | do that  | 2022-09-11

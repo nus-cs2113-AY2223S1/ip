@@ -2,26 +2,26 @@ package duke.taskings;
 
 public class Event extends Task {
 
-    protected String at;
+    protected String dateTime;
     protected boolean isDone;
 
-    public Event(String taskType, String description, boolean isDone, String at) {
+    public Event(String taskType, String description, boolean isDone, String dateTime) {
         super(taskType, description, isDone);
-        this.at = at;
+        this.dateTime = dateTime;
     }
 
     @Override
-    public String getAt() {
-        return at;
+    public String getDateTime() {
+        return dateTime;
     }
 
     @Override
     public String toString() {
-        return "Added new event : [E] " + super.toString() + " (at: " + at + ")";
+        return "Added new event : [E] " + super.toString() + " (at: " + dateTime + ")";
     }
 
     @Override
     public String printList() {
-        return "[E] [" + super.getStatusIcon() + "] " + super.description + " (at: " + at + ")";
+        return "[E] [" + super.getStatusIcon() + "] " + super.description + " (at: " + dateTime + ")";
     }
 }

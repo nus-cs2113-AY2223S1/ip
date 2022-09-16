@@ -4,7 +4,18 @@ import duke.exception.DukeException;
 import duke.file.Storage;
 import duke.messages.Ui;
 
+import java.text.DateFormatSymbols;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 
 public class TaskList {
 
@@ -12,6 +23,7 @@ public class TaskList {
     static final String OUT_OF_BOUNDS = "IndexBeyondBoundError";
     static final String NON_NUMERIC = "NonNumericError";
     static final String WRONG_FORMAT = "WrongFormatError";
+
 
     /**
      * Checks if the checked index is within the current taskIndex and if it is above 0.
@@ -27,6 +39,11 @@ public class TaskList {
         }
         return true;
     }
+
+    public static LocalDate getLocalDate(LocalDateTime dateTime) {
+        return dateTime.toLocalDate();
+    }
+
 
     public static void getList(ArrayList<Task> tasks) {
         int indexNum = 1;
@@ -51,36 +68,87 @@ public class TaskList {
     }
 
     public static void addDeadline(ArrayList<Task> tasks, String taskDescription) {
+        Locale locale = new Locale("en", "UK");
+        DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(locale);
         Ui.displayLineDivider();
         // find "/" break point before processing the description and the deadline
         String deadline = taskDescription;
-        if (taskDescription.contains("/by")) {
-            //update taskDescription and deadline
-            String[] tempArray = taskDescription.split("/by");
-            taskDescription = tempArray[0];
-            deadline = tempArray[1];
-        }
+        try {
+            if (taskDescription.contains("/by")) {
+                //update taskDescription and deadline
+                String[] tempArray = taskDescription.split("/by");
+                taskDescription = tempArray[0];
+                deadline = tempArray[1];
+                deadline = deadline.trim();
 
-        tasks.add(new Deadline("D", taskDescription, false, deadline));
-        Storage.writeToFile(tasks);
-        System.out.println(tasks.get(tasks.size() - 1));
-        Ui.printNumOfTasks(tasks.size());
+                if (deadline.contains("/") && deadline.contains(" ")) {
+                    String[] dateAndTime = deadline.split(" ");
+                    if (dateAndTime.length > 2) {
+                        System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
+                    } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                        LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
+                        LocalDate date = dateTime.toLocalDate();
+//
+                        tasks.add(new Deadline("D", taskDescription, false, date.toString()));
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        Ui.printNumOfTasks(tasks.size());
+                    }
+                } else {
+                    System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
+                }
+//
+                Storage.writeToFile(tasks);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
+        }
     }
 
+
     public static void addEvent(ArrayList<Task> tasks, String taskDescription) {
+        Locale locale = new Locale("en", "UK");
+        DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(locale);
+
         Ui.displayLineDivider();
-        String eventPeriod = taskDescription;
-        if (taskDescription.contains("/at")) {
-            //update taskDescription and deadline
-            String[] tempArray = taskDescription.split("/at");
-            taskDescription = tempArray[0];
-            eventPeriod = tempArray[1];
+        try {
+            String eventPeriod = taskDescription;
+            if (taskDescription.contains("/at")) {
+                //update taskDescription and deadline
+                String[] tempArray = taskDescription.split("/at");
+                taskDescription = tempArray[0];
+                eventPeriod = tempArray[1];
+                eventPeriod = eventPeriod.trim();
+
+                if (eventPeriod.contains("/") && eventPeriod.contains(" ")) {
+                    String[] dateAndTime = eventPeriod.split(" ");
+                    if (dateAndTime.length > 2) {
+                        System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
+                    } else {
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                        LocalDateTime dateTime = LocalDateTime.parse(eventPeriod, formatter);
+                        LocalDate date = dateTime.toLocalDate();
+                        tasks.add(new Event("E", taskDescription, false, date.toString()));
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        Ui.printNumOfTasks(tasks.size());
+                    }
+                } else {
+                    System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
+                }
+
+//                else {
+//                    tasks.add(new Event("E", taskDescription, false, eventPeriod));
+//                    System.out.println(tasks.get(tasks.size() - 1));
+//                    Ui.printNumOfTasks(tasks.size());
+//                }
+                Storage.writeToFile(tasks);
+
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
         }
 
-        tasks.add(new Event("E", taskDescription, false, eventPeriod));
-        Storage.writeToFile(tasks);
-        System.out.println(tasks.get(tasks.size() - 1));
-        Ui.printNumOfTasks(tasks.size());
     }
 
 
