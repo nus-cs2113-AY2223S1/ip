@@ -40,6 +40,9 @@ public class Parser {
         case "delete":
             myTaskList.deleteTask(input);
             break;
+        case "find":
+            myTaskList.findTask(input);
+            break;
         default:
             throw new DukeException();
         }
