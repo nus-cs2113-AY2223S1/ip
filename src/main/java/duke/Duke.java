@@ -62,15 +62,19 @@ public class Duke {
     }
 
     public static void readFile() throws FileNotFoundException {
-        File file = new File("files/duke.txt");
+        File file = new File("duke.txt");
+        try {
+            boolean isExisting = file.createNewFile();
+        } catch (IOException e) {
+            printExceptionMessage(EXCEPTION_4);
+        }
         Scanner scanner = new Scanner(file);
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] words = line.split(" ");
-            String[] commandWords = line.substring(2).split(" ");
             try {
-                Task currentTask = createTask(line.substring(2), commandWords[0], commandWords);
+                Task currentTask = createTask(line.substring(2));
                 addTask(currentTask, true);
                 if (words[0].equals("1")) {
                     markAsDone(String.valueOf(numberOfTasks), true);
@@ -82,13 +86,13 @@ public class Duke {
     }
 
     public static void appendToFile(String command) throws IOException {
-        FileWriter fw = new FileWriter("files/duke.txt", true);
+        FileWriter fw = new FileWriter("duke.txt", true);
         fw.write("0 " + command + "\n");
         fw.close();
     }
 
     public static void rewriteFile() throws IOException {
-        FileWriter fw = new FileWriter("files/duke.txt");
+        FileWriter fw = new FileWriter("duke.txt");
         String number;
         for (Task task : tasks) {
             if (task.isDone) {
@@ -107,7 +111,10 @@ public class Duke {
         fw.close();
     }
 
-    public static void performAction(String[] words, String firstWord, String command) throws DukeException{
+    public static void performAction(String command) throws DukeException{
+        String[] words = command.split(" ");
+        String firstWord = words[0];
+
         if (firstWord.equals("mark")) {
             //Mark task as done
             markAsDone(words[1], false);
@@ -120,7 +127,7 @@ public class Duke {
         } else if (firstWord.equals("todo") | firstWord.equals("deadline") | firstWord.equals("event")) {
             //Add a task to the list
             try {
-                Task currentTask = createTask(command, words[0], words);
+                Task currentTask = createTask(command);
                 addTask(currentTask, false);
                 appendToFile(command);
             } catch (DukeException e) {
@@ -144,7 +151,10 @@ public class Duke {
         }
     }
 
-    public static Task createTask(String command, String type, String[] words) throws DukeException{
+    public static Task createTask(String command) throws DukeException{
+        String[] words = command.split(" ");
+        String firstWord = words[0];
+
         //Handle empty description exception
         if (words.length == 1) {
             throw new DukeException();
@@ -152,7 +162,7 @@ public class Duke {
 
         Task newTask = new Task("");
 
-        switch (type) {
+        switch (firstWord) {
         case "todo" :
             newTask = new Todo(command.substring(5));
             break;
@@ -166,19 +176,6 @@ public class Duke {
             break;
         }
         return newTask;
-    }
-
-    public static void addTask(Task currentTask) {
-        tasks.add(currentTask);
-        numberOfTasks++;
-
-        printDivider();
-        System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
-        System.out.print("\t  ");
-        System.out.println(currentTask);
-        System.out.println("\tNow you have " + numberOfTasks + " task(s) in the list! 凸(￣ヘ￣)");
-        System.out.println("");
-        printDivider();
     }
 
     public static void addTask(Task currentTask, boolean isFile) {
@@ -286,9 +283,8 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             }
-            String[] words = userInput.split(" ");
             try {
-                performAction(words, words[0], userInput);
+                performAction(userInput);
             } catch (DukeException e) {
                 printExceptionMessage(EXCEPTION_2);
             }
