@@ -1,5 +1,5 @@
 package duke;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.util.Scanner;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -9,6 +9,7 @@ import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 import java.util.ArrayList;
 
+import duke.utilityfunctions.Filereader;
 public class Duke {
     public static void generateTaskStatus(String taskIcon, String statusIcon, String description) {
         System.out.println("\t[" + taskIcon + "]" + "[" + statusIcon + "] " + description);
@@ -34,6 +35,31 @@ public class Duke {
         return false;
     }
 
+    public static void loadTasksFromTextFile(String filepath, ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner s = new Scanner(f);
+        Filereader textReader = new Filereader();
+//        int addCount = 0;
+        while(s.hasNext()) {
+            tasks.add(textReader.generateTask(s.nextLine()));
+//            addCount++;
+        }
+        s.close();
+//        return addCount;
+    }
+
+    public static void updateFile(String filepath, ArrayList<Task> taskArray) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        for(int i = 0; i < taskArray.size(); i++){
+            if(i != taskArray.size() - 1){
+                fw.write("[" + taskArray.get(i).getTaskIcon() + "]" + "[" + taskArray.get(i).getStatusIcon() + "] " + taskArray.get(i).getRawDescription() + System.lineSeparator());
+            } else {
+                fw.write("[" + taskArray.get(i).getTaskIcon() + "]" + "[" + taskArray.get(i).getStatusIcon() + "] " + taskArray.get(i).getRawDescription());
+            }
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -51,6 +77,21 @@ public class Duke {
         ArrayList<Task> taskArray = new ArrayList<Task>();
 
         int addCount = 0;
+
+        // Create data.txt file if it doesn't exist
+        try {
+            File data = new File("data.txt");
+            data.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Load Tasks from Existing data.txt File
+        try {
+            loadTasksFromTextFile("data.txt", taskArray);
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        // Read input commands
         do {
             input = in.nextLine();
             try {
@@ -90,14 +131,23 @@ public class Duke {
                 taskArray.get(choiceToUnMark - 1).unMarkTask();
                 System.out.println("OK, I've marked this task as not done yet:");
                 generateTaskStatus(taskArray.get(choiceToUnMark - 1).getTaskIcon(), taskArray.get(choiceToUnMark - 1).getStatusIcon(),taskArray.get(choiceToUnMark - 1).getDescription() );
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
-
             } else if (input.contains("mark")){
                 String[] inputWords = input.split(" ");
                 int choiceToMark = Integer.parseInt(inputWords[1]);
                 taskArray.get(choiceToMark - 1).markTask();
                 System.out.println("Nice! I've marked this task as done:");
                 generateTaskStatus(taskArray.get(choiceToMark - 1).getTaskIcon(), taskArray.get(choiceToMark - 1).getStatusIcon(), taskArray.get(choiceToMark - 1).getDescription());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             } else if(input.contains("todo")) {
                 taskArray.add(new Todo(input));
@@ -105,6 +155,11 @@ public class Duke {
                 addedMsg();
                 generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
                 taskCountReminder(taskArray.size());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             } else if (input.contains("deadline")) {
                 taskArray.add(new Deadline(input));
@@ -112,6 +167,11 @@ public class Duke {
                 addedMsg();
                 generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
                 taskCountReminder(taskArray.size());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             } else if (input.contains("event")) {
                 taskArray.add(new Event(input));
@@ -119,6 +179,11 @@ public class Duke {
                 addedMsg();
                 generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
                 taskCountReminder(taskArray.size());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             } else if (input.contains("delete")) {
                 drawLine();
@@ -128,6 +193,11 @@ public class Duke {
                 generateTaskStatus(taskArray.get(choiceToRemove-1).getTaskIcon(), taskArray.get(choiceToRemove-1).getStatusIcon(), taskArray.get(choiceToRemove-1).getDescription());
                 taskArray.remove(choiceToRemove - 1);
                 taskCountReminder(taskArray.size());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             }
             else {
@@ -136,6 +206,11 @@ public class Duke {
                 addedMsg();
                 generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
                 taskCountReminder(taskArray.size());
+                try {
+                    updateFile("data.txt", taskArray);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: "+e.getMessage());
+                }
                 drawLine();
             }
         } while (!input.equals("bye"));
