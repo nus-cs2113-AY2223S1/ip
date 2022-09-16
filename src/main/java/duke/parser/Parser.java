@@ -5,9 +5,11 @@ import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.MissingTaskNumberException;
 import duke.exceptions.UnknownCommandException;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Parser {
     private Ui ui;
@@ -41,6 +43,16 @@ public class Parser {
             } catch (MissingTaskNumberException e) {
                 ui.printMissingTaskNumberError();
             }
+        } else if (type.equals("find")) {
+            String keyword = text[1];
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            for(Task task : taskList.getTasks()) {
+                if(task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                    matchingTasks.add(task);
+                }
+            }
+            TaskList matchingTaskList = new TaskList(matchingTasks, matchingTasks.size());
+            ui.printMatchingTasks(matchingTaskList);
         } else {
             try {
                 taskList.addTask(type, command);
