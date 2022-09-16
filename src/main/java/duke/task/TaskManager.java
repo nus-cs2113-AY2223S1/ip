@@ -143,11 +143,6 @@ public class TaskManager {
     }
 
     public void saveTasks() {
-        if (tasks.isEmpty()) {
-            System.out.println(Message.NO_TASKS_MESSAGE + " " + Message.HELP_MESSAGE);
-            return;
-        }
-
         FileHandler.initDataFile();
         Path dataFilePath = FileHandler.DATA_FILE_PATH;
 
@@ -157,7 +152,6 @@ public class TaskManager {
                 fileWriter.write(task.getStringForSave() + System.lineSeparator());
             }
             fileWriter.close();
-            System.out.println(Message.SAVE_TASK_SUCCESSFUL_MESSAGE);
         } catch (IOException e) {
             System.out.println(Message.SAVE_TASK_FAIL_ERROR_MESSAGE);
         }
