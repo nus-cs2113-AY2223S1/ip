@@ -1,15 +1,20 @@
 package duke;
 
 import duke.command.DukeException;
+import duke.datafile.DataFile;
+import duke.datafile.EditDataFile;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
+    /** Level-7 add on */
+    private static DataFile file = new EditDataFile();
     private static final int COMMAND_INDEX = 0;
     private static final int TASK_DETAIL_INDEX = 1;
     /** Minus 1 to convert user input index which starts from 1 to 0 for array indexing */
@@ -204,7 +209,7 @@ public class Duke {
         String lineDivider = "____________________________________________________________\n";
         System.out.println("\t" + lineDivider
                 + "\t Hello! I'm Flash\n"
-                + getDataFileStatus()
+                + file.getDataFile()
                 + "\n\t What can I do for you?\n"
                 + "\t" + lineDivider);
         return lineDivider;
@@ -271,15 +276,87 @@ public class Duke {
         }
     }
 
-    private static String getDataFileStatus() {
-        DataFile file = new DataFile();
-        String fileStatus = file.getDataFile();
-        return fileStatus;
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String getTaskDetail(int index) {
+        String statusOfTypeTask = assignments[index].getStatusOfTypeTask();
+        String changeStatusOfDone = changeStatusOfDone(assignments[index].getStatusOfDone());
+        String changeTaskDetails = changeDetailDisplay(index);
+        return statusOfTypeTask + " | " + changeStatusOfDone + " | " + changeTaskDetails;
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String changeStatusOfDone(String statusOfDone) {
+        if (statusOfDone.contains("X")) {
+            statusOfDone = "1";
+        } else {
+            statusOfDone = "0";
+        }
+        return statusOfDone;
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static String changeDetailDisplay(int index) {
+        String changeTaskDetails = assignments[index].getDescription();
+        if (assignments[index].getStatusOfTypeTask().contains("E")) {
+            changeTaskDetails = assignments[index]
+                    .getDescription().replace("/at", "|");
+        } else if (assignments[index].getStatusOfTypeTask().contains("D")) {
+            changeTaskDetails = assignments[index]
+                    .getDescription().replace("/by", "|");
+        }
+        return changeTaskDetails;
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static void saveToFile() {
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 0; i < indexTask; i++) {
+            taskList.append(getTaskDetail(i)).append("\n");
+        }
+        file.saveToFile(taskList.toString());
+    }
+
+    /**
+     * LEVEL-7 CHANGED
+     */
+    private static void addTaskFromDataFile() {
+        int numOfTask = file.storeDataFileContents().size();
+        ArrayList<String> taskList = file.storeDataFileContents();
+        String[] task;
+        for(int i = 0; i < numOfTask; i++) {
+            task = taskList.get(i).split("\\|");
+            if (task[COMMAND_INDEX].contains("T")) {
+                addTask(new ToDo(task[2].trim()));
+                assignments[indexTask].markTypeTask();
+            } else if (task[COMMAND_INDEX].contains("D")) {
+                String taskDetail = task[2].trim() + " /by" + task[3];
+                addTask(new Deadline(taskDetail));
+                assignments[indexTask].markTypeTask();
+            } else if (task[COMMAND_INDEX].contains("E")) {
+                String taskDetail = task[2].trim() + " /at" + task[3];
+                addTask(new Event(taskDetail));
+                assignments[indexTask].markTypeTask();
+            }
+            if (task[1].contains("1")) {
+                assignments[indexTask].markAsDone();
+            }
+            indexTask++;
+        }
     }
 
     public static void main(String[] args) {
 
         String lineDivider = printWelcomeMessage();
+        //LEVEL 7 add on
+        addTaskFromDataFile();
         String userInput;
         Scanner in = new Scanner(System.in);
         boolean isBye;
@@ -300,8 +377,12 @@ public class Duke {
                 printList();
             } else if (isMarkOrUnmark) {
                 validateMarkOrUnmarkTask(splitUserInputs);
+                //LEVEL-7 CHANGED
+                saveToFile();
             } else {
                 validateTypeOfTask(splitUserInputs);
+                //LEVEL-7 CHANGED
+                saveToFile();
             }
             System.out.println("\t" + lineDivider);
         } while (!isBye);

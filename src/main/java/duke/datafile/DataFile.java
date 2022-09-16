@@ -1,9 +1,10 @@
-package duke;
+package duke.datafile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.io.IOException;
 
-public class DataFile {
+public abstract class DataFile {
     protected String dirPath;
     protected String newDirName;
     protected File dataFile;
@@ -66,4 +67,9 @@ public class DataFile {
         }
         return fileStatus;
     }
+
+    public abstract void writeToFile(String taskDetail) throws IOException;
+    public abstract void saveToFile(String taskDetail);
+    public abstract ArrayList<String> storeDataFileContents();
+
 }
