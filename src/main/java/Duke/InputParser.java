@@ -22,7 +22,8 @@ public class InputParser {
             case ("unmark"): //Fallthrough
             case ("todo"): //Fallthrough
             case ("deadline"): //Fallthrough
-            case ("event"):
+            case ("event"): //Fallthrough
+            case ("delete"):
                 return true;
             default:
                 return false;
@@ -76,7 +77,8 @@ public class InputParser {
         switch (userCommand) {
             case ("todo"): //Fallthrough
             case ("mark"): //Fallthrough
-            case ("unmark"): //
+            case ("delete"): //Fallthrough
+            case ("unmark"):
                 parameters = new String[]{ inputBuffer };
                 break;
             case ("deadline"):
