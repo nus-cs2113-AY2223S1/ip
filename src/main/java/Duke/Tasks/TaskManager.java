@@ -1,3 +1,9 @@
+package Duke.Tasks;
+
+import Duke.Duke;
+import Duke.Exceptions.ArguementNotFoundException;
+import Duke.Exceptions.WrongArgumentException;
+
 public class TaskManager {
 
     public static final String TASK_ADDED = "Got it. I've added this task:\n";

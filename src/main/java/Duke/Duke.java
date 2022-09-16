@@ -1,8 +1,13 @@
+package Duke;
+
+import Duke.Exceptions.UnknownCommandException;
+import Duke.Tasks.TaskManager;
+
 import java.util.Scanner;
 
 public class Duke {
     static TaskManager tasks = new TaskManager();
-    static final String PRINT_LINE = "____________________________________________________________\n";
+    public static final String PRINT_LINE = "____________________________________________________________\n";
 
     public static void main(String[] args) {
 

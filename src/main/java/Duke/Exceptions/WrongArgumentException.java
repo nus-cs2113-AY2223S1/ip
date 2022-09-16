@@ -1,3 +1,8 @@
+package Duke.Exceptions;
+
+import Duke.Duke;
+import Duke.Exceptions.DukeException;
+
 public class WrongArgumentException extends DukeException {
     public void WrongArguementMessage() {
         System.out.println(

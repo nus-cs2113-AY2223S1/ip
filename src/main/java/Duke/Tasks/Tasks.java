@@ -1,3 +1,7 @@
+package Duke.Tasks;
+
+import Duke.Duke;
+
 public class Tasks {
     protected String description;
     protected boolean isDone;

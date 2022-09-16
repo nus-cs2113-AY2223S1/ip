@@ -1,4 +1,8 @@
-public class ArguementNotFoundException extends DukeException{
+package Duke.Exceptions;
+
+import Duke.Duke;
+
+public class ArguementNotFoundException extends DukeException {
     public void ArgumentNotFoundMessage(){
         System.out.println(
                 Duke.PRINT_LINE
