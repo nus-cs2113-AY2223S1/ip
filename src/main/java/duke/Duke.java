@@ -14,13 +14,15 @@ import java.util.Scanner;
 public class Duke {
 
     private static ArrayList<Task> assignments = new ArrayList<>();
-    /** Level-7 add on */
     private static DataFile file = new EditDataFile();
     private static final int COMMAND_INDEX = 0;
     private static final int TASK_DETAIL_INDEX = 1;
     /** Minus 1 to convert user input index which starts from 1 to 0 for array indexing */
     private static final int OFFSET_TO_ARRAY_INDEX = 1;
     private static final int NO_TASK = 0;
+    private static final int STATUS_INDEX = 1;
+    private static final int TASK_TITLE_INDEX = 2;
+    private static final int EVENT_OR_DEADLINE_DETAIL = 3;
     /** Use to track the number of Task that is added */
     private static int indexTask = 0;
     /** Index that the user have chosen to (un)mark or delete a task */
@@ -38,6 +40,12 @@ public class Duke {
     /** User input a task command without providing details */
     private static boolean isBlankDetail = false;
     private static boolean isNotValidIndexOfChoice = false;
+    private static boolean isToDoFromDataFile = false;
+    private static boolean isDeadlineFromDateFile = false;
+    private static boolean isEventFromDataFile = false;
+    private static boolean isMarkFromDataFile = false;
+    private static boolean isEventFromStoredInput = false;
+    private static boolean isDeadlineFromStoredInput = false;
 
     /**
      * Checks a set of boolean variables to map out the types of command being called.
@@ -413,20 +421,53 @@ public class Duke {
     }
 
     /**
-     * LEVEL-7 CHANGED
+     * Saves the existing data into dataFile.
+     */
+    private static void saveToFile() {
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 0; i < indexTask; i++) {
+            addToTaskList(taskList, i);
+        }
+        file.saveToFile(taskList.toString());
+    }
+
+    /**
+     * Adds the data in the dataFile into a list of strings.
+     *
+     * @param taskList which is a list of data that is obtained from the dataFile.
+     * @param increment which iterates through the list.
+     */
+    private static void addToTaskList(StringBuilder taskList, int increment) {
+        taskList.append(getTaskDetail(increment)).append("\n");
+    }
+
+    /**
+     * Gets the task detail from the stored input and changes the display format
+     * which is used to be displayed in the dataFile.
+     *
+     * @param index obtains the index of the assignment to access it.
+     * @return A string that changes the format of the details being
+     * displayed in the dataFIle.
      */
     private static String getTaskDetail(int index) {
-        String statusOfTypeTask = assignments.get(index).getStatusOfTypeTask();
-        String changeStatusOfDone = changeStatusOfDone(assignments.get(index).getStatusOfDone());
+        String statusOfTypeTask = assignments.get(index)
+                .getStatusOfTypeTask();
+        String changeStatusOfDone = changeStatusOfDone(assignments
+                .get(index).getStatusOfDone());
         String changeTaskDetails = changeDetailDisplay(index);
         return statusOfTypeTask + " | " + changeStatusOfDone + " | " + changeTaskDetails;
     }
 
     /**
-     * LEVEL-7 CHANGED
+     * Changes the format of how the task status is displayed in the dataFile.
+     *
+     * @param statusOfDone which is a string to obtain the status of
+     *                     done or not denoted by "X".
+     * @return statusOfDone which changes "X" to "1" if not "0".
      */
     private static String changeStatusOfDone(String statusOfDone) {
-        if (statusOfDone.contains("X")) {
+        boolean isChecked = statusOfDone.contains("X");
+        if (isChecked) {
             statusOfDone = "1";
         } else {
             statusOfDone = "0";
@@ -435,14 +476,31 @@ public class Duke {
     }
 
     /**
-     * LEVEL-7 CHANGED
+     * Changes the format of how the task detail is being display in the dataFile.
+     *
+     * @param index obtains the index of the assignment to access it.
+     * @return changeTaskDetails which is a string of changed display format.
      */
     private static String changeDetailDisplay(int index) {
         String changeTaskDetails = assignments.get(index).getDescription();
-        if (assignments.get(index).getStatusOfTypeTask().contains("E")) {
+        checkStoredInputStatus(index);
+        changeTaskDetails = modifyEVentOrDeadlineDetails(index, changeTaskDetails);
+        return changeTaskDetails;
+    }
+
+    /**
+     * Modifies the event's or deadline's task details to be displayed on the
+     * dataFile.
+     *
+     * @param index obtains the index of the assignment to access it.
+     * @param changeTaskDetails which is a string of changed display format.
+     * @return changeTaskDetails which is a modified detail.
+     */
+    private static String modifyEVentOrDeadlineDetails(int index, String changeTaskDetails) {
+        if (isEventFromStoredInput) {
             changeTaskDetails = assignments.get(index)
                     .getDescription().replace("/at", "|");
-        } else if (assignments.get(index).getStatusOfTypeTask().contains("D")) {
+        } else if (isDeadlineFromStoredInput) {
             changeTaskDetails = assignments.get(index)
                     .getDescription().replace("/by", "|");
         }
@@ -450,57 +508,133 @@ public class Duke {
     }
 
     /**
-     * LEVEL-7 CHANGED
+     * Checks the stored input to see if it is an Event or Deadline task.
+     *
+     * @param index which is a string of changed display format.
      */
-    private static void saveToFile() {
-        StringBuilder taskList = new StringBuilder();
-        for (int i = 0; i < indexTask; i++) {
-            taskList.append(getTaskDetail(i)).append("\n");
-        }
-        file.saveToFile(taskList.toString());
+    public static void checkStoredInputStatus(int index) {
+        isEventFromStoredInput = assignments.get(index)
+                .getStatusOfTypeTask().contains("E");
+        isDeadlineFromStoredInput = assignments.get(index)
+                .getStatusOfTypeTask().contains("D");
     }
 
     /**
-     * LEVEL-7 CHANGED
+     * Adds the task from the data file into the stored input.
      */
     private static void addTaskFromDataFile() {
         int numOfTask = file.storeDataFileContents().size();
         ArrayList<String> taskList = file.storeDataFileContents();
-        String[] task;
         for(int i = 0; i < numOfTask; i++) {
-            task = taskList.get(i).split("\\|");
-            if (task[COMMAND_INDEX].contains("T")) {
-                addTask(new ToDo(task[2].trim()));
-                assignments.get(indexTask).markTypeTask();
-            } else if (task[COMMAND_INDEX].contains("D")) {
-                String taskDetail = task[2].trim() + " /by" + task[3];
-                addTask(new Deadline(taskDetail));
-                assignments.get(indexTask).markTypeTask();
-            } else if (task[COMMAND_INDEX].contains("E")) {
-                String taskDetail = task[2].trim() + " /at" + task[3];
-                addTask(new Event(taskDetail));
-                assignments.get(indexTask).markTypeTask();
-            }
-            if (task[1].contains("1")) {
-                assignments.get(indexTask).markAsDone();
-            }
-            indexTask++;
+            String[] task = taskList.get(i).split("\\|");
+            addSingleTaskFromFile(task);
         }
+        countTask = indexTask;
+    }
+
+    /**
+     * Adds a single task from the file into the stored input.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void addSingleTaskFromFile(String[] task) {
+        checkDataFileCommand(task);
+        addTypeOfTaskFromFile(task);
+        checkTaskStatusFromFile();
+        indexTask++;
+    }
+
+    /**
+     * Adds the type of task from the file into the stored input.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void addTypeOfTaskFromFile(String[] task) {
+        if (isToDoFromDataFile) {
+            addToDoTaskFromFile(task);
+        } else if (isDeadlineFromDateFile) {
+            addDeadlineTaskFromFile(task);
+        } else if (isEventFromDataFile) {
+            addEventTaskFromFile(task);
+        }
+    }
+
+    private static void checkTaskStatusFromFile() {
+        if (isMarkFromDataFile) {
+            assignments.get(indexTask).markAsDone();
+        }
+    }
+
+    /**
+     * Adds the event task from the dataFile, some modified is needed for standardisation
+     * with the stored input and dataFile.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void addEventTaskFromFile(String[] task) {
+        String taskDetail = task[TASK_TITLE_INDEX].trim()
+                + " /at" + task[EVENT_OR_DEADLINE_DETAIL];
+        addTask(new Event(taskDetail));
+        assignments.get(indexTask).markTypeTask();
+    }
+
+    /**
+     * Adds the deadline task from the dataFile, some modified is needed for standardisation
+     * with the stored input and dataFile.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void addDeadlineTaskFromFile(String[] task) {
+        String taskDetail = task[TASK_TITLE_INDEX].trim()
+                + " /by" + task[EVENT_OR_DEADLINE_DETAIL];
+        addTask(new Deadline(taskDetail));
+        assignments.get(indexTask).markTypeTask();
+    }
+
+    /**
+     * Adds the todo task from the dataFile to the stored input.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void addToDoTaskFromFile(String[] task) {
+        addTask(new ToDo(task[TASK_TITLE_INDEX].trim()));
+        assignments.get(indexTask).markTypeTask();
+    }
+
+    /**
+     * Checks the type of command of each task from in the dataFile.
+     *
+     * @param task which is a specific task obtained from the dataFile.
+     */
+    private static void checkDataFileCommand(String[] task) {
+        isToDoFromDataFile = task[COMMAND_INDEX].contains("T");
+        isDeadlineFromDateFile = task[COMMAND_INDEX].contains("D");
+        isEventFromDataFile = task[COMMAND_INDEX].contains("E");
+        isMarkFromDataFile = task[STATUS_INDEX].contains("1");
+    }
+
+    /**
+     * Runs the main Flash bot in the Duke java program.
+     *
+     * @param lineDivider a string to for line separator.
+     * @param in a scanner variable to allow User Input.
+     */
+    private static void runFlash(String lineDivider, Scanner in) {
+        String[] splitUserInputs = getSplitUserInput(in);
+        System.out.println("\t" + lineDivider);
+        checkTypeOfCommand(splitUserInputs);
+        checkDetailOfCommand(splitUserInputs);
+        runCommand(splitUserInputs);
+        System.out.println("\t" + lineDivider + "\n");
     }
 
     public static void main(String[] args) {
         String lineDivider = printWelcomeMessage();
-        //LEVEL 7 add on
         addTaskFromDataFile();
         Scanner in = new Scanner(System.in);
 
         while (!isBye) {
-            String[] splitUserInputs = getSplitUserInput(in);
-            System.out.println("\t" + lineDivider);
-            checkTypeOfCommand(splitUserInputs);
-            checkDetailOfCommand(splitUserInputs);
-            runCommand(splitUserInputs);
-            System.out.println("\t" + lineDivider + "\n");
+            runFlash(lineDivider, in);
         }
     }
 }

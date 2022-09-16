@@ -36,8 +36,8 @@ public abstract class DataFile {
 
     private String createDir() {
         String dirAndFileStatus;
-        dirAndFileStatus =  "\t Data folder to store the data file does not exist " +
-                "but I have made one for you.\n";
+        dirAndFileStatus =  "\t Data folder to store the data file does not exist "
+                + "but I have made one for you.\n";
         dirAndFileStatus = dirAndFileStatus + createDataFile();
         return dirAndFileStatus;
     }
