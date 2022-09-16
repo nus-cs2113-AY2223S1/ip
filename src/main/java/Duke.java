@@ -31,6 +31,13 @@ public class Duke {
         System.out.println();
     }
 
+    public static void printDeletedTask(Task deletedTask) {
+        System.out.println(LINE_BREAK + "Noted. I've removed this task: ");
+        System.out.println("  " + deletedTask.toString());
+        String numberOfTasksAfterDeletion = Integer.toString(tasks.size()-1);
+        System.out.println("Now you have " + numberOfTasksAfterDeletion + " tasks in the list \n" + LINE_BREAK);
+    }
+
     public static void printEmptyDescription() {
         System.out.println(LINE_BREAK + "Oh No! The description of an event cannot be empty.\n" + LINE_BREAK);
     }
@@ -154,6 +161,13 @@ public class Duke {
     public static void printInvalidCommand() {
         System.out.println(LINE_BREAK + "Oh no! I do not understand the command! \n" + LINE_BREAK);
     }
+
+    public static void deleteTask(String[] inputWords) {
+        int listIndex = Integer.parseInt(inputWords[1]) - 1;
+        Task deletedTask = tasks.get(listIndex);
+        printDeletedTask(deletedTask);
+        tasks.remove(listIndex);
+    }
     public static void main(String[] args) {
         System.out.println(LINE_BREAK + " Hello! I'm Duke\n" +
                 " What can I do for you?\n" + LINE_BREAK);
@@ -177,6 +191,8 @@ public class Duke {
                 addEvent(inputWords);
             } else if (action.equalsIgnoreCase("deadline")){
                 addDeadline(inputWords);
+            } else if (action.equalsIgnoreCase("delete")) {
+                deleteTask(inputWords);
             } else {
                 printInvalidCommand();
             }
