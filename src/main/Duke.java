@@ -1,4 +1,4 @@
-package main.java;
+package main;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -186,12 +186,7 @@ public class Duke {
                     String line = sc.nextLine();
                     String[] lin = line.split(",");
                     Boolean temp;
-                    if(lin[1].equals("True")){
-                        temp = true;
-                    }
-                    else{
-                        temp = false;
-                    }
+                    temp = lin[1].equals("True");
                     if(lin[0].equals("T")){
                         list.add(new Todo(lin[2], temp));
                     }
@@ -205,7 +200,7 @@ public class Duke {
             }
         }
         catch (IOException e){
-            System.out.println("Problem occured with the file");
+            System.out.println("Problem occurred with the file");
         }
     }
 }

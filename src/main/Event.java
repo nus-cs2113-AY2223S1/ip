@@ -1,4 +1,4 @@
-package main.java;
+package main;
 
 public class Event extends Task{
     protected String date;
