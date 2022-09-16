@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     /** Represent the individual task that the user input */
     protected String description;
     /** To check if the task is mark as done or not for each individual task */
@@ -12,14 +12,12 @@ public class Task {
     }
 
     public String getStatusOfDone() {
-        return (isDone ? "X" : " ");
+        String status = " ";
+        if (isDone) {
+            status = "X";
+        }
+        return status;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatusOfTypeTask() { return " "; }
 
     public void markAsDone() {
         isDone = true;
@@ -29,7 +27,9 @@ public class Task {
         isDone = false;
     }
 
-    public void markTypeTask() {}
+    public abstract String getStatusOfTypeTask();
+
+    public abstract void markTypeTask();
 
     /**
      * Returns a string to properly display the event or deadline task information
@@ -51,7 +51,7 @@ public class Task {
      * @param typeTaskParameter string that is taken from description
      * @return typeTaskParameter a modified string
      */
-    private String modifyDescription(String typeTaskParameter) {
+    public String modifyDescription(String typeTaskParameter) {
         int indexOfDash = description.indexOf("/");
         String typeTaskTitle = typeTaskParameter.substring(0, indexOfDash);
         String typeTaskDetail = typeTaskParameter.substring(indexOfDash);
