@@ -39,13 +39,10 @@ public class Duke {
         File f = new File(filepath);
         Scanner s = new Scanner(f);
         Filereader textReader = new Filereader();
-//        int addCount = 0;
         while(s.hasNext()) {
             tasks.add(textReader.generateTask(s.nextLine()));
-//            addCount++;
         }
         s.close();
-//        return addCount;
     }
 
     public static void updateFile(String filepath, ArrayList<Task> taskArray) throws IOException {
@@ -73,11 +70,7 @@ public class Duke {
         drawLine();
         Scanner in = new Scanner(System.in);
         String input;
-//        Task[] taskArray = new Task[100];
         ArrayList<Task> taskArray = new ArrayList<Task>();
-
-        int addCount = 0;
-
         // Create data.txt file if it doesn't exist
         try {
             File data = new File("data.txt");
