@@ -15,4 +15,7 @@ public class Deadline extends Task{
         String descString = descTask + " (by: " + duration + ")";
         return descString;
     }
+    public String getRawDescription() {
+        return description;
+    }
 }

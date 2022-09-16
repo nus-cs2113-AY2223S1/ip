@@ -15,4 +15,7 @@ public class Event extends Task{
         String descString = descTask + " (at: " + duration + ")";
         return descString;
     }
+    public String getRawDescription() {
+        return description;
+    }
 }

@@ -20,6 +20,9 @@ public class Task {
         return this.description;
     }
 
+    public String getRawDescription() {
+        return this.description;
+    }
     public void markTask() {
         this.isDone = true;
     }
