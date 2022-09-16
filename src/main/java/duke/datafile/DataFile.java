@@ -11,7 +11,7 @@ public abstract class DataFile {
     protected File dataDir;
 
     public DataFile() {
-        this.dirPath = "data/duke.txt";
+        this.dirPath = "./data/duke.txt";
         this.newDirName = "data";
         this.dataFile = new File(dirPath);
         this.dataDir = new File(newDirName);
