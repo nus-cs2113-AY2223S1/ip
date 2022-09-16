@@ -1,10 +1,13 @@
-package duke;
+package duke.messages;
 
 import duke.taskings.Task;
 
 import java.util.ArrayList;
 
-public class Message {
+public class Ui {
+    static final String MISSING_FILE = "MissingFile";
+    static final String FAILED_CREATION = "FailedFileCreation";
+    static final String FILE_INPUT_FAILED = "FailedFileInput";
     static final String LINE_DIVIDER = "____________________________________________________________";
 
     public static void greet() {
@@ -91,7 +94,6 @@ public class Message {
         System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
     }
 
-
     /**
      * Prints the correct number of task message when called.
      *
@@ -108,19 +110,21 @@ public class Message {
     }
 
 
-    public static void showFileError(String errorType){
-        switch(errorType){
-        case"MissingFile":
+    public static void showFileError(String errorType) {
+        switch (errorType) {
+        case MISSING_FILE :
             System.out.println("File not found.");
-        break;
-        case"FailedFileCreation":
+            break;
+        case FAILED_CREATION:
             System.out.println("File creation error occurred.");
             break;
-        case "FailedFileInput":
+        case FILE_INPUT_FAILED:
             System.out.println("Cannot write into file.");
             break;
         default:
             break;
         }
     }
+
+
 }

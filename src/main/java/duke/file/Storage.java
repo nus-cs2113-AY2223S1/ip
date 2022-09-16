@@ -1,22 +1,20 @@
 package duke.file;
 
-import duke.Message;
+import duke.taskings.Event;
 import duke.taskings.Task;
 import duke.taskings.Todo;
-import duke.taskings.Event;
 import duke.taskings.Deadline;
-
+import duke.messages.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+public class Storage {
 
-public class FileOperation {
 
     static final String MISSING_FILE = "MissingFile";
     static final String FAILED_CREATION = "FailedFileCreation";
@@ -65,9 +63,8 @@ public class FileOperation {
                 }
             }
         } catch (FileNotFoundException e) {
-            Message.showFileError(MISSING_FILE);
+            Ui.showFileError(MISSING_FILE);
         }
-
     }
 
 
@@ -82,7 +79,7 @@ public class FileOperation {
             file.createNewFile();
             return file;
         } catch (Exception e) {
-            Message.showFileError(FAILED_CREATION);
+            Ui.showFileError(FAILED_CREATION);
         }
         return null;
     }
@@ -139,7 +136,7 @@ public class FileOperation {
             file.close();
 
         } catch (IOException e) {
-            Message.showFileError(FILE_INPUT_FAILED);
+            Ui.showFileError(FILE_INPUT_FAILED);
         }
     }
 }
