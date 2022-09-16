@@ -11,6 +11,6 @@ public class DoNothingCommand extends Command {
     public ExecutedCommand execute() throws Exception {
         TaskList.doNothing();
 
-        return new ExecutedCommand("");
+        return new ExecutedCommand("", taskList, false);
     }
 }

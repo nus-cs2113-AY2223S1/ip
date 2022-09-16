@@ -14,6 +14,10 @@ public abstract class Task {
         this.taskDescription = taskDescription;
         isDone = false;
     }
+    public Task(String taskDescription, boolean isDone) {
+        this.taskDescription = taskDescription;
+        this.isDone = isDone;
+    }
 
     // getters
     public String getTaskDescription() {
@@ -34,5 +38,7 @@ public abstract class Task {
      * @return String describing task
      */
     public abstract String showTask();
+
+    public abstract String writeTaskToFile();
 
 }

@@ -9,8 +9,8 @@ public class AddTodoCommand extends Command {
 
     @Override
     public ExecutedCommand execute() throws Exception {
-        String executionMessage = TaskList.addTodo2(input);
+        String executionMessage = TaskList.addTodo(input);
 
-        return new ExecutedCommand(executionMessage);
+        return new ExecutedCommand(executionMessage, taskList, true);
     }
 }

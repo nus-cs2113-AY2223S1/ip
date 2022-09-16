@@ -9,8 +9,8 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public ExecutedCommand execute() throws Exception {
-        String executionMessage = TaskList.addDeadline2(input);
+        String executionMessage = TaskList.addDeadline(input);
 
-        return new ExecutedCommand(executionMessage);
+        return new ExecutedCommand(executionMessage, taskList, true);
     }
 }

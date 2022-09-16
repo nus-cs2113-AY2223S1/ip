@@ -9,9 +9,9 @@ public class AddEventCommand extends Command {
 
     @Override
     public ExecutedCommand execute() throws Exception {
-        String executionMessage = TaskList.addEvent2(input);
+        String executionMessage = TaskList.addEvent(input);
 
-        return new ExecutedCommand(executionMessage);
+        return new ExecutedCommand(executionMessage, taskList, true);
     }
 
 }

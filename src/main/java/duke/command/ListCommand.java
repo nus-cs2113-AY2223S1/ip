@@ -10,6 +10,6 @@ public class ListCommand extends Command {
     @Override
     public ExecutedCommand execute() throws Exception {
         String executionMessage = TaskList.getTaskList();
-        return new ExecutedCommand(executionMessage);
+        return new ExecutedCommand(executionMessage, taskList, false);
     }
 }

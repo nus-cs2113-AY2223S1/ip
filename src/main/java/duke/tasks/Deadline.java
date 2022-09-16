@@ -7,6 +7,10 @@ public class Deadline extends Task {
         super(taskDescription);
         this.by = by;
     }
+    public Deadline(String taskDescription, String by, boolean isDone) {
+        super(taskDescription, isDone);
+        this.by = by;
+    }
 
     public String getBy() {
         return by;
@@ -17,4 +21,9 @@ public class Deadline extends Task {
     public String showTask() {
         return "[D][" + (isDone ? DONE_SYMBOL : " ") + "] " + taskDescription + "(by: " + by + ")";
     }
+    @Override
+    public String writeTaskToFile(){
+        return "D | " + (isDone ? 1 : 0) + " | " + taskDescription;
+    }
+
 }

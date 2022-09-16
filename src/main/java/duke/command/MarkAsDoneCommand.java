@@ -9,7 +9,7 @@ public class MarkAsDoneCommand extends Command {
 
     @Override
     public ExecutedCommand execute() throws Exception {
-        String executionMessage = TaskList.markAsDone2(input);
-        return new ExecutedCommand(executionMessage);
+        String executionMessage = TaskList.markAsDone(input);
+        return new ExecutedCommand(executionMessage, taskList, true);
     }
 }
