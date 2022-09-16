@@ -1,6 +1,6 @@
-package command;
+package duke.command;
 
-import tasks.TaskList;
+import duke.tasks.TaskList;
 
 public abstract class Command {
     protected TaskList taskList;
@@ -10,4 +10,6 @@ public abstract class Command {
         this.taskList = taskList;
         this.input = input;
     }
+
+    public abstract ExecutedCommand execute() throws Exception;
 }

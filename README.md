@@ -1,9 +1,11 @@
+##  * TO DO:
 
+##  * create tasks package
 
-## * TO DO:
-## * create tasks package
 extend tasks for deadline todo & event types
-## * create command package
+
+##  * create command package
+
 Command
 CommandExit
 CommandList
@@ -11,17 +13,15 @@ CommandAdd
 CommandDelete
 CommandMark
 CommandUnmark
-## * improve parser
+
+##  * improve parser
+
 make a separate class for parser takes in userInput and returns command to execute
 
+# duke.Duke project template
 
-
-
-
-
-# Duke project template
-
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are
+instructions on how to use it.
 
 You will use this as a baseline for the individual project, as well as the team project later in the semester.
 
@@ -29,14 +29,18 @@ You will use this as a baseline for the individual project, as well as the team 
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project
+   first)
 1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+    1. Click `Open`.
+    1. Select the project directory, and click `OK`.
+    1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 11** (not other versions) as explained
+   in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+3. After that, locate the `src/main/java/duke.Duke.java` file, right-click it, and choose `Run duke.Duke.main()` (if the
+   code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something
+   like the below as the output:
    ```
    Hello from
     ____        _        
