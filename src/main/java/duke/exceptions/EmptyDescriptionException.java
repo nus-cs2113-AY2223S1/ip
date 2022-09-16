@@ -1,10 +1,4 @@
 package duke.exceptions;
-
+//no need for code
 public class EmptyDescriptionException extends DukeException {
-    public void printEmptyDescriptionError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The description cannot be empty.\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
 }

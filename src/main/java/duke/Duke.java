@@ -1,36 +1,40 @@
 package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
-import duke.task.TaskManager;
+import duke.parser.Parser;
+import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
 public class Duke {
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public static void run() {
-        Ui.greetUser();
-        Scanner input = new Scanner(System.in);
-        TaskManager taskManager = null;
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage();
         try {
-            taskManager = Storage.loadFile();
+            taskList = storage.loadFile();
         } catch (IOException e) {
-            System.out.println("Something went wrong trying to load the file: " + e.getMessage());
-        }
-        boolean isProgramFinished = false; //variable to indicate if the program should be terminated
-        while(!isProgramFinished) {
-            String curr = input.nextLine();
-            if(curr.equals("bye")) {
-                isProgramFinished = true;
-                Ui.sayByeToUser();
-            } else if(curr.equals("list")) {
-                taskManager.listTasks();
-            } else {
-                taskManager.handleInput(curr);
-            }
+            ui.showLoadingError(e.getMessage());
+            taskList = new TaskList();
         }
     }
+
+    public void run() {
+        ui.greetUser();
+        Parser parser = new Parser(ui);
+        boolean isProgramFinished = false; //variable to indicate if the program should be terminated
+        while(!isProgramFinished) {
+            String command = ui.getUserCommand();
+            parser.parse(command, taskList);
+            isProgramFinished = parser.getTerminationStatus();
+        }
+        ui.sayByeToUser();
+    }
+
     public static void main(String[] args) {
-        Duke.run();
+        new Duke().run();
     }
 }

@@ -21,11 +21,8 @@ public class Task {
         isDone = true;
     }
 
-    public void markTaskAsUndone() {
-        isDone = false;
-    }
-
     public String formattedInformation() { //dummy function for overriding by subclasses
         return "";
     }
+
 }

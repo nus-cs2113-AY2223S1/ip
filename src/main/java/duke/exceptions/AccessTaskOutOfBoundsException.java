@@ -1,9 +1,4 @@
 package duke.exceptions;
-
+//no need for code
 public class AccessTaskOutOfBoundsException extends DukeException {
-    public void printAccessTaskOutOfBoundsError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The task you have specified is out of bounds :-(\n";
-        System.out.println(error);
-    }
 }

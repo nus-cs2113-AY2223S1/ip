@@ -9,16 +9,22 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 public class Storage {
-    private static final String FILE_DIRECTORY = "./data";
-    private static final String FILE_PATH = "./data/duke.txt";
+    private String file_directory;
+    private static String file_path;
     private static int tasksCount = 0;
+
+    public Storage() {
+        this.file_directory = "./data";
+        this.file_path = "./data/duke.txt";
+    }
 
     public static int getTasksCount() {
         return tasksCount;
     }
+
     public static ArrayList<Task> assembleTasks(Scanner fileScanner) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         while (fileScanner.hasNext()) {
@@ -47,24 +53,24 @@ public class Storage {
         return tasks;
     }
 
-    public static TaskManager loadFile() throws IOException {
-        File directory = new File(FILE_DIRECTORY);
+    public TaskList loadFile() throws IOException {
+        File directory = new File(file_directory);
         if(!directory.exists()){
             directory.mkdir();
         }
-        File file = new File(FILE_PATH);
+        File file = new File(file_path);
         if(!file.exists()) {
             file.createNewFile();
         }
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> tasks =  assembleTasks(fileScanner);
         int tasksCount = getTasksCount();
-        return new TaskManager(tasks, tasksCount);
+        return new TaskList(tasks, tasksCount);
 
     }
 
     public static void saveFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+        FileWriter fw = new FileWriter(file_path);
         for(int i = 0; i < tasks.size(); i++){
             fw.write(tasks.get(i).formattedInformation() + "\n");
         }
