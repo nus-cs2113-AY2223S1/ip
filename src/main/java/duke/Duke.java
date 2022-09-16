@@ -6,6 +6,10 @@ import java.util.Scanner;
 public class Duke {
     private static TaskList myTaskList = new TaskList();
 
+    /**
+     * Method to run the main loop of the program
+     * Accepts user input and carries out relevant command until user says "bye"
+     */
     public static void run() {
         Ui.welcomeUser();
         try {

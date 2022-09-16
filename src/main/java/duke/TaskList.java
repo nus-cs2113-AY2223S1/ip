@@ -10,6 +10,10 @@ import duke.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Class of task manager that manages the commands and tasks
+ */
+
 public class TaskList {
 
     protected ArrayList<Task> myTasks;
@@ -27,6 +31,10 @@ public class TaskList {
         myTasks = new ArrayList<>();
     }
 
+    /**
+     * Method to add a Task of type "todo"
+     * @param input the user input
+     */
     public void addTodo(String input) {
         try {
             String myTask = input.substring(START_INDEX_TODO);
@@ -40,6 +48,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to add a Task of type "deadline"
+     * @param input the user input
+     */
     public void addDeadline(String input) {
         try {
             int indexSlash = input.indexOf('/');
@@ -55,6 +67,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to add a Task of type "event"
+     * @param input the user input
+     */
     public void addEvent(String input) {
         try {
             int indexSlash = input.indexOf('/');
@@ -70,6 +86,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to mark a task as done
+     * @param input the user input
+     */
     public void markAsDone(String input) {
         int taskNum = Integer.parseInt(input.substring(input.length() - 1));
         taskNum--;
@@ -92,6 +112,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to unmark a task
+     * @param input the user input
+     */
     public void removeMark(String input) {
         int taskNum = Integer.parseInt(input.substring(input.length() - 1));
         taskNum--;
@@ -114,6 +138,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to delete a task
+     * @param input the user input
+     */
     public void deleteTask(String input) {
         int taskNum = Integer.parseInt(input.substring(input.length() - 1));
         taskNum--;
@@ -132,6 +160,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to find a task
+     * @param input the user input containing the keyword to search for
+     */
     public void findTask(String input) {
         try {
             String keyword = input.substring(START_INDEX_FIND);
@@ -147,6 +179,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to print all the tasks in the taskList
+     */
     public void print() {
         if (myTasks.size() == 0) {
             System.out.println(NO_TASKS);
