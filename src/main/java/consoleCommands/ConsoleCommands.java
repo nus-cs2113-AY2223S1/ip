@@ -1,12 +1,14 @@
-import exception.InvalidArgumentsException;
-import exception.InvalidCommandException;
-import exception.NotEnoughArgumentsException;
-import exception.TaskDoesNotExistException;
+package consoleCommands;
+
+import exception.*;
+import jdk.dynalink.beans.StaticClass;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ConsoleCommands {
@@ -16,7 +18,12 @@ public class ConsoleCommands {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE_BY = "/by";
     public static final String COMMAND_EVENT_AT = "/at";
-    private int numberOfTasks = 0;
+    public static final String ADDED_MESSAGE = "Got it. I've added this task:";
+    public static final String DELETED_MESSAGE = "Noted. I've removed this task:";
+    public static final String MARKED_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String UNMARKED_MESSAGE = "OK, I've marked this task as not done yet:";
+    public static final String HELLO_MESSAGE = "Hello! I'm Duke\n" + "What can I do for you?";
+    public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -24,15 +31,15 @@ public class ConsoleCommands {
         printLine();
         String[] instructions = input.split(" ");
         int index = Integer.parseInt(instructions[1]);
-        if (index >= Array.size()) {
+        if (index > Array.size()) {
             throw new TaskDoesNotExistException();
         }
         if (instructions[0].equals(COMMAND_MARKED)) {
-            Array.get(index - 1).isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
+            Array.get(index-1).isDone = true;
+            System.out.println(MARKED_MESSAGE);
         } else {
             Array.get(index-1).isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(UNMARKED_MESSAGE);
         }
         System.out.println("  " + Array.get(index-1));
         printLine();
@@ -46,14 +53,16 @@ public class ConsoleCommands {
         }
         printLine();
     }
-    public static void start() {
+    public static void start(String filePath, ArrayList<Task> Array) throws FileNotFoundException, InvalidFileDataException {
         printLine();
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        FileCommands.readFromFile(filePath, Array);
+        System.out.println(HELLO_MESSAGE);
         printLine();
     }
-    public static void end() {
+    public static void end(String filePath, String tempFilePath, ArrayList<Task> Array) throws IOException {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        FileCommands.writeToFile(filePath, tempFilePath, Array);
+        System.out.println(BYE_MESSAGE);
         printLine();
     }
 
@@ -64,8 +73,8 @@ public class ConsoleCommands {
         if (index > Array.size()) {
             throw new TaskDoesNotExistException();
         }
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(Array.get(index).toString());
+        System.out.println(DELETED_MESSAGE);
+        System.out.println("  " + Array.get(index).toString());
         Array.remove(index);
         System.out.println("Now you have " + Array.size() + " tasks in the list.");
         printLine();
@@ -105,6 +114,8 @@ public class ConsoleCommands {
         else {
             throw new InvalidCommandException();
         }
+        System.out.println(ADDED_MESSAGE);
+        System.out.println("  " + Array.get(Array.size() - 1).toString());
         System.out.println("Now you have " + Array.size() + " tasks in the list.");
         printLine();
     }

@@ -16,4 +16,13 @@ public class Task {
     public String toString () {
         return toString();
     }
+    public String getTaskClass () {
+        return getTaskClass();
+    }
+    public String getDescription () {
+        return description;
+    }
+    public String getDetails () {
+        return getDetails();
+    }
 }

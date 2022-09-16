@@ -1,9 +1,8 @@
-import exception.InvalidArgumentsException;
-import exception.InvalidCommandException;
-import exception.NotEnoughArgumentsException;
-import exception.TaskDoesNotExistException;
+import consoleCommands.ConsoleCommands;
+import exception.*;
 import task.Task;
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -27,14 +26,27 @@ public class Duke {
     public static final String COMMAND_DOES_NOT_EXIST_ERROR_MESSAGE = "Invalid command. Please try again.";
     public static final String INVALID_ARGUMENTS_ERROR_MESSAGE = "Invalid arguments detected. Please try again.";
     public static final String NOT_ENOUGH_ARGUMENTS_ERROR_MESSAGE = "Not enough arguments entered. Please try again.";
-    public static void main(String[] args) {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+    public static final String INVALID_FILE_DATA_ERROR_MESSAGE = "Invalid file data detected. File data will not be read.";
+    public static final String filePath = "data/duke.txt";
+    public static final String tempFilePath = "data/temp.txt";
+    public static void main(String[] args) throws IOException {
+        ArrayList<Task> taskList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
-        ConsoleCommands.start();
+        try {
+            ConsoleCommands.start(filePath, taskList);
+        } catch (InvalidFileDataException e) {
+            System.out.println(INVALID_FILE_DATA_ERROR_MESSAGE);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
         while (in.hasNextLine()) {
             String input = in.nextLine();
             if (input.equals(COMMAND_BYE)) {
-                ConsoleCommands.end();
+                try {
+                    ConsoleCommands.end(filePath, tempFilePath, taskList);
+                } catch (FileNotFoundException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
                 break;
             } else if (input.equals(COMMAND_LIST)) {
                 ConsoleCommands.printList(taskList);

@@ -1,18 +1,21 @@
 package task;
 
 public class Event extends Task{
-
-    protected String by;
-
-    public Event(String description, String by) {
+    protected String at;
+    public Event(String description, String at) {
         super(description);
-        this.by = by;
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + toString());
+        this.at = at;
     }
-
     @Override
     public String toString() {
-        return ("[E][" + super.getStatusIcon() + "] " + super.description + " (at: " + by + ")");
+        return ("[E][" + super.getStatusIcon() + "] " + super.description + " (at: " + at + ")");
+    }
+    @Override
+    public String getTaskClass() {
+        return "E";
+    }
+    @Override
+    public String getDetails() {
+        return at;
     }
 }

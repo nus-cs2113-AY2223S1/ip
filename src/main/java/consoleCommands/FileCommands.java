@@ -1,0 +1,76 @@
+package consoleCommands;
+
+import exception.InvalidFileDataException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class FileCommands {
+    public static final String TRUE = "1";
+    public static final String FALSE = "0";
+    public static final String TODO = "T";
+    public static final String DEADLINE = "D";
+    public static final String EVENT = "E";
+    public static final String LINE_SEPARATOR = " / ";
+    public static void readFromFile (String filePath, ArrayList<Task> Array) throws FileNotFoundException, InvalidFileDataException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNextLine()) {
+            String data = s.nextLine();
+            String[] taskData = data.split(" / ");
+            if (taskData[0].equals(TODO)) {
+                Array.add(new Todo(taskData[2]));
+            } else if (taskData[0].equals(DEADLINE)) {
+                Array.add(new Deadline(taskData[2],taskData[3]));
+            } else if (taskData[0].equals(EVENT)) {
+                Array.add(new Event(taskData[2],taskData[3]));
+            } else {
+                throw new InvalidFileDataException();
+            }
+            if (taskData[1].equals(TRUE)) {
+                Array.get(Array.size()-1).isDone = true;
+            }
+        }
+    }
+    //filePath for function is for temp file
+    public static void arrayToText (String filePath, ArrayList<Task> Array) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        for (int i = 0; i < Array.size(); i++) {
+            Task currentTask = Array.get(i);
+            String textToAppend = currentTask.getTaskClass();
+            if (currentTask.isDone) {
+                textToAppend += LINE_SEPARATOR + TRUE ;
+            } else {
+                textToAppend += LINE_SEPARATOR + FALSE;
+            }
+            textToAppend += LINE_SEPARATOR + currentTask.getDescription();
+            if (currentTask.getTaskClass().equals(EVENT) || currentTask.getTaskClass().equals(DEADLINE)) {
+                textToAppend += LINE_SEPARATOR + currentTask.getDetails();
+            }
+            fw.write(textToAppend + System.lineSeparator());
+        }
+        fw.close();
+    }
+    public static void writeToFile (String filePath, String tempFilePath, ArrayList<Task> Array) throws IOException {
+        try {
+            arrayToText(tempFilePath, Array);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        Path tempPath = Paths.get(tempFilePath);
+        Files.copy(tempPath, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(tempPath);
+    }
+}
