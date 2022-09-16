@@ -5,9 +5,9 @@ public class Task {
     protected boolean isDone;
 
 
-    public Task(String task) {
+    public Task(String task, boolean isDone) {
         this.task = task;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getTask() {
@@ -29,5 +29,10 @@ public class Task {
 
     public String toString() {
        return "[" + getStatusIcon() + "]" + task;
+    }
+
+    public String convertToFileFormat() {
+        String isDoneValue = (this.isDone) ? "1" : "0";
+        return isDoneValue;
     }
 }
