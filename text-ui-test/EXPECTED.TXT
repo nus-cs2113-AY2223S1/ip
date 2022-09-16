@@ -8,6 +8,7 @@ ___________.__                ___.
 
 	____________________________________________________________
 	 Hello! I'm Flash
+	 Data file was not found but I have made one for you.
 	 What can I do for you?
 	____________________________________________________________
 
