@@ -129,7 +129,7 @@ public class TaskList {
     }
 
     public static String addTodo2(String commandArgument) throws TodoException {
-        if (commandArgument.equals("")) {
+        if (commandArgument.equals("") || commandArgument.equals("todo")) {
             throw new TodoException();
         }
         Task newTask = new Todo(commandArgument);

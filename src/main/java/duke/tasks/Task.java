@@ -6,7 +6,7 @@ package duke.tasks;
 
 public abstract class Task {
     protected final String taskDescription;
-    protected final String DONE_SYMBOL = "\u2713";
+    protected final String DONE_SYMBOL = "X";
     protected boolean isDone;
 
     // constructor

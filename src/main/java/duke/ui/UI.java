@@ -6,9 +6,9 @@ import java.util.Scanner;
  * Display class duke.ui.UI for duke chatbot & handle user input
  */
 public class UI {
-    private final Scanner in;
-    public final String greetingArt = "greeting art placeholder \n";
-    public final String goodbyeArt = "        .--'''''''''--.\n" +
+    private static Scanner in = null;
+    public static final String greetingArt = "greeting art placeholder \n";
+    public static final String goodbyeArt = "        .--'''''''''--.\n" +
             "     .'      .---.      '.\n" +
             "    /    .-----------.    \\\n" +
             "   /        .-----.        \\\n" +
@@ -32,13 +32,13 @@ public class UI {
      * greeting and goodbye messages
      */
 
-    public final String dashLine = "______________________________________";
-    public final String greetingMessage =
+    public static final String DIVIDER = "______________________________________";
+    public static final String greetingMessage =
             "Hello! I'm Handsome!\n" +
                     greetingArt +
                     "How can I help you?";
 
-    public final String goodbyeMessage = "Bye. Hope to see you again soon!\n" + goodbyeArt;
+    public static final String goodbyeMessage = "Bye. Hope to see you again soon!\n" + goodbyeArt;
 
 
     /**
@@ -53,31 +53,31 @@ public class UI {
      *
      * @return String containing user input
      */
-    public String readInput() {
+    public static String readInput() {
         return in.nextLine();
     }
 
     /**
      * Prints formatted message
      */
-    public void printMessageLine(String messageLine) {
-        System.out.println(dashLine);
-        System.out.println(messageLine);
-        System.out.println(dashLine);
+    public static void printMessageWithLines(String message) {
+        System.out.println(DIVIDER);
+        System.out.println(message);
+        System.out.println(DIVIDER);
     }
 
     /**
      * Helper function to print greeting messages
      */
-    public void printGreeting() {
-        printMessageLine(greetingMessage);
+    public static void printGreeting() {
+        printMessageWithLines(greetingMessage);
     }
 
     /**
      * Helper function to print exit messages
      */
-    public void printGoodbye() {
-        printMessageLine(goodbyeMessage);
+    public static void printGoodbye() {
+        printMessageWithLines(goodbyeMessage);
     }
 
 }

@@ -2,7 +2,7 @@ package duke;
 
 /**
  * TO DO:
- * ui polling for user input, parse user input, execute command, update tasklist
+ * Update EXPECTED.TXT
  */
 
 import duke.command.Command;
@@ -84,11 +84,6 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-//    /**
-//     * New ui test
-//     */
-//    private UI ui;
-
     /**
      * New parser test
      */
@@ -104,7 +99,7 @@ public class Duke {
     public static void main(String[] args) {
 
         // Print greeting message
-        printGreetingMessage();
+        UI.printGreeting();
 
         // Initialise instance of duke.tasks.TaskList
         TaskList taskList = new TaskList();
@@ -136,7 +131,7 @@ public class Duke {
                 break;
             }
         }
-        printGoodbyeMessage();
+        UI.printGoodbye();
     }
 
 }
