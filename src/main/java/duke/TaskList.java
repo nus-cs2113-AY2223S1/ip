@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import duke.task.Task;
 
-public class ListManager {
+public class TaskList {
     List<Task> items;
 
-    public ListManager() {
+    public TaskList() {
         this(Storage.readDataFile());
     }
 
-    public ListManager(List<Task> items) {
+    public TaskList(List<Task> items) {
         this.items = new ArrayList<>(items);
     }
 

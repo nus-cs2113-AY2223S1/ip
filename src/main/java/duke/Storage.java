@@ -14,10 +14,10 @@ import duke.task.TaskFactory;
 
 public class Storage {
 
-    public static final String path = "data/duke.txt";
+    public static final String FILE_PATH = "data/duke.txt";
 
     public static List<Task> readDataFile() {
-        return readDataFile(path);
+        return readDataFile(FILE_PATH);
     }
 
     public static List<Task> readDataFile(String path) {
@@ -38,7 +38,7 @@ public class Storage {
     }
 
     public static void writeDataFile(List<Task> tasks) throws DukeException {
-        writeDataFile(tasks, Storage.path);
+        writeDataFile(tasks, FILE_PATH);
     }
 
     public static void writeDataFile(List<Task> tasks, String path) throws DukeException {
