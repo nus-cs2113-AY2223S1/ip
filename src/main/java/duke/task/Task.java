@@ -9,8 +9,12 @@ public abstract class Task {
     }
 
     public Task(String name) {
+        this(name, false);
+    }
+
+    public Task(String name, boolean status) {
         this.name = name;
-        this.status = false;
+        this.status = status;
     }
 
     public abstract String serialize();

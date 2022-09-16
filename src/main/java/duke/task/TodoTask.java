@@ -4,7 +4,11 @@ import duke.DukeException;
 
 public class TodoTask extends Task {
     public TodoTask(String name) throws DukeException {
-        super(name);
+        this(name, false);
+    }
+
+    public TodoTask(String name, boolean status) throws DukeException {
+        super(name, status);
         if ("".equals(name)) {
             throw new DukeException("Todo name cannot be empty");
         }
@@ -17,6 +21,6 @@ public class TodoTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("todo %s", getName());
+        return String.format("todo %s /done %s", getName(), isDone());
     }
 }

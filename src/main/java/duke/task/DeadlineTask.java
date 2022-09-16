@@ -6,7 +6,11 @@ public class DeadlineTask extends Task {
     private final String deadline;
 
     public DeadlineTask(String name, String deadline) throws DukeException {
-        super(name);
+        this(name, deadline, false);
+    }
+
+    public DeadlineTask(String name, String deadline, boolean status) throws DukeException {
+        super(name, status);
         if ("".equals(name)) {
             throw new DukeException("Deadline name cannot be empty");
         }
@@ -23,7 +27,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("deadline %s /by %s", getName(), deadline);
+        return String.format("deadline %s /by %s /done %s", getName(), deadline, isDone());
     }
 
 }

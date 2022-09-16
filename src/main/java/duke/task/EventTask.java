@@ -6,7 +6,11 @@ public class EventTask extends Task {
     private String eventDateTime;
 
     public EventTask(String name, String eventDateTime) throws DukeException {
-        super(name);
+        this(name, eventDateTime, false);
+    }
+
+    public EventTask(String name, String eventDateTime, boolean status) throws DukeException {
+        super(name, status);
         if ("".equals(name)) {
             throw new DukeException("Event name cannot be empty");
         }
@@ -23,7 +27,7 @@ public class EventTask extends Task {
 
     @Override
     public String serialize() {
-        return String.format("event %s /at %s", getName(), eventDateTime);
+        return String.format("event %s /at %s /done %s", getName(), eventDateTime, isDone());
     }
 
 }
