@@ -89,6 +89,17 @@ public class Duke {
         System.out.println(tasks.get(taskToUnmark).toString());
     }
 
+    public static void deleteTask(String[] taskDescriptions, ArrayList<Task> tasks){
+        try {
+            int taskToDelete = Integer.parseInt(taskDescriptions[1]);
+            System.out.println("Noted. I've removed this task:\n" + tasks.get(taskToDelete-1).toString());
+            tasks.remove(taskToDelete);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("This task number is invalid, try again.");
+        }
+
+    }
     public static void runTaskList() {
         Scanner in = new Scanner(System.in);
         while (isRunning) {
@@ -116,6 +127,9 @@ public class Duke {
                 break;
             case "list":
                 printTaskList(tasks);
+                break;
+            case "delete":
+                deleteTask(details,tasks);
                 break;
             default:
                 System.out.println("You have entered an invalid command, please try again.");
