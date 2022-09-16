@@ -12,7 +12,7 @@ public class Duke {
     }
 
 
-    public static void readInput(){
+    public static void readInput() {
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
         int taskNum = 0;
@@ -21,33 +21,36 @@ public class Duke {
             String command = sc.nextLine();
             String[] splitCommand = command.split(" ");
 
-            if (command.equals("bye")) {
+            switch (splitCommand[0]) {
+            case "bye":
                 isFinished = true;
-            } else if (command.startsWith("mark")) {
-                taskNum = Integer.parseInt(command.substring(command.length() - 1));
-                tasks.markTask(taskNum);
-            } else if (command.startsWith("unmark")) {
-                taskNum = Integer.parseInt(command.substring(command.length() - 1));
-                tasks.unmarkTask(taskNum);
-            } else if (command.equals("list")) {
+                break;
+            case "mark":
+                tasks.markTask(command);
+                break;
+            case "unmark":
+                tasks.unmarkTask(command);
+                break;
+            case "list":
                 tasks.printList();
-            } else if (command.startsWith("todo")) {
+                break;
+            case "todo":
                 tasks.addToDo(command);
-            } else if (command.startsWith("event")) {
+                break;
+            case "event":
                 tasks.addEvent(command);
-            } else if (command.startsWith("deadline")) {
+                break;
+            case "deadline":
                 tasks.addDeadline(command);
-            } else {
+                break;
+            default:
                 UnknownCommandDetection();
+                break;
             }
 
         } while (isFinished != true);
 
 
-    }
-
-    private static int findTaskNumber(String command) {
-        return Integer.parseInt(command.substring(command.length() - 1));
     }
 
     private static void UnknownCommandDetection() {
@@ -78,7 +81,7 @@ public class Duke {
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⢷⣤⣶⣶⣾⡿⣯⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠭⠤⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n";
 
-        System.out.println( logo
+        System.out.println(logo
                 + PRINT_LINE
                 + " Hello! I'm King Bob\n"
                 + " What can I do for you?\n"
