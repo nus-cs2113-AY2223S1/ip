@@ -7,9 +7,13 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.nio.Buffer;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 
 public class Duke {
@@ -38,6 +42,7 @@ public class Duke {
     private static final int SEPARATOR_LEN = 50;
     private static int taskCount = 0;
     private static Task[] tasks = new Task[MAX_TASK];
+    private static final String DUKE_DUMP_FILE = "duke.txt";
 
     private static void showSeparator() {
         String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
@@ -120,7 +125,9 @@ public class Duke {
             throw new IllegalArgsTypeException();
         }
         tasks[taskCount] = new Task(taskDescription);
+        dumpTask(tasks[taskCount]);
         System.out.println(">>>Added: " + tasks[taskCount++]);
+
         showTaskCount();
     }
 
@@ -152,6 +159,19 @@ public class Duke {
             System.out.println(tasks[taskId-1]);
         }
         showSeparator();
+    }
+
+    private static void dumpTask(Task task) {
+        try {
+            File file_name = new File(DUKE_DUMP_FILE);
+            file_name.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
+            out.write(String.valueOf(task) + "\r\n");
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addTodo(String todoDescription) throws IllegalArgsNumException {
