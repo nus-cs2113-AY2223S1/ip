@@ -44,6 +44,7 @@ public class UI {
                 + "How can I help you?\n"
                 + LOGO);
     }
+
     /**
      * Prints the exit message when exiting Duke.
      */
@@ -54,7 +55,7 @@ public class UI {
     /**
      * Prints the confirmation after adding a new task.
      *
-     * @param task The new task.
+     * @param task     The new task.
      * @param taskList The TaskList to be worked with.
      */
     public void confirmAdd(Task task, TaskList taskList) {
@@ -72,6 +73,7 @@ public class UI {
         reply("Congratulations! You have done this task:\n"
                 + ARROW + task);
     }
+
     /**
      * Prints the confirmation after marking a task as undone.
      *
@@ -85,7 +87,7 @@ public class UI {
     /**
      * Prints the confirmation after deleting a task.
      *
-     * @param task The deleted task.
+     * @param task     The deleted task.
      * @param taskList The TaskList to be worked with.
      */
     public void confirmDelete(Task task, TaskList taskList) {

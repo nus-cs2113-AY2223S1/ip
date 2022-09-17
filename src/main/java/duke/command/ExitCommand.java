@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
      * Executes exit command.
      *
      * @param taskList The list of tasks.
-     * @param ui The Duke user interface for user to interact with.
+     * @param ui       The Duke user interface for user to interact with.
      */
     @Override
     public void execute(TaskList taskList, UI ui) {

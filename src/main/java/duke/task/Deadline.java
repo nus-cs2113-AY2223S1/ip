@@ -1,4 +1,5 @@
 package duke.task;
+
 /**
  * A representation of Deadline.
  */
@@ -9,12 +10,13 @@ public class Deadline extends Task {
      * Constructor for Deadline.
      *
      * @param description The deadline description.
-     * @param by The due date.
+     * @param by          The due date.
      */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
+
     /**
      * Formats the deadline information to store in hard-drive.
      *
@@ -25,6 +27,7 @@ public class Deadline extends Task {
         String STORE_DIVIDER = " | ";
         return "D" + STORE_DIVIDER + (isDone() ? "1" : "0") + STORE_DIVIDER + getDescription() + STORE_DIVIDER + by + "\n";
     }
+
     /**
      * Overrides toString method of Task to get string representation of Deadline.
      *

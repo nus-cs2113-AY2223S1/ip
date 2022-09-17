@@ -69,6 +69,7 @@ public class TaskList {
     public void markDone(int index) throws DukeException {
         getTask(index).setAsDone();
     }
+
     /**
      * Marks a task as undone given the index.
      *

@@ -1,4 +1,5 @@
 package duke.task;
+
 /**
  * A representation of Todo.
  */
@@ -11,6 +12,7 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
+
     /**
      * Formats the todo task information to store in hard-drive.
      *
@@ -21,6 +23,7 @@ public class Todo extends Task {
         String STORE_DIVIDER = " | ";
         return "T" + STORE_DIVIDER + (isDone() ? "1" : "0") + STORE_DIVIDER + getDescription() + "\n";
     }
+
     /**
      * Overrides toString method of Task to get string representation of Todo task.
      *

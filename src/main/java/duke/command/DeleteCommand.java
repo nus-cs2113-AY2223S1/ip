@@ -10,6 +10,7 @@ import duke.ui.UI;
  */
 public class DeleteCommand extends Command {
     private final int index;
+
     /**
      * Constructor for DeleteCommand.
      *
@@ -23,7 +24,7 @@ public class DeleteCommand extends Command {
      * Executes delete command.
      *
      * @param taskList The list of tasks to work with.
-     * @param ui The Duke user interface for user to interact with.
+     * @param ui       The Duke user interface for user to interact with.
      */
     @Override
     public void execute(TaskList taskList, UI ui) throws DukeException {

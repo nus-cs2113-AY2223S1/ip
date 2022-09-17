@@ -18,11 +18,12 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
+
     /**
      * Executes find command.
      *
      * @param taskList The list of tasks to work with.
-     * @param ui The Duke user interface for user to interact with.
+     * @param ui       The Duke user interface for user to interact with.
      */
     @Override
     public void execute(TaskList taskList, UI ui) throws DukeException {

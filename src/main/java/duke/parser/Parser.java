@@ -83,6 +83,7 @@ public class Parser {
 
     /**
      * Manages the add todo task command.
+     *
      * @param input The input string from user.
      * @return A new AddCommand.
      * @throws DukeException If the input is in the wrong format.
@@ -96,8 +97,10 @@ public class Parser {
         Todo todo = new Todo(analysedInput[1].trim());
         return new AddCommand(todo);
     }
+
     /**
      * Manages the add event task command.
+     *
      * @param input The input string from user.
      * @return A new AddCommand.
      * @throws DukeException If the input is in the wrong format.
@@ -124,8 +127,10 @@ public class Parser {
         Event event = new Event(analysedEvent[0].trim(), DateParser.formatDateToString(analysedEvent[1].trim()));
         return new AddCommand(event);
     }
+
     /**
      * Manages the add deadline task command.
+     *
      * @param input The input string from user.
      * @return A new AddCommand.
      * @throws DukeException If the input is in the wrong format.
@@ -153,8 +158,10 @@ public class Parser {
         Deadline deadline = new Deadline(analysedDeadline[0].trim(), DateParser.formatDateToString(analysedDeadline[1].trim()));
         return new AddCommand(deadline);
     }
+
     /**
      * Manages the mark command.
+     *
      * @param input The input string from user.
      * @return A new MarkCommand.
      * @throws DukeException If the input is in the wrong format or the number or task is out of bound.
@@ -171,8 +178,10 @@ public class Parser {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted" + SUGGESTED_FORMAT);
         }
     }
+
     /**
      * Manages the unmark command.
+     *
      * @param input The input string from user.
      * @return A new UnmarkCommand.
      * @throws DukeException If the input is in the wrong format or the number or task is out of bound.
@@ -189,8 +198,10 @@ public class Parser {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted" + SUGGESTED_FORMAT);
         }
     }
+
     /**
      * Manages the delete command.
+     *
      * @param input The input string from user.
      * @return A new DeleteCommand.
      * @throws DukeException If the input is in the wrong format or the number or task is out of bound.
@@ -207,8 +218,10 @@ public class Parser {
             throw new DukeException("OOPS!!! Please check the task number, only integer is accepted" + SUGGESTED_FORMAT);
         }
     }
+
     /**
      * Manages the find command.
+     *
      * @param input The input string from user.
      * @return A new FindCommand.
      * @throws DukeException If the keyword is missing.
