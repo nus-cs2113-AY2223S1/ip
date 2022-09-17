@@ -92,7 +92,7 @@ public class ConsoleInterface {
     /**
      * Marks a task as completed.
      *
-     * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandMark Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandMark(ConsoleCommandMark consoleCommandMark) {
         int taskNumber = consoleCommandMark.getTaskNumber();
@@ -112,7 +112,7 @@ public class ConsoleInterface {
     /**
      * Marks a task as uncompleted.
      *
-     * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandUnmark Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandUnmark(ConsoleCommandUnmark consoleCommandUnmark) {
         int taskNumber = consoleCommandUnmark.getTaskNumber();
@@ -132,7 +132,7 @@ public class ConsoleInterface {
     /**
      * Adds a todo into task manager.
      *
-     * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandTodo Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandTodo(ConsoleCommandTodo consoleCommandTodo) {
         String description = consoleCommandTodo.getDescription();
@@ -150,7 +150,7 @@ public class ConsoleInterface {
     /**
      * Adds a deadline into task manager.
      *
-     * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandDeadline Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandDeadline(ConsoleCommandDeadline consoleCommandDeadline) {
         String description = consoleCommandDeadline.getDescription();
@@ -169,7 +169,7 @@ public class ConsoleInterface {
     /**
      * Adds an event into task manager.
      *
-     * @param arguments Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandEvent Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandEvent(ConsoleCommandEvent consoleCommandEvent) {
         String description = consoleCommandEvent.getDescription();
@@ -188,7 +188,7 @@ public class ConsoleInterface {
     /**
      * Deletes a task from task manager.
      *
-     * @param taskNumberStr Raw arguments returned by the function {@link #getConsoleInput()}.
+     * @param consoleCommandDelete Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
      */
     public void executeCommandDelete(ConsoleCommandDelete consoleCommandDelete) {
         int taskNumber = consoleCommandDelete.getTaskNumber();
