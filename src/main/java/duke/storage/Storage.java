@@ -1,11 +1,14 @@
 package duke.storage;
 
+import duke.Duke;
 import duke.command.Menu;
+import duke.data.TaskList;
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
+import duke.data.task.Todo;
+import duke.exception.StorageInitializationException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,51 +20,81 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+    private TaskList storedTaskList;
+
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.storedTaskList = new TaskList();
     }
 
-    public void readDukeFile(Menu dukeMenu) {
+    // Start of task initialization
+    public TaskList initialize() throws DukeException {
+        openDukeFile();
+        return storedTaskList;
+    }
+
+    public void openDukeFile() throws DukeException {
         if (Files.exists(Paths.get(filePath))) {
             File dukeFile = new File(filePath);
-            openDukeFileAndInitialise(dukeMenu, dukeFile);
+            safeReadDukeFile(dukeFile);
         }
     }
 
-    private static void openDukeFileAndInitialise(Menu dukeMenu, File dukeFile) {
+    private void safeReadDukeFile(File dukeFile) throws DukeException {
         try {
             Scanner in = new Scanner(dukeFile);
-            initialiseTasksFromDukeFile(dukeMenu, in);
+            readDukeFileAndInitializeTask(in);
         } catch (FileNotFoundException exception) {
-            //dukeMenu.displayErrorMessage();
+            throw new StorageInitializationException();
         } catch (DukeException exception) {
-            //dukeMenu.displayErrorMessage();
+            throw new StorageInitializationException();
         }
     }
 
-    private static void initialiseTasksFromDukeFile(Menu dukeMenu, Scanner in) throws DukeException {
+    private void readDukeFileAndInitializeTask(Scanner in) throws DukeException {
         while (in.hasNext()) {
             String line = in.nextLine();
             String[] splits = line.split(" \\| ");
-            initialiseTask(splits, dukeMenu);
+            initializeTask(splits);
         }
     }
 
-    public void rewriteDukeFile(Menu dukeMenu) throws IOException {
+    private void initializeTask(String[] splits) throws DukeException {
+        switch (splits[0]) {
+        case "T":
+            storedTaskList.addTask("todo", splits[2], true);
+            break;
+        case "D":
+            storedTaskList.addTask("deadline", splits[2] + " /by " + splits[3], true);
+            break;
+        case "E":
+            storedTaskList.addTask("event", splits[2] + " /at " + splits[3], true);
+            break;
+        default:
+            break;
+        }
+        if (splits[1].equals("1")) {
+            storedTaskList.mark(Integer.toString(storedTaskList.getTasks().size()), true);
+        }
+    }
+
+    // End of task initialization
+
+    public void rewriteDukeFile(TaskList taskList) throws IOException {
         if (!Files.exists(Paths.get(filePath))) {
             File dukeFile = new File(filePath);
             dukeFile.createNewFile();
         }
 
         FileWriter dukeFileWriter = new FileWriter(filePath, false);
-        for (Task task : dukeMenu.getTasks()) {
+        for (Task task : taskList.getTasks()) {
             String output = retrieveTaskInformationForFileStorage(task);
             dukeFileWriter.append(output);
         }
         dukeFileWriter.close();
     }
 
-    public void appendDukeFile(Menu dukeMenu) throws IOException {
+    public void appendDukeFile(TaskList taskList) throws IOException {
         FileWriter dukeFileWriter;
         if (Files.exists(Paths.get(filePath))) {
             dukeFileWriter = new FileWriter(filePath, true);
@@ -71,29 +104,10 @@ public class Storage {
             dukeFileWriter = new FileWriter(filePath, false);
         }
 
-        Task newTask = dukeMenu.getTasks().get(dukeMenu.getTasks().size() - 1);
+        Task newTask = taskList.getTasks().get(taskList.getTasks().size() - 1);
         String output = retrieveTaskInformationForFileStorage(newTask);
         dukeFileWriter.append(output);
         dukeFileWriter.close();
-    }
-
-    private static void initialiseTask(String[] splits, Menu dukeMenu) throws DukeException {
-        switch (splits[0]) {
-        case "T":
-            dukeMenu.addTask("todo", splits[2], true);
-            break;
-        case "D":
-            dukeMenu.addTask("deadline", splits[2] + " /by " + splits[3], true);
-            break;
-        case "E":
-            dukeMenu.addTask("event", splits[2] + " /at " + splits[3], true);
-            break;
-        default:
-            break;
-        }
-        if (splits[1].equals("1")) {
-            dukeMenu.mark(Integer.toString(dukeMenu.getTasks().size()), true);
-        }
     }
 
     private static String retrieveTaskInformationForFileStorage(Task task) {

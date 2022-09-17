@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Menu;
+import duke.data.TaskList;
 import duke.storage.Storage;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Duke {
     private Storage storage;
     private Ui ui;
+    private TaskList tasks;
     public static String[] splitInput(String userInput) {
         String[] split = userInput.split(" ", 2);
         if (split.length == 1) {
@@ -20,50 +22,50 @@ public class Duke {
         return split;
     }
 
-    public static void executeInstruction(Menu dukeMenu, String instruction, String inputValue) throws DukeException {
+    public void executeInstruction(String instruction, String inputValue) throws DukeException {
         switch (instruction) {
         case "todo":
             // Fallthrough
         case "deadline":
             // Fallthrough
         case "event":
-            dukeMenu.addTask(instruction, inputValue, false);
+            tasks.addTask(instruction, inputValue, false);
             break;
         case "delete":
-            dukeMenu.deleteTask(inputValue);
+            tasks.deleteTask(inputValue);
             break;
         case "list":
-            dukeMenu.list();
+            tasks.list();
             break;
         case "mark":
-            dukeMenu.mark(inputValue, false);
+            tasks.mark(inputValue, false);
             break;
         case "unmark":
-            dukeMenu.unmark(inputValue);
+            tasks.unmark(inputValue);
             break;
         case "bye":
-            dukeMenu.quit();
+            ui.displayExitMessage();
             break;
         default:
             throw new InvalidCommandException();
         }
     }
 
-    public void saveFile(Menu dukeMenu, String instruction) throws IOException {
+    public void saveFile(String instruction) throws IOException {
         switch (instruction) {
         case "mark":
             // Fallthrough
         case "unmark":
             // Fallthrough
         case "delete":
-            storage.rewriteDukeFile(dukeMenu);
+            storage.rewriteDukeFile(tasks);
             break;
         case "todo":
             // Fallthrough
         case "deadline":
             // Fallthrough
         case "event":
-            storage.appendDukeFile(dukeMenu);
+            storage.appendDukeFile(tasks);
             break;
         default:
             // No action for other command or invalid command
@@ -71,10 +73,10 @@ public class Duke {
         }
     }
 
-    public void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
+    public void safeExecuteInstruction(String instruction, String inputValue) {
         try {
-            executeInstruction(dukeMenu, instruction, inputValue);
-            saveFile(dukeMenu, instruction);
+            executeInstruction(instruction, inputValue);
+            saveFile(instruction);
         } catch (DukeException exception) {
             System.out.println(exception.getMessage());
         } catch (IOException exception) {
@@ -83,31 +85,26 @@ public class Duke {
     }
 
     public Duke(String filePath){
-        Ui ui = new Ui();
-        storage = new Storage(filePath);
-        /*
+        ui = new Ui();
         storage = new Storage(filePath);
         try{
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
+            tasks = new TaskList(storage.initialize());
+        } catch (DukeException exception) {
+            System.out.println(exception.getMessage());
             tasks = new TaskList();
         }
-         */
     }
 
     public void run() {
-        Menu dukeMenu = new Menu();
         String userInput = "", instruction = "", inputValue = "";
         Scanner in = new Scanner(System.in);
-        storage.readDukeFile(dukeMenu);
-        dukeMenu.greet();
+        ui.displayGreetingMessage();
         while (!instruction.equals("bye")) {
             userInput = in.nextLine();
             String[] splits = splitInput(userInput);
             instruction = splits[0];
             inputValue = splits[1];
-            safeExecuteInstruction(dukeMenu, instruction, inputValue);
+            safeExecuteInstruction(instruction, inputValue);
         }
 
     }

@@ -10,6 +10,7 @@ public enum ErrorMessage {
     EVENT_MISSING_DESCRIPTION_ERROR_MESSAGE("The description of a todo cannot be empty."),
     EVENT_MISSING_TAG_ERROR_MESSAGE("Separator \" /at \" is not found."),
     EVENT_MISSING_TIME_ERROR_MESSAGE("The time of an event cannot be empty."),
+    STORAGE_INITIALIZATION_ERROR_MESSAGE("The time of an event cannot be empty."),
     BANNER("____________________________________________________________");
 
     final String message;
