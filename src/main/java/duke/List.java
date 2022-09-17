@@ -2,10 +2,10 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class List {
-    public static final int arraySize = 100;
-    private static int amountOfItems = 0;
-    private static Task[] tasks;
+    public static ArrayList<Task> tasks = new ArrayList<>();
     public static final String deadline = "deadline";
     public static final String todo = "todo";
     public static final String event = "event";
@@ -14,17 +14,14 @@ public class List {
     public static final String space = " ";
     public static final String emptyString = "";
 
-    public List() {
-        tasks = new Task[arraySize];
-    }
 
     public Task getTaskFromList(int index){
-        return tasks[index];
+        return tasks.get(index);
     }
 
 
     public int getListSize() {
-        return amountOfItems;
+        return tasks.size();
     }
 
     public void addTask(String input) {
@@ -39,21 +36,20 @@ public class List {
     public void printList() {
         Message.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < amountOfItems; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.print(i + 1 + ". ");
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
         Message.printHorizontalLine();
     }
 
 
-
     public void markItemDone(int i) {
-        tasks[i - 1].markDone();
+        tasks.get(i - 1).markDone();
     }
 
     public void unmarkItemDone(int i) {
-        tasks[i - 1].unmarkDone();
+        tasks.get(i - 1).unmarkDone();
     }
 
     public void translateTask(String input) throws DukeException {
@@ -94,8 +90,7 @@ public class List {
         if (description.equals(emptyString) || byDescription.equals(emptyString)){
             throw new DukeException();
         }
-        tasks[amountOfItems] = new duke.task.Deadline(description,byDescription);
-        amountOfItems++;
+        tasks.add( new duke.task.Deadline(description,byDescription));
 
     }
 
@@ -103,21 +98,19 @@ public class List {
         if (description.equals(emptyString) || atDescription.equals(emptyString)){
             throw new DukeException();
         }
-        tasks[amountOfItems] = new duke.task.Event(description,atDescription);
-        amountOfItems++;
-
+        tasks.add(new duke.task.Event(description,atDescription));
     }
 
     public static void AddTodo(String description) {
-        tasks[amountOfItems] = new duke.task.Todo(description);
-        amountOfItems++;
+        tasks.add( new duke.task.Todo(description));
+
     }
 
     public void printTaskAdded() {
         Message.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[amountOfItems - 1]);
-        System.out.println("Now you have " + (amountOfItems) + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         Message.printHorizontalLine();
     }
 
