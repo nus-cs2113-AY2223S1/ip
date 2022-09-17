@@ -5,7 +5,6 @@ import duke.file.Storage;
 import duke.messages.Ui;
 
 import java.text.DateFormatSymbols;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeParseException;
@@ -13,9 +12,6 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
 
 public class TaskList {
 
@@ -226,18 +222,18 @@ public class TaskList {
                     case "mark":
                         tasks.get(index).setDone(true);
                         Ui.getAcknowledgement(command);
-                        Ui.getEntryFullStatus(tasks, index);
+                        Ui.getEntryStatus(tasks, index);
                         Ui.displayLineDivider();
                         break;
                     case "unmark":
                         tasks.get(index).setDone(false);
                         Ui.getAcknowledgement(command);
-                        Ui.getEntryFullStatus(tasks, index);
+                        Ui.getEntryStatus(tasks, index);
                         Ui.displayLineDivider();
                         break;
                     case "delete":
                         Ui.getAcknowledgement(command);
-                        Ui.getEntryFullStatus(tasks, index);
+                        Ui.getEntryStatus(tasks, index);
                         tasks.remove(index);
                         if (tasks.size() == 0) {
                             Ui.printNumOfTasks(0);
