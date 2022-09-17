@@ -1,5 +1,11 @@
 package duke.userinterface;
 
+import duke.task.Task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class ConsoleInputParser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -61,7 +67,14 @@ public class ConsoleInputParser {
             throw new ConsoleInputParserException.InvalidCommandDeadlineException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX);
         }
 
-        return new ConsoleCommandDeadline(description, by);
+        LocalDateTime byDateTime;
+        try {
+            byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+        } catch (DateTimeParseException e) {
+            throw new ConsoleInputParserException.InvalidCommandDeadlineException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX);
+        }
+
+        return new ConsoleCommandDeadline(description, byDateTime);
     }
 
     private static ConsoleCommandEvent parseCommandEvent(String arguments) throws ConsoleInputParserException.InvalidCommandEventException {

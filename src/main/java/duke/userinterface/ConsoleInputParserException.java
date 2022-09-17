@@ -5,7 +5,7 @@ import duke.DukeException;
 public class ConsoleInputParserException {
     public static final String ERROR_MESSAGE_ARGUMENT_NOT_INTEGER = "The argument provided is not a valid integer.";
     public static final String ERROR_MESSAGE_COMMAND_TODO_INVALID_SYNTAX = "The arguments are invalid. SYNTAX: todo DESCRIPTION";
-    public static final String ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX = "The arguments are invalid. SYNTAX: deadline DESCRIPTION /by BY";
+    public static final String ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX = "The arguments are invalid. SYNTAX: deadline DESCRIPTION /by dd/MM/yyyy HHmm";
     public static final String ERROR_MESSAGE_COMMAND_EVENT_INVALID_SYNTAX = "The arguments are invalid. SYNTAX: event DESCRIPTION /at AT";
 
     public static class CommandNotFoundException extends DukeException {

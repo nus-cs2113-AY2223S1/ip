@@ -1,6 +1,11 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
+    public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
+
     protected String description;
     protected boolean isComplete;
 
@@ -45,7 +50,8 @@ public class Task {
             Deadline deadline = (Deadline) task;
             taskStr += deadline.getDescription();
             taskStr += " | ";
-            taskStr += deadline.by;
+            String by = deadline.by.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            taskStr += by;
         } else if (task instanceof Event) {
             Event event = (Event) task;
             taskStr += event.getDescription();
@@ -82,7 +88,8 @@ public class Task {
             return todo;
         case "D":
             String by = taskStrArr[3].trim();
-            Deadline deadline = new Deadline(description, by);
+            LocalDateTime byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            Deadline deadline = new Deadline(description, byDateTime);
             deadline.setComplete(isComplete);
             return deadline;
         case "E":
@@ -122,7 +129,8 @@ public class Task {
 
         if (this instanceof Deadline) {
             Deadline deadline = (Deadline) this;
-            printString += " (by: " + deadline.by + ")";
+            String by = deadline.by.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            printString += " (by: " + by + ")";
         } else if (this instanceof Event) {
             Event event = (Event) this;
             printString += " (at: " + event.at + ")";

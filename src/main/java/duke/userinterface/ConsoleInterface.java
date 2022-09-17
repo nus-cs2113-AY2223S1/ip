@@ -2,6 +2,7 @@ package duke.userinterface;
 
 import duke.task.*;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -162,7 +163,7 @@ public class ConsoleInterface {
      */
     public void executeCommandDeadline(ConsoleCommandDeadline consoleCommandDeadline) {
         String description = consoleCommandDeadline.getDescription();
-        String by = consoleCommandDeadline.getBy();
+        LocalDateTime by = consoleCommandDeadline.getBy();
 
         Deadline deadline = new Deadline(description, by);
         taskManager.addTask(deadline);
