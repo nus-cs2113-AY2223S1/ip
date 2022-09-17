@@ -65,6 +65,10 @@ public class Task {
      * @return Task object from the converted string.
      */
     public static Task convertFromString(String taskStr) {
+        if (taskStr.isEmpty()) {
+            return null;
+        }
+
         String[] taskStrArr = taskStr.split(" \\| ");
         String type = taskStrArr[0].trim();
         String isCompleteStr = taskStrArr[1].trim();
