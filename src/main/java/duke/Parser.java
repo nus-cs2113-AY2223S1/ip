@@ -43,6 +43,8 @@ public class Parser {
                 synthesizedArr.append(userInput[i]).append(" ");
             }
             String taskDescription = synthesizedArr.toString();
+
+
             switch (command) {
             case "mark":
                 TaskList.processCommand(tasks, numOfWords, "mark", userInput);
@@ -61,6 +63,9 @@ public class Parser {
                 break;
             case "event":
                 TaskList.addEvent(tasks, taskDescription);
+                break;
+            case "find":
+                TaskList.findKeyWord(tasks,taskDescription, numOfWords);
                 break;
             default:
                 Ui.showWrongCommand();

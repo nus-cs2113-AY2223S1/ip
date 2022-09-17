@@ -1,4 +1,6 @@
 D |   | cook food  | 2022-09-11
 D |   | do that  | 2022-09-11
 D |   | do this  | 2011-09-20T12:09
-D |   | do this  | 2011-09-20T12:09
+E |   | food tasting  | 2022-09-01T09:00
+D |   | food preperation  | 2022-09-01T09:00
+T |   | buy food 

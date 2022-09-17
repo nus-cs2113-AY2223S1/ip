@@ -44,6 +44,32 @@ public class TaskList {
         return dateTime.toLocalDate();
     }
 
+    public static void findKeyWord(ArrayList<Task> tasks, String keyword, int numOfWords) {
+        if (numOfWords > 2) {
+            System.out.println("Please enter only 1 search item");
+        } else {
+            int numOfMatchedTasks = 0;
+            keyword = keyword.toLowerCase();
+            ArrayList<Task> matchedTasks = new ArrayList<>();
+            Ui.displayLineDivider();
+            for (Task task : tasks) {
+                if (task.getDescription().toLowerCase().contains(keyword)) {
+                    matchedTasks.add(task);
+                    numOfMatchedTasks += 1;
+                }
+            }
+            Ui.printMatchedTasks(matchedTasks);
+            if(numOfMatchedTasks == 1){
+                System.out.println("There is 1 task that contains your keyword!");
+            }else if(numOfMatchedTasks == 0) {
+                System.out.println("There are no matching tasks!!");
+            }else {
+                System.out.println("There are " + numOfMatchedTasks  + " tasks that has your keyword!");
+            }
+            Ui.displayLineDivider();
+        }
+    }
+
 
     public static void getList(ArrayList<Task> tasks) {
         int indexNum = 1;
@@ -99,6 +125,9 @@ public class TaskList {
                 }
 //
                 Storage.writeToFile(tasks);
+            } else {
+                System.out.println("Wrong format !");
+                System.out.println("Example: deadline food preperation /by 1/09/2022 0900");
             }
         } catch (DateTimeParseException e) {
             System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
@@ -137,13 +166,11 @@ public class TaskList {
                     System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
                 }
 
-//                else {
-//                    tasks.add(new Event("E", taskDescription, false, eventPeriod));
-//                    System.out.println(tasks.get(tasks.size() - 1));
-//                    Ui.printNumOfTasks(tasks.size());
-//                }
                 Storage.writeToFile(tasks);
 
+            } else {
+                System.out.println("Wrong format !");
+                System.out.println("Example: event food tasting /at 1/09/2022 0900");
             }
         } catch (DateTimeParseException e) {
             System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");

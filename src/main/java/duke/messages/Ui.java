@@ -1,5 +1,6 @@
 package duke.messages;
 
+import duke.taskings.Deadline;
 import duke.taskings.Task;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ public class Ui {
     static final String FAILED_CREATION = "FailedFileCreation";
     static final String FILE_INPUT_FAILED = "FailedFileInput";
     static final String LINE_DIVIDER = "____________________________________________________________";
+    static final String DEADLINE = "D";
+    static final String EVENT = "E";
+    static final String TODO = "T";
 
     public static void greet() {
         System.out.println(LINE_DIVIDER);
@@ -37,6 +41,25 @@ public class Ui {
 
     public static void displayLineDivider() {
         System.out.println(LINE_DIVIDER);
+    }
+
+    public static void printMatchedTasks(ArrayList<Task> matchedTasks) {
+        for (Task task : matchedTasks) {
+            String taskType = task.getTaskType();
+            switch (taskType) {
+            case TODO:
+                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription());
+                break;
+            case EVENT:
+                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "at ("+ task.getDateTime() +" )");
+                break;
+            case DEADLINE:
+                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() +"by ("+ task.getDateTime()+" )");
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     public static void showWrongCommand() {
@@ -112,7 +135,7 @@ public class Ui {
 
     public static void showFileError(String errorType) {
         switch (errorType) {
-        case MISSING_FILE :
+        case MISSING_FILE:
             System.out.println("File not found.");
             break;
         case FAILED_CREATION:
