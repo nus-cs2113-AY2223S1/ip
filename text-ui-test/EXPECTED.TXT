@@ -37,17 +37,17 @@ ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [T][X] borrow book
+[T][X] borrow book
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] return book (by: Sunday)
+[D][X] return book (by: Sunday)
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [E][X] project meeting (at: Mon 2-4pm)
+[E][X] project meeting (at: Mon 2-4pm)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -59,17 +59,17 @@ ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [T][ ] borrow book
+[T][ ] borrow book
 ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [D][ ] return book (by: Sunday)
+[D][ ] return book (by: Sunday)
 ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [E][ ] project meeting (at: Mon 2-4pm)
+[E][ ] project meeting (at: Mon 2-4pm)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -86,7 +86,7 @@ Now you have 4 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description of a todo cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: todo DESCRIPTION
 ____________________________________________________________
 
 ____________________________________________________________
@@ -96,23 +96,23 @@ Now you have 5 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /by option of a deadline must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /by option of a deadline cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /by option of a deadline must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /by option of a deadline cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /by option of a deadline cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
@@ -122,27 +122,27 @@ Now you have 6 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /by option of a deadline must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: deadline DESCRIPTION /at BY
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /at option of an event must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /at option of an event cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /at option of an event must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /at option of an event cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The description and the /at option of an event cannot be empty.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
@@ -152,7 +152,7 @@ Now you have 7 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! The /at option of an event must be present.
+☹ OOPS!!! The arguments are invalid. SYNTAX: event DESCRIPTION /at AT
 ____________________________________________________________
 
 ____________________________________________________________
@@ -168,12 +168,12 @@ ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] do homework (by: no idea :-p)
+[D][X] do homework (by: no idea :-p)
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [T][X] Test this program thoroughly
+[T][X] Test this program thoroughly
 ____________________________________________________________
 
 ____________________________________________________________
@@ -189,12 +189,12 @@ ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] complete Level-5 (by: Week 5 Tutorial)
+[D][X] complete Level-5 (by: Week 5 Tutorial)
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [E][X] attend tutorials (at: Wed 11-12pm)
+[E][X] attend tutorials (at: Wed 11-12pm)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -240,7 +240,7 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! Task number 6 does not exist.
+☹ OOPS!!! The task 6 does not exist.
 ____________________________________________________________
 
 ____________________________________________________________
@@ -253,11 +253,11 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! Task number 1337 does not exist.
+☹ OOPS!!! The task 1337 does not exist.
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! Task number 1337 does not exist.
+☹ OOPS!!! The task 1337 does not exist.
 ____________________________________________________________
 
 ____________________________________________________________
