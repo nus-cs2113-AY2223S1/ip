@@ -3,18 +3,15 @@
 ## About The Project
 
 **This is the CS2113 IP project made by Chin Han using OOP and software engineering practices.
-It is a program designed to help users curate a list of taskings with different classifications , along with extra functionalities.**
+It is a program designed to help users curate a list of taskings with different classifications , along with extra
+functionalities.**
 
 Here are the features of this program:
+
 1) Adding new tasks
-
-*
     1) Add Todo task
-*
     2) Add Event task with date and time
-*
     3) Add Deadline task with date and time
-
 2) Marking and Unmarking of task
 3) Deleting user-defined task entries
 4) Search and list entries containing user-defined keywords
@@ -31,7 +28,9 @@ Here are the features of this program:
 ```sh
 java -jar ip.jar
 ```
-3) Refer to the possible commands listed below. After each user action, users would be given **acknowledgement messages** or **error messages** for encountered errors. 
+
+3) Refer to the possible commands listed below. After each user action, users would be given **acknowledgement
+   messages** or **error messages** for encountered errors.
 
 ### Prerequisites
 
