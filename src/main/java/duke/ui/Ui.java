@@ -195,6 +195,7 @@ public class Ui {
      * @param tasks The ArrayList of the user's current tasks.
      */
     public static void printMarkedTaskAsDoneAcknowledgement(int taskIndex, ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(taskIndex).toString());
         System.out.println("____________________________________________________________");
@@ -207,6 +208,7 @@ public class Ui {
      * @param tasks The ArrayList of the user's current tasks.
      */
     public static void printMarkedTaskAsUndoneAcknowledgement(int taskIndex, ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(taskIndex).toString());
         System.out.println("____________________________________________________________");
