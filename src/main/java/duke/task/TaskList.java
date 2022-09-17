@@ -33,11 +33,11 @@ public class TaskList {
     }
 
     public void markDone(int index) throws DukeException {
-        getTask(index).setDone(true);
+        getTask(index).setAsDone();
     }
 
     public void unmarkDone(int index) throws DukeException {
-        getTask(index).setDone(false);
+        getTask(index).setAsUndone();
     }
 
     public void delete(int index) throws DukeException {
@@ -63,7 +63,12 @@ public class TaskList {
     }
 
     public String toStringFindResult() {
-        StringBuilder listString = new StringBuilder((taskList.size() == 0 ? "There is no matching task in your list" : "Here are " + taskList.size() + " matching tasks in your list:"));
+        StringBuilder listString = new StringBuilder();
+        if (taskList.size() == 0) {
+            listString.append("There is no matching task in your list");
+        } else {
+            listString.append("Here are ").append(taskList.size()).append(" matching task(s) in your list:");
+        }
         int index = 1;
         for (Task task : taskList) {
             listString.append('\n').append("   ").append(index++).append(". ").append(task);
@@ -73,7 +78,12 @@ public class TaskList {
 
     @Override
     public String toString() {
-        StringBuilder listString = new StringBuilder((taskList.size() == 0 ? "There is nothing in your list right now" : "Here are " + taskList.size() + " tasks in your list:"));
+        StringBuilder listString = new StringBuilder();
+        if (taskList.size() == 0) {
+            listString.append("There is nothing in your list right now");
+        } else {
+            listString.append("Here are ").append(taskList.size()).append(" task(s) in your list:");
+        }
         int index = 1;
         for (Task task : taskList) {
             listString.append('\n').append("   ").append(index++).append(". ").append(task);

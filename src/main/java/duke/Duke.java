@@ -30,7 +30,7 @@ public class Duke {
     }
 
     public void run() {
-        ui.greet();
+        ui.printGreetingMessage();
         while (isActive) {
             try {
                 String input = ui.getUserInput();

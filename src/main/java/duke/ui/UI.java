@@ -25,20 +25,20 @@ public class UI {
         System.out.print(HORIZONTAL_DIVIDER + message + "\n" + HORIZONTAL_DIVIDER);
     }
 
-    public void greet() {
+    public void printGreetingMessage() {
         reply("Hello! I'm Banana\n"
                 + "How can I help you?\n"
                 + LOGO);
     }
 
-    public void bye() {
+    public void printExitMessage() {
         reply("Good bye. Hope to see you again soon!");
     }
 
     public void confirmAdd(Task task, TaskList taskList) {
         reply("Got it, I added this task to your list:\n"
                 + ARROW + task
-                + "\nNow you have " + taskList.getSize() + " task" + (taskList.getSize() == 1 ? "" : "s") + " in the list");
+                + "\nNow you have " + taskList.getSize() + " task(s) in the list");
     }
 
     public void confirmMark(Task task) {
@@ -52,9 +52,10 @@ public class UI {
     }
 
     public void confirmDelete(Task task, TaskList taskList) {
+
         reply("Noted. I've removed this task:\n"
                 + ARROW + task
-                + "\nNow you have " + taskList.getSize() + " task" + (taskList.getSize() == 1 ? "" : "s") + " in the list");
+                + "\nNow you have " + taskList.getSize() + " task(s) in the list");
     }
 
     public void printList(TaskList taskList) {

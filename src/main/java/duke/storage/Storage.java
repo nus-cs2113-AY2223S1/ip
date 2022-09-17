@@ -20,6 +20,7 @@ public class Storage {
     private static final String DEADLINE = "D";
     private static final String DONE = "1";
     private static final String UNDONE = "0";
+    private static final String STORE_DIVIDER = " \\| ";
     private final String filePath;
 
     public Storage(String filePath) {
@@ -33,7 +34,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String taskLine = scanner.nextLine();
-                String[] analysedTaskLine = taskLine.split(" \\| ");
+                String[] analysedTaskLine = taskLine.split(STORE_DIVIDER);
                 Task task = handleTaskLine(analysedTaskLine);
                 list.add(task);
             }
@@ -78,10 +79,10 @@ public class Storage {
 
         switch (analysedTaskLine[1]) {
         case DONE:
-            task.setDone(true);
+            task.setAsDone();
             break;
         case UNDONE:
-            task.setDone(false);
+            task.setAsUndone();
             break;
         default:
             throw new DukeException("Cannot understand your task status ☹");

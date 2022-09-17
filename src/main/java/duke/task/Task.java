@@ -9,8 +9,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setAsDone() {
+        this.isDone = true;
+    }
+
+    public void setAsUndone() {
+        this.isDone = false;
     }
 
     public String getDescription() {
@@ -22,7 +26,8 @@ public class Task {
     }
 
     public String formatTaskToStringToStore() {
-        return (isDone ? "1" : "0") + " | " + description;
+        String STORE_DIVIDER = " | ";
+        return (isDone ? "1" : "0") + STORE_DIVIDER + description;
     }
 
     @Override
