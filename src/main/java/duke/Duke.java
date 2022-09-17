@@ -1,8 +1,5 @@
 package duke;
 
-/*
- * Import Java Packages
- */
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -19,7 +16,42 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Entry point of the Duke application
+ * Initializes the application and starts the interaction with the users
+ */
 public class Duke {
+
+    public static void main(String[] args) {
+        new Main().run();
+    }
+
+    public void run(){
+        start();
+        exit();
+    }
+
+    private void start(){
+        this.ui = new TextUi();
+        ui.showWelcomeMessage();
+    }
+    private void exit(){
+        ui.showExitMessage();
+        System.exit();
+    }
+    private void runMainLoop(){
+        Command command;
+        do {
+            String userCommandText = ui.getUserCommand();
+            command = new Parser().parseCommand(userCommandText);
+            CommandResult result = executeCommand(command);
+            ui.showResultToUser(result);
+        } while (!ExitCommand.isExit(command));
+    }
+
+
+
+
     /**
      * Global Constant Section
      */
@@ -95,7 +127,7 @@ public class Duke {
             exit();
             break;
         case "list":
-            list();
+           list();
             break;
         case "mark":
         case "unmark":
