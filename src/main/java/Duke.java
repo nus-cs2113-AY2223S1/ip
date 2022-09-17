@@ -1,6 +1,11 @@
-import javax.annotation.processing.SupportedSourceVersion;
+import duke.Deadline;
+import duke.Event;
+import duke.Task;
+import duke.ToDo;
+
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -8,16 +13,13 @@ public class Duke {
 
     public static void main(String[] args) {
         printWelcomeMessage();
-        Task[] taskLists = new Task[100];
+        ArrayList<Task> taskLists = new ArrayList<Task>();
 
 
         String userInput = getUserInput();
 
         while(!userInput.equals("bye")){
             String[] userInputSplit = userInput.split(" ");
-            String[] inputArrayWithoutType;
-            String inputWithoutType;
-            String description;
             switch(userInputSplit[0]){
             case "list":
                 printTaskList(taskLists, Task.numOfTasks);
@@ -25,8 +27,8 @@ public class Duke {
 
             case "mark":
                 int markDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
-                taskLists[markDoneIndex].setIsDone(true);
-                printSetDoneMessage(taskLists[markDoneIndex]);
+                taskLists.get(markDoneIndex).setIsDone(true);
+                printSetDoneMessage(taskLists.get(markDoneIndex));
                 break;
 
             case "todo":
@@ -48,14 +50,18 @@ public class Duke {
                 break;
 
 
-
             case "unmark":
                 int markNotDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
-                taskLists[markNotDoneIndex].setIsDone(false);
-                printSetNotDoneMessage(taskLists[markNotDoneIndex]);
+                taskLists.get(markNotDoneIndex).setIsDone(false);
+                printSetNotDoneMessage(taskLists.get(markNotDoneIndex));
                 break;
 
-            default:
+            case "delete":
+                int deleteIndex = Integer.parseInt(userInputSplit[1]) - 1;
+                deleteTask(taskLists, deleteIndex);
+                break;
+
+                default:
                 printDontKnowMessage();
             }
             userInput = getUserInput();
@@ -64,39 +70,51 @@ public class Duke {
         printByeMessage();
     }
 
-    private static void addTodo(Task[] taskLists, String[] userInputSplit) throws EmptyDescriptionException {
+    private static void deleteTask(ArrayList<Task> taskLists, int deleteIndex) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println(String.format("       %s", taskLists.get(deleteIndex).toString()));
+        taskLists.remove(deleteIndex);
+        Task.numOfTasks --;
+        System.out.println("     Now you have " + Task.numOfTasks + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void addTodo(ArrayList<Task> taskLists, String[] userInputSplit) throws EmptyDescriptionException {
         if (userInputSplit.length < 2){
             throw new EmptyDescriptionException();
         }
         String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
         String description = String.join(" ", inputArrayWithoutType);
         ToDo newToDo = new ToDo(description);
-        taskLists[Task.numOfTasks] = newToDo;
+        taskLists.add(newToDo);
         Task.numOfTasks ++;
         printEchoInput(newToDo);
     }
 
-    private static void addEvent(Task[] taskLists, String[] userInputSplit) {
+    private static void addEvent(ArrayList<Task> taskLists, String[] userInputSplit) {
         String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
         String inputWithoutType = String.join(" ", inputArrayWithoutType);
         String description = inputWithoutType.split(" /at ")[0];
         String time = inputWithoutType.split(" /at ")[1];
         Event newEvent = new Event(description, time);
-        taskLists[Task.numOfTasks] = newEvent;
+        taskLists.add(newEvent);
         Task.numOfTasks ++;
         printEchoInput(newEvent);
     }
+    // add exception
 
-    private static void addDeadline(Task[] taskLists, String[] userInputSplit) {
+    private static void addDeadline(ArrayList<Task> taskLists, String[] userInputSplit) {
         String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
         String inputWithoutType = String.join(" ", inputArrayWithoutType);
         String description = inputWithoutType.split(" /by ")[0];
         String deadline = inputWithoutType.split(" /by ")[1];
         Deadline newDeadline = new Deadline(description, deadline);
-        taskLists[Task.numOfTasks] = newDeadline;
+        taskLists.add(newDeadline);
         Task.numOfTasks ++;
         printEchoInput(newDeadline);
     }
+    // add exception
 
     private static void printDontKnowMessage(){
         String dontKnowMessage = "    ____________________________________________________________\n"
@@ -138,11 +156,11 @@ public class Duke {
     }
 
     // replace count
-    public static void printTaskList(Task[] taskLists, int count){
+    public static void printTaskList(ArrayList<Task> taskLists, int count){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");
         for (int i=0; i<count; i++){
-            Task currTask = taskLists[i];
+            Task currTask = taskLists.get(i);
 
             int index = i + 1;
             System.out.println("     " + index + "." + currTask.toString());
