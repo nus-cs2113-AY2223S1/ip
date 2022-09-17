@@ -5,11 +5,13 @@ package duke.command;
  */
 
 public class Command {
-    protected Command(){
+    public String commandType;
 
+    protected Command(String commandType) {
+        this.commandType = commandType;
     }
 
-    public CommandResult execute(){
+    public CommandResult execute() {
         throw new UnsupportedOperationException("Method to be implemented in child classes");
 
     }
