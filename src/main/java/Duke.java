@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+
 public class Duke {
     public static int numberOfTasks = 0;
     public static ArrayList<Task> myList = new ArrayList<Task>();
@@ -20,6 +22,11 @@ public class Duke {
                 " What can I do for ya?\n" +
                 "____________________________________________________________\n";
         System.out.println("\n" + GREETING);
+        try {
+            retrieveTasks();
+        } catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
 
 
         while (true) {
@@ -150,20 +157,41 @@ public class Duke {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
-//    private static void retrieveTasks() {
-//        String home = System.getProperty("user.home");
-//        boolean directoryExists = new java.io.File(home + "/Desktop/tasks.txt").exists();
-//        if(!directoryExists){
-//            System.out.println("directory does not exist");
-//        }
-//        String filePath = home + "/Desktop/tasks.txt";
-//        Scanner s = new Scanner(filePath);
-//        while (s.hasNext()) {
-//            String next = s.nextLine();
-//            if(next.charAt(1) == 'T'){
-//                addTodo();
-//            }
-//        }
-//    }
+    private static void retrieveTasks() throws FileNotFoundException {
+        String home = System.getProperty("user.home");
+        boolean directoryExists = new java.io.File(home + "/Desktop/tasks.txt").exists();
+        if (!directoryExists) {
+            System.out.println("directory does not exist");
+        }
+        String filePath = home + "/Desktop/tasks.txt";
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String next = s.nextLine();
+            addSingleTaskFromFile(next);
+            numberOfTasks++;
+        }
+    }
+    private static void addSingleTaskFromFile(String next){
+        char TaskType = next.charAt(1);
+        boolean isDone = (next.charAt(4) == 'X');
+        Task newElement = new Task("");
+        if(TaskType == 'T'){
+            String description = next.substring(next.lastIndexOf("]") + 1);
+            newElement = new Todo(description);
+        } else if(TaskType == 'E'){
+            String description = next.substring(next.indexOf("]") + 1, next.indexOf("(at:") - 1);
+            String at = next.substring(next.indexOf("(at:") + 1);
+            newElement = new Event(description, at);
+        } else if(TaskType == 'D'){
+            String description = next.substring(next.indexOf("]") + 1, next.indexOf("(by:") - 1);
+            String by = next.substring(next.indexOf("(at:") + 1);
+            newElement = new Deadline(description, by);
+        }
+        if(isDone){
+            newElement.markAsDone();
+        }
+        myList.add(newElement);
+    }
 }
 
