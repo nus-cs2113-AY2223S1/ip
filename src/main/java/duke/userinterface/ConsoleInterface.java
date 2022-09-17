@@ -112,7 +112,7 @@ public class ConsoleInterface {
             System.out.println("Nice! I've marked this task as done:");
             taskManager.getTask(taskNumberInt).print();
 
-            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+            taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
         }
@@ -138,7 +138,7 @@ public class ConsoleInterface {
             System.out.println("OK, I've marked this task as not done yet:");
             taskManager.getTask(taskNumberInt).print();
 
-            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+            taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
         }
@@ -164,7 +164,7 @@ public class ConsoleInterface {
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
 
-        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+        taskManager.saveTasks();
     }
 
     /**
@@ -200,7 +200,7 @@ public class ConsoleInterface {
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
 
-        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+        taskManager.saveTasks();
     }
 
     /**
@@ -236,7 +236,7 @@ public class ConsoleInterface {
         int numTasks = taskManager.getNumTasks();
         System.out.println("Now you have " + numTasks + " tasks in the list.");
 
-        taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+        taskManager.saveTasks();
     }
 
     /**
@@ -261,7 +261,7 @@ public class ConsoleInterface {
             int numTasks = taskManager.getNumTasks();
             System.out.println("Now you have " + numTasks + " tasks in the list.");
 
-            taskManager.saveTasks(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+            taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
             System.out.println("☹ OOPS!!! Task number " + taskNumberInt + " does not exist.");
         }

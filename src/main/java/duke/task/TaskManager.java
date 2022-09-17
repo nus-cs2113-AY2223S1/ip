@@ -1,21 +1,28 @@
 package duke.task;
 
+import duke.data.LocalStorage;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class TaskManager {
+    public final String DEFAULT_TASKS_PATH = "./data/";
+    public final String DEFAULT_TASKS_FILENAME = "tasks.txt";
+
     private ArrayList<Task> tasks;
+    private String tasksPath;
+    private String tasksFilename;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
+        this.tasksPath = DEFAULT_TASKS_PATH;
+        this.tasksFilename = DEFAULT_TASKS_FILENAME;
     }
 
-    public TaskManager(String path, String filename) {
-        loadTasks(path, filename);
+    public TaskManager(String tasksPath, String tasksFilename) {
+        this.tasksPath = tasksPath;
+        this.tasksFilename = tasksFilename;
+        loadTasks();
     }
 
     /**
@@ -117,59 +124,19 @@ public class TaskManager {
         }
     }
 
-    /**
-     * Saves tasks in task manager to file.
-     *
-     * @param path Path of the file to load.
-     * @param filename Name of the file to load.
-     */
-    public void saveTasks(String path, String filename) {
-        Path tasksDirectoryPath = Paths.get(path);
-        Path tasksFilePath = Paths.get(path + filename);
-
-        if (Files.notExists(tasksDirectoryPath)) {
-            try {
-                Files.createDirectories(tasksDirectoryPath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        String tasksStr = "";
-        for (Task task : tasks) {
-            tasksStr += Task.convertToString(task);
-            tasksStr += "\n";
-        }
-
+    public void saveTasks() {
         try {
-            Files.writeString(tasksFilePath, tasksStr, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            LocalStorage.saveTasks(tasks, tasksPath, tasksFilename);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Unable to save tasks to disk.");
         }
     }
 
-    /**
-     * Loads tasks from file into task manager.
-     *
-     * @param path Path of the file to load.
-     * @param filename Name of the file to load.
-     */
-    public void loadTasks(String path, String filename) {
-        tasks = new ArrayList<>();
-
-        Path tasksFilePath = Paths.get(path + filename);
-
-        String tasksStr;
+    public void loadTasks() {
         try {
-            tasksStr = Files.readString(tasksFilePath);
+            tasks = LocalStorage.loadTasks(tasksPath, tasksFilename);
         } catch (IOException e) {
-            return;
-        }
-
-        String[] tasksStrArr = tasksStr.split("\n");
-        for (String taskStr : tasksStrArr) {
-            Task task = Task.convertFromString(taskStr);
-            tasks.add(task);
+            tasks = new ArrayList<>();
         }
     }
 }
