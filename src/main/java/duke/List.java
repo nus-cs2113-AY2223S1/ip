@@ -51,6 +51,15 @@ public class List {
     public void unmarkItemDone(int i) {
         tasks.get(i - 1).unmarkDone();
     }
+    public void deleteTask(int index) throws DukeException {
+        try{
+            Task taskToDelete = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            printTaskDeleted(taskToDelete);
+        } catch (IndexOutOfBoundsException e){
+            throw new DukeException();
+        }
+    }
 
     public void translateTask(String input) throws DukeException {
         String[] divideByFirstSpace = input.split(space, 2);
