@@ -1,0 +1,10 @@
+diff a/src/main/java/duke/Duke.java b/src/main/java/duke/Duke.java	(rejected hunks)
+@@ -73,6 +73,8 @@
+             dukeList.unmarkItemDone(checkInteger(wordsInput));
+         } else if (wordsInput[0].equals(markDone)) {
+             dukeList.markItemDone(checkInteger(wordsInput));
++        } else if (wordsInput[0].equals(delete)) {
++            dukeList.deleteTask(checkInteger(wordsInput));
+         } else {
+             dukeList.addTask(input);
+         }
