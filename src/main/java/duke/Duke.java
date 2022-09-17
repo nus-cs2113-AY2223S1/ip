@@ -7,6 +7,9 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * A chat bot named Duke.
+ */
 public class Duke {
 
     private final UI ui;
@@ -15,6 +18,11 @@ public class Duke {
     private static final String EXIT_PREFIX = "bye";
     private boolean isActive = true;
 
+    /**
+     * Constructor of Duke.
+     *
+     * @param filePath The file path that Duke stores its tasks.
+     */
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -25,10 +33,16 @@ public class Duke {
         }
     }
 
+    /**
+     * Exits the program.
+     */
     public void exit() {
         isActive = false;
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.printGreetingMessage();
         while (isActive) {
@@ -47,6 +61,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main entry method to run Duke.
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
