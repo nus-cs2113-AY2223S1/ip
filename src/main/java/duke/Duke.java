@@ -4,8 +4,8 @@ import duke.command.Menu;
 import duke.command.DukeFile;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
+import duke.ui.Ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -75,12 +75,26 @@ public class Duke {
             saveFile(dukeMenu, instruction);
         } catch (DukeException exception) {
             System.out.println(exception.getMessage());
-        } catch (IOException exception){
-            dukeMenu.displayErrorMessage();
+        } catch (IOException exception) {
+            //dukeMenu.displayErrorMessage();
         }
     }
 
+    public Duke(String filePath){
+        Ui ui = new Ui();
+        /*
+        storage = new Storage(filePath);
+        try{
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+         */
+    }
+
     public static void main(String[] args) {
+        // new Duke("tasks.txt").run();
         Menu dukeMenu = new Menu();
         String userInput = "", instruction = "", inputValue = "";
         Scanner in = new Scanner(System.in);

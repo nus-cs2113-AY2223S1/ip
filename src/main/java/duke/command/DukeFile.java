@@ -29,9 +29,9 @@ public class DukeFile {
             Scanner in = new Scanner(dukeFile);
             initialiseTasksFromDukeFile(dukeMenu, in);
         } catch (FileNotFoundException exception) {
-            dukeMenu.displayErrorMessage();
+            //dukeMenu.displayErrorMessage();
         } catch (DukeException exception) {
-            dukeMenu.displayErrorMessage();
+            //dukeMenu.displayErrorMessage();
         }
     }
 

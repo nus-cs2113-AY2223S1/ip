@@ -1,21 +1,20 @@
 package duke.command;
 
-import duke.Duke;
 import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
 public class Menu {
     private ArrayList<Task> tasks;
-    private static final int MAX_TASK_SIZE = 1000000000;
     private static final int MAX_TASK_STRING_LENGTH = 9;
-    private static final String DIVIDER = "____________________________________________________________";
     private static final boolean IS_MARK_METHOD = true;
     private static final boolean IS_UNMARK_METHOD = false;
+    private Ui ui = new Ui();
 
     public Menu() {
         this.tasks = new ArrayList<>();
@@ -25,8 +24,8 @@ public class Menu {
         return tasks;
     }
 
-    public static void greet() {
-        displayGreetingMessage();
+    public void greet() {
+        ui.displayGreetingMessage();
     }
 
     public void list() {
@@ -35,7 +34,8 @@ public class Menu {
             listContent += String.format("%d.%s", i + 1, tasks.get(i).getTaskFullDetails());
             listContent += System.lineSeparator();
         }
-        displayListingMessage(listContent);
+        listContent += "There are a total of " + tasks.size() + " tasks.";
+        ui.displayListingMessage(listContent);
     }
 
     public void addTask(String taskType, String userInput, boolean isSilent) throws DukeException {
@@ -63,8 +63,8 @@ public class Menu {
             break;
         }
         String taskDetail = tasks.get(tasks.size() - 1).getTaskFullDetails();
-        if(!isSilent){
-            displayTaskAdditionMessage(taskDetail, tasks.size());
+        if (!isSilent) {
+            ui.displayTaskAdditionMessage(taskDetail, tasks.size());
         }
     }
 
@@ -73,7 +73,7 @@ public class Menu {
         int taskIndex = Integer.parseInt(inputValue);
         String taskDetail = tasks.get(taskIndex - 1).getTaskFullDetails();
         tasks.remove(taskIndex - 1);
-        displayTaskDeletionMessage(taskDetail, tasks.size());
+        ui.displayTaskDeletionMessage(taskDetail, tasks.size());
     }
 
     public void mark(String inputValue, boolean isSilent) throws DukeException {
@@ -82,7 +82,7 @@ public class Menu {
         tasks.get(taskIndex - 1).setDone(true);
         String taskName = tasks.get(taskIndex - 1).getTaskName();
         if (!isSilent) {
-            displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
+            ui.displayMarkOrUnmarkMessage(taskName, IS_MARK_METHOD);
         }
     }
 
@@ -91,71 +91,15 @@ public class Menu {
         int taskIndex = Integer.parseInt(inputValue);
         tasks.get(taskIndex - 1).setDone(false);
         String taskName = tasks.get(taskIndex - 1).getTaskName();
-        displayMarkOrUnmarkMessage(taskName, IS_UNMARK_METHOD);
+        ui.displayMarkOrUnmarkMessage(taskName, IS_UNMARK_METHOD);
     }
 
     public void quit() {
-        displayExitMessage();
+        ui.displayExitMessage();
     }
 
-    private static void displayGreetingMessage() {
-        String output = DIVIDER + System.lineSeparator()
-                + "Hello! I'm Duke" + System.lineSeparator()
-                + "What can I do for you?" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
 
-    private static void displayListingMessage(String listContent) {
-        String output = DIVIDER + System.lineSeparator()
-                + "Here are the tasks in your list:" + System.lineSeparator()
-                + listContent
-                + DIVIDER;
-        System.out.println(output);
-    }
 
-    private static void displayTaskAdditionMessage(String taskDetails, int count) {
-        String output = DIVIDER + System.lineSeparator()
-                + "Got it. I've added this task: " + System.lineSeparator()
-                + "\t" + taskDetails + System.lineSeparator()
-                + "Now you have " + count + " tasks in the list" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
-
-    private static void displayTaskDeletionMessage(String taskDetails, int count) {
-        String output = DIVIDER + System.lineSeparator()
-                + "Noted. I've removed this task:" + System.lineSeparator()
-                + "\t" + taskDetails + System.lineSeparator()
-                + "Now you have " + count + " tasks in the list" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
-
-    private static void displayMarkOrUnmarkMessage(String taskName, boolean isMarkMethod) {
-        String output = DIVIDER + System.lineSeparator();
-        if (isMarkMethod) {
-            output += "Nice! I've marked this task as done:" + System.lineSeparator() + "\t[X] ";
-        } else {
-            output += "OK, I've marked this task as not done yet:" + System.lineSeparator() + "\t[ ] ";
-        }
-        output += taskName + System.lineSeparator() + DIVIDER;
-        System.out.println(output);
-    }
-
-    private static void displayExitMessage() {
-        String output = DIVIDER + System.lineSeparator()
-                + "Bye. Hope to see you again soon!" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
-
-    public void displayErrorMessage() {
-        String output = DIVIDER + System.lineSeparator()
-                + "Something went wrong!" + System.lineSeparator()
-                + DIVIDER;
-        System.out.println(output);
-    }
     public boolean containsTaskDescription(String userInput, String separator) {
         // Trim description from userInput
         String[] splits = userInput.split(separator, 2);
