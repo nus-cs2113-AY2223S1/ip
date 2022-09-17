@@ -34,6 +34,12 @@ public class Message {
         printHorizontalErrorLine();
     }
 
+    public static void printSystemError(){
+        printHorizontalErrorLine();
+        System.out.println("Error using list text, check file");
+        printHorizontalErrorLine();
+    }
+
 
 
 }

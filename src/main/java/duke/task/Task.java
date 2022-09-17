@@ -1,7 +1,12 @@
 package duke.task;
+
+import duke.FileManager;
+
 public class Task {
     private String description;
     private boolean isDone;
+    public final String isDoneString = "X";
+    public final String isNotDoneString = " ";
 
     public Task(String description) {
         this.description = description;
@@ -22,9 +27,19 @@ public class Task {
 
     public String getIsDoneMarking() {
         if (isDone) {
-            return "X";
+            return isDoneString;
         }
-        return " ";
+        return isNotDoneString;
+    }
+    public String isDoneFileFormat(){
+        String isDone = "0";
+        if (getIsDone()){
+            isDone = "1";
+        }
+        return isDone;
+    }
+    public boolean getIsDone(){
+        return isDone;
     }
 
     public String getDescription() {
@@ -33,6 +48,11 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFileFormat() {
+        return FileManager.divider + isDoneFileFormat()
+                + FileManager.divider + getDescription();
     }
 
 }
