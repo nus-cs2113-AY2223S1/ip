@@ -11,4 +11,13 @@ public class TaskManagerException {
             super(message);
         }
     }
+
+    public static class TasksFileIOException extends DukeException {
+        public TasksFileIOException() {
+        }
+
+        public TasksFileIOException(String message) {
+            super(message);
+        }
+    }
 }

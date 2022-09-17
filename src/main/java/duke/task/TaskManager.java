@@ -66,9 +66,8 @@ public class TaskManager {
     public Task getTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
         int taskIndex = taskNumber - 1;
         try {
-            Task task = tasks.get(taskIndex);
-            return task;
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            return tasks.get(taskIndex);
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskManagerException.TaskNotFoundException();
         }
     }
@@ -87,7 +86,7 @@ public class TaskManager {
             tasks.remove(taskIndex);
 
             return task;
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskManagerException.TaskNotFoundException();
         }
     }
@@ -103,7 +102,7 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(true);
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskManagerException.TaskNotFoundException();
         }
     }
@@ -119,16 +118,16 @@ public class TaskManager {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(false);
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskManagerException.TaskNotFoundException();
         }
     }
 
-    public void saveTasks() {
+    public void saveTasks() throws TaskManagerException.TasksFileIOException {
         try {
             LocalStorage.saveTasks(tasks, tasksPath, tasksFilename);
         } catch (IOException e) {
-            System.out.println("Unable to save tasks to disk.");
+            throw new TaskManagerException.TasksFileIOException("The tasks could not be saved to disk.");
         }
     }
 

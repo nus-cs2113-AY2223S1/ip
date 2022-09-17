@@ -105,7 +105,9 @@ public class ConsoleInterface {
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
+            printErrorMessage("The task " + taskNumber + " does not exist.");
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
         }
     }
 
@@ -124,8 +126,10 @@ public class ConsoleInterface {
             taskManager.getTask(taskNumber).print();
 
             taskManager.saveTasks();
-        } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
+        } catch (TaskManagerException.TaskNotFoundException e) {
+            printErrorMessage("The task " + taskNumber + " does not exist.");
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
         }
     }
 
@@ -144,7 +148,11 @@ public class ConsoleInterface {
         todo.print();
         System.out.println("Now you have " + taskManager.getNumTasks() + " tasks in the list.");
 
-        taskManager.saveTasks();
+        try {
+            taskManager.saveTasks();
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
+        }
     }
 
     /**
@@ -163,7 +171,11 @@ public class ConsoleInterface {
         deadline.print();
         System.out.println("Now you have " + taskManager.getNumTasks() + " tasks in the list.");
 
-        taskManager.saveTasks();
+        try {
+            taskManager.saveTasks();
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
+        }
     }
 
     /**
@@ -182,7 +194,11 @@ public class ConsoleInterface {
         event.print();
         System.out.println("Now you have " + taskManager.getNumTasks() + " tasks in the list.");
 
-        taskManager.saveTasks();
+        try {
+            taskManager.saveTasks();
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
+        }
     }
 
     /**
@@ -201,8 +217,10 @@ public class ConsoleInterface {
             System.out.println("Now you have " + taskManager.getNumTasks() + " tasks in the list.");
 
             taskManager.saveTasks();
-        } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
+        } catch (TaskManagerException.TaskNotFoundException e) {
+            printErrorMessage("The task " + taskNumber + " does not exist.");
+        } catch (TaskManagerException.TasksFileIOException e) {
+            printErrorMessage(e.getMessage());
         }
     }
 
