@@ -51,6 +51,12 @@ public class List {
     public void unmarkItemDone(int i) {
         tasks.get(i - 1).unmarkDone();
     }
+
+    public static void printTaskDeleted(Task taskToDelete) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(taskToDelete);
+        System.out.println("Now you have "+ tasks.size() + "tasks in the list.");
+    }
     public void deleteTask(int index) throws DukeException {
         try{
             Task taskToDelete = tasks.get(index - 1);
