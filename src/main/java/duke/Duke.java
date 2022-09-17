@@ -38,16 +38,16 @@ public class Duke {
     }
 
     public static int checkInteger(String[] wordsInput) throws DukeException {
-        if (wordsInput.length != 2 || wordsInput[1].equals("")) {
+        if (wordsInput.length != 2 || wordsInput[1].equals("")){
             throw new DukeException();
         }
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(wordsInput[1]);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e){
             throw new DukeException();
         }
-        if (taskNumber > dukeList.getListSize()) {
+        if (taskNumber > dukeList.getListSize()){
             throw new DukeException();
         }
         return taskNumber;
