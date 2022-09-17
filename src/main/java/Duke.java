@@ -42,7 +42,12 @@ public class Duke {
                 break;
 
             case "event":
-                addEvent(taskLists, userInputSplit);
+                try{
+                    addEvent(taskLists, userInputSplit);
+                }
+                catch(StringIndexOutOfBoundsException e){
+                    System.out.println(e.toString());
+                };
                 break;
 
             case "deadline":
@@ -92,9 +97,13 @@ public class Duke {
         printEchoInput(newToDo);
     }
 
-    private static void addEvent(ArrayList<Task> taskLists, String[] userInputSplit) {
-        String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
+    private static void addEvent(ArrayList<Task> taskLists, String[] userInputSplit) throws StringIndexOutOfBoundsException{
+
+        String[] inputArrayWithoutType = Arrays.copyOfRange(userInputSplit, 1, userInputSplit.length);
         String inputWithoutType = String.join(" ", inputArrayWithoutType);
+        if (inputWithoutType.length() < 3){
+            throw new StringIndexOutOfBoundsException();
+        }
         String description = inputWithoutType.split(" /at ")[0];
         String time = inputWithoutType.split(" /at ")[1];
         Event newEvent = new Event(description, time);
