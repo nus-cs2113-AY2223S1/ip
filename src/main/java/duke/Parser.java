@@ -91,6 +91,9 @@ public class Parser {
             }
         } else if (input.contains("-") || input.contains("/")) {
             String[] components = input.split("[-/]");
+            if (components.length != 3) {
+                return null;
+            }
             boolean yearFirst = components[0].length() == 4;
             int year = Integer.parseInt(yearFirst ? components[0] : components[2]);
             int month = Integer.parseInt(components[1]);

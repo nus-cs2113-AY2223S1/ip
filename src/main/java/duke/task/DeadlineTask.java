@@ -10,7 +10,7 @@ import duke.Parser;
 
 public class DeadlineTask extends Task {
     private final String deadline;
-    private final LocalDate deadlineDate;
+    private final Optional<LocalDate> deadlineDate;
     private final Optional<LocalTime> deadlineTime;
 
     public DeadlineTask(String name, String deadline) throws DukeException {
@@ -26,18 +26,22 @@ public class DeadlineTask extends Task {
             throw new DukeException("Please provide a deadline (/by)");
         }
         this.deadline = deadline;
-        this.deadlineDate = Parser.parseDateString(deadline);
-        if (this.deadlineDate == null) {
-            throw new DukeException("Sorry, I don't understand this date");
-        }
+        this.deadlineDate = Optional.ofNullable(Parser.parseDateString(deadline));
         this.deadlineTime = Optional.ofNullable(Parser.parseTimeString(deadline));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s%s)", super.toString(),
-                deadlineDate.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy")),
-                deadlineTime.isPresent() ? " at " + deadlineTime.get().toString() : "");
+        String dateString = "";
+        if (deadlineDate.isPresent()) {
+            dateString = deadlineDate.get().format(DateTimeFormatter.ofPattern("E, dd MMM yyyy"));
+            if (deadlineTime.isPresent()) {
+                dateString += ", " + deadlineTime.get().toString();
+            }
+        } else {
+            dateString = deadline;
+        }
+        return String.format("[D]%s (by: %s)", super.toString(), dateString);
     }
 
     @Override
