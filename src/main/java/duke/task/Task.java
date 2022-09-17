@@ -136,12 +136,12 @@ public class Task {
 
         if (this instanceof Deadline) {
             Deadline deadline = (Deadline) this;
-            String by = deadline.by.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            String by = deadline.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
             printString += " (by: " + by + ")";
         } else if (this instanceof Event) {
             Event event = (Event) this;
-            String startAt = event.startAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
-            String endAt = event.endAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            String startAt = event.startAt.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+            String endAt = event.endAt.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
             printString += " (at: " + startAt + " to " + endAt + ")";
         } else {
             printString += "";
