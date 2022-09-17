@@ -1,7 +1,5 @@
 package duke.storage;
 
-import duke.Duke;
-import duke.command.Menu;
 import duke.data.TaskList;
 import duke.exception.DukeException;
 import duke.data.task.Deadline;
@@ -63,22 +61,21 @@ public class Storage {
     private void initializeTask(String[] splits) throws DukeException {
         switch (splits[0]) {
         case "T":
-            storedTaskList.addTask("todo", splits[2], true);
+            storedTaskList.addTodo(splits[2]);
             break;
         case "D":
-            storedTaskList.addTask("deadline", splits[2] + " /by " + splits[3], true);
+            storedTaskList.addDeadline(splits[2], splits[3]);
             break;
         case "E":
-            storedTaskList.addTask("event", splits[2] + " /at " + splits[3], true);
+            storedTaskList.addEvent(splits[2], splits[3]);
             break;
         default:
             break;
         }
         if (splits[1].equals("1")) {
-            storedTaskList.mark(Integer.toString(storedTaskList.getTasks().size()), true);
+            storedTaskList.markTask(storedTaskList.getSize());
         }
     }
-
     // End of task initialization
 
     public void rewriteDukeFile(TaskList taskList) throws DukeException {
