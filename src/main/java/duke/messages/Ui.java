@@ -1,6 +1,5 @@
 package duke.messages;
 
-import duke.taskings.Deadline;
 import duke.taskings.Task;
 
 import java.util.ArrayList;
@@ -147,12 +146,12 @@ public class Ui {
     }
 
     /**
-     * prints the entry's desctiption and status without dateTime.
+     * prints the entry's description and status without dateTime.
      *
      * @param tasks the array to retrieve information from
      * @param index the index of the array to retrieve from
      */
-    public static void getEntryFullStatus(ArrayList<Task> tasks, int index) {
+    public static void getEntryStatus(ArrayList<Task> tasks, int index) {
         System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
     }
 
