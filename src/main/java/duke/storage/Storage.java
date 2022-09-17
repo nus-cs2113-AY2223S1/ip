@@ -1,5 +1,6 @@
-package duke.command;
+package duke.storage;
 
+import duke.command.Menu;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -14,12 +15,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class DukeFile {
-    private static String DUKE_FILE_PATH = "duke.txt";
+public class Storage {
+    private String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
 
-    public static void readDukeFile(Menu dukeMenu) {
-        if (Files.exists(Paths.get(DUKE_FILE_PATH))) {
-            File dukeFile = new File(DUKE_FILE_PATH);
+    public void readDukeFile(Menu dukeMenu) {
+        if (Files.exists(Paths.get(filePath))) {
+            File dukeFile = new File(filePath);
             openDukeFileAndInitialise(dukeMenu, dukeFile);
         }
     }
@@ -43,13 +47,13 @@ public class DukeFile {
         }
     }
 
-    public static void rewriteDukeFile(Menu dukeMenu) throws IOException {
-        if (!Files.exists(Paths.get(DUKE_FILE_PATH))) {
-            File dukeFile = new File(DUKE_FILE_PATH);
+    public void rewriteDukeFile(Menu dukeMenu) throws IOException {
+        if (!Files.exists(Paths.get(filePath))) {
+            File dukeFile = new File(filePath);
             dukeFile.createNewFile();
         }
 
-        FileWriter dukeFileWriter = new FileWriter(DUKE_FILE_PATH, false);
+        FileWriter dukeFileWriter = new FileWriter(filePath, false);
         for (Task task : dukeMenu.getTasks()) {
             String output = retrieveTaskInformationForFileStorage(task);
             dukeFileWriter.append(output);
@@ -57,14 +61,14 @@ public class DukeFile {
         dukeFileWriter.close();
     }
 
-    public static void appendDukeFile(Menu dukeMenu) throws IOException {
+    public void appendDukeFile(Menu dukeMenu) throws IOException {
         FileWriter dukeFileWriter;
-        if (Files.exists(Paths.get(DUKE_FILE_PATH))) {
-            dukeFileWriter = new FileWriter(DUKE_FILE_PATH, true);
+        if (Files.exists(Paths.get(filePath))) {
+            dukeFileWriter = new FileWriter(filePath, true);
         } else {
-            File dukeFile = new File(DUKE_FILE_PATH);
+            File dukeFile = new File(filePath);
             dukeFile.createNewFile();
-            dukeFileWriter = new FileWriter(DUKE_FILE_PATH, false);
+            dukeFileWriter = new FileWriter(filePath, false);
         }
 
         Task newTask = dukeMenu.getTasks().get(dukeMenu.getTasks().size() - 1);

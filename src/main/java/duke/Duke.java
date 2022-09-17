@@ -1,7 +1,7 @@
 package duke;
 
 import duke.command.Menu;
-import duke.command.DukeFile;
+import duke.storage.Storage;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 import duke.ui.Ui;
@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+    private Storage storage;
+    private Ui ui;
     public static String[] splitInput(String userInput) {
         String[] split = userInput.split(" ", 2);
         if (split.length == 1) {
@@ -47,21 +49,21 @@ public class Duke {
         }
     }
 
-    public static void saveFile(Menu dukeMenu, String instruction) throws IOException {
+    public void saveFile(Menu dukeMenu, String instruction) throws IOException {
         switch (instruction) {
         case "mark":
             // Fallthrough
         case "unmark":
             // Fallthrough
         case "delete":
-            DukeFile.rewriteDukeFile(dukeMenu);
+            storage.rewriteDukeFile(dukeMenu);
             break;
         case "todo":
             // Fallthrough
         case "deadline":
             // Fallthrough
         case "event":
-            DukeFile.appendDukeFile(dukeMenu);
+            storage.appendDukeFile(dukeMenu);
             break;
         default:
             // No action for other command or invalid command
@@ -69,7 +71,7 @@ public class Duke {
         }
     }
 
-    public static void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
+    public void safeExecuteInstruction(Menu dukeMenu, String instruction, String inputValue) {
         try {
             executeInstruction(dukeMenu, instruction, inputValue);
             saveFile(dukeMenu, instruction);
@@ -82,6 +84,7 @@ public class Duke {
 
     public Duke(String filePath){
         Ui ui = new Ui();
+        storage = new Storage(filePath);
         /*
         storage = new Storage(filePath);
         try{
@@ -93,12 +96,11 @@ public class Duke {
          */
     }
 
-    public static void main(String[] args) {
-        // new Duke("tasks.txt").run();
+    public void run() {
         Menu dukeMenu = new Menu();
         String userInput = "", instruction = "", inputValue = "";
         Scanner in = new Scanner(System.in);
-        DukeFile.readDukeFile(dukeMenu);
+        storage.readDukeFile(dukeMenu);
         dukeMenu.greet();
         while (!instruction.equals("bye")) {
             userInput = in.nextLine();
@@ -107,5 +109,10 @@ public class Duke {
             inputValue = splits[1];
             safeExecuteInstruction(dukeMenu, instruction, inputValue);
         }
+
+    }
+
+    public static void main(String[] args) {
+        new Duke("tasks.txt").run();
     }
 }

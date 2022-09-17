@@ -16,6 +16,9 @@ public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
+    public Ui() {
+    }
+
     //@@author wcwy-reused
     //Reused from from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/ui/TextUi.java
     // with minor modifications
