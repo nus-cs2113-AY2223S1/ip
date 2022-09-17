@@ -14,18 +14,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class that reads the given file to get the data and stores the data to the file when exiting Duke.
+ */
 public class Storage {
     private static final String TODO = "T";
     private static final String EVENT = "E";
     private static final String DEADLINE = "D";
     private static final String DONE = "1";
     private static final String UNDONE = "0";
+    private static final String STORE_DIVIDER = " \\| ";
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath The path to the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Read the tasks from a given file.
+     *
+     * @return The list of tasks stored in the file.
+     * @throws DukeException If the file cannot be found.
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
         try {
             File file = new File(filePath);
@@ -33,8 +48,8 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String taskLine = scanner.nextLine();
-                String[] analysedTaskLine = taskLine.split(" \\| ");
-                Task task = handleTaskLine(analysedTaskLine);
+                String[] splitTaskLine = taskLine.split(STORE_DIVIDER);
+                Task task = handleTaskLine(splitTaskLine);
                 list.add(task);
             }
             return list;
@@ -43,6 +58,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current tasks to a file when exiting Duke.
+     *
+     * @param taskList The list of tasks to be stored.
+     * @throws DukeException If there is an exception occurs.
+     */
     public void writeTasks(TaskList taskList) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
@@ -60,28 +81,35 @@ public class Storage {
         }
     }
 
-    public Task handleTaskLine(String[] analysedTaskLine) throws DukeException {
+    /**
+     * Analyses the information the tasks stored in the file.
+     *
+     * @param splitTaskLine The raw task information.
+     * @return A Task with full information.
+     * @throws DukeException If there is an exception occurs.
+     */
+    public Task handleTaskLine(String[] splitTaskLine) throws DukeException {
         Task task;
-        switch (analysedTaskLine[0]) {
+        switch (splitTaskLine[0]) {
         case TODO:
-            task = new Todo(analysedTaskLine[2]);
+            task = new Todo(splitTaskLine[2]);
             break;
         case EVENT:
-            task = new Event(analysedTaskLine[2], analysedTaskLine[3]);
+            task = new Event(splitTaskLine[2], splitTaskLine[3]);
             break;
         case DEADLINE:
-            task = new Deadline(analysedTaskLine[2], analysedTaskLine[3]);
+            task = new Deadline(splitTaskLine[2], splitTaskLine[3]);
             break;
         default:
             throw new DukeException("Something went wrong with the tasks in your saved files ☹");
         }
 
-        switch (analysedTaskLine[1]) {
+        switch (splitTaskLine[1]) {
         case DONE:
-            task.setDone(true);
+            task.setAsDone();
             break;
         case UNDONE:
-            task.setDone(false);
+            task.setAsUndone();
             break;
         default:
             throw new DukeException("Cannot understand your task status ☹");
