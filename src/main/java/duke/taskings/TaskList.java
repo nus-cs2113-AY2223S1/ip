@@ -90,7 +90,7 @@ public class TaskList {
                         LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
                         LocalDate date = dateTime.toLocalDate();
 //
-                        tasks.add(new Deadline("D", taskDescription, false, date.toString()));
+                        tasks.add(new Deadline("D", taskDescription, false, dateTime.toString()));
                         System.out.println(tasks.get(tasks.size() - 1));
                         Ui.printNumOfTasks(tasks.size());
                     }
@@ -129,7 +129,7 @@ public class TaskList {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
                         LocalDateTime dateTime = LocalDateTime.parse(eventPeriod, formatter);
                         LocalDate date = dateTime.toLocalDate();
-                        tasks.add(new Event("E", taskDescription, false, date.toString()));
+                        tasks.add(new Event("E", taskDescription, false, dateTime.toString()));
                         System.out.println(tasks.get(tasks.size() - 1));
                         Ui.printNumOfTasks(tasks.size());
                     }
