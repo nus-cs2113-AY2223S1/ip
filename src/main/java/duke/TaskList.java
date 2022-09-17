@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import duke.task.Task;
 
 public class TaskList {
@@ -28,8 +31,9 @@ public class TaskList {
         Storage.writeDataFile(items);
     }
 
-    public void deleteItem(int index) {
+    public void deleteItem(int index) throws DukeException {
         items.remove(index - 1);
+        Storage.writeDataFile(items);
     }
 
     public void markDone(int index) throws DukeException {
@@ -44,6 +48,13 @@ public class TaskList {
             items.get(index - 1).markUndone();
         }
         Storage.writeDataFile(items);
+    }
+
+    public TaskList filter(String keyword) {
+        final String searchKeyword = keyword.toLowerCase();
+        List<Task> filteredItems = items.stream().filter(item -> item.getName().toLowerCase().contains(searchKeyword))
+                .collect(Collectors.toList());
+        return new TaskList(filteredItems);
     }
 
     public String toString() {

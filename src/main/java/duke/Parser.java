@@ -10,6 +10,7 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.FindCommand;
 
 public class Parser {
 
@@ -30,6 +31,8 @@ public class Parser {
         case "event":
         case "todo":
             return new AddCommand(description);
+        case "find":
+            return new FindCommand(description);
         default:
             throw new DukeException("I don't understand this command!");
         }
