@@ -28,8 +28,9 @@ public class TaskList {
         Storage.writeDataFile(items);
     }
 
-    public void deleteItem(int index) {
+    public void deleteItem(int index) throws DukeException {
         items.remove(index - 1);
+        Storage.writeDataFile(items);
     }
 
     public void markDone(int index) throws DukeException {
