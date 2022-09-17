@@ -13,4 +13,6 @@ todo
 deadline
 event Name provided but not date
 list
+event christmas party /at 2022-12-25 2:00pm
+list
 bye
