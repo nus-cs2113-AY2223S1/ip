@@ -10,7 +10,7 @@ public class Duke {
     public static final String space = " ";
     public static final String unmarkDone = "unmark";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -18,10 +18,16 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         Message.printGreeting();
-        echo();
+        try {
+            FileManager.OpenOrCreateFile();
+            FileManager.uploadDataToList(dukeList);
+        } catch (DukeException e){
+            Message.printSystemError();
+        }
+        process();
     }
 
-    public static void echo() {
+    public static void process() throws DukeException {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
@@ -32,6 +38,11 @@ public class Duke {
                 Message.printError();
             }
             line = in.nextLine();
+        }
+        try {
+            FileManager.saveListToFile(dukeList);
+        } catch (DukeException e){
+            Message.printSystemError();
         }
         Message.printingExit();
     }
@@ -61,7 +72,6 @@ public class Duke {
         }
         return wordsInput;
     }
-
     public static void translateInput(String input) throws DukeException {
         if (input.equals(list)) {
             dukeList.printList();

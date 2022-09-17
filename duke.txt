@@ -1,0 +1,4 @@
+T | 0 | vv
+T | 0 | bb
+E | 0 | hapyy | gg
+D | 0 | word | tomorrow
