@@ -8,7 +8,6 @@ import duke.messages.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Duke {
 
     static final boolean EXIT = false;

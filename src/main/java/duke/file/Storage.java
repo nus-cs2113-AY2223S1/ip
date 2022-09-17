@@ -118,11 +118,11 @@ public class Storage {
             for (Task task : tasks) {
                 switch (task.getTaskType()) {
                 case DEADLINE:
-                    textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getBy());
+                    textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getDateTime());
 
                     break;
                 case EVENT:
-                    textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getAt());
+                    textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getDateTime());
 
                     break;
                 case TODO:
