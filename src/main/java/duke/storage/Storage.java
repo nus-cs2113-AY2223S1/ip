@@ -9,6 +9,7 @@ import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.Todo;
 import duke.exception.StorageInitializationException;
+import duke.exception.StorageOutputException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,34 +81,42 @@ public class Storage {
 
     // End of task initialization
 
-    public void rewriteDukeFile(TaskList taskList) throws IOException {
-        if (!Files.exists(Paths.get(filePath))) {
-            File dukeFile = new File(filePath);
-            dukeFile.createNewFile();
-        }
+    public void rewriteDukeFile(TaskList taskList) throws DukeException {
+        try {
+            if (!Files.exists(Paths.get(filePath))) {
+                File dukeFile = new File(filePath);
+                dukeFile.createNewFile();
+            }
 
-        FileWriter dukeFileWriter = new FileWriter(filePath, false);
-        for (Task task : taskList.getTasks()) {
-            String output = retrieveTaskInformationForFileStorage(task);
-            dukeFileWriter.append(output);
+            FileWriter dukeFileWriter = new FileWriter(filePath, false);
+            for (Task task : taskList.getTasks()) {
+                String output = retrieveTaskInformationForFileStorage(task);
+                dukeFileWriter.append(output);
+            }
+            dukeFileWriter.close();
+        } catch (IOException exception){
+            throw new StorageOutputException();
         }
-        dukeFileWriter.close();
     }
 
-    public void appendDukeFile(TaskList taskList) throws IOException {
-        FileWriter dukeFileWriter;
-        if (Files.exists(Paths.get(filePath))) {
-            dukeFileWriter = new FileWriter(filePath, true);
-        } else {
-            File dukeFile = new File(filePath);
-            dukeFile.createNewFile();
-            dukeFileWriter = new FileWriter(filePath, false);
-        }
+    public void appendDukeFile(TaskList taskList) throws DukeException {
+        try {
+            FileWriter dukeFileWriter;
+            if (Files.exists(Paths.get(filePath))) {
+                dukeFileWriter = new FileWriter(filePath, true);
+            } else {
+                File dukeFile = new File(filePath);
+                dukeFile.createNewFile();
+                dukeFileWriter = new FileWriter(filePath, false);
+            }
 
-        Task newTask = taskList.getTasks().get(taskList.getTasks().size() - 1);
-        String output = retrieveTaskInformationForFileStorage(newTask);
-        dukeFileWriter.append(output);
-        dukeFileWriter.close();
+            Task newTask = taskList.getTasks().get(taskList.getTasks().size() - 1);
+            String output = retrieveTaskInformationForFileStorage(newTask);
+            dukeFileWriter.append(output);
+            dukeFileWriter.close();
+        } catch (IOException exception) {
+            throw new StorageOutputException();
+        }
     }
 
     private static String retrieveTaskInformationForFileStorage(Task task) {

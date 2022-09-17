@@ -51,7 +51,7 @@ public class Duke {
         }
     }
 
-    public void saveFile(String instruction) throws IOException {
+    public void saveFile(String instruction) throws DukeException {
         switch (instruction) {
         case "mark":
             // Fallthrough
@@ -79,8 +79,6 @@ public class Duke {
             saveFile(instruction);
         } catch (DukeException exception) {
             System.out.println(exception.getMessage());
-        } catch (IOException exception) {
-            //dukeMenu.displayErrorMessage();
         }
     }
 
