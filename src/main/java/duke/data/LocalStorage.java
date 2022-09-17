@@ -38,7 +38,9 @@ public class LocalStorage {
         String[] tasksStrArr = tasksStr.split("\n");
         for (String taskStr : tasksStrArr) {
             Task task = Task.convertFromString(taskStr);
-            tasks.add(task);
+            if (task != null) {
+                tasks.add(task);
+            }
         }
 
         return tasks;

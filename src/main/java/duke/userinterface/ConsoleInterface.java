@@ -56,6 +56,10 @@ public class ConsoleInterface {
         System.out.println(goodbyeMessage);
     }
 
+    public static void printErrorMessage(String errorMessage) {
+        System.out.println("☹ OOPS!!! " + errorMessage);
+    }
+
     /**
      * Reads user input from standard in.
      *
@@ -101,7 +105,7 @@ public class ConsoleInterface {
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! Task number " + taskNumber + " does not exist.");
+            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
         }
     }
 
@@ -121,7 +125,7 @@ public class ConsoleInterface {
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! Task number " + taskNumber + " does not exist.");
+            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
         }
     }
 
@@ -198,27 +202,42 @@ public class ConsoleInterface {
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
-            System.out.println("☹ OOPS!!! Task number " + taskNumber + " does not exist.");
+            System.out.println("☹ OOPS!!! The task " + taskNumber + " does not exist.");
         }
-    }
-
-    public void executeInvalidCommand() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
      * Executes main interface which interacts with user
      */
     public void executeProgram() {
+        ConsoleInterface.printLineSeparator();
+
         while (true) {
             System.out.println();
 
             ConsoleInput consoleInput = getConsoleInput();
-            ConsoleCommand consoleCommand = ConsoleInputParser.parseConsoleInput(consoleInput);
 
             ConsoleInterface.printLineSeparator();
 
-            if (consoleCommand instanceof ConsoleCommandBye) {
+            ConsoleCommand consoleCommand = null;
+            boolean hasParseError = true;
+
+            try {
+                consoleCommand = ConsoleInputParser.parseConsoleInput(consoleInput);
+                hasParseError = false;
+            } catch (ConsoleInputParserException.InvalidCommandMarkException |
+                     ConsoleInputParserException.InvalidCommandUnmarkException |
+                     ConsoleInputParserException.InvalidCommandTodoException |
+                     ConsoleInputParserException.InvalidCommandDeadlineException |
+                     ConsoleInputParserException.InvalidCommandEventException |
+                     ConsoleInputParserException.InvalidCommandDeleteException e) {
+                printErrorMessage(e.getMessage());
+            } catch (ConsoleInputParserException.CommandNotFoundException e) {
+                printErrorMessage("I'm sorry, but I don't know what that means :-(");
+            }
+
+            if (hasParseError) {
+            } else if (consoleCommand instanceof ConsoleCommandBye) {
                 return;
             } else if (consoleCommand instanceof ConsoleCommandList) {
                 executeCommandList();
@@ -235,7 +254,6 @@ public class ConsoleInterface {
             } else if (consoleCommand instanceof ConsoleCommandDelete) {
                 executeCommandDelete((ConsoleCommandDelete) consoleCommand);
             } else {
-                executeInvalidCommand();
             }
 
             ConsoleInterface.printLineSeparator();

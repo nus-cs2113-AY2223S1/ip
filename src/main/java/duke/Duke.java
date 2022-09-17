@@ -12,13 +12,13 @@ public class Duke {
         ConsoleInterface.printLogo();
 
         ConsoleInterface.printLineSeparator();
+
         ConsoleInterface.printGreetingMessage();
-        ConsoleInterface.printLineSeparator();
 
         consoleInterface.executeProgram();
 
-        ConsoleInterface.printLineSeparator();
         ConsoleInterface.printGoodbyeMessage();
+
         ConsoleInterface.printLineSeparator();
     }
 }
