@@ -186,9 +186,10 @@ public class ConsoleInterface {
      */
     public void executeCommandEvent(ConsoleCommandEvent consoleCommandEvent) {
         String description = consoleCommandEvent.getDescription();
-        String at = consoleCommandEvent.getAt();
+        LocalDateTime startAt = consoleCommandEvent.getStartAt();
+        LocalDateTime endAt = consoleCommandEvent.getEndAt();
 
-        Event event = new Event(description, at);
+        Event event = new Event(description, startAt, endAt);
         taskManager.addTask(event);
 
         System.out.println("Got it. I've added this task:");

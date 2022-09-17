@@ -1,19 +1,27 @@
 package duke.userinterface;
 
+import java.time.LocalDateTime;
+
 public class ConsoleCommandEvent extends ConsoleCommand {
     private String description;
-    private String at;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
 
-    public ConsoleCommandEvent(String description, String at) {
+    public ConsoleCommandEvent(String description, LocalDateTime startAt, LocalDateTime endAt) {
         this.description = description;
-        this.at = at;
+        this.startAt = startAt;
+        this.endAt = endAt;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getAt() {
-        return at;
+    public LocalDateTime getStartAt() {
+        return startAt;
+    }
+
+    public LocalDateTime getEndAt() {
+        return endAt;
     }
 }

@@ -56,7 +56,9 @@ public class Task {
             Event event = (Event) task;
             taskStr += event.getDescription();
             taskStr += " | ";
-            taskStr += event.at;
+            String startAt = event.startAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            String endAt = event.endAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            taskStr += startAt + " " + endAt;
         } else {
             taskStr += task.getDescription();
         }
@@ -94,7 +96,12 @@ public class Task {
             return deadline;
         case "E":
             String at = taskStrArr[3].trim();
-            Event event = new Event(description, at);
+            String[] atArray = at.split(" ");
+            String startAt = atArray[0] + " " + atArray[1];
+            String endAt = atArray[2] + " " + atArray[3];
+            LocalDateTime startAtDateTime = LocalDateTime.parse(startAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            LocalDateTime endAtDateTime = LocalDateTime.parse(endAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            Event event = new Event(description, startAtDateTime, endAtDateTime);
             event.setComplete(isComplete);
             return event;
         default:
@@ -133,7 +140,9 @@ public class Task {
             printString += " (by: " + by + ")";
         } else if (this instanceof Event) {
             Event event = (Event) this;
-            printString += " (at: " + event.at + ")";
+            String startAt = event.startAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            String endAt = event.endAt.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            printString += " (at: " + startAt + " to " + endAt + ")";
         } else {
             printString += "";
         }
