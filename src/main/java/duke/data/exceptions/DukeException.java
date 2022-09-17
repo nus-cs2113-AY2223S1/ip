@@ -1,6 +1,5 @@
 package duke.data.exceptions;
 
-import duke.Duke;
 
 /**
  * Exception for Duke

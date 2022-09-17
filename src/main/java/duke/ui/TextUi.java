@@ -4,8 +4,6 @@ package duke.ui;
 import duke.data.Messages;
 import duke.command.CommandResult;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -28,7 +26,7 @@ public class TextUi {
         while(shouldIgnore(userInput)){
             userInput = input.nextLine();
         }
-        return input.nextLine();
+        return userInput;
     }
 
     private boolean shouldIgnore(String userInput){
@@ -37,19 +35,23 @@ public class TextUi {
 
     public void showToUser(String... messages) {
         for (String m : messages) {
-            System.out.println(m);
+            output.println(m);
         }
     }
 
     public void showToUserDivider(String... messages) {
-        System.out.println(Messages.DIVIDER);
+        output.println(Messages.DIVIDER);
         showToUser(messages);
-        System.out.println(Messages.DIVIDER);
+        output.println(Messages.DIVIDER);
     }
 
 
     public void showResultToUser(CommandResult result) {
-        showToUserDivider(result.messageTop,result.target.toString(), result.messageBottom);
+        output.println(Messages.DIVIDER);
+        showToUser(result.messageTop);
+        showToUser(result.printTarget());
+        showToUser(result.messageBottom);
+        output.println(Messages.DIVIDER);
     }
 
     public void showWelcomeMessage() {

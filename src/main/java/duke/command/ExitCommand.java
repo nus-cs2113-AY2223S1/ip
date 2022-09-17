@@ -7,6 +7,7 @@ public class ExitCommand extends Command{
 
     /*Variables*/
     public static final String COMMAND_NAME = "exit";
+    public static final String MESSAGE_TOP = "Bye!";
 
     /*Static */
     public static boolean isExit(Command command){
@@ -16,7 +17,7 @@ public class ExitCommand extends Command{
     /*Non-static */
     @Override
     public CommandResult execute(){
-        CommandResult result = new CommandResult();
+        CommandResult result = new CommandResult(MESSAGE_TOP);
         return result;
     } 
     

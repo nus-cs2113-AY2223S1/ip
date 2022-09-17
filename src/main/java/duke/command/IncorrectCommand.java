@@ -3,17 +3,16 @@ package duke.command;
 public class IncorrectCommand extends Command{
     public IncorrectCommand(String message){
         super(COMMAND_NAME);
-        this
+        this.message = message;
     }
 
-    /*Variables*/
-    public static final String COMMAND_NAME = null;
-    
 
-    /*Non-static */
+    public static final String COMMAND_NAME = "incorrect";
+    public String message;
+    
     @Override
     public CommandResult execute(){
-        CommandResult result = new CommandResult();
+        CommandResult result = new CommandResult(this.message);
         return result;
     } 
     

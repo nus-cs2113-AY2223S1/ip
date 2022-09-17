@@ -4,13 +4,9 @@ import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.util.ArrayList;
 import java.io.IOException;
 
-import duke.data.task.Task;
-import duke.data.TaskList;
 import duke.parser.Parser;
-import duke.command.Command;
 import duke.data.exceptions.DukeFileException;
 
 public class Storage {
@@ -23,7 +19,7 @@ public class Storage {
     public static String[] save() {
         try {
             FileWriter fileWrite = new FileWriter(STORAGE_FILE);
-            for (int i = 0; i < TaskList.MAXIMUM_NUMBER_OF_TASKS; i++) {
+            for (int i = 0; i < TaskList.list.size(); i++) {
                 fileWrite.write(TaskList.list.get(i).toSave());
             }
             fileWrite.close();
@@ -52,6 +48,6 @@ public class Storage {
         } catch (DukeFileException e) {
             return Messages.WRONG_FILE;
         }
-
     }
+
 }

@@ -1,5 +1,8 @@
 package duke.command;
 
+import duke.data.TaskList;
+import duke.data.Messages;
+
 public class ListCommand extends Command {
     public ListCommand(){
         super(COMMAND_NAME);
@@ -7,15 +10,13 @@ public class ListCommand extends Command {
 
     /*Variables*/
     public static final String COMMAND_NAME = "list";
+    public static final String SYNTAX = "list";
 
-    /*Static */
-
-    /*Non-static */
     @Override
     public CommandResult execute(){
-        CommandResult result = new CommandResult();
+
+        CommandResult result = new CommandResult(Messages.DIVIDER_LIST,TaskList.list,"");
         return result;
     } 
     
-
 }

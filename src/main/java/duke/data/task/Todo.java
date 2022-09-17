@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 public class Todo extends Task {
 
@@ -9,5 +9,9 @@ public class Todo extends Task {
         super(description);
         this.taskTypeWrap = TYPE_TODO_WRAP;
         this.taskType = TYPE_TODO;
+    }
+    public Todo(boolean status, String description){
+        this(description);
+        this.isDone = status;
     }
 }

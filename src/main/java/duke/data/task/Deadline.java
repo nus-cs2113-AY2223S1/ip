@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 public class Deadline extends Task {
     public static final String TYPE_DEADLINE = "D";
@@ -10,6 +10,11 @@ public class Deadline extends Task {
         this.date = date;
         this.taskTypeWrap = TYPE_DEADLINE_WRAP;
         this.taskType = TYPE_DEADLINE;
+    }
+
+    public Deadline(boolean status, String description, String date) {
+        this(description, date);
+        this.isDone = status;
     }
 
     @Override

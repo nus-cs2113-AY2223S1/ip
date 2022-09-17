@@ -21,7 +21,7 @@ public class Parser {
         final String commandWord = parsedInput[0];
         final String arguments = userInput.replaceFirst(commandWord, "").trim();
 
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case TodoCommand.COMMAND_NAME:
             return parseTodoCommand(arguments);
@@ -38,6 +38,7 @@ public class Parser {
         case ListCommand.COMMAND_NAME:
             return new ListCommand();
         case ExitCommand.COMMAND_NAME:
+            return new ExitCommand();
         default:
             return new IncorrectCommand(Messages.UNKNOWN_COMMAND);
         }
@@ -45,14 +46,22 @@ public class Parser {
 
     public void parseFile(String fileLine) throws DukeFileException {
         String[] parsedLine = fileLine.split(Task.PARSE_LIMITER);
-        final String taskType = parsedLine[0];
+
+        String[] parsedTrim = new String[parsedLine.length];
+        for (int i = 0;i< parsedLine.length;i++){
+            parsedTrim[i] = parsedLine[i].trim();
+        }
+        final String taskType = parsedTrim[0];
         switch (taskType) {
         case Todo.TYPE_TODO:
-            parseTodoLine(parsedLine);
+            parseTodoLine(parsedTrim);
+            break;
         case Deadline.TYPE_DEADLINE:
-            parseDeadlineLine(parsedLine);
+            parseDeadlineLine(parsedTrim);
+            break;
         case Event.TYPE_EVENT:
-            parseEventLine(parsedLine);
+            parseEventLine(parsedTrim);
+            break;
         default:
             throw new DukeFileException();
         }
@@ -62,31 +71,31 @@ public class Parser {
     /* Parse Data Line */
     private void parseTodoLine(String[] parsed) throws DukeFileException {
 
-        if (!(parsed.length == 2)) {
+        if (!(parsed.length == 3)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Todo(parsed[1]));
+        TaskList.list.add(new Todo(Boolean.valueOf(parsed[1]),parsed[2]));
     }
 
     private void parseDeadlineLine(String[] parsed) throws DukeFileException {
-        if (!(parsed.length == 3)) {
+        if (!(parsed.length == 4)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Deadline(parsed[1],parsed[2]));
+        TaskList.list.add(new Deadline(Boolean.valueOf(parsed[1]),parsed[2],parsed[3]));
     }
 
     private void parseEventLine(String[] parsed) throws DukeFileException{
-        if (!(parsed.length == 3)) {
+        if (!(parsed.length == 4)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Event(parsed[1],parsed[2]));
+        TaskList.list.add(new Event(Boolean.valueOf(parsed[1]),parsed[2],parsed[3]));
     }
 
     /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
             String[] parsed = arguments.split("/");
-            if (!(parsed.length == 1)) {
+            if (parsed[0].equals("")) {
                 throw new DukeException();
             }
             return new TodoCommand(arguments);
@@ -162,7 +171,7 @@ public class Parser {
     }
     
     private Integer[] strToIntArray(String[] parsed) {
-        Integer[] intParsed ={};
+        Integer[] intParsed = new Integer[parsed.length];
         for(int i = 0; i < parsed.length;i++){
             intParsed[i] = Integer.parseInt(parsed[i]);
         }

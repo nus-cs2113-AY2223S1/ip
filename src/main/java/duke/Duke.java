@@ -3,7 +3,6 @@ package duke;
 
 import duke.ui.TextUi;
 import duke.parser.Parser;
-import duke.data.TaskList;
 import duke.command.*;
 import duke.data.*;
 
@@ -14,9 +13,6 @@ import duke.data.*;
 public class Duke {
     private static final String DUKE_VERSION = "v1.0";
     private TextUi ui;
-    private TaskList taskList = new TaskList();
-    private Storage storage = new Storage(taskList);
-
 
     public static void main(String[] args) {
         new Duke().run();
@@ -24,15 +20,14 @@ public class Duke {
 
     public void run() {
         start();
-
         runMainLoop();
         exit();
     }
 
     private void start() {
         this.ui = new TextUi();
-        ui.showToUserLn(storage.load());
         ui.showWelcomeMessage();
+        ui.showToUser(Storage.load());
     }
 
     private void exit() {
@@ -48,7 +43,7 @@ public class Duke {
             command = new Parser().parseCommand(userCommandText);
             CommandResult result = executeCommand(command);
             ui.showResultToUser(result);
-            ui.showToUserLn(storage.save());
+            ui.showToUser(Storage.save());
         } while (!ExitCommand.isExit(command));
     }
 
