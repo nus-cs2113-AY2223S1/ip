@@ -35,7 +35,7 @@ public class ConsoleInterface {
      * Prints line separator to standard out.
      */
     public static void printLineSeparator() {
-        String lineSeparator = "____________________________________________________________";
+        String lineSeparator = "________________________________________________________________________________";
         System.out.println(lineSeparator);
     }
 
