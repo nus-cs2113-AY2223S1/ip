@@ -12,7 +12,10 @@ public class Duke {
 
     static final boolean EXIT = false;
 
-
+    /**
+     * Shows greeting message , initialise the storage file dukeFile.txt before processing user inputs.
+     * Program ends when the Parser returns an EXIT.
+     */
     public static void main(String[] args) {
 
         // array storing the Task objects.

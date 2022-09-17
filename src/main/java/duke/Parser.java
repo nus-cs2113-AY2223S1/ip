@@ -7,6 +7,9 @@ import duke.messages.Ui;
 import java.util.ArrayList;
 
 public class Parser {
+    static final boolean EXIT = false;
+    static final boolean CONTINUE = true;
+
     /**
      * Returns the number of words within a string.
      *
@@ -21,6 +24,15 @@ public class Parser {
         return words.length;
     }
 
+    /**
+     * parses the user input and processes it with the tasks array list.
+     *
+     * @param inData the user input .
+     * @param tasks the array which would be operated on.
+     *
+     * @return EXIT if input equals "bye", else return CONTINUE
+     */
+
     public static boolean processInput(String inData, ArrayList<Task> tasks) {
 
         if (inData.equals("help")) {
@@ -30,7 +42,7 @@ public class Parser {
             TaskList.getList(tasks);
         } else if (inData.equals(("bye"))) {
             Ui.showExit();
-            return false; //exit loop
+            return EXIT; //exit loop
         } else if (inData.isBlank() || inData.isEmpty()) {
             Ui.showWrongCommand();
         } else if (inData.contains(" ")) {
@@ -65,7 +77,7 @@ public class Parser {
                 TaskList.addEvent(tasks, taskDescription);
                 break;
             case "find":
-                TaskList.findKeyWord(tasks,taskDescription, numOfWords);
+                TaskList.findKeyword(tasks,taskDescription, numOfWords);
                 break;
             default:
                 Ui.showWrongCommand();
@@ -74,6 +86,6 @@ public class Parser {
         } else {
             Ui.showWrongCommand();
         }
-        return true;
+        return CONTINUE;
     }
 }

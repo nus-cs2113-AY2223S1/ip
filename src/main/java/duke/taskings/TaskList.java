@@ -40,11 +40,14 @@ public class TaskList {
         return true;
     }
 
-    public static LocalDate getLocalDate(LocalDateTime dateTime) {
-        return dateTime.toLocalDate();
-    }
-
-    public static void findKeyWord(ArrayList<Task> tasks, String keyword, int numOfWords) {
+    /**
+     * Finds the keyword that the user requested.
+     *
+     * @param tasks      the array that would be searched
+     * @param keyword    the search keyword defined by the user
+     * @param numOfWords the number of words in the user command. If > 2, means invalid command
+     */
+    public static void findKeyword(ArrayList<Task> tasks, String keyword, int numOfWords) {
         if (numOfWords > 2) {
             System.out.println("Please enter only 1 search item");
         } else {
@@ -59,17 +62,23 @@ public class TaskList {
                 }
             }
             Ui.printMatchedTasks(matchedTasks);
-            if(numOfMatchedTasks == 1){
+            if (numOfMatchedTasks == 1) {
                 System.out.println("There is 1 task that contains your keyword!");
-            }else if(numOfMatchedTasks == 0) {
+            } else if (numOfMatchedTasks == 0) {
                 System.out.println("There are no matching tasks!!");
-            }else {
-                System.out.println("There are " + numOfMatchedTasks  + " tasks that has your keyword!");
+            } else {
+                System.out.println("There are " + numOfMatchedTasks + " tasks that has your keyword!");
             }
             Ui.displayLineDivider();
         }
     }
 
+
+    /**
+     * Prints out all the entries in the Arraylist.
+     *
+     * @param tasks the array which would have it's entries printed out
+     */
 
     public static void getList(ArrayList<Task> tasks) {
         int indexNum = 1;
@@ -85,6 +94,13 @@ public class TaskList {
         Ui.displayLineDivider();
     }
 
+
+    /**
+     * add a new todo entry to the array before storing the updated changes.
+     *
+     * @param tasks           the array which would receive a new todo entry
+     * @param taskDescription The parsed task description from the user.
+     */
     public static void addTodo(ArrayList<Task> tasks, String taskDescription) {
         Ui.displayLineDivider();
         tasks.add(new Todo("T", taskDescription, false));
@@ -93,6 +109,12 @@ public class TaskList {
         Ui.printNumOfTasks(tasks.size());
     }
 
+    /**
+     * add a new Deadline entry to the array before storing the updated changes.
+     *
+     * @param tasks           the array which would receive a new deadline entry
+     * @param taskDescription The parsed task description from the user.
+     */
     public static void addDeadline(ArrayList<Task> tasks, String taskDescription) {
         Locale locale = new Locale("en", "UK");
         DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(locale);
@@ -134,7 +156,12 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * add a new event entry to the array before storing the updated changes.
+     *
+     * @param tasks           the array which would receive a new event entry
+     * @param taskDescription The parsed task description from the user.
+     */
     public static void addEvent(ArrayList<Task> tasks, String taskDescription) {
         Locale locale = new Locale("en", "UK");
         DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(locale);
@@ -179,6 +206,14 @@ public class TaskList {
     }
 
 
+    /**
+     * further processes the parsed user commands and allocate the correct Ui messages to respond to the user.
+     *
+     * @param tasks      the array which would have it's entries retrieved.
+     * @param numOfWords the num of words in the user input. If > 2, the command is in invalid format.
+     * @param command    the 1st string given by the user.
+     * @param userInput  the array containing 2 Strings. With the first being the "command" and the second being the "index" which the command will act on
+     */
     public static void processCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
         try {
             if (numOfWords > 2) {

@@ -14,6 +14,10 @@ public class Ui {
     static final String EVENT = "E";
     static final String TODO = "T";
 
+
+    /**
+     * Greets the user whenever the program starts
+     */
     public static void greet() {
         System.out.println(LINE_DIVIDER);
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -21,28 +25,44 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * prints out all the available commands for the user to reference from
+     */
     public static void getHelp() { // To be updated.
         System.out.println("Available commands:");
-        System.out.println("1) todo ");
-        System.out.println("2) event, use </at> to indicate time period");
-        System.out.println("3) deadline use </by> to indicate deadline");
-        System.out.println("4) mark <item number>  ");
-        System.out.println("5) unmark <item number>)");
-        System.out.println("6) list ");
-        System.out.println("7) bye ");
+        System.out.println("1) todo + <description> ");
+        System.out.println("2) event + <description> + < /at d/MM/yyyy HHmm >");
+        System.out.println("3) deadline + <description> + < /by d/MM/yyyy HHmm >");
+        System.out.println("4) mark + <item number>  ");
+        System.out.println("5) unmark + <item number>)");
+        System.out.println("6) delete + <item number>");
+        System.out.println("7) find + <keyword>");
+        System.out.println("8) list ");
+        System.out.println("9) bye ");
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * prints out the exit message whenever user enters "bye"
+     */
     public static void showExit() {
         System.out.println(LINE_DIVIDER);
         System.out.println("Good bye! See you soon!!");
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * prints out the line divider when called. Used to segment out different actions
+     */
     public static void displayLineDivider() {
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * prints out all the matched tasks in the array.
+     *
+     * @param matchedTasks the array containing all the matched tasks.
+     */
     public static void printMatchedTasks(ArrayList<Task> matchedTasks) {
         for (Task task : matchedTasks) {
             String taskType = task.getTaskType();
@@ -51,10 +71,10 @@ public class Ui {
                 System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription());
                 break;
             case EVENT:
-                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "at ("+ task.getDateTime() +" )");
+                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "( at " + task.getDateTime() + " )");
                 break;
             case DEADLINE:
-                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() +"by ("+ task.getDateTime()+" )");
+                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "( by " + task.getDateTime() + " )");
                 break;
             default:
                 break;
@@ -62,6 +82,9 @@ public class Ui {
         }
     }
 
+    /**
+     * prints out basic wrong command whenever user enters invalid inputs
+     */
     public static void showWrongCommand() {
         System.out.println(LINE_DIVIDER);
         System.out.println("You have entered the wrong command. ");
@@ -69,6 +92,12 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * prints out the error message pertaining to the specific command and error.
+     *
+     * @param command   the command defined by the user
+     * @param errorType the error encountered while processing the command
+     */
     public static void showErrorMessage(String command, String errorType) {
         switch (errorType) {
         case "NonNumericError":
@@ -88,6 +117,11 @@ public class Ui {
         }
     }
 
+    /**
+     * prints out acknowledgement message based on the user's command
+     *
+     * @param command the user's command
+     */
     public static void getAcknowledgement(String command) {
         System.out.println(LINE_DIVIDER);
         switch (command) {
@@ -112,7 +146,12 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
-
+    /**
+     * prints the entry's desctiption and status without dateTime.
+     *
+     * @param tasks the array to retrieve information from
+     * @param index the index of the array to retrieve from
+     */
     public static void getEntryFullStatus(ArrayList<Task> tasks, int index) {
         System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
     }
@@ -132,7 +171,11 @@ public class Ui {
         }
     }
 
-
+    /**
+     * prints out the file error pertaining to initialising , storage and writing into dukeFile.txt
+     *
+     * @param errorType The encountered file storage error.
+     */
     public static void showFileError(String errorType) {
         switch (errorType) {
         case MISSING_FILE:
