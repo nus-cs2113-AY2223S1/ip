@@ -1,6 +1,9 @@
 package duke.tasks;
 
-public class Task {
+/**
+ * Represents a task which might be todos, deadline, or event.
+ */
+public abstract class Task {
     private String taskName;
     private boolean isDone;
     protected String type;
@@ -9,6 +12,11 @@ public class Task {
         return type;
     }
 
+    /**
+     * Constructor for a new task.
+     *
+     * @param taskName A name or description given to the task.
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
