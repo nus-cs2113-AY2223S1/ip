@@ -22,7 +22,7 @@ public class DukeException {
     public static class IllegalDeadlineDateException extends Exception {
         @Override
         public String getMessage() {
-            return "Please enter a deadline for this task in the format 'yyyy-mm-dd hh:mm'";
+            return "Please enter a deadline to complete the task!";
         }
     }
     public static class IllegalEventFormatException extends Exception {
@@ -34,7 +34,7 @@ public class DukeException {
     public static class IllegalEventDateException extends Exception {
         @Override
         public String getMessage() {
-            return "Please enter when this event is happening in the format 'yyyy-mm-dd hh:mm'!";
+            return "Please enter when this event is happening!";
         }
     }
     public static class IllegalTodoException extends Exception {
@@ -56,6 +56,12 @@ public class DukeException {
         }
     }
     public static class IllegalReadFromSaveData extends Exception {
+    }
+    public static class IllegalFindCommandException extends Exception {
+        @Override
+        public String getMessage() {
+            return "Invalid find command. Follow format 'find <something>'";
+        }
     }
     public static class IllegalDateTimeException extends Exception {
         @Override

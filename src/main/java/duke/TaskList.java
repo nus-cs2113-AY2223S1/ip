@@ -2,7 +2,6 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import duke.tasks.Deadlines;
@@ -12,7 +11,7 @@ import duke.tasks.Todos;
 
 
 public class TaskList {
-    private static final String END_OF_LINE = "\n____________________";
+    public static final String END_OF_LINE = "\n____________________";
     private static List<Task> tasks = new ArrayList<Task>();
 
     public String addNewTodo(String taskName, boolean toPrint) {
@@ -110,8 +109,8 @@ public class TaskList {
     }
 
     public String deleteTask(int taskIndex) throws DukeException.IllegalDeleteTargetException {
-        String response = null;
-        String taskDescription = null;
+        String response;
+        String taskDescription;
         try {
             taskDescription = tasks.get(taskIndex - 1).toString();
             tasks.remove(taskIndex - 1);
@@ -121,6 +120,15 @@ public class TaskList {
         response = "Deleted: " + taskDescription  + "\nYou have " + tasks.size()
                 + " tasks in the list." + END_OF_LINE;
         return response;
+    }
+
+    public String findTasksWithKeyphrase(String keyphrase) {
+        String list = Printables.TASK_SEARCH_INIT_STRING;
+        for (Task task : tasks) {
+            list += (task.getTaskName().toLowerCase().contains(keyphrase.toLowerCase())
+                    ? (task + "\n") : "");
+        }
+        return (list.equals(Printables.TASK_SEARCH_INIT_STRING) ? Printables.EMPTY_TASK_SEARCH_RESULT_MESSAGE : list);
     }
 
     public String checkoutDate(String dateString) {
