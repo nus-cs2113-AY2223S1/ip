@@ -1,5 +1,15 @@
-import dukeExceptionsPackage.*;
-import dukeTasksPackage.*;
+import dukeExceptionsPackage.EmptyDescriptionException;
+import dukeExceptionsPackage.EmptyListException;
+import dukeExceptionsPackage.IllegalMarkingException;
+import dukeExceptionsPackage.IllegalTaskNumber;
+import dukeExceptionsPackage.IllegalUnmarkingException;
+import dukeExceptionsPackage.UnrecognisedDeadlineException;
+import dukeExceptionsPackage.UnrecognisedEventException;
+import dukeExceptionsPackage.UnrecognisedInput;
+import dukeTasksPackage.Deadline;
+import dukeTasksPackage.Event;
+import dukeTasksPackage.Task;
+import dukeTasksPackage.Todo;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -20,31 +30,7 @@ public class Duke {
     private static final String COMMAND_CLEAR = "clear";
     private static final String MESSAGE_CLEAR = "file has been cleared";
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
-    }
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
-    }
-    private static void clearFile(String filePath) throws IOException {
-        FileWriter fw = new FileWriter(filePath, false);
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();
-        pw.close();
-        fw.close();
-    }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String directoryPath = "C:\\Users\\cwxky\\projects\\cs2113-git\\data";
         File directory = new File(directoryPath);
         if (!directory.exists()) {
@@ -73,6 +59,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         System.out.println("Duke: Hello! I'm Duke\n" + "Duke: What can I do for you?");
 
+        FileManager.loadFile(textFilePath, tasksList, taskOverrideList);
         while (true) {
             line = in.nextLine();
             String[] words = line.split(" ");
@@ -91,7 +78,7 @@ public class Duke {
                             System.out.println(tasksList.get(i));
                         }
                     }
-                    printFileContents(textFilePath);
+                    FileManager.printFileContents(textFilePath);
                 } catch (EmptyListException e) {
                     System.out.println(e.getExceptionMessage());
                 } catch (FileNotFoundException f) {
@@ -111,9 +98,9 @@ public class Duke {
                             toBeChanged.markAsDone(toBeChanged);
                             String textToAdd = toBeChanged.toFileString();
                             taskOverrideList.set(itemNumber, textToAdd);
-                            writeToFile(textFilePath, taskOverrideList.get(0));
+                            FileManager.writeToFile(textFilePath, taskOverrideList.get(0));
                             for (int i = 1; i < taskOverrideList.size(); i++) {
-                                appendToFile(textFilePath, taskOverrideList.get(i));
+                                FileManager.appendToFile(textFilePath, taskOverrideList.get(i));
                             }
                         }
                     }
@@ -136,9 +123,9 @@ public class Duke {
                             toBeChanged.markAsUndone(toBeChanged);
                             String textToAdd = toBeChanged.toFileString();
                             taskOverrideList.set(itemNumber, textToAdd);
-                            writeToFile(textFilePath, taskOverrideList.get(0));
+                            FileManager.writeToFile(textFilePath, taskOverrideList.get(0));
                             for (int i = 1; i < taskOverrideList.size(); i++) {
-                                appendToFile(textFilePath, taskOverrideList.get(i));
+                                FileManager.appendToFile(textFilePath, taskOverrideList.get(i));
                             }
                         } else {
                             throw new IllegalUnmarkingException("still unmarked");
@@ -167,7 +154,7 @@ public class Duke {
                                     td + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
                             String textToAdd = "T | " + td.status + " | " + td.description + System.lineSeparator();
                             taskOverrideList.add(textToAdd);
-                            appendToFile(textFilePath, textToAdd);
+                            FileManager.appendToFile(textFilePath, textToAdd);
                         }
                     }
                 } catch (EmptyDescriptionException e) {
@@ -193,9 +180,9 @@ public class Duke {
                             tasksList.add(d);
                             System.out.println("Got it. I've added this task: " + System.lineSeparator() +
                                     d + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list");
-                            String textToAdd = "D | " + d.status + " | " + d.description + "| " + by + System.lineSeparator();
+                            String textToAdd = "D |" + d.status + " | " + d.description + " | " + by + System.lineSeparator();
                             taskOverrideList.add(textToAdd);
-                            appendToFile(textFilePath, textToAdd);
+                            FileManager.appendToFile(textFilePath, textToAdd);
                         }
                     }
                 } catch (EmptyDescriptionException e) {
@@ -228,9 +215,9 @@ public class Duke {
                                 System.out.println("Got it. I've added this task: " + System.lineSeparator() +
                                         e + System.lineSeparator() + "Now you have " + tasksList.size() + " tasks in the list.");
                             }
-                            String textToAdd = "E | " + e.status + " | " + e.description + "| " + time + System.lineSeparator();
+                            String textToAdd = "E |" + e.status + " | " + e.description + " | " + time + System.lineSeparator();
                             taskOverrideList.add(textToAdd);
-                            appendToFile(textFilePath, textToAdd);
+                            FileManager.appendToFile(textFilePath, textToAdd);
                         }
                     }
                 } catch (EmptyDescriptionException e) {
@@ -242,16 +229,38 @@ public class Duke {
                 }
                 break;
             case COMMAND_DELETE:
-                itemNumber = Integer.parseInt(line.split(" ")[1]) - 1;
-                Task toBeRemoved = tasksList.get(itemNumber);
-                tasksList.remove(itemNumber);
-                System.out.println(MESSAGE_DELETE);
-                System.out.println(toBeRemoved.toString());
-                System.out.println("You now have " + tasksList.size() + " tasks in the list.");
+                System.out.println("number of tasks: " + tasksList.size());
+                try {
+                    itemNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                    if (itemNumber < 0 || itemNumber > tasksList.size() - 1) {
+                        throw new IllegalTaskNumber("this task does not exist");
+                    } else if (tasksList.size() == 1) {
+                        Task toBeRemoved = tasksList.get(itemNumber);
+                        tasksList.remove(itemNumber);
+                        taskOverrideList.remove(itemNumber);
+                        System.out.println(MESSAGE_DELETE);
+                        System.out.println(toBeRemoved.toString());
+                        System.out.println("You now have " + tasksList.size() + " tasks in the list.");
+                        FileManager.clearFile(textFilePath);
+                    } else {
+                        Task toBeRemoved = tasksList.get(itemNumber);
+                        tasksList.remove(itemNumber);
+                        taskOverrideList.remove(itemNumber);
+                        FileManager.writeToFile(textFilePath, taskOverrideList.get(0));
+                        for (int i = 1; i < taskOverrideList.size(); i++) {
+                            FileManager.appendToFile(textFilePath, taskOverrideList.get(i));
+                        }
+                        System.out.println(MESSAGE_DELETE);
+                        System.out.println(toBeRemoved.toString());
+                        System.out.println("You now have " + tasksList.size() + " tasks in the list.");
+                    }
+                } catch (IllegalTaskNumber e) {
+                    System.out.println(e.getExceptionMessage());
+                }
                 break;
             case COMMAND_CLEAR:
                 try {
-                    clearFile(textFilePath);
+                    FileManager.clearFile(textFilePath);
                     System.out.println(MESSAGE_CLEAR);
                 } catch (IOException e) {
                     System.out.println("Something went wrong. I am unable to clear the file.");

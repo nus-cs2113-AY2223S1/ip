@@ -16,6 +16,6 @@ public class Event extends Task {
     }
 
     public String toFileString() {
-        return "E | " + status + " | " + description + "| " + time + System.lineSeparator();
+        return "E | " + status + " | " + description + " | " + time + System.lineSeparator();
     }
 }
