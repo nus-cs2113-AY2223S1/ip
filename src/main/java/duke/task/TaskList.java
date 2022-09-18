@@ -3,8 +3,6 @@ package duke.task;
 import java.util.ArrayList;
 
 public class TaskList {
-
-    public static final String DIVIDER = "-------------------------------------------------";
     protected ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
@@ -17,6 +15,16 @@ public class TaskList {
 
     public Task findTask(int index) {
         return taskList.get(index);
+    }
+
+    public TaskList findTasksBySearch(String word) {
+        TaskList tasksFound = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(word)) {
+                tasksFound.addTask(task);
+            }
+        }
+        return tasksFound;
     }
 
     public void addTask(Task toAdd) {
@@ -40,18 +48,5 @@ public class TaskList {
 
     public void markUndone(int index) {
         taskList.get(index).markUndone();
-    }
-
-    public void listTask() {
-        int counter = 1;
-        System.out.println("come uncle show you your tasks");
-        for (Task task : taskList) {
-            if (task != null) {
-                String toBePrinted = task.toString();
-                System.out.println(counter + ". " + toBePrinted);
-                counter++;
-            }
-        }
-        System.out.println(DIVIDER);
     }
 }
