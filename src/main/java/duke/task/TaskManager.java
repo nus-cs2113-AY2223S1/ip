@@ -72,6 +72,10 @@ public class TaskManager {
         }
     }
 
+    public int getTaskNumber(Task task) {
+        return tasks.indexOf(task) + 1;
+    }
+
     /**
      * Deletes a task from list of tasks.
      *
@@ -89,6 +93,18 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskManagerException.TaskNotFoundException();
         }
+    }
+
+    public ArrayList<Task> findTask(String description) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.description.contains(description)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
     }
 
     /**
