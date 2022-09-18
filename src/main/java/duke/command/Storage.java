@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    private static String FILE_PATH = "ip/data/duke.txt";
+    private static String FILE_PATH = "./data/duke.txt";
 
     /**
      * Loads the file at the given file path
