@@ -1,36 +1,54 @@
-taskList
+list
 this command is unrecognizable ^^
 todo watch lecture
-taskList
+list
+todo
+list
 deadline Level-4 CS2113 /by Mon 28th Aug
-taskList
+list
 mark 2
-taskList
+mark 5
+unmark 9
+list
+deadline CS2113 A-Release /by
+deadline /by 2022-09-30
+deadline /by
+deadline CS2113 A-Release /by Sep 30 2022
 event Orbital Splashdown /at Wed 24th Aug
-taskList
+list
 mark 1
 mark 3
-taskList
+list
 unmark 2
-taskList
+list
 unmark 3
-taskList
+list
 deadline Java Coding Exercises /by tonight
-taskList
+list
 todo go buy some grocery
 todo go to the gym
-taskList
+list
 mark 6
-taskList
+list
 event Meeting with friend /at Utown 9pm
-taskList
+list
+delete 20
+delete 1
 mark 5
 taskList
 unmark 5
-taskList
+event Prom /at 2022-10-03
+list
+event RunNUS /at
+event /at 2022-09-17
+event /at
+event RunNUS /at 2022-09-17
 event Weekly project meeting /at Mon 11am-1pm
-taskList
+list
 mark 7
-taskList
+list
+find CS2113
+find
+find lakdjladjasd
 another unrecognizable input
 bye
