@@ -1,10 +1,30 @@
+import java.util.Scanner;
+
 public class Duke {
+    static TaskManager taskManager = new TaskManager();
+    static Record record = new Record();
+    static boolean isProgramEnd = false;
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Util.showWelcomeMessage();
+        record.restoreFromDisk(taskManager);
+        handleUserInput();
+    }
+
+    private static void handleUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String inputText = scanner.nextLine();
+            while (inputText.trim().isEmpty())
+                inputText = scanner.nextLine();
+            try {
+                isProgramEnd = taskManager.handleTask(inputText);
+            } catch (DukeException e) {
+                e.handleError();
+            }
+            if (isProgramEnd) {
+                System.exit(0);
+            }
+        }
     }
 }
