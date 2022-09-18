@@ -3,7 +3,7 @@ package duke.commands;
 import duke.DukeException;
 import duke.TaskList;
 
-public class CommandDeadline {
+public class CommandDeadline extends Command {
     public static String processNewDeadline(String command, TaskList taskList)
             throws DukeException.IllegalDeadlineFormatException, DukeException.IllegalDeadlineDateException {
         int spacePosition = command.indexOf(" ");
@@ -17,6 +17,13 @@ public class CommandDeadline {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String by = command.substring(dividerPosition + 1);
+
+        try {
+            checkDateTime(by);
+        } catch (DukeException.IllegalDateTimeException e) {
+            throw new DukeException.IllegalDeadlineDateException();
+        }
+
         return taskList.addNewDeadline(taskName, by, true);
     }
 }

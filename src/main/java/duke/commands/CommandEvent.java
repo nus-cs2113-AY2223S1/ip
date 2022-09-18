@@ -3,7 +3,7 @@ package duke.commands;
 import duke.DukeException;
 import duke.TaskList;
 
-public class CommandEvent {
+public class CommandEvent extends Command {
     public static String processNewEvent(String command, TaskList taskList)
             throws DukeException.IllegalEventFormatException, DukeException.IllegalEventDateException {
         int spacePosition = command.indexOf(" ");
@@ -17,6 +17,13 @@ public class CommandEvent {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String at = command.substring(dividerPosition + 1);
+
+        try {
+            checkDateTime(at);
+        } catch (DukeException.IllegalDateTimeException e) {
+            throw new DukeException.IllegalEventDateException();
+        }
+
         return taskList.addNewEvent(taskName, at, true);
     }
 }
