@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
     public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
         taskList.markDone(lastResults.getItem(index));
         ui.displayMessage(String.format("Nice! I've marked this task as done:\n %s", taskList.getItem(index)));
-        return taskList;
+        return lastResults;
     }
 
 }
