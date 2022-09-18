@@ -1,27 +1,48 @@
 package duke;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
-    public static void drawLine() {    //print underscore symbol 50 times
-        System.out.println("__________________________________________________");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    public Duke(String filePath) {
+        ui  = new Ui();
+        storage = new Storage(filePath);
+        try {
+            String fileContent = storage.loadFile();
+            if(fileContent == "") {   //file is empty
+                tasks = new TaskList();
+            } else {                    //file has content
+                tasks = new TaskList(fileContent);
+            }
+        } catch (DukeException | IOException e) {
+            Ui.showLoadingError();
+            tasks = new TaskList();     //file is corrupted so create new empty TaskList
+        }
     }
-    public static void welcomeUser() {
-        drawLine();
-        System.out.println("Hello! I'm Bloom, your personal task manager.");
-        System.out.println();
-        System.out.println("What can I do for you?");
-        drawLine();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.drawLine();
+                Command c = new Command(Parser.parse(fullCommand));
+                c.execute(tasks, ui, storage, fullCommand);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getErrorMessage());
+            } catch (IOException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.drawLine();
+            }
+        }
+        ui.showGoodbye();
     }
     public static void main(String[] args) {
-        String logo =  " _____ __    _____ _____ _____\n"
-                     + "| __  |  |  |     |     |     |\n"
-                     + "| __ -|  |__|  |  |  |  | | | |\n"
-                     + "|_____|_____|_____|_____|_|_|_|\n";
-        System.out.println("Hello from\n" + logo);
-        CommandHandler handler = new CommandHandler();
-        welcomeUser();
-        DukeFile df = new DukeFile();
-        handler.executeUserCommands(df);
+        new Duke("data/duke.txt").run();
     }
 }

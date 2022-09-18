@@ -1,2 +1,0 @@
-E | 0 | conference | June 6th 2pm
-T | 1 | read book

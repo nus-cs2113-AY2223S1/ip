@@ -5,7 +5,8 @@ public class DukeException extends Exception{
     public DukeException(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-    public void printErrorMessage() {
-        System.out.println(errorMessage);
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }
