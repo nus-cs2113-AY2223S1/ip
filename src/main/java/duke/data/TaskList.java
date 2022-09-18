@@ -17,6 +17,7 @@ public class TaskList {
         tasks = new ArrayList<>();
         ui = new Ui();
     }
+
     public TaskList(TaskList taskList) {
         tasks = taskList.getTasks();
         ui = new Ui();
@@ -26,21 +27,23 @@ public class TaskList {
         return tasks;
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.getTasks().size();
     }
 
-    public Task addTodo(String taskName){
+    public Task addTodo(String taskName) {
         Todo todo = new Todo(taskName);
         tasks.add(todo);
         return todo;
     }
-    public Task addDeadline(String taskName, String deadlineTime){
+
+    public Task addDeadline(String taskName, String deadlineTime) {
         Deadline deadline = new Deadline(taskName, deadlineTime);
         tasks.add(deadline);
         return deadline;
     }
-    public Task addEvent(String taskName, String eventTime){
+
+    public Task addEvent(String taskName, String eventTime) {
         Event event = new Event(taskName, eventTime);
         tasks.add(event);
         return event;

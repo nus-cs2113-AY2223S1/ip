@@ -1,7 +1,5 @@
 package duke.ui;
 
-import duke.common.Messages;
-
 import java.util.Scanner;
 
 import static duke.common.Messages.MESSAGE_FAREWELL;
@@ -15,7 +13,6 @@ import static duke.common.Messages.MESSAGE_TASK_LISTING_HEADER;
 
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
-    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private Scanner in;
 

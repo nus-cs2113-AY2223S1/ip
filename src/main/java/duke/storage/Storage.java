@@ -91,7 +91,7 @@ public class Storage {
                 dukeFileWriter.append(output);
             }
             dukeFileWriter.close();
-        } catch (IOException exception){
+        } catch (IOException exception) {
             throw new StorageOutputException();
         }
     }

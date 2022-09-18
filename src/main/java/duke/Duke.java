@@ -5,11 +5,7 @@ import duke.data.TaskList;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
