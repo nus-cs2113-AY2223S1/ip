@@ -1,7 +1,7 @@
 package duke.command;
 
-public class ExitCommand extends Command{
-    public ExitCommand(){
+public class ExitCommand extends Command {
+    public ExitCommand() {
         super(COMMAND_NAME);
     }
 
@@ -10,15 +10,15 @@ public class ExitCommand extends Command{
     public static final String MESSAGE_TOP = "Bye!";
 
     /*Static */
-    public static boolean isExit(Command command){
+    public static boolean isExit(Command command) {
         return command.commandType.equalsIgnoreCase(COMMAND_NAME);
     }
 
     /*Non-static */
     @Override
-    public CommandResult execute(){
+    public CommandResult execute() {
         CommandResult result = new CommandResult(MESSAGE_TOP);
         return result;
-    } 
-    
+    }
+
 }

@@ -11,10 +11,12 @@ public class Event extends Task {
         this.taskTypeWrap = TYPE_EVENT_WRAP;
         this.taskType = TYPE_EVENT;
     }
-    public Event(boolean status, String description, String date){
-        this(description,date);
+
+    public Event(boolean status, String description, String date) {
+        this(description, date);
         this.isDone = status;
     }
+
     @Override
     public String toString() {
         return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description + "(" + this.date + ")");

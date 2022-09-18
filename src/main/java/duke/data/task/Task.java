@@ -17,18 +17,19 @@ public class Task {
         numberOfTasks++;
     }
 
+    public void setIsDone(boolean status) {
+        this.isDone = status;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); //Mark done with X
     }
-    
+
     public String toString() {
         return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description);
     }
-    public void printTask() {
-        System.out.println(this.toString());
-    }
 
-    public String toSave(){
+    public String toSave() {
         return (this.taskType + LIMITER + this.isDone + LIMITER + this.description + "\n");
     }
 }

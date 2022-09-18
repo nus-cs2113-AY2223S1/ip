@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.data.TaskList;
+
 /**
  * Represent an command
  */
@@ -13,6 +15,14 @@ public class Command {
 
     public CommandResult execute() {
         throw new UnsupportedOperationException("Method to be implemented in child classes");
+    }
 
+    public boolean contains(final int[] array, final int key) {
+        for (final int i : array) {
+            if (i == key) {
+                return true;
+            }
+        }
+        return false;
     }
 }

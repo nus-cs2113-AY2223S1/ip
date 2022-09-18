@@ -23,12 +23,12 @@ public class Storage {
                 fileWrite.write(TaskList.list.get(i).toSave());
             }
             fileWrite.close();
-            return new String[] { Messages.FILE_OVERWRITTEN };
+            return new String[]{Messages.FILE_OVERWRITTEN};
         } catch (IOException e) {
             File newfile = new File(STORAGE_DIRECTORY);
             newfile.mkdir();
             save();
-            return new String[] { Messages.NO_FILE, Messages.FILE_CREATED };
+            return new String[]{Messages.NO_FILE, Messages.FILE_CREATED};
         }
     }
 

@@ -4,7 +4,7 @@ import duke.data.TaskList;
 import duke.data.Messages;
 
 public class ListCommand extends Command {
-    public ListCommand(){
+    public ListCommand() {
         super(COMMAND_NAME);
     }
 
@@ -13,10 +13,9 @@ public class ListCommand extends Command {
     public static final String SYNTAX = "list";
 
     @Override
-    public CommandResult execute(){
-
-        CommandResult result = new CommandResult(Messages.DIVIDER_LIST,TaskList.list,"");
+    public CommandResult execute() {
+        CommandResult result = new CommandResult(Messages.DIVIDER_LIST, TaskList.list, TaskList.getTotalMessage());
         return result;
-    } 
-    
+    }
+
 }

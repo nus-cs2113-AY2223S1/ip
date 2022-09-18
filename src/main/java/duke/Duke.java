@@ -43,7 +43,7 @@ public class Duke {
             command = new Parser().parseCommand(userCommandText);
             CommandResult result = executeCommand(command);
             ui.showResultToUser(result);
-            ui.showToUser(Storage.save());
+            Storage.save();
         } while (!ExitCommand.isExit(command));
     }
 

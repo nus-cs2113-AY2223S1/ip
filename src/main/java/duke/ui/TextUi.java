@@ -12,24 +12,24 @@ public class TextUi {
     public final Scanner input;
     public final PrintStream output;
 
-    public TextUi(){
+    public TextUi() {
         this.input = new Scanner(System.in);
         this.output = System.out;
     }
 
     public static final String UI_PROMPT = ">>> ";
-  
+
 
     public String getUserCommand() {
         output.print(UI_PROMPT);
         String userInput = input.nextLine();
-        while(shouldIgnore(userInput)){
+        while (shouldIgnore(userInput)) {
             userInput = input.nextLine();
         }
         return userInput;
     }
 
-    private boolean shouldIgnore(String userInput){
+    private boolean shouldIgnore(String userInput) {
         return userInput.trim().isEmpty();
     }
 

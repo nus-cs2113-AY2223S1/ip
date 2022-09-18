@@ -15,7 +15,7 @@ public class Parser {
     public Command parseCommand(String userInput) {
         String[] parsedInput = userInput.split(" ");
         if (parsedInput.length == 0) {
-            return new IncorrectCommand(Messages.UNKNOWN_COMMAND);
+            return new IncorrectCommand(Messages.UNKNOWN_COMMAND, Messages.COMMAND_LISTS);
         }
 
         final String commandWord = parsedInput[0];
@@ -40,7 +40,7 @@ public class Parser {
         case ExitCommand.COMMAND_NAME:
             return new ExitCommand();
         default:
-            return new IncorrectCommand(Messages.UNKNOWN_COMMAND);
+            return new IncorrectCommand(Messages.UNKNOWN_COMMAND, Messages.COMMAND_LISTS);
         }
     }
 
@@ -48,7 +48,7 @@ public class Parser {
         String[] parsedLine = fileLine.split(Task.PARSE_LIMITER);
 
         String[] parsedTrim = new String[parsedLine.length];
-        for (int i = 0;i< parsedLine.length;i++){
+        for (int i = 0; i < parsedLine.length; i++) {
             parsedTrim[i] = parsedLine[i].trim();
         }
         final String taskType = parsedTrim[0];
@@ -74,21 +74,21 @@ public class Parser {
         if (!(parsed.length == 3)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Todo(Boolean.valueOf(parsed[1]),parsed[2]));
+        TaskList.list.add(new Todo(Boolean.valueOf(parsed[1]), parsed[2]));
     }
 
     private void parseDeadlineLine(String[] parsed) throws DukeFileException {
         if (!(parsed.length == 4)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Deadline(Boolean.valueOf(parsed[1]),parsed[2],parsed[3]));
+        TaskList.list.add(new Deadline(Boolean.valueOf(parsed[1]), parsed[2], parsed[3]));
     }
 
-    private void parseEventLine(String[] parsed) throws DukeFileException{
+    private void parseEventLine(String[] parsed) throws DukeFileException {
         if (!(parsed.length == 4)) {
             throw new DukeFileException();
         }
-        TaskList.list.add(new Event(Boolean.valueOf(parsed[1]),parsed[2],parsed[3]));
+        TaskList.list.add(new Event(Boolean.valueOf(parsed[1]), parsed[2], parsed[3]));
     }
 
     /* Parse Command */
@@ -144,7 +144,7 @@ public class Parser {
         }
     }
 
-    
+
     private Command parseUnmarkCommand(String arguments) {
         try {
             String[] parsed = arguments.split(" ");
@@ -169,11 +169,14 @@ public class Parser {
             return new IncorrectCommand(DeleteCommand.SYNTAX);
         }
     }
-    
-    private Integer[] strToIntArray(String[] parsed) {
-        Integer[] intParsed = new Integer[parsed.length];
-        for(int i = 0; i < parsed.length;i++){
-            intParsed[i] = Integer.parseInt(parsed[i]);
+
+    private int[] strToIntArray(String[] parsed) throws DukeException {
+        int[] intParsed = new int[parsed.length];
+        for (int i = 0; i < parsed.length; i++) {
+            intParsed[i] = Integer.parseInt(parsed[i]) - Messages.OFFSET;
+            if (intParsed[i] < 0 | intParsed[i] > TaskList.list.size()) {
+                throw new DukeException();
+            }
         }
         return intParsed;
     }

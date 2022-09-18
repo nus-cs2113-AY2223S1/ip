@@ -10,7 +10,8 @@ public class Todo extends Task {
         this.taskTypeWrap = TYPE_TODO_WRAP;
         this.taskType = TYPE_TODO;
     }
-    public Todo(boolean status, String description){
+
+    public Todo(boolean status, String description) {
         this(description);
         this.isDone = status;
     }
