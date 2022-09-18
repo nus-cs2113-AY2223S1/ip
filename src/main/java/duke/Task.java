@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Represents a task, which is a superclass of todo, deadline and event subclasses.
+ * Tasks are stored in an array, in TaskList class.
+ */
 public abstract class Task {
     private String name;
     private boolean isDone;
@@ -10,6 +14,7 @@ public abstract class Task {
         setDone(isDone);
         this.type = type;
     }
+    @Override
     public String toString() {
         return name;
     }

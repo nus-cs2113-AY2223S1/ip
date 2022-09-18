@@ -1,15 +1,23 @@
 package duke;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Contains the task list
+ * and deals with operations in the list eg. add, delete
+ */
 public class TaskList {
     private ArrayList<Task> tasks= new ArrayList<>();
     private int taskCounter = 0;
 
     public TaskList() {
     }
+
+    /**
+     * Creates a new task list using contents in file.
+     * @param fileContent Contents in file in a single string.
+     * @throws DukeException If file format is invalid.
+     */
     public TaskList(String fileContent) throws DukeException {
         String[] unformattedTasks = fileContent.split("/");
         for (int i = 0; i < unformattedTasks.length; ++i) {
@@ -38,22 +46,44 @@ public class TaskList {
     public int getTaskCounter() {
         return taskCounter;
     }
+
+    /**
+     * Changes status of specified task from "not done" to "done".
+     * @param taskID User input of task ID.
+     * @throws DukeException If task has already been marked as "done".
+     */
     public void markTask(int taskID) throws DukeException {
         if (tasks.get(taskID - 1).isDone()) {
             throw new DukeException(":( OOPS!!! Unable to mark as this task has already been done");
         }
         tasks.get(taskID - 1).setDone(true);
     }
+    /**
+     * Changes status of specified task from "done" to "not done".
+     * @param taskID User input of task ID.
+     * @throws DukeException If task has already been marked as "not done".
+     */
     public void unmarkTask(int taskID) throws DukeException {
         if (!tasks.get(taskID - 1).isDone()) {
             throw new DukeException(":( OOPS!!! Unable to unmark as this task has not been done yet");
         }
         tasks.get(taskID - 1).setDone(false);
     }
-    public void deleteTask(int taskID) throws DukeException {
+
+    /**
+     * Removes a task from the task list.
+     * @param taskID User input of task ID.
+     */
+    public void deleteTask(int taskID) {
         tasks.remove(taskID - 1);
         taskCounter--;
     }
+
+    /**
+     * Creates new task, based on type of task (todo, deadline, event)
+     * and adds it into the task list.
+     * @param fullCommand Entire user input.
+     */
     public void createTask(String fullCommand) {
         fullCommand = fullCommand.trim();
         char taskType = fullCommand.toUpperCase().charAt(0);    //first char is the type in uppercase
@@ -74,7 +104,7 @@ public class TaskList {
                 taskName = Parser.getTaskName(fullCommand);
                 createNewDeadline(new Deadline(taskName, false, taskType, taskDateTime));
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println(":( OOPS!!! Deadline tasks should be of the form 'deadline <task_name> /by <task_deadline>'");
+                System.out.println("Deadline tasks should be of the form 'deadline <task_name> /by <task_deadline>'");
             }
             break;
         case 'E':
@@ -83,7 +113,7 @@ public class TaskList {
                 taskName = Parser.getTaskName(fullCommand);
                 createNewEvent(new Event(taskName, false, taskType, taskDateTime));
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println(":( OOPS!!! Event tasks should be of the form 'event <task_name> /at <task_time>'");
+                System.out.println("Event tasks should be of the form 'event <task_name> /at <task_time>'");
             }
             break;
         default:

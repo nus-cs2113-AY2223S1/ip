@@ -3,6 +3,9 @@ package duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * A task manager app that uses Command-Line Interface (CLI)
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -22,6 +25,10 @@ public class Duke {
             tasks = new TaskList();     //file is corrupted so create new empty TaskList
         }
     }
+
+    /**
+     * Welcomes user and continuously reads in user input until user says "bye".
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,6 +49,11 @@ public class Duke {
         }
         ui.showGoodbye();
     }
+
+    /**
+     * Starts the app and specifies the desired file location to save/load data.
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
