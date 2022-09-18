@@ -1,12 +1,7 @@
 package duke;
 
 import duke.error.ErrorHandler;
-import duke.error.exceptions.DukeException;
-import duke.error.exceptions.ItemNotFoundException;
-import duke.error.exceptions.ListEmptyException;
-import duke.error.exceptions.NoStateChangeException;
-import duke.error.exceptions.NotAnIntegerException;
-import duke.error.exceptions.NotRecognizedException;
+import duke.error.exceptions.*;
 import duke.io.Parser;
 import duke.io.Storage;
 import duke.tasks.TaskList;
@@ -16,6 +11,9 @@ import duke.tasks.tasktypes.ToDoTask;
 import duke.ui.StringFormatting;
 import duke.ui.Ui;
 
+/**
+ * Main class of the Duke program.
+ */
 public class Duke {
     /* Command list to check against */
     public static final String COMMAND_DEADLINE = "deadline";
@@ -26,6 +24,7 @@ public class Duke {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Delimiter character for string splits
@@ -35,10 +34,10 @@ public class Duke {
     /**
      * TaskList class that contains all items
      */
-    public static TaskList TASK_LIST;
+    public static TaskList FULL_TASK_LIST;
 
     public static void main(String[] args) {
-        TASK_LIST = Storage.loadTaskList();
+        FULL_TASK_LIST = Storage.loadTaskList();
         greet();
         programBody();
         exit();
@@ -63,10 +62,13 @@ public class Duke {
                     addAndConfirm(input);
                 } else if (Parser.isDeleteInput(input)) {
                     deleteAndConfirm(input);
+                } else if (Parser.isFindInput(input)) {
+                    findAndConfirm(input);
                 } else {
                     throw new NotRecognizedException(input);
                 }
-            } catch (DukeException e) {
+            }
+            catch (DukeException e) {
                 ErrorHandler.printErrorMessage(e);
             }
         }
@@ -76,14 +78,14 @@ public class Duke {
      * Marks item given in the input string.
      *
      * @param input input
-     * @throws NotAnIntegerException  If word after command is not an integer.
-     * @throws ItemNotFoundException  If there is no item at given index.
-     * @throws NoStateChangeException If item is already marked.
+     * @throws NotAnIntegerException        If word after command is not an integer.
+     * @throws ItemNotFoundAtIndexException If there is no item at given index.
+     * @throws NoStateChangeException       If item is already marked.
      */
     private static void markAndConfirm(String input) throws
-            NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
+            NotAnIntegerException, ItemNotFoundAtIndexException, NoStateChangeException {
         Ui.print(StringFormatting.formatMarkOrUnmarkString(
-                TASK_LIST.getTextOfItem(markItem(input) - 1), true));
+                FULL_TASK_LIST.getTextOfItem(markItem(input) - 1), true));
         Storage.save();
     }
 
@@ -91,27 +93,27 @@ public class Duke {
      * Unmarks item given in the input string.
      *
      * @param input input
-     * @throws NotAnIntegerException  If word after command is not an integer.
-     * @throws ItemNotFoundException  If there is no item at given index.
-     * @throws NoStateChangeException If item is already not marked.
+     * @throws NotAnIntegerException        If word after command is not an integer.
+     * @throws ItemNotFoundAtIndexException If there is no item at given index.
+     * @throws NoStateChangeException       If item is already not marked.
      */
     private static void unmarkAndConfirm(String input) throws
-            NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
+            NotAnIntegerException, ItemNotFoundAtIndexException, NoStateChangeException {
         Ui.print(StringFormatting.formatMarkOrUnmarkString(
-                TASK_LIST.getTextOfItem(unmarkItem(input) - 1), false));
+                FULL_TASK_LIST.getTextOfItem(unmarkItem(input) - 1), false));
         Storage.save();
     }
 
     /**
-     * Adds item to {@link Duke#TASK_LIST} and prints confirmation.
+     * Adds item to {@link Duke#FULL_TASK_LIST} and prints confirmation.
      *
      * @param input input string
      */
     private static void addAndConfirm(String input) {
         Ui.print(StringFormatting.formatAddString(
-                TASK_LIST.getTextOfItem(addItem(input))) + StringFormatting.LINE_BREAK
+                FULL_TASK_LIST.getTextOfItem(addItem(input))) + StringFormatting.LINE_BREAK
                 + StringFormatting.formatNumberOfTasksString(
-                TASK_LIST.getItemCount()));
+                FULL_TASK_LIST.getItemCount()));
         Storage.save();
     }
 
@@ -119,28 +121,39 @@ public class Duke {
      * Deletes item and prints confirmation.
      *
      * @param input input
-     * @throws NotAnIntegerException If word after command is not an integer.
-     * @throws ItemNotFoundException If there is no item at given index.
+     * @throws NotAnIntegerException        If word after command is not an integer.
+     * @throws ItemNotFoundAtIndexException If there is no item at given index.
      */
     private static void deleteAndConfirm(String input) throws
-            NotAnIntegerException, ItemNotFoundException {
+            NotAnIntegerException, ItemNotFoundAtIndexException {
         Ui.print(StringFormatting.formatDeleteString(
                 deleteItem(input)) + StringFormatting.LINE_BREAK
-                + StringFormatting.formatNumberOfTasksString(
-                TASK_LIST.getItemCount()));
+                + StringFormatting.formatNumberOfTasksString(FULL_TASK_LIST.getItemCount()));
         Storage.save();
     }
 
     /**
-     * Print all tasks stored in {@link Duke#TASK_LIST}
+     * Finds item and prints a list that matches given substring.
+     *
+     * @param input input
+     * @throws ListEmptyException          Exception thrown if list is empty
+     * @throws ItemNotFoundInListException Exception thrown if no items match the given substring.
+     */
+    private static void findAndConfirm(String input) throws ListEmptyException, ItemNotFoundInListException {
+        Ui.print(StringFormatting.formatFindString(
+                findItem(input), StringFormatting.getCommandArgument(input)) + StringFormatting.LINE_BREAK);
+    }
+
+    /**
+     * Print all tasks stored in {@link Duke#FULL_TASK_LIST}
      *
      * @throws ListEmptyException Exception thrown if list is empty
      */
     private static void printList() throws ListEmptyException {
-        if (TASK_LIST.getItemCount() <= 0) {
-            throw new ListEmptyException();
+        if (isEmptyList()) {
+            throw new ListEmptyException(Duke.COMMAND_LIST);
         }
-        Ui.print(TASK_LIST.toString());
+        Ui.print(FULL_TASK_LIST.toString());
     }
 
     /**
@@ -150,13 +163,13 @@ public class Duke {
      * @return <b>0-based</b> index of added item.
      */
     private static int addItem(String input) {
-        String task = input.split(STRING_DELIMITER, 2)[1];
+        String task = StringFormatting.getCommandArgument(input);
         if (Parser.stringContains(input, COMMAND_DEADLINE)) {
-            return TASK_LIST.addItem(new DeadlineTask(task));
+            return FULL_TASK_LIST.addItem(new DeadlineTask(task));
         } else if (Parser.stringContains(input, COMMAND_EVENT)) {
-            return TASK_LIST.addItem(new EventTask(task));
+            return FULL_TASK_LIST.addItem(new EventTask(task));
         } else {
-            return TASK_LIST.addItem(new ToDoTask(task));
+            return FULL_TASK_LIST.addItem(new ToDoTask(task));
         }
     }
 
@@ -167,12 +180,27 @@ public class Duke {
      *
      * @param input input string to find index
      * @return String of deleted item
-     * @throws NotAnIntegerException If word after command is not an integer
-     * @throws ItemNotFoundException If item is already marked
+     * @throws NotAnIntegerException        If word after command is not an integer
+     * @throws ItemNotFoundAtIndexException If item is already marked
      */
-    private static String deleteItem(String input) throws NotAnIntegerException, ItemNotFoundException {
+    private static String deleteItem(String input) throws NotAnIntegerException, ItemNotFoundAtIndexException {
         int itemIndex = extractNumber(input) - 1;
-        return TASK_LIST.deleteItem(itemIndex);
+        return FULL_TASK_LIST.deleteItem(itemIndex);
+    }
+
+    /**
+     * @param input input string of command
+     * @return {@link TaskList} instance that is a substring of {@link Duke#FULL_TASK_LIST}
+     * filtered by the substring used with the {@link Duke#COMMAND_FIND} command.
+     * @throws ListEmptyException          If no items are present in list
+     * @throws ItemNotFoundInListException If no items contain the given substring
+     */
+    private static TaskList findItem(String input) throws ListEmptyException, ItemNotFoundInListException {
+        if (isEmptyList()) {
+            throw new ListEmptyException(Duke.COMMAND_FIND);
+        }
+        String substring = StringFormatting.getCommandArgument(input);
+        return FULL_TASK_LIST.findString(substring);
     }
 
     /**
@@ -182,14 +210,14 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
-     * @throws NotAnIntegerException  If word after command is not an integer
-     * @throws ItemNotFoundException  If item is already marked
-     * @throws NoStateChangeException If there's no state change to be made to the task item
+     * @throws NotAnIntegerException        If word after command is not an integer
+     * @throws ItemNotFoundAtIndexException If item is already marked
+     * @throws NoStateChangeException       If there's no state change to be made to the task item
      */
-    private static int markItem(String input) throws NotAnIntegerException, ItemNotFoundException,
+    private static int markItem(String input) throws NotAnIntegerException, ItemNotFoundAtIndexException,
             NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
-        TASK_LIST.markItem(itemIndex);
+        FULL_TASK_LIST.markItem(itemIndex);
         return itemIndex + 1;
     }
 
@@ -200,14 +228,14 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
-     * @throws NotAnIntegerException  If word after command is not an integer
-     * @throws ItemNotFoundException  If item is already marked
-     * @throws NoStateChangeException If there's no state change to be made to the task item
+     * @throws NotAnIntegerException        If word after command is not an integer
+     * @throws ItemNotFoundAtIndexException If item is already marked
+     * @throws NoStateChangeException       If there's no state change to be made to the task item
      */
-    private static int unmarkItem(String input) throws NotAnIntegerException, ItemNotFoundException,
+    private static int unmarkItem(String input) throws NotAnIntegerException, ItemNotFoundAtIndexException,
             NoStateChangeException {
         int itemIndex = extractNumber(input) - 1;
-        TASK_LIST.unmarkItem(itemIndex);
+        FULL_TASK_LIST.unmarkItem(itemIndex);
         return itemIndex + 1;
     }
 
@@ -241,5 +269,14 @@ public class Duke {
     private static void exit() {
         Storage.save();
         Ui.print(StringFormatting.getGoodbye());
+    }
+
+    /**
+     * Checks if {@link Duke#FULL_TASK_LIST} is empty.
+     *
+     * @return true if list is empty, false if not.
+     */
+    private static boolean isEmptyList() {
+        return FULL_TASK_LIST.getItemCount() == 0;
     }
 }

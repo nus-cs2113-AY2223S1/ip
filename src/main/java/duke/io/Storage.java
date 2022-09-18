@@ -152,7 +152,7 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            fileWriter.write(Duke.TASK_LIST.getSaveString());
+            fileWriter.write(Duke.FULL_TASK_LIST.getSaveString());
         }
         catch (IOException e) {
             // If cannot write, just delete file.
