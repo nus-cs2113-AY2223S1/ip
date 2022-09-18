@@ -55,6 +55,22 @@ public class Ui{
         }
         System.out.println(LINE);
     }
+    public void showMatchedTasks(List<Task> tasks, String keyword) {
+        System.out.println(LINE + "Here are the list of matching tasks:");
+        int count = 0;
+        int itemNumber = 1;
+        for (Task task : tasks) {
+            if (task.getDescriptionAndStatus().contains(keyword)) {
+                System.out.println(itemNumber + "." + task.getDescriptionAndStatus());
+                count++;
+            }
+            itemNumber++;
+        }
+        if (count == 0) {
+            System.out.println("There are no matching tasks!");
+        }
+        System.out.println(LINE);
+    }
     public void markTaskMessage(Task task) {
         System.out.println(
             LINE +

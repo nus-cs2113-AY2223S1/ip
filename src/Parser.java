@@ -18,10 +18,10 @@ public class Parser extends Constants{
         String description;
         String time;
         switch (taskType) {
-            case "todo":
+            case TODO:
                 return new Todo(details, false);
 
-            case "deadline":
+            case DEADLINE:
                 separateDetails = details.split(" /by ", 2);
                 if (separateDetails.length != 2) {
                     throw new Error(DEADLINE_FORMAT_ERROR);
@@ -32,7 +32,7 @@ public class Parser extends Constants{
                 time = "(by: " + separateDetails[1] + ")";
                 return new Deadline(description, time, false);
 
-            case "event":
+            case EVENT:
                 separateDetails = details.split(" /at ", 2);
                 if (separateDetails.length != 2) {
                     throw new Error(EVENT_FORMAT_ERROR);
@@ -75,6 +75,8 @@ public class Parser extends Constants{
                     throw new Error(MARK_ERROR);
                 case DEADLINE:
                     throw new Error(DELETE_ERROR);
+                case FIND:
+                    throw new Error(MISSING_KEYWORD);
                 default:
                     throw new Error(INVALID_COMMAND);
             }
@@ -114,6 +116,9 @@ public class Parser extends Constants{
                 catch (Error error) {
                     System.out.println(error.getMessage());
                 }
+                break;
+            case FIND:
+                taskList.showMatchedTasks(get[DETAILS]);
                 break;
             default:
                 System.out.println(INVALID_COMMAND);

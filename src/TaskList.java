@@ -11,6 +11,10 @@ public class TaskList{
     public void showList() {
        ui.showList(tasks);
     }
+
+    public void showMatchedTasks(String keyword) {
+        ui.showMatchedTasks(tasks, keyword);
+    }
     public void mark(int index) {
         Task task = tasks.get(index - 1);
         task.setDone(true);
