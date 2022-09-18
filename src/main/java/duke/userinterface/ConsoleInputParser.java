@@ -108,8 +108,8 @@ public class ConsoleInputParser {
             ConsoleInputParserException.InvalidCommandDeadlineException,
             ConsoleInputParserException.InvalidCommandEventException,
             ConsoleInputParserException.InvalidCommandDeleteException,
-            ConsoleInputParserException.CommandNotFoundException,
-            ConsoleInputParserException.InvalidCommandFindException {
+            ConsoleInputParserException.InvalidCommandFindException,
+            ConsoleInputParserException.CommandNotFoundException {
         String command = consoleInput.getCommand();
         String arguments = consoleInput.getArguments();
 
