@@ -11,6 +11,7 @@ import duke.storage.Storage;
 public abstract class Command {
     // The valid command word used to trigger the execution.
     public static String COMMAND_WORD;
+    // The boolean value to be checked by Duke to determine whether to exit the application.
     private static boolean isExit;
 
     /**
@@ -23,7 +24,7 @@ public abstract class Command {
     /**
      * Get the is exit status.
      *
-     * @return A boolean value to represents whether to exit the program.
+     * @return A boolean value to represent whether to exit the program.
      */
     public boolean isExit() {
         return this.isExit;
