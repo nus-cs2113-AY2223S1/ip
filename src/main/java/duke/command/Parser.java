@@ -14,6 +14,16 @@ import duke.task.Task;
 import duke.task.Todo;
 
 public abstract class Parser {
+    /**
+     * Parses the task according to user input and the type of task provided
+     * 
+     * @param type  the type of task to parse
+     * @param input the user input
+     * @return the new task created
+     * @throws MissingTodoDescriptionException     if no description provided for todo task
+     * @throws MissingDeadlineDescriptionException if no description provided for deadline task
+     * @throws MissingEventDescriptionException    if no description provided for event task
+     */
     public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
             MissingDeadlineDescriptionException, MissingEventDescriptionException {
         int descriptionIndex;
@@ -25,8 +35,8 @@ public abstract class Parser {
             descriptionIndex = input.indexOf(Ui.TODO_PHRASE);
 
             try {
-                description = input.substring(
-                        descriptionIndex + Ui.TODO_PHRASE.length() + 1, input.length());
+                description = input.substring(descriptionIndex + Ui.TODO_PHRASE.length() + 1,
+                        input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingTodoDescriptionException();
             }
@@ -42,8 +52,8 @@ public abstract class Parser {
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1, byIndex - 1);
+                description = input.substring(descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1,
+                        byIndex - 1);
                 by = input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingDeadlineDescriptionException();
@@ -60,8 +70,8 @@ public abstract class Parser {
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.EVENT_PHRASE.length() + 1, atIndex - 1);
+                description = input.substring(descriptionIndex + Ui.EVENT_PHRASE.length() + 1,
+                        atIndex - 1);
                 at = input.substring(atIndex + Ui.AT_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingEventDescriptionException();
@@ -79,6 +89,17 @@ public abstract class Parser {
         return newTask;
     }
 
+    /**
+     * Parses the task number according to user input and the type of task provided
+     * 
+     * @param type  the type of task to parse
+     * @param input the user input
+     * @return the task number from the input
+     * @throws MissingTaskNumberException     if the task number is missing
+     * @throws NonIntegerTaskNumberException  if the task number is not an integer
+     * @throws OutOfBoundsTaskNumberException if the task number is <= 0 or > current number of
+     *                                        tasks
+     */
     public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException,
             NonIntegerTaskNumberException, OutOfBoundsTaskNumberException {
         String taskNumString;
@@ -150,6 +171,13 @@ public abstract class Parser {
         return taskNumInt;
     }
 
+    /**
+     * Parses the saved file data
+     * 
+     * @param line the current input line from the file
+     * @return the saved task and whether the task is marked or not
+     * @throws InvalidInputException if the saved data has an invalid format
+     */
     public static String[] parseFileInputs(String line) throws InvalidInputException {
         String[] parts = line.split(", ");
 
@@ -192,6 +220,13 @@ public abstract class Parser {
         return fileData;
     }
 
+    /**
+     * Parses the file data to be saved
+     * 
+     * @param line the current line from the task list to save
+     * @return the string to be writtent to the file
+     * @throws InvalidOutputException if the data to save has an invalid format
+     */
     public static String parseFileOutputs(String line) throws InvalidOutputException {
         String[] parts = line.split("]");
 
@@ -241,8 +276,7 @@ public abstract class Parser {
         String fileData;
         if (extra.isBlank()) {
             fileData = outputTask + ", " + outputMark + ", " + description;
-        }
-        else {
+        } else {
             fileData = outputTask + ", " + outputMark + ", " + description + ", " + extra;
         }
 

@@ -13,10 +13,22 @@ import duke.exception.OutOfBoundsTaskNumberException;
 public abstract class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Get all the tasks in the task list
+     * 
+     * @return the list of tasks
+     */
     public static ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Add a new task to the task list. Handles the exceptions when descriptions of the task is
+     * missing
+     * 
+     * @param type  the type of task
+     * @param input the user input
+     */
     public static void addTask(String type, String input) {
         final String ADD_PHRASE_START = "added: ";
         // add one because newTask has not been created yet
@@ -44,6 +56,11 @@ public abstract class TaskList {
         System.out.println(ADD_PHRASE_END);
     }
 
+    /**
+     * Deletes a task from the task list. Handles the exceptions when the user input is invalid
+     * 
+     * @param input the user input
+     */
     public static void deleteTask(String input) {
         int taskNum;
 
@@ -74,12 +91,21 @@ public abstract class TaskList {
         System.out.println(DELETE_PHRASE_END);
     }
 
+    /**
+     * Prints all the tasks in the task list
+     */
     public static void printList() {
         for (int i = 0; i < Task.getTaskCount(); i += 1) {
             System.out.println(Integer.toString(i + 1) + ". " + tasks.get(i));
         }
     }
 
+    /**
+     * Marks the task according to the user input. Handles the exceptions when the user input is
+     * invalid.
+     * 
+     * @param input the user input
+     */
     public static void markTask(String input) {
         int taskNum;
 
@@ -102,6 +128,12 @@ public abstract class TaskList {
         System.out.println(tasks.get(taskNum));
     }
 
+    /**
+     * Unmarks the task according to the user input. Handles the exceptions when the user input is
+     * invalid.
+     * 
+     * @param input the user input
+     */
     public static void unmarkTask(String input) {
         int taskNum;
 

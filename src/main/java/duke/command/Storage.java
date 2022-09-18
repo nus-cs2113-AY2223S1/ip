@@ -15,6 +15,9 @@ import java.io.IOException;
 public class Storage {
     private static String FILE_PATH = "ip/data/duke.txt";
 
+    /**
+     * Loads the file at the given file path
+     */
     public static void loadFile() {
         try {
             readFile(FILE_PATH);
@@ -23,6 +26,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the file to the given file path
+     */
     public static void saveFile() {
         try {
             writeFile(FILE_PATH);
@@ -31,6 +37,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file line by line from the given file path
+     * 
+     * @param filePath the file path provided
+     * @throws FileNotFoundException if the file path is invalid
+     */
     private static void readFile(String filePath) throws FileNotFoundException {
         final String READING_FILE_START = "Reading file inputs...";
         final String READING_FILE_END = "Done reading file inputs!";
@@ -51,6 +63,12 @@ public class Storage {
         scanner.close();
     }
 
+    /**
+     * Writes the file line by line to the given file path
+     * 
+     * @param filePath the file path provided
+     * @throws IOException if unable to write to given file path
+     */
     private static void writeFile(String filePath) throws IOException {
         final String WRITING_FILE_START = "Writing file outputs...";
         final String WRITING_FILE_END = "Done writing file outputs!";

@@ -7,7 +7,8 @@ public abstract class Duke {
     public static final String HORIZONTAL_LINE = "______________________________";
 
     private static void printIntroduction() {
-        final String INTRODUCTION = "Hihi, my name is Jay!" + System.lineSeparator() + "What can I do for you today?";
+        final String INTRODUCTION =
+                "Hihi, my name is Jay!" + System.lineSeparator() + "What can I do for you today?";
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println(INTRODUCTION);
@@ -24,9 +25,14 @@ public abstract class Duke {
         System.out.println();
     }
 
+    /**
+     * Starts Duke
+     * 
+     * @param args the arguments provided
+     */
     public static void main(String[] args) {
         Storage.loadFile();
-        
+
         printIntroduction();
         Ui.readInputs();
         printExit();

@@ -17,6 +17,9 @@ public abstract class Ui {
     public static final String AT_PHRASE = "/at";
     public static final String DELETE_PHRASE = "delete";
 
+    /**
+     * Reads the user input. Keeps reading input until the exit phrase is given.
+     */
     public static void readInputs() {
         Scanner in = new Scanner(System.in);
         String input;
@@ -43,6 +46,12 @@ public abstract class Ui {
         in.close();
     }
 
+    /**
+     * Handles the user input
+     * 
+     * @param input the current line of user input
+     * @throws DukeException if the user input is invalid and cannot be handled
+     */
     public static void handleInput(String input) throws DukeException {
         // handle list, mark, unmark, add
         if (input.equals(LIST_PHRASE)) {
