@@ -4,6 +4,7 @@ import duke.exception.InvalidInputException;
 import duke.exception.InvalidOutputException;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
+import duke.exception.MissingKeywordException;
 import duke.exception.MissingTaskNumberException;
 import duke.exception.MissingTodoDescriptionException;
 import duke.exception.NonIntegerTaskNumberException;
@@ -25,8 +26,8 @@ public abstract class Parser {
             descriptionIndex = input.indexOf(Ui.TODO_PHRASE);
 
             try {
-                description = input.substring(
-                        descriptionIndex + Ui.TODO_PHRASE.length() + 1, input.length());
+                description = input.substring(descriptionIndex + Ui.TODO_PHRASE.length() + 1,
+                        input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingTodoDescriptionException();
             }
@@ -42,8 +43,8 @@ public abstract class Parser {
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1, byIndex - 1);
+                description = input.substring(descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1,
+                        byIndex - 1);
                 by = input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingDeadlineDescriptionException();
@@ -60,8 +61,8 @@ public abstract class Parser {
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.EVENT_PHRASE.length() + 1, atIndex - 1);
+                description = input.substring(descriptionIndex + Ui.EVENT_PHRASE.length() + 1,
+                        atIndex - 1);
                 at = input.substring(atIndex + Ui.AT_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingEventDescriptionException();
@@ -241,8 +242,7 @@ public abstract class Parser {
         String fileData;
         if (extra.isBlank()) {
             fileData = outputTask + ", " + outputMark + ", " + description;
-        }
-        else {
+        } else {
             fileData = outputTask + ", " + outputMark + ", " + description + ", " + extra;
         }
 
@@ -255,5 +255,17 @@ public abstract class Parser {
         }
 
         return true;
+    }
+
+    public static String parseKeyword(String input) throws MissingKeywordException {
+        String keyword;
+
+        try {
+            keyword = input.substring(Ui.SEARCH_PHRASE.length() + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MissingKeywordException();
+        }
+
+        return keyword;
     }
 }

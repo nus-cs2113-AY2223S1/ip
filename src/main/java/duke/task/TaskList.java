@@ -5,6 +5,7 @@ import duke.command.Ui;
 import duke.command.Parser;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
+import duke.exception.MissingKeywordException;
 import duke.exception.MissingTaskNumberException;
 import duke.exception.MissingTodoDescriptionException;
 import duke.exception.NonIntegerTaskNumberException;
@@ -122,5 +123,30 @@ public abstract class TaskList {
 
         System.out.println("Oh no! The following task is marked as undone:");
         System.out.println(tasks.get(taskNum));
+    }
+
+    public static void searchTask(String input) {
+        String keyword;
+
+        try {
+            keyword = Parser.parseKeyword(input);
+        } catch (MissingKeywordException e) {
+            System.out.println("Keyword missing");
+            return;
+        }
+
+        int matchingTaskCounter = 1;
+
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                System.out.println(matchingTaskCounter + ". " + task);
+
+                matchingTaskCounter += 1;
+            }
+        }
+
+        if (matchingTaskCounter == 1) {
+            System.out.println("No matching tasks found");
+        }
     }
 }

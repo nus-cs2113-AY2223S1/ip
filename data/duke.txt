@@ -1,1 +1,3 @@
 event, 0, Joshua attend CS2113 lecture, Friday 16 Sep 2022 from 4 to 6pm
+todo, 0, read book
+deadline, 0, return book, June 6th
