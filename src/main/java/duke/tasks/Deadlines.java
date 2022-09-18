@@ -1,9 +1,9 @@
 package duke.tasks;
 
 public class Deadlines extends Task {
-    private static String toBeDoneBy;
+    private String toBeDoneBy;
 
-    public static String getToBeDoneBy() {
+    public String getToBeDoneBy() {
         return toBeDoneBy;
     }
 

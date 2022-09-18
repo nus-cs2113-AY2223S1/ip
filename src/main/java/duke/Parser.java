@@ -13,73 +13,77 @@ public class Parser {
     private static final String COMMAND_DEADLINES = "deadline";
     private static final String COMMAND_EVENTS = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String QUIT_FLAG = "quit";
 
-    public static boolean isOnline(String command, TaskManager taskManager) {
+    public static String runCommand(String command, TaskList taskList) {
         String keyword = extractKeyword(command);
+        String response = null;
+
         switch(keyword) {
         case INVALID_BASIC_COMMAND:
-            System.out.println(Printables.invalidBasicCommandMessage);
+            response =  Printables.INVALID_BASIC_COMMAND_MESSAGE;
             break;
         case COMMAND_BYE:
-            return false;
+            response = QUIT_FLAG;
+            break;
         case COMMAND_LIST:
-            taskManager.listTasks();
+            response = taskList.listTasks();
             break;
         case COMMAND_HELP:
-            System.out.println(Printables.helpManual);
+            response = Printables.HELP_MANUAL;
             break;
         case COMMAND_TODOS:
             try {
-                CommandTodo.processNewTodo(command, taskManager);
+                response = CommandTodo.processNewTodo(command, taskList);
             } catch (DukeException.IllegalTodoException e) {
-                System.out.println("Please enter a name for the todo task!");
+                response = e.getMessage();
             }
             break;
         case COMMAND_DEADLINES:
             try {
-                CommandDeadline.processNewDeadline(command, taskManager);
+                response = CommandDeadline.processNewDeadline(command, taskList);
             } catch (DukeException.IllegalDeadlineFormatException e) {
-                System.out.println("Please enter a deadline task followed by a '/' and indicate a deadline");
+                response = e.getMessage();
             } catch (DukeException.IllegalDeadlineDateException e) {
-                System.out.println("Please enter a deadline to complete the task!");
+                response = e.getMessage();
             }
             break;
         case COMMAND_EVENTS:
             try {
-                CommandEvent.processNewEvent(command, taskManager);
+                response = CommandEvent.processNewEvent(command, taskList);
             } catch (DukeException.IllegalEventFormatException e) {
-                System.out.println("Please enter an event task followed by a '/' and indicate when");
+                response = e.getMessage();
             } catch (DukeException.IllegalEventDateException e) {
-                System.out.println("Please enter when this event is happening!");
+                response = e.getMessage();
             }
             break;
         case COMMAND_MARK:
             try {
-                CommandMarking.processMarking(command, taskManager, true);
+                response = CommandMarking.processMarking(command, taskList, true);
             } catch (DukeException.IllegalNoMarkIndexException e) {
-                System.out.println("Please enter a task number only to be marked");
+                response = e.getMessage();
             }
             break;
         case COMMAND_UNMARK:
             try {
-                CommandMarking.processMarking(command, taskManager, false);
+                response = CommandMarking.processMarking(command, taskList, false);
             } catch (DukeException.IllegalNoMarkIndexException e) {
-                System.out.println("Please enter a task number only to be unmarked");
+                response = e.getMessage();
             }
             break;
         case COMMAND_DELETE:
             try {
-                CommandDelete.processDelete(command, taskManager);
+                response = CommandDelete.processDelete(command, taskList);
             } catch (DukeException.IllegalDeleteIndexException e) {
-                System.out.println("Please enter a task number only to be deleted");
+                response = e.getMessage();
             }
             break;
         default:
-            System.out.println("Invalid command");
+            response = Printables.INVALID_GENERAL_COMMAND;
             break;
         }
 
-        return true;
+        return response;
     }
 
     private static String extractKeyword(String command) {

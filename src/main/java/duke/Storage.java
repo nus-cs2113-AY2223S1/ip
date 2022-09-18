@@ -9,28 +9,22 @@ import java.util.Scanner;
 public class Storage {
     private static final String FILE_PATH = "data.txt";
 
-    public static void loadData(TaskManager taskManager) throws FileNotFoundException {
-        String filePath = FILE_PATH;
-        File data = new File(filePath);
+    public static String loadData(TaskList taskList) throws FileNotFoundException {
+        File data = new File(FILE_PATH);
         Scanner scanner = new Scanner(data);
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
             try {
-                parseLine(line, taskManager);
-            } catch (DukeException.IllegalReadFromSaveData e) {
-                System.out.println("Oops, something went wrong, unable to read from last save");
-                return;
-            } catch (DukeException.IllegalMarkTargetException e) {
-                System.out.println("Oops, something went wrong, unable to read from last save");
-                return;
+                parseLine(line, taskList);
+            } catch (DukeException.IllegalReadFromSaveData | DukeException.IllegalMarkTargetException e) {
+                return e.getMessage();
             }
         }
-        System.out.println("Successfully loaded your last save of tasks to do!");
-        taskManager.listTasks();
+        return "Successfully loaded your last save of tasks to do!\n" + taskList.listTasks();
     }
 
-    private static void parseLine(String line, TaskManager taskManager)
+    private static void parseLine(String line, TaskList taskList)
             throws DukeException.IllegalReadFromSaveData, DukeException.IllegalMarkTargetException {
         String[] arrOfLine = line.split("\\|");
         int length = arrOfLine.length;
@@ -45,53 +39,52 @@ public class Storage {
             if (length == 4) {
                 throw new DukeException.IllegalReadFromSaveData();
             }
-            createNewTodo(arrOfLine, taskManager);
+            createNewTodo(arrOfLine, taskList);
             break;
         case "D":
             if (length == 3) {
                 throw new DukeException.IllegalReadFromSaveData();
             }
-            createNewDeadline(arrOfLine, taskManager);
+            createNewDeadline(arrOfLine, taskList);
             break;
         case "E":
             if (length == 3) {
                 throw new DukeException.IllegalReadFromSaveData();
             }
-            createNewEvent(arrOfLine, taskManager);
+            createNewEvent(arrOfLine, taskList);
             break;
         default:
             throw new DukeException.IllegalReadFromSaveData();
         }
     }
 
-    private static void createNewEvent(String[] arrOfLine, TaskManager taskManager)
+    private static void createNewEvent(String[] arrOfLine, TaskList taskList)
             throws DukeException.IllegalMarkTargetException {
-        taskManager.addNewEvent(arrOfLine[1], arrOfLine[3], false);
+        taskList.addNewEvent(arrOfLine[1], arrOfLine[3], false);
         if (arrOfLine[2].equals("1")) {
-            taskManager.markTasks(true, taskManager.getNumberOfTasks(), false);
+            taskList.markTasks(true, taskList.getNumberOfTasks(), false);
         }
     }
 
-    private static void createNewDeadline(String[] arrOfLine, TaskManager taskManager)
+    private static void createNewDeadline(String[] arrOfLine, TaskList taskList)
             throws DukeException.IllegalMarkTargetException {
-        taskManager.addNewDeadline(arrOfLine[1], arrOfLine[3], false);
+        taskList.addNewDeadline(arrOfLine[1], arrOfLine[3], false);
         if (arrOfLine[2].equals("1")) {
-            taskManager.markTasks(true, taskManager.getNumberOfTasks(), false);
+            taskList.markTasks(true, taskList.getNumberOfTasks(), false);
         }
     }
 
-    private static void createNewTodo(String[] arrOfLine, TaskManager taskManager)
+    private static void createNewTodo(String[] arrOfLine, TaskList taskList)
             throws DukeException.IllegalMarkTargetException {
-        taskManager.addNewTodo(arrOfLine[1], false);
+        taskList.addNewTodo(arrOfLine[1], false);
         if (arrOfLine[2].equals("1")) {
-            taskManager.markTasks(true, taskManager.getNumberOfTasks(), false);
+            taskList.markTasks(true, taskList.getNumberOfTasks(), false);
         }
     }
 
-    public static void saveData(TaskManager taskManager) throws IOException {
-        String filePath = FILE_PATH;
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(taskManager.saveTaskList());
+    public static void saveData(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        fw.write(taskList.saveTaskList());
         fw.close();
     }
 }

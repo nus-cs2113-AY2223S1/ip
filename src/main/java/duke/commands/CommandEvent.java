@@ -1,10 +1,10 @@
 package duke.commands;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 
 public class CommandEvent {
-    public static void processNewEvent(String command, TaskManager taskManager)
+    public static String processNewEvent(String command, TaskList taskList)
             throws DukeException.IllegalEventFormatException, DukeException.IllegalEventDateException {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
@@ -17,6 +17,6 @@ public class CommandEvent {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String at = command.substring(dividerPosition + 1);
-        taskManager.addNewEvent(taskName, at, true);
+        return taskList.addNewEvent(taskName, at, true);
     }
 }

@@ -1,9 +1,9 @@
 package duke.tasks;
 
 public class Events extends Task {
-    private static String happeningAt;
+    private String happeningAt;
 
-    public static String getHappeningAt() {
+    public String getHappeningAt() {
         return happeningAt;
     }
 

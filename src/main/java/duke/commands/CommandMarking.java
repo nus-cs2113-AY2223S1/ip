@@ -1,10 +1,10 @@
 package duke.commands;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 
 public class CommandMarking {
-    public static void processMarking(String command, TaskManager taskManager, boolean toMark)
+    public static String processMarking(String command, TaskList taskList, boolean toMark)
             throws DukeException.IllegalNoMarkIndexException {
         String[] arrOfCommand = command.split(" ");
 
@@ -13,9 +13,9 @@ public class CommandMarking {
         }
 
         try {
-            taskManager.markTasks(toMark, Integer.parseInt(arrOfCommand[1]), true);
+            return taskList.markTasks(toMark, Integer.parseInt(arrOfCommand[1]), true);
         } catch (DukeException.IllegalMarkTargetException e) {
-            System.out.println("Index of task is out of range");
+            return e.getMessage();
         }
     }
 

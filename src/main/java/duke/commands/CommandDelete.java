@@ -1,10 +1,10 @@
 package duke.commands;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 
 public class CommandDelete {
-    public static void processDelete(String command, TaskManager taskManager)
+    public static String processDelete(String command, TaskList taskList)
             throws DukeException.IllegalDeleteIndexException {
         String[] arrOfCommand = command.split(" ");
 
@@ -13,9 +13,9 @@ public class CommandDelete {
         }
 
         try {
-            taskManager.deleteTask(Integer.parseInt(arrOfCommand[1]));
+            return taskList.deleteTask(Integer.parseInt(arrOfCommand[1]));
         } catch (DukeException.IllegalDeleteTargetException e) {
-            System.out.println("Index of task is out of range");
+            return e.getMessage();
         }
     }
 

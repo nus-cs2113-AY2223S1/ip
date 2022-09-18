@@ -1,10 +1,10 @@
 package duke.commands;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 
 public class CommandDeadline {
-    public static void processNewDeadline(String command, TaskManager taskManager)
+    public static String processNewDeadline(String command, TaskList taskList)
             throws DukeException.IllegalDeadlineFormatException, DukeException.IllegalDeadlineDateException {
         int spacePosition = command.indexOf(" ");
         int dividerPosition = command.indexOf("/");
@@ -17,6 +17,6 @@ public class CommandDeadline {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String by = command.substring(dividerPosition + 1);
-        taskManager.addNewDeadline(taskName, by, true);
+        return taskList.addNewDeadline(taskName, by, true);
     }
 }

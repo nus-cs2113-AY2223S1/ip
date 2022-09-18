@@ -2,55 +2,61 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String QUIT_FLAG = "quit";
 
     public static void main(String[] args) {
-        String command;
         Scanner in = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
+        TaskList taskList = new TaskList();
 
-        runInitialLoad(taskManager);
-        runTaskProgram(in, taskManager);
-        runClosingLoad(taskManager);
+        runInitialLoad(taskList);
+        runTaskProgram(in, taskList);
+        runClosingLoad(taskList);
 
         in.close();
     }
 
-    private static void runClosingLoad(TaskManager taskManager) {
+    private static void runClosingLoad(TaskList taskList) {
         try {
-            Storage.saveData(taskManager);
-            System.out.println("Successfully saved your task list!");
+            Storage.saveData(taskList);
+            Ui.printResponseToUser(Printables.SUCCESSFUL_SAVE_MESSAGE);
         } catch (IOException e) {
-            System.out.println("save fail");
+            Ui.printResponseToUser(Printables.FAIL_SAVE_MESSAGE);
         }
 
-        System.out.println(Printables.goodbyeMessage);
+        Ui.printResponseToUser(Printables.GOODBYE_MESSAGE);
     }
 
-    private static void runTaskProgram(Scanner in, TaskManager taskManager) {
+    private static void runTaskProgram(Scanner in, TaskList taskList) {
         String command;
+        String response;
         while (true) {
-            command= in.nextLine();
-            if(!Parser.isOnline(command, taskManager)) {
-                break;
+            command = Ui.getCommandFromUser(in);
+            response = Parser.runCommand(command, taskList);
+
+            if (Objects.equals(response, QUIT_FLAG)) {
+                return;
             }
+            Ui.printResponseToUser(response);
+
             try {
-                Storage.saveData(taskManager);
+                Storage.saveData(taskList);
             } catch (IOException e) {
-                System.out.println("save fail");
+                System.out.println(Printables.FAIL_SAVE_MESSAGE);
             }
         }
     }
 
-    private static void runInitialLoad(TaskManager taskManager) {
-        System.out.println(Printables.initialGreeting);
+    private static void runInitialLoad(TaskList taskList) {
+        Ui.printResponseToUser(Printables.INITIAL_GREETING);
 
         try {
-            Storage.loadData(taskManager);
+            Ui.printResponseToUser(Storage.loadData(taskList));
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, a new data.txt file will be created upon save!");
+            Ui.printResponseToUser(Printables.MISSING_FILE_MESSAGE);
         }
     }
 }
