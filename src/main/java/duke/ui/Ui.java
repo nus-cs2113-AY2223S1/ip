@@ -70,19 +70,6 @@ public class Ui {
         printToUser(message);
     }
 
-    public void printTasksFound(TaskList tasksFound) {
-        int counter = 1;
-        System.out.println("Here are the tasks found:");
-        for (int i = 0; i < tasksFound.getSize(); i += 1) {
-            if (tasksFound.findTask(i) != null) {
-                Task task = tasksFound.findTask(i);
-                String toBePrinted = task.toString();
-                System.out.println(counter + ". " + toBePrinted);
-                counter++;
-            }
-        }
-        System.out.println(DIVIDER);
-    }
     public void printListOfTasks(TaskList tasks) {
         int counter = 1;
         System.out.println("come uncle show you your tasks");

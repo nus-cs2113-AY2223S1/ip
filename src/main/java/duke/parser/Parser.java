@@ -94,10 +94,6 @@ public class Parser {
         return Integer.parseInt(words[1]) - 1;
     }
 
-    private static String prepareFind(String input) {
-        String[] words = input.split(" ", 2);
-        return words[1];
-    }
 
     private void addCommand() {
         String[] command = input.split(" ", 2);
@@ -194,12 +190,6 @@ public class Parser {
         return false;
     }
 
-    private void findCommand() {
-        String word = prepareFind(input);
-        TaskList tasksFound = tasks.findTasksBySearch(word);
-        ui.printTasksFound(tasksFound);
-    }
-
     public boolean handleCommand() {
         boolean isRun = true;
         String[] command = input.split(" ", 2);
@@ -220,9 +210,6 @@ public class Parser {
             break;
         case LIST:
             ui.printListOfTasks(tasks);
-            break;
-        case FIND:
-            findCommand();
             break;
         case BYE:
             isRun = exitCommand();
