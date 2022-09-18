@@ -7,6 +7,7 @@ import duke.data.task.Todo;
 import duke.exception.*;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -37,13 +38,13 @@ public class TaskList {
         return todo;
     }
 
-    public Task addDeadline(String taskName, String deadlineTime) {
+    public Task addDeadline(String taskName, LocalDateTime deadlineTime) {
         Deadline deadline = new Deadline(taskName, deadlineTime);
         tasks.add(deadline);
         return deadline;
     }
 
-    public Task addEvent(String taskName, String eventTime) {
+    public Task addEvent(String taskName, LocalDateTime eventTime) {
         Event event = new Event(taskName, eventTime);
         tasks.add(event);
         return event;

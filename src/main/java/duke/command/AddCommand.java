@@ -1,9 +1,13 @@
 package duke.command;
 
+import duke.Duke;
 import duke.data.TaskList;
 import duke.exception.DukeException;
+import duke.parser.DukeDateTimeParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
+
+import java.time.LocalDateTime;
 
 public abstract class AddCommand extends Command {
     public static String COMMAND_WORD;
@@ -17,7 +21,7 @@ public abstract class AddCommand extends Command {
 
     protected abstract void checkParameters(String parameterInput) throws DukeException;
 
-    protected abstract void setParameters(String parameterInput);
+    protected abstract void setParameters(String parameterInput) throws DukeException;
 
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
@@ -63,5 +67,11 @@ public abstract class AddCommand extends Command {
             return new String[]{splits[0], ""};
         }
         return splits;
+    }
+
+    protected LocalDateTime convertStringToLocalDateTime(String parameterInput) throws DukeException {
+        DukeDateTimeParser parser = new DukeDateTimeParser();
+        LocalDateTime dateTimeInput = parser.parse(parameterInput);
+        return dateTimeInput;
     }
 }

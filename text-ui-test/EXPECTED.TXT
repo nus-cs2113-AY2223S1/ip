@@ -8,19 +8,87 @@ Got it. I've added this task:
 Now you have 1 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book (by: June 6th)
+	[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
 Now you have 2 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting (at: Aug 6th 2-4pm)
+	[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
 Now you have 3 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[T][ ] join sports club
+	[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
 Now you have 4 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+Now you have 5 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+Now you have 6 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+Now you have 7 tasks in the list
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The time format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+Now you have 8 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+Now you have 9 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+Now you have 10 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+Now you have 11 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+Now you have 12 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+Now you have 13 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task: 
+	[T][ ] join sports club
+Now you have 14 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -28,46 +96,69 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-	[X] join sports club
+	[X] return book6
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
 	[T][ ] borrow book
-Now you have 5 tasks in the list
+Now you have 15 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-4.[T][X] join sports club
-5.[T][ ] borrow book
-There are a total of 5 tasks.
+2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
+4.[D][X] return book6 (by: Sep 18 2022 11:00 PM)
+5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+14.[T][ ] join sports club
+15.[T][ ] borrow book
+There are a total of 15 tasks.
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-	[ ] join sports club
+	[ ] return book6
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book (by: Sunday)
-Now you have 6 tasks in the list
+	[D][ ] return book (by: Oct 15 2019 06:00 PM)
+Now you have 16 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting (at: Mon 2-4pm)
-Now you have 7 tasks in the list
+	[E][ ] project meeting (at: Dec 02 2022 03:00 AM)
+Now you have 17 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-4.[T][ ] join sports club
-5.[T][ ] borrow book
-6.[D][ ] return book (by: Sunday)
-7.[E][ ] project meeting (at: Mon 2-4pm)
-There are a total of 7 tasks.
+2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
+4.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+14.[T][ ] join sports club
+15.[T][ ] borrow book
+16.[D][ ] return book (by: Oct 15 2019 06:00 PM)
+17.[E][ ] project meeting (at: Dec 02 2022 03:00 AM)
+There are a total of 17 tasks.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The selected task index value does not exists.
 ____________________________________________________________
 ____________________________________________________________
  :( OOPS!!! The selected task index value does not exists.
@@ -97,7 +188,13 @@ ____________________________________________________________
  :( OOPS!!! Separator " /by " is not found.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The description of a todo cannot be empty.
+ :( OOPS!!! The description of a deadline cannot be empty.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! Separator " /by " is not found.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! Separator " /by " is not found.
 ____________________________________________________________
 ____________________________________________________________
  :( OOPS!!! Separator " /at " is not found.
@@ -109,7 +206,71 @@ ____________________________________________________________
  :( OOPS!!! Separator " /at " is not found.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The description of a todo cannot be empty.
+ :( OOPS!!! The description of an event cannot be empty.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! Separator " /at " is not found.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! Separator " /at " is not found.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
+4.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+14.[T][ ] join sports club
+15.[T][ ] borrow book
+16.[D][ ] return book (by: Oct 15 2019 06:00 PM)
+17.[E][ ] project meeting (at: Dec 02 2022 03:00 AM)
+There are a total of 17 tasks.
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+	[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
+Now you have 16 tasks in the list
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The selected task index value does not exists.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The selected task index value does not exists.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The selected task index value does not exists.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The selected task index value does not exists.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+4.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+5.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+7.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+8.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+10.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+11.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+13.[T][ ] join sports club
+14.[T][ ] borrow book
+15.[D][ ] return book (by: Oct 15 2019 06:00 PM)
+16.[E][ ] project meeting (at: Dec 02 2022 03:00 AM)
+There are a total of 16 tasks.
 ____________________________________________________________
 ____________________________________________________________
  :( OOPS!!! I'm sorry, but I don't know what that means :-(

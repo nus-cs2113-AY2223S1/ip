@@ -1,15 +1,21 @@
 package duke.data.task;
 
-public class Event extends Task {
-    private String eventTime;
+import static duke.parser.DukeDateTimeParser.TIME_OUTPUT_PATTERN;
 
-    public Event(String taskName, String eventTime) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends Task {
+    private LocalDateTime eventTime;
+
+    public Event(String taskName, LocalDateTime eventTime) {
         super(taskName);
         this.eventTime = eventTime;
     }
 
     public String getEventTime() {
-        return eventTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+        return eventTime.format(formatter);
     }
 
     @Override
