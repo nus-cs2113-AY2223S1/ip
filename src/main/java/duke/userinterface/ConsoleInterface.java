@@ -3,6 +3,7 @@ package duke.userinterface;
 import duke.task.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -227,6 +228,23 @@ public class ConsoleInterface {
     }
 
     /**
+     * Find tasks in task manager that matches description.
+     *
+     * @param consoleCommandFind Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
+     */
+    public void executeCommandFind(ConsoleCommandFind consoleCommandFind) {
+        String description = consoleCommandFind.getDescription();
+
+        ArrayList<Task> matchingTasks = taskManager.findTask(description);
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : matchingTasks) {
+            System.out.print(taskManager.getTaskNumber(task) + ".");
+            task.print();
+        }
+    }
+
+    /**
      * Executes main interface which interacts with user
      */
     public void executeProgram() {
@@ -250,7 +268,8 @@ public class ConsoleInterface {
                      ConsoleInputParserException.InvalidCommandTodoException |
                      ConsoleInputParserException.InvalidCommandDeadlineException |
                      ConsoleInputParserException.InvalidCommandEventException |
-                     ConsoleInputParserException.InvalidCommandDeleteException e) {
+                     ConsoleInputParserException.InvalidCommandDeleteException |
+                     ConsoleInputParserException.InvalidCommandFindException e) {
                 printErrorMessage(e.getMessage());
             } catch (ConsoleInputParserException.CommandNotFoundException e) {
                 printErrorMessage("I'm sorry, but I don't know what that means :-(");
@@ -273,6 +292,8 @@ public class ConsoleInterface {
                 executeCommandEvent((ConsoleCommandEvent) consoleCommand);
             } else if (consoleCommand instanceof ConsoleCommandDelete) {
                 executeCommandDelete((ConsoleCommandDelete) consoleCommand);
+            } else if (consoleCommand instanceof ConsoleCommandFind) {
+                executeCommandFind((ConsoleCommandFind) consoleCommand);
             } else {
             }
 
