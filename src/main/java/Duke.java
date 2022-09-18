@@ -1,15 +1,100 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String LINE_BREAK = "______________________________________________\n";
     private static final String DEADLINE_DELIMITER = "/by";
     private static final String EVENT_DELIMITER = "/at";
 
+    private static final String TASK_ATTRIBUTE_DELIMITER = " \\| ";
+    private static final String DUKE_DATA_FILE_PATH = "data/duke.txt";
     private static final int TASK_START_INDEX = 1;
     private static final int RIGHT_SHIFT_INDEX = 1;
+
+    public static void createDukeFile(File dukeFile) throws IOException {
+        dukeFile.getParentFile().mkdir();
+        dukeFile.createNewFile();
+    }
+    public static void retrieveFileData(File dukeFile) throws FileNotFoundException, InvalidTaskFormatException {
+        Scanner scanner = new Scanner(dukeFile);
+        while (scanner.hasNext()) {
+            String taskData = scanner.nextLine();
+            String[] taskAttributes = taskData.split(TASK_ATTRIBUTE_DELIMITER);
+            String taskType = taskAttributes[0];
+            String taskName = taskAttributes[2];
+            boolean isTaskCompleted = Boolean.valueOf(taskAttributes[1]);
+            switch (taskType) {
+            case "T":
+                ToDo toDo = new ToDo(taskName);
+                toDo.setIsCompleted(isTaskCompleted);
+                tasks.add(toDo);
+                break;
+            case "D":
+                String dueDate = taskAttributes[3];
+                Deadline deadline = new Deadline(taskName, dueDate);
+                deadline.setIsCompleted(isTaskCompleted);
+                tasks.add(deadline);
+                break;
+            case "E":
+                String timeOfEvent = taskAttributes[3];
+                Event event = new Event(taskName, timeOfEvent);
+                event.setIsCompleted(isTaskCompleted);
+                tasks.add(event);
+                break;
+            default:
+                throw new InvalidTaskFormatException();
+            }
+        }
+    }
+    public static void accessDukeFile() {
+        File dukeFile = new File(DUKE_DATA_FILE_PATH);
+        if (dukeFile.exists()) {
+            try {
+                retrieveFileData(dukeFile);
+            } catch (FileNotFoundException e) {
+                System.out.println("Duke data file cannot be accessed");
+            } catch (InvalidTaskFormatException e) {
+                System.out.println("Invalid task found in Duke file. Task is omitted from the list.");
+            }
+        } else {
+            try {
+                createDukeFile(dukeFile);
+            } catch (IOException e) {
+                System.out.println("Duke file creation failed.");
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public static void writeTasksToFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(DUKE_DATA_FILE_PATH);
+        for (Task task : tasks) {
+            if (task instanceof ToDo) {
+                ToDo toDo = (ToDo) task;
+                fileWriter.write(toDo.getFileInput());
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                fileWriter.write(deadline.getFileInput());
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                fileWriter.write(event.getFileInput());
+            }
+            fileWriter.write(System.lineSeparator());
+        }
+        fileWriter.close();
+    }
+    public static void saveTasksData() {
+        try {
+            writeTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Unable to write task to file: " + e.getMessage());
+        }
+    }
 
     public static void printList() {
         System.out.println(LINE_BREAK);
@@ -155,6 +240,7 @@ public class Duke {
         System.out.println(LINE_BREAK + "Oh no! I do not understand the command! \n" + LINE_BREAK);
     }
     public static void main(String[] args) {
+        accessDukeFile();
         System.out.println(LINE_BREAK + " Hello! I'm Duke\n" +
                 " What can I do for you?\n" + LINE_BREAK);
         String lineInput;
@@ -180,6 +266,7 @@ public class Duke {
             } else {
                 printInvalidCommand();
             }
+            saveTasksData();
             lineInput = in.nextLine();
         }
         System.out.println(LINE_BREAK + "Bye. Hope to see see you again soon!" + System.lineSeparator() + LINE_BREAK);

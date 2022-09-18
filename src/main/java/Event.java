@@ -11,4 +11,7 @@ public class Event extends Task {
     public String toString() {
         return  taskType + getCheckBox() + " "+ getName() + " (at: " + timeOfEvent + ")";
     }
+    public String getFileInput() {
+        return "E" + " | " + String.valueOf(this.getIsCompleted()) + " | " + this.getName() + " | " + timeOfEvent;
+    }
 }
