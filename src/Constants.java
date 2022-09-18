@@ -1,6 +1,4 @@
 public class Constants {
-    public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-    public static final String BYE = "bye";
     public static final String TODO = "todo";
     public static final String LIST = "list";
     public static final String MARK = "mark";
@@ -22,5 +20,4 @@ public class Constants {
     public static final String EVENT_FORMAT_ERROR = "Invalid event format! Please remember to add '/at' before your event timing!";
     public static final String FILE_TASK_CONVERSION_ERROR = "Invalid task format in data file! Please check data file!";
     public static final String NOT_INTEGER = "Please input a number!";
-    public static final String FILE_NOT_FOUND = "File not found! Please ensure file path is correct!";
 }

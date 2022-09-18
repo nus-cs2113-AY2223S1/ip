@@ -1,5 +1,4 @@
 import java.util.List;
-
 public class TaskList{
     private final List<Task> tasks;
     private final Ui ui = new Ui();
@@ -9,7 +8,7 @@ public class TaskList{
     public List<Task> getTaskList() {
         return this.tasks;
     }
-    public void list() {
+    public void showList() {
        ui.showList(tasks);
     }
     public void mark(int index) {

@@ -35,6 +35,7 @@ public class Storage{
             return null;
         } catch (Error error) {
             System.out.println(error.getMessage());
+            System.exit(0);
             return null;
         }
     }

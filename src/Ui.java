@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.Scanner;
 
-public class Ui extends Constants{
+public class Ui{
+    public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public static final String BOT_LOGO =
             "Hello from\n" +
             "       _            _                    \n"
@@ -14,17 +15,13 @@ public class Ui extends Constants{
         "Hello! I'm Jackson, your personal chat-bot! :)\n" +
         "What service are you looking for?\n";
     public static final String FAREWELL = "Leaving already? :( Come back soon!\n";
-
+    public static final String FILE_NOT_FOUND = "File not found! Please ensure file path is correct!";
     final Scanner readInput;
     public Ui() {
         readInput = new Scanner(System.in);
     }
-    public void showline() {
-        System.out.println(LINE);
-    }
     public String userCommand() {
-        String input = readInput.nextLine(); //.toLowerCase()?
-        return input;
+        return readInput.nextLine();
     }
     public void greet() {
         System.out.println(
