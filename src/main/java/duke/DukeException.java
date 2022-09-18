@@ -60,5 +60,17 @@ public class DukeException {
     }
     public static class IllegalReadFromSaveData extends Exception {
     }
+    public static class IllegalFindCommandException extends Exception {
+        @Override
+        public String getMessage() {
+            return "Invalid find command. Follow format 'find <something>'";
+        }
+    }
+    public static class IllegalDateTimeException extends Exception {
+        @Override
+        public String getMessage() {
+            return "The date entered is not recognised, please follow the format of 'yyyy-mm-dd'";
+        }
+    }
 }
 

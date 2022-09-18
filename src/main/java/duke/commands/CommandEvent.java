@@ -6,7 +6,7 @@ import duke.TaskList;
 /**
  * Represents the command to manage the processing of an event command after it has been recognised by the parser.
  */
-public class CommandEvent {
+public class CommandEvent extends Command {
     /**
      * Deconstructs the raw command into key phrases and checks them, then adds a new event to the task list.
      * @param command Command read from user.
@@ -28,6 +28,13 @@ public class CommandEvent {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String at = command.substring(dividerPosition + 1);
+
+        try {
+            checkDateTime(at);
+        } catch (DukeException.IllegalDateTimeException e) {
+            throw new DukeException.IllegalEventDateException();
+        }
+
         return taskList.addNewEvent(taskName, at, true);
     }
 }

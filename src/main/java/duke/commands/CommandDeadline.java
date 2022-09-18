@@ -6,7 +6,7 @@ import duke.TaskList;
 /**
  * Represents the command to manage the processing of a deadline command after it has been recognised by the parser.
  */
-public class CommandDeadline {
+public class CommandDeadline extends Command {
     /**
      * Deconstructs the raw command into key phrases and checks them, then adds a new deadline to the task list.
      *
@@ -29,6 +29,13 @@ public class CommandDeadline {
 
         String taskName = command.substring(spacePosition + 1, dividerPosition);
         String by = command.substring(dividerPosition + 1);
+
+        try {
+            checkDateTime(by);
+        } catch (DukeException.IllegalDateTimeException e) {
+            throw new DukeException.IllegalDeadlineDateException();
+        }
+
         return taskList.addNewDeadline(taskName, by, true);
     }
 }

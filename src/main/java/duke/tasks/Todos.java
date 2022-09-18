@@ -20,7 +20,7 @@ public class Todos extends Task {
      * @return A string representing the todos task.
      */
     public String toString() {
-        String done = this.getIsDone() ? "[X]" : "[ ]";
+        String done = this.getIsDone() ? "[X]" : "[ ] ";
         return "[T]" + done + this.getTaskName();
     }
 }
