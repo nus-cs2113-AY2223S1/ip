@@ -1,10 +1,14 @@
 package duke.task;
 
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDateTime;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+    protected LocalDateTime startAt;
+    protected LocalDateTime endAt;
+
+    public Event(String description, LocalDateTime startAt, LocalDateTime endAt) {
         super(description);
-        this.at = at;
+        this.startAt = startAt;
+        this.endAt = endAt;
     }
 }
