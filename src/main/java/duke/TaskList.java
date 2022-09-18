@@ -171,6 +171,12 @@ public class TaskList {
         return response;
     }
 
+    /**
+     * Finds tasks containing keyphrase in the task list.
+     *
+     * @param keyphrase Keyphrase to find in the task list.
+     * @return A list of tasks that contains the keyphrase.
+     */
     public String findTasksWithKeyphrase(String keyphrase) {
         String list = Printables.TASK_SEARCH_INIT_STRING;
         for (Task task : tasks) {
@@ -180,6 +186,12 @@ public class TaskList {
         return (list.equals(Printables.TASK_SEARCH_INIT_STRING) ? Printables.EMPTY_TASK_SEARCH_RESULT_MESSAGE : list);
     }
 
+    /**
+     * Finds events and deadlines that are due or happening at specified date.
+     *
+     * @param dateString Date to be searched.
+     * @return A list of events and deadlines due or happening on specified date.
+     */
     public String checkoutDate(String dateString) {
         LocalDate date = LocalDate.parse(dateString);
         String list = Printables.DATE_SEARCH_INIT_STRING;
@@ -193,7 +205,6 @@ public class TaskList {
                 list += (temp.getDate().equals(date) ? (temp + "\n") : "");
             }
         }
-
         return (list.equals(Printables.DATE_SEARCH_INIT_STRING) ? Printables.EMPTY_DATE_SEARCH_RESULT_MESSAGE : list);
     }
 }
