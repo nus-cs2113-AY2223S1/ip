@@ -7,11 +7,20 @@ import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.tasks.Todos;
 
-
+/**
+ * A task manager that contains the list of tasks and other task list related methods.
+ */
 public class TaskList {
-    public static final String END_OF_LINE = "\n____________________";
+    private static final String END_OF_LINE = "\n____________________";
     private static List<Task> tasks = new ArrayList<Task>();
 
+    /**
+     * Adds a new todos task and returns a non-null string to be shown to the user if necessary.
+     *
+     * @param taskName A name or description given to the task.
+     * @param toPrint A boolean to indicate whether a non-null string needs to be returned to be shown to the user.
+     * @return A non-null string if success message needs to be shown to user, or null string if not needed.
+     */
     public String addNewTodo(String taskName, boolean toPrint) {
         tasks.add(new Todos(taskName));
         if (toPrint) {
@@ -21,6 +30,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Adds a new deadline task and returns a non-null string to be shown to the user if necessary.
+     *
+     * @param taskName A name or description given to the task.
+     * @param toPrint A boolean to indicate whether a non-null string needs to be returned to be shown to the user.
+     * @return A non-null string if success message needs to be shown to user, or null string if not needed.
+     */
     public String addNewDeadline(String taskName, String toBeDoneBy, boolean toPrint) {
         tasks.add(new Deadlines(taskName, toBeDoneBy));
         if (toPrint) {
@@ -30,6 +46,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Adds a new event task and returns a non-null string to be shown to the user if necessary.
+     *
+     * @param taskName A name or description given to the task.
+     * @param toPrint A boolean to indicate whether a non-null string needs to be returned to be shown to the user.
+     * @return A non-null string if success message needs to be shown to user, or null string if not needed.
+     */
     public String addNewEvent(String taskName, String happeningAt, boolean toPrint) {
         tasks.add(new Events(taskName, happeningAt));
         if (toPrint) {
@@ -39,6 +62,11 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Lists out tasks in the task list in index order.
+     *
+     * @return List as a string to be shown to the user.
+     */
     public String listTasks() {
         if (tasks.size() == 0) {
             return Printables.NO_TASKS_IN_LIST_MESSAGE;
@@ -51,14 +79,23 @@ public class TaskList {
         return list + END_OF_LINE;
     }
 
-    public String markTasks(boolean isMark, int taskIndex, boolean isPrint)
+    /**
+     * Marks or unmarks an indicated task in the task list.
+     *
+     * @param toMark A boolean such that true means to mark and false means to unmark.
+     * @param taskIndex Displayed index of the task in the task list to be marked or unmarked.
+     * @param toPrint A boolean to indicate whether a non-null string needs to be returned to be shown to the user.
+     * @return A non-null string if success message needs to be shown to user, or null string if not needed.
+     * @throws DukeException.IllegalMarkTargetException If index is out of range.
+     */
+    public String markTasks(boolean toMark, int taskIndex, boolean toPrint)
             throws DukeException.IllegalMarkTargetException {
         String responseLine;
         if (taskIndex < 1 || taskIndex > tasks.size()) {
             throw new DukeException.IllegalMarkTargetException();
         }
 
-        if (isMark) {
+        if (toMark) {
             if (tasks.get(taskIndex - 1).getIsDone()) {
                 return Printables.ALREADY_MARKED_MESSAGE;
             }
@@ -74,7 +111,7 @@ public class TaskList {
                     + " has been unmarked!" + END_OF_LINE;
         }
 
-        if (isPrint) {
+        if (toPrint) {
             return responseLine;
         }
         return null;
@@ -84,6 +121,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Creates and returns a string representing the data from the current task list to be saved.
+     *
+     * @return Data to be written into the text file to save.
+     */
     public String saveTaskList() {
         String data = "";
         for (Task task : tasks) {
@@ -104,6 +146,13 @@ public class TaskList {
         return data;
     }
 
+    /**
+     * Deletes a specified task from the task list.
+     *
+     * @param taskIndex Displayed index of the task in the task list to be deleted.
+     * @return A response to the user to indicate successful deletion of task.
+     * @throws DukeException.IllegalDeleteTargetException If index is out of range.
+     */
     public String deleteTask(int taskIndex) throws DukeException.IllegalDeleteTargetException {
         String response = null;
         String taskDescription = null;

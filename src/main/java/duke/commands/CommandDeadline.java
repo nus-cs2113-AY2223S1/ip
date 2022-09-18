@@ -3,7 +3,19 @@ package duke.commands;
 import duke.DukeException;
 import duke.TaskList;
 
+/**
+ * Represents the command to manage the processing of a deadline command after it has been recognised by the parser.
+ */
 public class CommandDeadline {
+    /**
+     * Deconstructs the raw command into key phrases and checks them, then adds a new deadline to the task list.
+     *
+     * @param command Command read from user.
+     * @param taskList A task manager that contains the list of tasks and other task list related methods.
+     * @return Successful add message to the user.
+     * @throws DukeException.IllegalDeadlineFormatException If format of the deadline command is incorrect.
+     * @throws DukeException.IllegalDeadlineDateException If the indicated date in the command is invalid.
+     */
     public static String processNewDeadline(String command, TaskList taskList)
             throws DukeException.IllegalDeadlineFormatException, DukeException.IllegalDeadlineDateException {
         int spacePosition = command.indexOf(" ");

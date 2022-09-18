@@ -2,6 +2,9 @@ package duke;
 
 import duke.commands.*;
 
+/**
+ * Used for making sense of user command and processes them accordingly to the commands.
+ */
 public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -15,6 +18,13 @@ public class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String QUIT_FLAG = "quit";
 
+    /**
+     * Identifies the nature of the command, run initial checks for invalidity, and processes commands accordingly.
+     *
+     * @param command Command read from user.
+     * @param taskList A task manager that contains the list of tasks and other task list related methods.
+     * @return Response to be shown to the user such as a reply, requested information or error message.
+     */
     public static String runCommand(String command, TaskList taskList) {
         String keyword = extractKeyword(command);
         String response = null;
@@ -86,6 +96,12 @@ public class Parser {
         return response;
     }
 
+    /**
+     * Extracts the first word of the command to check the intent of the user.
+     *
+     * @param command Command read from user.
+     * @return The keyword representing the interpreted user request.
+     */
     private static String extractKeyword(String command) {
         String[] arrOfCommand = command.split(" ");
         if ((arrOfCommand[0].equals(COMMAND_BYE)

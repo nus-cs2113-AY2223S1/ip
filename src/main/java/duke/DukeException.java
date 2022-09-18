@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * A class containing all relevant exceptions used for error handling in the program.
+ */
 public class DukeException {
     public static class IllegalNoMarkIndexException extends Exception {
         @Override

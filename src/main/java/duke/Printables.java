@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * A class containing the printable constant strings for the program.
+ */
 public class Printables {
 
     public static final String INITIAL_GREETING = "Greetings, I am Azmuth\n" +
@@ -28,6 +31,7 @@ public class Printables {
     public static final String NO_TASKS_IN_LIST_MESSAGE = "There are no tasks in your task list at the moment";
     public static final String INVALID_GENERAL_COMMAND = "This is an invalid command!";
     public static final String SUCCESSFUL_SAVE_MESSAGE = "Successfully saved your task list!";
+    public static final String SUCCESSFUL_LOAD_MESSAGE = "Successfully loaded your last save of tasks to do!\n";
     public static final String FAIL_SAVE_MESSAGE = "Failed to save your task list!";
     public static final String MISSING_FILE_MESSAGE = "File not found, a new data.txt file will be created upon save!";
 }
