@@ -1,19 +1,24 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Stores events.
  */
 public class Event extends Task {
-    protected String at;
+    protected LocalDateTime startAt;
+    protected LocalDateTime endAt;
 
     /**
      * Initializes event object.
      *
      * @param description Description of the event.
-     * @param at Date and time of the event.
+     * @param startAt Start date and time of the event.
+     * @param endAt End date and time of the event.
      */
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime startAt, LocalDateTime endAt) {
         super(description);
-        this.at = at;
+        this.startAt = startAt;
+        this.endAt = endAt;
     }
 }

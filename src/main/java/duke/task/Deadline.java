@@ -1,10 +1,12 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Stores deadlines.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Initializes deadline object.
