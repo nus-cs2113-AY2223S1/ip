@@ -6,6 +6,7 @@ import duke.exceptions.UnknownCommandException;
 import duke.exceptions.MissingTaskNumberException;
 import duke.exceptions.TaskAlreadyMarkedException;
 import duke.exceptions.TaskAlreadyUnmarkedException;
+import duke.exceptions.MissingKeywordException;
 import duke.ui.Ui;
 import java.util.ArrayList;
 
@@ -110,9 +111,10 @@ public class TaskList {
      * @throws UnknownCommandException if the user provided an invalid type of task that the program cannot recognise.
      */
     public void addTask(String type, String curr) throws EmptyDescriptionException, UnknownCommandException {
-        if (!(type.equals("todo") || type.equals("deadline") || type.equals("event"))) { //type given is invalid
-            throw new UnknownCommandException();
-        } else {
+        boolean isTodo = type.equals("todo");
+        boolean isDeadline = type.equals("deadline");
+        boolean isEvent = type.equals("event");
+        if (isTodo || isDeadline || isEvent) {
             String[] text = curr.split(" ");
             if (text.length == 1) { //description is empty
                 throw new EmptyDescriptionException();
@@ -122,6 +124,8 @@ public class TaskList {
                 Ui.printAddTaskAcknowledgement(this.tasks, this.tasksCount);
                 this.tasksCount++;
             }
+        } else {
+            throw new UnknownCommandException();
         }
     }
 
@@ -151,6 +155,31 @@ public class TaskList {
     }
 
     /**
+     * Processes the user input to the program and finds the tasks which match the keyword if valid.
+     *
+     * @param text The string representing the user input to the program.
+     * @throws MissingKeywordException if the user did not specify a keyword.
+     */
+    public void findTasks(String[] text) throws MissingKeywordException {
+        if (text.length == 1) {
+            throw new MissingKeywordException();
+        } else {
+            String keyword = text[1];
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            for (Task task : tasks) {
+                String taskDescriptionLowerCase = task.getDescription().toLowerCase();
+                String keywordLowerCase = keyword.toLowerCase();
+                boolean hasKeyword = taskDescriptionLowerCase.contains(keywordLowerCase);
+                if (hasKeyword) {
+                    matchingTasks.add(task);
+                }
+            }
+            TaskList matchingTaskList = new TaskList(matchingTasks, matchingTasks.size());
+            Ui.printMatchingTasks(matchingTaskList);
+        }
+    }
+
+    /**
      * Processes the user input to the program and marks the processed task as done if valid.
      *
      * @param curr The string representing the task currently being handled, including its number (if any).
@@ -165,10 +194,10 @@ public class TaskList {
             try {
                 markAsDone(taskNumber);
             } catch (AccessTaskOutOfBoundsException e) {
-                Ui.printAccessTaskOutOfBoundsError();
+                e.printErrorMessage();
                 Ui.printNumberOfTasks(this.tasksCount);
             } catch (TaskAlreadyMarkedException e) {
-                Ui.printTaskAlreadyMarkedError();
+                e.printErrorMessage();
             }
         }
     }
@@ -180,7 +209,6 @@ public class TaskList {
      * @throws AccessTaskOutOfBoundsException if the user did not specify a task number.
      * @throws TaskAlreadyMarkedException if the user tries to mark an already marked task.
      */
-
     public void markAsDone(int taskNumber) throws AccessTaskOutOfBoundsException, TaskAlreadyMarkedException {
         if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds
             throw new AccessTaskOutOfBoundsException();
@@ -210,10 +238,10 @@ public class TaskList {
             try {
                 markAsUndone(taskNumber);
             } catch (AccessTaskOutOfBoundsException e) {
-                Ui.printAccessTaskOutOfBoundsError();
+                e.printErrorMessage();
                 Ui.printNumberOfTasks(this.tasksCount);
             } catch (TaskAlreadyUnmarkedException e) {
-                Ui.printTaskAlreadyUnmarkedError();
+                e.printErrorMessage();
             }
         }
     }
@@ -223,7 +251,7 @@ public class TaskList {
      *
      * @param taskNumber The chronological number of the task being marked as undone.
      * @throws AccessTaskOutOfBoundsException if the user did not specify a task number.
-     * @throws TaskAlreadyUnmarkedException if the user tries to mark an already marked task.
+     * @throws TaskAlreadyUnmarkedException if the user tries to unmark an already unmarked task.
      */
     public void markAsUndone(int taskNumber) throws AccessTaskOutOfBoundsException, TaskAlreadyUnmarkedException{
         if (taskNumber > this.tasksCount || taskNumber < 0) { //task specified is out of bounds

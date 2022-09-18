@@ -1,15 +1,10 @@
 package duke.parser;
 
-import duke.exceptions.AccessTaskOutOfBoundsException;
-import duke.exceptions.EmptyDescriptionException;
-import duke.exceptions.MissingTaskNumberException;
-import duke.exceptions.UnknownCommandException;
+import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents an entity to handle and interpret user commands in order to execute the corresponding methods to reflect the program's intended behaviour.
@@ -31,45 +26,26 @@ public class Parser {
     public void handleInput(String command, TaskList taskList) {
         String[] text = command.split(" ");
         String type = text[0];
-        if (type.equals("mark")) {
-            try {
+        try {
+            switch (type) {
+            case "mark":
                 taskList.handleMarkAsDone(command);
-            } catch (MissingTaskNumberException e) {
-                ui.printMissingTaskNumberError();
-            }
-        } else if (type.equals("unmark")) {
-            try {
+                break;
+            case "unmark":
                 taskList.handleMarkAsUndone(command);
-            } catch (MissingTaskNumberException e) {
-                ui.printMissingTaskNumberError();
-            }
-        } else if (type.equals("delete")) {
-            try {
+                break;
+            case "delete":
                 taskList.deleteTask(type, command);
-            } catch (AccessTaskOutOfBoundsException e) {
-                ui.printAccessTaskOutOfBoundsError();
-                ui.printNumberOfTasks(taskList.getTasksCount());
-            } catch (MissingTaskNumberException e) {
-                ui.printMissingTaskNumberError();
-            }
-        } else if (type.equals("find")) {
-            String keyword = text[1];
-            ArrayList<Task> matchingTasks = new ArrayList<>();
-            for(Task task : taskList.getTasks()) {
-                if(task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    matchingTasks.add(task);
-                }
-            }
-            TaskList matchingTaskList = new TaskList(matchingTasks, matchingTasks.size());
-            ui.printMatchingTasks(matchingTaskList);
-        } else {
-            try {
+                break;
+            case "find":
+                taskList.findTasks(text);
+                break;
+            default:
                 taskList.addTask(type, command);
-            } catch (EmptyDescriptionException e) {
-                ui.printEmptyDescriptionError();
-            } catch (UnknownCommandException e) {
-                ui.printUnknownCommandError();
+                break;
             }
+        } catch (DukeException e) {
+            e.printErrorMessage();
         }
         try {
             Storage.saveFile(taskList.getTasks());

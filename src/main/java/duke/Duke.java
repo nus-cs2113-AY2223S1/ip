@@ -16,10 +16,6 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
-    /**
-     * Constructs an instance of the Duke class. The instance will contain an Ui object for interaction with the user
-     * and a Storage object to load previously saved data and save new changes made to the data on the user's local disk.
-     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();

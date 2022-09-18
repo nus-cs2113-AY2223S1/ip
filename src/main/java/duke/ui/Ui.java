@@ -77,72 +77,13 @@ public class Ui {
      *
      * @param taskList The user's current list of tasks.
      */
-    public void printMatchingTasks(TaskList taskList) {
+    public static void printMatchingTasks(TaskList taskList) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
         for(int i = 0; i < taskList.getTasksCount(); i++){
             System.out.println((i+1) + "." + taskList.getTasks().get(i).toString());
         }
         System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints an error message to inform the user that they tried to index a task that is out of bounds.
-     */
-    public static void printAccessTaskOutOfBoundsError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The task you have specified is out of bounds :-(\n";
-        System.out.println(error);
-    }
-
-    /**
-     * Prints an error message to inform the user that they did not provide a task description.
-     */
-    public void printEmptyDescriptionError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The description cannot be empty.\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
-    /**
-     * Prints an error message to inform the user that they did not provide a task number.
-     */
-    public void printMissingTaskNumberError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! You did not specify the task number :-(\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
-    /**
-     * Prints an error message to inform the user that they are attempting to mark a task that is already done.
-     */
-    public static void printTaskAlreadyMarkedError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The task you specified is already marked!\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
-    /**
-     * Prints an error message to inform the user that they are attempting to unmark a task that is already not done.
-     */
-    public static void printTaskAlreadyUnmarkedError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! The task you specified is already unmarked!\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
-    }
-
-    /**
-     * Prints an error message to inform the user that they did not provide a valid command to the program.
-     */
-    public void printUnknownCommandError() {
-        String error = "    ____________________________________________________________\n" +
-                "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-                "    ____________________________________________________________";
-        System.out.println(error);
     }
 
     /**
