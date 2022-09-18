@@ -1,5 +1,8 @@
 package duke.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import duke.exception.InvalidDateTimeException;
 import duke.exception.InvalidInputException;
 import duke.exception.InvalidOutputException;
 import duke.exception.MissingDeadlineDescriptionException;
@@ -14,8 +17,9 @@ import duke.task.Task;
 import duke.task.Todo;
 
 public abstract class Parser {
-    public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
-            MissingDeadlineDescriptionException, MissingEventDescriptionException {
+    public static Task parseTask(String type, String input)
+            throws MissingTodoDescriptionException, MissingDeadlineDescriptionException,
+            MissingEventDescriptionException, InvalidDateTimeException {
         int descriptionIndex;
         String description;
         Task newTask;
@@ -25,8 +29,8 @@ public abstract class Parser {
             descriptionIndex = input.indexOf(Ui.TODO_PHRASE);
 
             try {
-                description = input.substring(
-                        descriptionIndex + Ui.TODO_PHRASE.length() + 1, input.length());
+                description = input.substring(descriptionIndex + Ui.TODO_PHRASE.length() + 1,
+                        input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingTodoDescriptionException();
             }
@@ -38,15 +42,20 @@ public abstract class Parser {
             descriptionIndex = input.indexOf(Ui.DEADLINE_PHRASE);
             int byIndex = input.indexOf(Ui.BY_PHRASE);
 
-            String by;
+            LocalDate by;
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1, byIndex - 1);
-                by = input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
+                description = input.substring(descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1,
+                        byIndex - 1);
+                String byString =
+                        input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
+                by = LocalDate.parse(byString);
+
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingDeadlineDescriptionException();
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException();
             }
 
             newTask = new Deadline(description, by);
@@ -60,8 +69,8 @@ public abstract class Parser {
             try {
                 // add one to remove space
                 // minus one to remove space
-                description = input.substring(
-                        descriptionIndex + Ui.EVENT_PHRASE.length() + 1, atIndex - 1);
+                description = input.substring(descriptionIndex + Ui.EVENT_PHRASE.length() + 1,
+                        atIndex - 1);
                 at = input.substring(atIndex + Ui.AT_PHRASE.length() + 1, input.length());
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingEventDescriptionException();
@@ -241,8 +250,7 @@ public abstract class Parser {
         String fileData;
         if (extra.isBlank()) {
             fileData = outputTask + ", " + outputMark + ", " + description;
-        }
-        else {
+        } else {
             fileData = outputTask + ", " + outputMark + ", " + description + ", " + extra;
         }
 
