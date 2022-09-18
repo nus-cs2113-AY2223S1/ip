@@ -45,7 +45,7 @@ public class Duke {
             try {
                 Storage.saveData(taskList);
             } catch (IOException e) {
-                System.out.println(Printables.FAIL_SAVE_MESSAGE);
+                Ui.printResponseToUser(Printables.FAIL_SAVE_MESSAGE);
             }
         }
     }

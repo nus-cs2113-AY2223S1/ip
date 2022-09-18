@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import duke.tasks.Deadlines;
@@ -22,7 +24,8 @@ public class TaskList {
     }
 
     public String addNewDeadline(String taskName, String toBeDoneBy, boolean toPrint) {
-        tasks.add(new Deadlines(taskName, toBeDoneBy));
+        String[] arrOfBy = toBeDoneBy.split(" ");
+        tasks.add(new Deadlines(taskName, toBeDoneBy, LocalDate.parse(arrOfBy[0]), LocalTime.parse(arrOfBy[1])));
         if (toPrint) {
             return ("Added new deadline task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                     + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
@@ -31,7 +34,8 @@ public class TaskList {
     }
 
     public String addNewEvent(String taskName, String happeningAt, boolean toPrint) {
-        tasks.add(new Events(taskName, happeningAt));
+        String[] arrOfAt = happeningAt.split(" ");
+        tasks.add(new Events(taskName, happeningAt, LocalDate.parse(arrOfAt[0]), LocalTime.parse(arrOfAt[1])));
         if (toPrint) {
             return ("Added new event task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                     + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
@@ -125,5 +129,22 @@ public class TaskList {
                     ? (task + "\n") : "");
         }
         return (list.equals(Printables.TASK_SEARCH_INIT_STRING) ? Printables.EMPTY_TASK_SEARCH_RESULT_MESSAGE : list);
+    }
+
+    public String checkoutDate(String dateString) {
+        LocalDate date = LocalDate.parse(dateString);
+        String list = Printables.DATE_SEARCH_INIT_STRING;
+
+        for (Task task : tasks) {
+            if (task instanceof Deadlines) {
+                Deadlines temp = (Deadlines) task;
+                list += (temp.getDate().equals(date) ? (temp + "\n") : "");
+            } else if (task instanceof Events) {
+                Events temp = (Events) task;
+                list += (temp.getDate().equals(date) ? (temp + "\n") : "");
+            }
+        }
+
+        return (list.equals(Printables.DATE_SEARCH_INIT_STRING) ? Printables.EMPTY_DATE_SEARCH_RESULT_MESSAGE : list);
     }
 }

@@ -13,6 +13,7 @@ public class Parser {
     private static final String COMMAND_DEADLINES = "deadline";
     private static final String COMMAND_EVENTS = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_CHECKOUT = "checkout";
     private static final String COMMAND_FIND = "find";
     private static final String QUIT_FLAG = "quit";
 
@@ -83,6 +84,13 @@ public class Parser {
             try {
                 response = CommandFind.processFind(command, taskList);
             } catch (DukeException.IllegalFindCommandException e) {
+                response = e.getMessage();
+            }
+            break;
+        case COMMAND_CHECKOUT:
+            try {
+                response = CommandCheckout.processCheckout(command, taskList);
+            } catch (DukeException.IllegalDateTimeException e) {
                 response = e.getMessage();
             }
             break;
