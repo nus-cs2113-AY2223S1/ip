@@ -30,23 +30,23 @@ This is because everyone uses Duke. Since you are special, Bloom is your special
 
 ## Commands
 
-Here are the available commands and descriptions on how to use them:
+Here are the available commands and descriptions:
 
-1. list
+1. **list**
    - Displays all tasks that are currently in the list
-2. **todo <taskName>**
+2. **todo (taskName)**
    - Adds a todo task to the list
-3. deadline <taskName> /by <taskDateTime>
+3. **deadline (taskName) /by (taskDateTime)**
    - Adds a deadline task to the list (taskDateTime can be in any format ie. "today 5pm" or "1 Jan 2023")
-4. event <taskName> /at <taskDateTime>
+4. **event (taskName) /at (taskDateTime)**
    - Adds an event task to the list (taskDateTime can be in any format ie. "today 5-7pm" or "1 Jan 2023")
-5. mark <taskID>
+5. **mark (taskID)**
    - Marks the corresponding task as completed
-6. unmark <taskID>
+6. **unmark (taskID)**
    - Marks the corresponding task as not completed
-7. delete <taskID>
+7. **delete (taskID)**
    - Removes the corresponding task from the list
-8. find <keyword>
+8. **find (keyword)**
    - Displays all tasks that have the keyword in their task names.
-9. bye
+9. **bye**
    - Exits the task manager app, and all information is stored in "data/duke.txt"
