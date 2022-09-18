@@ -2,6 +2,8 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
+
 public class Event extends Task {
 
     private String eventTime;
@@ -21,7 +23,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String listTask() {
-        return String.format("%s (%s)", super.listTask(), this.eventTime);
+    public String listTask(ArrayList<Task> tasks) {
+        return String.format("%s (%s)", super.listTask(tasks), this.eventTime);
     }
 }

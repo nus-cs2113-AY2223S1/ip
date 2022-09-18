@@ -15,16 +15,16 @@ public class SaveCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (TaskList.Tasks.size() > 0) {
+        if (taskList.tasks.size() > 0) {
             try {
-                Storage.saveTasks();
-                Ui.outputWithoutLines("Slaving tasks......");
-                Ui.line();
+                storage.saveTasks(taskList);
+                ui.output("Slaving tasks......");
+                ui.line();
             } catch (IOException e) {
-                new MissingDataFileDukeException().handle();
-                Ui.outputWithLines(e.getMessage());
+                new MissingDataFileDukeException().handle(ui);
+                ui.output(e.getMessage());
             } catch (DukeException e) {
-                e.handle();
+                e.handle(ui);
             }
         }
     }

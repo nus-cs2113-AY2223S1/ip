@@ -7,7 +7,7 @@ import duke.task.TaskList;
 
 public class MarkCommand extends Command {
 
-    private String arguments;
+    private final String arguments;
 
     public MarkCommand(String arguments) {
         this.arguments = arguments;
@@ -17,10 +17,10 @@ public class MarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             int taskNumber = extractTaskNumber(arguments);
-            String task = TaskList.markAsDone(taskNumber);
-            Ui.outputWithLines("Well done. I've marked this task as done:", task);
+            String task = taskList.markAsDone(taskNumber);
+            ui.output("Well done. I've marked this task as done:", task);
         } catch (DukeException e) {
-            e.handle();
+            e.handle(ui);
         }
     }
 

@@ -11,7 +11,7 @@ public class PleaseCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.outputWithLines("Slave Kai is glad to help! \n" +
+        ui.output("Slave Kai is glad to help! \n" +
                 "Available commands: \n" +
                 "help - to try asking for help\n" +
                 "please - to actually get help\n" +

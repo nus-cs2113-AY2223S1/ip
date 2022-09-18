@@ -18,6 +18,8 @@ public class Parser {
             return new PleaseCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindCommand(arguments.trim());
         case "mark":
             return new MarkCommand(arguments.trim());
         case "unmark":

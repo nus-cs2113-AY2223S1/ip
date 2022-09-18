@@ -8,10 +8,6 @@ import duke.task.TaskList;
 
 public abstract class Command {
 
-    private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
-
     public Command() {
     }
 
@@ -19,8 +15,7 @@ public abstract class Command {
 
     public int extractTaskNumber(String arguments) throws DukeException{
         try {
-            int taskNumber = Integer.parseInt(arguments.trim());
-            return taskNumber;
+            return Integer.parseInt(arguments.trim());
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberDukeException();
         }

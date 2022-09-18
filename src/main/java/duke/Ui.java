@@ -1,6 +1,7 @@
 package duke;
 
-import java.util.Arrays;
+import duke.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -11,11 +12,11 @@ public class Ui {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void line() {
+    public void line() {
         System.out.println("------------------------------");
     }
 
-    public static void greet() {
+    public void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -27,21 +28,16 @@ public class Ui {
         line();
     }
 
-    public static String input() {
+    public String input() {
         return in.nextLine();
     }
 
-    public static void outputWithLines(String... output) {
-        Ui.line();
+    public void output(String... output) {
         for (String line : output) {
             System.out.println(line);
         }
-        Ui.line();
     }
 
-    public static void outputWithoutLines(String output) {
-        System.out.println(output);
+    public void outputStream(String output) {
     }
-
-
 }

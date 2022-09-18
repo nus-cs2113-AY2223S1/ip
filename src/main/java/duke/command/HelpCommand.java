@@ -11,7 +11,7 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.outputWithLines("You asked for help, but I don't feel like helping ;p\n" +
+        ui.output("You asked for help, but I don't feel like helping ;p\n" +
                 "Maybe try saying the magic word?");
     }
 }

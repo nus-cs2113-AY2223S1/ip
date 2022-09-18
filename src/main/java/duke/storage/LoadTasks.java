@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class LoadTasks {
 
-    public static void loadTasks(Path dataFile) throws FileNotFoundException, DukeException {
+    public static void loadTasks(TaskList taskList, Path dataFile) throws FileNotFoundException, DukeException {
         Scanner input = new Scanner(new File(dataFile.toUri()));
         while (input.hasNext()) {
             String[] line = input.nextLine().split(" \\| ");
@@ -34,7 +34,7 @@ public class LoadTasks {
             if (doneIcon.equals("X")) {
                 task.markAsDone();
             }
-            TaskList.loadTask(task);
+            taskList.loadTask(task);
         }
         input.close();
     }

@@ -2,6 +2,8 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
+
 public class Deadline extends Task {
 
     private String deadlineTime;
@@ -21,7 +23,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String listTask() {
-        return String.format("%s (%s)", super.listTask(), this.deadlineTime);
+    public String listTask(ArrayList<Task> tasks) {
+        return String.format("%s (%s)", super.listTask(tasks), this.deadlineTime);
     }
 }

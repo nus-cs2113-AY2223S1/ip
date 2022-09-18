@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class SaveTasks {
-    public static void saveTasks(Path dataFile) throws IOException, DukeException {
+    public static void saveTasks(TaskList taskList, Path dataFile) throws IOException, DukeException {
         FileWriter output = new FileWriter(dataFile.toFile());
-        for (Task task : TaskList.Tasks) {
+        for (Task task : taskList.tasks) {
             String description;
             if (task instanceof ToDo) {
                 description = task.getName();
