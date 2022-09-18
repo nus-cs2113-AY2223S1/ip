@@ -1,10 +1,12 @@
 package duke.userinterface;
 
+import java.time.LocalDateTime;
+
 public class ConsoleCommandDeadline extends ConsoleCommand {
     private String description;
-    private String by;
+    private LocalDateTime by;
 
-    public ConsoleCommandDeadline(String description, String by) {
+    public ConsoleCommandDeadline(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;
     }
@@ -13,7 +15,7 @@ public class ConsoleCommandDeadline extends ConsoleCommand {
         return description;
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 }
