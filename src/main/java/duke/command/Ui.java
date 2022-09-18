@@ -16,6 +16,7 @@ public abstract class Ui {
     public static final String EVENT_PHRASE = "event";
     public static final String AT_PHRASE = "/at";
     public static final String DELETE_PHRASE = "delete";
+    public static final String SEARCH_PHRASE = "find";
 
     public static void readInputs() {
         Scanner in = new Scanner(System.in);
@@ -59,6 +60,8 @@ public abstract class Ui {
             TaskList.addTask(EVENT_PHRASE, input);
         } else if (input.startsWith(DELETE_PHRASE)) {
             TaskList.deleteTask(input);
+        } else if (input.startsWith(SEARCH_PHRASE)) {
+            TaskList.searchTask(input);
         } else {
             throw new DukeException();
         }

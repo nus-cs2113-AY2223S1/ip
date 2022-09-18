@@ -7,6 +7,7 @@ import duke.exception.InvalidInputException;
 import duke.exception.InvalidOutputException;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
+import duke.exception.MissingKeywordException;
 import duke.exception.MissingTaskNumberException;
 import duke.exception.MissingTodoDescriptionException;
 import duke.exception.NonIntegerTaskNumberException;
@@ -263,5 +264,17 @@ public abstract class Parser {
         }
 
         return true;
+    }
+
+    public static String parseKeyword(String input) throws MissingKeywordException {
+        String keyword;
+
+        try {
+            keyword = input.substring(Ui.SEARCH_PHRASE.length() + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MissingKeywordException();
+        }
+
+        return keyword;
     }
 }
