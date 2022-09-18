@@ -86,17 +86,15 @@ public class Storage {
 
         try {
             fileData = Parser.parseFileInputs(line);
+
+            String inputTask = fileData[0];
+            String inputMark = fileData[1];
+
+            Ui.handleInput(inputTask);
+            Ui.handleInput(inputMark);
         } catch (InvalidInputException e) {
             System.out.println("Invalid input line :(");
             return;
-        }
-
-        String inputTask = fileData[0];
-        String inputMark = fileData[1];
-
-        try {
-            Ui.handleInput(inputTask);
-            Ui.handleInput(inputMark);
         } catch (DukeException e) {
             System.out.println("Bad file input :(");
         }
