@@ -3,9 +3,9 @@ package duke.command;
 import java.util.Scanner;
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
-public abstract class InputManager {
+public abstract class Ui {
     public static final String EXIT_PHRASE = "bye";
     public static final String LIST_PHRASE = "list";
     public static final String MARK_PHRASE = "mark";
@@ -46,19 +46,19 @@ public abstract class InputManager {
     public static void handleInput(String input) throws DukeException {
         // handle list, mark, unmark, add
         if (input.equals(LIST_PHRASE)) {
-            TaskManager.printList();
+            TaskList.printList();
         } else if (input.startsWith(MARK_PHRASE)) {
-            TaskManager.markTask(input);
+            TaskList.markTask(input);
         } else if (input.startsWith(UNMARK_PHRASE)) {
-            TaskManager.unmarkTask(input);
+            TaskList.unmarkTask(input);
         } else if (input.startsWith(TODO_PHRASE)) {
-            TaskManager.addTask(TODO_PHRASE, input);
+            TaskList.addTask(TODO_PHRASE, input);
         } else if (input.startsWith(DEADLINE_PHRASE)) {
-            TaskManager.addTask(DEADLINE_PHRASE, input);
+            TaskList.addTask(DEADLINE_PHRASE, input);
         } else if (input.startsWith(EVENT_PHRASE)) {
-            TaskManager.addTask(EVENT_PHRASE, input);
+            TaskList.addTask(EVENT_PHRASE, input);
         } else if (input.startsWith(DELETE_PHRASE)) {
-            TaskManager.deleteTask(input);
+            TaskList.deleteTask(input);
         } else {
             throw new DukeException();
         }

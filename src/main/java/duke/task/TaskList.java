@@ -1,7 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
-import duke.command.InputManager;
+import duke.command.Ui;
 import duke.command.Parser;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
@@ -10,7 +10,7 @@ import duke.exception.MissingTodoDescriptionException;
 import duke.exception.NonIntegerTaskNumberException;
 import duke.exception.OutOfBoundsTaskNumberException;
 
-public abstract class TaskManager {
+public abstract class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static ArrayList<Task> getTasks() {
@@ -48,7 +48,7 @@ public abstract class TaskManager {
         int taskNum;
 
         try {
-            taskNum = Parser.parseTaskNumber(InputManager.DELETE_PHRASE, input);
+            taskNum = Parser.parseTaskNumber(Ui.DELETE_PHRASE, input);
         } catch (MissingTaskNumberException e) {
             System.out.println("Missing task number");
             return;
@@ -84,7 +84,7 @@ public abstract class TaskManager {
         int taskNum;
 
         try {
-            taskNum = Parser.parseTaskNumber(InputManager.MARK_PHRASE, input);
+            taskNum = Parser.parseTaskNumber(Ui.MARK_PHRASE, input);
         } catch (MissingTaskNumberException e) {
             System.out.println("Missing task number");
             return;
@@ -106,7 +106,7 @@ public abstract class TaskManager {
         int taskNum;
 
         try {
-            taskNum = Parser.parseTaskNumber(InputManager.UNMARK_PHRASE, input);
+            taskNum = Parser.parseTaskNumber(Ui.UNMARK_PHRASE, input);
         } catch (MissingTaskNumberException e) {
             System.out.println("Missing task number");
             return;

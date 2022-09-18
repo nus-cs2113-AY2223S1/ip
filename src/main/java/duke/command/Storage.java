@@ -8,12 +8,30 @@ import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 import duke.exception.InvalidOutputException;
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileManager {
-    public static void readFile(String filePath) throws FileNotFoundException {
+public class Storage {
+    private static String FILE_PATH = "ip/data/duke.txt";
+
+    public static void loadFile() {
+        try {
+            readFile(FILE_PATH);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void saveFile() {
+        try {
+            writeFile(FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Unable to save");
+        }
+    }
+
+    private static void readFile(String filePath) throws FileNotFoundException {
         final String READING_FILE_START = "Reading file inputs...";
         final String READING_FILE_END = "Done reading file inputs!";
 
@@ -33,7 +51,7 @@ public class FileManager {
         scanner.close();
     }
 
-    public static void writeFile(String filePath) throws IOException {
+    private static void writeFile(String filePath) throws IOException {
         final String WRITING_FILE_START = "Writing file outputs...";
         final String WRITING_FILE_END = "Done writing file outputs!";
 
@@ -59,15 +77,15 @@ public class FileManager {
         String inputMark = fileData[1];
 
         try {
-            InputManager.handleInput(inputTask);
-            InputManager.handleInput(inputMark);
+            Ui.handleInput(inputTask);
+            Ui.handleInput(inputMark);
         } catch (DukeException e) {
             System.out.println("Bad file input :(");
         }
     }
 
     private static void writeFirstLine(String filePath) throws IOException {
-        ArrayList<Task> tasks = TaskManager.getTasks();
+        ArrayList<Task> tasks = TaskList.getTasks();
 
         FileWriter fw = new FileWriter(filePath);
         try {
@@ -81,7 +99,7 @@ public class FileManager {
     }
 
     private static void writeRemainingLines(String filePath) throws IOException {
-        ArrayList<Task> tasks = TaskManager.getTasks();
+        ArrayList<Task> tasks = TaskList.getTasks();
 
         FileWriter fw = new FileWriter(filePath, true);
         for (int i = 1; i < Task.getTaskCount(); i += 1) {
