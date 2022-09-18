@@ -39,7 +39,7 @@ Currently, Duke supports 3 types of task:
 3. Move the file to the desired folder for Duke.
 4. Open the Command Prompt (for Windows) or Terminal (for Unix) and redirect to home folder of Duke.
 5. Launch the chatbot Duke by using ```java -jar Duke.jar```.
-6. Type the valid command and press Enter to run the command. See [Features and Usage](https://bdthanh.github.io/ip/#features-and-useage) for more information of commands.
+6. Type the valid command and press Enter to run the command. See [Features and Usage](https://bdthanh.github.io/ip/#features-and-usage) for more information of commands.
 
 ## Features and Usage
 
