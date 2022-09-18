@@ -1,9 +1,9 @@
 # User Guide for Project Duke
 
 ## Table of Contents
-* [Introduction](https://bdthanh.github.io/ip/introduction)
-* [Quick start](https://bdthanh.github.io/ip/quick-start)
-* [Features and Usages](https://bdthanh.github.io/ip/features-and-usage)
+* [Introduction](https://bdthanh.github.io/ip/#introduction)
+* [Quick start](https://bdthanh.github.io/ip/#quick-start)
+* [Features and Usages](https://bdthanh.github.io/ip/#features-and-usage)
 
   - [Add a new todo ```todo```](https://bdthanh.github.io/ip/#todo---add-a-todo-task)
     
