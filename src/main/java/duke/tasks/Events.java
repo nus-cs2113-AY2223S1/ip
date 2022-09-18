@@ -14,7 +14,7 @@ public class Events extends Task {
     }
 
     public String toString() {
-        String done = this.getIsDone() ? "[X]" : "[ ]";
+        String done = this.getIsDone() ? "[X]" : "[ ] ";
         return "[E]" + done + this.getTaskName() + " (at: " + happeningAt + " )";
     }
 }

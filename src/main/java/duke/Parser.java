@@ -13,11 +13,12 @@ public class Parser {
     private static final String COMMAND_DEADLINES = "deadline";
     private static final String COMMAND_EVENTS = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String QUIT_FLAG = "quit";
 
     public static String runCommand(String command, TaskList taskList) {
         String keyword = extractKeyword(command);
-        String response = null;
+        String response;
 
         switch(keyword) {
         case INVALID_BASIC_COMMAND:
@@ -75,6 +76,13 @@ public class Parser {
             try {
                 response = CommandDelete.processDelete(command, taskList);
             } catch (DukeException.IllegalDeleteIndexException e) {
+                response = e.getMessage();
+            }
+            break;
+        case COMMAND_FIND:
+            try {
+                response = CommandFind.processFind(command, taskList);
+            } catch (DukeException.IllegalFindCommandException e) {
                 response = e.getMessage();
             }
             break;

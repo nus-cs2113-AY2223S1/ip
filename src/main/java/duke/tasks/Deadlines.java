@@ -14,7 +14,7 @@ public class Deadlines extends Task {
     }
 
     public String toString() {
-        String done = this.getIsDone() ? "[X]" : "[ ]";
+        String done = this.getIsDone() ? "[X]" : "[ ] ";
         return "[D]" + done + this.getTaskName() + " (by: " + toBeDoneBy + " )";
     }
 }

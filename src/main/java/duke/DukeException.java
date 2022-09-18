@@ -57,5 +57,11 @@ public class DukeException {
     }
     public static class IllegalReadFromSaveData extends Exception {
     }
+    public static class IllegalFindCommandException extends Exception {
+        @Override
+        public String getMessage() {
+            return "Invalid find command. Follow format 'find <something>'";
+        }
+    }
 }
 
