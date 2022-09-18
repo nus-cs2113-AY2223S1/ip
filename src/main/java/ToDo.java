@@ -8,4 +8,8 @@ public class ToDo extends Task {
     public String toString() {
         return taskType + getCheckBox() + " "+ getName();
     }
+
+    public String getFileInput() {
+        return "T" + " | " + String.valueOf(this.getIsCompleted()) + " | " + this.getName();
+    }
 }
