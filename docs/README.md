@@ -1,3 +1,8 @@
+---
+layout: page
+title: User Guide for Project Duke
+---
+
 ## <span style="color: #0451a3;">Table of Contents</span>
 * [Introduction](https://bdthanh.github.io/ip/#introduction)
 * [Quick start](https://bdthanh.github.io/ip/#quick-start)
