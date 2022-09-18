@@ -70,4 +70,14 @@ public class ConsoleInputParserException {
             super(message);
         }
     }
+
+    public static class InvalidCommandFindException extends DukeException {
+        public InvalidCommandFindException() {
+
+        }
+
+        public InvalidCommandFindException(String message) {
+            super(message);
+        }
+    }
 }
