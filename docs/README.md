@@ -1,27 +1,27 @@
 # User Guide for Project Duke
 
 ## Table of Contents
-* [Introduction](https://bdthanh.github.io/ip/#1-introduction)
-* [Quick start](https://bdthanh.github.io/ip/#2-quick-start)
-* [Features and Usages](https://bdthanh.github.io/ip/#3-features)
+* [Introduction](https://bdthanh.github.io/ip/introduction)
+* [Quick start](https://bdthanh.github.io/ip/quick-start)
+* [Features and Usages](https://bdthanh.github.io/ip/features-and-usage)
 
-  - [Add a new todo ```todo```]()
+  - [Add a new todo ```todo```](https://bdthanh.github.io/ip/#todo---add-a-todo-task)
     
-  - [Add a new deadline ```deadline```]()
+  - [Add a new deadline ```deadline```](https://bdthanh.github.io/ip/#deadline---add-a-deadline)
 
-  - [Add a new event ```event```]()
+  - [Add a new event ```event```](https://bdthanh.github.io/ip/#event---add-an-event)
 
-  - [List tasks ```list```]()
+  - [List tasks ```list```](https://bdthanh.github.io/ip/#list---list-all-tasks)
 
-  - [Mark as done ```mark```]()
+  - [Mark as done ```mark```](https://bdthanh.github.io/ip/#mark---mark-as-done)
 
-  - [Mark as undone ```unmark```]()
+  - [Mark as undone ```unmark```](https://bdthanh.github.io/ip/#unmark---mark-as-undone)
  
-  - [Delete task ```delete```]()
+  - [Delete task ```delete```](https://bdthanh.github.io/ip/#delete---delete-a-task)
 
-  - [Find tasks by keyword ```find```]()
+  - [Find tasks by keyword ```find```](https://bdthanh.github.io/ip/#find---find-tasks-by-keyword)
 
-  - [Exit Duke ```bye```]()
+  - [Exit Duke ```bye```](https://bdthanh.github.io/ip/#bye---exit-duke)
 
 
 ## Introduction 
@@ -35,11 +35,11 @@ Currently, Duke supports 3 types of task:
 ## Quick start
 
 1. Install Java 11 (Oracle version is recommended) on your computer.
-2. Download the latest release of ```Duke.jar``` [here]().
+2. Download the latest release of ```Duke.jar``` [here](https://github.com/bdthanh/ip/releases/tag/A-Release).
 3. Move the file to the desired folder for Duke.
 4. Open the Command Prompt (for Windows) or Terminal (for Unix) and redirect to home folder of Duke.
 5. Launch the chatbot Duke by using ```java -jar Duke.jar```.
-6. Type the valid command and press Enter to run the command. See [Features and Usage]() for more information of commands.
+6. Type the valid command and press Enter to run the command. See [Features and Usage](https://bdthanh.github.io/ip/features-and-useage) for more information of commands.
 
 ## Features and Usage
 
