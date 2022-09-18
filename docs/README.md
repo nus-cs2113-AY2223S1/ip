@@ -1,6 +1,4 @@
-# <span style="color: #F5821F;">User Guide for Project Duke</span>
-
-## <span style="color: #003A79;">Table of Contents</span>
+## <span style="color: #0451a3;">Table of Contents</span>
 * [Introduction](https://bdthanh.github.io/ip/#introduction)
 * [Quick start](https://bdthanh.github.io/ip/#quick-start)
 * [Features and Usages](https://bdthanh.github.io/ip/#features-and-usage)
@@ -24,7 +22,7 @@
   - [Exit Duke ```bye```](https://bdthanh.github.io/ip/#bye---exit-duke)
 
 
-## <span style="color: #003A79;">Introduction</span>
+## <span style="color: #0451a3;">Introduction</span>
 Duke is a **Command Line Interface (CLI) Personal Assistant Chatbot** that helps a user to manage daily tasks.
 Currently, Duke supports 3 types of task:
 
@@ -32,7 +30,7 @@ Currently, Duke supports 3 types of task:
 - _Deadline_ 
 - _Event_
 
-## <span style="color: #003A79;">Quick start</span>
+## <span style="color: #0451a3;">Quick start</span>
 
 1. Install Java 11 (Oracle version is recommended) on your computer.
 2. Download the latest release of ```Duke.jar``` [here](https://github.com/bdthanh/ip/releases/tag/A-Release).
@@ -57,7 +55,7 @@ How can I help you?
 
 ## <span style="color: #003A79;">Features and Usage</span>
 
-### ```todo``` - <span style="color: #5bbdff;">Add a todo task</span>
+### ```todo``` - <span style="color: #F5821F;">Add a todo task</span>
 >Adds a new todo task to the list
 
 Format: ```todo DESCRIPTION```
@@ -75,7 +73,7 @@ Now you have 1 task(s) in the list
 
 <br>
 
-### ```deadline``` - <span style="color: #5bbdff;">Add a deadline</span>
+### ```deadline``` - <span style="color: #F5821F;">Add a deadline</span>
 >Adds a new deadline to the list
 
 Format: ```deadline DESCRIPTION /by yyyy-mm-dd```
@@ -93,7 +91,7 @@ Now you have 2 task(s) in the list
 
 <br>
 
-### ```event``` - <span style="color: #5bbdff;">Add an event</span>
+### ```event``` - <span style="color: #F5821F;">Add an event</span>
 >Adds a new event to the list
 
 Format: ```event DESCRIPTION /at yyyy-mm-dd```
@@ -111,7 +109,7 @@ Now you have 3 task(s) in the list
 
 <br>
 
-### ```list``` - <spn style="color: #5bbdff;">List all tasks</span>
+### ```list``` - <spn style="color: #F5821F;">List all tasks</span>
 >Print all tasks information in the current list
 
 Format: ```list```
@@ -128,7 +126,7 @@ Here are 3 task(s) in your list:
 
 <br>
 
-### ```mark``` - <span style="color: #5bbdff;">Mark as done</span>
+### ```mark``` - <span style="color: #F5821F;">Mark as done</span>
 >Mark a task as done given its index number
 
 Format: ```mark INDEX_NUMBER```
@@ -145,7 +143,7 @@ Congratulations! You have done this task:
 
 <br>
 
-### ```unmark``` - <span style="color: #5bbdff;">Mark as undone</span>
+### ```unmark``` - <span style="color: #F5821F;">Mark as undone</span>
 >Mark a task as undone given its index number
 
 Format: ```unmark INDEX_NUMBER```
@@ -160,7 +158,7 @@ OK, I've marked this task as not done yet:
 
 <br>
 
-### ```delete``` - <span style="color: #5bbdff;">Delete a task</span>
+### ```delete``` - <span style="color: #F5821F;">Delete a task</span>
 >Delete a task in the list given its index number
 
 Format: ```delete INDEX_NUMBER```
@@ -176,7 +174,7 @@ Now you have 2 task(s) in the list
 
 <br>
 
-### ```find``` - <span style="color: #5bbdff;">Find tasks by keyword</span>
+### ```find``` - <span style="color: #F5821F;">Find tasks by keyword</span>
 >Find all tasks matched with a given keyword
 
 Format: ```find KEYWORD```
@@ -193,7 +191,7 @@ Here are 1 matching task(s) in your list:
 
 <br>
 
-### ```bye``` - <span style="color: #5bbdff;">Exit Duke</span>
+### ```bye``` - <span style="color: #F5821F;">Exit Duke</span>
 >Exit Duke with a goodbye message
 
 Format: ```bye```
