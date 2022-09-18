@@ -26,6 +26,7 @@ public class Command {
     public static void execute(TaskList tasks, Ui ui, Storage storage, String fullCommand) throws DukeException, IOException{
         String command = getCommand();
         int taskID;
+        String keyword;
         int taskCounter = tasks.getTaskCounter();
         switch (command) {
         case "bye":
@@ -47,6 +48,10 @@ public class Command {
             taskID = Parser.getTaskID(fullCommand);
             ui.showDeleted(tasks, taskID);
             tasks.deleteTask(taskID);
+            break;
+        case "find":
+            keyword = Parser.getKeyword(fullCommand);
+            ui.showSearched(tasks, keyword);
             break;
         case "todo":
         case "deadline":
