@@ -72,6 +72,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Gets task number for task in list of tasks.
+     *
+     * @param task Task.
+     * @return Task number.
+     */
     public int getTaskNumber(Task task) {
         return tasks.indexOf(task) + 1;
     }
@@ -95,6 +101,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Find tasks in list of tasks that matches description.
+     *
+     * @param description Description of the task.
+     * @return List of tasks that matches the description.
+     */
     public ArrayList<Task> findTask(String description) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

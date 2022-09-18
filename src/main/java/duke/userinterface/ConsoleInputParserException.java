@@ -71,6 +71,9 @@ public class ConsoleInputParserException {
         }
     }
 
+    /**
+     * Thrown when command find is not valid.
+     */
     public static class InvalidCommandFindException extends DukeException {
         public InvalidCommandFindException() {
 

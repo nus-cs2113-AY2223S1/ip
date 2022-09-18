@@ -225,6 +225,11 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Find tasks in task manager that matches description.
+     *
+     * @param consoleCommandFind Command parsed by the function {@link ConsoleInputParser#parseConsoleInput(ConsoleInput)}.
+     */
     public void executeCommandFind(ConsoleCommandFind consoleCommandFind) {
         String description = consoleCommandFind.getDescription();
 
