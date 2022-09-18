@@ -59,6 +59,18 @@ public class TaskList {
         return listContent;
     }
 
+    public TaskList findTasks(String query) {
+        TaskList tempTaskList = new TaskList();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task tempTask = tasks.get(i);
+            if (tempTask.getTaskName().contains(query)){
+                tempTaskList.tasks.add(tempTask);
+            }
+        }
+        return tempTaskList;
+    }
+
     public String deleteTask(int taskIndex) {
         String taskDetail = tasks.get(taskIndex - 1).getTaskFullDetails();
         tasks.remove(taskIndex - 1);

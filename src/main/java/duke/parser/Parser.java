@@ -6,6 +6,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
@@ -47,6 +48,9 @@ public class Parser {
             break;
         case ListCommand.COMMAND_WORD:
             command = new ListCommand();
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand();
             break;
         case MarkCommand.COMMAND_WORD:
             command = new MarkCommand();
