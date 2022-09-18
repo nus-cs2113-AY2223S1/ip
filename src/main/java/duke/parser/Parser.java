@@ -6,6 +6,9 @@ import duke.task.*;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -15,8 +18,8 @@ public class Parser {
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
     private static final String DELETE = "delete";
-
     private static final String LIST = "list";
+    private static final String FIND = "find";
     private static final String BYE = "bye";
     private final TaskList tasks;
     private final String input;
@@ -44,7 +47,7 @@ public class Parser {
         }
         int endOfDescription = input.indexOf("/") - 1;
         String description = input.substring(6, endOfDescription);
-        String at = input.substring(input.indexOf("/") + 1);
+        String at = input.substring(input.indexOf("/") + 4);
         return new Event(description, at);
     }
 
@@ -54,7 +57,16 @@ public class Parser {
         }
         int endOfDescription = input.indexOf("/") - 1;
         String description = input.substring(9, endOfDescription);
-        String by = input.substring(input.indexOf("/") + 1);
+        String by = input.substring(input.indexOf("/") + 4);
+        String[] date = by.split(" ", 2);
+        try {
+            LocalDate dateOfDeadline = LocalDate.parse(date[0]);
+            String deadlineDate = dateOfDeadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return new Deadline(description, deadlineDate + " " + date[1]);
+
+        } catch (DateTimeParseException e) {
+            System.out.println("date is not valid and will be treated as a string");
+        }
         return new Deadline(description, by);
     }
 
@@ -80,6 +92,11 @@ public class Parser {
             throw new DukeException();
         }
         return Integer.parseInt(words[1]) - 1;
+    }
+
+    private static String prepareFind(String input) {
+        String[] words = input.split(" ", 2);
+        return words[1];
     }
 
     private void addCommand() {
@@ -177,6 +194,12 @@ public class Parser {
         return false;
     }
 
+    private void findCommand() {
+        String word = prepareFind(input);
+        TaskList tasksFound = tasks.findTasksBySearch(word);
+        ui.printTasksFound(tasksFound);
+    }
+
     public boolean handleCommand() {
         boolean isRun = true;
         String[] command = input.split(" ", 2);
@@ -196,7 +219,10 @@ public class Parser {
             deleteCommand();
             break;
         case LIST:
-            tasks.listTask();
+            ui.printListOfTasks(tasks);
+            break;
+        case FIND:
+            findCommand();
             break;
         case BYE:
             isRun = exitCommand();

@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.Scanner;
@@ -67,6 +68,33 @@ public class Ui {
 
     public void printError(String message) {
         printToUser(message);
+    }
+
+    public void printTasksFound(TaskList tasksFound) {
+        int counter = 1;
+        System.out.println("Here are the tasks found:");
+        for (int i = 0; i < tasksFound.getSize(); i += 1) {
+            if (tasksFound.findTask(i) != null) {
+                Task task = tasksFound.findTask(i);
+                String toBePrinted = task.toString();
+                System.out.println(counter + ". " + toBePrinted);
+                counter++;
+            }
+        }
+        System.out.println(DIVIDER);
+    }
+    public void printListOfTasks(TaskList tasks) {
+        int counter = 1;
+        System.out.println("come uncle show you your tasks");
+        for (int i = 0; i < tasks.getSize(); i += 1) {
+            if (tasks.findTask(i) != null) {
+                Task task = tasks.findTask(i);
+                String toBePrinted = task.toString();
+                System.out.println(counter + ". " + toBePrinted);
+                counter++;
+            }
+        }
+        System.out.println(DIVIDER);
     }
 
 }
