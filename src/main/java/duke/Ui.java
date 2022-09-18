@@ -54,13 +54,31 @@ public class Ui {
         System.out.println(tasks.getTasks().get(taskID - 1));
         System.out.println("Now you have " + (tasks.getTaskCounter() - 1) + " tasks in the list.");
     }
-    public static void showInvalidInputError() {
-        System.out.println("Sorry, I do not understand. Please try again.");
-    }
     public static void showAdded(Task task, int taskCounter) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  [" + task.getType() + "]" + "[ ] " + task);
         System.out.println("Now you have " + taskCounter + " tasks in your list.");
+    }
+    public static void showSearched(TaskList tasks, String keyword) {
+        int foundSearches = 0;
+        for (int i = 0; i < tasks.getTasks().size(); ++i) {
+            if (tasks.getTasks().get(i).getName().contains(keyword)) {
+                foundSearches++;
+                if (foundSearches == 1) {
+                    System.out.println("Here are the matching tasks in your list:");
+                }
+                char taskType = tasks.getTasks().get(i).getType();
+                System.out.print(i+1 + ".[" + taskType + "]");
+                System.out.print("[" + (tasks.getTasks().get(i).isDone() ? "X] " : " ] "));
+                System.out.println(tasks.getTasks().get(i));
+            }
+        }
+        if (foundSearches == 0) {
+            System.out.println("There are no matching tasks in your list");
+        }
+    }
+    public static void showInvalidInputError() {
+        System.out.println("Sorry, I do not understand. Please try again.");
     }
     public static void showLoadingError() {
         System.out.println("Unable to load from designated text file properly");

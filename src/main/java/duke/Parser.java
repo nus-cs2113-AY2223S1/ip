@@ -66,4 +66,12 @@ public class Parser {
         }
         return taskList;
     }
+    public static String getKeyword(String command) throws DukeException{
+        command = command.trim();
+        String[] words = command.split(" ", 2);
+        if (words.length == 1) {
+            throw new DukeException("Keyword missing");
+        }
+        return words[1];
+    }
 }

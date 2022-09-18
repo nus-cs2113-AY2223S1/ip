@@ -1,0 +1,4 @@
+T ; 0 ; read book
+D ; 0 ; return book ; monday
+E ; 0 ; storytelling ; 2pm
+D ; 0 ; make bookings for hdl ; sunday
