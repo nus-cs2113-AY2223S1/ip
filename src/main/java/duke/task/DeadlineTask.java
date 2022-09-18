@@ -1,9 +1,17 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
 import duke.DukeException;
+import duke.Parser;
 
 public class DeadlineTask extends Task {
     private final String deadline;
+    private final Optional<LocalDate> deadlineDate;
+    private final Optional<LocalTime> deadlineTime;
 
     public DeadlineTask(String name, String deadline) throws DukeException {
         this(name, deadline, false);
@@ -18,11 +26,22 @@ public class DeadlineTask extends Task {
             throw new DukeException("Please provide a deadline (/by)");
         }
         this.deadline = deadline;
+        this.deadlineDate = Optional.ofNullable(Parser.parseDateString(deadline));
+        this.deadlineTime = Optional.ofNullable(Parser.parseTimeString(deadline));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        String dateString = "";
+        if (deadlineDate.isPresent()) {
+            dateString = deadlineDate.get().format(DateTimeFormatter.ofPattern("E, dd MMM yyyy"));
+            if (deadlineTime.isPresent()) {
+                dateString += ", " + deadlineTime.get().toString();
+            }
+        } else {
+            dateString = deadline;
+        }
+        return String.format("[D]%s (by: %s)", super.toString(), dateString);
     }
 
     @Override
