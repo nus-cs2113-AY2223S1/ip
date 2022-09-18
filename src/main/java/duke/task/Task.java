@@ -7,7 +7,8 @@ public abstract class Task {
     private static int taskCount = 0;
 
     /**
-     * Creates a new task by settings its desciption and marking it as undone
+     * Represents a new Task. A <code>Task</code> object corresponds to a description of the task
+     * and the status of the task. The task is set to be undone at initialisation.
      * 
      * @param description the description of the new task
      */
