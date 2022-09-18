@@ -218,6 +218,23 @@ public class Parser {
     }
 
     /**
+     * Checks if the keyword {@link Duke#COMMAND_FIND} is present at front of input string
+     *
+     * @param input input string to check
+     * @return boolean, true or false
+     * @throws NoCommandArgumentException When no command argument is given
+     * @throws TooManyWordsException      If there is more than one space-separated
+     *                                    substring after the command.
+     */
+    public static boolean isFindInput(String input) throws NoCommandArgumentException, TooManyWordsException {
+        if (stringEquals(input, Duke.COMMAND_FIND)) {
+            throw new NoCommandArgumentException(Duke.COMMAND_FIND);
+        } else {
+            return stringContains(input, Duke.COMMAND_FIND);
+        }
+    }
+
+    /**
      * Check if the given input contains a substring at the start
      *
      * @param input     input to be checked
@@ -242,6 +259,17 @@ public class Parser {
             }
         }
         return false;
+    }
+
+    /**
+     * Check if the given input is equal to any substring in a given array
+     *
+     * @param input      input to be checked
+     * @param substring substrings to be checked for equality
+     * @return boolean true or false
+     */
+    public static boolean stringEquals(String input, String substring) {
+        return input.equalsIgnoreCase(substring);
     }
 
     /**
@@ -270,5 +298,6 @@ public class Parser {
     public static int splitCount(String input, String separator) {
         return input.split(separator).length;
     }
+
 
 }

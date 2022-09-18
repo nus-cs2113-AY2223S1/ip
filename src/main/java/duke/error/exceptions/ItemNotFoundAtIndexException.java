@@ -5,7 +5,7 @@ import duke.Duke;
 /**
  * Exception subclass of {@link DukeException} for if an item is not found in list at a given index.
  */
-public class ItemNotFoundException extends DukeException {
+public class ItemNotFoundAtIndexException extends DukeException {
     private final int index;
 
     /**
@@ -14,7 +14,7 @@ public class ItemNotFoundException extends DukeException {
      * @param index index of item. <b>Note:</b> input is given as 0-based index
      *              but error message prints 1-based index
      */
-    public ItemNotFoundException(int index) {
+    public ItemNotFoundAtIndexException(int index) {
         super();
         this.index = index + 1;
     }
@@ -30,12 +30,12 @@ public class ItemNotFoundException extends DukeException {
         if (index == 0) {
             tempString += "\nRemember that your to-do list is 1-indexed (0 is not valid).";
         }
-        if (Duke.TASK_LIST.getItemCount() == 0) {
+        if (Duke.FULL_TASK_LIST.getItemCount() == 0) {
             tempString += "\nYour to-do list is currently empty.";
         }
         else {
             tempString += String.format(
-                    "\nYour to-do list currently has %s item(s).", Duke.TASK_LIST.getItemCount());
+                    "\nYour to-do list currently has %s item(s).", Duke.FULL_TASK_LIST.getItemCount());
         }
         return tempString;
     }
