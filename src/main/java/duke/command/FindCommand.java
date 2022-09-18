@@ -6,10 +6,18 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to filter tasks in the list.
+ */
 public class FindCommand extends Command {
 
     private String searchKeyword;
 
+    /**
+     * Creates a Find command.
+     * 
+     * @param input The user input string
+     */
     public FindCommand(String input) {
         super(input);
         searchKeyword = Parser.removeKeyword(input);

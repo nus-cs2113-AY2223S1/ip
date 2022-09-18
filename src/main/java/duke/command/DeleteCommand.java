@@ -6,10 +6,18 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+/**
+ * Command to remove a task from the list.
+ */
 public class DeleteCommand extends Command {
 
     private final int index;
 
+    /**
+     * Creates a Delete command.
+     * 
+     * @param input The user input string
+     */
     public DeleteCommand(String input) {
         super(input);
         index = Integer.parseInt(input.substring("delete".length()).trim());

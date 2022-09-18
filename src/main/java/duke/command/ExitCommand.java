@@ -5,8 +5,16 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to exit the application
+ */
 public class ExitCommand extends Command {
 
+    /**
+     * Creates an exit command
+     * 
+     * @param input The user input string
+     */
     public ExitCommand(String input) {
         super(input);
     }

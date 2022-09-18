@@ -19,8 +19,18 @@ import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.command.FindCommand;
 
+/**
+ * The parser handles parsing of commands.
+ */
 public class Parser {
 
+    /**
+     * Parses a user input string as a command.
+     * 
+     * @param description User input string
+     * @return The command corresponding to the user input
+     * @throws DukeException Throws an exception if the input is malformed
+     */
     public static Command parseCommand(String description) throws DukeException {
         String keyword = parseKeyword(description);
         switch (keyword) {
@@ -45,10 +55,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the command keyword from the user input.
+     * 
+     * @param description The user input string
+     * @return The keyword
+     */
     public static String parseKeyword(String description) {
         return description.split(" ")[0];
     }
 
+    /**
+     * Drops the command keyword from the user input string.
+     * 
+     * @param description The user input string
+     * @return The user input string with the keyword removed
+     */
     public static String removeKeyword(String description) {
         int firstSpace = description.indexOf(' ');
         if (firstSpace == -1) {
@@ -58,6 +80,13 @@ public class Parser {
         return withoutKeyword;
     }
 
+    /**
+     * Extracts the contents of the user input string that is not part of the
+     * parameter list.
+     * 
+     * @param description The user input string
+     * @return The command contents
+     */
     public static String parseName(String description) {
         String withoutKeyword = removeKeyword(description);
         int firstSlash = withoutKeyword.indexOf('/');
@@ -68,6 +97,12 @@ public class Parser {
         return withoutKeyword.trim();
     }
 
+    /**
+     * Extracts the parameters in the user input.
+     * 
+     * @param description The user input string
+     * @return A map from the parameter key to parameter value
+     */
     public static Map<String, String> parseParams(String description) {
         Map<String, String> paramsMap = new TreeMap<>();
         int firstSlash = description.indexOf('/');
@@ -84,6 +119,15 @@ public class Parser {
         return paramsMap;
     }
 
+    /**
+     * Parses a date string to a LocalDate object. Can handle date formats such as
+     * 2022-12-25, 25-12-2022, 2022/12/25, 25/12/2022, 25 dec, 25 December 2022. If
+     * the year is not provided, such as 25 dec, then it defaults to the current
+     * year.
+     * 
+     * @param input The date string to be parsed
+     * @return A LocalDate object, or null if the date cannot be parsed
+     */
     public static LocalDate parseDateString(String input) {
         if (input.contains(" ")) {
             for (String part : input.split(" ")) {
@@ -128,6 +172,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date time string to a LocalTime object. The time string must contain
+     * a ':' between the hours and minutes and can optionally specify am/pm/AM/PM.
+     * 
+     * @param input The time string to be parsed
+     * @return A LocalTime object or null if the time string cannot be parsed
+     */
     public static LocalTime parseTimeString(String input) {
         input = input.trim();
         // if input contains spaces, then it may contain both a

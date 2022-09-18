@@ -5,8 +5,16 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to list out tasks.
+ */
 public class ListCommand extends Command {
 
+    /**
+     * Creates a List command.
+     * 
+     * @param input The user input string
+     */
     public ListCommand(String input) {
         super(input);
     }
