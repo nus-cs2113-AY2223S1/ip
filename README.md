@@ -34,7 +34,7 @@ Here are the available commands and descriptions on how to use them:
 
 1. list
    - Displays all tasks that are currently in the list
-2. todo <taskName>
+2. **todo <taskName>**
    - Adds a todo task to the list
 3. deadline <taskName> /by <taskDateTime>
    - Adds a deadline task to the list (taskDateTime can be in any format ie. "today 5pm" or "1 Jan 2023")
