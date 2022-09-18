@@ -13,11 +13,17 @@ import java.util.List;
  * <li>{@link duke.tasks.tasktypes.EventTask}</li></ul>
  */
 public abstract class Task {
-    /** Status icon */
+    /**
+     * Status icon
+     */
     private static final String STATUS_ICON = "■";
-    /** Text that each item contains */
+    /**
+     * Text that each item contains
+     */
     private final String TEXT;
-    /** Field that tracks if task is marked as done or not */
+    /**
+     * Field that tracks if task is marked as done or not
+     */
     private boolean isDone;
 
     /**

@@ -10,7 +10,7 @@ import duke.error.exceptions.subcommand.TooManySubCommandsException;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 
-public class InputValidator {
+public class Parser {
     /**
      * Checks if the keyword {@link Duke#COMMAND_TERMINATE} is present at front of input string
      *
@@ -69,7 +69,7 @@ public class InputValidator {
             NoCommandArgumentException, NoSubCommandArgumentException,
             NoSubCommandException, TooManySubCommandsException {
 
-        String firstWord = input.split(" ", 2)[0];
+        String firstWord = input.split(Duke.STRING_DELIMITER, 2)[0];
         String[] commands = {Duke.COMMAND_TODO, Duke.COMMAND_DEADLINE, Duke.COMMAND_EVENT};
 
         if (stringEquals(input, commands)) {
@@ -100,7 +100,7 @@ public class InputValidator {
             NoCommandArgumentException, NoSubCommandArgumentException,
             NoSubCommandException, TooManySubCommandsException {
 
-        String firstWord = input.split(" ")[0];
+        String firstWord = input.split(Duke.STRING_DELIMITER)[0];
         if (input.toLowerCase().contains(subCommand)) {
             return validateCommand(input, firstWord, subCommand);
         } else {
@@ -176,7 +176,7 @@ public class InputValidator {
         if (input.equalsIgnoreCase(command)) {
             throw new NoCommandArgumentException(command);
         } else if (stringContains(input, command)) {
-            if (splitCount(input, " ") != 2) {
+            if (splitCount(input, Duke.STRING_DELIMITER) != 2) {
                 throw new TooManyWordsException(command);
             } else {
                 return true;
@@ -222,7 +222,7 @@ public class InputValidator {
      * @return boolean true or false
      */
     public static boolean stringContains(String input, String substring) {
-        return input.split(" ")[0].equalsIgnoreCase(substring);
+        return input.split(Duke.STRING_DELIMITER)[0].equalsIgnoreCase(substring);
     }
 
     /**
@@ -250,7 +250,8 @@ public class InputValidator {
     public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             return false;
         }
         return true;

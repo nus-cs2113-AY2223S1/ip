@@ -1,18 +1,26 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.io.FileManager;
+import duke.io.Storage;
 
 /**
  * Class to help with formatting strings for printing in the UI.
  */
 public class StringFormatting {
 
-    private static final String STRING_GREETING = "Good morning!\nWhat would you like to do today?";
-    private static final String STRING_GOODBYE = "Alright! Your list has been saved "
-            + "successfully. \n\nSee you around!";
+    /**
+     * Line break character
+     */
+    public static final String LINE_BREAK = "\n";
+
+    private static final String STRING_GREETING = "Good morning!";
+    private static final String STRING_GOODBYE = "Alright! Your list has been saved successfully."
+            + LINE_BREAK + LINE_BREAK + "See you around!";
     private static final String STRING_LOADED = "A save file was found and loaded successfully.";
     private static final String STRING_NOT_LOADED = "No save file was found, or the format was improper.";
+    private static final String STRING_ASK_FOR_INPUT = "What would you like to do today?";
+    private static final int INPUT_INDENT_SIZE = 4;
+
 
     /**
      * Formats a string to say how many tasks there are based on given integer.
@@ -22,9 +30,13 @@ public class StringFormatting {
      * @return formatted string
      */
     public static String formatNumberOfTasksString(int numberOfTasks) {
-        return "\nThere " + (numberOfTasks == 1 ? "is" : "are")
-                + " currently " + numberOfTasks + " task"
-                + (numberOfTasks == 1 ? "" : "s") + " in your list.";
+        if (numberOfTasks == 1) {
+            return LINE_BREAK + "There " + "is"
+                    + " currently " + numberOfTasks + " task in your list.";
+        } else {
+            return LINE_BREAK + "There " + "are"
+                    + " currently " + numberOfTasks + " tasks in your list.";
+        }
     }
 
     /**
@@ -33,13 +45,14 @@ public class StringFormatting {
      * @return greetings string
      */
     public static String getGreeting() {
-        String bufferString = STRING_GREETING + "\n\n";
-        if (FileManager.wasLoaded()) {
+        String bufferString = STRING_GREETING + LINE_BREAK + LINE_BREAK;
+        if (Storage.isLoaded()) {
             bufferString += STRING_LOADED;
         } else {
             bufferString += STRING_NOT_LOADED;
         }
-        return bufferString + formatNumberOfTasksString(Duke.TASK_LIST.getItemCount());
+        return bufferString + formatNumberOfTasksString(Duke.TASK_LIST.getItemCount())
+                + LINE_BREAK + LINE_BREAK + STRING_ASK_FOR_INPUT;
     }
 
     /**
@@ -80,5 +93,13 @@ public class StringFormatting {
      */
     public static String formatDeleteString(String textOfItem) {
         return "Deleted task \"" + textOfItem + "\" from your list.";
+    }
+
+    /**
+     * @return Formats the ask for input dialog at the bottom of the UI.
+     */
+    public static String formatInput() {
+        return LINE_BREAK + "What would you like to do?" + LINE_BREAK + "INPUT:"
+                + DialogBox.generateIndent(INPUT_INDENT_SIZE, DialogBox.INDENT_CHARACTER);
     }
 }

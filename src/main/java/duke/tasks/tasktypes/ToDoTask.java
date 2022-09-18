@@ -1,7 +1,7 @@
 package duke.tasks.tasktypes;
 
 import duke.error.exceptions.NoStateChangeException;
-import duke.io.FileManager;
+import duke.io.Storage;
 import duke.tasks.Task;
 
 import java.util.regex.Pattern;
@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
  */
 public class ToDoTask extends Task {
 
-    /** Icon denoting task type. */
+    /**
+     * Icon denoting task type.
+     */
     private static final String TASK_TYPE_ICON = "T";
 
     public ToDoTask(String text) {
@@ -36,7 +38,7 @@ public class ToDoTask extends Task {
      */
     public static ToDoTask parseToDoTask(String input) {
         // Parse array
-        String[] sections = input.split(Pattern.quote(FileManager.getSeparator()));
+        String[] sections = input.split(Pattern.quote(Storage.getSeparator()));
         String text = sections[2];
         String icon = sections[1];
         ToDoTask bufferTask = new ToDoTask(text);
@@ -45,7 +47,8 @@ public class ToDoTask extends Task {
             if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
-        } catch (NoStateChangeException e) {
+        }
+        catch (NoStateChangeException e) {
             // This will never trigger as isDone is always initialized as false.
         }
         return bufferTask;

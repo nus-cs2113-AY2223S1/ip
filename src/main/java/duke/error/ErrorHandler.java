@@ -1,7 +1,7 @@
 package duke.error;
 
 import duke.error.exceptions.DukeException;
-import duke.ui.UserInterface;
+import duke.ui.Ui;
 
 /**
  * Handles custom exceptions (of type {@link DukeException}) and prints error messages.
@@ -13,6 +13,6 @@ public class ErrorHandler {
      * @param e Exception of type {@link DukeException}
      */
     public static void printErrorMessage(DukeException e) {
-        UserInterface.print(e.getExceptionMessage());
+        Ui.print(e.getExceptionMessage());
     }
 }

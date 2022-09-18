@@ -7,14 +7,14 @@ import duke.error.exceptions.ListEmptyException;
 import duke.error.exceptions.NoStateChangeException;
 import duke.error.exceptions.NotAnIntegerException;
 import duke.error.exceptions.NotRecognizedException;
-import duke.io.FileManager;
-import duke.io.InputValidator;
+import duke.io.Parser;
+import duke.io.Storage;
 import duke.tasks.TaskList;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 import duke.tasks.tasktypes.ToDoTask;
 import duke.ui.StringFormatting;
-import duke.ui.UserInterface;
+import duke.ui.Ui;
 
 public class Duke {
     /* Command list to check against */
@@ -27,11 +27,18 @@ public class Duke {
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_DELETE = "delete";
 
-    /** TaskList class that contains all items */
+    /**
+     * Delimiter character for string splits
+     */
+    public static final String STRING_DELIMITER = " ";
+
+    /**
+     * TaskList class that contains all items
+     */
     public static TaskList TASK_LIST;
 
     public static void main(String[] args) {
-        TASK_LIST = FileManager.LoadTaskList();
+        TASK_LIST = Storage.loadTaskList();
         greet();
         programBody();
         exit();
@@ -42,19 +49,19 @@ public class Duke {
      */
     public static void programBody() {
         while (true) {
-            String input = UserInterface.getInput();
+            String input = Ui.getInput();
             try {
-                if (InputValidator.isTerminatingInput(input)) {
+                if (Parser.isTerminatingInput(input)) {
                     break;
-                } else if (InputValidator.isListInput(input)) {
+                } else if (Parser.isListInput(input)) {
                     printList();
-                } else if (InputValidator.isMarkInput(input)) {
+                } else if (Parser.isMarkInput(input)) {
                     markAndConfirm(input);
-                } else if (InputValidator.isUnmarkInput(input)) {
+                } else if (Parser.isUnmarkInput(input)) {
                     unmarkAndConfirm(input);
-                } else if (InputValidator.isAddInput(input)) {
+                } else if (Parser.isAddInput(input)) {
                     addAndConfirm(input);
-                } else if (InputValidator.isDeleteInput(input)) {
+                } else if (Parser.isDeleteInput(input)) {
                     deleteAndConfirm(input);
                 } else {
                     throw new NotRecognizedException(input);
@@ -75,9 +82,9 @@ public class Duke {
      */
     private static void markAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
-        UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
+        Ui.print(StringFormatting.formatMarkOrUnmarkString(
                 TASK_LIST.getTextOfItem(markItem(input) - 1), true));
-        FileManager.save();
+        Storage.save();
     }
 
     /**
@@ -90,9 +97,9 @@ public class Duke {
      */
     private static void unmarkAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException, NoStateChangeException {
-        UserInterface.print(StringFormatting.formatMarkOrUnmarkString(
+        Ui.print(StringFormatting.formatMarkOrUnmarkString(
                 TASK_LIST.getTextOfItem(unmarkItem(input) - 1), false));
-        FileManager.save();
+        Storage.save();
     }
 
     /**
@@ -101,11 +108,11 @@ public class Duke {
      * @param input input string
      */
     private static void addAndConfirm(String input) {
-        UserInterface.print(StringFormatting.formatAddString(
-                TASK_LIST.getTextOfItem(addItem(input))) + "\n"
+        Ui.print(StringFormatting.formatAddString(
+                TASK_LIST.getTextOfItem(addItem(input))) + StringFormatting.LINE_BREAK
                 + StringFormatting.formatNumberOfTasksString(
                 TASK_LIST.getItemCount()));
-        FileManager.save();
+        Storage.save();
     }
 
     /**
@@ -117,11 +124,11 @@ public class Duke {
      */
     private static void deleteAndConfirm(String input) throws
             NotAnIntegerException, ItemNotFoundException {
-        UserInterface.print(StringFormatting.formatDeleteString(
-                deleteItem(input)) + "\n"
+        Ui.print(StringFormatting.formatDeleteString(
+                deleteItem(input)) + StringFormatting.LINE_BREAK
                 + StringFormatting.formatNumberOfTasksString(
                 TASK_LIST.getItemCount()));
-        FileManager.save();
+        Storage.save();
     }
 
     /**
@@ -133,7 +140,7 @@ public class Duke {
         if (TASK_LIST.getItemCount() <= 0) {
             throw new ListEmptyException();
         }
-        UserInterface.print(TASK_LIST.toString());
+        Ui.print(TASK_LIST.toString());
     }
 
     /**
@@ -143,10 +150,10 @@ public class Duke {
      * @return <b>0-based</b> index of added item.
      */
     private static int addItem(String input) {
-        String task = input.split(" ", 2)[1];
-        if (InputValidator.stringContains(input, COMMAND_DEADLINE)) {
+        String task = input.split(STRING_DELIMITER, 2)[1];
+        if (Parser.stringContains(input, COMMAND_DEADLINE)) {
             return TASK_LIST.addItem(new DeadlineTask(task));
-        } else if (InputValidator.stringContains(input, COMMAND_EVENT)) {
+        } else if (Parser.stringContains(input, COMMAND_EVENT)) {
             return TASK_LIST.addItem(new EventTask(task));
         } else {
             return TASK_LIST.addItem(new ToDoTask(task));
@@ -175,8 +182,9 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
-     * @throws NotAnIntegerException If word after command is not an integer
-     * @throws ItemNotFoundException If item is already marked
+     * @throws NotAnIntegerException  If word after command is not an integer
+     * @throws ItemNotFoundException  If item is already marked
+     * @throws NoStateChangeException If there's no state change to be made to the task item
      */
     private static int markItem(String input) throws NotAnIntegerException, ItemNotFoundException,
             NoStateChangeException {
@@ -192,8 +200,9 @@ public class Duke {
      *
      * @param input input string to find index
      * @return index of item <b>(1-based index)</b>
-     * @throws NotAnIntegerException If word after command is not an integer
-     * @throws ItemNotFoundException If item is already marked
+     * @throws NotAnIntegerException  If word after command is not an integer
+     * @throws ItemNotFoundException  If item is already marked
+     * @throws NoStateChangeException If there's no state change to be made to the task item
      */
     private static int unmarkItem(String input) throws NotAnIntegerException, ItemNotFoundException,
             NoStateChangeException {
@@ -210,9 +219,9 @@ public class Duke {
      * @throws NotAnIntegerException If word after command is not an integer
      */
     private static int extractNumber(String input) throws NotAnIntegerException {
-        String number = input.split(" ")[1];
-        String command = input.split(" ")[0];
-        if (InputValidator.isInteger(number)) {
+        String number = input.split(STRING_DELIMITER)[1];
+        String command = input.split(STRING_DELIMITER)[0];
+        if (Parser.isInteger(number)) {
             return Integer.parseInt(number);
         } else {
             throw new NotAnIntegerException(command);
@@ -223,14 +232,14 @@ public class Duke {
      * Prints a greeting for when the program is run
      */
     private static void greet() {
-        UserInterface.print(StringFormatting.getGreeting());
+        Ui.print(StringFormatting.getGreeting());
     }
 
     /**
      * Prints a goodbye message for when the program is terminated via user commands
      */
     private static void exit() {
-        FileManager.save();
-        UserInterface.print(StringFormatting.getGoodbye());
+        Storage.save();
+        Ui.print(StringFormatting.getGoodbye());
     }
 }

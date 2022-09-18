@@ -1,7 +1,7 @@
 package duke.tasks.tasktypes;
 
 import duke.error.exceptions.NoStateChangeException;
-import duke.io.FileManager;
+import duke.io.Storage;
 import duke.tasks.Task;
 
 import java.util.Arrays;
@@ -12,13 +12,19 @@ import java.util.regex.Pattern;
  * Event item that keeps track of when an item is slated to happen.
  */
 public class EventTask extends Task {
-    /** Keyword to mark when an event is supposed to happen */
+    /**
+     * Keyword to mark when an event is supposed to happen
+     */
     public static final String COMMAND_AT = "/at";
 
-    /** Icon denoting task type. */
+    /**
+     * Icon denoting task type.
+     */
     private static final String TYPE_ICON = "E";
 
-    /** Contains text following the {@link EventTask#COMMAND_AT} command. */
+    /**
+     * Contains text following the {@link EventTask#COMMAND_AT} command.
+     */
     private final String EVENT;
 
     /**
@@ -50,17 +56,18 @@ public class EventTask extends Task {
      */
     public static EventTask parseEventTask(String input) {
         // Parse array
-        String[] sections = input.split(Pattern.quote(FileManager.getSeparator()));
+        String[] sections = input.split(Pattern.quote(Storage.getSeparator()));
         String subcommand = sections[3];
         String text = sections[2];
         String icon = sections[1];
-        EventTask bufferTask = new EventTask(text + "/at" + subcommand);
+        EventTask bufferTask = new EventTask(text + COMMAND_AT + subcommand);
         // Load in "done" state
         try {
             if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
-        } catch (NoStateChangeException e) {
+        }
+        catch (NoStateChangeException e) {
             // This will never trigger as isDone is always initialized as false.
         }
 

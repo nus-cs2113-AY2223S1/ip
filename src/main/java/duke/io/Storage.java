@@ -20,24 +20,36 @@ import java.util.regex.Pattern;
 /**
  * Class for managing loading/saving files. Also handles parsing for text files.
  */
-public class FileManager {
-    /** Location of the directory where the file sits. */
+public class Storage {
+    /**
+     * Location of the directory where the file sits.
+     */
     private static final String FILE_DIRECTORY_LOCATION = Paths.get(".", "save").toString();
 
-    /** Name of file */
+    /**
+     * Name of file
+     */
     private static final String FILE_NAME = "duke" + ".txt";
 
-    /** Full (relative) path pointing to file */
+    /**
+     * Full (relative) path pointing to file
+     */
     private static final String FILE_PATH = Paths.get(FILE_DIRECTORY_LOCATION, FILE_NAME).toString();
 
-    /** {@link File} item initialized from {@link FileManager#FILE_PATH} */
+    /**
+     * {@link File} item initialized from {@link Storage#FILE_PATH}
+     */
     private static final File file = new File(FILE_PATH);
 
-    /** Separator to be used for loading/saving files */
+    /**
+     * Separator to be used for loading/saving files
+     */
     private static final String SEPARATOR = "|";
 
-    /** Boolean flag that triggers if file was loaded. */
-    private static boolean wasLoaded = false;
+    /**
+     * Boolean flag that triggers if file was loaded.
+     */
+    private static boolean isLoaded = false;
 
     /**
      * Loads and populates a {@link TaskList} instance if the file exists. If not,
@@ -45,7 +57,7 @@ public class FileManager {
      *
      * @return {@link TaskList} instance, empty if no file exists
      */
-    public static TaskList LoadTaskList() {
+    public static TaskList loadTaskList() {
         if (file.exists()) {
             return parseFile();
         } else {
@@ -72,14 +84,16 @@ public class FileManager {
                 tasks.addItem(parseRow(row));
             }
             fileScanner.close();
-            wasLoaded = true;
+            isLoaded = true;
             return tasks;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // if file has an issue with opening/closing, return empty task list and delete file
             fileScanner.close();
             file.delete();
             return new TaskList();
-        } catch (SaveFileFormatException e) {
+        }
+        catch (SaveFileFormatException e) {
             // return whatever is currently available and delete file
             fileScanner.close();
             file.delete();
@@ -117,7 +131,7 @@ public class FileManager {
 
     /**
      * Concatenates strings in a {@link List}, with separators of
-     * value {@link FileManager#SEPARATOR} in between.
+     * value {@link Storage#SEPARATOR} in between.
      *
      * @param strings list of strings to be combined
      * @return Properly formatted string
@@ -125,7 +139,7 @@ public class FileManager {
     public static String formatSeparatedString(List<String> strings) {
         String bufferString = "";
         for (String string : strings) {
-            bufferString += string + " " + FileManager.getSeparator() + " ";
+            bufferString += string + Duke.STRING_DELIMITER + Storage.getSeparator() + Duke.STRING_DELIMITER;
         }
         return bufferString.substring(0, bufferString.length() - 3);
     }
@@ -139,7 +153,8 @@ public class FileManager {
                 file.createNewFile();
             }
             fileWriter.write(Duke.TASK_LIST.getSaveString());
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // If cannot write, just delete file.
             file.delete();
         }
@@ -155,11 +170,11 @@ public class FileManager {
     }
 
     /**
-     * Getter for {@link FileManager#wasLoaded} field.
+     * Getter for {@link Storage#isLoaded} field.
      *
      * @return true if a file was loaded.
      */
-    public static boolean wasLoaded() {
-        return wasLoaded;
+    public static boolean isLoaded() {
+        return isLoaded;
     }
 }

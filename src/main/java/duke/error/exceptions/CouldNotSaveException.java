@@ -1,6 +1,6 @@
 package duke.error.exceptions;
 
-import duke.io.FileManager;
+import duke.io.Storage;
 
 /**
  * Exception subclass of {@link DukeException} for if there is an issue saving.
@@ -15,6 +15,6 @@ public class CouldNotSaveException extends DukeException {
     @Override
     public String getExceptionMessage() {
         return "An error occurred while attempting to save. Please try to clear the path \""
-                + FileManager.getPath() + "\".";
+                + Storage.getPath() + "\".";
     }
 }

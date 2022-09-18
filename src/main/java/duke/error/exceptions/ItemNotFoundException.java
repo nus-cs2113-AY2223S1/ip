@@ -30,8 +30,13 @@ public class ItemNotFoundException extends DukeException {
         if (index == 0) {
             tempString += "\nRemember that your to-do list is 1-indexed (0 is not valid).";
         }
-        tempString += (Duke.TASK_LIST.getItemCount() == 0) ? "\nYour to-do list is currently empty." : String.format(
-                "\nYour to-do list currently has %s item(s).", Duke.TASK_LIST.getItemCount());
+        if (Duke.TASK_LIST.getItemCount() == 0) {
+            tempString += "\nYour to-do list is currently empty.";
+        }
+        else {
+            tempString += String.format(
+                    "\nYour to-do list currently has %s item(s).", Duke.TASK_LIST.getItemCount());
+        }
         return tempString;
     }
 }

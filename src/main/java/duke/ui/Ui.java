@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Class to control the user interface (getting input from user, displaying prompts etc.)
  * Displays a box of text overlaid on some ASCII art.
  */
-public class UserInterface {
+public class Ui {
     /**
      * Maximum width of the console the application will run in.
      * Default: 80
@@ -31,7 +31,9 @@ public class UserInterface {
      */
     private static final int TEXTBOX_VERTICAL_POSITION = 20;
 
-    /** Scanner used to read input. */
+    /**
+     * Scanner used to read input.
+     */
     private static final Scanner READER = new Scanner(System.in);
 
     private static final String ASCII_ART =
@@ -67,7 +69,9 @@ public class UserInterface {
             "##### ######;G   ^'' ~^GGSGGQ#   # #   ############,";
             //@@author
 
-    /** ASCII art from {@link UserInterface#ASCII_ART} expressed as a list of strings, where each row is a string */
+    /**
+     * ASCII art from {@link Ui#ASCII_ART} expressed as a list of strings, where each row is a string
+     */
     private static final List<String> textRows = Arrays.asList(ASCII_ART.split("\n"));
 
     /**
@@ -128,7 +132,7 @@ public class UserInterface {
     }
 
     /**
-     * Extends {@link UserInterface#textRows} to fit text box if needed
+     * Extends {@link Ui#textRows} to fit text box if needed
      * (in case of vertical overflow)
      *
      * @param difference difference in height that must be accounted for (negative implies overflow)
@@ -140,7 +144,7 @@ public class UserInterface {
             // If there is overflow (difference is negative or 0)
             // Add (-difference) number of empty rows to outputRows
             for (int i = 0; i >= difference; i--) {
-                outputRows.add(0, DialogBox.generateIndent(MAX_WIDTH, ' '));
+                outputRows.add(0, DialogBox.generateIndent(MAX_WIDTH, DialogBox.INDENT_CHARACTER));
             }
         }
         // Add the ASCII art
@@ -154,9 +158,7 @@ public class UserInterface {
      * @return input string from user
      */
     public static String getInput() {
-        System.out.println();
-        System.out.println("What would you like to do?");
-        System.out.print("INPUT:    ");
+        System.out.print(StringFormatting.formatInput());
         return READER.nextLine().trim();
     }
 }

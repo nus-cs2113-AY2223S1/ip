@@ -1,7 +1,7 @@
 package duke.tasks.tasktypes;
 
 import duke.error.exceptions.NoStateChangeException;
-import duke.io.FileManager;
+import duke.io.Storage;
 import duke.tasks.Task;
 
 import java.util.Arrays;
@@ -12,11 +12,17 @@ import java.util.regex.Pattern;
  * Deadline item that keeps track of when an item has to be completed.
  */
 public class DeadlineTask extends Task {
-    /** Keyword to mark when a task needs to be done by */
+    /**
+     * Keyword to mark when a task needs to be done by
+     */
     public static final String COMMAND_BY = "/by";
-    /** Icon denoting type. */
+    /**
+     * Icon denoting type.
+     */
     private static final String TYPE_ICON = "D";
-    /** Contains text following the {@link DeadlineTask#COMMAND_BY} command. */
+    /**
+     * Contains text following the {@link DeadlineTask#COMMAND_BY} command.
+     */
     private final String DEADLINE;
 
     /**
@@ -48,17 +54,18 @@ public class DeadlineTask extends Task {
      */
     public static DeadlineTask parseDeadlineTask(String input) {
         // Parse array
-        String[] sections = input.split(Pattern.quote(FileManager.getSeparator()));
+        String[] sections = input.split(Pattern.quote(Storage.getSeparator()));
         String subcommand = sections[3];
         String text = sections[2];
         String icon = sections[1];
-        DeadlineTask bufferTask = new DeadlineTask(text + "/by" + subcommand);
+        DeadlineTask bufferTask = new DeadlineTask(text + COMMAND_BY + subcommand);
         // Load in "done" state
         try {
             if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
-        } catch (NoStateChangeException e) {
+        }
+        catch (NoStateChangeException e) {
             // This will never trigger as isDone is always initialized as false.
         }
 

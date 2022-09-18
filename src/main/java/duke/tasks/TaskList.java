@@ -2,7 +2,8 @@ package duke.tasks;
 
 import duke.error.exceptions.ItemNotFoundException;
 import duke.error.exceptions.NoStateChangeException;
-import duke.io.FileManager;
+import duke.io.Storage;
+import duke.ui.StringFormatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,14 @@ import java.util.List;
  * Class that keeps track of each task item added to the program.
  */
 public class TaskList {
-    /** List containing item */
+    /**
+     * List containing item
+     */
     private final List<Task> tasks;
 
-    /** Count of number of items in list */
+    /**
+     * Count of number of items in list
+     */
     private int itemCount = 0;
 
     /**
@@ -33,7 +38,7 @@ public class TaskList {
     public String getSaveString() {
         String bufferString = "";
         for (Task task : tasks) {
-            bufferString += FileManager.formatSeparatedString(task.getSaveItems()) + "\n";
+            bufferString += Storage.formatSeparatedString(task.getSaveItems()) + StringFormatting.LINE_BREAK;
         }
         return bufferString;
     }
@@ -65,7 +70,7 @@ public class TaskList {
             if (Integer.toString(itemCounter - 1).length() == 1) {
                 outputString.append("0");
             }
-            outputString.append(prefix).append(item).append("\n");
+            outputString.append(prefix).append(item).append(StringFormatting.LINE_BREAK);
         }
 
         // remove trailing linebreak
