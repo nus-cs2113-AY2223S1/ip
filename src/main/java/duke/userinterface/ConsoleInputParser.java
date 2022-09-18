@@ -1,5 +1,8 @@
 package duke.userinterface;
 
+/**
+ * Parses user input entered via standard input.
+ */
 public class ConsoleInputParser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -92,6 +95,19 @@ public class ConsoleInputParser {
         }
     }
 
+    /**
+     * Parses user input.
+     *
+     * @param consoleInput Command and arguments entered by the user.
+     * @return Parsed arguments for the corresponding commands.
+     * @throws ConsoleInputParserException.InvalidCommandMarkException     If the format of the mark command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandUnmarkException   If the format of the unmark command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandTodoException     If the format of the todo command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandDeadlineException If the format of the deadline command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandEventException    If the format of the event command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandDeleteException   If the format of the delete command is not valid.
+     * @throws ConsoleInputParserException.CommandNotFoundException        If the command is not found.
+     */
     public static ConsoleCommand parseConsoleInput(ConsoleInput consoleInput) throws
             ConsoleInputParserException.InvalidCommandMarkException,
             ConsoleInputParserException.InvalidCommandUnmarkException,

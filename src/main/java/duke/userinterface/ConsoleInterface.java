@@ -5,7 +5,7 @@ import duke.task.*;
 import java.util.Scanner;
 
 /**
- * Provides functions to interface with user via standard input and standard output
+ * Provides functions to interface with user via standard input and standard output.
  */
 public class ConsoleInterface {
     public static final String TASKS_DIRECTORY_PATH = "./data/";
@@ -14,6 +14,9 @@ public class ConsoleInterface {
     private Scanner scanner;
     private TaskManager taskManager;
 
+    /**
+     * Initializes console interface.
+     */
     public ConsoleInterface() {
         scanner = new Scanner(System.in);
         taskManager = new TaskManager(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
@@ -56,6 +59,9 @@ public class ConsoleInterface {
         System.out.println(goodbyeMessage);
     }
 
+    /**
+     * Prints error message to standard out.
+     */
     public static void printErrorMessage(String errorMessage) {
         System.out.println("☹ OOPS!!! " + errorMessage);
     }
@@ -225,7 +231,7 @@ public class ConsoleInterface {
     }
 
     /**
-     * Executes main interface which interacts with user
+     * Executes command line interface which interacts with user.
      */
     public void executeProgram() {
         ConsoleInterface.printLineSeparator();

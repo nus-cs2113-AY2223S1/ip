@@ -1,9 +1,17 @@
 package duke.task;
 
+/**
+ * Stores tasks.
+ */
 public class Task {
     protected String description;
     protected boolean isComplete;
 
+    /**
+     * Initializes task object.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isComplete = false;
@@ -97,6 +105,9 @@ public class Task {
         }
     }
 
+    /**
+     * Prints task to standard out.
+     */
     public void print() {
         String printString = "[";
 

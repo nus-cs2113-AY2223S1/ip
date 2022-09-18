@@ -2,6 +2,9 @@ package duke;
 
 import duke.userinterface.ConsoleInterface;
 
+/**
+ * Entrypoint of the Duke application.
+ */
 public class Duke {
     /**
      * Initializes application and starts interaction with user.
