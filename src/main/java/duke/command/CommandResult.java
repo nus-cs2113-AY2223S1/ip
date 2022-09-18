@@ -2,11 +2,9 @@ package duke.command;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import duke.data.Messages;
-import duke.data.TaskList;
 import duke.data.task.Task;
 
 public class CommandResult {

@@ -14,8 +14,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        CommandResult result = new CommandResult(Messages.DIVIDER_LIST, TaskList.list, TaskList.getTotalMessage());
-        return result;
+        return new CommandResult(Messages.DIVIDER_LIST, TaskList.list, TaskList.getTotalMessage());
     }
 
 }

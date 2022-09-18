@@ -11,7 +11,6 @@ import duke.data.*;
  * Initializes the application and starts the interaction with the users
  */
 public class Duke {
-    private static final String DUKE_VERSION = "v1.0";
     private TextUi ui;
 
     public static void main(String[] args) {

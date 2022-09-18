@@ -1,5 +1,9 @@
 package duke.parser;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.command.*;
 import duke.data.Messages;
 import duke.data.exceptions.*;
@@ -35,6 +39,8 @@ public class Parser {
             return parseUnmarkCommand(arguments);
         case DeleteCommand.COMMAND_NAME:
             return parseDeleteCommand(arguments);
+        case DateCommand.COMMAND_NAME:
+            return parseDateCommand(arguments);
         case ListCommand.COMMAND_NAME:
             return new ListCommand();
         case ExitCommand.COMMAND_NAME:
@@ -91,6 +97,10 @@ public class Parser {
         TaskList.list.add(new Event(Boolean.valueOf(parsed[1]), parsed[2], parsed[3]));
     }
 
+
+
+
+    
     /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
@@ -169,6 +179,14 @@ public class Parser {
             return new IncorrectCommand(DeleteCommand.SYNTAX);
         }
     }
+    private Command parseDateCommand(String arguments){
+        try {
+            return new DateCommand(LocalDate.parse(arguments));
+        } catch (DateTimeParseException e){
+            return new IncorrectCommand(DateCommand.SYNTAX);
+        }
+    }
+
 
     private int[] strToIntArray(String[] parsed) throws DukeException {
         int[] intParsed = new int[parsed.length];

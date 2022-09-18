@@ -27,8 +27,7 @@ public class TodoCommand extends Command {
         Task added = new Todo(this.description);
         TaskList.list.add(added);
         target.add(added);
-        CommandResult result = new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
-        return result;
+        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
     }
 
 }

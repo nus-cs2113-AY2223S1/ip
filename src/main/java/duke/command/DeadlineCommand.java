@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.data.TaskList;
-
 import java.util.ArrayList;
 
 import duke.data.task.*;
@@ -28,8 +27,7 @@ public class DeadlineCommand extends Command {
         Task added = new Deadline(description, date);
         TaskList.list.add(added);
         target.add(added);
-        CommandResult result = new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
-        return result;
+        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
     }
 
 }
