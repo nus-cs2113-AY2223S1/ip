@@ -15,7 +15,7 @@ public class Parser {
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
     private static final String DELETE = "delete";
-
+    private static final String FIND = "find";
     private static final String LIST = "list";
     private static final String BYE = "bye";
     private final TaskList tasks;
@@ -73,6 +73,12 @@ public class Parser {
         }
         return Integer.parseInt(words[1]) - 1;
     }
+
+    private static String prepareFind(String input) {
+        String[] words = input.split(" ", 2);
+        return words[1];
+    }
+
 
     private static int prepareDelete(String input) throws DukeException {
         String[] words = input.split(" ", 2);
@@ -167,6 +173,12 @@ public class Parser {
         }
     }
 
+    private void findCommand() {
+        String word = prepareFind(input);
+        TaskList tasksFound = tasks.findTasksBySearch(word);
+        ui.printTasksFound(tasksFound);
+    }
+
     public boolean exitCommand() {
         try {
             storage.writeFile(tasks);
@@ -196,7 +208,10 @@ public class Parser {
             deleteCommand();
             break;
         case LIST:
-            tasks.listTask();
+            ui.printListOfTasks(tasks);
+            break;
+        case FIND:
+            findCommand();
             break;
         case BYE:
             isRun = exitCommand();
