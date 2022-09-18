@@ -199,6 +199,11 @@ public class TaskList {
         return itemCount;
     }
 
+    /**
+     * Method to add custom numbering to {@link TaskList#numbers}.
+     *
+     * @param number custom numbering as an integer
+     */
     public void addNumbering(int number) {
         numbers.add(number);
     }

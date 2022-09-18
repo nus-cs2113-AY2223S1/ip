@@ -1,7 +1,13 @@
 package duke;
 
 import duke.error.ErrorHandler;
-import duke.error.exceptions.*;
+import duke.error.exceptions.DukeException;
+import duke.error.exceptions.ItemNotFoundAtIndexException;
+import duke.error.exceptions.ItemNotFoundInListException;
+import duke.error.exceptions.ListEmptyException;
+import duke.error.exceptions.NoStateChangeException;
+import duke.error.exceptions.NotAnIntegerException;
+import duke.error.exceptions.NotRecognizedException;
 import duke.io.Parser;
 import duke.io.Storage;
 import duke.tasks.TaskList;
