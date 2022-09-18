@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exception.DukeException;
-import duke.exception.ExceptionType;
 
 public class Deadline extends Task {
 
@@ -9,11 +8,7 @@ public class Deadline extends Task {
 
     public Deadline(String arguments) throws DukeException {
         super(arguments);
-        String deadlineTime = extractTime(arguments);
-        if (deadlineTime.length() == 0) {
-            throw new DukeException(ExceptionType.MISSING_TIME);
-        }
-        this.deadlineTime = deadlineTime;
+        this.deadlineTime = extractTaskTime(arguments);
     }
 
     public String getDeadlineTime() {
@@ -26,7 +21,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String taskDescription() {
-        return String.format("%s (%s)", this.getName(), this.deadlineTime);
+    public String listTask() {
+        return String.format("%s (%s)", super.listTask(), this.deadlineTime);
     }
 }

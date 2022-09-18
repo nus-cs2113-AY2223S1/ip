@@ -1,10 +1,14 @@
 package duke.exception;
 
-public class DukeException extends Exception{
+import duke.Ui;
 
-    public ExceptionType exceptionType;
+public class DukeException extends Exception {
 
-    public DukeException(ExceptionType exceptionType) {
-        this.exceptionType = exceptionType;
+    public DukeException() {
     }
+
+    public void handle() {
+        Ui.outputWithLines("Invalid input. Boo! Please type help for help");
+    }
+
 }
