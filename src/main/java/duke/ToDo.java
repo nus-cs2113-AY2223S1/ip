@@ -1,3 +1,4 @@
+package duke;
 public class ToDo extends Task {
     private String taskType;
     public ToDo(String name) {
