@@ -1,13 +1,10 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
 
-    public static final String DIVIDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    public static final String SPACER = "  ";
+    public static final String DIVIDER = "-------------------------------------------------";
     protected ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
@@ -26,7 +23,10 @@ public class TaskList {
         taskList.add(toAdd);
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws IndexOutOfBoundsException{
+        if (index > taskList.size()) {
+            throw new IndexOutOfBoundsException();
+        }
         taskList.remove(index);
     }
 

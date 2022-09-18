@@ -66,15 +66,19 @@ public class Storage {
     }
 
     public void writeFile(TaskList tasks) throws IOException {
-        StringBuilder toWrite = new StringBuilder(tasks.findTask(0).taskToString());
-        toWrite.append(System.lineSeparator());
-        for (int i = 1; i < tasks.getSize(); i += 1) {
-            toWrite.append(tasks.findTask(i).taskToString()).append(System.lineSeparator());
+        if (tasks.getSize() == 0) {
+            new FileWriter(filePath, false).close();
+        } else {
+            StringBuilder toWrite = new StringBuilder(tasks.findTask(0).taskToString());
+            toWrite.append(System.lineSeparator());
+            for (int i = 1; i < tasks.getSize(); i += 1) {
+                toWrite.append(tasks.findTask(i).taskToString()).append(System.lineSeparator());
+            }
+            String directory = filePath.substring(0, filePath.lastIndexOf("/"));
+            new File(directory).mkdir();
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(toWrite.toString());
+            fw.close();
         }
-        String directory = filePath.substring(0, filePath.lastIndexOf("/"));
-        new File(directory).mkdir();
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(toWrite.toString());
-        fw.close();
     }
 }

@@ -32,7 +32,7 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-    public String taskToString() {
+    public String taskToString() throws NullPointerException{
         if (isDone) {
             return "|" + "1" + "|" + description;
         }
