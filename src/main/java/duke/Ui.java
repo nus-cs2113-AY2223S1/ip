@@ -142,4 +142,7 @@ public class Ui {
     public static void showInvalidFormat() {
         System.out.println("Task list format is invalid.");
     }
+    public static void showOutOfBoundsError() {
+        System.out.println("Task ID not found. Please enter a valid task ID.");
+    }
 }

@@ -43,6 +43,8 @@ public class Duke {
                 ui.showError(e.getErrorMessage());
             } catch (IOException e) {
                 ui.showError(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                ui.showOutOfBoundsError();
             } finally {
                 ui.drawLine();
             }
