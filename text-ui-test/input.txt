@@ -4,7 +4,7 @@ todo watch lecture
 list
 todo
 list
-deadline Level-4 CS2113 /by Mon 28th Aug
+deadline Level-4 CS2113 /by 2022-08-28
 list
 mark 2
 mark 5
@@ -14,7 +14,8 @@ deadline CS2113 A-Release /by
 deadline /by 2022-09-30
 deadline /by
 deadline CS2113 A-Release /by Sep 30 2022
-event Orbital Splashdown /at Wed 24th Aug
+deadline CS2113 A-Release /by 2022-09-30
+event Orbital Splashdown /at 2022-08-24
 list
 mark 1
 mark 3
@@ -35,7 +36,7 @@ list
 delete 20
 delete 1
 mark 5
-taskList
+list
 unmark 5
 event Prom /at 2022-10-03
 list

@@ -1,57 +1,95 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Hello! I'm Banana
 How can I help you?
-  ____
- |  _ \
- | |_) | __ _ _ __   __ _ _ __   __ _
- |  _ < / _` | '_ \ / _` | '_ \ / _` |
- | |_) | (_| | | | | (_| | | | | (_| |
- |____/ \__,_|_| |_|\__,_|_| |_|\__,_|
+  ____                                 
+ |  _ \                                
+ | |_) | __ _ _ __   __ _ _ __   __ _  
+ |  _ < / _` | '_ \ / _` | '_ \ / _` | 
+ | |_) | (_| | | | | (_| | | | | (_| | 
+ |____/ \__,_|_| |_|\__,_|_| |_|\__,_| 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-There is nothing in your taskList right now
+There is nothing in your list right now
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Sorry, I do not understand your input
+SORRY!!! I cannot understand this command
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
+Got it, I added this task to your list:
 ----->  [T][ ] watch lecture
-Now you have 1 task in the taskList
+Now you have 1 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 1 tasks in your taskList:
+Here are 1 task(s) in your list:
    1. [T][ ] watch lecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
------>  [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-Now you have 2 tasks in the taskList
+OOPS!!! The description of a todo cannot be empty
+Follow this format: todo {description}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 2 tasks in your taskList:
+Here are 1 task(s) in your list:
    1. [T][ ] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Got it, I added this task to your list:
+----->  [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+Now you have 2 task(s) in the list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are 2 task(s) in your list:
+   1. [T][ ] watch lecture
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Congratulations! You have done this task:
------>  [D][X] Level-4 CS2113 (due: Mon 28th Aug)
+----->  [D][X] Level-4 CS2113 (due: Sun, Aug 28 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 2 tasks in your taskList:
+OOPS!!! The task number is out of bound ☹
+There are only 2 task(s) in your list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The task number is out of bound ☹
+There are only 2 task(s) in your list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are 2 task(s) in your list:
    1. [T][ ] watch lecture
-   2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
+   2. [D][X] Level-4 CS2113 (due: Sun, Aug 28 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
------>  [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-Now you have 3 tasks in the taskList
+OOPS!!! The deadline description or time is missing
+Follow this format: deadline {description} /by {time}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your taskList:
+OOPS!!! The deadline description cannot be empty
+Follow this format: deadline {description} /by {time}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The deadline description or time is missing
+Follow this format: deadline {description} /by {time}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! I cannot recognize the date
+Follow this format: yyyy-mm-dd
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Got it, I added this task to your list:
+----->  [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+Now you have 3 task(s) in the list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Got it, I added this task to your list:
+----->  [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
+Now you have 4 task(s) in the list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are 4 task(s) in your list:
    1. [T][ ] watch lecture
-   2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
+   2. [D][X] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Congratulations! You have done this task:
@@ -59,62 +97,64 @@ Congratulations! You have done this task:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Congratulations! You have done this task:
------>  [E][X] Orbital Splashdown (at: Wed 24th Aug)
+----->  [D][X] CS2113 A-Release (due: Fri, Sep 30 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your taskList:
+Here are 4 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][X] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][X] Orbital Splashdown (at: Wed 24th Aug)
+   2. [D][X] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][X] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OK, I've marked this task as not done yet:
------>  [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
+----->  [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your taskList:
+Here are 4 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][X] Orbital Splashdown (at: Wed 24th Aug)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][X] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OK, I've marked this task as not done yet:
------>  [E][ ] Orbital Splashdown (at: Wed 24th Aug)
+----->  [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 3 tasks in your taskList:
+Here are 4 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
------>  [D][ ] Java Coding Exercises (due: tonight)
-Now you have 4 tasks in the taskList
+OOPS!!! I cannot recognize the date
+Follow this format: yyyy-mm-dd
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 4 tasks in your taskList:
+Here are 4 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
+Got it, I added this task to your list:
 ----->  [T][ ] go buy some grocery
-Now you have 5 tasks in the taskList
+Now you have 5 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
+Got it, I added this task to your list:
 ----->  [T][ ] go to the gym
-Now you have 6 tasks in the taskList
+Now you have 6 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 6 tasks in your taskList:
+Here are 6 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
    5. [T][ ] go buy some grocery
    6. [T][ ] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,90 +163,125 @@ Congratulations! You have done this task:
 ----->  [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 6 tasks in your taskList:
+Here are 6 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
    5. [T][ ] go buy some grocery
    6. [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
------>  [E][ ] Meeting with friend (at: Utown 9pm)
-Now you have 7 tasks in the taskList
+OOPS!!! I cannot recognize the date
+Follow this format: yyyy-mm-dd
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your taskList:
+Here are 6 task(s) in your list:
    1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
+   2. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   3. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   4. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
    5. [T][ ] go buy some grocery
    6. [T][X] go to the gym
-   7. [E][ ] Meeting with friend (at: Utown 9pm)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The task number is out of bound ☹
+There are only 6 task(s) in your list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Noted. I've removed this task:
+----->  [T][X] watch lecture
+Now you have 5 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Congratulations! You have done this task:
------>  [T][X] go buy some grocery
+----->  [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your taskList:
-   1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
-   5. [T][X] go buy some grocery
-   6. [T][X] go to the gym
-   7. [E][ ] Meeting with friend (at: Utown 9pm)
+Here are 5 task(s) in your list:
+   1. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   2. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   3. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
+   4. [T][ ] go buy some grocery
+   5. [T][X] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OK, I've marked this task as not done yet:
------>  [T][ ] go buy some grocery
+----->  [T][ ] go to the gym
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 7 tasks in your taskList:
-   1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
-   5. [T][ ] go buy some grocery
-   6. [T][X] go to the gym
-   7. [E][ ] Meeting with friend (at: Utown 9pm)
+Got it, I added this task to your list:
+----->  [E][ ] Prom (at: Mon, Oct 03 2022)
+Now you have 6 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Got it, I added this task to your taskList:
------>  [E][ ] Weekly project meeting (at: Mon 11am-1pm)
-Now you have 8 tasks in the taskList
+Here are 6 task(s) in your list:
+   1. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   2. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   3. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
+   4. [T][ ] go buy some grocery
+   5. [T][ ] go to the gym
+   6. [E][ ] Prom (at: Mon, Oct 03 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 8 tasks in your taskList:
-   1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
-   5. [T][ ] go buy some grocery
-   6. [T][X] go to the gym
-   7. [E][ ] Meeting with friend (at: Utown 9pm)
-   8. [E][ ] Weekly project meeting (at: Mon 11am-1pm)
+OOPS!!! The event description or time is missing
+Follow this format: event {description} /at {time}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The event description cannot be empty
+Follow this format: event {description} /at {time}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The event description or time is missing
+Follow this format: event {description} /at {time}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Got it, I added this task to your list:
+----->  [E][ ] RunNUS (at: Sat, Sep 17 2022)
+Now you have 7 task(s) in the list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! I cannot recognize the date
+Follow this format: yyyy-mm-dd
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are 7 task(s) in your list:
+   1. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   2. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   3. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
+   4. [T][ ] go buy some grocery
+   5. [T][ ] go to the gym
+   6. [E][ ] Prom (at: Mon, Oct 03 2022)
+   7. [E][ ] RunNUS (at: Sat, Sep 17 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Congratulations! You have done this task:
------>  [E][X] Meeting with friend (at: Utown 9pm)
+----->  [E][X] RunNUS (at: Sat, Sep 17 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here are 8 tasks in your taskList:
-   1. [T][X] watch lecture
-   2. [D][ ] Level-4 CS2113 (due: Mon 28th Aug)
-   3. [E][ ] Orbital Splashdown (at: Wed 24th Aug)
-   4. [D][ ] Java Coding Exercises (due: tonight)
-   5. [T][ ] go buy some grocery
-   6. [T][X] go to the gym
-   7. [E][X] Meeting with friend (at: Utown 9pm)
-   8. [E][ ] Weekly project meeting (at: Mon 11am-1pm)
+Here are 7 task(s) in your list:
+   1. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   2. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+   3. [E][ ] Orbital Splashdown (at: Wed, Aug 24 2022)
+   4. [T][ ] go buy some grocery
+   5. [T][ ] go to the gym
+   6. [E][ ] Prom (at: Mon, Oct 03 2022)
+   7. [E][X] RunNUS (at: Sat, Sep 17 2022)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Sorry, I do not understand your input
+Here are 2 matching task(s) in your list:
+   1. [D][ ] Level-4 CS2113 (due: Sun, Aug 28 2022)
+   2. [D][ ] CS2113 A-Release (due: Fri, Sep 30 2022)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OOPS!!! The keyword is missing
+Follow this format: find {keyword}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+There is no matching task in your list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SORRY!!! I cannot understand this command
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Enter command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Good bye. Hope to see you again soon!
