@@ -18,6 +18,17 @@ import duke.task.Task;
 import duke.task.Todo;
 
 public abstract class Parser {
+    /**
+     * Parses the task according to user input and the type of task provided
+     * 
+     * @param type  the type of task to parse
+     * @param input the user input
+     * @return the new task created
+     * @throws MissingTodoDescriptionException     if no description provided for todo task
+     * @throws MissingDeadlineDescriptionException if no description provided for deadline task
+     * @throws MissingEventDescriptionException    if no description provided for event task
+     * @throws InvalidDateTimeException            if the date time format is invalid
+     */
     public static Task parseTask(String type, String input)
             throws MissingTodoDescriptionException, MissingDeadlineDescriptionException,
             MissingEventDescriptionException, InvalidDateTimeException {
@@ -89,6 +100,17 @@ public abstract class Parser {
         return newTask;
     }
 
+    /**
+     * Parses the task number according to user input and the type of task provided
+     * 
+     * @param type  the type of task to parse
+     * @param input the user input
+     * @return the task number from the input
+     * @throws MissingTaskNumberException     if the task number is missing
+     * @throws NonIntegerTaskNumberException  if the task number is not an integer
+     * @throws OutOfBoundsTaskNumberException if the task number is <= 0 or > current number of
+     *                                        tasks
+     */
     public static int parseTaskNumber(String type, String input) throws MissingTaskNumberException,
             NonIntegerTaskNumberException, OutOfBoundsTaskNumberException {
         String taskNumString;
@@ -160,6 +182,13 @@ public abstract class Parser {
         return taskNumInt;
     }
 
+    /**
+     * Parses the saved file data
+     * 
+     * @param line the current input line from the file
+     * @return the saved task and whether the task is marked or not
+     * @throws InvalidInputException if the saved data has an invalid format
+     */
     public static String[] parseFileInputs(String line) throws InvalidInputException {
         String[] parts = line.split(", ");
 
@@ -202,6 +231,13 @@ public abstract class Parser {
         return fileData;
     }
 
+    /**
+     * Parses the file data to be saved
+     * 
+     * @param line the current line from the task list to save
+     * @return the string to be writtent to the file
+     * @throws InvalidOutputException if the data to save has an invalid format
+     */
     public static String parseFileOutputs(String line) throws InvalidOutputException {
         String[] parts = line.split("]");
 
