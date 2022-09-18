@@ -227,10 +227,20 @@ public class DialogBox {
         textBoxRows.add("/ " + generateIndent(width, LINE_HORIZONTAL_CHARACTER));
     }
 
+    /**
+     * Get height of the {@link DialogBox} instance.
+     *
+     * @return height expressed as an int
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Get properly formatted text contents, including the box.
+     *
+     * @return a list of Strings where each row is a row of text corresponding to the box.
+     */
     public List<String> getTextBox() {
         return textBoxRows;
     }

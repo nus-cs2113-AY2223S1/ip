@@ -260,7 +260,7 @@ public class Duke {
      * Prints a greeting for when the program is run
      */
     private static void greet() {
-        Ui.print(StringFormatting.getGreeting());
+        Ui.print(StringFormatting.formatGreeting());
     }
 
     /**

@@ -45,7 +45,7 @@ public class StringFormatting {
      *
      * @return greetings string
      */
-    public static String getGreeting() {
+    public static String formatGreeting() {
         String bufferString = STRING_GREETING + LINE_BREAK + LINE_BREAK;
         if (Storage.isLoaded()) {
             bufferString += STRING_LOADED;
