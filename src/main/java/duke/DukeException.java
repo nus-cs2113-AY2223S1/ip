@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents error message when user input/task list info is valid
+ */
 public class DukeException extends Exception{
     private String errorMessage;
     public DukeException(String errorMessage) {

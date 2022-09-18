@@ -2,6 +2,10 @@ package duke;
 
 import java.io.IOException;
 
+/**
+ * Represents the primary command passed in by user
+ * Eg. mark, unmark, delete, find
+ */
 public class Command {
     private static String command;
     public Command(String command) {

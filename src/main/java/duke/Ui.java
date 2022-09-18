@@ -1,11 +1,22 @@
 package duke;
+/**
+ * Deals with interactions with the user,
+ * takes in user input and handles user output
+ */
 
 import java.util.Scanner;
 
 public class Ui {
-    public static void drawLine() {    //print underscore symbol 50 times
+    /**
+     * Prints a line separator.
+     */
+    public static void drawLine() {
         System.out.println("__________________________________________________");
     }
+
+    /**
+     * Prints welcome message.
+     */
     public static void showWelcome() {
         String logo =  " _____ __    _____ _____ _____\n"
                 + "| __  |  |  |     |     |     |\n"
@@ -18,15 +29,30 @@ public class Ui {
         System.out.println("What can I do for you?");
         drawLine();
     }
+
+    /**
+     * Prints goodbye message.
+     */
     public static void showGoodbye() {
         System.out.println("Bye. Hope to see you again!");
         drawLine();
     }
+
+    /**
+     * Reads in user input and returns it.
+     * @return user input.
+     */
     public static String readCommand() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         return command;
     }
+
+    /**
+     * Prints all tasks currently in the list.
+     * @param tasks List of tasks.
+     * @param taskCounter Number of tasks.
+     */
     public static void showList(TaskList tasks, int taskCounter) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; ++i) {
@@ -36,16 +62,34 @@ public class Ui {
                     + tasks.getTasks().get(i));
         }
     }
+
+    /**
+     * Prints the marked task, with an [X] indicating marked.
+     * @param tasks List of tasks.
+     * @param taskID User input of task ID.
+     */
     public static void showMarked(TaskList tasks, int taskID) {
         System.out.println("Nice! I've marked this task as done:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
         System.out.println("[" + taskType + "]" + "[X] " + tasks.getTasks().get(taskID - 1));
     }
+
+    /**
+     * Prints the unmarked task, with a [ ] indicating unmarked.
+     * @param tasks List of tasks.
+     * @param taskID User input of task ID.
+     */
     public static void showUnmarked(TaskList tasks, int taskID) {
         System.out.println("Okay, I've marked this task as not done yet:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
         System.out.println("[" + taskType + "]"+ "[ ] " + tasks.getTasks().get(taskID - 1));
     }
+
+    /**
+     * Prints the deleted task.
+     * @param tasks List of tasks.
+     * @param taskID User input of task ID.
+     */
     public static void showDeleted(TaskList tasks, int taskID) {
         System.out.println("Noted. I've removed this task:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
@@ -54,6 +98,12 @@ public class Ui {
         System.out.println(tasks.getTasks().get(taskID - 1));
         System.out.println("Now you have " + (tasks.getTaskCounter() - 1) + " tasks in the list.");
     }
+
+    /**
+     * Prints the added task.
+     * @param task Task that has been added.
+     * @param taskCounter Number of tasks.
+     */
     public static void showAdded(Task task, int taskCounter) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  [" + task.getType() + "]" + "[ ] " + task);
