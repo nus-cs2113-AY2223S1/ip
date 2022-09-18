@@ -54,7 +54,9 @@ public class Command {
             ui.showSearched(tasks, keyword);
             break;
         case "todo":
+            //Fallthrough
         case "deadline":
+            //Fallthrough
         case "event":
             tasks.createTask(fullCommand);
             break;
