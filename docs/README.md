@@ -1,6 +1,6 @@
-# User Guide for Project Duke
+# <span style="color: #F5821F;">User Guide for Project Duke</span>
 
-## Table of Contents
+## <span style="color: #003A79;">Table of Contents</span>
 * [Introduction](https://bdthanh.github.io/ip/#introduction)
 * [Quick start](https://bdthanh.github.io/ip/#quick-start)
 * [Features and Usages](https://bdthanh.github.io/ip/#features-and-usage)
@@ -24,7 +24,7 @@
   - [Exit Duke ```bye```](https://bdthanh.github.io/ip/#bye---exit-duke)
 
 
-## Introduction 
+## <span style="color: #003A79;">Introduction</span>
 Duke is a **Command Line Interface (CLI) Personal Assistant Chatbot** that helps a user to manage daily tasks.
 Currently, Duke supports 3 types of task:
 
@@ -32,18 +32,32 @@ Currently, Duke supports 3 types of task:
 - _Deadline_ 
 - _Event_
 
-## Quick start
+## <span style="color: #003A79;">Quick start</span>
 
 1. Install Java 11 (Oracle version is recommended) on your computer.
 2. Download the latest release of ```Duke.jar``` [here](https://github.com/bdthanh/ip/releases/tag/A-Release).
 3. Move the file to the desired folder for Duke.
 4. Open the Command Prompt (for Windows) or Terminal (for Unix) and redirect to home folder of Duke.
 5. Launch the chatbot Duke by using ```java -jar Duke.jar```.
+
+   You are supposed to see a greeting message like this if the setup is correct: 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Hello! I'm Banana
+How can I help you?
+  ____                                 
+ |  _ \                                
+ | |_) | __ _ _ __   __ _ _ __   __ _  
+ |  _ < / _` | '_ \ / _` | '_ \ / _` | 
+ | |_) | (_| | | | | (_| | | | | (_| | 
+ |____/ \__,_|_| |_|\__,_|_| |_|\__,_| 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 6. Type the valid command and press Enter to run the command. See [Features and Usage](https://bdthanh.github.io/ip/#features-and-usage) for more information of commands.
 
-## Features and Usage
+## <span style="color: #003A79;">Features and Usage</span>
 
-### ```todo``` - Add a todo task 
+### ```todo``` - <span style="color: #9ABBD9;">Add a todo task</span>
 >Adds a new todo task to the list
 
 Format: ```todo DESCRIPTION```
@@ -59,7 +73,9 @@ Now you have 1 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```deadline``` - Add a deadline
+<br>
+
+### ```deadline``` - <span style="color: #9ABBD9;">Add a deadline</span>
 >Adds a new deadline to the list
 
 Format: ```deadline DESCRIPTION /by yyyy-mm-dd```
@@ -75,7 +91,9 @@ Now you have 2 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```event``` - Add an event
+<br>
+
+### ```event``` - <span style="color: #9ABBD9;">Add an event</span>
 >Adds a new event to the list
 
 Format: ```event DESCRIPTION /at yyyy-mm-dd```
@@ -91,7 +109,9 @@ Now you have 3 task(s) in the list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```list``` - List all tasks
+<br>
+
+### ```list``` - <span style="color: #9ABBD9;">List all tasks</span>
 >Print all tasks information in the current list
 
 Format: ```list```
@@ -106,7 +126,9 @@ Here are 3 task(s) in your list:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```mark``` - Mark as done 
+<br>
+
+### ```mark``` - <span style="color: #9ABBD9;">Mark as done</span>
 >Mark a task as done given its index number
 
 Format: ```mark INDEX_NUMBER```
@@ -121,7 +143,9 @@ Congratulations! You have done this task:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```unmark``` - Mark as undone
+<br>
+
+### ```unmark``` - <span style="color: #9ABBD9;">Mark as undone</span>
 >Mark a task as undone given its index number
 
 Format: ```unmark INDEX_NUMBER```
@@ -134,7 +158,9 @@ OK, I've marked this task as not done yet:
 ----->  [D][ ] Increment Level-9 (due: Fri, Sep 30 2022)
 ```
 
-### ```delete``` - Delete a task
+<br>
+
+### ```delete``` - <span style="color: #9ABBD9;">Delete a task</span>
 >Delete a task in the list given its index number
 
 Format: ```delete INDEX_NUMBER```
@@ -148,7 +174,9 @@ Noted. I've removed this task:
 Now you have 2 task(s) in the list
 ```
 
-### ```find``` - Find tasks by keyword
+<br>
+
+### ```find``` - <span style="color: #9ABBD9;">Find tasks by keyword</span>
 >Find all tasks matched with a given keyword
 
 Format: ```find KEYWORD```
@@ -163,7 +191,9 @@ Here are 1 matching task(s) in your list:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-### ```bye``` - Exit Duke
+<br>
+
+### ```bye``` - <span style="color: #9ABBD9;">Exit Duke</span>
 >Exit Duke with a goodbye message
 
 Format: ```bye```
@@ -174,3 +204,4 @@ Expected outcome:
 Good bye. Hope to see you again soon!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
+<span style="color: red;">text</span>
