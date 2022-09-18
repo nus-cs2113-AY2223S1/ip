@@ -5,9 +5,17 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to mark a task as undone.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
+    /**
+     * Creates an Unmark command.
+     * 
+     * @param input The user input string
+     */
     public UnmarkCommand(String input) {
         super(input);
         index = Integer.parseInt(input.substring("unmark".length()).trim());

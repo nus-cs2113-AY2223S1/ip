@@ -12,14 +12,29 @@ import java.util.List;
 import duke.task.Task;
 import duke.task.TaskFactory;
 
+/**
+ * The Storage class is responsible for saving and loading data from the data
+ * file. The default path for the data file is ./data/duke.txt
+ */
 public class Storage {
 
     public static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Reads a list of tasks from the default data file.
+     * 
+     * @return A list of tasks
+     */
     public static List<Task> readDataFile() {
         return readDataFile(FILE_PATH);
     }
 
+    /**
+     * Reads a list of tasks from the specified data file.
+     * 
+     * @param path Path to the data file
+     * @return A list of tasks
+     */
     public static List<Task> readDataFile(String path) {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -37,10 +52,23 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes a list of tasks to the default data file.
+     * 
+     * @param tasks The list of tasks to be written
+     * @throws DukeException Throws an exception if the file cannot be written to
+     */
     public static void writeDataFile(List<Task> tasks) throws DukeException {
         writeDataFile(tasks, FILE_PATH);
     }
 
+    /**
+     * Writes a list of tasks to the specified data file.
+     * 
+     * @param tasks The list of tasks to be written
+     * @param path  The path of the file to write to
+     * @throws DukeException Throws an exception if the file cannot be written to
+     */
     public static void writeDataFile(List<Task> tasks, String path) throws DukeException {
         try {
             File dataFile = new File(path);

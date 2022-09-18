@@ -5,10 +5,18 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to mark a task as done
+ */
 public class MarkCommand extends Command {
 
     private final int index;
 
+    /**
+     * Creates a Mark command
+     * 
+     * @param input The user input string
+     */
     public MarkCommand(String input) {
         super(input);
         index = Integer.parseInt(input.substring("mark".length()).trim());
