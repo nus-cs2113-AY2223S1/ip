@@ -16,10 +16,13 @@ public class DeadlineTask extends Task {
      * Keyword to mark when a task needs to be done by
      */
     public static final String COMMAND_BY = "/by";
+
     /**
      * Icon denoting type.
      */
     private static final String TYPE_ICON = "D";
+
+
     /**
      * Contains text following the {@link DeadlineTask#COMMAND_BY} command.
      */
@@ -100,5 +103,14 @@ public class DeadlineTask extends Task {
     @Override
     public List<String> getSaveItems() {
         return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText(), DEADLINE);
+    }
+
+    /**
+     * Returns deadline string.
+     *
+     * @return Deadline string
+     */
+    public String getDeadline() {
+        return DEADLINE;
     }
 }

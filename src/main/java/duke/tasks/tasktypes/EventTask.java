@@ -25,17 +25,17 @@ public class EventTask extends Task {
     /**
      * Contains text following the {@link EventTask#COMMAND_AT} command.
      */
-    private final String EVENT;
+    private final String EVENT_DATE;
 
     /**
      * Splits the text into two and initializes
-     * the {@link EventTask#EVENT} string.
+     * the {@link EventTask#EVENT_DATE} string.
      *
      * @param text input text to be parsed
      */
     public EventTask(String text) {
         super(text.split(COMMAND_AT)[0]);
-        EVENT = text.split(COMMAND_AT)[1].trim();
+        EVENT_DATE = text.split(COMMAND_AT)[1].trim();
     }
 
     /**
@@ -91,7 +91,7 @@ public class EventTask extends Task {
      * @return postfix string
      */
     protected String getPostFix() {
-        return "(at: " + EVENT + ")";
+        return "(at: " + EVENT_DATE + ")";
     }
 
     /**
@@ -101,6 +101,15 @@ public class EventTask extends Task {
      */
     @Override
     public List<String> getSaveItems() {
-        return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText(), EVENT);
+        return Arrays.asList(getTypeIcon(), getStatusIconSave(), getText(), EVENT_DATE);
+    }
+
+    /**
+     * Returns event date string.
+     *
+     * @return Event date string
+     */
+    public String getEventDate() {
+        return EVENT_DATE;
     }
 }
