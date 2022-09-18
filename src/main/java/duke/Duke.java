@@ -16,6 +16,7 @@ public class Duke {
     public void run() {
         boolean isExit = false;
         ui.initialize();
+        TaskList lastResults = taskList;
         while (!isExit) {
             String input = ui.getInput().trim();
             try {
@@ -23,7 +24,7 @@ public class Duke {
                 if (command.isExit()) {
                     isExit = true;
                 }
-                command.execute(taskList, ui, storage);
+                lastResults = command.execute(taskList, ui, storage, lastResults);
             } catch (DukeException e) {
                 ui.displayMessage(e.getMessage());
             }
