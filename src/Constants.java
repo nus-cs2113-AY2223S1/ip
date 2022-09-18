@@ -6,6 +6,7 @@ public class Constants {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
     public static final int TASK = 0;
     public static final int NUMBER = 1;
     public static final int DETAILS = 1;
@@ -20,5 +21,6 @@ public class Constants {
     public static final String EVENT_FORMAT_ERROR = "Invalid event format! Please remember to add '/at' before your event timing!";
     public static final String FILE_TASK_CONVERSION_ERROR = "Invalid task format in data file! Please check data file!";
     public static final String NOT_INTEGER = "Please input a number!";
+    public static final String MISSING_KEYWORD = "Please input a keyword to find a matching task!";
     public static final String WRONG_TIME_FORMAT = "Please input your date and time in YYYY-MM-DDTHH:mm format!";
 }

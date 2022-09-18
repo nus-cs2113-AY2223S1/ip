@@ -94,6 +94,8 @@ public class Parser extends Constants{
                     throw new Error(MARK_ERROR);
                 case DEADLINE:
                     throw new Error(DELETE_ERROR);
+                case FIND:
+                    throw new Error(MISSING_KEYWORD);
                 default:
                     throw new Error(INVALID_COMMAND);
             }
@@ -134,6 +136,9 @@ public class Parser extends Constants{
                 catch (Error error) {
                     System.out.println(error.getMessage());
                 }
+                break;
+            case FIND:
+                taskList.showMatchedTasks(get[DETAILS]);
                 break;
             default:
                 System.out.println(INVALID_COMMAND);
