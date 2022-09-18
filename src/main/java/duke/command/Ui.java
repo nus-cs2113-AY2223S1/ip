@@ -6,6 +6,8 @@ import duke.exception.DukeException;
 import duke.task.TaskList;
 
 public abstract class Ui {
+    public static final String HORIZONTAL_LINE = "______________________________";
+
     public static final String EXIT_PHRASE = "bye";
     public static final String LIST_PHRASE = "list";
     public static final String MARK_PHRASE = "mark";
@@ -17,6 +19,31 @@ public abstract class Ui {
     public static final String AT_PHRASE = "/at";
     public static final String DELETE_PHRASE = "delete";
     public static final String SEARCH_PHRASE = "find";
+
+    /**
+     * Prints the greeting to the user
+     */
+    public static void printIntroduction() {
+        final String INTRODUCTION =
+                "Hihi, my name is Jay!" + System.lineSeparator() + "What can I do for you today?";
+
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(INTRODUCTION);
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println();
+    }
+
+    /**
+     * Prints the goodbye statement ot the user
+     */
+    public static void printExit() {
+        final String EXIT = "Goodbye! Hope to see you again!";
+
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(EXIT);
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println();
+    }
 
     /**
      * Reads the user input. Keeps reading input until the exit phrase is given.
@@ -33,7 +60,7 @@ public abstract class Ui {
                 break;
             }
 
-            System.out.println(Duke.HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE);
 
             try {
                 handleInput(input);
@@ -41,7 +68,7 @@ public abstract class Ui {
                 System.out.println("Bad Input :(");
             }
 
-            System.out.println(Duke.HORIZONTAL_LINE + System.lineSeparator());
+            System.out.println(HORIZONTAL_LINE + System.lineSeparator());
         }
 
         in.close();
