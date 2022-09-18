@@ -21,12 +21,11 @@ public class TaskList {
         return items.size();
     }
 
-    public Task getItem(int index) {
-        if (index >= 1 && index <= items.size()) {
-            return items.get(index - 1);
-        } else {
-            return null;
+    public Task getItem(int index) throws DukeException {
+        if (index < 1 || index > items.size()) {
+            throw new DukeException("Task at index " + index + " does not exist!");
         }
+        return items.get(index - 1);
     }
 
     public void addItem(Task item) throws DukeException {
@@ -34,27 +33,20 @@ public class TaskList {
         Storage.writeDataFile(items);
     }
 
-    public void deleteItem(int index) throws DukeException {
-        if (index < 1 || index > items.size()) {
-            throw new DukeException("Task at index " + index + " does not exist!");
-        }
-        items.remove(index - 1);
+    public void deleteItem(Task task) throws DukeException {
+        items.remove(task);
         Storage.writeDataFile(items);
     }
 
-    public void markDone(int index) throws DukeException {
-        if (index < 1 || index > items.size()) {
-            throw new DukeException("Task at index " + index + " does not exist!");
-        }
-        items.get(index - 1).markDone();
+    public void markDone(Task task) throws DukeException {
+        int index = items.indexOf(task);
+        items.get(index).markDone();
         Storage.writeDataFile(items);
     }
 
-    public void markUndone(int index) throws DukeException {
-        if (index < 1 || index > items.size()) {
-            throw new DukeException("Task at index " + index + " does not exist!");
-        }
-        items.get(index - 1).markUndone();
+    public void markUndone(Task task) throws DukeException {
+        int index = items.indexOf(task);
+        items.get(index).markUndone();
         Storage.writeDataFile(items);
     }
 

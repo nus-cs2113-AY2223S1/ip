@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
         Task toDelete = lastResults.getItem(index);
-        taskList.deleteItem(index);
+        taskList.deleteItem(toDelete);
         ui.displayMessage(String.format("OK, I've deleted %s\n\n%s", toDelete, taskList.toString()));
         return taskList;
     }
