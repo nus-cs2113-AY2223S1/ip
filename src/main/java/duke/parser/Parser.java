@@ -121,7 +121,7 @@ public class Parser {
             if (!(parsed.length == 2)) {
                 throw new DukeException();
             }
-            return new DeadlineCommand(parsed[0], parsed[1]);
+            return new DeadlineCommand(parsed[0].trim(), parsed[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DukeException e) {
 
             return new IncorrectCommand(DeadlineCommand.SYNTAX);
@@ -134,7 +134,7 @@ public class Parser {
             if (!(parsed.length == 2)) {
                 throw new DukeException();
             }
-            return new EventCommand(parsed[0], parsed[1]);
+            return new EventCommand(parsed[0].trim(), parsed[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DukeException e) {
 
             return new IncorrectCommand(EventCommand.SYNTAX);

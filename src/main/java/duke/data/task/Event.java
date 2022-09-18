@@ -29,19 +29,22 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description + "(" + printdate() + ")");
+        return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description + "\t(" + printdate("d MMM yyyy") + ")");
     }
 
     @Override
     public String toSave() {
-        return (this.taskType + LIMITER + this.isDone + LIMITER + this.description + LIMITER + printdate() + "\n");
+        return (this.taskType + LIMITER + this.isDone + LIMITER + this.description + LIMITER + printdate("yyyy-MM-dd") + "\n");
     }
     @Override
     public boolean isDateNull(){
         return (this.date == null)? true : false;
     }
     
-    private String printdate() {
-        return (this.date == null) ? this.dateString : this.date.format(DateTimeFormatter.ofPattern("MMM d yyy"));
+    private String printdate(String pattern) {
+        return (this.date == null) ? this.dateString : this.date.format(DateTimeFormatter.ofPattern(pattern));
+    }
+    public LocalDate getDate(){
+        return this.date;
     }
 }
