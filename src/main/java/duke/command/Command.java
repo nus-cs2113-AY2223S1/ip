@@ -16,7 +16,8 @@ public abstract class Command {
         return input;
     }
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults)
+            throws DukeException;
 
     public abstract boolean isExit();
 }

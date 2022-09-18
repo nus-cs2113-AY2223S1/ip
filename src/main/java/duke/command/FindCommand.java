@@ -16,9 +16,15 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        ui.displayMessage(
-                "Result of search for: " + searchKeyword + "\n\n" + taskList.filter(searchKeyword).toString());
+    public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
+        TaskList filtered = taskList.filter(searchKeyword);
+        if (filtered.size() == 0) {
+            ui.displayMessage("No tasks matched your search keyword: " + searchKeyword);
+            return lastResults;
+        } else {
+            ui.displayMessage("Result of search for: " + searchKeyword + "\n\n" + filtered.toString());
+            return filtered;
+        }
     }
 
     @Override
