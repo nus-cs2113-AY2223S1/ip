@@ -3,6 +3,7 @@ package duke.task;
 import java.util.ArrayList;
 import duke.command.Ui;
 import duke.command.Parser;
+import duke.exception.InvalidDateTimeException;
 import duke.exception.MissingDeadlineDescriptionException;
 import duke.exception.MissingEventDescriptionException;
 import duke.exception.MissingTaskNumberException;
@@ -46,6 +47,9 @@ public abstract class TaskList {
             return;
         } catch (MissingEventDescriptionException e) {
             System.out.println("Missing Event Description");
+            return;
+        } catch (InvalidDateTimeException e) {
+            System.out.println("Invalid Date Time");
             return;
         }
 

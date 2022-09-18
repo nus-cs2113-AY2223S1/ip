@@ -1,5 +1,8 @@
 package duke.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import duke.exception.InvalidDateTimeException;
 import duke.exception.InvalidInputException;
 import duke.exception.InvalidOutputException;
 import duke.exception.MissingDeadlineDescriptionException;
@@ -23,9 +26,11 @@ public abstract class Parser {
      * @throws MissingTodoDescriptionException     if no description provided for todo task
      * @throws MissingDeadlineDescriptionException if no description provided for deadline task
      * @throws MissingEventDescriptionException    if no description provided for event task
+     * @throws InvalidDateTimeException            if the date time format is invalid
      */
-    public static Task parseTask(String type, String input) throws MissingTodoDescriptionException,
-            MissingDeadlineDescriptionException, MissingEventDescriptionException {
+    public static Task parseTask(String type, String input)
+            throws MissingTodoDescriptionException, MissingDeadlineDescriptionException,
+            MissingEventDescriptionException, InvalidDateTimeException {
         int descriptionIndex;
         String description;
         Task newTask;
@@ -48,15 +53,20 @@ public abstract class Parser {
             descriptionIndex = input.indexOf(Ui.DEADLINE_PHRASE);
             int byIndex = input.indexOf(Ui.BY_PHRASE);
 
-            String by;
+            LocalDate by;
             try {
                 // add one to remove space
                 // minus one to remove space
                 description = input.substring(descriptionIndex + Ui.DEADLINE_PHRASE.length() + 1,
                         byIndex - 1);
-                by = input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
+                String byString =
+                        input.substring(byIndex + Ui.BY_PHRASE.length() + 1, input.length());
+                by = LocalDate.parse(byString);
+
             } catch (StringIndexOutOfBoundsException e) {
                 throw new MissingDeadlineDescriptionException();
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException();
             }
 
             newTask = new Deadline(description, by);
