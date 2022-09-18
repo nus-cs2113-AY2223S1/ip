@@ -3,7 +3,8 @@ package duke.exception;
 public enum ErrorMessage {
     INVALID_COMMAND_ERROR_MESSAGE("I'm sorry, but I don't know what that means :-("),
     INVALID_INDEX_ERROR_MESSAGE("The selected task index value does not exists."),
-    INVALID_DATE_TIME_FORMAT_ERROR_MESSAGE("The time format provided is incorrect."),
+    INVALID_DATE_FORMAT_ERROR_MESSAGE("The date format provided is incorrect."),
+    INVALID_DATE_TIME_FORMAT_ERROR_MESSAGE("The date and time format provided is incorrect."),
     TODO_MISSING_DESCRIPTION_ERROR_MESSAGE("The description of a todo cannot be empty."),
     DEADLINE_MISSING_DESCRIPTION_ERROR_MESSAGE("The description of a deadline cannot be empty."),
     DEADLINE_MISSING_TAG_ERROR_MESSAGE("Separator \" /by \" is not found."),

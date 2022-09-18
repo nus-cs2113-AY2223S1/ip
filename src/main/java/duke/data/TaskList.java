@@ -7,6 +7,7 @@ import duke.data.task.Todo;
 import duke.exception.*;
 import duke.ui.Ui;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -56,8 +57,38 @@ public class TaskList {
             listContent += String.format("%d.%s", i + 1, tasks.get(i).getTaskFullDetails());
             listContent += System.lineSeparator();
         }
-        listContent += "There are a total of " + tasks.size() + " tasks.";
+        if (listContent.equals("")){
+            listContent = "No task found in the record.";
+        } else{
+            listContent += "There are a total of " + tasks.size() + " tasks.";
+        }
         return listContent;
+    }
+
+    public TaskList filterTasks(LocalDate targetDate) {
+        TaskList tempTaskList = new TaskList();
+        boolean isDeadline;
+        boolean isEvent;
+        boolean isValidDate = false;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            LocalDate tempDate = null;
+            Task tempTask = tasks.get(i);
+            isDeadline = tempTask instanceof Deadline;
+            isEvent = tempTask instanceof Event;
+            if (isDeadline) {
+                tempDate = ((Deadline) tempTask).getDeadlineDate();
+            }
+            if (isEvent) {
+                tempDate = ((Event) tempTask).getEventDate();
+            }
+            isValidDate = tempDate != null && tempDate.equals(targetDate);
+            if (isValidDate){
+                tempTaskList.tasks.add(tempTask);
+            }
+        }
+
+        return tempTaskList;
     }
 
     public String deleteTask(int taskIndex) {

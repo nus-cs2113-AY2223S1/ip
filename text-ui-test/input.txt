@@ -1,22 +1,23 @@
+list
 todo read book
 deadline return book1 /by 2022-09-18
-deadline return book2 /by 18/09/2022
-deadline return book3 /by Sep 18 2022
+deadline return book2 /by 18/09/2021
+deadline return book3 /by Sep 18 2020
 deadline return book4 /by 2022-09-18 11:00 PM
-deadline return book5 /by 18/09/2022 11:00 PM
-deadline return book6 /by Sep 18 2022 11:00 PM
+deadline return book5 /by 18/09/2021 11:00 PM
+deadline return book6 /by Sep 18 2020 11:00 PM
 deadline return book7 /by 2022-09-18 2359
-deadline return book8 /by 18/09/2022 2359
-deadline return book9 /by Sep 18 2022 2359
+deadline return book8 /by 18/09/2021 2359
+deadline return book9 /by Sep 18 2020 2359
 event project meeting1 /at 2022-09-18
-event project meeting2 /at 18/09/2022
-event project meeting3 /at Sep 18 2022
+event project meeting2 /at 18/09/2021
+event project meeting3 /at Sep 18 2020
 event project meeting4 /at 2022-09-18 11:00 PM
-event project meeting5 /at 18/09/2022 11:00 PM
-event project meeting6 /at Sep 18 2022 11:00 PM
+event project meeting5 /at 18/09/2021 11:00 PM
+event project meeting6 /at Sep 18 2020 11:00 PM
 event project meeting7 /at 2022-09-18 2359
-event project meeting8 /at 18/09/2022 2359
-event project meeting9 /at Sep 18 2022 2359
+event project meeting8 /at 18/09/2021 2359
+event project meeting9 /at Sep 18 2020 2359
 todo join sports club
 mark 1
 mark 4
@@ -52,5 +53,13 @@ delete -1
 delete 123
 delete 11111111111111111111111111111111111
 list
+filter
+filter 2022-09-18
+filter 18/09/2021
+filter Sep 18 2020
+filter Sep 18 2022 11:00 PM
+filter ABC
+filter 99/99/9999
+filter Sep 11 2022
 byee
 bye

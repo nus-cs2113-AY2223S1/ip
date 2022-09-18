@@ -3,18 +3,22 @@ Hello! I'm Duke
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Here are the tasks in your list:
+No task found in the record.
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task: 
 	[T][ ] read book
 Now you have 1 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
@@ -23,12 +27,12 @@ Now you have 2 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
+	[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
 Now you have 3 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+	[D][ ] return book6 (by: Sep 18 2020 11:00 PM)
 Now you have 4 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
@@ -38,22 +42,22 @@ Now you have 5 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
+	[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
 Now you have 6 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+	[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
 Now you have 7 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! The time format provided is incorrect.
+ :( OOPS!!! The date and time format provided is incorrect.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
@@ -62,12 +66,12 @@ Now you have 8 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
+	[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
 Now you have 9 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+	[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
 Now you have 10 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
@@ -77,12 +81,12 @@ Now you have 11 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
+	[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
 Now you have 12 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task: 
-	[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+	[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
 Now you have 13 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
@@ -107,17 +111,17 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
-3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
-4.[D][X] return book6 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
+4.[D][X] return book6 (by: Sep 18 2020 11:00 PM)
 5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
-6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
-7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
 8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
-9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
-10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
 11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
-12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
-13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
 14.[T][ ] join sports club
 15.[T][ ] borrow book
 There are a total of 15 tasks.
@@ -140,17 +144,17 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
-3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
-4.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
+4.[D][ ] return book6 (by: Sep 18 2020 11:00 PM)
 5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
-6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
-7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
 8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
-9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
-10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
 11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
-12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
-13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
 14.[T][ ] join sports club
 15.[T][ ] borrow book
 16.[D][ ] return book (by: Oct 15 2019 06:00 PM)
@@ -191,10 +195,10 @@ ____________________________________________________________
  :( OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! Separator " /by " is not found.
+ :( OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! Separator " /by " is not found.
+ :( OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
  :( OOPS!!! Separator " /at " is not found.
@@ -209,26 +213,26 @@ ____________________________________________________________
  :( OOPS!!! The description of an event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! Separator " /at " is not found.
+ :( OOPS!!! The description of an event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
- :( OOPS!!! Separator " /at " is not found.
+ :( OOPS!!! The description of an event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book4 (by: Sep 18 2022 11:00 PM)
-3.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
-4.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+3.[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
+4.[D][ ] return book6 (by: Sep 18 2020 11:00 PM)
 5.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
-6.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
-7.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+6.[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
+7.[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
 8.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
-9.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
-10.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+9.[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
+10.[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
 11.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
-12.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
-13.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+12.[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
+13.[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
 14.[T][ ] join sports club
 15.[T][ ] borrow book
 16.[D][ ] return book (by: Oct 15 2019 06:00 PM)
@@ -255,22 +259,61 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book5 (by: Sep 18 2022 11:00 PM)
-3.[D][ ] return book6 (by: Sep 18 2022 11:00 PM)
+2.[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
+3.[D][ ] return book6 (by: Sep 18 2020 11:00 PM)
 4.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
-5.[D][ ] return book8 (by: Sep 18 2022 11:59 PM)
-6.[D][ ] return book9 (by: Sep 18 2022 11:59 PM)
+5.[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
+6.[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
 7.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
-8.[E][ ] project meeting5 (at: Sep 18 2022 11:00 PM)
-9.[E][ ] project meeting6 (at: Sep 18 2022 11:00 PM)
+8.[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
+9.[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
 10.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
-11.[E][ ] project meeting8 (at: Sep 18 2022 11:59 PM)
-12.[E][ ] project meeting9 (at: Sep 18 2022 11:59 PM)
+11.[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
+12.[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
 13.[T][ ] join sports club
 14.[T][ ] borrow book
 15.[D][ ] return book (by: Oct 15 2019 06:00 PM)
 16.[E][ ] project meeting (at: Dec 02 2022 03:00 AM)
 There are a total of 16 tasks.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The date format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book7 (by: Sep 18 2022 11:59 PM)
+2.[E][ ] project meeting4 (at: Sep 18 2022 11:00 PM)
+3.[E][ ] project meeting7 (at: Sep 18 2022 11:59 PM)
+There are a total of 3 tasks.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book5 (by: Sep 18 2021 11:00 PM)
+2.[D][ ] return book8 (by: Sep 18 2021 11:59 PM)
+3.[E][ ] project meeting5 (at: Sep 18 2021 11:00 PM)
+4.[E][ ] project meeting8 (at: Sep 18 2021 11:59 PM)
+There are a total of 4 tasks.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book6 (by: Sep 18 2020 11:00 PM)
+2.[D][ ] return book9 (by: Sep 18 2020 11:59 PM)
+3.[E][ ] project meeting6 (at: Sep 18 2020 11:00 PM)
+4.[E][ ] project meeting9 (at: Sep 18 2020 11:59 PM)
+There are a total of 4 tasks.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The date format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The date format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+ :( OOPS!!! The date format provided is incorrect.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+No task found in the record.
 ____________________________________________________________
 ____________________________________________________________
  :( OOPS!!! I'm sorry, but I don't know what that means :-(

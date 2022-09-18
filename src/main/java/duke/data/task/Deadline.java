@@ -1,9 +1,10 @@
 package duke.data.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static duke.parser.DukeDateTimeParser.TIME_OUTPUT_PATTERN;
+import static duke.common.Constants.TIME_OUTPUT_PATTERN;
 
 public class Deadline extends Task {
     private LocalDateTime deadlineTime;
@@ -16,6 +17,11 @@ public class Deadline extends Task {
     public String getDeadlineTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
         return deadlineTime.format(formatter);
+    }
+
+    public LocalDate getDeadlineDate() {
+        LocalDate localDate = deadlineTime.toLocalDate();
+        return localDate;
     }
 
     @Override

@@ -1,7 +1,8 @@
 package duke.data.task;
 
-import static duke.parser.DukeDateTimeParser.TIME_OUTPUT_PATTERN;
+import static duke.common.Constants.TIME_OUTPUT_PATTERN;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +17,11 @@ public class Event extends Task {
     public String getEventTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
         return eventTime.format(formatter);
+    }
+
+    public LocalDate getEventDate() {
+        LocalDate localDate = eventTime.toLocalDate();
+        return localDate;
     }
 
     @Override
