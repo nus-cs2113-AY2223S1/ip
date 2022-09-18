@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that keeps track of each task item added to the program.
+ * Class that keeps track of each task item added to the program. Contains {@link Task} items.
  */
 public class TaskList {
     /**
@@ -133,6 +133,11 @@ public class TaskList {
         return tasks.get(index).getText();
     }
 
+    /**
+     * Returns the number of items in the {@link TaskList} instance.
+     *
+     * @return number of items as an integer.
+     */
     public int getItemCount() {
         return itemCount;
     }

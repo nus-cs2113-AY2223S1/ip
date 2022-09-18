@@ -10,6 +10,9 @@ import duke.error.exceptions.subcommand.TooManySubCommandsException;
 import duke.tasks.tasktypes.DeadlineTask;
 import duke.tasks.tasktypes.EventTask;
 
+/**
+ * Class for input validation and string parsing related to input.
+ */
 public class Parser {
     /**
      * Checks if the keyword {@link Duke#COMMAND_TERMINATE} is present at front of input string

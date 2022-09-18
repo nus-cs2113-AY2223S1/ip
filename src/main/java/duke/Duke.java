@@ -16,6 +16,9 @@ import duke.tasks.tasktypes.ToDoTask;
 import duke.ui.StringFormatting;
 import duke.ui.Ui;
 
+/**
+ * Main class that runs the Duke program.
+ */
 public class Duke {
     /* Command list to check against */
     public static final String COMMAND_DEADLINE = "deadline";
@@ -232,7 +235,7 @@ public class Duke {
      * Prints a greeting for when the program is run
      */
     private static void greet() {
-        Ui.print(StringFormatting.getGreeting());
+        Ui.print(StringFormatting.formatGreeting());
     }
 
     /**
