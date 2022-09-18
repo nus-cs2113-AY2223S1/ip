@@ -1,50 +1,26 @@
-import java.util.Scanner;
+
 public class Duke extends Constants{
-    public static String line() {
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    public static final String DEFAULT_STORAGE_FILEPATH = "./data.txt";
+    private final Ui ui;
+    private final TaskList taskList;
+    private final Storage storage;
+    private final Parser parse;
+    public Duke() {
+        ui = new Ui();
+        parse = new Parser();
+        storage = new Storage(DEFAULT_STORAGE_FILEPATH);
+        taskList = new TaskList(storage.loadFileData());
     }
-
-    public static String botLogo() {
-        return "       _            _                    \n"
-                + "      | |          | |                   \n"
-                + "      | | __ _  ___| | _____  ___  _ __  \n"
-                + "  _   | |/ _` |/ __| |/ / __|/ _ \\| '_ \\ \n"
-                + " | |__| | (_| | (__|   <\\__ \\ (_) | | | |\n"
-                + "  \\____/ \\__,_|\\___|_|\\_\\___/\\___/|_| |_|\n";
-    }
-
-    public static void greet() {
-        System.out.println(
-            "Hello from\n" +
-            botLogo() +
-            line() +
-            "Hello! I'm Jackson, your personal chat-bot! :)\n" +
-            "What service are you looking for?\n" +
-            line()
-        );
-    }
-
-    public static void exit() {
-        System.out.println(
-            line() +
-            "Leaving already? :( Come back soon!\n" +
-            line()
-        );
-    }
-
-    public static void taskList(){ // check if get is 1 or 2
-        ModifyList modifyList = new ModifyList();
-        modifyList.loadFileData();
-        Scanner reader = new Scanner(System.in);
-        String input = reader.nextLine(); //.toLowerCase()?
-
+    public void run() {
+        ui.greet();
+        String input = ui.userCommand();
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);
             if (get.length == 1) {
                 try {
                     switch (get[TASK]) {
                         case LIST:
-                            modifyList.list();
+                            taskList.list();
                             break;
                         case UNMARK:
                             throw new Error(UNMARK_ERROR);
@@ -61,72 +37,76 @@ public class Duke extends Constants{
                 }
             }
             else {
-            switch (get[TASK]) { //if input more than 1
-                case LIST:
-                    System.out.println("Do you mean 'list'?\n");
-                    modifyList.list();
-                    break;
-                case UNMARK:
-                    try {
-                        int unmarkIndex = Integer.parseInt(get[NUMBER]);
-                        modifyList.unmark(unmarkIndex);
-                    }
-                    catch (IndexOutOfBoundsException error) {
-                        System.out.println(OUT_OF_BOUNDS);
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println(NOT_INTEGER);
-                    }
-                    break;
+                switch (get[TASK]) { //if input more than 1
+                    case LIST:
+                        ui.listMessage();
+                        taskList.list();
+                        break;
+                    case UNMARK:
+                        try {
+                            int unmarkIndex = Integer.parseInt(get[NUMBER]);
+                            taskList.unmark(unmarkIndex);
+                            storage.writeToFile(taskList);
+                        }
+                        catch (IndexOutOfBoundsException error) {
+                            System.out.println(OUT_OF_BOUNDS);
+                        }
+                        catch (NumberFormatException error) {
+                            System.out.println(NOT_INTEGER);
+                        }
+                        break;
 
-                case MARK:
-                    try {
-                        int markIndex = Integer.parseInt(get[NUMBER]);
-                        modifyList.mark(markIndex);
-                    }
-                    catch (IndexOutOfBoundsException error) {
-                        System.out.println(OUT_OF_BOUNDS);
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println(NOT_INTEGER);
-                    }
-                    break;
+                    case MARK:
+                        try {
+                            int markIndex = Integer.parseInt(get[NUMBER]);
+                            taskList.mark(markIndex);
+                            storage.writeToFile(taskList);
+                        }
+                        catch (IndexOutOfBoundsException error) {
+                            System.out.println(OUT_OF_BOUNDS);
+                        }
+                        catch (NumberFormatException error) {
+                            System.out.println(NOT_INTEGER);
+                        }
+                        break;
 
-                case DELETE:
-                    try {
-                        int deleteIndex = Integer.parseInt(get[NUMBER]);
-                        modifyList.delete(deleteIndex);
-                    }
-                    catch (IndexOutOfBoundsException error) {
-                        System.out.println(OUT_OF_BOUNDS);
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println(NOT_INTEGER);
-                    }
-                    break;
+                    case DELETE:
+                        try {
+                            int deleteIndex = Integer.parseInt(get[NUMBER]);
+                            taskList.delete(deleteIndex);
+                            storage.writeToFile(taskList);
+                        }
+                        catch (IndexOutOfBoundsException error) {
+                            System.out.println(OUT_OF_BOUNDS);
+                        }
+                        catch (NumberFormatException error) {
+                            System.out.println(NOT_INTEGER);
+                        }
+                        break;
 
-                case DEADLINE:
-                case EVENT:
-                case TODO:
-                    try {
-                        modifyList.task(get[TASK], get[DETAILS]);
-                    }
-                    catch (Error error) {
-                        System.out.println(error.getMessage());
-                    }
-                    break;
-                default:
-                    System.out.println(INVALID_COMMAND);
-                    break;
+                    case DEADLINE:
+                    case EVENT:
+                    case TODO:
+                        try {
+                            Task task = parse.task(get[TASK], get[DETAILS]);
+                            taskList.addTask(task);
+                            storage.appendToFile(task.fileFormat());
+                        }
+                        catch (Error error) {
+                            System.out.println(error.getMessage());
+                        }
+                        break;
+                    default:
+                        System.out.println(INVALID_COMMAND);
+                        break;
+                }
             }
+            input = ui.userCommand();
         }
-            input = reader.nextLine(); // get next input indefinitely
-        }
+        ui.exit();
     }
-    public static void main(String[] args) throws Error {
-        greet();
-        taskList();
-        exit();
 
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
