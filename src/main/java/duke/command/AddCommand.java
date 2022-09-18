@@ -26,6 +26,11 @@ public abstract class AddCommand extends Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     protected boolean containsTaskDescription(String parameterInput, String separator) {
+        boolean separatorIsEmpty = separator.isEmpty();
+        if (!separatorIsEmpty && startFromTimeSeparator(parameterInput, separator)) {
+            return false;
+        }
+        
         // Trim description from parameterInput
         String[] splits = parameterInput.split(separator, 2);
         String description = splits[0];
@@ -54,10 +59,21 @@ public abstract class AddCommand extends Command {
     }
 
     protected boolean containsTimeSeparator(String parameterInput, String separator) {
+        if (startFromTimeSeparator(parameterInput, separator)) {
+            return true;
+        }
         if (!parameterInput.contains(separator)) {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private boolean startFromTimeSeparator(String parameterInput, String separator) {
+        if (parameterInput.startsWith(separator.trim())) {
+            return true;
+        } else {
+            return false;
         }
     }
 
