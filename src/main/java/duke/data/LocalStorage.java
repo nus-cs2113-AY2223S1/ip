@@ -10,6 +10,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class LocalStorage {
+    /**
+     * Save tasks in memory to local storage.
+     *
+     * @param tasks List of tasks to save.
+     * @param path Path of the directory to save.
+     * @param filename Filename of the tasks file.
+     * @throws IOException If there was an error writing to local storage.
+     */
     public static void saveTasks(ArrayList<Task> tasks, String path, String filename) throws IOException {
         Path tasksDirectoryPath = Paths.get(path);
         Path tasksFilePath = Paths.get(path + filename);
@@ -28,6 +36,14 @@ public class LocalStorage {
 
     }
 
+    /**
+     * Read tasks from local storage to memory.
+     *
+     * @param path Path of the directory to load.
+     * @param filename Filename of the tasks file.
+     * @return List of tasks that was loaded.
+     * @throws IOException If there was an error reading from local storage.
+     */
     public static ArrayList<Task> loadTasks(String path, String filename) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 

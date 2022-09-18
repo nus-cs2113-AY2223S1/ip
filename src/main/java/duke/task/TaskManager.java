@@ -5,6 +5,9 @@ import duke.data.LocalStorage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Stores tasks and manages task-list.
+ */
 public class TaskManager {
     public final String DEFAULT_TASKS_PATH = "./data/";
     public final String DEFAULT_TASKS_FILENAME = "tasks.txt";
@@ -13,12 +16,21 @@ public class TaskManager {
     private String tasksPath;
     private String tasksFilename;
 
+    /**
+     * Initializes task manager with empty task-list and default values.
+     */
     public TaskManager() {
         this.tasks = new ArrayList<>();
         this.tasksPath = DEFAULT_TASKS_PATH;
         this.tasksFilename = DEFAULT_TASKS_FILENAME;
     }
 
+    /**
+     * Initializes task manager by loading stored tasks.
+     *
+     * @param tasksPath Path of the directory to load.
+     * @param tasksFilename Filename of the tasks file.
+     */
     public TaskManager(String tasksPath, String tasksFilename) {
         this.tasksPath = tasksPath;
         this.tasksFilename = tasksFilename;
@@ -151,6 +163,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Save tasks in task-list.
+     *
+     * @throws TaskManagerException.TasksFileIOException If there was an error saving the tasks.
+     */
     public void saveTasks() throws TaskManagerException.TasksFileIOException {
         try {
             LocalStorage.saveTasks(tasks, tasksPath, tasksFilename);
@@ -159,6 +176,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Load tasks into task-list.
+     */
     public void loadTasks() {
         try {
             tasks = LocalStorage.loadTasks(tasksPath, tasksFilename);

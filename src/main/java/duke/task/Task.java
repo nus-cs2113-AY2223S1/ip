@@ -3,12 +3,20 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Stores tasks.
+ */
 public class Task {
     public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
 
     protected String description;
     protected boolean isComplete;
 
+    /**
+     * Initializes task object.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isComplete = false;
@@ -218,6 +226,9 @@ public class Task {
         System.out.println(printString);
     }
 
+    /**
+     * Prints task to standard out.
+     */
     public void print() {
         if (this instanceof Todo) {
             printTodo();
