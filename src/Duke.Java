@@ -15,7 +15,7 @@ public class Duke{
         taskList = new TaskList(storage.loadFileData());
     }
     public void run() {
-        String input = ui.userCommand();
+        String input = ui.userCommand().trim();
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);
             if (get.length == 1) {

@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser extends Constants{
     public Task taskFromFile(String task) throws Error {
         String[] reconstruct = task.split(" \\| ");
@@ -12,36 +16,51 @@ public class Parser extends Constants{
                 throw new Error(FILE_TASK_CONVERSION_ERROR);
         }
     }
-
     public Task task(String taskType, String details) throws Error {
         String[] separateDetails;
         String description;
         String time;
+        LocalDateTime parseTime;
         switch (taskType) {
             case TODO:
                 return new Todo(details, false);
 
             case DEADLINE:
-                separateDetails = details.split(" /by ", 2);
+                separateDetails = details.split("/by", 2);
                 if (separateDetails.length != 2) {
                     throw new Error(DEADLINE_FORMAT_ERROR);
                 } else if (separateDetails[0].equals("")) {
                     throw new Error(DEADLINE_DESCRIPTION_ERROR);
                 }
-                description = separateDetails[0];
-                time = "(by: " + separateDetails[1] + ")";
-                return new Deadline(description, time, false);
+                try {
+                    description = separateDetails[0];
+                    parseTime = LocalDateTime.parse(separateDetails[1]);
+                    time = parseTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm"));
+                    time = "(by: " + time + ")";
+                    return new Deadline(description, time, false);
+                }
+                catch (DateTimeParseException error) {
+                    throw new Error(WRONG_TIME_FORMAT);
+                }
 
             case EVENT:
-                separateDetails = details.split(" /at ", 2);
+                separateDetails = details.split("/at", 2);
                 if (separateDetails.length != 2) {
                     throw new Error(EVENT_FORMAT_ERROR);
                 } else if (separateDetails[0].equals("")) {
                     throw new Error(EVENT_DESCRIPTION_ERROR);
                 }
-                description = separateDetails[0];
-                time = "(at: " + separateDetails[1] + ")";
-                return new Event(description, time, false);
+                try {
+                    description = separateDetails[0];
+                    parseTime = LocalDateTime.parse(separateDetails[1]);
+                    time = parseTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm"));
+                    time = "(at: " + time + ")";
+                    return new Deadline(description, time, false);
+                }
+                catch (DateTimeParseException error) {
+                    throw new Error(WRONG_TIME_FORMAT);
+                }
+
             default:
                 throw new Error(INVALID_COMMAND);
         }
@@ -109,7 +128,8 @@ public class Parser extends Constants{
             case EVENT:
             case TODO:
                 try {
-                    Task task = task(get[TASK], get[DETAILS]);
+                    String details = get[DETAILS].replaceAll("\\s", "");
+                    Task task = task(get[TASK], details);
                     taskList.addTask(task);
                     storage.appendToFile(task.fileFormat());
                 }

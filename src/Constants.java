@@ -22,4 +22,5 @@ public class Constants {
     public static final String FILE_TASK_CONVERSION_ERROR = "Invalid task format in data file! Please check data file!";
     public static final String NOT_INTEGER = "Please input a number!";
     public static final String MISSING_KEYWORD = "Please input a keyword to find a matching task!";
+    public static final String WRONG_TIME_FORMAT = "Please input your date and time in YYYY-MM-DDTHH:mm format!";
 }
