@@ -1,11 +1,13 @@
 package duke.userinterface;
 
+import java.time.LocalDateTime;
+
 /**
  * Stores arguments for deadline command.
  */
 public class ConsoleCommandDeadline extends ConsoleCommand {
     private String description;
-    private String by;
+    private LocalDateTime by;
 
     /**
      * Initializes object with arguments for deadline command.
@@ -13,7 +15,7 @@ public class ConsoleCommandDeadline extends ConsoleCommand {
      * @param description Description of the deadline.
      * @param by Due date and time of the deadline.
      */
-    public ConsoleCommandDeadline(String description, String by) {
+    public ConsoleCommandDeadline(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;
     }
@@ -22,7 +24,7 @@ public class ConsoleCommandDeadline extends ConsoleCommand {
         return description;
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 }

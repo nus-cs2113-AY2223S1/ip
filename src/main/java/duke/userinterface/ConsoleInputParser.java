@@ -1,5 +1,11 @@
 package duke.userinterface;
 
+import duke.task.Task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Parses user input entered via standard input.
  */
@@ -12,6 +18,7 @@ public class ConsoleInputParser {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     private static ConsoleCommandBye parseCommandBye() {
         return new ConsoleCommandBye();
@@ -64,25 +71,45 @@ public class ConsoleInputParser {
             throw new ConsoleInputParserException.InvalidCommandDeadlineException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX);
         }
 
-        return new ConsoleCommandDeadline(description, by);
+        LocalDateTime byDateTime;
+        try {
+            byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+        } catch (DateTimeParseException e) {
+            throw new ConsoleInputParserException.InvalidCommandDeadlineException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX);
+        }
+
+        return new ConsoleCommandDeadline(description, byDateTime);
     }
 
     private static ConsoleCommandEvent parseCommandEvent(String arguments) throws ConsoleInputParserException.InvalidCommandEventException {
         String description;
-        String at;
+        String startAt;
+        String endAt;
         try {
             String[] argumentArray = arguments.split("/at");
             description = argumentArray[0].trim();
-            at = argumentArray[1].trim();
+            String at = argumentArray[1].trim();
+            String[] atArray = at.split(" ");
+            startAt = atArray[0] + " " + atArray[1];
+            endAt = atArray[2] + " " + atArray[3];
         } catch (IndexOutOfBoundsException e) {
             throw new ConsoleInputParserException.InvalidCommandEventException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_EVENT_INVALID_SYNTAX);
         }
 
-        if (description.isEmpty() || at.isEmpty()) {
+        if (description.isEmpty()) {
             throw new ConsoleInputParserException.InvalidCommandEventException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_EVENT_INVALID_SYNTAX);
         }
 
-        return new ConsoleCommandEvent(description, at);
+        LocalDateTime startAtDateTime;
+        LocalDateTime endAtDateTime;
+        try {
+            startAtDateTime = LocalDateTime.parse(startAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+            endAtDateTime = LocalDateTime.parse(endAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
+        } catch (DateTimeParseException e) {
+            throw new ConsoleInputParserException.InvalidCommandEventException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_DEADLINE_INVALID_SYNTAX);
+        }
+
+        return new ConsoleCommandEvent(description, startAtDateTime, endAtDateTime);
     }
 
     private static ConsoleCommandDelete parseCommandDelete(String arguments) throws ConsoleInputParserException.InvalidCommandDeleteException {
@@ -93,6 +120,14 @@ public class ConsoleInputParser {
         } catch (NumberFormatException e) {
             throw new ConsoleInputParserException.InvalidCommandDeleteException(ConsoleInputParserException.ERROR_MESSAGE_ARGUMENT_NOT_INTEGER);
         }
+    }
+
+    private static ConsoleCommandFind parseCommandFind(String arguments) throws ConsoleInputParserException.InvalidCommandFindException {
+        if (arguments.isEmpty()) {
+            throw new ConsoleInputParserException.InvalidCommandFindException(ConsoleInputParserException.ERROR_MESSAGE_COMMAND_TODO_INVALID_SYNTAX);
+        }
+
+        return new ConsoleCommandFind(arguments);
     }
 
     /**
@@ -106,6 +141,7 @@ public class ConsoleInputParser {
      * @throws ConsoleInputParserException.InvalidCommandDeadlineException If the format of the deadline command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandEventException    If the format of the event command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandDeleteException   If the format of the delete command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandFindException     If the format of the find command is not valid.
      * @throws ConsoleInputParserException.CommandNotFoundException        If the command is not found.
      */
     public static ConsoleCommand parseConsoleInput(ConsoleInput consoleInput) throws
@@ -115,6 +151,7 @@ public class ConsoleInputParser {
             ConsoleInputParserException.InvalidCommandDeadlineException,
             ConsoleInputParserException.InvalidCommandEventException,
             ConsoleInputParserException.InvalidCommandDeleteException,
+            ConsoleInputParserException.InvalidCommandFindException,
             ConsoleInputParserException.CommandNotFoundException {
         String command = consoleInput.getCommand();
         String arguments = consoleInput.getArguments();
@@ -136,6 +173,8 @@ public class ConsoleInputParser {
             return parseCommandEvent(arguments);
         case COMMAND_DELETE:
             return parseCommandDelete(arguments);
+        case COMMAND_FIND:
+            return parseCommandFind(arguments);
         default:
             throw new ConsoleInputParserException.CommandNotFoundException();
         }
