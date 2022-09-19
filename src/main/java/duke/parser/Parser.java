@@ -39,8 +39,11 @@ public class Parser {
             return parseUnmarkCommand(arguments);
         case DeleteCommand.COMMAND_NAME:
             return parseDeleteCommand(arguments);
+        case FindCommand.COMMAND_NAME:
+            return parseFindCommand(arguments);
         case DateCommand.COMMAND_NAME:
             return parseDateCommand(arguments);
+
         case ListCommand.COMMAND_NAME:
             return new ListCommand();
         case ExitCommand.COMMAND_NAME:
@@ -104,8 +107,7 @@ public class Parser {
     /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
-            String[] parsed = arguments.split("/");
-            if (parsed[0].equals("")) {
+            if (arguments.equals("")) {
                 throw new DukeException();
             }
             return new TodoCommand(arguments);
@@ -179,6 +181,17 @@ public class Parser {
             return new IncorrectCommand(DeleteCommand.SYNTAX);
         }
     }
+    private Command parseFindCommand(String arguments){
+        try{
+            if (arguments.equals("")){
+                throw new DukeException();
+            }
+            return new FindCommand(arguments);
+        } catch (DukeException e){
+            return new IncorrectCommand(FindCommand.SYNTAX);
+        }
+    }
+
     private Command parseDateCommand(String arguments){
         try {
             return new DateCommand(LocalDate.parse(arguments));
@@ -186,7 +199,6 @@ public class Parser {
             return new IncorrectCommand(DateCommand.SYNTAX);
         }
     }
-
 
     private int[] strToIntArray(String[] parsed) throws DukeException {
         int[] intParsed = new int[parsed.length];

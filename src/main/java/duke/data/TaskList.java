@@ -24,7 +24,7 @@ public class TaskList {
         return "You have " + count + " unmarked" + printTaskPlural(count);
     }
 
-    private static String  printTaskPlural(int number){
+    public static String  printTaskPlural(int number){
         return ((number == 1)? " task." : " tasks.");
     }
 }
