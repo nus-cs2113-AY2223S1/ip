@@ -202,7 +202,7 @@ public class Duke {
     private static void readFromDisk() {
         file = new File(FILE_NAME);
         try {
-            if (!file.createNewFile()) { // false if file exists
+            if (file.createNewFile()) { // false if file exists
                 return;
             }
             Scanner fileInput = new Scanner(file);
