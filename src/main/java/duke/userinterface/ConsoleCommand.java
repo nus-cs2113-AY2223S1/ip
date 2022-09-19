@@ -3,5 +3,5 @@ package duke.userinterface;
 /**
  * Stores parsed arguments.
  */
-public class ConsoleCommand {
+public abstract class ConsoleCommand {
 }
