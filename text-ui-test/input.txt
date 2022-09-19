@@ -22,4 +22,10 @@ unmark 0
 unmark -234
 unmark invalid
 list
+delete 5
+list
+delete 4
+list
+delete 7
+list
 bye

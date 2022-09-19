@@ -66,6 +66,14 @@ public class Duke {
             String taskData = args[1];
             addTask(action, taskData);
             break;
+        case "delete":
+            try {
+                index = Integer.parseInt(args[1].trim()) - 1;
+                deleteTask(index);
+            } catch (NumberFormatException exception) {
+                System.out.println("That's not even a number, dude.");
+            }
+            break;
         default:
             System.out.println("I don't recognise that command, dude.");
             break;
@@ -141,6 +149,17 @@ public class Duke {
             Task task = tasks.get(i);
             System.out.printf("%d.%s\n", i + 1, task);
         }
+    }
+
+    private static void deleteTask(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            System.out.println("There's no task with that number, dude.");
+            return;
+        }
+
+        Task task = tasks.get(taskIndex);
+        System.out.println("Deleting task: " + task.getDescription());
+        tasks.remove(taskIndex);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
