@@ -16,10 +16,11 @@ Table of Contents
     8. [Mark a task as done: `mark`](#mark-a-task-as-done-mark)
     9. [Unmark a task as done: `unmark`](#unmark-a-task-as-done-unmark)
     10. [Delete a task: `delete`](#delete-a-task-delete)
-3. [Saving the Data](#saving-the-data)
-4. [Editing the data file](#editing-the-data-file)
-5. [FAQ](#faq)
-6. [Command summary](#command-summary)
+3. [Understanding Dates and Times](#understanding-dates-and-times)
+4. [Saving the Data](#saving-the-data)
+5. [Editing the data file](#editing-the-data-file)
+6. [FAQ](#faq)
+7. [Command summary](#command-summary)
 
 ## Quick start
 
@@ -27,8 +28,22 @@ Table of Contents
 2. Download the latest duke.jar from here.
 3. Copy the file to the folder you want to use as the *home folder* for your todo list. 
 4. Open the command line in that folder and run the command `java -jar duke.jar`.
-5. Type the command and press Enter to execute it.
-6. Refer to the Features below for details of each command. 
+5. When you first run the application, a greeting will be displayed.
+```
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+    ____________________________________________________________
+
+     Hello! I'm Duke
+     What can I do for you?
+    ____________________________________________________________
+```
+6. Type the command and press Enter to execute it.
+7. Refer to the Features below for details of each command. 
 
 ## Features 
 
@@ -43,11 +58,45 @@ Displays the list of commands available.
 
 Format: `help`
 
+Sample:
+```
+help
+    ____________________________________________________________
+
+     Duke - CLI based Task list manager
+     
+     > bye - exits the application
+     > list - list out all your tasks
+     > todo NAME - adds a todo task
+     > deadline NAME /by DATE_TIME - adds a deadline task
+     > event NAME /at DATE_TIME - adds an event task
+     > delete INDEX - deletes a task
+     > mark INDEX - marks a task as done
+     > unmark INDEX - marks a task as undone
+     > find KEYWORD - finds a task by name
+     
+     Full guide at https://owenl131.github.io/ip 
+    ____________________________________________________________
+    
+```
+
 ### Listing all tasks: `list`
 
-Lists out the tasks in the task list.
+Lists out the tasks in the task list. The letter in the first pair of [] refers to what type of task it is - T for a todo task, D for a deadline task and E for an event task. The letter in the second pair of [] refers to whether the task is done or not - \<space\> for a task that is not done and X for a task that is done. See [mark](#mark-a-task-as-done-mark).
 
 Format: `list`
+
+Sample:
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][ ] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+```
 
 ### Exiting: `bye`
 
@@ -55,33 +104,168 @@ Exits the application gracefully.
 
 Format: `bye`
 
+Sample:
+```
+bye
+    ____________________________________________________________
+
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
+```
+
 ### Find task by keyword: `find`
+
+Finds all tasks with names containing a given keyword.
 
 Format: `find KEYWORD`
 
+Sample:
+```
+find project
+    ____________________________________________________________
+
+     Result of search for: project
+     
+     Here are the tasks in your list:
+     1.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+```
+
 ### Add a ToDo: `todo`
+
+Creates a ToDo.
 
 Format: `todo NAME`
 
+Sample:
+```
+todo borrow book
+    ____________________________________________________________
+
+     added: [T][ ] borrow book
+    ____________________________________________________________
+```
+
 ### Add an Event: `event`
+
+Use this command to keep track of events you need to attend. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
 
 Format: `event NAME /at DATETIME`
 
+Sample:
+```
+event project meeting /at Mon 2-4pm
+    ____________________________________________________________
+
+     added: [E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+
+
+event christmas party /at 2022-12-25 2:00pm
+    ____________________________________________________________
+
+     added: [E][ ] christmas party (at: Sun, 25 Dec 2022, 14:00)
+    ____________________________________________________________
+```
+
 ### Add a Deadline: `deadline`
+
+Use this command to keep track of deadlines you need to meet. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
 
 Format: `deadline NAME /by DATETIME`
 
+Sample: 
+```
+deadline return book /by Sunday
+    ____________________________________________________________
+
+     added: [D][ ] return book (by: Sunday)
+    ____________________________________________________________
+```
+
 ### Mark a task as done: `mark`
+
+Marks a task in your list as completed.
 
 Format: `mark INDEX`
 
+Sample:
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][ ] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+     4.[D][ ] do homework (by: no idea :-p)
+    ____________________________________________________________
+
+mark 2
+    ____________________________________________________________
+
+     Nice! I've marked this task as done:
+      [D][X] return book (by: Sunday)
+    ____________________________________________________________
+```
+
 ### Unmark a task as done: `unmark`
+
+Marks a task in your list as incomplete.
 
 Format: `unmark INDEX`
 
+Sample: 
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][X] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+     4.[D][ ] do homework (by: no idea :-p)
+    ____________________________________________________________
+
+unmark 2
+    ____________________________________________________________
+
+     OK, I've marked this task as not done yet:
+      [D][ ] return book (by: Sunday)
+    ____________________________________________________________
+```
+
 ### Delete a task: `delete`
 
+Deletes a task from your list.
+
 Format: `delete INDEX`
+
+Sample:
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][ ] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+
+delete 2
+    ____________________________________________________________
+
+     OK, I've deleted [D][ ] return book (by: Sunday)
+     
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+```
+
+## Understanding Dates and Times
+
+Specifying dates and times in a standard format lets Duke understand them better. Some understandable dates are 2022-12-25, 2022/12/25, 25/12/2022, 25 December 2022 and 25 dec 2022. If a year is not specified, e.g. 25 dec, then it defaults to the current year. Some understandable times are 23:59, 12:00, 2:30am and 4:15pm.
 
 ## Saving the Data
 
