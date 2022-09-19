@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    /*Variables*/
+    /* Variables */
     public static final String COMMAND_NAME = "delete";
     public static final String SYNTAX = "Syntax for delete\n\t>>> delete <index 1> <index 2> <...>\nNote: item indices must exist in the current list";
     public static final String MESSAGE_TOP = "Tasks deleted";
@@ -25,19 +25,16 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        ArrayList<Task> target = new ArrayList<Task>(
-                IntStream.range(0, TaskList.list.size())
-                        .filter(i -> contains(index, i))
-                        .mapToObj(i -> TaskList.list.get(i)).collect(Collectors.toList()));
+        ArrayList<Task> target = new ArrayList<Task>(IntStream.range(0, TaskList.list.size())
+                .filter(i -> contains(index, i)).mapToObj(i -> TaskList.list.get(i)).collect(Collectors.toList()));
 
         Arrays.sort(index);
         for (int i = index.length - Messages.OFFSET; i > -Messages.OFFSET; i--) {
             TaskList.list.remove(index[i]);
         }
 
+        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
 
-        CommandResult result = new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
-        return result;
     }
 
 }

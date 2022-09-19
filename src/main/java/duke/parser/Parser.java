@@ -1,5 +1,9 @@
 package duke.parser;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.command.*;
 import duke.data.Messages;
 import duke.data.exceptions.*;
@@ -37,6 +41,9 @@ public class Parser {
             return parseDeleteCommand(arguments);
         case FindCommand.COMMAND_NAME:
             return parseFindCommand(arguments);
+        case DateCommand.COMMAND_NAME:
+            return parseDateCommand(arguments);
+
         case ListCommand.COMMAND_NAME:
             return new ListCommand();
         case ExitCommand.COMMAND_NAME:
@@ -93,6 +100,10 @@ public class Parser {
         TaskList.list.add(new Event(Boolean.valueOf(parsed[1]), parsed[2], parsed[3]));
     }
 
+
+
+
+    
     /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
@@ -112,7 +123,7 @@ public class Parser {
             if (!(parsed.length == 2)) {
                 throw new DukeException();
             }
-            return new DeadlineCommand(parsed[0], parsed[1]);
+            return new DeadlineCommand(parsed[0].trim(), parsed[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DukeException e) {
 
             return new IncorrectCommand(DeadlineCommand.SYNTAX);
@@ -125,7 +136,7 @@ public class Parser {
             if (!(parsed.length == 2)) {
                 throw new DukeException();
             }
-            return new EventCommand(parsed[0], parsed[1]);
+            return new EventCommand(parsed[0].trim(), parsed[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DukeException e) {
 
             return new IncorrectCommand(EventCommand.SYNTAX);
@@ -178,6 +189,14 @@ public class Parser {
             return new FindCommand(arguments);
         } catch (DukeException e){
             return new IncorrectCommand(FindCommand.SYNTAX);
+        }
+    }
+
+    private Command parseDateCommand(String arguments){
+        try {
+            return new DateCommand(LocalDate.parse(arguments));
+        } catch (DateTimeParseException e){
+            return new IncorrectCommand(DateCommand.SYNTAX);
         }
     }
 

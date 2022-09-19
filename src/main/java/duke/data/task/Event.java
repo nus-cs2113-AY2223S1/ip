@@ -1,15 +1,25 @@
 package duke.data.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     public static final String TYPE_EVENT = "E";
     public static final String TYPE_EVENT_WRAP = "[E]";
-    public String date;
+    public String dateString;
+    public LocalDate date;
 
     public Event(String description, String date) {
         super(description);
-        this.date = date;
         this.taskTypeWrap = TYPE_EVENT_WRAP;
         this.taskType = TYPE_EVENT;
+        try{
+            this.date = LocalDate.parse(date);
+        } catch (DateTimeParseException e){
+            this.date = null;
+            this.dateString = date;
+        }  
     }
 
     public Event(boolean status, String description, String date) {
@@ -19,11 +29,22 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description + "(" + this.date + ")");
+        return (this.taskTypeWrap + this.getStatusIcon() + " " + this.description + "\t(" + printdate("d MMM yyyy") + ")");
     }
 
     @Override
     public String toSave() {
-        return (this.taskType + LIMITER + this.isDone + LIMITER + this.description + LIMITER + this.date + "\n");
+        return (this.taskType + LIMITER + this.isDone + LIMITER + this.description + LIMITER + printdate("yyyy-MM-dd") + "\n");
+    }
+    @Override
+    public boolean isDateNull(){
+        return (this.date == null)? true : false;
+    }
+    
+    private String printdate(String pattern) {
+        return (this.date == null) ? this.dateString : this.date.format(DateTimeFormatter.ofPattern(pattern));
+    }
+    public LocalDate getDate(){
+        return this.date;
     }
 }

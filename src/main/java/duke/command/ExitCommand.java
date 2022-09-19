@@ -17,8 +17,7 @@ public class ExitCommand extends Command {
     /*Non-static */
     @Override
     public CommandResult execute() {
-        CommandResult result = new CommandResult(MESSAGE_TOP);
-        return result;
+        return new CommandResult(MESSAGE_TOP);
     }
 
 }

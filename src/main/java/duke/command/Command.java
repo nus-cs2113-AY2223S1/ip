@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.data.TaskList;
 
 /**
  * Represent an command

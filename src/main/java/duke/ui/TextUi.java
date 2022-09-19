@@ -59,7 +59,7 @@ public class TextUi {
     }
 
     public void showExitMessage() {
-        this.showToUserDivider(Messages.EXIT);
+        this.showToUser(Messages.EXIT);
     }
 
     public void showUnknownMessage() {
