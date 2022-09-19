@@ -1,7 +1,5 @@
 package duke.command;
 
-
-import duke.data.Messages;
 import duke.data.TaskList;
 import duke.data.task.*;
 
@@ -33,8 +31,7 @@ public class MarkCommand extends Command {
                         .filter(i -> contains(index, i))
                         .mapToObj(i -> TaskList.list.get(i)).collect(Collectors.toList()));
 
-        CommandResult result = new CommandResult(MESSAGES_TOP, target, TaskList.getUnmarkMessage());
-        return result;
+        return new CommandResult(MESSAGES_TOP, target, TaskList.getUnmarkMessage());
     }
 
 

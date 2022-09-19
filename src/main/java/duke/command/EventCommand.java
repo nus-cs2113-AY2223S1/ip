@@ -14,7 +14,6 @@ public class EventCommand extends Command {
         this.date = date;
     }
 
-    /*Variables*/
     public static final String COMMAND_NAME = "event";
     public static final String SYNTAX = "Syntax for event \n\t>>>event <task> / <date of event>";
     public static final String MESSAGE_TOP = "Event Added";
@@ -23,13 +22,11 @@ public class EventCommand extends Command {
     public String date;
     public ArrayList<Task> target = new ArrayList<Task>();
 
-    /*Non-static */
     @Override
     public CommandResult execute() {
         Task added = new Event(description, date);
         TaskList.list.add(added);
         target.add(added);
-        CommandResult result = new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
-        return result;
+        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
     }
 }

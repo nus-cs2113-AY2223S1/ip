@@ -6,7 +6,7 @@ package duke.data;
 public class Messages {
 
     public static final String PROMPT = ">>> ";
-    public static final String EXIT = "Bye. Hope to see you again soon!";
+    public static final String EXIT = "Program ends";
     public static final String WELCOME = "Hello! I'm a chatbot Duke made by Than Duc Huy\n"
             + "Type the command to start interacting with Duke";
     public static final String COMMAND_LISTS = "Supported commands: list, mark, unmark, delete, todo, deadline, event, bye";
