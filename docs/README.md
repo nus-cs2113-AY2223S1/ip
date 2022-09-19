@@ -43,17 +43,60 @@ Displays the list of commands available.
 
 Format: `help`
 
+Sample:
+```
+help
+    ____________________________________________________________
+
+     Duke - CLI based Task list manager
+     
+     > bye - exits the application
+     > list - list out all your tasks
+     > todo NAME - adds a todo task
+     > deadline NAME /by DATE_TIME - adds a deadline task
+     > event NAME /at DATE_TIME - adds an event task
+     > delete INDEX - deletes a task
+     > mark INDEX - marks a task as done
+     > unmark INDEX - marks a task as undone
+     > find KEYWORD - finds a task by name
+     
+     Full guide at https://owenl131.github.io/ip 
+    ____________________________________________________________
+    
+```
+
 ### Listing all tasks: `list`
 
 Lists out the tasks in the task list.
 
 Format: `list`
 
+Sample:
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][ ] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+```
+
 ### Exiting: `bye`
 
 Exits the application gracefully.
 
 Format: `bye`
+
+Sample:
+```
+bye
+    ____________________________________________________________
+
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
+```
 
 ### Find task by keyword: `find`
 
