@@ -1,3 +1,0 @@
-E | X | food tasting  | 2022-09-01T09:00
-D |   | food preperation  | 2022-09-01T09:00
-T |   | buy food 

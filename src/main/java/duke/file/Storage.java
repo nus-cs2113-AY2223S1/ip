@@ -95,7 +95,7 @@ public class Storage {
         File file = new File("data/dukefile.txt");
         if (!directory.exists()) {
             directory.mkdir();
-            System.out.println("Creating new directory");
+            System.out.println("* Creating new directory *");
         }
         if (!file.exists()) {
             file = createFile();

@@ -6,17 +6,16 @@
 It is a program designed to help users curate a list of taskings with different classifications , along with extra
 functionalities.**
 
-Here are the features of this program:
 
-1) Adding new tasks
-    1) Add Todo task
-    2) Add Event task with date and time
-    3) Add Deadline task with date and time
-2) Marking and Unmarking of task
-3) Deleting user-defined task entries
-4) Search and list entries containing user-defined keywords
-5) Listing of all task entries
-6) Automatic task saving in dukeFile.txt for continuity
+| Features                     | Description                                                   | 
+|------------------------------|---------------------------------------------------------------|
+| Adding new tasks             | Adding of 3 types of tasks categories.(Todo, Event, Deadline) | 
+| Marking / Unmarking of tasks | Indication of task completion                                 | 
+| Deleting task entries        | Removal of tasks based on user-defined task entries           |
+| Searching for keywords       | Searches and lists out all entries that contains the keywords |
+| List                         | Lists out all task entries                                    |
+| Progress saving              | Auto saves all tasks in dukeFile.txt for continuity.          |
+
 
 <!-- GETTING STARTED -->
 
