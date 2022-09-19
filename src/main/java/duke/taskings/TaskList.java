@@ -143,7 +143,6 @@ public class TaskList {
                 } else {
                     System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
                 }
-//
                 Storage.writeToFile(tasks);
             } else {
                 System.out.println("Wrong format !");
@@ -207,11 +206,11 @@ public class TaskList {
     /**
      * further processes the parsed user commands and allocate the correct Ui messages to respond to the user.
      *
-     * @param tasks      the array which would have it's entries retrieved.
-     * @param command    the 1st string given by the user.
-     * @param userInput  the array containing 2 Strings. With the first being the "command" and the second being the "index" which the command will act on
+     * @param tasks     the array which would have it's entries retrieved.
+     * @param command   the 1st string given by the user.
+     * @param userInput the array containing 2 Strings. With the first being the "command" and the second being the "index" which the command will act on
      */
-    public static void processCommand(ArrayList<Task> tasks,  String command, String[] userInput) {
+    public static void processCommand(ArrayList<Task> tasks, String command, String[] userInput) {
         try {
             if (userInput.length > 2) {
                 Ui.showErrorMessage(command, WRONG_FORMAT);

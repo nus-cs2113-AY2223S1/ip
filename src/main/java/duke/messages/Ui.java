@@ -11,7 +11,6 @@ public class Ui {
     static final String LINE_DIVIDER = "____________________________________________________________";
 
 
-
     /**
      * Greets the user whenever the program starts
      */
@@ -137,7 +136,6 @@ public class Ui {
      * @param index the index of the array to retrieve from
      */
     public static void getEntryStatus(ArrayList<Task> tasks, int index) {
-//        System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
         System.out.println(tasks.get(index).toString());
     }
 
