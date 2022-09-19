@@ -8,7 +8,7 @@ import duke.exception.*;
 
 public abstract class Command {
     public enum CommandType {
-        EXIT, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE
+        EXIT, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, FIND
     }
 
     protected CommandType commandType;
