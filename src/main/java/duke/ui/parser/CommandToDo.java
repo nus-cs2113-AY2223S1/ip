@@ -13,8 +13,8 @@ public class CommandToDo extends Command {
     public CommandToDo(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.MIN_ARGUMENTS = MIN_ARGUMENTS;
-        super.MAX_ARGUMENTS = null;
+        super.minArguments = MIN_ARGUMENTS;
+        super.maxArguments = null;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.TODO;
     }
@@ -23,7 +23,7 @@ public class CommandToDo extends Command {
     protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
             MissingDescriptionException {
 
-        if (super.MIN_ARGUMENTS != null && splitArguments.size() < MIN_ARGUMENTS) {
+        if (super.minArguments != null && splitArguments.size() < MIN_ARGUMENTS) {
             throw new MissingDescriptionException();
         }
     }

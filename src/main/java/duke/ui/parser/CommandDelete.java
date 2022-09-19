@@ -17,8 +17,8 @@ public class CommandDelete extends Command {
         super.splitArguments = splitArguments(rawArguments);
         super.splitArguments = new ArrayList<>(splitArguments(rawArguments));
 
-        super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
-        super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.minArguments = NUM_OF_ARGUMENTS;
+        super.maxArguments = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.DELETE;
     }
