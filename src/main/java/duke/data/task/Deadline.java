@@ -1,15 +1,27 @@
 package duke.data.task;
 
-public class Deadline extends Task {
-    private String deadlineTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String taskName, String deadlineTime) {
+import static duke.common.Constants.TIME_OUTPUT_PATTERN;
+
+public class Deadline extends Task {
+    private LocalDateTime deadlineTime;
+
+    public Deadline(String taskName, LocalDateTime deadlineTime) {
         super(taskName);
         this.deadlineTime = deadlineTime;
     }
 
     public String getDeadlineTime() {
-        return deadlineTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+        return deadlineTime.format(formatter);
+    }
+
+    public LocalDate getDeadlineDate() {
+        LocalDate localDate = deadlineTime.toLocalDate();
+        return localDate;
     }
 
     @Override

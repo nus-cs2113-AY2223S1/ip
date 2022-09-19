@@ -9,9 +9,11 @@ import duke.exception.EventMissingTimeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
+
 public class EventCommand extends AddCommand {
     public static final String COMMAND_WORD = "EVENT";
-    private String eventTime;
+    private LocalDateTime eventTime;
 
     public EventCommand() {
         super();
@@ -37,10 +39,10 @@ public class EventCommand extends AddCommand {
     }
 
     @Override
-    protected void setParameters(String parameterInput) {
+    protected void setParameters(String parameterInput) throws DukeException {
         String[] splits = splitTaskName(" /at ", parameterInput);
         super.taskName = splits[0];
-        eventTime = splits[1];
+        eventTime = convertStringToLocalDateTime(splits[1]);
     }
 
     @Override

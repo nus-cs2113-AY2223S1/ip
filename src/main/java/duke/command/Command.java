@@ -25,7 +25,7 @@ public abstract class Command {
 
     protected abstract void checkParameters(String parameterInput) throws DukeException;
 
-    protected abstract void setParameters(String parameterInput);
+    protected abstract void setParameters(String parameterInput) throws DukeException;
 
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 }
