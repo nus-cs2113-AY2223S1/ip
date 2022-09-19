@@ -16,10 +16,11 @@ Table of Contents
     8. [Mark a task as done: `mark`](#mark-a-task-as-done-mark)
     9. [Unmark a task as done: `unmark`](#unmark-a-task-as-done-unmark)
     10. [Delete a task: `delete`](#delete-a-task-delete)
-3. [Saving the Data](#saving-the-data)
-4. [Editing the data file](#editing-the-data-file)
-5. [FAQ](#faq)
-6. [Command summary](#command-summary)
+3. [Understanding Dates and Times](#understanding-dates-and-times)
+4. [Saving the Data](#saving-the-data)
+5. [Editing the data file](#editing-the-data-file)
+6. [FAQ](#faq)
+7. [Command summary](#command-summary)
 
 ## Quick start
 
@@ -147,7 +148,7 @@ todo borrow book
 
 ### Add an Event: `event`
 
-Use this command to keep track of events you need to attend. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form.
+Use this command to keep track of events you need to attend. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
 
 Format: `event NAME /at DATETIME`
 
@@ -169,7 +170,7 @@ event christmas party /at 2022-12-25 2:00pm
 
 ### Add a Deadline: `deadline`
 
-Use this command to keep track of deadlines you need to meet. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form.
+Use this command to keep track of deadlines you need to meet. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
 
 Format: `deadline NAME /by DATETIME`
 
@@ -210,6 +211,8 @@ mark 2
 
 ### Unmark a task as done: `unmark`
 
+Marks a task in your list as incomplete.
+
 Format: `unmark INDEX`
 
 Sample: 
@@ -234,7 +237,35 @@ unmark 2
 
 ### Delete a task: `delete`
 
+Deletes a task from your list.
+
 Format: `delete INDEX`
+
+Sample:
+```
+list
+    ____________________________________________________________
+
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[D][ ] return book (by: Sunday)
+     3.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+
+delete 2
+    ____________________________________________________________
+
+     OK, I've deleted [D][ ] return book (by: Sunday)
+     
+     Here are the tasks in your list:
+     1.[T][ ] borrow book
+     2.[E][ ] project meeting (at: Mon 2-4pm)
+    ____________________________________________________________
+```
+
+## Understanding Dates and Times
+
+Specifying dates and times in a standard format lets Duke understand them better. Some understandable dates are 2022-12-25, 2022/12/25, 25/12/2022, 25 December 2022 and 25 dec 2022. If a year is not specified, e.g. 25 dec, then it defaults to the current year. Some understandable times are 23:59, 12:00, 2:30am and 4:15pm.
 
 ## Saving the Data
 
