@@ -39,13 +39,12 @@ public class Duke {
             int index;
             try {
                 index = Integer.parseInt(args[1].trim()) - 1;
-            } catch (NumberFormatException e) {
+                setTaskStatus(index, isDone);
+            } catch (NumberFormatException exception) {
                 // user either didn't enter a number or number was too big for integer
                 // not a nice way to use exceptions but alternatives are cumbersome
-                System.out.println("Invalid argument, dude.");
-                break;
+                System.out.println("That's not even a number, dude.");
             }
-            setTaskStatus(index, isDone);
             break;
         case "todo":
             // fallthrough
@@ -53,7 +52,7 @@ public class Duke {
             // fallthrough
         case "event":
             if (args.length < 2) {
-                System.out.println("Not enough arguments, dude."); // repeated code, can this be collapsed?
+                System.out.println("Not enough arguments, dude.");
                 break;
             }
             String taskData = args[1];
@@ -67,22 +66,23 @@ public class Duke {
 
     private static void addTask(String taskType, String taskData) {
         Task task;
-        switch (taskType) {
-        case "todo":
-            task = createTodo(taskData);
-            break;
-        case "deadline":
-            task = createDeadline(taskData);
-            break;
-        case "event":
-            task = createEvent(taskData);
-            break;
-        default:
-            System.out.println("How did we get here?"); // this should have been validated by runCommand()
-            return; // instead of break, we want to stop function execution
-        }
-        if (task == null) {
-            System.out.println("Error adding task."); // something went wrong in the switch case
+        try {
+            switch (taskType) {
+            case "todo":
+                task = createTodo(taskData);
+                break;
+            case "deadline":
+                task = createDeadline(taskData);
+                break;
+            case "event":
+                task = createEvent(taskData);
+                break;
+            default:
+                System.out.println("How did we get here?"); // this should have been validated by runCommand()
+                return; // instead of break, we want to stop function execution
+            }
+        } catch (InvalidArgumentException exception) {
+            System.out.println(exception.getMessage());
             return;
         }
         tasks.add(task);
@@ -95,10 +95,9 @@ public class Duke {
         return new Todo(taskData);
     }
 
-    private static Task createEvent(String taskData) {
+    private static Task createEvent(String taskData) throws InvalidArgumentException {
         if (!taskData.contains("/at")) {
-            System.out.println("Missing /at parameter");
-            return null;
+            throw new InvalidArgumentException("Missing /at parameter");
         }
         String[] inputArr = taskData.split("/at");
         String description = inputArr[0].trim();
@@ -107,10 +106,9 @@ public class Duke {
     }
 
 
-    private static Deadline createDeadline(String taskData) {
+    private static Deadline createDeadline(String taskData) throws InvalidArgumentException {
         if (!taskData.contains("/by")) {
-            System.out.println("Missing /by parameter");
-            return null;
+            throw new InvalidArgumentException("Missing /by parameter");
         }
         String[] inputArr = taskData.split("/by");
         String description = inputArr[0].trim();
