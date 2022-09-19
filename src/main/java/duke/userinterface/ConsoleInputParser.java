@@ -1,6 +1,17 @@
 package duke.userinterface;
 
-import duke.task.Task;
+import duke.commands.ConsoleCommand;
+import duke.commands.ConsoleCommandBye;
+import duke.commands.ConsoleCommandDeadline;
+import duke.commands.ConsoleCommandDelete;
+import duke.commands.ConsoleCommandEvent;
+import duke.commands.ConsoleCommandFind;
+import duke.commands.ConsoleCommandList;
+import duke.commands.ConsoleCommandMark;
+import duke.commands.ConsoleCommandTodo;
+import duke.commands.ConsoleCommandUnmark;
+import duke.data.task.Task;
+import duke.exceptions.ConsoleInputParserException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +20,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Parses user input entered via standard input.
  */
+@SuppressWarnings("EnhancedSwitchMigration")
 public class ConsoleInputParser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";

@@ -1,4 +1,6 @@
-package duke;
+package duke.exceptions;
+
+import duke.Duke;
 
 /**
  * Define exceptions thrown by {@link Duke#}.

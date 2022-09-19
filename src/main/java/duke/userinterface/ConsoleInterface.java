@@ -1,6 +1,23 @@
 package duke.userinterface;
 
-import duke.task.*;
+import duke.commands.ConsoleCommand;
+import duke.commands.ConsoleCommandBye;
+import duke.commands.ConsoleCommandDeadline;
+import duke.commands.ConsoleCommandDelete;
+import duke.commands.ConsoleCommandEvent;
+import duke.commands.ConsoleCommandFind;
+import duke.commands.ConsoleCommandList;
+import duke.commands.ConsoleCommandMark;
+import duke.commands.ConsoleCommandTodo;
+import duke.commands.ConsoleCommandUnmark;
+import duke.common.Configurations;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
+import duke.data.task.TaskManager;
+import duke.exceptions.ConsoleInputParserException;
+import duke.exceptions.TaskManagerException;
+import duke.data.task.Todo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,10 +26,8 @@ import java.util.Scanner;
 /**
  * Provides functions to interface with user via standard input and standard output.
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class ConsoleInterface {
-    public static final String TASKS_DIRECTORY_PATH = "./data/";
-    public static final String TASKS_FILENAME = "tasks.txt";
-
     private Scanner scanner;
     private TaskManager taskManager;
 
@@ -21,12 +36,13 @@ public class ConsoleInterface {
      */
     public ConsoleInterface() {
         scanner = new Scanner(System.in);
-        taskManager = new TaskManager(TASKS_DIRECTORY_PATH, TASKS_FILENAME);
+        taskManager = new TaskManager(Configurations.TASKS_DIRECTORY_PATH, Configurations.TASKS_FILENAME);
     }
 
     /**
      * Prints logo to standard out.
      */
+    @SuppressWarnings("TextBlockMigration")
     public static void printLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -253,6 +269,7 @@ public class ConsoleInterface {
     /**
      * Executes command line interface which interacts with user.
      */
+    @SuppressWarnings("StatementWithEmptyBody")
     public void executeProgram() {
         ConsoleInterface.printLineSeparator();
 

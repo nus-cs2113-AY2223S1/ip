@@ -1,10 +1,11 @@
-package duke.task;
+package duke.exceptions;
 
-import duke.DukeException;
+import duke.data.task.TaskManager;
 
 /**
  * Define exceptions thrown by {@link TaskManager#}.
  */
+@SuppressWarnings("unused")
 public class TaskManagerException {
     /**
      * Thrown when a task cannot be found in {@link TaskManager#}.

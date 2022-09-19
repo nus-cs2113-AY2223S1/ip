@@ -1,10 +1,11 @@
-package duke.userinterface;
+package duke.commands;
 
 import java.time.LocalDateTime;
 
 /**
  * Stores arguments for event command.
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class ConsoleCommandEvent extends ConsoleCommand {
     private String description;
     private LocalDateTime startAt;

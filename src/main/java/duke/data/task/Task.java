@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Stores tasks.
  */
+@SuppressWarnings({"PatternVariableCanBeUsed", "unused"})
 public class Task {
     public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
 
@@ -148,6 +149,7 @@ public class Task {
         String isCompleteStr = taskStrArr[1].trim();
         String description = taskStrArr[2].trim();
 
+        //noinspection IfCanBeSwitch
         if (type.equals("T")) {
             return convertFromStringToTodo(isCompleteStr, description);
         } else if (type.equals("D")) {

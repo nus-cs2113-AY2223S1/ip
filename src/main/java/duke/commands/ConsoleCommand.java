@@ -1,4 +1,4 @@
-package duke.userinterface;
+package duke.commands;
 
 /**
  * Stores parsed arguments.

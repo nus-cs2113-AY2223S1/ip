@@ -1,10 +1,11 @@
-package duke.userinterface;
+package duke.commands;
 
 import java.time.LocalDateTime;
 
 /**
  * Stores arguments for deadline command.
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class ConsoleCommandDeadline extends ConsoleCommand {
     private String description;
     private LocalDateTime by;

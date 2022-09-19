@@ -1,8 +1,9 @@
-package duke.userinterface;
+package duke.commands;
 
 /**
  * Stores arguments for find command.
  */
+@SuppressWarnings("ALL")
 public class ConsoleCommandFind extends ConsoleCommand {
     private String description;
 

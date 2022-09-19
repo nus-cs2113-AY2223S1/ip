@@ -1,8 +1,9 @@
-package duke.userinterface;
+package duke.commands;
 
 /**
  * Stores arguments for todo command.
  */
+@SuppressWarnings("ALL")
 public class ConsoleCommandTodo extends ConsoleCommand {
     private String description;
 

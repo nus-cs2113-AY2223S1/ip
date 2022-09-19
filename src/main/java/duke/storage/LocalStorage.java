@@ -1,6 +1,6 @@
-package duke.data;
+package duke.storage;
 
-import duke.task.Task;
+import duke.data.task.Task;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
+@SuppressWarnings("StringConcatenationInLoop")
 public class LocalStorage {
     /**
      * Save tasks in memory to local storage.

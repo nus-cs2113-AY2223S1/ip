@@ -1,10 +1,11 @@
-package duke.userinterface;
+package duke.exceptions;
 
-import duke.DukeException;
+import duke.userinterface.ConsoleInputParser;
 
 /**
  * Define exceptions thrown by {@link ConsoleInputParser#}.
  */
+@SuppressWarnings("unused")
 public class ConsoleInputParserException {
     public static final String ERROR_MESSAGE_ARGUMENT_NOT_INTEGER = "The argument provided is not a valid integer.";
     public static final String ERROR_MESSAGE_COMMAND_TODO_INVALID_SYNTAX = "The arguments are invalid. SYNTAX: todo DESCRIPTION";

@@ -1,6 +1,7 @@
-package duke.task;
+package duke.data.task;
 
-import duke.data.LocalStorage;
+import duke.exceptions.TaskManagerException;
+import duke.storage.LocalStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 /**
  * Stores tasks and manages task-list.
  */
+@SuppressWarnings({"FieldMayBeFinal", "unused"})
 public class TaskManager {
     public final String DEFAULT_TASKS_PATH = "./data/";
     public final String DEFAULT_TASKS_FILENAME = "tasks.txt";
