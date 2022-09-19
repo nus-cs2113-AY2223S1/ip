@@ -12,11 +12,9 @@ public class ListCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.line();
         ui.output("You have " + taskList.tasks.size() + " tasks");
         for (Task task : taskList.tasks) {
             ui.output(task.listTask(taskList.tasks));
         }
-        ui.line();
     }
 }

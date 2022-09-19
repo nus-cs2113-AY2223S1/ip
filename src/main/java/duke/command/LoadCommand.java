@@ -21,8 +21,10 @@ public class LoadCommand extends Command {
             storage.loadTasks(taskList);
             if (taskList.tasks.size() > 0) {
                 ui.output("Remembering existing tasks......");
+                ui.line();
                 Command command = new ListCommand();
                 command.execute(taskList, ui, storage);
+                ui.line();
             }
         } catch (FileNotFoundException e) {
             try {

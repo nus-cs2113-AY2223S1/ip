@@ -38,6 +38,4 @@ public class Ui {
         }
     }
 
-    public void outputStream(String output) {
-    }
 }
