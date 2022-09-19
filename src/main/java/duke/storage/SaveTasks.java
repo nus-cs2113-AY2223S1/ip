@@ -27,9 +27,9 @@ public class SaveTasks {
             if (task instanceof ToDo) {
                 description = task.getName();
             } else if (task instanceof Deadline) {
-                description = String.format(task.getName() + " | " + ((Deadline) task).getDeadlineTime());
+                description = String.format(task.getName() + " | " + ((Deadline) task).getDateTime());
             } else if (task instanceof Event) {
-                description = String.format(task.getName() + " | " + ((Event) task).getEventTime());
+                description = String.format(task.getName() + " | " + ((Event) task).getDateTime());
             } else {
                 throw new SaveErrorDukeException();
             }

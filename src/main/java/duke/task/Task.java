@@ -1,8 +1,8 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.exception.InvalidDateTimeDukeException;
 import duke.exception.MissingDescriptionDukeException;
-import duke.exception.MissingTimeDukeException;
 
 /**
  * Represents task
@@ -19,10 +19,11 @@ public abstract class Task {
      * @throws DukeException if task name is invalid
      */
     public Task(String arguments) throws DukeException {
-        checkForTaskName(arguments);
-        setName(extractTaskName(arguments));
+        TaskNameParser.checkForTaskName(arguments);
+        setName(TaskNameParser.extractTaskName(arguments));
         this.isDone = false;
     }
+
 
     /**
      * Checks that user input contains a task name, ignoring task date & time if any
@@ -56,11 +57,11 @@ public abstract class Task {
      */
     protected static String extractTaskTime(String arguments) throws DukeException {
         if (arguments.indexOf('/') == -1) {
-            throw new MissingTimeDukeException();
+            throw new InvalidDateTimeDukeException();
         }
         String taskTime = arguments.substring(arguments.indexOf('/') + 1).trim();
         if (taskTime.length() == 0) {
-            throw new MissingTimeDukeException();
+            throw new InvalidDateTimeDukeException();
         }
         return taskTime;
     }

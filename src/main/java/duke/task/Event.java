@@ -2,12 +2,16 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Represents task of type event
  */
 public class Event extends Task {
 
-    private String eventTime;
+    private final LocalDate date;
+    private final LocalTime time;
 
     /**
      * Constructs an Event object
@@ -17,11 +21,21 @@ public class Event extends Task {
      */
     public Event(String arguments) throws DukeException {
         super(arguments);
-        this.eventTime = extractTaskTime(arguments);
+        String dateTime = TaskDateTimeParser.extractTaskDateTime(arguments);
+        this.date = TaskDateTimeParser.extractTaskDate(dateTime);
+        this.time = TaskDateTimeParser.extractTaskTime(dateTime);
     }
 
-    public String getEventTime() {
-        return eventTime;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getDateTime() {
+        return TaskDateTimeParser.getDateTime(date, time);
+    }
+
+    private String listDateTime() {
+        return TaskDateTimeParser.listDateTime(date, time);
     }
 
     @Override
@@ -31,6 +45,6 @@ public class Event extends Task {
 
     @Override
     public String listTask() {
-        return String.format("%s (%s)", super.listTask(), this.eventTime);
+        return String.format("%s (%s)", super.listTask(), listDateTime());
     }
 }

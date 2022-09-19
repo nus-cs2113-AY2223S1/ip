@@ -2,12 +2,16 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Represents task of type deadline
  */
 public class Deadline extends Task {
 
-    private String deadlineTime;
+    private final LocalDate date;
+    private final LocalTime time;
 
     /**
      * Constructs a Deadline object
@@ -17,11 +21,21 @@ public class Deadline extends Task {
      */
     public Deadline(String arguments) throws DukeException {
         super(arguments);
-        this.deadlineTime = extractTaskTime(arguments);
+        String dateTime = TaskDateTimeParser.extractTaskDateTime(arguments);
+        this.date = TaskDateTimeParser.extractTaskDate(dateTime);
+        this.time = TaskDateTimeParser.extractTaskTime(dateTime);
     }
 
-    public String getDeadlineTime() {
-        return deadlineTime;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getDateTime() {
+        return TaskDateTimeParser.getDateTime(date, time);
+    }
+
+    private String listDateTime() {
+        return TaskDateTimeParser.listDateTime(date, time);
     }
 
     @Override
@@ -31,6 +45,6 @@ public class Deadline extends Task {
 
     @Override
     public String listTask() {
-        return String.format("%s (%s)", super.listTask(), this.deadlineTime);
+        return String.format("%s (%s)", super.listTask(), listDateTime());
     }
 }

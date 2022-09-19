@@ -27,6 +27,12 @@ public class Parser {
             return new PleaseCommand();
         case "list":
             return new ListCommand();
+        case "on":
+            return new DateCommand(arguments.trim(), "on");
+        case "before":
+            return new DateCommand(arguments.trim(), "before");
+        case "after":
+            return new DateCommand(arguments.trim(), "after");
         case "mark":
             return new MarkCommand(arguments.trim());
         case "unmark":
