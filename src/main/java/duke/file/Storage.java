@@ -39,23 +39,23 @@ public class Storage {
                 switch (parsedStoredTask[0]) {
                 case TODO:
                     if (parsedStoredTask[1].equals(MARKED)) {
-                        tasks.add(new Todo(TODO, parsedStoredTask[2], true));
+                        tasks.add(new Todo(parsedStoredTask[2], true));
                     } else {
-                        tasks.add(new Todo(TODO, parsedStoredTask[2], false));
+                        tasks.add(new Todo(parsedStoredTask[2], false));
                     }
                     break;
                 case EVENT:
                     if (parsedStoredTask[1].equals(MARKED)) {
-                        tasks.add(new Event(EVENT, parsedStoredTask[2], true, parsedStoredTask[3]));
+                        tasks.add(new Event(parsedStoredTask[2], parsedStoredTask[3], true));
                     } else {
-                        tasks.add(new Event(EVENT, parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Event(parsedStoredTask[2], parsedStoredTask[3], false));
                     }
                     break;
                 case DEADLINE:
                     if (parsedStoredTask[1].equals(MARKED)) {
-                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], true, parsedStoredTask[3]));
+                        tasks.add(new Deadline(parsedStoredTask[2], parsedStoredTask[3], true));
                     } else {
-                        tasks.add(new Deadline(DEADLINE, parsedStoredTask[2], false, parsedStoredTask[3]));
+                        tasks.add(new Deadline(parsedStoredTask[2], parsedStoredTask[3], false));
                     }
                     break;
                 default:
@@ -118,12 +118,8 @@ public class Storage {
             for (Task task : tasks) {
                 switch (task.getTaskType()) {
                 case DEADLINE:
-                    textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getDateTime());
-
-                    break;
                 case EVENT:
                     textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + task.getDateTime());
-
                     break;
                 case TODO:
                     textToWrite = String.format(task.getTaskType() + " | " + task.getStatusIcon() + " | " + task.getDescription());

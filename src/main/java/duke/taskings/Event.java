@@ -5,9 +5,10 @@ public class Event extends Task {
     protected String dateTime;
     protected boolean isDone;
 
-    public Event(String taskType, String description, boolean isDone, String dateTime) {
-        super(taskType, description, isDone);
+    public Event(String description, String dateTime, boolean isDone) {
+        super(description, isDone);
         this.dateTime = dateTime;
+        this.taskType = "E";
     }
 
     @Override
@@ -17,11 +18,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "Added new event : [E] " + super.toString() + " (at: " + dateTime + ")";
+        return super.toString() + " (at: " + dateTime + ")";
     }
 
-    @Override
-    public String printList() {
-        return "[E] [" + super.getStatusIcon() + "] " + super.description + " (at: " + dateTime + ")";
-    }
 }

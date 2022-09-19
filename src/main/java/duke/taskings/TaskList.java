@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -19,7 +18,9 @@ public class TaskList {
     static final String OUT_OF_BOUNDS = "IndexBeyondBoundError";
     static final String NON_NUMERIC = "NonNumericError";
     static final String WRONG_FORMAT = "WrongFormatError";
-
+    static final String DEADLINE = "D";
+    static final String EVENT = "E";
+    static final String TODO = "T";
 
     /**
      * Checks if the checked index is within the current taskIndex and if it is above 0.
@@ -55,6 +56,7 @@ public class TaskList {
                 if (task.getDescription().toLowerCase().contains(keyword)) {
                     matchedTasks.add(task);
                     numOfMatchedTasks += 1;
+
                 }
             }
             Ui.printMatchedTasks(matchedTasks);
@@ -83,7 +85,7 @@ public class TaskList {
             Ui.printNumOfTasks(0);
         } else {
             for (Task task : tasks) {
-                System.out.println(indexNum + ". " + task.printList());
+                System.out.println(indexNum + ". " + task.toString());
                 indexNum += 1;
             }
         }
@@ -99,9 +101,10 @@ public class TaskList {
      */
     public static void addTodo(ArrayList<Task> tasks, String taskDescription) {
         Ui.displayLineDivider();
-        tasks.add(new Todo("T", taskDescription, false));
+        tasks.add(new Todo(taskDescription, false));
         Storage.writeToFile(tasks);
-        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.print("New Todo task added: ");
+        System.out.println(tasks.get(tasks.size() - 1).toString());
         Ui.printNumOfTasks(tasks.size());
     }
 
@@ -132,10 +135,9 @@ public class TaskList {
                     } else {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
                         LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
-                        LocalDate date = dateTime.toLocalDate();
-//
-                        tasks.add(new Deadline("D", taskDescription, false, dateTime.toString()));
-                        System.out.println(tasks.get(tasks.size() - 1));
+                        tasks.add(new Deadline(taskDescription, dateTime.toString(), false));
+                        System.out.print("New Deadline task added: ");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
                         Ui.printNumOfTasks(tasks.size());
                     }
                 } else {
@@ -145,7 +147,7 @@ public class TaskList {
                 Storage.writeToFile(tasks);
             } else {
                 System.out.println("Wrong format !");
-                System.out.println("Example: deadline food preperation /by 1/09/2022 0900");
+                System.out.println("Example: deadline food preparation /by 1/09/2022 0900");
             }
         } catch (DateTimeParseException e) {
             System.out.println("Wrong Timing format. Should be < d/mm/yyyy 2359 > format");
@@ -180,8 +182,8 @@ public class TaskList {
 
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
                         LocalDateTime dateTime = LocalDateTime.parse(eventPeriod, formatter);
-                        LocalDate date = dateTime.toLocalDate();
-                        tasks.add(new Event("E", taskDescription, false, dateTime.toString()));
+                        System.out.print("New Event task added: ");
+                        tasks.add(new Event(taskDescription, dateTime.toString(), false));
                         System.out.println(tasks.get(tasks.size() - 1));
                         Ui.printNumOfTasks(tasks.size());
                     }
@@ -206,13 +208,12 @@ public class TaskList {
      * further processes the parsed user commands and allocate the correct Ui messages to respond to the user.
      *
      * @param tasks      the array which would have it's entries retrieved.
-     * @param numOfWords the num of words in the user input. If > 2, the command is in invalid format.
      * @param command    the 1st string given by the user.
      * @param userInput  the array containing 2 Strings. With the first being the "command" and the second being the "index" which the command will act on
      */
-    public static void processCommand(ArrayList<Task> tasks, int numOfWords, String command, String[] userInput) {
+    public static void processCommand(ArrayList<Task> tasks,  String command, String[] userInput) {
         try {
-            if (numOfWords > 2) {
+            if (userInput.length > 2) {
                 Ui.showErrorMessage(command, WRONG_FORMAT);
             } else {
                 int index = Integer.parseInt(userInput[1]) - 1;

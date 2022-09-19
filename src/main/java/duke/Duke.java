@@ -36,7 +36,6 @@ public class Duke {
             if (Parser.processInput(inData, tasks) == EXIT) {
                 break;
             }
-
         }
     }
 }

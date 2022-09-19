@@ -9,9 +9,7 @@ public class Ui {
     static final String FAILED_CREATION = "FailedFileCreation";
     static final String FILE_INPUT_FAILED = "FailedFileInput";
     static final String LINE_DIVIDER = "____________________________________________________________";
-    static final String DEADLINE = "D";
-    static final String EVENT = "E";
-    static final String TODO = "T";
+
 
 
     /**
@@ -64,20 +62,7 @@ public class Ui {
      */
     public static void printMatchedTasks(ArrayList<Task> matchedTasks) {
         for (Task task : matchedTasks) {
-            String taskType = task.getTaskType();
-            switch (taskType) {
-            case TODO:
-                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription());
-                break;
-            case EVENT:
-                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "( at " + task.getDateTime() + " )");
-                break;
-            case DEADLINE:
-                System.out.println("[" + task.getTaskType() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription() + "( by " + task.getDateTime() + " )");
-                break;
-            default:
-                break;
-            }
+            System.out.println(task.toString());
         }
     }
 
@@ -152,7 +137,8 @@ public class Ui {
      * @param index the index of the array to retrieve from
      */
     public static void getEntryStatus(ArrayList<Task> tasks, int index) {
-        System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
+//        System.out.println("[" + tasks.get(index).getTaskType() + "]" + "[" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
+        System.out.println(tasks.get(index).toString());
     }
 
     /**

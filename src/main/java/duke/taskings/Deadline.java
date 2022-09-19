@@ -5,9 +5,10 @@ public class Deadline extends Task {
 
     protected String dateTime;
 
-    public Deadline(String taskType, String description, boolean isDone, String dateTime) {
-        super(taskType, description, isDone);
+    public Deadline( String description, String dateTime, boolean isDone) {
+        super(description,isDone);
         this.dateTime = dateTime;
+        this.taskType = "D";
     }
 
     @Override
@@ -17,11 +18,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "Added deadline: [D] " + super.toString() + " (by: " + dateTime + ")";
+        return  super.toString() + " (by: " + dateTime + ")";
     }
 
-    @Override
-    public String printList() {
-        return "[D] [" + super.getStatusIcon() + "] " + super.description + " (by: " + dateTime + ")";
-    }
+
 }

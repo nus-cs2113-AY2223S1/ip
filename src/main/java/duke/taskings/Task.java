@@ -10,16 +10,16 @@ public class Task {
      */
 
     protected String taskType;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
 
-    public Task(String taskType, String description, boolean isDone) {
-        this.taskType = taskType;
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
-    public boolean getisDone() {
+
+    public boolean getIsDone() {
         return isDone;
     }
 
@@ -58,13 +58,10 @@ public class Task {
     }
 
 
-    public String printList() {
-        return "";
-    }
 
 
     @Override
     public String toString() {
-        return description;
+        return "["+this.taskType+ "]"+ "["+ this.getStatusIcon()+ "] " +description;
     }
 }

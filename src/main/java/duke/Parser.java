@@ -10,26 +10,13 @@ public class Parser {
     static final boolean EXIT = false;
     static final boolean CONTINUE = true;
 
-    /**
-     * Returns the number of words within a string.
-     *
-     * @param input the string input from the user
-     * @return the number of words in the string
-     */
-    public static int getNumOfWords(String input) {
-        if (input == null || input.isEmpty()) {
-            return 0;
-        }
-        String[] words = input.split("\\s+");
-        return words.length;
-    }
+
 
     /**
      * parses the user input and processes it with the tasks array list.
      *
      * @param inData the user input .
-     * @param tasks the array which would be operated on.
-     *
+     * @param tasks  the array which would be operated on.
      * @return EXIT if input equals "bye", else return CONTINUE
      */
 
@@ -47,25 +34,23 @@ public class Parser {
             Ui.showWrongCommand();
         } else if (inData.contains(" ")) {
             //further parse the user input for user taskings
-            int numOfWords = getNumOfWords(inData);
-            String command = inData.split(" ")[0];
             String[] userInput = inData.split(" ");
+            String command = userInput[0];
             StringBuilder synthesizedArr = new StringBuilder();
-            for (int i = 1; i < numOfWords; i += 1) {
+            for (int i = 1; i < userInput.length; i += 1) {
                 synthesizedArr.append(userInput[i]).append(" ");
             }
             String taskDescription = synthesizedArr.toString();
 
-
             switch (command) {
             case "mark":
-                TaskList.processCommand(tasks, numOfWords, "mark", userInput);
+                TaskList.processCommand(tasks, "mark", userInput);
                 break;
             case "unmark":
-                TaskList.processCommand(tasks, numOfWords, "unmark", userInput);
+                TaskList.processCommand(tasks, "unmark", userInput);
                 break;
             case "delete":
-                TaskList.processCommand(tasks, numOfWords, "delete", userInput);
+                TaskList.processCommand(tasks, "delete", userInput);
                 break;
             case "todo":
                 TaskList.addTodo(tasks, taskDescription);
@@ -77,7 +62,7 @@ public class Parser {
                 TaskList.addEvent(tasks, taskDescription);
                 break;
             case "find":
-                TaskList.findKeyword(tasks,taskDescription, numOfWords);
+                TaskList.findKeyword(tasks, taskDescription, userInput.length);
                 break;
             default:
                 Ui.showWrongCommand();
