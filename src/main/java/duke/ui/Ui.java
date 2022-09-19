@@ -5,6 +5,10 @@ import duke.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * the Ui class which handles Duke's UI
+ * print string to be displayed to user
+ */
 public class Ui {
 
     private final static String logo2 = "                   _      \n"
@@ -24,22 +28,43 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
+    /**
+     * read in user input
+     *
+     * @return user input in the form of a String
+     */
     public String readCommand() {
         return in.nextLine();
     }
 
+    /**
+     * print message to user
+     *
+     * @param line message to be printed in the form of a String
+     */
     public void printToUser(String line) {
         System.out.println(line + System.lineSeparator() + DIVIDER);
     }
 
+    /**
+     * prints greeting when program is started
+     */
     public void printGreeting() {
         printToUser("Hello I'm\n" + logo2 + System.lineSeparator() + "What you want?");
     }
 
+    /**
+     * prints bye when program is closed
+     */
     public void printBye() {
         printToUser("bye bye");
     }
 
+    /**
+     * print added task
+     *
+     * @param tasks TaskList which contains the added task
+     */
     public void printAddTask(TaskList tasks) {
         int tasksLength = tasks.getSize();
         String taskType = tasks.findTask(tasksLength - 1).toString();
@@ -47,6 +72,12 @@ public class Ui {
                 + "you still have " + tasksLength + " tasks left");
     }
 
+    /**
+     * print deleted task
+     *
+     * @param tasks   TaskList which contains task that was deleted
+     * @param taskNum index of task to be deleted
+     */
     public void printDeleteTask(TaskList tasks, int taskNum) {
         int tasksLength = tasks.getSize();
         if (tasksLength != 0) {
@@ -56,20 +87,42 @@ public class Ui {
         }
     }
 
+    /**
+     * print marked task
+     *
+     * @param tasks   TaskList containing the task to be marked
+     * @param taskNum index of task to be marked
+     */
     public void printMarkTask(TaskList tasks, int taskNum) {
         String taskType = tasks.findTask(taskNum).toString();
         printToUser("that was fast\n" + SPACER + taskType);
     }
 
+    /**
+     * print unmarked task
+     *
+     * @param tasks   TaskList containing the task to be unmarked
+     * @param taskNum index of task to be unmarked
+     */
     public void printUnmarkTask(TaskList tasks, int taskNum) {
         String taskType = tasks.findTask(taskNum).toString();
         printToUser("can you make up your mind\n" + SPACER + taskType);
     }
 
+    /**
+     * print error message
+     *
+     * @param message String to be printed
+     */
     public void printError(String message) {
         printToUser(message);
     }
 
+    /**
+     * print the tasks found using find by keyword
+     *
+     * @param tasksFound TaskList containing tasks that were found
+     */
     public void printTasksFound(TaskList tasksFound) {
         int counter = 1;
         System.out.println("Here are the tasks found:");
@@ -84,6 +137,11 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * print a list of tasks
+     *
+     * @param tasks TaskList containing the tasks to be printed
+     */
     public void printListOfTasks(TaskList tasks) {
         int counter = 1;
         System.out.println("come uncle show you your tasks");

@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * event class which inherits from Task
+ * event needs to have a date
+ */
 public class Event extends Task {
 
     protected String at;

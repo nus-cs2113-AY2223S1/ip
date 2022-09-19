@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * deadline class which inherits from task
+ * deadlines need a date
+ */
 public class Deadline extends Task {
     protected String by;
 

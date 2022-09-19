@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * storage class that handles all local memory storage such as reading and writing
+ * to files
+ */
 public class Storage {
     private final String filePath;
 
@@ -20,6 +24,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * read from saved local file, creates a new file in new directory if necessary
+     *
+     * @return an ArrayList of tasks from the data read
+     * @throws FileNotFoundException the exception is thrown when the file cannot be found/created
+     */
     public ArrayList<Task> readFile() throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         String directory = filePath.substring(0, filePath.lastIndexOf("/"));
@@ -35,13 +45,25 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * append task as string to file
+     *
+     * @param textToAppend string to be appended to file
+     * @throws IOException the exception thrown when file cannot be written to
+     */
     public void appendTask(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
-    public Task stringToTask(String toBeConverted) {
+    /**
+     * converts string from file to task to be added into taskList
+     *
+     * @param toBeConverted string to be converted to task
+     * @return Task which is either Todo, Event, Deadline
+     */
+    private Task stringToTask(String toBeConverted) {
         String[] words = toBeConverted.split("\\|");
         Task convertedTask = null;
         switch (words[0]) {
@@ -65,6 +87,12 @@ public class Storage {
         return convertedTask;
     }
 
+    /**
+     * writes Duke's task list to file in local storage
+     *
+     * @param tasks Duke's task list
+     * @throws IOException the exception thrown when file cannot be written to
+     */
     public void writeFile(TaskList tasks) throws IOException {
         if (tasks.getSize() == 0) {
             new FileWriter(filePath, false).close();
