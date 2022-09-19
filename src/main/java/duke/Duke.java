@@ -1,10 +1,14 @@
 package duke;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import duke.exception.InvalidArgumentException;
+import duke.exception.StorageLoadException;
+import duke.exception.StorageWriteException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -22,8 +26,11 @@ public class Duke {
     static final String GREET_MESSAGE = "I am Dude.\n" +
             "Type something in, dude.";
     static final String BYE_MESSAGE = "Catch you later, dude.";
+    static final String FILE_NAME = "dude.txt";
+    static final String FILE_SEPARATOR = "\u001f";
 
     static List<Task> tasks = new ArrayList<>();
+    static File file;
 
     public static void runCommand(String command) {
         String[] args = command.split(" ", 2);
@@ -97,6 +104,7 @@ public class Duke {
         System.out.println("OK, dude, I've added this task: ");
         System.out.println(task);
         System.out.println("You have " + tasks.size() + " tasks in the list.");
+        writeToDisk();
     }
 
     private static Todo createTodo(String taskData) {
@@ -134,12 +142,77 @@ public class Duke {
         task.setDone(isDone);
         System.out.println("Okay, dude, I've marked this task as " + (isDone ? "done" : "not done yet") + ": ");
         System.out.println(task.getDescription());
+        writeToDisk();
     }
 
     private static void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d.%s\n", i + 1, task);
+        }
+    }
+
+    private static void writeToDisk() {
+        try {
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                String taskType;
+                String timeField = "";
+                if (task instanceof Todo) {
+                    taskType = "T";
+                } else if (task instanceof Deadline) {
+                    taskType = "D";
+                    timeField = ((Deadline) task).getBy();
+                } else if (task instanceof Event) {
+                    timeField = ((Event) task).getAt();
+                    taskType = "E";
+                } else {
+                    throw new StorageWriteException("Invalid task encountered");
+                }
+                String line = taskType + FILE_SEPARATOR + task.isDone() + FILE_SEPARATOR + task.getDescription() +
+                        FILE_SEPARATOR + timeField;
+                writer.write(line + System.lineSeparator());
+            }
+            writer.close();
+        } catch (Exception e) {
+            throw new StorageWriteException(e);
+        }
+    }
+
+    private static void readFromDisk() {
+        file = new File(FILE_NAME);
+        try {
+            if (!file.createNewFile()) { // false if file exists
+                return;
+            }
+            Scanner fileInput = new Scanner(file);
+            while (fileInput.hasNext()) {
+                String line = fileInput.nextLine();
+                String[] fields = line.split(FILE_SEPARATOR);
+                String taskType = fields[0];
+                boolean taskStatus = Boolean.parseBoolean(fields[1]);
+                String description = fields[2];
+                Task currTask;
+                switch (taskType) {
+                case "T":
+                    currTask = new Todo(description);
+                    break;
+                case "D":
+                    String by = fields[3];
+                    currTask = new Deadline(description, by);
+                    break;
+                case "E":
+                    String at = fields[3];
+                    currTask = new Event(description, at);
+                    break;
+                default:
+                    throw new StorageLoadException("Invalid type identifier");
+                }
+                currTask.setDone(taskStatus);
+                tasks.add(currTask);
+            }
+        } catch (Exception e) {
+            throw new StorageLoadException(e);
         }
     }
 
@@ -150,6 +223,8 @@ public class Duke {
         System.out.println();
         System.out.println(GREET_MESSAGE);
         System.out.println();
+
+        readFromDisk();
 
         Scanner input = new Scanner(System.in);
 
