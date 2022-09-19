@@ -1,11 +1,17 @@
 package duke.data.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static duke.common.Constants.TIME_OUTPUT_PATTERN;
+
 /**
  * <code>Deadline</code> represents a task to be completed by a user before a specific date and time.
  */
 public class Deadline extends Task {
     // The date and time before the task is to be done.
-    private String deadlineTime;
+    private LocalDateTime deadlineTime;
 
     /**
      * Constructor of <code>Event</code>. Stores the description and date time of the task.
@@ -13,7 +19,7 @@ public class Deadline extends Task {
      * @param taskName     Description of the task.
      * @param deadlineTime Time before the task is to be completed.
      */
-    public Deadline(String taskName, String deadlineTime) {
+    public Deadline(String taskName, LocalDateTime deadlineTime) {
         super(taskName);
         this.deadlineTime = deadlineTime;
     }
@@ -24,7 +30,13 @@ public class Deadline extends Task {
      * @return A date time value of the task.
      */
     public String getDeadlineTime() {
-        return deadlineTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+        return deadlineTime.format(formatter);
+    }
+
+    public LocalDate getDeadlineDate() {
+        LocalDate localDate = deadlineTime.toLocalDate();
+        return localDate;
     }
 
     /**

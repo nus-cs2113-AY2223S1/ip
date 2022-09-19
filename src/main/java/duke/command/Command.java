@@ -59,8 +59,9 @@ public abstract class Command {
      * To store the necessary parameters for execution.
      *
      * @param parameterInput The extracted part of user input after the command entered.
+     * @throws DukeException Exception triggered on invalid user input.
      */
-    protected abstract void setParameters(String parameterInput);
+    protected abstract void setParameters(String parameterInput) throws DukeException;
 
     /**
      * To execute the command provided by the user.

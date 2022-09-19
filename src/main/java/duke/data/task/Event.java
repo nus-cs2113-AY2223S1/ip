@@ -1,11 +1,18 @@
 package duke.data.task;
 
+import static duke.common.Constants.TIME_OUTPUT_PATTERN;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  * <code>Event</code> represents a task to be completed by a user at a specific date and time.
  */
 public class Event extends Task {
     // The date and time when the task should be done.
-    private String eventTime;
+    private LocalDateTime eventTime;
 
     /**
      * Constructor of <code>Event</code>. Stores the description and date time of the task.
@@ -13,7 +20,7 @@ public class Event extends Task {
      * @param taskName  Description of the task.
      * @param eventTime Time when the task should be completed.
      */
-    public Event(String taskName, String eventTime) {
+    public Event(String taskName, LocalDateTime eventTime) {
         super(taskName);
         this.eventTime = eventTime;
     }
@@ -24,7 +31,13 @@ public class Event extends Task {
      * @return A date time value of the task.
      */
     public String getEventTime() {
-        return eventTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+        return eventTime.format(formatter);
+    }
+
+    public LocalDate getEventDate() {
+        LocalDate localDate = eventTime.toLocalDate();
+        return localDate;
     }
 
     /**

@@ -16,11 +16,11 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void checkAndSetParameters(String parameterInput) throws DukeException {
+    public void checkAndSetParameters(String parameterInput) {
     }
 
     @Override
-    protected void checkParameters(String parameterInput) throws DukeException {
+    protected void checkParameters(String parameterInput) {
     }
 
     @Override

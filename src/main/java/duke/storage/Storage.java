@@ -8,6 +8,7 @@ import duke.data.task.Task;
 import duke.data.task.Todo;
 import duke.exception.StorageInitializationException;
 import duke.exception.StorageOutputException;
+import duke.parser.DukeDateTimeParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,15 +31,19 @@ public class Storage {
     private String filePath;
     // A TaskList object used to hold the tasks stored in the file during initialisation
     private TaskList storedTaskList;
+    // A DukeDateTimeParser object to parse the file output in string into a LocalDateTime object
+    private DukeDateTimeParser dukeDateTimeParser;
 
     /**
-     * Constructor of <code>Storage</code>. Stores the given file path and create a new TaskList object.
+     * Constructor of <code>Storage</code>. Stores the given file path,
+     * and creates a new TaskList and DukeDateTimeParser object.
      *
      * @param filePath A relative file path of the file used to store the task list
      */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.storedTaskList = new TaskList();
+        this.dukeDateTimeParser = new DukeDateTimeParser();
     }
 
     /**
@@ -114,10 +119,10 @@ public class Storage {
             storedTaskList.addTodo(splits[2]);
             break;
         case "D":
-            storedTaskList.addDeadline(splits[2], splits[3]);
+            storedTaskList.addDeadline(splits[2], dukeDateTimeParser.parse(splits[3]));
             break;
         case "E":
-            storedTaskList.addEvent(splits[2], splits[3]);
+            storedTaskList.addEvent(splits[2], dukeDateTimeParser.parse(splits[3]));
             break;
         default:
             break;

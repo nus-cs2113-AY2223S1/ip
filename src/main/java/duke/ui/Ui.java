@@ -10,6 +10,7 @@ import static duke.common.Messages.MESSAGE_DELETE_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_MARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_UNMARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_TASK_LISTING_HEADER;
+import static duke.common.Messages.MESSAGE_TASK_FILTERING_HEADER;
 
 /**
  * <code>Ui</code> is the class that represents the user interface of the program.
@@ -75,6 +76,15 @@ public class Ui {
         displayMessages(
                 DIVIDER,
                 MESSAGE_TASK_LISTING_HEADER,
+                listContent,
+                DIVIDER
+        );
+    }
+
+    public void displayFilteringMessage(String listContent) {
+        displayMessages(
+                DIVIDER,
+                MESSAGE_TASK_FILTERING_HEADER,
                 listContent,
                 DIVIDER
         );

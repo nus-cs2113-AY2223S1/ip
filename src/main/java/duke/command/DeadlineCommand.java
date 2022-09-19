@@ -9,12 +9,14 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
+
 /**
  * <code>DeadlineCommand</code> is the command that adds a deadline task into the task list.
  */
 public class DeadlineCommand extends AddCommand {
     public static final String COMMAND_WORD = "DEADLINE";
-    private String deadlineTime;
+    private LocalDateTime deadlineTime;
 
     public DeadlineCommand() {
         super();
@@ -57,10 +59,10 @@ public class DeadlineCommand extends AddCommand {
      * @param parameterInput The extracted part of user input after the command entered.
      */
     @Override
-    protected void setParameters(String parameterInput) {
+    protected void setParameters(String parameterInput) throws DukeException {
         String[] splits = splitTaskName(" /by ", parameterInput);
         super.taskName = splits[0];
-        deadlineTime = splits[1];
+        deadlineTime = convertStringToLocalDateTime(splits[1]);
     }
 
     /**

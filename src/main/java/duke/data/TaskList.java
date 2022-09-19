@@ -7,6 +7,8 @@ import duke.data.task.Todo;
 import duke.exception.*;
 import duke.ui.Ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -74,7 +76,7 @@ public class TaskList {
      * @param deadlineTime Time before the task is to be completed.
      * @return The deadline task object added.
      */
-    public Task addDeadline(String taskName, String deadlineTime) {
+    public Task addDeadline(String taskName, LocalDateTime deadlineTime) {
         Deadline deadline = new Deadline(taskName, deadlineTime);
         tasks.add(deadline);
         return deadline;
@@ -87,7 +89,7 @@ public class TaskList {
      * @param eventTime Time when the task should be completed.
      * @return The event task object added.
      */
-    public Task addEvent(String taskName, String eventTime) {
+    public Task addEvent(String taskName, LocalDateTime eventTime) {
         Event event = new Event(taskName, eventTime);
         tasks.add(event);
         return event;
@@ -104,9 +106,51 @@ public class TaskList {
             listContent += String.format("%d.%s", i + 1, tasks.get(i).getTaskFullDetails());
             listContent += System.lineSeparator();
         }
-        listContent += "There are a total of " + tasks.size() + " tasks.";
+        if (listContent.equals("")) {
+            listContent = "No task found in the record.";
+        } else {
+            listContent += "There are a total of " + tasks.size() + " tasks.";
+        }
         return listContent;
     }
+
+    public TaskList findTasks(String query) {
+        TaskList tempTaskList = new TaskList();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task tempTask = tasks.get(i);
+            if (tempTask.getTaskName().contains(query)) {
+                tempTaskList.tasks.add(tempTask);
+            }
+        }
+        return tempTaskList;
+    }
+
+    public TaskList filterTasks(LocalDate targetDate) {
+        TaskList tempTaskList = new TaskList();
+        boolean isDeadline;
+        boolean isEvent;
+        boolean isValidDate = false;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            LocalDate tempDate = null;
+            Task tempTask = tasks.get(i);
+            isDeadline = tempTask instanceof Deadline;
+            isEvent = tempTask instanceof Event;
+            if (isDeadline) {
+                tempDate = ((Deadline) tempTask).getDeadlineDate();
+            }
+            if (isEvent) {
+                tempDate = ((Event) tempTask).getEventDate();
+            }
+            isValidDate = tempDate != null && tempDate.equals(targetDate);
+            if (isValidDate) {
+                tempTaskList.tasks.add(tempTask);
+            }
+        }
+        return tempTaskList;
+    }
+
 
     /**
      * Delete the task requested from the task list.
@@ -122,6 +166,7 @@ public class TaskList {
 
     /**
      * Mark the task requested in the task list as completed.
+     *
      * @param taskIndex One-based task index
      * @return The updated task object.
      * @throws DukeException Exception triggered on invalid taskIndex provided.
@@ -133,6 +178,7 @@ public class TaskList {
 
     /**
      * Mark the task requested in the task list as not completed.
+     *
      * @param taskIndex One-based task index
      * @return The updated task object.
      * @throws DukeException Exception triggered on invalid user input.

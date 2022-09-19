@@ -2,8 +2,11 @@ package duke.command;
 
 import duke.data.TaskList;
 import duke.exception.DukeException;
+import duke.parser.DukeDateTimeParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
+
+import java.time.LocalDateTime;
 
 /**
  * <code>AddCommand</code> is the abstract base class for the commands that add tasks to task list.
@@ -25,7 +28,7 @@ public abstract class AddCommand extends Command {
 
     protected abstract void checkParameters(String parameterInput) throws DukeException;
 
-    protected abstract void setParameters(String parameterInput);
+    protected abstract void setParameters(String parameterInput) throws DukeException;
 
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
@@ -37,6 +40,11 @@ public abstract class AddCommand extends Command {
      * @return A boolean value to indicate if the parameterInput contains a task description
      */
     protected boolean containsTaskDescription(String parameterInput, String separator) {
+        boolean separatorIsEmpty = separator.isEmpty();
+        if (!separatorIsEmpty && startFromTimeSeparator(parameterInput, separator)) {
+            return false;
+        }
+
         // Trim description from parameterInput
         String[] splits = parameterInput.split(separator, 2);
         String description = splits[0];
@@ -79,10 +87,21 @@ public abstract class AddCommand extends Command {
      * @return A boolean value to indicate if the parameterInput contains the given time separator.
      */
     protected boolean containsTimeSeparator(String parameterInput, String separator) {
+        if (startFromTimeSeparator(parameterInput, separator)) {
+            return true;
+        }
         if (!parameterInput.contains(separator)) {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private boolean startFromTimeSeparator(String parameterInput, String separator) {
+        if (parameterInput.startsWith(separator.trim())) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -105,5 +124,11 @@ public abstract class AddCommand extends Command {
             return new String[]{splits[0], ""};
         }
         return splits;
+    }
+
+    protected LocalDateTime convertStringToLocalDateTime(String parameterInput) throws DukeException {
+        DukeDateTimeParser parser = new DukeDateTimeParser();
+        LocalDateTime dateTimeInput = parser.parse(parameterInput);
+        return dateTimeInput;
     }
 }

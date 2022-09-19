@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.data.TaskList;
-import duke.parser.Parser;
+import duke.parser.CommandParser;
 import duke.storage.Storage;
 import duke.exception.DukeException;
 import duke.ui.Ui;
@@ -14,6 +14,7 @@ public class Duke {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
+    private CommandParser commandParser;
 
     /**
      * Constructor of <code>Duke</code>.
@@ -24,6 +25,7 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        commandParser = new CommandParser();
         try {
             tasks = new TaskList(storage.initialize());
         } catch (DukeException exception) {
@@ -46,7 +48,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = commandParser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException exception) {
