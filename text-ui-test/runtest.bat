@@ -8,6 +8,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM delete existing build artifacts
 del /S/Q ..\bin\*
+del dude.txt
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\Duke.java
