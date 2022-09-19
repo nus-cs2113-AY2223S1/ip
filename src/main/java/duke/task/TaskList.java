@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import duke.exception.DukeException;
 import duke.exception.InvalidTaskNumberDukeException;
 
+/**
+ * Represents ArrayList of tasks
+ */
 public class TaskList {
 
     public static ArrayList<Task> Tasks;
@@ -13,6 +16,13 @@ public class TaskList {
         Tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds new task to taskList
+     * @param taskType type of new task
+     * @param arguments user input containing task name and task date & time if any
+     * @return string description of task for printing
+     * @throws DukeException if task name or task date & time is invalid
+     */
     public static String addTask(TaskType taskType, String arguments) throws DukeException {
         switch (taskType) {
         case TODO:
@@ -29,6 +39,7 @@ public class TaskList {
         }
         return Tasks.get(Tasks.size() - 1).listTask();
     }
+
 
     public static String markAsDone(int taskNumber) throws DukeException {
         checkTaskNumberValid(taskNumber);
@@ -51,12 +62,21 @@ public class TaskList {
         return listTask;
     }
 
+    /**
+     * Checks if task number is valid
+     * @param taskNumber task number specified by user
+     * @throws DukeException if task number is out of bounds of taskList
+     */
     public static void checkTaskNumberValid(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > Tasks.size()) {
             throw new InvalidTaskNumberDukeException();
         }
     }
 
+    /**
+     * Adds a task to taskList
+     * @param task loaded task from save file
+     */
     public static void loadTask(Task task) {
         Tasks.add(task);
     }

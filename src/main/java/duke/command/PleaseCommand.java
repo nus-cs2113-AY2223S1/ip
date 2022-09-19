@@ -4,11 +4,20 @@ import duke.storage.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represents command for displaying help message
+ */
 public class PleaseCommand extends Command {
 
     public PleaseCommand() {
     }
 
+    /**
+     * Displays available commands to user
+     * @param taskList ArrayList containing current tasks
+     * @param ui Ui object for communicating with user
+     * @param storage Storage object for loading and saving tasks
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Ui.outputWithLines("Slave Kai is glad to help! \n" +

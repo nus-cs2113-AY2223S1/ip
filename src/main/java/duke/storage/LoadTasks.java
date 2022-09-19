@@ -9,8 +9,17 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Represents operation of loading tasks from save file
+ */
 public class LoadTasks {
 
+    /**
+     * Loads tasks from save file into taskList
+     * @param dataFile Path of save file
+     * @throws FileNotFoundException if save file does not exist
+     * @throws DukeException if error encountered when loading task
+     */
     public static void loadTasks(Path dataFile) throws FileNotFoundException, DukeException {
         Scanner input = new Scanner(new File(dataFile.toUri()));
         while (input.hasNext()) {

@@ -3,6 +3,9 @@ package duke;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents all communications with user
+ */
 public class Ui {
 
     public Ui() {
@@ -11,10 +14,16 @@ public class Ui {
 
     static Scanner in = new Scanner(System.in);
 
+    /**
+     * Prints line separator
+     */
     public static void line() {
         System.out.println("------------------------------");
     }
 
+    /**
+     * Prints welcome message
+     */
     public static void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -27,10 +36,18 @@ public class Ui {
         line();
     }
 
+    /**
+     * Reads user input from terminal
+     * @return user input
+     */
     public static String input() {
         return in.nextLine();
     }
 
+    /**
+     * Prints output to terminal
+     * @param output Varargs output for printing
+     */
     public static void outputWithLines(String... output) {
         Ui.line();
         for (String line : output) {

@@ -2,12 +2,18 @@ package duke.exception;
 
 import duke.Ui;
 
+/**
+ * Represents exception where task description is missing
+ */
 public class MissingDescriptionDukeException extends DukeException{
 
     public MissingDescriptionDukeException() {
 
     }
 
+    /**
+     * Informs user of the exception and displays valid sample inputs
+     */
     @Override
     public void handle() {
         Ui.outputWithLines("Please describe the task\n" +
