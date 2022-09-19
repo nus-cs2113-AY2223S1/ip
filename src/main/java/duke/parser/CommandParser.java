@@ -13,7 +13,6 @@ import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
-
 /**
  * <code>CommandParser</code> is the class that parses a user input into a valid command.
  * Operations in the parser include splitting the command word from the user input,

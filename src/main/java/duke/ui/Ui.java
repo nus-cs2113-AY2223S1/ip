@@ -81,15 +81,6 @@ public class Ui {
         );
     }
 
-    public void displayFilteringMessage(String listContent) {
-        displayMessages(
-                DIVIDER,
-                MESSAGE_TASK_FILTERING_HEADER,
-                listContent,
-                DIVIDER
-        );
-    }
-
     /**
      * Display the information of new task added to the list to user on successful task addition.
      *

@@ -34,6 +34,11 @@ public class Deadline extends Task {
         return deadlineTime.format(formatter);
     }
 
+    /**
+     * Return only the date of the time before the deadline is to be completed.
+     *
+     * @return A date value of the task.
+     */
     public LocalDate getDeadlineDate() {
         LocalDate localDate = deadlineTime.toLocalDate();
         return localDate;

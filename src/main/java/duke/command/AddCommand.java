@@ -97,6 +97,13 @@ public abstract class AddCommand extends Command {
         }
     }
 
+    /**
+     * Check if the user's input starts from a separator.
+     *
+     * @param parameterInput The extracted part of user input after the command entered.
+     * @param separator The separator used to separate description and time, such as /by or /at.
+     * @return A boolean value to indicate if the parameterInput starts with given time separator.
+     */
     private boolean startFromTimeSeparator(String parameterInput, String separator) {
         if (parameterInput.startsWith(separator.trim())) {
             return true;
@@ -126,6 +133,12 @@ public abstract class AddCommand extends Command {
         return splits;
     }
 
+    /**
+     * Parse the datetime in String extracted from the user input into a LocalDateTime object
+     * @param parameterInput A string containing the datetime of the task
+     * @return A parsed LocalDateTime object from the user input
+     * @throws DukeException Exception triggered on invalid LocalDateTime format.
+     */
     protected LocalDateTime convertStringToLocalDateTime(String parameterInput) throws DukeException {
         DukeDateTimeParser parser = new DukeDateTimeParser();
         LocalDateTime dateTimeInput = parser.parse(parameterInput);

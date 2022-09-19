@@ -35,6 +35,11 @@ public class Event extends Task {
         return eventTime.format(formatter);
     }
 
+    /**
+     * Return only the date of the time when the event should be completed.
+     *
+     * @return A date value of the task.
+     */
     public LocalDate getEventDate() {
         LocalDate localDate = eventTime.toLocalDate();
         return localDate;

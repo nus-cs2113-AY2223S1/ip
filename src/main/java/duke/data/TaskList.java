@@ -114,6 +114,15 @@ public class TaskList {
         return listContent;
     }
 
+    /**
+     * Search through the current task list to find all the tasks
+     * that the description contains the string queried by user.
+     * <p>
+     * Add each task that matches the query into a temporary TaskList object
+     * and return the temporary TaskList.
+     *
+     * @return The TaskList object containing all tasks that the description matches with search query
+     */
     public TaskList findTasks(String query) {
         TaskList tempTaskList = new TaskList();
 
@@ -125,7 +134,15 @@ public class TaskList {
         }
         return tempTaskList;
     }
-
+    /**
+     * Filter the current task list to find all the deadline or event task
+     * that the stored date matches with the requested date.
+     * <p>
+     * Add each task that matches the query into a temporary TaskList object
+     * and return the temporary TaskList.
+     *
+     * @return The TaskList object containing all tasks that the description matches with search query
+     */
     public TaskList filterTasks(LocalDate targetDate) {
         TaskList tempTaskList = new TaskList();
         boolean isDeadline;
@@ -143,6 +160,7 @@ public class TaskList {
             if (isEvent) {
                 tempDate = ((Event) tempTask).getEventDate();
             }
+
             isValidDate = tempDate != null && tempDate.equals(targetDate);
             if (isValidDate) {
                 tempTaskList.tasks.add(tempTask);
