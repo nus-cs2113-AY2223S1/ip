@@ -1,5 +1,8 @@
 package duke.exception;
 
+/**
+ * <code>ErrorMessage</code> is the Enum storing the error message for each different exception type.
+ */
 public enum ErrorMessage {
     INVALID_COMMAND_ERROR_MESSAGE("I'm sorry, but I don't know what that means :-("),
     INVALID_INDEX_ERROR_MESSAGE("The selected task index value does not exists."),
@@ -19,6 +22,11 @@ public enum ErrorMessage {
         this.message = message;
     }
 
+    /**
+     * Return the message stored in the corresponding ErrorMessage enum.
+     *
+     * @return A string storing the error message
+     */
     @Override
     public String toString() {
         return message;
