@@ -57,12 +57,24 @@ public class TaskList {
             listContent += String.format("%d.%s", i + 1, tasks.get(i).getTaskFullDetails());
             listContent += System.lineSeparator();
         }
-        if (listContent.equals("")){
+        if (listContent.equals("")) {
             listContent = "No task found in the record.";
-        } else{
+        } else {
             listContent += "There are a total of " + tasks.size() + " tasks.";
         }
         return listContent;
+    }
+
+    public TaskList findTasks(String query) {
+        TaskList tempTaskList = new TaskList();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task tempTask = tasks.get(i);
+            if (tempTask.getTaskName().contains(query)) {
+                tempTaskList.tasks.add(tempTask);
+            }
+        }
+        return tempTaskList;
     }
 
     public TaskList filterTasks(LocalDate targetDate) {
@@ -83,11 +95,10 @@ public class TaskList {
                 tempDate = ((Event) tempTask).getEventDate();
             }
             isValidDate = tempDate != null && tempDate.equals(targetDate);
-            if (isValidDate){
+            if (isValidDate) {
                 tempTaskList.tasks.add(tempTask);
             }
         }
-
         return tempTaskList;
     }
 
