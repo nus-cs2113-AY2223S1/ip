@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * <code>Messages</code> stores all the static messages to be displayed to the users in user interface.
+ */
 public class Messages {
     public static final String MESSAGE_GREETING = "Hello! I'm Duke";
     public static final String MESSAGE_INQUIRY = "What can I do for you?";
