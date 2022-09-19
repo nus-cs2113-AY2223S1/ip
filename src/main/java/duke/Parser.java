@@ -18,6 +18,7 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 
 /**
  * The parser handles parsing of commands.
@@ -50,6 +51,8 @@ public class Parser {
             return new AddCommand(description);
         case "find":
             return new FindCommand(description);
+        case "help":
+            return new HelpCommand(description);
         default:
             throw new DukeException("I don't understand this command!");
         }
