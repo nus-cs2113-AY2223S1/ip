@@ -169,6 +169,7 @@ public class Duke {
         Task task = tasks.get(taskIndex);
         System.out.println("Deleting task: " + task.getDescription());
         tasks.remove(taskIndex);
+        writeToDisk();
     }
 
     private static void writeToDisk() {
