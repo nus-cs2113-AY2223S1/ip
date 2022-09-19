@@ -6,11 +6,11 @@ import duke.exception.DukeException;
 import duke.task.TaskList;
 
 /**
- * Represents command for marking existing task as done
+ * Represents command for marking a task as done
  */
 public class MarkCommand extends Command {
 
-    private String arguments;
+    private final String arguments;
 
     public MarkCommand(String arguments) {
         this.arguments = arguments;
@@ -19,7 +19,6 @@ public class MarkCommand extends Command {
     /**
      * Mark task as done after extracting task number from user input
      * Informs user if task marking is successful
-     * Informs user if task number is invalid
      * @param taskList ArrayList containing current tasks
      * @param ui Ui object for communicating with user
      * @param storage Storage object for loading and saving tasks
@@ -27,11 +26,10 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int taskNumber = extractTaskNumber(arguments);
-            String task = TaskList.markAsDone(taskNumber);
-            Ui.outputWithLines("Well done. I've marked this task as done:", task);
+            String task = taskList.markAsDone(arguments);
+            ui.output("Well done. I've marked this task as done:", task);
         } catch (DukeException e) {
-            e.handle();
+            e.handle(ui);
         }
     }
 

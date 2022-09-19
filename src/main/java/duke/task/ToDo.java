@@ -7,7 +7,7 @@ public class ToDo extends Task {
     /**
      * Constructs a ToDo object
      * @param arguments user input containing task name
-     * @throws DukeException if task name is invalid
+     * @throws DukeException if task name is empty
      */
     public ToDo(String arguments) throws DukeException {
         super(arguments);

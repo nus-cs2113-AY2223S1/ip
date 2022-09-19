@@ -1,6 +1,7 @@
 package duke;
 
-import java.util.Arrays;
+import duke.task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -14,17 +15,18 @@ public class Ui {
 
     static Scanner in = new Scanner(System.in);
 
-    /**
-     * Prints line separator
-     */
-    public static void line() {
+
+        /**
+         * Prints line separator
+         */
+    public void line() {
         System.out.println("------------------------------");
     }
+/**
+ * Prints welcome message
+ */
+    public void greet() {
 
-    /**
-     * Prints welcome message
-     */
-    public static void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -36,29 +38,23 @@ public class Ui {
         line();
     }
 
-    /**
-     * Reads user input from terminal
-     * @return user input
-     */
-    public static String input() {
+
+        /**
+         * Reads user input from terminal
+         * @return user input
+         */
+    public String input() {
         return in.nextLine();
     }
+/**
+ * Prints output to terminal
+ * @param output Varargs output for printing
+ */
+    public void output(String... output) {
 
-    /**
-     * Prints output to terminal
-     * @param output Varargs output for printing
-     */
-    public static void outputWithLines(String... output) {
-        Ui.line();
         for (String line : output) {
             System.out.println(line);
         }
-        Ui.line();
     }
-
-    public static void outputWithoutLines(String output) {
-        System.out.println(output);
-    }
-
 
 }

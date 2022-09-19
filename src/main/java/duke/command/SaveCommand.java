@@ -19,23 +19,22 @@ public class SaveCommand extends Command{
     /**
      * Saves tasks, if any, into save file
      * Informs user if tasks are successfully saved
-     * Informs user if error occurs
      * @param taskList ArrayList containing current tasks
      * @param ui Ui object for communicating with user
      * @param storage Storage object for loading and saving tasks
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (TaskList.Tasks.size() > 0) {
+        if (taskList.tasks.size() > 0) {
             try {
-                Storage.saveTasks();
-                Ui.outputWithoutLines("Slaving tasks......");
-                Ui.line();
+                storage.saveTasks(taskList);
+                ui.output("Slaving tasks......");
+                ui.line();
             } catch (IOException e) {
-                new MissingDataFileDukeException().handle();
-                Ui.outputWithLines(e.getMessage());
+                new MissingDataFileDukeException().handle(ui);
+                ui.output(e.getMessage());
             } catch (DukeException e) {
-                e.handle();
+                e.handle(ui);
             }
         }
     }

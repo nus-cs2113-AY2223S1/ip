@@ -18,17 +18,18 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static final Path dataDirectory = Paths.get("src/main/java/duke/data/");
-    private static final Path dataFile = Paths.get("src/main/java/duke/data/data.txt");
+    private final Path dataDirectory = Paths.get("src/main/java/duke/data/");
+    private final Path dataFile = Paths.get("src/main/java/duke/data/data.txt");
 
     public Storage() {
     }
 
     /**
-     * Creates save file, and save file directory if necessary
-     * @throws IOException if error encountered
+     * Creates new save file, and save file directory if necessary
+     *
+     * @throws IOException if save file or directory creation fails
      */
-    public static void createDataFile() throws IOException {
+    public void createDataFile() throws IOException {
         if (!Files.exists(dataDirectory)) {
             Files.createDirectory(dataDirectory);
         }
@@ -37,20 +38,22 @@ public class Storage {
 
     /**
      * Loads tasks from save file into taskList
+     *
      * @throws FileNotFoundException if save file does not exist
-     * @throws DukeException if error encountered when loading task
+     * @throws DukeException         if any task fails to load
      */
-    public static void loadTasks() throws FileNotFoundException, DukeException {
-       LoadTasks.loadTasks(dataFile);
+    public void loadTasks(TaskList taskList) throws FileNotFoundException, DukeException {
+        LoadTasks.loadTasks(taskList, dataFile);
     }
 
     /**
      * Saves tasks from taskList to save file
-     * @throws IOException if save file does not exist
-     * @throws DukeException if error encountered when saving task
+     *
+     * @throws IOException   if save file does not exist
+     * @throws DukeException if any task fails to save
      */
-    public static void saveTasks() throws IOException, DukeException {
-        SaveTasks.saveTasks(dataFile);
+    public void saveTasks(TaskList taskList) throws IOException, DukeException {
+        SaveTasks.saveTasks(taskList, dataFile);
     }
 
 }

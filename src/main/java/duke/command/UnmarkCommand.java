@@ -6,11 +6,11 @@ import duke.exception.DukeException;
 import duke.task.TaskList;
 
 /**
- * Represents command for marking existing task as not done
+ * Represents command for marking a task as not done
  */
 public class UnmarkCommand extends Command{
 
-    private String arguments;
+    private final String arguments;
 
     public UnmarkCommand(String arguments) {
         this.arguments = arguments;
@@ -19,7 +19,6 @@ public class UnmarkCommand extends Command{
     /**
      * Mark task as not done after extracting task number from user input
      * Informs user if task unmarking is successful
-     * Informs user if task number is invalid
      * @param taskList ArrayList containing current tasks
      * @param ui Ui object for communicating with user
      * @param storage Storage object for loading and saving tasks
@@ -27,11 +26,10 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int taskNumber = extractTaskNumber(arguments);
-            String task = TaskList.markAsNotDone(taskNumber);
-            Ui.outputWithLines("Boo! I've marked this task as not done yet:", task);
+            String task = taskList.markAsNotDone(arguments);
+            ui.output("Boo! I've marked this task as not done yet:", task);
         } catch (DukeException e) {
-            e.handle();
+            e.handle(ui);
         }
     }
 }

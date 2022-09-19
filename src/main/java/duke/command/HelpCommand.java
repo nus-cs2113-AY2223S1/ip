@@ -5,7 +5,7 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represents command for providing help to user
+ * Represents command for trying to help user
  */
 public class HelpCommand extends Command {
 
@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.outputWithLines("You asked for help, but I don't feel like helping ;p\n" +
+        ui.output("You asked for help, but I don't feel like helping ;p\n" +
                 "Maybe try saying the magic word?");
     }
 }

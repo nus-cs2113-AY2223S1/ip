@@ -13,9 +13,9 @@ import duke.task.TaskList;
  */
 public class Duke {
 
-    private Ui ui;
-    private TaskList taskList;
-    private Storage storage;
+    private static Ui ui;
+    private static TaskList taskList;
+    private static Storage storage;
 
     /**
      * Constructs Duke with ui, taskList and storage objects
@@ -29,7 +29,7 @@ public class Duke {
     /**
      * Constructs Duke object and attempts to load previous tasks
      */
-    public void startDuke() {
+    public static void startDuke() {
         new Duke();
         Command loadCommand = new LoadCommand();
         loadCommand.execute(taskList, ui, storage);
@@ -38,7 +38,7 @@ public class Duke {
     /**
      * Attempts to save current tasks before exiting Duke
      */
-    public void stopDuke() {
+    public static void stopDuke() {
         Command saveCommand = new SaveCommand();
         saveCommand.execute(taskList, ui, storage);
     }
@@ -49,18 +49,21 @@ public class Duke {
      * Stops Duke
      * @param args user inputs
      */
-    public void main(String[] args) {
+    public static void main(String[] args) {
         startDuke();
 
         boolean isProgramFinished = false;
         while (!isProgramFinished) {
             try {
-                String input = Ui.input();
+                String input = ui.input();
+                ui.line();
                 Command command = Parser.parse(input);
                 command.execute(taskList, ui, storage);
                 isProgramFinished = command.isExitCommand();
             } catch (DukeException e) {
-                e.handle();
+                e.handle(ui);
+            } finally {
+                ui.line();
             }
         }
 

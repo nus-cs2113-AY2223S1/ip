@@ -27,6 +27,8 @@ public class Parser {
             return new PleaseCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindCommand(arguments.trim());
         case "on":
             return new DateCommand(arguments.trim(), "on");
         case "before":

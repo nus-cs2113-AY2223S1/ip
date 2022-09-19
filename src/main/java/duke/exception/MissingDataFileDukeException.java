@@ -3,17 +3,14 @@ package duke.exception;
 import duke.Ui;
 
 /**
- * Represents error where save file is not found
+ * Represents exception with missing save file
  */
 public class MissingDataFileDukeException extends DukeException{
     public MissingDataFileDukeException() {
     }
 
-    /**
-     * Informs user of the exception
-     */
     @Override
-    public void handle() {
-        Ui.outputWithLines("data file not found");
+    public void handle(Ui ui) {
+        ui.output("data file not found");
     }
 }

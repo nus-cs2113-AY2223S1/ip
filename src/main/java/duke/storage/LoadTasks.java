@@ -14,13 +14,16 @@ import java.util.Scanner;
  */
 public class LoadTasks {
 
+
     /**
      * Loads tasks from save file into taskList
      * @param dataFile Path of save file
      * @throws FileNotFoundException if save file does not exist
-     * @throws DukeException if error encountered when loading task
+     * @throws DukeException if any task fails to load
      */
-    public static void loadTasks(Path dataFile) throws FileNotFoundException, DukeException {
+
+    public static void loadTasks(TaskList taskList, Path dataFile) throws FileNotFoundException, DukeException {
+
         Scanner input = new Scanner(new File(dataFile.toUri()));
         while (input.hasNext()) {
             String[] line = input.nextLine().split(" \\| ");
@@ -43,7 +46,7 @@ public class LoadTasks {
             if (doneIcon.equals("X")) {
                 task.markAsDone();
             }
-            TaskList.loadTask(task);
+            taskList.loadTask(task);
         }
         input.close();
     }

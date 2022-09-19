@@ -3,18 +3,15 @@ package duke.exception;
 import duke.Ui;
 
 /**
- * Represents exception where error is encountered when loading tasks
+ * Represents exception when loading tasks
  */
 public class LoadErrorDukeException extends DukeException{
 
     public LoadErrorDukeException() {
     }
 
-    /**
-     * Informs user of the exception
-     */
     @Override
-    public void handle(){
-        Ui.outputWithLines("Error with loading task");
+    public void handle(Ui ui){
+        ui.output("Error with loading task");
     }
 }

@@ -19,10 +19,9 @@ public class LoadCommand extends Command {
     }
 
     /**
-     * Loads tasks from save file
+     * Loads tasks, if any, from save file
      * Informs user if tasks are successfully loaded
      * Informs user if new save file is created
-     * Informs user if error occurs
      * @param taskList ArrayList containing current tasks
      * @param ui Ui object for communicating with user
      * @param storage Storage object for loading and saving tasks
@@ -30,21 +29,23 @@ public class LoadCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Storage.loadTasks();
-            if (TaskList.Tasks.size() > 0) {
-                Ui.outputWithoutLines("Remembering existing tasks......");
+            storage.loadTasks(taskList);
+            if (taskList.tasks.size() > 0) {
+                ui.output("Remembering existing tasks......");
+                ui.line();
                 Command command = new ListCommand();
                 command.execute(taskList, ui, storage);
+                ui.line();
             }
         } catch (FileNotFoundException e) {
             try {
-                Storage.createDataFile();
-                Ui.outputWithLines("Data file created under src/main/java/duke/data/data.txt");
+                storage.createDataFile();
+                ui.output("Data file created under src/main/java/duke/data/data.txt");
             } catch (IOException ex) {
-                new MissingDataFileDukeException().handle();
+                new MissingDataFileDukeException().handle(ui);
             }
         } catch (DukeException e) {
-            new LoadErrorDukeException().handle();
+            new LoadErrorDukeException().handle(ui);
         }
     }
 }

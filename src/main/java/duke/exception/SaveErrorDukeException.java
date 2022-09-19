@@ -3,18 +3,15 @@ package duke.exception;
 import duke.Ui;
 
 /**
- * Represents exception where error is encountered when saving tasks
+ * Represents exception when saving tasks
  */
 public class SaveErrorDukeException extends DukeException {
 
     public SaveErrorDukeException() {
     }
 
-    /**
-     * Informs user of the exception
-     */
     @Override
-    public void handle() {
-        Ui.outputWithLines("Error with saving task");
+    public void handle(Ui ui) {
+        ui.output("Error with saving task");
     }
 }
