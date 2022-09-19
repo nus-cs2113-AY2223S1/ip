@@ -9,6 +9,9 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 REM delete duke.txt from previous run
 if exist duke.txt del duke.txt
 
+REM delete tasks.txt from previous run
+if exist tasks.txt del tasks.txt
+
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\command\*.java ..\src\main\java\duke\common\*.java ..\src\main\java\duke\data\*.java ..\src\main\java\duke\data\task\*.java ..\src\main\java\duke\exception\*.java ..\src\main\java\duke\parser\*.java ..\src\main\java\duke\storage\*.java  ..\src\main\java\duke\ui\*.java
 IF ERRORLEVEL 1 (

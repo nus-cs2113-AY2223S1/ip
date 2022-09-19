@@ -10,6 +10,7 @@ import static duke.common.Messages.MESSAGE_DELETE_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_MARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_UNMARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_TASK_LISTING_HEADER;
+import static duke.common.Messages.MESSAGE_TASK_FILTERING_HEADER;
 
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
@@ -48,6 +49,15 @@ public class Ui {
         displayMessages(
                 DIVIDER,
                 MESSAGE_TASK_LISTING_HEADER,
+                listContent,
+                DIVIDER
+        );
+    }
+
+    public void displayFilteringMessage(String listContent) {
+        displayMessages(
+                DIVIDER,
+                MESSAGE_TASK_FILTERING_HEADER,
                 listContent,
                 DIVIDER
         );
