@@ -11,6 +11,7 @@ import duke.commands.ConsoleCommandMark;
 import duke.commands.ConsoleCommandTodo;
 import duke.commands.ConsoleCommandUnmark;
 import duke.common.Configurations;
+import duke.common.Messages;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
@@ -64,17 +65,14 @@ public class ConsoleInterface {
      * Prints greeting message to standard out.
      */
     public static void printGreetingMessage() {
-        String greetingMessage = "Hello! I'm Duke\n"
-                + "What can I do for you?";
-        System.out.println(greetingMessage);
+        System.out.println(Messages.CONSOLE_MESSAGE_GREETING);
     }
 
     /**
      * Prints goodbye message to standard out.
      */
     public static void printGoodbyeMessage() {
-        String goodbyeMessage = "Bye. Hope to see you again soon!";
-        System.out.println(goodbyeMessage);
+        System.out.println(Messages.CONSOLE_MESSAGE_GOODBYE);
     }
 
     /**

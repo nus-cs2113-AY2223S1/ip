@@ -1,7 +1,7 @@
 package duke.common;
 
 /**
- * Stores configuration parameters.
+ * Defines configuration parameters used by program.
  */
 public class Configurations {
     public static final String TASKS_DIRECTORY_PATH = "./data/";
