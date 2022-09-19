@@ -2,6 +2,9 @@ package duke.exception;
 
 import duke.Ui;
 
+/**
+ * Represents exception with task number
+ */
 public class InvalidTaskNumberDukeException extends DukeException {
 
     public InvalidTaskNumberDukeException() {

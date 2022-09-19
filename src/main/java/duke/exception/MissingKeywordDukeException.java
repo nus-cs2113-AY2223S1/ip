@@ -2,6 +2,9 @@ package duke.exception;
 
 import duke.Ui;
 
+/**
+ * Represents exception with missing search keyword
+ */
 public class MissingKeywordDukeException extends DukeException {
     public MissingKeywordDukeException() {
     }

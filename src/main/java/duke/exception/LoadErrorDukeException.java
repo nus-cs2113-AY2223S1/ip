@@ -2,6 +2,9 @@ package duke.exception;
 
 import duke.Ui;
 
+/**
+ * Represents exception when loading tasks
+ */
 public class LoadErrorDukeException extends DukeException{
 
     public LoadErrorDukeException() {

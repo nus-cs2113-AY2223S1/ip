@@ -11,6 +11,10 @@ import duke.task.TaskList;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents command for searching tasks by keyword
+ * Search only looks through task names
+ */
 public class FindCommand extends Command {
 
     private final String keyword;
@@ -19,6 +23,13 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Prints all tasks in taskList matching keyword specified by user
+     * Informs user if no matching tasks were found
+     * @param taskList ArrayList containing current tasks
+     * @param ui Ui object for communicating with user
+     * @param storage Storage object for loading and saving tasks
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
@@ -36,6 +47,12 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Extracts all tasks in taskList matching keyword specified by user
+     * @param taskList ArrayList containing all tasks
+     * @return ArrayList of tasks matching keyword
+     * @throws DukeException if keyword is empty
+     */
     private ArrayList<Task> extractMatchingTasks(TaskList taskList) throws DukeException {
         if (keyword.length() == 0) {
             throw new MissingKeywordDukeException();

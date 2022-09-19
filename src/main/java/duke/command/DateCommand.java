@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.Ui;
 import duke.exception.DukeException;
-import duke.exception.InvalidDateTimeDukeException;
+import duke.exception.InvalidTaskDateTimeDukeException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -15,20 +15,37 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents command for searching tasks by date
+ * User can search for tasks before, on, or after a particular date
+ */
 public class DateCommand extends Command {
 
     private final LocalDate date;
-    private final String comparison;
+    private final String comparator;
 
-    public DateCommand(String date, String comparison) throws DukeException {
+    /**
+     * Constructs DateCommand object after converting user input into LocalDate
+     * @param date date entered by user as string
+     * @param comparator comparator for search entered by user as string
+     * @throws DukeException if date is invalid
+     */
+    public DateCommand(String date, String comparator) throws DukeException {
         try {
             this.date = LocalDate.parse(date, DateTimeFormatter.ofPattern("d-M-yyyy"));
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeDukeException();
+            throw new InvalidTaskDateTimeDukeException();
         }
-        this.comparison = comparison;
+        this.comparator = comparator;
     }
 
+    /**
+     * Prints all tasks in taskList matching date and comparator specified by user
+     * Informs user if no matching tasks were found
+     * @param taskList ArrayList containing all tasks
+     * @param ui Ui object for communicating with user
+     * @param storage Storage object for loading and saving tasks
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = extractMatchingTasks(taskList);
@@ -42,6 +59,11 @@ public class DateCommand extends Command {
         }
     }
 
+    /**
+     * Extracts all tasks in taskList matching date and comparator specified by user
+     * @param taskList ArrayList containing all tasks
+     * @return ArrayList of tasks matching comparator
+     */
     public ArrayList<Task> extractMatchingTasks(TaskList taskList) {
         return (ArrayList<Task>) taskList.tasks.stream()
                 .filter(t -> (t instanceof Deadline && isMatch(((Deadline) t).getDate()))
@@ -49,8 +71,13 @@ public class DateCommand extends Command {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Compares task date with date specified by user
+     * @param date task date
+     * @return true if task date matches comparator, false otherwise
+     */
     private boolean isMatch(LocalDate date) {
-        switch (comparison) {
+        switch (comparator) {
         case "on":
             return date.equals(this.date);
         case "before":

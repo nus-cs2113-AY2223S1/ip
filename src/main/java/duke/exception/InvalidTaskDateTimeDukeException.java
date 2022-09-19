@@ -2,10 +2,13 @@ package duke.exception;
 
 import duke.Ui;
 
-public class InvalidDateTimeDukeException extends DukeException{
-    public InvalidDateTimeDukeException() {
-
+/**
+ * Represents exception with task date & time
+ */
+public class InvalidTaskDateTimeDukeException extends DukeException{
+    public InvalidTaskDateTimeDukeException() {
     }
+
 
     @Override
     public void handle(Ui ui){

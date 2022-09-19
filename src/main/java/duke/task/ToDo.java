@@ -4,8 +4,13 @@ import duke.exception.DukeException;
 
 public class ToDo extends Task {
 
-    public ToDo(String name) throws DukeException {
-        super(name);
+    /**
+     * Constructs a ToDo object
+     * @param arguments user input containing task name
+     * @throws DukeException if task name is empty
+     */
+    public ToDo(String arguments) throws DukeException {
+        super(arguments);
     }
 
     @Override
