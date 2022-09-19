@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public abstract class Task {
 
     private String name;
@@ -38,9 +41,9 @@ public abstract class Task {
         return ' ';
     }
 
-    public String listTask() {
+    public String listTask(ArrayList<Task> tasks) {
         return String.format("%d.[%c][%c] %s",
-                TaskList.Tasks.indexOf(this) + 1, taskType(), doneIcon(), getName());
+                tasks.indexOf(this) + 1, taskType(), doneIcon(), getName());
     }
 
 }

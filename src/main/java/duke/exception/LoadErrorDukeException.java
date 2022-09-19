@@ -8,7 +8,7 @@ public class LoadErrorDukeException extends DukeException{
     }
 
     @Override
-    public void handle(){
-        Ui.outputWithLines("Error with loading task");
+    public void handle(Ui ui){
+        ui.output("Error with loading task");
     }
 }

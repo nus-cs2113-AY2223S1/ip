@@ -32,20 +32,18 @@ public class DateCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = extractMatchingTasks(taskList);
-        Ui.line();
         if (matchingTasks.size() > 0) {
-            Ui.outputWithoutLines("Slave Kai found these:");
+            ui.output("Slave Kai found these:");
             for (Task task : matchingTasks) {
-                Ui.outputWithoutLines(task.listTask());
+                ui.output(task.listTask(taskList.tasks));
             }
         } else {
-            Ui.outputWithoutLines("Nothing found, better luck next time");
+            ui.output("Nothing found, better luck next time");
         }
-        Ui.line();
     }
 
     public ArrayList<Task> extractMatchingTasks(TaskList taskList) {
-        return (ArrayList<Task>) TaskList.Tasks.stream()
+        return (ArrayList<Task>) taskList.tasks.stream()
                 .filter(t -> (t instanceof Deadline && isMatch(((Deadline) t).getDate()))
                         || (t instanceof Event && isMatch(((Event) t).getDate())))
                 .collect(Collectors.toList());

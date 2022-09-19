@@ -11,6 +11,6 @@ public class InvalidCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.outputWithLines("Invalid input. Boo! Please type help for help");
+        ui.output("Invalid input. Boo! Please type help for help");
     }
 }

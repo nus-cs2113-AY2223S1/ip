@@ -8,7 +8,7 @@ public class SaveErrorDukeException extends DukeException {
     }
 
     @Override
-    public void handle() {
-        Ui.outputWithLines("Error with saving task");
+    public void handle(Ui ui) {
+        ui.output("Error with saving task");
     }
 }

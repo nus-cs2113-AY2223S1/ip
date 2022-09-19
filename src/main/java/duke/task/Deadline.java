@@ -2,8 +2,11 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 
 public class Deadline extends Task {
 
@@ -35,7 +38,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String listTask() {
-        return String.format("%s (%s)", super.listTask(), listDateTime());
+    public String listTask(ArrayList<Task> tasks) {
+        return String.format("%s (%s)", super.listTask(tasks), listDateTime());
     }
 }

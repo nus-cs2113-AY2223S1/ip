@@ -7,57 +7,61 @@ import duke.exception.InvalidTaskNumberDukeException;
 
 public class TaskList {
 
-    public static ArrayList<Task> Tasks;
+    public ArrayList<Task> tasks;
 
     public TaskList() {
-        Tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
-    public static String addTask(TaskType taskType, String arguments) throws DukeException {
+    public int getTaskIndex(Task task) {
+        return tasks.indexOf(task);
+    }
+
+    public String addTask(TaskType taskType, String arguments) throws DukeException {
         switch (taskType) {
         case TODO:
-            Tasks.add(new ToDo(arguments));
+            tasks.add(new ToDo(arguments));
             break;
         case EVENT:
-            Tasks.add(new Event(arguments));
+            tasks.add(new Event(arguments));
             break;
         case DEADLINE:
-            Tasks.add(new Deadline(arguments));
+            tasks.add(new Deadline(arguments));
             break;
         default:
             break;
         }
-        return Tasks.get(Tasks.size() - 1).listTask();
+        return tasks.get(tasks.size() - 1).listTask(tasks);
     }
 
-    public static String markAsDone(int taskNumber) throws DukeException {
+    public String markAsDone(int taskNumber) throws DukeException {
         checkTaskNumberValid(taskNumber);
-        Task task = Tasks.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
-        return task.listTask();
+        return task.listTask(tasks);
     }
 
-    public static String markAsNotDone(int taskNumber) throws DukeException {
+    public String markAsNotDone(int taskNumber) throws DukeException {
         checkTaskNumberValid(taskNumber);
-        Task task = Tasks.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.markAsNotDone();
-        return task.listTask();
+        return task.listTask(tasks);
     }
 
-    public static String deleteTask(int taskNumber) throws DukeException {
+    public String deleteTask(int taskNumber) throws DukeException {
         checkTaskNumberValid(taskNumber);
-        String listTask = Tasks.get(taskNumber - 1).listTask();
-        Tasks.remove(taskNumber - 1);
+        String listTask = tasks.get(taskNumber - 1).listTask(tasks);
+        tasks.remove(taskNumber - 1);
         return listTask;
     }
 
-    public static void checkTaskNumberValid(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > Tasks.size()) {
+    public void checkTaskNumberValid(int taskNumber) throws DukeException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new InvalidTaskNumberDukeException();
         }
     }
 
-    public static void loadTask(Task task) {
-        Tasks.add(task);
+    public void loadTask(Task task) {
+        tasks.add(task);
     }
 }

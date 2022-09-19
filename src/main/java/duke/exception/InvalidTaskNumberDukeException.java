@@ -8,8 +8,8 @@ public class InvalidTaskNumberDukeException extends DukeException {
     }
 
     @Override
-    public void handle() {
-        Ui.outputWithLines("Invalid task number: task does not exist\n" +
+    public void handle(Ui ui) {
+        ui.output("Invalid task number: task does not exist\n" +
                 "Please try again");
     }
 }

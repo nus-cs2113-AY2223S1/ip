@@ -12,7 +12,7 @@ public class HiCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.outputWithLines("Howdy!");
+        ui.output("Howdy!");
     }
 
 }

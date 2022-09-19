@@ -7,7 +7,7 @@ public class MissingDataFileDukeException extends DukeException{
     }
 
     @Override
-    public void handle() {
-        Ui.outputWithLines("data file not found");
+    public void handle(Ui ui) {
+        ui.output("data file not found");
     }
 }

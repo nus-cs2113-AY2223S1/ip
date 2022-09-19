@@ -8,8 +8,8 @@ import duke.task.TaskType;
 
 public class AddCommand extends Command{
 
-    private TaskType taskType;
-    private String arguments;
+    private final TaskType taskType;
+    private final String arguments;
 
     public AddCommand(TaskType taskType, String arguments) {
         this.taskType = taskType;
@@ -19,10 +19,10 @@ public class AddCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            String task = TaskList.addTask(taskType, arguments);
-            Ui.outputWithLines("Task added:", task);
+            String task = taskList.addTask(taskType, arguments);
+            ui.output("Task added:", task);
         } catch (DukeException e) {
-            e.handle();
+            e.handle(ui);
         }
     }
 }

@@ -21,12 +21,15 @@ public class Duke {
         boolean isProgramFinished = false;
         while (!isProgramFinished) {
             try {
-                String input = Ui.input();
+                String input = ui.input();
+                ui.line();
                 Command command = Parser.parse(input);
                 command.execute(taskList, ui, storage);
                 isProgramFinished = command.isExitCommand();
             } catch (DukeException e) {
-                e.handle();
+                e.handle(ui);
+            } finally {
+                ui.line();
             }
         }
 
