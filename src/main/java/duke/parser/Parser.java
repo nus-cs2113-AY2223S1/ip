@@ -12,7 +12,23 @@ import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
+/**
+ * <code>Parser</code> is the class that parses a user input into a valid command.
+ * Operations in the parser include splitting the command word from the user input,
+ * creating a <code>Command</code> object if the command word given is valid,
+ * and calling the methods in <code>Command</code> object to check and set the necessary parameters
+ * such that the command is ready for execution.
+ */
 public class Parser {
+    /**
+     * Parsing the user input into a valid Command object and returns it.
+     * The method will first split the command word from the parameters in the input,
+     * then create a Command object, followed by checking and setting the parameters for the Command object.
+     *
+     * @param userInput The complete user input given by user.
+     * @return A Command object created based on the user input.
+     * @throws DukeException Exception triggered on invalid command word, or any invalid parameters.
+     */
     public static Command parse(String userInput) throws DukeException {
         String[] splits = splitCommandAndParameters(userInput);
         Command command = retrieveCommand(splits[0]);
@@ -20,6 +36,12 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Split the full user input into command word and parameters
+     *
+     * @param userInput The complete user input given by user.
+     * @return A string array storing [Command Word, Parameter]
+     */
     private static String[] splitCommandAndParameters(String userInput) {
         String[] splits = userInput.split(" ", 2);
         // Standardise the splits array into size of two when no space is found in user input
@@ -29,6 +51,14 @@ public class Parser {
         return splits;
     }
 
+    /**
+     * Create and return a Command object based on the command word given,
+     * or throws an exception if the command word is not found in the valid list of commands.
+     *
+     * @param commandInput Command word
+     * @return A Command object created based on the command word.
+     * @throws DukeException Exception triggered on invalid command word
+     */
     private static Command retrieveCommand(String commandInput) throws DukeException {
         String commandChecker = commandInput.toUpperCase();
         Command command;
