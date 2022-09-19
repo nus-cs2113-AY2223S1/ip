@@ -54,7 +54,7 @@ public class Storage {
             }
             return list;
         } catch (FileNotFoundException e) {
-            throw new DukeException("OOPS! I cannot find your file ☹");
+            throw new DukeException("OOPS! I cannot find your file");
         }
     }
 
@@ -76,7 +76,7 @@ public class Storage {
             if (file.mkdir()) {
                 writeTasks(taskList);
             } else {
-                throw new DukeException("OOPS!!! Something went wrong when storing your tasks ☹");
+                throw new DukeException("OOPS!!! Something went wrong when storing your tasks");
             }
         }
     }
@@ -101,7 +101,7 @@ public class Storage {
             task = new Deadline(splitTaskLine[2], splitTaskLine[3]);
             break;
         default:
-            throw new DukeException("Something went wrong with the tasks in your saved files ☹");
+            throw new DukeException("Something went wrong with the tasks in your saved files");
         }
 
         switch (splitTaskLine[1]) {
@@ -112,7 +112,7 @@ public class Storage {
             task.setAsUndone();
             break;
         default:
-            throw new DukeException("Cannot understand your task status ☹");
+            throw new DukeException("Cannot understand your task status");
         }
 
         return task;

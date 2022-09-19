@@ -37,7 +37,7 @@ public class TaskList {
         try {
             return taskList.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! The task number is out of bound ☹"
+            throw new DukeException("OOPS!!! The task number is out of bound"
                     + "\nThere are only " + taskList.size() + " task(s) in your list");
         }
     }
