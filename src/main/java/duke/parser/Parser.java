@@ -35,6 +35,8 @@ public class Parser {
             return parseUnmarkCommand(arguments);
         case DeleteCommand.COMMAND_NAME:
             return parseDeleteCommand(arguments);
+        case FindCommand.COMMAND_NAME:
+            return parseFindCommand(arguments);
         case ListCommand.COMMAND_NAME:
             return new ListCommand();
         case ExitCommand.COMMAND_NAME:
@@ -94,8 +96,7 @@ public class Parser {
     /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
-            String[] parsed = arguments.split("/");
-            if (parsed[0].equals("")) {
+            if (arguments.equals("")) {
                 throw new DukeException();
             }
             return new TodoCommand(arguments);
@@ -167,6 +168,16 @@ public class Parser {
             return new DeleteCommand(strToIntArray(parsed));
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DukeException e) {
             return new IncorrectCommand(DeleteCommand.SYNTAX);
+        }
+    }
+    private Command parseFindCommand(String arguments){
+        try{
+            if (arguments.equals("")){
+                throw new DukeException();
+            }
+            return new FindCommand(arguments);
+        } catch (DukeException e){
+            return new IncorrectCommand(FindCommand.SYNTAX);
         }
     }
 

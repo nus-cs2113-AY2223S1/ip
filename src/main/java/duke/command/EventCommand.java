@@ -21,7 +21,7 @@ public class EventCommand extends Command {
 
     public String description;
     public String date;
-    public ArrayList<Task> target = new ArrayList<Task>();
+    public ArrayList<Task> target = new ArrayList<>();
 
     /*Non-static */
     @Override
