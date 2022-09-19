@@ -1,8 +1,6 @@
 package duke.task;
 
 import duke.exception.DukeException;
-import duke.exception.MissingDescriptionDukeException;
-import duke.exception.MissingTimeDukeException;
 
 public abstract class Task {
 
@@ -10,34 +8,9 @@ public abstract class Task {
     private boolean isDone;
 
     public Task(String arguments) throws DukeException {
-        checkForTaskName(arguments);
-        setName(extractTaskName(arguments));
+        TaskNameParser.checkForTaskName(arguments);
+        setName(TaskNameParser.extractTaskName(arguments));
         this.isDone = false;
-    }
-
-    private static void checkForTaskName(String arguments) throws DukeException {
-        if (arguments.length() == 0 || arguments.indexOf('/') == 0) {
-            throw new MissingDescriptionDukeException();
-        }
-    }
-
-    private static String extractTaskName(String arguments) {
-        String taskName = arguments;
-        if (taskName.contains("/")) {
-            taskName = taskName.substring(0, arguments.indexOf('/'));
-        }
-        return taskName.trim();
-    }
-
-    protected static String extractTaskTime(String arguments) throws DukeException {
-        if (arguments.indexOf('/') == -1) {
-            throw new MissingTimeDukeException();
-        }
-        String taskTime = arguments.substring(arguments.indexOf('/') + 1).trim();
-        if (taskTime.length() == 0) {
-            throw new MissingTimeDukeException();
-        }
-        return taskTime;
     }
 
     public void setName(String name) {
