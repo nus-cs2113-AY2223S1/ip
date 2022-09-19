@@ -29,7 +29,8 @@ public class Duke {
             listTasks();
             break;
         case "mark":
-        case "unmark": {
+            // fallthrough
+        case "unmark":
             boolean isDone = action.equals("mark");
             if (args.length < 2) {
                 System.out.println("Not enough arguments, dude.");
@@ -46,10 +47,11 @@ public class Duke {
             }
             setTaskStatus(index, isDone);
             break;
-        }
         case "todo":
+            // fallthrough
         case "deadline":
-        case "event": {
+            // fallthrough
+        case "event":
             if (args.length < 2) {
                 System.out.println("Not enough arguments, dude."); // repeated code, can this be collapsed?
                 break;
@@ -57,7 +59,6 @@ public class Duke {
             String taskData = args[1];
             addTask(action, taskData);
             break;
-        }
         default:
             System.out.println("I don't recognise that command, dude.");
             break;
@@ -67,22 +68,18 @@ public class Duke {
     private static void addTask(String taskType, String taskData) {
         Task task;
         switch (taskType) {
-        case "todo": {
+        case "todo":
             task = createTodo(taskData);
             break;
-        }
-        case "deadline": {
+        case "deadline":
             task = createDeadline(taskData);
             break;
-        }
-        case "event": {
+        case "event":
             task = createEvent(taskData);
             break;
-        }
-        default: {
+        default:
             System.out.println("How did we get here?"); // this should have been validated by runCommand()
             return; // instead of break, we want to stop function execution
-        }
         }
         if (task == null) {
             System.out.println("Error adding task."); // something went wrong in the switch case
