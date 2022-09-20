@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class MissingDescriptionException extends Exception {
+public class DukeMissingDescriptionException extends Exception {
 
     @Override
     public String toString() {

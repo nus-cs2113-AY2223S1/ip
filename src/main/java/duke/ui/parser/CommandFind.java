@@ -1,5 +1,5 @@
 package duke.ui.parser;
-import duke.exception.NotIntegerException;
+import duke.exception.DukeNotIntegerException;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,12 @@ public class CommandFind extends Command {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
         super.minArguments = MIN_ARGUMENTS;
-        super.FLAGS = FLAGS;
+        super.flags = FLAGS;
         super.commandType = CommandType.FIND;
     }
 
     @Override
-    protected void checkArgument() throws NotIntegerException {
+    protected void checkArgumentType() throws DukeNotIntegerException {
 
     }
 

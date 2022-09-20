@@ -1,7 +1,6 @@
 package duke.ui.parser;
-import duke.Duke;
 import duke.exception.DukeDateTimeFormatException;
-import duke.exception.NotIntegerException;
+import duke.exception.DukeNotIntegerException;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class CommandDeadline extends Command {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
         super.minArguments = MIN_ARGUMENTS;
-        super.FLAGS = FLAGS;
+        super.flags = FLAGS;
         super.commandType = CommandType.DEADLINE;
     }
 
 
     @Override
-    protected void checkArgument() throws NotIntegerException {
+    protected void checkArgumentType() throws DukeNotIntegerException {
 
     }
 

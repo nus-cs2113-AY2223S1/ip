@@ -1,6 +1,6 @@
 package duke.ui.parser;
 
-import duke.exception.NotIntegerException;
+import duke.exception.DukeNotIntegerException;
 
 import java.util.ArrayList;
 
@@ -19,16 +19,16 @@ public class CommandDelete extends Command {
 
         super.minArguments = NUM_OF_ARGUMENTS;
         super.maxArguments = NUM_OF_ARGUMENTS;
-        super.FLAGS = FLAGS;
+        super.flags = FLAGS;
         super.commandType = CommandType.DELETE;
     }
 
     @Override
-    public void checkArgument() throws NotIntegerException {
+    public void checkArgumentType() throws DukeNotIntegerException {
         try {
             taskNum = Integer.parseInt(splitArguments.get(0));
         } catch (NumberFormatException e) {
-            throw new NotIntegerException();
+            throw new DukeNotIntegerException();
         }
     }
 

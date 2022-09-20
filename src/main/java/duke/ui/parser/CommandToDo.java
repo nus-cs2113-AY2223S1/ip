@@ -15,22 +15,13 @@ public class CommandToDo extends Command {
         super.splitArguments = splitArguments(rawArguments);
         super.minArguments = MIN_ARGUMENTS;
         super.maxArguments = null;
-        super.FLAGS = FLAGS;
+        super.flags = FLAGS;
         super.commandType = CommandType.TODO;
     }
 
-    @Override
-    protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
-            MissingDescriptionException {
-
-        if (super.minArguments != null && splitArguments.size() < MIN_ARGUMENTS) {
-            throw new MissingDescriptionException();
-        }
-    }
-
 
     @Override
-    protected void checkArgument() throws NotIntegerException {
+    protected void checkArgumentType() throws DukeNotIntegerException {
 
     }
 

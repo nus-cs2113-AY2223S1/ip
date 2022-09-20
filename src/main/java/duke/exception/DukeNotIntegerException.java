@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class NotIntegerException extends Exception {
+public class DukeNotIntegerException extends Exception {
 
     @Override
     public String toString() {

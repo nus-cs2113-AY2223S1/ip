@@ -1,5 +1,5 @@
 package duke.ui.parser;
-import duke.exception.NotIntegerException;
+import duke.exception.DukeNotIntegerException;
 
 import java.util.ArrayList;
 
@@ -14,13 +14,13 @@ public class CommandExit extends Command {
         super.splitArguments = splitArguments(rawArguments);
         super.minArguments = NUM_OF_ARGUMENTS;
         super.maxArguments = NUM_OF_ARGUMENTS;
-        super.FLAGS = FLAGS;
+        super.flags = FLAGS;
         super.commandType = CommandType.EXIT;
 
     }
 
     @Override
-    public void checkArgument() throws NotIntegerException {
+    public void checkArgumentType() throws DukeNotIntegerException {
     }
 
     @Override

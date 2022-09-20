@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class MissingFlagException extends Exception {
+public class DukeMissingFlagException extends Exception {
 
     @Override
     public String toString() {

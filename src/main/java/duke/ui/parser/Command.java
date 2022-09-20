@@ -14,42 +14,46 @@ public abstract class Command {
     protected CommandType commandType;
     protected Integer minArguments = null;
     protected Integer maxArguments = null;
-    protected ArrayList<String> FLAGS;
+    protected ArrayList<String> flags;
     protected String rawArguments;
     protected ArrayList<String> splitArguments;
 
 
-    protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
-            MissingDescriptionException {
+    protected void checkArgumentLength() throws DukeMissingArgumentException, DukeExtraArgumentException,
+            DukeMissingDescriptionException {
 
         if (maxArguments != null && splitArguments.size() > maxArguments) {
-            throw new ExtraArgumentException();
+            throw new DukeExtraArgumentException(rawArguments);
         }
 
         if (minArguments != null && splitArguments.size() < minArguments) {
-            throw new MissingArgumentException();
+            throw new DukeMissingArgumentException(rawArguments);
+        }
+
+        if (flags.size() > 0 && rawArguments.indexOf(flags.get(0)) == 0) {
+            throw new DukeMissingDescriptionException();
         }
     }
 
 
-    private void checkFlags() throws MissingFlagException, MissingArgumentException {
-        for (int i = 0; i < FLAGS.size(); i++) {
-            String flag = FLAGS.get(i);
+    private void checkFlags() throws DukeMissingFlagException, DukeMissingArgumentException {
+        for (int i = 0; i < flags.size(); i++) {
+            String flag = flags.get(i);
 
             int indexOfFlag = rawArguments.indexOf(flag);
             if (indexOfFlag == -1) {
-                throw new MissingFlagException();
+                throw new DukeMissingFlagException();
             }
 
-            if (i + 1 >= FLAGS.size()) {
+            if (i + 1 >= flags.size()) {
                 break;
             }
 
-            int indexOfNextFlag = rawArguments.indexOf(FLAGS.get(i + 1));
+            int indexOfNextFlag = rawArguments.indexOf(flags.get(i + 1));
 
             if ((indexOfFlag + flag.length() >= rawArguments.length()) ||
                 indexOfFlag + flag.length() >= indexOfNextFlag) {
-                throw new MissingArgumentException();
+                throw new DukeMissingArgumentException(rawArguments);
             }
         }
     }
@@ -65,7 +69,7 @@ public abstract class Command {
         //@@author
     }
 
-    protected abstract void checkArgument() throws NotIntegerException;
+    protected abstract void checkArgumentType() throws DukeNotIntegerException;
 
     protected abstract void parse() throws DukeDateTimeFormatException;
 
@@ -77,7 +81,7 @@ public abstract class Command {
     public void verifyAndParse() throws Exception {
         checkArgumentLength();
         checkFlags();
-        checkArgument();
+        checkArgumentType();
         parse();
     }
 

@@ -1,6 +1,6 @@
 package duke.ui.parser;
 
-import duke.exception.InvalidCommandTypeException;
+import duke.exception.DukeInvalidCommandTypeException;
 
 public class Parser {
 
@@ -44,7 +44,7 @@ public class Parser {
             command = new CommandFind(rawArguments);
             break;
         default:
-            throw new InvalidCommandTypeException();
+            throw new DukeInvalidCommandTypeException();
         }
         command.verifyAndParse();
         return command;

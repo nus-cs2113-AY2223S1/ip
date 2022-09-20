@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class InvalidCommandTypeException extends Exception {
+public class DukeInvalidCommandTypeException extends Exception {
 
     @Override
     public String toString() {
