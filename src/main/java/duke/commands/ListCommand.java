@@ -17,6 +17,6 @@ public class ListCommand extends Command {
             ui.showCustomText(InfoMessages.MESSAGE_INFO_LIST_EMPTY);
             return;
         }
-        ui.showTaskList(tasksList);
+        ui.showTaskList(tasksList, InfoMessages.MESSAGE_INFO_LIST);
     }
 }

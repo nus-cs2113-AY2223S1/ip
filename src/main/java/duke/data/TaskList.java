@@ -87,4 +87,17 @@ public class TaskList {
         }
         return tasksList;
     }
+
+    public String findTasks(String keyword) {
+        String tasksList = EMPTY_STRING;
+        for (Task task : tasks) {
+            if (task.getTaskDetails().contains(keyword)) {
+                tasksList += INDENT_SPACE + task.getTaskDetails() + System.lineSeparator();
+            }
+        }
+        if (!tasksList.equals(EMPTY_STRING)) {
+            tasksList = tasksList.substring(INDENT_COUNT, tasksList.length() - 1);
+        }
+        return tasksList;
+    }
 }
