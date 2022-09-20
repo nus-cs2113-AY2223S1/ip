@@ -6,14 +6,15 @@ import duke.task.Task;
 import duke.task.ToDo;
 import duke.ui.parser.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * API to query and edit Task objects
  */
 public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasksLastShown = new ArrayList<>();
 
     /**
      * Default Constructor
@@ -74,10 +75,10 @@ public class TaskList {
 
     private String markTask(int taskNum) {
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
+        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
             output = "Not a valid task number\n";
         } else {
-            Task task =  tasks.get(taskNum-1);
+            Task task =  tasksLastShown.get(taskNum-1);
             task.markAsDone();
             output = "Nice! I've marked this task as done:\n"
                     + "  [X] "
@@ -94,10 +95,10 @@ public class TaskList {
 
     private String unmarkTask(int taskNum) {
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
+        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
             output = "Not a valid task number\n";
         } else {
-            Task task =  tasks.get(taskNum-1);
+            Task task = tasksLastShown.get(taskNum-1);
             task.markAsNotDone();
             output = "OK, I've marked this task as not done yet:\n"
                     + "  [ ] "
@@ -108,16 +109,35 @@ public class TaskList {
 
     private String deleteTask(int taskNum) {
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasks.size()) {
+        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
             output = "Not a valid task number\n";
         } else {
-            Task task =  tasks.get(taskNum-1);
+            Task task = tasksLastShown.get(taskNum-1);
             output = "Noted, I've removed this task:\n"
                     + "  " + task.toString() + "\n"
                     + "Now you have " + (tasks.size() - 1) + " tasks in the list.\n";
-            tasks.remove(taskNum-1);
+            tasksLastShown.remove(task);
+            tasks.remove(task);
         }
         return output;
+    }
+
+
+    private String findTask(String searchPhrase) {
+        ArrayList<Task> tasksToShow = tasks.stream().filter(n -> n.getDescription().contains(searchPhrase)).
+                collect(Collectors.toCollection(ArrayList::new));
+
+        int counter = 0;
+        StringBuilder output = new StringBuilder( "Here are the matching tasks in your list:\n");
+        for (Task task : tasksToShow) {
+            output.append(String.format("%d. %s\n", ++counter, task.toString()));
+        }
+
+        if (counter == 0) {
+            output.append("(No tasks match the search phrase)");
+        }
+        tasksLastShown = tasksToShow;
+        return output.toString();
     }
 
     /**
@@ -130,6 +150,8 @@ public class TaskList {
         for (Task task: tasks) {
             output.append(String.format("%d. %s\n", counter++, task.toString()));
         }
+
+        tasksLastShown = tasks;
         return output.toString();
     }
 
@@ -172,8 +194,11 @@ public class TaskList {
         case DELETE:
             output = deleteTask(((CommandDelete) command).getTaskNum());
             break;
+        case FIND:
+            output = findTask(((CommandFind) command).getSearchPhrase());
+            break;
         default:
-            output = "Error, major bug";
+            output = "ERROR: Something went wrong with command execution.\n Congrats, you've broken the app";
             break;
         }
         return output;

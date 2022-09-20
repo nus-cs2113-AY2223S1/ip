@@ -26,7 +26,7 @@ public class Storage {
     public Storage (String dataFileName, String dataDirectoryName) {
         this.dataFileName = dataFileName;
         this.dataDirectoryName = dataDirectoryName;
-        this.dataFilePath = Paths.get(dataFileName + "/" + dataDirectoryName);
+        this.dataFilePath = Paths.get(dataDirectoryName + "/" + dataFileName);
         this.dataDirectoryPath = Paths.get(dataDirectoryName);
     }
 
