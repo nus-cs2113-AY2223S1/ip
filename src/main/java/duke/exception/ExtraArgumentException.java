@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class ExtraArgumentException extends Exception{
+public class ExtraArgumentException extends Exception {
 
     @Override
     public String toString() {

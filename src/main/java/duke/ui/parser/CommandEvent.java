@@ -1,6 +1,8 @@
 package duke.ui.parser;
+import duke.exception.DukeDateTimeFormatException;
 import duke.exception.NotIntegerException;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,11 +13,11 @@ public class CommandEvent extends Command {
 
     private String description = null;
 
-    private String date = null;
+    private DukeDateTime date = null;
     public CommandEvent(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.MIN_ARGUMENTS = MIN_ARGUMENTS;
+        super.minArguments = MIN_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.EVENT;
 
@@ -28,19 +30,30 @@ public class CommandEvent extends Command {
     }
 
     @Override
-    protected void parse() {
+    protected void parse() throws DukeDateTimeFormatException {
         int indexOfAtFlag = rawArguments.indexOf("/at");
 
         description = rawArguments.substring(0, indexOfAtFlag - 1);
-        date = rawArguments.substring(indexOfAtFlag + "/at ".length());
+
+        try {
+            String dateString = rawArguments.substring(indexOfAtFlag + "/at ".length());
+            date = new DukeDateTime(dateString);
+        } catch (DateTimeException e) {
+            throw new DukeDateTimeFormatException();
+        }
     }
+
 
     public String getDescription() {
         return description;
     }
 
     public String getDate() {
-        return date;
+        return date.getFormattedDate();
+    }
+
+    public String getTime() {
+        return date.getFormattedTime();
     }
 
 }

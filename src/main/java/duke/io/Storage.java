@@ -85,16 +85,18 @@ public class Storage {
                     output.add(todo);
                     break;
                 case "D":
-                    String by = data[3];
-                    Deadline deadline = new Deadline(description, by);
+                    String date = data[3];
+                    String time = data [4];
+                    Deadline deadline = new Deadline(description, date, time);
                     if (isDone) {
                         deadline.markAsDone();
                     }
                     output.add(deadline);
                     break;
                 case "E":
-                    String at = data[3];
-                    Event event = new Event(description, at);
+                    date = data[3];
+                    time = data [4];
+                    Event event = new Event(description, date, time);
                     if (isDone) {
                         event.markAsDone();
                     }

@@ -1,6 +1,9 @@
 package duke.ui.parser;
+import duke.Duke;
+import duke.exception.DukeDateTimeFormatException;
 import duke.exception.NotIntegerException;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,15 +13,14 @@ public class CommandDeadline extends Command {
     private static final ArrayList<String> FLAGS = new ArrayList<>(Arrays.asList("/by"));
 
     private String description = null;
+    private DukeDateTime date = null;
 
-    private String date = null;
     public CommandDeadline(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.MIN_ARGUMENTS = MIN_ARGUMENTS;
+        super.minArguments = MIN_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.DEADLINE;
-
     }
 
 
@@ -28,11 +30,17 @@ public class CommandDeadline extends Command {
     }
 
     @Override
-    protected void parse() {
+    protected void parse() throws DukeDateTimeFormatException {
         int indexOfByFlag = rawArguments.indexOf("/by");
 
         description = rawArguments.substring(0, indexOfByFlag - 1);
-        date = rawArguments.substring(indexOfByFlag + "/by ".length());
+
+        try {
+            String dateString = rawArguments.substring(indexOfByFlag + "/by ".length());
+            date = new DukeDateTime(dateString);
+        } catch (DateTimeException e) {
+            throw new DukeDateTimeFormatException();
+        }
     }
 
 
@@ -42,7 +50,11 @@ public class CommandDeadline extends Command {
     }
 
     public String getDate() {
-        return date;
+        return date.getFormattedDate();
+    }
+
+    public String getTime() {
+        return date.getFormattedTime();
     }
 
 }

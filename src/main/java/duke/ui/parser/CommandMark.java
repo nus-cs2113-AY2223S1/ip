@@ -13,8 +13,8 @@ public class CommandMark extends Command {
     public CommandMark(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.MIN_ARGUMENTS = NUM_OF_ARGUMENTS;
-        super.MAX_ARGUMENTS = NUM_OF_ARGUMENTS;
+        super.minArguments = NUM_OF_ARGUMENTS;
+        super.maxArguments = NUM_OF_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.MARK;
     }
