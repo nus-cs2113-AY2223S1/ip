@@ -50,10 +50,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will end Duke program and save tasks, if any
 >> Example of usage:  
-`bye`
+>>`bye`
 >>
 >>Expected outcome:  
-> > Slave Kai ends Duke program and saves tasks, if any
+>> Slave Kai ends Duke program and saves tasks, if any
 >>```
 >>Please don't go :(
 >>------------------------------
@@ -68,10 +68,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will consider helping
 >> Example of usage:  
-> `help`
+>>`help`
 >>
 >>Expected outcome:  
-> Slave Kai's decision to help
+>>Slave Kai's decision to help
 >>```
 >>You asked for help, but I don't feel like helping ;p
 >>Maybe try saying the magic word?
@@ -85,10 +85,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will display help message
 >> Example of usage:  
-> `please`
+>>`please`
 >>
 >>Expected outcome:  
-> > Help message displaying available commands
+>> Help message displaying available commands
 >>```
 >>Slave Kai is glad to help! 
 >>Available commands: 
@@ -117,10 +117,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will add a new todo with {description}
 >> Example of usage:  
-> > `todo find a girlfriend`
+>> `todo find a girlfriend`
 >>
 >>Expected outcome:  
-> > Todo is created
+>> Todo is created
 >>```
 >>Task added:
 >>1.[T][ ] find a girlfriend
@@ -134,10 +134,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will add a new event with {description} on {date} at {time (optional)}
 >> Example of usage:  
-> > `event go on a date /1-1-2066`
+>> `event go on a date /1-1-2066`
 >>
 >>Expected outcome:  
-> > Event is created
+>> Event is created
 >>```
 >>Task added:
 >>2.[E][ ] go on a date (1 Jan 2066)
@@ -151,10 +151,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will add a new deadline with {description} on {date} at {time (optional)}
 >> Example of usage:  
-> > `deadline make a new friend /31-12-2021 2359`
+>> `deadline make a new friend /31-12-2021 2359`
 >>
 >>Expected outcome:  
-> > Deadline is created
+>> Deadline is created
 >>```
 >>Task added:
 >>3.[D][ ] make a new friend (31 Dec 2021 23:59)
@@ -168,10 +168,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will mark that task as done/not done
 >> Example of usage:  
-> > `mark 3`
+>> `mark 3`
 >>
 >>Expected outcome:  
-> > Task is marked as done/not done
+>> Task is marked as done/not done
 >>```
 >>Well done. I've marked this task as done:
 >>3.[D][X] make a new friend (31 Dec 2021 23:59)
@@ -185,10 +185,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will delete that task (irreversible!)
 >> Example of usage:  
-> > `delete 3`
+>> `delete 3`
 >>
 >>Expected outcome:  
-> > Task is deleted
+>> Task is deleted
 >>```
 >>Task deleted:
 >>3.[D][X] make a new friend (31 Dec 2021 23:59)
@@ -202,10 +202,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will list all tasks and total number of tasks
 >> Example of usage:  
-> > `list`
+>> `list`
 >>
 >>Expected outcome:  
-> > All tasks in Slave Kai's memory
+>> All tasks in Slave Kai's memory
 >>```
 >>You have 2 tasks
 >>1.[T][ ] find a girlfriend
@@ -220,10 +220,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will list tasks containing {keyword} in task description
 >> Example of usage:  
-> > `find friend`
+>> `find friend`
 >>
 >>Expected outcome:  
-> > Tasks containing friend in task description
+>> Tasks containing friend in task description
 >>```
 >>Slave Kai found these 1 tasks:
 >>1.[T][ ] find a girlfriend
@@ -237,10 +237,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >
 >Slave Kai will list tasks that are marked as done/not done
 >> Example of usage:  
-> > `undone`
+>> `undone`
 >>
 >>Expected outcome:  
-> > Tasks marked as not done
+>> Tasks marked as not done
 >>```
 >>Slave Kai found these 2 tasks:
 >>1.[T][ ] find a girlfriend
@@ -252,13 +252,13 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 > ### `on/before/after {date}` - to list tasks on/before/after {date}
 ><details><summary>details</summary>
 ><p>  
->
->Slave Kai will list tasks (of types deadline and event) on/before/after {date}
+>  
+>Slave Kai will list tasks (of types deadline and event) on/before/after {date}  
 >> Example of usage:  
-> > `after 22-7-2026`
->>
+>> `after 22-7-2026`  
+>>  
 >>Expected outcome:  
-> > Tasks (of types deadline and event) after {date}
+>> Tasks (of types deadline and event) after {date}
 >>```
 >>Slave Kai found these 1 tasks:
 >>2.[E][ ] go on a date (1 Jan 2066)
@@ -269,15 +269,15 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 > ### `hi` - to greet Slave Kai
 ><details><summary>details</summary>
 ><p>  
->
->Slave Kai will respond with a greeting
+>  
+>Slave Kai will respond with a greeting  
 >> Example of usage:  
-> > `hi`
->>
+>> `hi`  
+>>  
 >>Expected outcome:  
-> > Slave Kai's response
->>```
->>Howdy!
->>```
+>> Slave Kai's response  
+>>```  
+>>Howdy!  
+>>```  
 ></p>
 ></details>
