@@ -1,6 +1,6 @@
 package Duke;
-import java.util.Scanner;
-import java.util.ArrayList;
+import Duke.ui.UserInterface;
+
 public class Duke {
     public static void main(String[] args) {
         UserInterface userInterface = new UserInterface();

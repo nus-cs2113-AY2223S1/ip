@@ -1,6 +1,6 @@
-package Duke;
+package Duke.data.exception;
 
-public class ExceptionHandler {
+public class ExceptionMessage {
     public static final String EMPTY_HANDLER = "The list is empty and there is nothing to print :(";
     public static final String EMPTY_MARK_INDEX = "No index given to mark";
     public static final String MARK_INDEX_OUT_OF_BOUNDS = "There is no task with index ";

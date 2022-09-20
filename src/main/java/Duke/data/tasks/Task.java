@@ -1,5 +1,5 @@
-package Duke;
-public abstract class Task{
+package Duke.data.tasks;
+public abstract class Task {
     protected String description;
     protected String dueDate;
     protected String taskType;

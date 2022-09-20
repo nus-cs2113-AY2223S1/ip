@@ -1,4 +1,6 @@
-package Duke;
+package Duke.data.tasks;
+import Duke.data.exception.DukeException;
+
 public class Event extends Task{
     public Event(String[] splitInputs) throws DukeException {
         super();

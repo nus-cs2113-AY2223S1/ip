@@ -1,4 +1,4 @@
-package Duke;
+package Duke.data.tasks;
 public class Todo extends Task{
     public Todo(String[] splitInputs) {
         super();
