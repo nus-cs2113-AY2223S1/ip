@@ -280,19 +280,20 @@ Duke data is saved as a plaintext file at `[JAR file location]/data/duke.txt`. A
 ## FAQ
 
 Q: How do I transfer my data to another computer?
+
 A: Duke is designed for portability. Copy the JAR file and the data folder over to your other computer and you are good to go.
 
 ## Command summary
 
-| Action | Format | Example |
-|--------|--------|---------|
-| View help | help | help |
-| List tasks | list | list |
-| Exit application | bye | bye |
-| Find tasks by keyword | find KEYWORD | find project | 
-| Add a Todo | todo NAME | todo Do my tP |
-| Add an event | event NAME /at DATETIME | |
-| Add a deadline | deadline NAME /by DATETIME | |
-| Mark a task as done | mark INDEX | mark 1 |
-| Unmark a task as done | unmark INDEX | unmark 1 |
-| Delete a task | delete INDEX | delete 1 |
+| Action                | Format                        | Example                                   |
+|-----------------------|-------------------------------|-------------------------------------------|
+| View help             | `help`                        | `help`                                    |
+| List tasks            | `list`                        | `list`                                    |
+| Exit application      | `bye`                         | `bye`                                     |
+| Find tasks by keyword | `find KEYWORD`                | `find project`                            | 
+| Add a Todo            | `todo NAME`                   | `todo Do the team project`                |
+| Add an event          | `event NAME /at DATETIME`     | `event Xmas party /at 25 dec 12:00pm`     |
+| Add a deadline        | `deadline NAME /by DATETIME`  | `deadline iP /by tonight`                 |
+| Mark a task as done   | `mark INDEX`                  | `mark 1`                                  |
+| Unmark a task as done | `unmark INDEX`                | `unmark 1`                                |
+| Delete a task         | `delete INDEX`                | `delete 1`                                |
