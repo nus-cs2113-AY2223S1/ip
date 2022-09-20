@@ -1,57 +1,46 @@
 package duke;
 
-import duke.chatbot.ChatBot;
-import duke.exception.InvalidCommandException;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.common.ErrorMessages;
+import duke.data.TaskList;
+import duke.data.exception.InvalidCommandException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.ui.TextUi;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.Objects;
 
 public class Duke {
-    public static void runCommand(ChatBot chatbot, String command, String description) throws InvalidCommandException {
-        switch(command) {
-        case "bye":
-            chatbot.bye();
-            break;
-        case "list":
-            chatbot.listTasks();
-            break;
-        case "mark":
-        case "unmark":
-            chatbot.markTask(command, description);
-            break;
-        case "todo":
-        case "deadline":
-        case "event":
-            chatbot.addTask(command, description, false, true);
-            break;
-        case "delete":
-            chatbot.deleteTask(description);
-            break;
-        default:
-            throw new InvalidCommandException();
-        }
-    }
+    private Storage storage;
+    private TaskList tasks;
+    private TextUi ui;
 
     public static void main(String[] args) throws IOException {
-        ChatBot chatbot = new ChatBot();
-        chatbot.greet();
-        Scanner in = new Scanner(System.in);
+        new Duke().run(args);
+    }
 
-        String input, command, description;
+    public void run(String[] args) throws IOException {
+        storage = new Storage();
+        tasks = new TaskList();
+        ui = new TextUi();
+
+        try {
+            tasks = storage.readFromFile();
+        } catch (IOException e) {
+            ui.showCustomText(ErrorMessages.MESSAGE_ERROR_FILE_IO);
+        }
+
+        String input;
         do {
-            input = in.nextLine();
-            if (input.contains(" ")) {
-                command = input.split(" ")[0];
-                description = input.substring(input.indexOf(' ') + 1);
-            } else {
-                command = input;
-                description = "";
-            }
+            input = ui.getUserInput();
             try {
-                runCommand(chatbot, command, description);
+                Command command = Parser.parseCommand(input);
+                command.execute(ui, tasks, storage);
             } catch (InvalidCommandException e) {
-                chatbot.alertInvalidCommand();
+                ui.showCustomText(ErrorMessages.MESSAGE_ERROR_INVALID_COMMAND);
             }
-        } while (!input.equals("bye"));
+        } while (!Objects.equals(input, ByeCommand.COMMAND));
     }
 }
