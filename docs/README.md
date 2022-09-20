@@ -47,36 +47,38 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 > ### `bye` - to exit Duke
 ><details><summary>details</summary>
 >
->Slave Kai will end Duke program and save tasks, if any
->> Example of usage:  
->>`bye`
->>
+>Slave Kai will end Duke program and save tasks, if any  
+>>Example of usage:  
+>>`bye`  
+>>  
 >>Expected outcome:  
->> Slave Kai ends Duke program and saves tasks, if any
->>```
->>Please don't go :(
->>------------------------------
->>Slaving tasks......
->>```
+>> Slave Kai ends Duke program and saves tasks, if any  
+>>```  
+>>Please don't go :(  
+>>------------------------------  
+>>Slaving tasks......  
+>>```  
 ></details>
 
 > ### `help` - to try asking for help
 ><details><summary>details</summary>
+
 >
->Slave Kai will consider helping
->> Example of usage:  
->>`help`
->>
+>Slave Kai will consider helping  
+>>Example of usage:  
+>>`help`  
+>>  
 >>Expected outcome:  
->>Slave Kai's decision to help
->>```
->>You asked for help, but I don't feel like helping ;p
->>Maybe try saying the magic word?
->>```
+>>Slave Kai's decision to help  
+>>```  
+>>You asked for help, but I don't feel like helping ;p  
+>>Maybe try saying the magic word?  
+>>```  
 ></details>
 
 > ### `please` - to actually get help
 ><details><summary>details</summary>
+
 >
 >Slave Kai will display help message
 >> Example of usage:  
@@ -107,6 +109,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `todo {description}` - to add a new todo
 ><details><summary>details</summary>
+
 >
 >Slave Kai will add a new todo with {description}
 >> Example of usage:  
@@ -122,6 +125,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `event {description} /{date} {time}` - to add a new event
 ><details><summary>details</summary>
+
 >
 >Slave Kai will add a new event with {description} on {date} at {time (optional)}
 >> Example of usage:  
@@ -137,6 +141,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `deadline {description} /{date} {time}` - to add a new deadline
 ><details><summary>details</summary>
+
 >
 >Slave Kai will add a new deadline with {description} on {date} at {time (optional)}
 >> Example of usage:  
@@ -152,6 +157,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `mark/unmark {task number}` - to mark a task as done/not done
 ><details><summary>details</summary>
+
 >
 >Slave Kai will mark that task as done/not done
 >> Example of usage:  
@@ -167,6 +173,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `delete {task number}` - to delete a task
 ><details><summary>details</summary>
+
 >
 >Slave Kai will delete that task (irreversible!)
 >> Example of usage:  
@@ -182,6 +189,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `list` - to list all tasks
 ><details><summary>details</summary>
+
 >
 >Slave Kai will list all tasks and total number of tasks
 >> Example of usage:  
@@ -198,6 +206,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `find {keyword}` - to list tasks containing {keyword}
 ><details><summary>details</summary>
+
 >
 >Slave Kai will list tasks containing {keyword} in task description
 >> Example of usage:  
@@ -213,6 +222,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `done/undone` - to list tasks that are marked as done/not done
 ><details><summary>details</summary>
+
 >
 >Slave Kai will list tasks that are marked as done/not done
 >> Example of usage:  
@@ -229,6 +239,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `on/before/after {date}` - to list tasks on/before/after {date}
 ><details><summary>details</summary>
+
 >  
 >Slave Kai will list tasks (of types deadline and event) on/before/after {date}  
 >> Example of usage:  
@@ -244,13 +255,14 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `hi` - to greet Slave Kai
 ><details><summary>details</summary>
+
 >  
 >Slave Kai will respond with a greeting  
->> Example of usage:  
->> `hi`  
+>>Example of usage:  
+>>`hi`  
 >>  
 >>Expected outcome:  
->> Slave Kai's response  
+>>Slave Kai's response  
 >>```  
 >>Howdy!  
 >>```  
