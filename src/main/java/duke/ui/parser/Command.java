@@ -12,8 +12,8 @@ public abstract class Command {
     }
 
     protected CommandType commandType;
-    protected Integer MIN_ARGUMENTS = null;
-    protected Integer MAX_ARGUMENTS = null;
+    protected Integer minArguments = null;
+    protected Integer maxArguments = null;
     protected ArrayList<String> FLAGS;
     protected String rawArguments;
     protected ArrayList<String> splitArguments;
@@ -22,11 +22,11 @@ public abstract class Command {
     protected void checkArgumentLength() throws MissingArgumentException, ExtraArgumentException,
             MissingDescriptionException {
 
-        if (MAX_ARGUMENTS != null && splitArguments.size() > MAX_ARGUMENTS) {
+        if (maxArguments != null && splitArguments.size() > maxArguments) {
             throw new ExtraArgumentException();
         }
 
-        if (MIN_ARGUMENTS != null && splitArguments.size() < MIN_ARGUMENTS) {
+        if (minArguments != null && splitArguments.size() < minArguments) {
             throw new MissingArgumentException();
         }
     }
@@ -67,7 +67,7 @@ public abstract class Command {
 
     protected abstract void checkArgument() throws NotIntegerException;
 
-    protected abstract void parse();
+    protected abstract void parse() throws DukeDateTimeFormatException;
 
     public CommandType getCommandType() {
         return commandType;

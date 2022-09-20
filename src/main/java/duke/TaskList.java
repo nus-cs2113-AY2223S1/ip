@@ -47,22 +47,24 @@ public class TaskList {
     /**
      * Add a new deadline task to the list of tasks
      * @param taskDescription Name of Task
-     * @param by Deadline
+     * @param date Date of Deadline
+     * @param time Time of Deadline
      * @return String Notification string for the added deadline task
      */
-    private String addDeadline(String taskDescription, String by) {
-        String output = addTask(new Deadline(taskDescription, by));
+    private String addDeadline(String taskDescription, String date, String time) {
+        String output = addTask(new Deadline(taskDescription, date, time));
         return output;
     }
 
     /**
      * Add a new event task to the list of tasks
      * @param taskDescription Name of task
-     * @param at When the event takes place
+     * @param date Date of Deadline
+     * @param time Time of Deadline
      * @return String Notification string for the added event task
      */
-    private String addEvent(String taskDescription, String at) {
-        String output = addTask(new Event(taskDescription, at));
+    private String addEvent(String taskDescription, String date, String time) {
+        String output = addTask(new Event(taskDescription, date, time));
         return output;
     }
 
@@ -163,11 +165,11 @@ public class TaskList {
             break;
         case DEADLINE:
             CommandDeadline commandDeadline = (CommandDeadline) command;
-            output = addDeadline(commandDeadline.getDescription(), commandDeadline.getDate());
+            output = addDeadline(commandDeadline.getDescription(), commandDeadline.getDate(), commandDeadline.getTime());
             break;
         case EVENT:
             CommandEvent commandEvent = (CommandEvent) command;
-            output = addEvent(commandEvent.getDescription(), commandEvent.getDate());
+            output = addEvent(commandEvent.getDescription(), commandEvent.getDate(), commandEvent.getTime());
             break;
         case DELETE:
             output = deleteTask(((CommandDelete) command).getTaskNum());

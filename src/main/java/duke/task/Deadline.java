@@ -4,16 +4,19 @@ package duke.task;
  * Object representation of Deadline task
  */
 public class Deadline extends Task {
-    protected String by;
+    protected String date;
+    protected String time;
 
     /**
      * Public constructor
      * @param description Task name
-     * @param by deadline
+     * @param date Date of deadline
+     * @param time Time of deadline
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String date, String time) {
         super(description);
-        this.by = by;
+        this.date = date;
+        this.time = time;
     }
 
     /**
@@ -22,15 +25,16 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)",
+        return String.format("[D][%s] %s (by: %s %s)",
                 super.getStatusIcon(),
                 super.description,
-                this.by
+                this.date,
+                this.time
         );
     }
 
     @Override
     public String getTaskData() {
-        return "D" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + by;
+        return "D" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + date + " | " + time;
     }
 }
