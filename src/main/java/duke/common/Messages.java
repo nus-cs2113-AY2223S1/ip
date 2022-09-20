@@ -1,4 +1,4 @@
-package duke.data;
+package duke.common;
 
 /**
  * For Common Messages

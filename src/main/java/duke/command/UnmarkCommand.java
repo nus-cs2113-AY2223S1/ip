@@ -1,7 +1,6 @@
 package duke.command;
 
 
-import duke.data.TaskList;
 import duke.data.task.*;
 
 import java.util.ArrayList;
@@ -25,16 +24,16 @@ public class UnmarkCommand extends Command {
     public CommandResult execute() {
 
         for (int i = 0; i < index.length; i++) {
-            TaskList.list.get(index[i]).setIsDone(false);
+            this.taskList.data.get(index[i]).setIsDone(false);
         }
 
-        ArrayList<Task> target = new ArrayList<Task>(
-                IntStream.range(0, TaskList.list.size())
+        target = new ArrayList<>(
+                IntStream.range(0, this.taskList.data.size())
                         .filter(i -> contains(index, i))
-                        .mapToObj(i -> TaskList.list.get(i)).collect(Collectors.toList()));
+                        .mapToObj(i -> this.taskList.data.get(i)).collect(Collectors.toList()));
 
-        return new CommandResult(MESSAGE_TOP, target, TaskList.getMarkMessage());
-
+        this.message = "Unmark " + targetCount() + " " + printTaskPlural();
+        return new CommandResult(message, target);
     }
 
 }

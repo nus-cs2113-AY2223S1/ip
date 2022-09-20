@@ -1,15 +1,12 @@
 package duke.data.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class Event extends Task {
     public static final String TYPE_EVENT = "E";
 
     public Event(String description, String date) {
         super(description);
-        this.date.setData(date);
+        this.date = new Date(date);
+        this.taskType = TYPE_EVENT;
     }
 
     public Event(boolean status, String description, String date) {
@@ -19,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return (this.wrapType(TYPE_EVENT) + this.getStatusIcon() + " " + this.description + "\t(" + printdate("d MMM yyyy")
+        return (this.wrapType(taskType) + this.getStatusIcon() + " " + this.description.getData() + "\t(" + this.date.getData()
                 + ")");
     }
 }

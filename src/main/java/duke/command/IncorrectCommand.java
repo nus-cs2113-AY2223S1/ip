@@ -9,8 +9,6 @@ public class IncorrectCommand extends Command {
         this.message = message;
     }
 
-
-
     @Override
     public CommandResult execute() {
         return new CommandResult(message);

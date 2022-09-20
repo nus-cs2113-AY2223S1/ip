@@ -3,13 +3,12 @@ package duke.command;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
-import duke.common.Messages;
 import duke.data.task.Task;
 
 public class CommandResult {
 
     public List<? extends Task> target;
+    public String message;
 
 
     public CommandResult(String message) {
@@ -22,7 +21,6 @@ public class CommandResult {
     }
 
 
-    public String message;
 
     public String getMessage(){
         return message;

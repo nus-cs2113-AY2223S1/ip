@@ -1,9 +1,6 @@
 package duke.command;
 
-import duke.data.TaskList;
-
 import java.util.ArrayList;
-
 import duke.data.task.*;
 
 public class TodoCommand extends Command {
@@ -12,22 +9,20 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
-    /*Variables*/
     public static final String COMMAND_NAME = "todo";
     public static final String SYNTAX = "Syntax for todo \n\t>>>todo <task>";
-    public static final String MESSAGE_TOP = "Todo Added";
+    public static final String MESSAGE_TOP = "Todo added";
 
 
     public String description;
     public ArrayList<Task> target = new ArrayList<Task>();
 
-    /*Non-static */
     @Override
     public CommandResult execute() {
-        Task added = new Todo(this.description);
-        TaskList.list.add(added);
+        Todo added = new Todo(this.description);
+        this.taskList.data.add(added);
         target.add(added);
-        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
+        return new CommandResult(MESSAGE_TOP, target);
     }
 
 }

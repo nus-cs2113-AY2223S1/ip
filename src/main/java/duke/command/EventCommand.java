@@ -1,7 +1,6 @@
 
 package duke.command;
 
-import duke.data.tag.TaskList;
 import duke.data.task.*;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class EventCommand extends Command {
 
     public static final String COMMAND_NAME = "event";
     public static final String SYNTAX = "Syntax for event \n\t>>>event <task> / <date of event>";
-    public static final String MESSAGE_TOP = "Event Added";
+    public static final String MESSAGE= "Event added";
 
     public String description;
     public String date;
@@ -24,8 +23,8 @@ public class EventCommand extends Command {
     @Override
     public CommandResult execute() {
         Task added = new Event(description, date);
-        this.taskList.add(added);
+        this.taskList.data.add(added);
         target.add(added);
-        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
+        return new CommandResult(MESSAGE, target);
     }
 }

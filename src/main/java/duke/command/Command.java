@@ -1,19 +1,20 @@
 package duke.command;
 
 import duke.data.tag.TaskList;
+import java.util.ArrayList;
 import duke.data.task.Task;
 
-public class Command {
+public abstract class Command {
     public String commandType;
-    protected TaskList<Task> taskList;
+    protected String message;
+    protected TaskList taskList = new TaskList();
+    protected ArrayList<Task> target = new ArrayList<>();
 
     protected Command(String commandType) {
         this.commandType = commandType;
     }
 
-    public CommandResult execute() {
-        throw new UnsupportedOperationException("Method to be implemented in child classes");
-    }
+    public abstract CommandResult execute();
 
     public boolean contains(final int[] array, final int key) {
         for (final int i : array) {
@@ -24,7 +25,16 @@ public class Command {
         return false;
     }
 
-    public void setTaskList(TaskList<Task> data){
-        this.taskList = data;
+
+    public void setTaskList(TaskList taskList){
+        this.taskList = taskList;
     }
+
+    protected int targetCount(){
+        return (int) target.stream().count();
+    }
+    protected String printTaskPlural(){
+        return (targetCount() == 1 || targetCount() == 0)? "task" : "tasks";
+    }
+
 }

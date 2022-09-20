@@ -2,7 +2,6 @@ package duke.command;
 
 import java.util.ArrayList;
 
-import duke.data.tag.TaskList;
 import duke.data.task.*;
 
 public class DeadlineCommand extends Command {
@@ -15,7 +14,7 @@ public class DeadlineCommand extends Command {
     /*Variables*/
     public static final String COMMAND_NAME = "deadline";
     public static final String SYNTAX = "Syntax for deadline\n\t>>>deadline <task> / <date of deadline>";
-    public static final String MESSAGE_TOP = "Deadline Added";
+    public static final String MESSAGE = "Deadline added";
 
 
     public String description;
@@ -24,10 +23,10 @@ public class DeadlineCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Task added = new Deadline(description, date);
-        this.taskList.add(added);
+        Deadline added = new Deadline(description, date);
+        this.taskList.data.add(added);
         target.add(added);
-        return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
+        return new CommandResult(MESSAGE, target);
     }
 
 }

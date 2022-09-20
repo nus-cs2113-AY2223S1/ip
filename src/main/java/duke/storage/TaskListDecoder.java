@@ -1,6 +1,5 @@
 package duke.storage;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,32 +13,31 @@ import java.io.File;
 import java.util.Scanner;
 
 public class TaskListDecoder {
-    private static final String PARSE_LIMITER = "\\|";
+    private static final String PARSE_LIMITER = " \\| ";
 
     public TaskListDecoder() {
 
     }
 
-    public static ArrayList<? extends Task> decodeFile(Path path) throws DecodeException, IOException {
+    public static ArrayList<Task> decodeFile(String path) throws DecodeException, IOException {
         ArrayList<Task> taskListData = new ArrayList<>();
-        File file = new File(path.toString());
+        File file = new File(path);
         Scanner fileRead = new Scanner(file);
-        while (fileRead.hasNext()) {
+        while (fileRead.hasNextLine()) {
             taskListData.add(decodeLine(fileRead.nextLine()));
         }
         fileRead.close();
         return taskListData;
     }
 
-    // TODO:
-    private static Task decodeLine(String line) throws DecodeException{
-        try{
+    private static Task decodeLine(String line) throws DecodeException {
+        try {
             Task toAdd;
             String[] parsed = line.split(PARSE_LIMITER);
-            String commandWord = parsed[0];
+            String commandWord = parsed[0].trim();
             boolean isDone = Boolean.valueOf(parsed[1]);
-            String description = parsed[2];       
-            switch(commandWord.toLowerCase()){
+            String description = parsed[2];
+            switch (commandWord) {
             case Todo.TYPE_TODO:
                 toAdd = new Todo(description);
                 toAdd.setIsDone(isDone);
@@ -49,14 +47,14 @@ public class TaskListDecoder {
                 toAdd.setIsDone(isDone);
                 return toAdd;
             case Deadline.TYPE_DEADLINE:
-                toAdd = new Event(description, parsed[3]);
+                toAdd = new Deadline(description, parsed[3]);
                 toAdd.setIsDone(isDone);
                 return toAdd;
-            default: 
+            default:
                 throw new DecodeException();
             }
         } catch (Exception e) {
-        throw new DecodeException();
+            throw new DecodeException();
         }
     }
 

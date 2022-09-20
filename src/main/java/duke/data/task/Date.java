@@ -10,9 +10,12 @@ public class Date implements Attributes {
     public String dateString;
     public LocalDate date;
 
+    public Date(){
+        this.setData("");
+    }
     public Date(String data){
-        data = data.trim();
-        this.setData(data);
+        this();
+        this.setData(data.trim());
     }
 
     /** Get Date data */
@@ -24,15 +27,12 @@ public class Date implements Attributes {
         return this.dateString;
     }
 
-    public LocalDate getDate(){
-        return this.dateString;
-    }
-
     /** Set Date data */
     @Override
     public void setData(String data){
         try {
             this.date = LocalDate.parse(data);
+            this.dateString = data;
         } catch (DateTimeParseException e) {
             this.date = null;
             this.dateString = data;
@@ -42,9 +42,8 @@ public class Date implements Attributes {
     /** Check blank or null */
     @Override
     public boolean isValid(){
-        return !this.dateString.isBlank() | (this.date != null);
+        return !this.dateString.isBlank();
     }
-    
     public boolean isNull(){
         return this.date == null;
     }

@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.Optional;
 
 
 public class TextUi {
@@ -72,10 +71,10 @@ public class TextUi {
     /** Show the result of the command to the user list of tasks involved and the message */
     public void showResultToUser(CommandResult result) {
         final Optional<List<? extends Task>> resultTasks = result.getTarget();
+        showToUser(result.getMessage());
         if(resultTasks.isPresent()){
             showTaskListView(resultTasks.get());
         }
-        showToUser(result.getMessage());
         output.println(Messages.DIVIDER);
     }
 

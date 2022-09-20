@@ -3,11 +3,11 @@ package duke.data.task;
 public abstract class Task {
     public Description description;
     public String taskType;
-    public Date date;
+    public Date date = new Date();
     public boolean isDone;
 
     public Task(String description) {
-        this.description.setData(description);
+        this.description = new Description(description);
         this.setIsDone(false);
     }
 
@@ -19,18 +19,17 @@ public abstract class Task {
         return this.taskType;
     }
 
-    public boolean getIsDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 
     public String getStatusIcon() {
-        return (this.getIsDone() ? "[X]" : "[ ]");
+        return (this.isDone() ? "[X]" : "[ ]");
     }
 
     public String toString() {
-        return (this.wrapType(taskType) + this.getStatusIcon() + " " + this.description);
+        return (this.wrapType(taskType) + this.getStatusIcon() + " " + this.description.getData());
     }
-
     public String wrapType(String type) {
         return "[" + type + "]";
     }
