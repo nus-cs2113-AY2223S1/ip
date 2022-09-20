@@ -12,10 +12,13 @@ public class CommandDelete extends Command {
 
     private Integer taskNum = null;
 
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandDelete(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.splitArguments = new ArrayList<>(splitArguments(rawArguments));
 
         super.minArguments = NUM_OF_ARGUMENTS;
         super.maxArguments = NUM_OF_ARGUMENTS;
@@ -37,6 +40,10 @@ public class CommandDelete extends Command {
         taskNum = Integer.parseInt(splitArguments.get(0));
     }
 
+    /**
+     * Getter method to get task number
+     * @return Task number
+     */
     public int getTaskNum() {
         return taskNum;
     }

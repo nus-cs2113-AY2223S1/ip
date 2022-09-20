@@ -3,10 +3,18 @@ package duke.exception;
 public class DukeDateTimeFormatException extends Exception {
     private String dateTimeString;
 
+    /**
+     * Constructor
+     * @param dateTimeString Portion of the user's input that represents the date and time
+     */
     public DukeDateTimeFormatException(String dateTimeString) {
         this.dateTimeString = dateTimeString;
     }
 
+    /**
+     * Get the exception message
+     * @return String Exception message
+     */
     @Override
     public String toString() {
         return "EXCEPTION: Wrong date time format\n"

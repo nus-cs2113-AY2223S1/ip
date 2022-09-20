@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a Task object
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -17,25 +17,27 @@ public class Task {
     }
 
     /**
-     * Returns name of task
-     * @return String name of task
+     * Getter for task description
+     * @return Task description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Returns the status icon to be printed in the task status message
-     * @return String Status icon
+     * Getter for the status icon to be printed in the task status message
+     * @return Status icon
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
     /**
-     * Returns formatted information of the task instance
-     * @return String Formatted information of the task instance
+     * Formats the task information to be displayed to the user
+     * @return Formatted information of the task instance
      */
+
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(),this.description);
@@ -56,7 +58,9 @@ public class Task {
     }
 
 
-    public String getTaskData() {
-        return " " + " | " + (isDone ? 1 : 0) + " | " + description;
-    }
+    /**
+     * Formats all attributes in the task to be saved into the data file
+     * @return Task data in a format parse-able by the Storage class
+     */
+    public abstract String getTaskData();
 }

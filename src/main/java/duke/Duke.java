@@ -10,6 +10,12 @@ public class Duke {
     private static TaskList taskList;
     private static Storage storage;
 
+    /**
+     * Public constructor
+     * @param dataFileName File name which must have ".txt" file extension
+     * @param dataDirectoryName Name of the directory, relative to the current working directory,
+     *                          where the file will be created
+     */
     public Duke(String dataFileName, String dataDirectoryName) {
         ui = new Ui();
         taskList = new TaskList();
@@ -20,6 +26,9 @@ public class Duke {
         new Duke("dukeData.txt", "data").run();
     }
 
+    /**
+     * Runs the program
+     */
     public void run() {
         ui.showWelcomeMessage();
 

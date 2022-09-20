@@ -14,7 +14,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Provides formatted data of a ToDo task
+     * Formats data of a Deadline task to be displayed to user
      * @return String Formatted data of a ToDo task
      */
     @Override
@@ -24,6 +24,10 @@ public class ToDo extends Task {
                 super.description);
     }
 
+    /**
+     * Formats all attributes in the task to be saved into the data file
+     * @return Task data in a format parse-able by the Storage class
+     */
     @Override
     public String getTaskData() {
         return "T" + " | " + (isDone ? 1 : 0) + " | " + description;

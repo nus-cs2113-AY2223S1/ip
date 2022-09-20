@@ -20,8 +20,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Formatted data of a Deadline task
-     * @return String Formatted data of a deadline task
+     * Formats data of a Deadline task to be displayed to user
+     * @return Formatted data of a deadline task
      */
     @Override
     public String toString() {
@@ -33,6 +33,10 @@ public class Deadline extends Task {
         );
     }
 
+    /**
+     * Formats all attributes in the task to be saved into the data file
+     * @return Task data in a format parse-able by the Storage class
+     */
     @Override
     public String getTaskData() {
         return "D" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + date + " | " + time;

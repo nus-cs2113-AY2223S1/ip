@@ -4,10 +4,18 @@ import duke.exception.DukeInvalidCommandTypeException;
 
 public class Parser {
 
+    /**
+     * Default Constructor
+     */
     public Parser() {
-
     }
 
+    /**
+     * Parses raw input into its Command object
+     * @param rawInput The full line of text the user has input
+     * @return Command
+     * @throws Exception All Exceptions
+     */
     public static Command parse(String rawInput) throws Exception {
         String[] tokens = rawInput.split("[ \t]+");
 
@@ -56,7 +64,6 @@ public class Parser {
         }
         command.verifyAndParse();
         return command;
-
     }
 
 }

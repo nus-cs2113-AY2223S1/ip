@@ -10,6 +10,10 @@ public class CommandToDo extends Command {
 
     private String description = null;
 
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandToDo(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
@@ -39,6 +43,10 @@ public class CommandToDo extends Command {
         description = rawArguments;
     }
 
+    /**
+     * Getter method to get task description
+     * @return Task Description
+     */
     public String getDescription() {
         return description;
     }

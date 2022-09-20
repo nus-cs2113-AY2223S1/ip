@@ -12,8 +12,12 @@ public class CommandEvent extends Command {
     private static final ArrayList<String> FLAGS = new ArrayList<>(Arrays.asList("/at"));
 
     private String description = null;
-
     private DukeDateTime date = null;
+
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandEvent(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
@@ -26,7 +30,6 @@ public class CommandEvent extends Command {
 
     @Override
     protected void checkArgumentType() throws DukeNotIntegerException {
-
     }
 
     @Override
@@ -44,15 +47,26 @@ public class CommandEvent extends Command {
         }
     }
 
-
+    /**
+     * Getter method to get task description
+     * @return Task Description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Getter method to get Event date
+     * @return Event date
+     */
     public String getDate() {
         return date.getFormattedDate();
     }
 
+    /**
+     * Getter method to get Event time
+     * @return Event time
+     */
     public String getTime() {
         return date.getFormattedTime();
     }
