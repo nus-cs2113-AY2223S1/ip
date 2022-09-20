@@ -27,8 +27,8 @@ public class Duke {
         ui.initialize();
         TaskList lastResults = taskList;
         while (!isExit) {
-            String input = ui.getInput().trim();
             try {
+                String input = ui.getInput().trim();
                 Command command = Parser.parseCommand(input);
                 if (command.isExit()) {
                     isExit = true;

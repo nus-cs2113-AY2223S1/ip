@@ -32,9 +32,10 @@ public class HelpCommand extends Command {
 
     @Override
     public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
-        ui.displayMessage(HELP_INTRO + "\n\n"
-                + String.join("\n", COMMAND_INFO.stream().map(s -> "> " + s).collect(Collectors.toList())) + "\n\n"
-                + USER_GUIDE_URL);
+        final String bulletPoint = "> ";
+        String commands = String.join("\n",
+                COMMAND_INFO.stream().map(s -> bulletPoint + s).collect(Collectors.toList()));
+        ui.displayMessage(HELP_INTRO + "\n\n" + commands + "\n\n" + USER_GUIDE_URL);
         return taskList;
     }
 

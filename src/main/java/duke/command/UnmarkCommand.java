@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.DukeException;
+import duke.Parser;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -16,9 +17,14 @@ public class UnmarkCommand extends Command {
      * 
      * @param input The user input string
      */
-    public UnmarkCommand(String input) {
+    public UnmarkCommand(String input) throws DukeException {
         super(input);
-        index = Integer.parseInt(input.substring("unmark".length()).trim());
+        String indexString = Parser.removeKeyword(input).trim();
+        try {
+            index = Integer.parseInt(indexString);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Sorry I didn't understand '" + indexString + "' for parameter INDEX");
+        }
     }
 
     @Override

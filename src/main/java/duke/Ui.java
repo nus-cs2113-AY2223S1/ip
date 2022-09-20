@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -57,7 +58,11 @@ public class Ui {
      * @return A line of user input
      */
     public String getInput() {
-        return scanner.nextLine();
+        try {
+            return scanner.nextLine();
+        } catch (NoSuchElementException e) {
+            return "bye";
+        }
     }
 
     /**
