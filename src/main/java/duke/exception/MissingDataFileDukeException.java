@@ -5,7 +5,7 @@ import duke.Ui;
 /**
  * Represents exception with missing save file
  */
-public class MissingDataFileDukeException extends DukeException{
+public class MissingDataFileDukeException extends DukeException {
     public MissingDataFileDukeException() {
     }
 

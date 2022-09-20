@@ -13,16 +13,14 @@ import java.nio.file.Path;
  */
 public class SaveTasks {
 
-
     /**
      * Saves tasks from taskList to save file
+     *
      * @param dataFile Path of save file
-     * @throws IOException if save file does not exist
+     * @throws IOException   if save file does not exist
      * @throws DukeException if any task fails to save
      */
-
     public static void saveTasks(TaskList taskList, Path dataFile) throws IOException, DukeException {
-
         FileWriter output = new FileWriter(dataFile.toFile());
         for (Task task : taskList.tasks) {
             String description;

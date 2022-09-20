@@ -22,35 +22,37 @@ import java.util.stream.Collectors;
 public class DateCommand extends Command {
 
     private final LocalDate date;
-    private final String comparator;
+    private final String dateComparator;
 
     /**
      * Constructs DateCommand object after converting user input into LocalDate
-     * @param date date entered by user as string
-     * @param comparator comparator for search entered by user as string
+     *
+     * @param date           date entered by user as string
+     * @param dateComparator comparator for search entered by user as string
      * @throws DukeException if date is invalid
      */
-    public DateCommand(String date, String comparator) throws DukeException {
+    public DateCommand(String date, String dateComparator) throws DukeException {
         try {
             this.date = LocalDate.parse(date, DateTimeFormatter.ofPattern("d-M-yyyy"));
         } catch (DateTimeParseException e) {
             throw new InvalidTaskDateTimeDukeException();
         }
-        this.comparator = comparator;
+        this.dateComparator = dateComparator;
     }
 
     /**
      * Prints all tasks in taskList matching date and comparator specified by user
      * Informs user if no matching tasks were found
+     *
      * @param taskList ArrayList containing all tasks
-     * @param ui Ui object for communicating with user
-     * @param storage Storage object for loading and saving tasks
+     * @param ui       Ui object for communicating with user
+     * @param storage  Storage object for loading and saving tasks
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = extractMatchingTasks(taskList);
         if (matchingTasks.size() > 0) {
-            ui.output("Slave Kai found these:");
+            ui.output("Slave Kai found these " + matchingTasks.size() + " tasks:");
             for (Task task : matchingTasks) {
                 ui.output(task.listTask(taskList.tasks));
             }
@@ -61,6 +63,7 @@ public class DateCommand extends Command {
 
     /**
      * Extracts all tasks in taskList matching date and comparator specified by user
+     *
      * @param taskList ArrayList containing all tasks
      * @return ArrayList of tasks matching comparator
      */
@@ -73,11 +76,12 @@ public class DateCommand extends Command {
 
     /**
      * Compares task date with date specified by user
+     *
      * @param date task date
      * @return true if task date matches comparator, false otherwise
      */
     private boolean isMatch(LocalDate date) {
-        switch (comparator) {
+        switch (dateComparator) {
         case "on":
             return date.equals(this.date);
         case "before":
@@ -88,4 +92,5 @@ public class DateCommand extends Command {
             return false;
         }
     }
+
 }

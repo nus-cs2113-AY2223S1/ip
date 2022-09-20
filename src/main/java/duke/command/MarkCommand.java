@@ -19,9 +19,10 @@ public class MarkCommand extends Command {
     /**
      * Mark task as done after extracting task number from user input
      * Informs user if task marking is successful
+     *
      * @param taskList ArrayList containing current tasks
-     * @param ui Ui object for communicating with user
-     * @param storage Storage object for loading and saving tasks
+     * @param ui       Ui object for communicating with user
+     * @param storage  Storage object for loading and saving tasks
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

@@ -13,8 +13,9 @@ public class MissingKeywordDukeException extends DukeException {
     public void handle(Ui ui) {
         ui.output("Please enter a keyword\n" +
                 "Follow this format:\n" +
+                "\nbye" +
                 "find {keyword}\n" +
-                "Example: find girlfriend");
+                "Example: find friend");
     }
 
 }

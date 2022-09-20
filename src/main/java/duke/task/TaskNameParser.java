@@ -6,10 +6,11 @@ import duke.exception.MissingTaskNameDukeException;
 /**
  * Converts user input into task name
  */
-public abstract class TaskNameParser {
+public class TaskNameParser {
 
     /**
      * Checks for and extracts task name from user input, ignoring task date & time if any
+     *
      * @param arguments user input containing task name (and task date & time)
      * @return task name
      * @throws DukeException if task name is empty

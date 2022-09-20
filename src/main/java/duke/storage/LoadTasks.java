@@ -14,16 +14,14 @@ import java.util.Scanner;
  */
 public class LoadTasks {
 
-
     /**
      * Loads tasks from save file into taskList
+     *
      * @param dataFile Path of save file
      * @throws FileNotFoundException if save file does not exist
-     * @throws DukeException if any task fails to load
+     * @throws DukeException         if any task fails to load
      */
-
     public static void loadTasks(TaskList taskList, Path dataFile) throws FileNotFoundException, DukeException {
-
         Scanner input = new Scanner(new File(dataFile.toUri()));
         while (input.hasNext()) {
             String[] line = input.nextLine().split(" \\| ");

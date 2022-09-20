@@ -18,7 +18,8 @@ public class TaskList {
 
     /**
      * Adds new task to ArrayList of tasks
-     * @param taskType type of new task
+     *
+     * @param taskType  type of new task
      * @param arguments user input containing task name, and task date & time if applicable
      * @return string description of task for printing
      * @throws DukeException if task name or task date & time is invalid
@@ -43,6 +44,7 @@ public class TaskList {
     /**
      * Mark task as done
      * Checks that task number is valid
+     *
      * @param arguments user input containing task number
      * @return string description of the task after marking, for printing
      * @throws DukeException if task number is invalid
@@ -58,6 +60,7 @@ public class TaskList {
     /**
      * Mark task as not done
      * Checks that task number is valid
+     *
      * @param arguments user input containing task number
      * @return string description of the task after unmarking, for printing
      * @throws DukeException if task number is invalid
@@ -73,6 +76,7 @@ public class TaskList {
     /**
      * Deletes a task from ArrayList of tasks
      * Checks that task number is valid
+     *
      * @param arguments user input containing task number
      * @return string description of the task before deleting, for printing
      * @throws DukeException if task number is invalid
@@ -87,6 +91,7 @@ public class TaskList {
 
     /**
      * Checks if task number is valid
+     *
      * @param taskNumber task number specified by user
      * @throws DukeException if task number is out of bounds of taskList
      */
@@ -98,6 +103,7 @@ public class TaskList {
 
     /**
      * Directly adds a task to ArrayList of tasks
+     *
      * @param task loaded task from save file
      */
     public void loadTask(Task task) {

@@ -6,6 +6,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo object
+     *
      * @param arguments user input containing task name
      * @throws DukeException if task name is empty
      */

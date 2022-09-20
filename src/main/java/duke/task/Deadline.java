@@ -19,6 +19,7 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline object
      * Sets deadline date & time after extracting from user input
+     *
      * @param arguments user input containing task name and task date & time
      * @throws DukeException if task name or task date & time are invalid
      */

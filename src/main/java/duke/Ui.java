@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
 
 /**
@@ -15,16 +13,16 @@ public class Ui {
 
     static Scanner in = new Scanner(System.in);
 
-
-        /**
-         * Prints line separator
-         */
+    /**
+     * Prints line separator
+     */
     public void line() {
         System.out.println("------------------------------");
     }
-/**
- * Prints welcome message
- */
+
+    /**
+     * Prints welcome message
+     */
     public void greet() {
 
         String logo = " ____        _        \n"
@@ -38,20 +36,21 @@ public class Ui {
         line();
     }
 
-
-        /**
-         * Reads user input from terminal
-         * @return user input
-         */
+    /**
+     * Reads user input from terminal
+     *
+     * @return user input
+     */
     public String input() {
         return in.nextLine();
     }
-/**
- * Prints output to terminal
- * @param output Varargs output for printing
- */
-    public void output(String... output) {
 
+    /**
+     * Prints output to terminal
+     *
+     * @param output Varargs output for printing
+     */
+    public void output(String... output) {
         for (String line : output) {
             System.out.println(line);
         }

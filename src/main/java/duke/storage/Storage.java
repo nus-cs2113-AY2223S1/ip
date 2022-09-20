@@ -1,17 +1,13 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.exception.LoadErrorDukeException;
-import duke.task.*;
+import duke.task.TaskList;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.util.Scanner;
 
 /**
  * Represents operations with save file

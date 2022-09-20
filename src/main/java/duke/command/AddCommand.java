@@ -9,7 +9,7 @@ import duke.task.TaskType;
 /**
  * Represents command for adding a new task to taskList
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     private final TaskType taskType;
     private final String arguments;
@@ -22,12 +22,13 @@ public class AddCommand extends Command{
     /**
      * Adds new task of type taskType, with parameters arguments, to taskList
      * Informs user if task addition is successful
+     *
      * @param taskList ArrayList containing current tasks
-     * @param ui Ui object for communicating with user
-     * @param storage Storage object for loading and saving tasks
+     * @param ui       Ui object for communicating with user
+     * @param storage  Storage object for loading and saving tasks
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage){
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             String task = taskList.addTask(taskType, arguments);
             ui.output("Task added:", task);

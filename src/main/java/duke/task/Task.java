@@ -16,6 +16,7 @@ public abstract class Task {
     /**
      * Constructs a task object after extracting task name from user input
      * Task is set to not done by default
+     *
      * @param arguments user input containing task name (and task date & time)
      * @throws DukeException if task name is empty
      */
@@ -44,6 +45,7 @@ public abstract class Task {
 
     /**
      * Returns icon based on isDone status of task
+     *
      * @return X if task is done, whitespace otherwise
      */
     public char doneIcon() {
@@ -56,11 +58,11 @@ public abstract class Task {
     /**
      * Lists the task for printing purposes
      * This method is overridden for task types with date & time
+     *
      * @return string containing task number, task type, task done icon, task name, task date & time if any
      */
     public String listTask(ArrayList<Task> tasks) {
         return String.format("%d.[%c][%c] %s",
                 tasks.indexOf(this) + 1, taskType(), doneIcon(), getName());
     }
-
 }

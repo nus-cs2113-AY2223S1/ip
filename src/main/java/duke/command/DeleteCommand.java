@@ -8,7 +8,7 @@ import duke.task.TaskList;
 /**
  * Represents command for deleting a task from taskList
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final String arguments;
 
@@ -19,9 +19,10 @@ public class DeleteCommand extends Command{
     /**
      * Deletes a task from taskList after extracting task number from user input
      * Informs user if task deletion is successful
+     *
      * @param taskList ArrayList containing current tasks
-     * @param ui Ui object for communicating with user
-     * @param storage Storage object for loading and saving tasks
+     * @param ui       Ui object for communicating with user
+     * @param storage  Storage object for loading and saving tasks
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

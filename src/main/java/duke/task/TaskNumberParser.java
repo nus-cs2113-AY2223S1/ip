@@ -7,8 +7,6 @@ import duke.exception.InvalidTaskNumberDukeException;
  * Converts user input into task number
  */
 public class TaskNumberParser {
-    public TaskNumberParser() {
-    }
 
     /**
      * Extracts task number from user input

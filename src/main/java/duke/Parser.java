@@ -11,6 +11,7 @@ public class Parser {
 
     /**
      * Interprets user inputs as Duke commands
+     *
      * @param input user input containing command and parameters
      * @return type of command and its parameters
      * @throws DukeException if command fails to execute
@@ -29,6 +30,10 @@ public class Parser {
             return new ListCommand();
         case "find":
             return new FindCommand(arguments.trim());
+        case "done":
+            return new StatusCommand("done");
+        case "undone":
+            return new StatusCommand("undone");
         case "on":
             return new DateCommand(arguments.trim(), "on");
         case "before":

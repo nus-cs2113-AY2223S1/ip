@@ -47,6 +47,7 @@ public class Duke {
      * Starts Duke
      * Reads and executes command from user until user wants to exit
      * Stops Duke
+     *
      * @param args user inputs
      */
     public static void main(String[] args) {
