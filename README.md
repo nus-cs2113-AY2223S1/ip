@@ -1,26 +1,63 @@
-# Duke project template
+<!-- ABOUT THE PROJECT -->
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## About The Project
 
-You will use this as a baseline for the individual project, as well as the team project later in the semester.
+**This is the CS2113 IP project made by Chin Han using OOP and software engineering practices.
+It is a program designed to help users curate a list of taskings with different classifications , along with extra
+functionalities.**
 
-## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+| Features                     | Description                                                   | 
+|------------------------------|---------------------------------------------------------------|
+| Adding new tasks             | Adding of 3 types of tasks categories.(Todo, Event, Deadline) | 
+| Marking / Unmarking of tasks | Indication of task completion                                 | 
+| Deleting task entries        | Removal of tasks based on user-defined task entries           |
+| Searching for keywords       | Searches and lists out all entries that contains the keywords |
+| List                         | Lists out all task entries                                    |
+| Progress saving              | Auto saves all tasks in dukeFile.txt for continuity.          |
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+1) Retrieve the ip.jar [from Chin Han's repo release.](https://github.com/chinhan99/ip/releases)
+2) Run the ip.jar file by going to the file where it is located in the command line and entering the command below.
+
+```sh
+java -jar ip.jar
+```
+
+3) Refer to the possible commands listed below. After each user action, users would be given **acknowledgement
+   messages** or **error messages** for encountered errors.
+
+### Prerequisites
+
+Ensure you are running Java 11 on your system.
+
+
+<!-- USAGE EXAMPLES -->
+
+## Usage
+
+**This is a list of commands that can be used with this program**
+
+| Command  | Command Syntax                               | Example                                      |
+|----------|----------------------------------------------|----------------------------------------------|
+| help     | help                                         | help                                         |
+| todo     | todo TASK_DESCRIPTION                        | todo get mushrooms for dinner                |
+| event    | event TASK_DESCRIPTION /at d/MM/yyyy HHmm    | event go to Zouk /at 10/09/2021 2200         |
+| deadline | deadline TASK_DESCRIPTION /by d/MM/yyyy HHmm | deadline submit homework /by 19/07/2022 1200 |
+| mark     | mark TASK_NUMBER                             | mark 2                                       |
+| unmark   | unmark TASK_NUMBER                           | unmark 44                                    |
+| delete   | delete TASK_NUMBER                           | delete 3                                     |
+| find     | find KEYWORD                                 | find food                                    |
+| list     | list                                         | list                                         |
+
+
+
+
+
+
+
+
