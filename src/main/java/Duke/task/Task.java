@@ -1,9 +1,10 @@
 package Duke.task;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
-    protected String type;
+    public String description;
+    public boolean isDone;
+    public String type;
+    public String by;
 
     public Task(String description) {
         this.description = description;
