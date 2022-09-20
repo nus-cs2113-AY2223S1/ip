@@ -172,18 +172,28 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks containing keyphrase in the task list.
+     * Finds tasks containing keyword in the task list.
      *
-     * @param keyphrase Keyphrase to find in the task list.
-     * @return A list of tasks that contains the keyphrase.
+     * @param keyword Keyword to find in the task list.
+     * @return A list of tasks that contains the keyword.
      */
-    public String findTasksWithKeyphrase(String keyphrase) {
+    public String findTasksWithKeyphrase(String keyword) {
         String list = Printables.TASK_SEARCH_INIT_STRING;
         for (Task task : tasks) {
-            list += (task.getTaskName().toLowerCase().contains(keyphrase.toLowerCase())
+            list += (checkMatchingTask(task.getTaskName(), keyword)
                     ? (task + "\n") : "");
         }
         return (list.equals(Printables.TASK_SEARCH_INIT_STRING) ? Printables.EMPTY_TASK_SEARCH_RESULT_MESSAGE : list);
+    }
+
+    private boolean checkMatchingTask(String taskName, String keyword) {
+        String[] arrOfTaskName = taskName.split(" ");
+        for (String word : arrOfTaskName) {
+            if (word.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -10,7 +10,7 @@ public class CommandFind {
     private static final String END_OF_LINE = "____________________";
 
     /**
-     * Checks the command for a keyphrase to search, then searches for it in the task list.
+     * Checks the command for a keyword to search, then searches for it in the task list.
      *
      * @param command Command read from user.
      * @param taskList A task manager that contains the list of tasks and other task list related methods.
