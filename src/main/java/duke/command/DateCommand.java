@@ -1,9 +1,6 @@
 package duke.command;
 
 import java.util.ArrayList;
-
-import duke.data.TaskList;
-
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 
@@ -24,9 +21,9 @@ public class DateCommand extends Command {
 
 
         ArrayList<Task> target = new ArrayList<Task>(
-                TaskList.list.stream()
-                        .filter(i -> !i.isDateNull())
-                        .filter(i-> i.getDate().equals(this.date))
+                this.taskList.stream()
+                        .filter(i -> !i.date.isNull())
+                        .filter(i-> i.date.getDate().equals(this.date))
                         .collect(Collectors.toList()));
 
         long count = target.stream().count();

@@ -1,7 +1,6 @@
 package duke.command;
 
-import duke.data.Messages;
-import duke.data.TaskList;
+import duke.data.tag.TaskList;
 import duke.data.task.*;
 
 import java.util.ArrayList;
@@ -25,11 +24,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        ArrayList<Task> target = new ArrayList<Task>(IntStream.range(0, TaskList.list.size())
-                .filter(i -> contains(index, i)).mapToObj(i -> TaskList.list.get(i)).collect(Collectors.toList()));
+        ArrayList<Task> target = new ArrayList<Task>(
+            IntStream.range(0, this.taskList.size())
+                .filter(i -> contains(index, i))
+                .mapToObj(i -> this.taskList.get(i))
+                .collect(Collectors.toList()));
 
         Arrays.sort(index);
-        for (int i = index.length - Messages.OFFSET; i > -Messages.OFFSET; i--) {
+        for (int i = index.length - 1; i > -1; i--) {
             TaskList.list.remove(index[i]);
         }
 

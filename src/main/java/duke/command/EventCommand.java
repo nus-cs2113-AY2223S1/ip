@@ -1,11 +1,10 @@
 
 package duke.command;
 
+import duke.data.tag.TaskList;
 import duke.data.task.*;
 
 import java.util.ArrayList;
-
-import duke.data.TaskList;
 
 public class EventCommand extends Command {
     public EventCommand(String description, String date) {
@@ -25,7 +24,7 @@ public class EventCommand extends Command {
     @Override
     public CommandResult execute() {
         Task added = new Event(description, date);
-        TaskList.list.add(added);
+        this.taskList.add(added);
         target.add(added);
         return new CommandResult(MESSAGE_TOP, target, TaskList.getTotalMessage());
     }

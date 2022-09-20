@@ -1,12 +1,11 @@
 package duke.command;
 
-
-/**
- * Represent an command
- */
+import duke.data.tag.TaskList;
+import duke.data.task.Task;
 
 public class Command {
     public String commandType;
+    protected TaskList<Task> taskList;
 
     protected Command(String commandType) {
         this.commandType = commandType;
@@ -23,5 +22,9 @@ public class Command {
             }
         }
         return false;
+    }
+
+    public void setTaskList(TaskList<Task> data){
+        this.taskList = data;
     }
 }

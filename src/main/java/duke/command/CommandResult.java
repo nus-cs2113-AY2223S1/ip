@@ -2,40 +2,34 @@ package duke.command;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
-
-import duke.data.Messages;
+import duke.common.Messages;
 import duke.data.task.Task;
 
 public class CommandResult {
-    public CommandResult(String top) {
-        this.messageTop = top;
+
+    public List<? extends Task> target;
+
+
+    public CommandResult(String message) {
+        this.message = message;
     }
 
-    public CommandResult(String top, List<Task> target, String bottom) {
-        this.messageTop = top;
-        this.messageBottom = bottom;
+    public CommandResult(String message, List<? extends Task> target) {
+        this.message = message;
         this.target = target;
     }
 
 
-    public String[] printTarget() {
-        if (target == null) {
-            return new String[]{};
-        } else if (messageTop.equals(Messages.DIVIDER_LIST)) { /* Case of a List command */
-            return IntStream.range(0, target.size())
-                    .mapToObj(i -> {
-                        return (i + Messages.OFFSET) + "." + target.get(i).toString();
-                    })
-                    .toArray(String[]::new);
-        } else {
-            return target.stream().map(Task::toString).toArray(String[]::new);
-        }
+    public String message;
+
+    public String getMessage(){
+        return message;
     }
 
-
-    public String messageTop = "";
-    public String messageBottom = "";
-    public List<Task> target = null;
+    public Optional<List<? extends Task>> getTarget(){
+        return Optional.ofNullable(target);
+    }
 
 }
