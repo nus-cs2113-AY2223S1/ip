@@ -56,13 +56,14 @@ public class Storage {
 
         File f = new File(dataDirectoryName + "/" + dataFileName);
         Scanner sc;
+
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to read data file, initialising program with empty TODO list");
+            System.out.println("EXCEPTION: Unable to read data file.");
+            System.out.println("Initialising program with an empty task list...");
             return new ArrayList<>();
         }
-
 
         try {
             while (sc.hasNextLine()) {
@@ -107,7 +108,8 @@ public class Storage {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Data file data/dukeData.txt is corrupted. Initialising program with empty TODO list.");
+            System.out.println("EXCEPTION: Data file data/dukeData.txt is corrupted.");
+            System.out.println("Initialising program with an empty task list...");
             return new ArrayList<>();
         }
         sc.close();
