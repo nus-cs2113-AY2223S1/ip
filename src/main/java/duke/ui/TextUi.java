@@ -49,9 +49,9 @@ public class TextUi {
         );
     }
 
-    public void showTaskList(String tasksList) {
+    public void showTaskList(String tasksList, Enum message) {
         printMessages(
-                InfoMessages.MESSAGE_INFO_LIST.toString(),
+                message.toString(),
                 tasksList
         );
     }
