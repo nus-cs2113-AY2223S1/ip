@@ -29,7 +29,7 @@ public class LocalStorage {
 
         String tasksStr = "";
         for (Task task : tasks) {
-            tasksStr += Task.convertToString(task);
+            tasksStr += Task.convertToStorageSafeFormat(task);
             tasksStr += "\n";
         }
 
@@ -54,7 +54,7 @@ public class LocalStorage {
 
         String[] tasksStrArr = tasksStr.split("\n");
         for (String taskStr : tasksStrArr) {
-            Task task = Task.convertFromString(taskStr);
+            Task task = Task.convertFromStorageSafeFormat(taskStr);
             if (task != null) {
                 tasks.add(task);
             }

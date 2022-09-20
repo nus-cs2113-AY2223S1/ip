@@ -23,7 +23,7 @@ public class Task {
         this.isComplete = false;
     }
 
-    private static String convertTodoToString(Todo todo) {
+    private static String convertTodoToStorageSafeFormat(Todo todo) {
         String taskStr = "T | ";
         if (todo.isComplete) {
             taskStr += "1";
@@ -36,7 +36,7 @@ public class Task {
         return taskStr;
     }
 
-    private static String convertDeadlineToString(Deadline deadline) {
+    private static String convertDeadlineToStorageSafeFormat(Deadline deadline) {
         String taskStr = "D | ";
         if (deadline.isComplete) {
             taskStr += "1";
@@ -51,7 +51,7 @@ public class Task {
         return taskStr;
     }
 
-    private static String convertEventToString(Event event) {
+    private static String convertEventToStorageSafeFormat(Event event) {
         String taskStr = "E | ";
         if (event.isComplete) {
             taskStr += "1";
@@ -68,7 +68,7 @@ public class Task {
         return taskStr;
     }
 
-    private static String convertTaskToString(Task task) {
+    private static String convertTaskToStorageSafeFormat(Task task) {
         String taskStr = " | ";
         if (task.isComplete) {
             taskStr += "1";
@@ -82,40 +82,45 @@ public class Task {
     }
 
     /**
-     * Converts a Task object to a string.
+     * Converts a Task object to a storage-safe formatted string.
      *
      * @param task Object to be converted.
      * @return String representation of the converted object.
      */
-    public static String convertToString(Task task) {
+    public static String convertToStorageSafeFormat(Task task) {
         if (task instanceof Todo) {
             Todo todo = (Todo) task;
-            return convertTodoToString(todo);
+
+            return convertTodoToStorageSafeFormat(todo);
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return convertDeadlineToString(deadline);
+
+            return convertDeadlineToStorageSafeFormat(deadline);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return convertEventToString(event);
+
+            return convertEventToStorageSafeFormat(event);
         } else {
-            return convertTaskToString(task);
+            return convertTaskToStorageSafeFormat(task);
         }
     }
 
-    private static Task convertFromStringToTodo(String isCompleteStr, String description) {
+    private static Task convertFromStorageSafeFormatToTodo(String isCompleteStr, String description) {
         Todo todo = new Todo(description);
         todo.setComplete(isCompleteStr.equals("1"));
+
         return todo;
     }
 
-    private static Task convertFromStringToDeadline(String isCompleteStr, String description, String byStr) {
+    private static Task convertFromStorageSafeFormatToDeadline(String isCompleteStr, String description, String byStr) {
         LocalDateTime byDateTime = LocalDateTime.parse(byStr, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         Deadline deadline = new Deadline(description, byDateTime);
         deadline.setComplete(isCompleteStr.equals("1"));
+
         return deadline;
     }
 
-    private static Task convertFromStringToEvent(String isCompleteStr, String description, String atStr) {
+    private static Task convertFromStorageSafeFormatToEvent(String isCompleteStr, String description, String atStr) {
         String[] atArray = atStr.split(" ");
         String startAt = atArray[0] + " " + atArray[1];
         String endAt = atArray[2] + " " + atArray[3];
@@ -124,22 +129,24 @@ public class Task {
         LocalDateTime endAtDateTime = LocalDateTime.parse(endAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         Event event = new Event(description, startAtDateTime, endAtDateTime);
         event.setComplete(isCompleteStr.equals("1"));
+
         return event;
     }
 
-    private static Task convertFromStringToTask(String isCompleteStr, String description) {
+    private static Task convertFromStorageSafeFormatToTask(String isCompleteStr, String description) {
         Task task = new Task(description);
         task.setComplete(isCompleteStr.equals("1"));
+
         return task;
     }
 
     /**
-     * Converts a string into a Task object.
+     * Converts a formatted string into a Task object.
      *
      * @param taskStr String representation of the object to be converted.
      * @return Task object from the converted string.
      */
-    public static Task convertFromString(String taskStr) {
+    public static Task convertFromStorageSafeFormat(String taskStr) {
         if (taskStr.isEmpty()) {
             return null;
         }
@@ -151,15 +158,17 @@ public class Task {
 
         //noinspection IfCanBeSwitch
         if (type.equals("T")) {
-            return convertFromStringToTodo(isCompleteStr, description);
+            return convertFromStorageSafeFormatToTodo(isCompleteStr, description);
         } else if (type.equals("D")) {
             String by = taskStrArr[3].trim();
-            return convertFromStringToDeadline(isCompleteStr, description, by);
+
+            return convertFromStorageSafeFormatToDeadline(isCompleteStr, description, by);
         } else if (type.equals("E")) {
             String at = taskStrArr[3].trim();
-            return convertFromStringToEvent(isCompleteStr, description, at);
+
+            return convertFromStorageSafeFormatToEvent(isCompleteStr, description, at);
         } else {
-            return convertFromStringToTask(isCompleteStr, description);
+            return convertFromStorageSafeFormatToTask(isCompleteStr, description);
         }
     }
 
