@@ -21,6 +21,9 @@ public abstract class Command {
 
     protected void checkArgumentLength() throws DukeMissingArgumentException, DukeExtraArgumentException,
             DukeMissingDescriptionException {
+        if (flags.size() > 0 && rawArguments.indexOf(flags.get(0)) == 0) {
+            throw new DukeMissingDescriptionException();
+        }
 
         if (maxArguments != null && splitArguments.size() > maxArguments) {
             throw new DukeExtraArgumentException(rawArguments);
@@ -30,9 +33,6 @@ public abstract class Command {
             throw new DukeMissingArgumentException(rawArguments);
         }
 
-        if (flags.size() > 0 && rawArguments.indexOf(flags.get(0)) == 0) {
-            throw new DukeMissingDescriptionException();
-        }
     }
 
 
@@ -42,7 +42,7 @@ public abstract class Command {
 
             int indexOfFlag = rawArguments.indexOf(flag);
             if (indexOfFlag == -1) {
-                throw new DukeMissingFlagException();
+                throw new DukeMissingFlagException(flag);
             }
 
             if (i + 1 >= flags.size()) {

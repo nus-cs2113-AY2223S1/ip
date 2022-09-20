@@ -35,11 +35,12 @@ public class CommandEvent extends Command {
 
         description = rawArguments.substring(0, indexOfAtFlag - 1);
 
+        String dateTimeString = rawArguments.substring(indexOfAtFlag + "/at ".length());
+
         try {
-            String dateString = rawArguments.substring(indexOfAtFlag + "/at ".length());
-            date = new DukeDateTime(dateString);
+            date = new DukeDateTime(dateTimeString);
         } catch (DateTimeException e) {
-            throw new DukeDateTimeFormatException();
+            throw new DukeDateTimeFormatException(dateTimeString);
         }
     }
 

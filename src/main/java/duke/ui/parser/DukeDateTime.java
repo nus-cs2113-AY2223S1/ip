@@ -3,6 +3,7 @@ package duke.ui.parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class DukeDateTime {
     private static final String INPUT_FORMAT = "yyyy-MM-dd HHmm";
@@ -11,7 +12,7 @@ public class DukeDateTime {
 
     private LocalDateTime localDateTime;
 
-    public DukeDateTime(String unparsedDate) throws DateTimeException{
+    public DukeDateTime(String unparsedDate) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INPUT_FORMAT);
         localDateTime = LocalDateTime.parse(unparsedDate, formatter);
     }

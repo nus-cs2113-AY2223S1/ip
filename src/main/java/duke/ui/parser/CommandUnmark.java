@@ -24,7 +24,7 @@ public class CommandUnmark extends Command {
         try {
             taskNum = Integer.parseInt(splitArguments.get(0));
         } catch (NumberFormatException e) {
-            throw new DukeNotIntegerException();
+            throw new DukeNotIntegerException(splitArguments.get(0));
         }
     }
 

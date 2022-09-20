@@ -19,6 +19,15 @@ public class CommandToDo extends Command {
         super.commandType = CommandType.TODO;
     }
 
+    @Override
+    protected void checkArgumentLength() throws DukeMissingArgumentException, DukeExtraArgumentException,
+            DukeMissingDescriptionException {
+
+        if (rawArguments.length() == 0) {
+            throw new DukeMissingDescriptionException();
+        }
+
+    }
 
     @Override
     protected void checkArgumentType() throws DukeNotIntegerException {

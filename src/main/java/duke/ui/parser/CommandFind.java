@@ -29,6 +29,7 @@ public class CommandFind extends Command {
 
     }
 
+    // Returning new string to avoid editing searchPhrase string stored in CommandFind object
     public String getSearchPhrase() {
         return new String(searchPhrase);
     }

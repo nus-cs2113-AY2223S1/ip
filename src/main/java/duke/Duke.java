@@ -24,9 +24,10 @@ public class Duke {
         ui.showWelcomeMessage();
 
         taskList.setTaskData(storage.loadProgramData());
+        boolean commandIsQuit = false;
 
-        String input = ui.readInput();
-        while (true) {
+        while (!commandIsQuit) {
+            String input = ui.readInput();
 
             try {
                 Command command = Parser.parse(input);
@@ -34,14 +35,13 @@ public class Duke {
                 ui.printOutput(output);
                 storage.saveProgramData(taskList.getTaskData());
 
-                if (command.getCommandType() == Command.CommandType.EXIT) {
-                    return;
+                if (command instanceof CommandExit) {
+                    commandIsQuit = true;
                 }
+
             } catch (Exception e) {
                 ui.printOutput(e.toString());
             }
-
-            input = ui.readInput();
         }
     }
 }

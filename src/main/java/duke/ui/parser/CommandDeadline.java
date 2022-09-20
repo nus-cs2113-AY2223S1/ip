@@ -2,7 +2,7 @@ package duke.ui.parser;
 import duke.exception.DukeDateTimeFormatException;
 import duke.exception.DukeNotIntegerException;
 
-import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,11 +34,12 @@ public class CommandDeadline extends Command {
 
         description = rawArguments.substring(0, indexOfByFlag - 1);
 
+        String dateTimeString = rawArguments.substring(indexOfByFlag + "/by ".length());
+
         try {
-            String dateString = rawArguments.substring(indexOfByFlag + "/by ".length());
-            date = new DukeDateTime(dateString);
-        } catch (DateTimeException e) {
-            throw new DukeDateTimeFormatException();
+            date = new DukeDateTime(dateTimeString);
+        } catch (DateTimeParseException e) {
+            throw new DukeDateTimeFormatException(dateTimeString);
         }
     }
 

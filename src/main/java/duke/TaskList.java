@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.DukeInvalidTaskNumberException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -16,11 +17,6 @@ public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
     ArrayList<Task> tasksLastShown = new ArrayList<>();
 
-    /**
-     * Default Constructor
-     */
-    public TaskList() {
-    }
 
     /**
      * Private helper method which uses Substitutability to add a ToDo, Deadline
@@ -75,17 +71,17 @@ public class TaskList {
      * @return String Output Message for task status
      */
 
-    private String markTask(int taskNum) {
+    private String markTask(int taskNum) throws DukeInvalidTaskNumberException {
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
-            output = "Not a valid task number\n";
-        } else {
-            Task task =  tasksLastShown.get(taskNum-1);
-            task.markAsDone();
-            output = "Nice! I've marked this task as done:\n"
-                    + "  [X] "
-                    + task.getDescription() + "\n";
+        if (taskNum <= 0 || taskNum - 1 >= tasksLastShown.size()) {
+            throw new DukeInvalidTaskNumberException(taskNum);
         }
+        Task task =  tasksLastShown.get(taskNum - 1);
+        task.markAsDone();
+        output = "Nice! I've marked this task as done:\n"
+                + "  [X] "
+                + task.getDescription() + "\n";
+
         return output;
     }
 
@@ -95,32 +91,34 @@ public class TaskList {
      * @return String output Message for task status
      */
 
-    private String unmarkTask(int taskNum) {
+    private String unmarkTask(int taskNum) throws DukeInvalidTaskNumberException {
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
-            output = "Not a valid task number\n";
-        } else {
-            Task task = tasksLastShown.get(taskNum-1);
-            task.markAsNotDone();
-            output = "OK, I've marked this task as not done yet:\n"
-                    + "  [ ] "
-                    + task.getDescription() + "\n";
+        if (taskNum <= 0 || taskNum - 1 >= tasksLastShown.size()) {
+            throw new DukeInvalidTaskNumberException(taskNum);
         }
+
+        Task task = tasksLastShown.get(taskNum - 1);
+        task.markAsNotDone();
+        output = "OK, I've marked this task as not done yet:\n"
+                + "  [ ] "
+                + task.getDescription() + "\n";
+
         return output;
     }
 
-    private String deleteTask(int taskNum) {
+    private String deleteTask(int taskNum) throws DukeInvalidTaskNumberException{
         String output;
-        if (taskNum <= 0 || taskNum-1 >= tasksLastShown.size()) {
-            output = "Not a valid task number\n";
-        } else {
-            Task task = tasksLastShown.get(taskNum-1);
-            output = "Noted, I've removed this task:\n"
-                    + "  " + task.toString() + "\n"
-                    + "Now you have " + (tasks.size() - 1) + " tasks in the list.\n";
-            tasksLastShown.remove(task);
-            tasks.remove(task);
+        if (taskNum <= 0 || taskNum - 1 >= tasksLastShown.size()) {
+            throw new DukeInvalidTaskNumberException(taskNum);
         }
+
+        Task task = tasksLastShown.get(taskNum - 1);
+        output = "Noted, I've removed this task:\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + (tasks.size() - 1) + " tasks in the list.\n";
+        tasksLastShown.remove(task);
+        tasks.remove(task);
+
         return output;
     }
 
@@ -129,16 +127,15 @@ public class TaskList {
         ArrayList<Task> tasksToShow = tasks.stream().filter(n -> n.getDescription().contains(searchPhrase)).
                 collect(Collectors.toCollection(ArrayList::new));
 
+        tasksLastShown = tasksToShow;
+
         int counter = 0;
         StringBuilder output = new StringBuilder( "Here are the matching tasks in your list:\n");
         for (Task task : tasksToShow) {
             output.append(String.format("%d. %s\n", ++counter, task.toString()));
         }
 
-        if (counter == 0) {
-            output.append("(No tasks match the search phrase)");
-        }
-        tasksLastShown = tasksToShow;
+        output.append(String.format("\nNumber of search results: %d", counter));
         return output.toString();
     }
 
@@ -147,13 +144,14 @@ public class TaskList {
      * @return String output Numbered tasks and their completion statuses
      */
     public String getAllTasks() {
+        tasksLastShown = tasks;
+
         int counter = 1;
         StringBuilder output = new StringBuilder( "Here are the tasks in your list:\n");
         for (Task task: tasks) {
             output.append(String.format("%d. %s\n", counter++, task.toString()));
         }
 
-        tasksLastShown = tasks;
         return output.toString();
     }
 
@@ -166,7 +164,12 @@ public class TaskList {
         return output.toString();
     }
 
-    public String executeCommand(Command command) {
+    public void setTaskData(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        this.tasksLastShown = tasks;
+    }
+
+    public String executeCommand(Command command) throws Exception {
         String output;
 
         switch (command.getCommandType()) {
@@ -187,7 +190,9 @@ public class TaskList {
             break;
         case DEADLINE:
             CommandDeadline commandDeadline = (CommandDeadline) command;
-            output = addDeadline(commandDeadline.getDescription(), commandDeadline.getDate(), commandDeadline.getTime());
+            output = addDeadline(commandDeadline.getDescription(),
+                    commandDeadline.getDate(),
+                    commandDeadline.getTime());
             break;
         case EVENT:
             CommandEvent commandEvent = (CommandEvent) command;
@@ -200,14 +205,11 @@ public class TaskList {
             output = findTask(((CommandFind) command).getSearchPhrase());
             break;
         default:
+            // Program is not supposed to reach here
             output = "ERROR: Something went wrong with command execution.\n Congrats, you've broken the app";
             break;
         }
         return output;
-    }
-
-    public void setTaskData(ArrayList<Task> tasks) {
-        this.tasks = tasks;
     }
 
 }

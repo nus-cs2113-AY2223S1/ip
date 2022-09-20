@@ -9,8 +9,9 @@ public class DukeMissingArgumentException extends Exception {
 
     @Override
     public String toString() {
-        return "Your arguments: " + arguments + "\n"
-                + "Missing arguments";
+        return "EXCEPTION: Missing Arguments\n"
+                + "Your arguments: " + arguments + "\n"
+                + "Please check the User Guide for the correct arguments";
     }
 }
 

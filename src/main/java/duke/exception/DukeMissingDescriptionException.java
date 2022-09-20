@@ -4,6 +4,7 @@ public class DukeMissingDescriptionException extends Exception {
 
     @Override
     public String toString() {
-        return "Missing Description, try again :(";
+        return "EXCEPTION: Missing Description\n"
+                + "Please type in a task description";
     }
 }

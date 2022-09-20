@@ -10,7 +10,15 @@ public class Parser {
 
     public static Command parse(String rawInput) throws Exception {
         String[] tokens = rawInput.split("[ \t]+");
-        String commandType = tokens[0];
+
+        String commandType;
+
+        try {
+            commandType = tokens[0];
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeInvalidCommandTypeException("");
+        }
+
         String rawArguments = tokens.length > 1 ? rawInput.substring(commandType.length()).trim() : "";
 
         Command command;
@@ -44,7 +52,7 @@ public class Parser {
             command = new CommandFind(rawArguments);
             break;
         default:
-            throw new DukeInvalidCommandTypeException();
+            throw new DukeInvalidCommandTypeException(commandType);
         }
         command.verifyAndParse();
         return command;
