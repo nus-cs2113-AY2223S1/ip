@@ -40,6 +40,9 @@ public class Parser {
         case "delete":
             command = new CommandDelete(rawArguments);
             break;
+        case "find":
+            command = new CommandFind(rawArguments);
+            break;
         default:
             throw new InvalidCommandTypeException();
         }
