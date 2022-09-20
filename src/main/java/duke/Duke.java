@@ -1,18 +1,54 @@
 package duke;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.task.TaskList;
 
 public class Duke {
 
     private static final String filePath = "data/duke.txt";
     private static final String fileFolder = "data";
 
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String fileFolder, String filePath) {
+        ui = new Ui();
+        try {
+            storage = new Storage(fileFolder, filePath);
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e.getErrorMessage());
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // divider line
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke("data","data/tasks.txt").run();
+    }
+
+
+    /**
     public static void main(String[] args) throws UnknownInputException, IOException {
         //create folder if needed
         File folder = new File(fileFolder);
@@ -217,12 +253,7 @@ public class Duke {
 
 
     //OTHER HELPER FUNCTIONS
-    /**
-     * Method for printing Tasks adding
-     * @param tasks
-     * @param t
-     * @return
-     */
+
     public static void taskPrint(List<Task> tasks, Task t) {
         tasks.add(t);
         System.out.println("Got it. I've added this task: \n  " + t);
@@ -245,5 +276,6 @@ public class Duke {
         fw.write(textToAppend);
         fw.close();
     }
+     **/
 
 }

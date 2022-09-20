@@ -1,8 +1,8 @@
-package duke;
+package duke.task;
 
 public class Todo extends Task {
     /**
-     * Creates duke.Task Object
+     * Creates duke.task.Task Object
      *
      * @param description
      */

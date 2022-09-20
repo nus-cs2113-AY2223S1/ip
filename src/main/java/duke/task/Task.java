@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 public class Task {
     protected String description;
@@ -7,7 +7,7 @@ public class Task {
 
 
     /**
-     * Creates duke.Task Object
+     * Creates duke.task.Task Object
      * @param description
      */
     public Task(String description) {
