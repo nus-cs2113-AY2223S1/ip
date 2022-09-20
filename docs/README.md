@@ -44,26 +44,24 @@ Duke is powered by Slave Kai, Zhou Zhou's 256 IQ bot**
 All dates must be entered in the format dd-mm-yyyy, eg. 22-7-2026  
 All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
-> ### `bye` - to exit Duke
-><details><summary>details</summary>
+ ### `bye` - to exit Duke
+<details><summary>details</summary>
 
->Slave Kai will end Duke program and save tasks, if any  
->>Example of usage:  
->>`bye`  
->>  
->>Expected outcome:  
->> Slave Kai ends Duke program and saves tasks, if any  
->>```  
->>Please don't go :(  
->>------------------------------  
->>Slaving tasks......  
->>```  
-></details>
+Slave Kai will end Duke program and save tasks, if any  
+>Example of usage:  
+>`bye`  
+>  
+>Expected outcome:  
+> Slave Kai ends Duke program and saves tasks, if any  
+>```  
+>Please don't go :(  
+>------------------------------  
+>Slaving tasks......  
+>```  
+</details>
 
 > ### `help` - to try asking for help
-><details><summary>details</summary>
-
->
+><details><summary>details</summary>  
 >Slave Kai will consider helping  
 >>Example of usage:  
 >>`help`  
