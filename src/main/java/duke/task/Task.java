@@ -1,12 +1,8 @@
 package duke.task;
 
-import duke.EmptyDescriptionException;
-import duke.NoSpecficTimeException;
-import duke.NoSpecificDeadlineException;
-
-import javax.swing.*;
-import java.io.FileWriter;
-import java.io.IOException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.NoSpecficTimeException;
+import duke.exception.NoSpecificDeadlineException;
 
 public class Task {
     protected String task;
@@ -62,10 +58,7 @@ public class Task {
             isDone = false;
         }
     }
-    public void printTask(int index) {
-        // Print the task in numbered list format.
-        System.out.println((index + 1) + ". [" + getStatusIcon() + "] " + getTask());
-    }
+
 
 
 }
