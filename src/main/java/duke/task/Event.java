@@ -12,7 +12,7 @@ public class Event extends Task {
      * Public constructor
      * @param description Task name
      * @param date Date of the event
-     * @param time Time of deadline
+     * @param time Time of event
      */
     public Event(String description, String date, String time) {
         super(description);
@@ -21,7 +21,7 @@ public class Event extends Task {
     }
 
     /**
-     * Formatted data of an event task
+     * Formats data of an Event task to be displayed to user
      * @return String Formatted data of an event task
      */
     @Override
@@ -34,6 +34,10 @@ public class Event extends Task {
             );
     }
 
+    /**
+     * Formats all attributes in the task to be saved into the data file
+     * @return Task data in a format parse-able by the Storage class
+     */
     @Override
     public String getTaskData() {
         return "E" + " | " + (isDone ? 1 : 0) + " | " + description + " | " + date + " | " + time;

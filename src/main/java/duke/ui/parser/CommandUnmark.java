@@ -10,6 +10,10 @@ public class CommandUnmark extends Command {
 
     private Integer taskNum = null;
 
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandUnmark(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
@@ -33,6 +37,10 @@ public class CommandUnmark extends Command {
         taskNum = Integer.parseInt(splitArguments.get(0));
     }
 
+    /**
+     * Getter method to get task number
+     * @return Task number
+     */
     public int getTaskNum() {
         return taskNum;
     }

@@ -10,6 +10,10 @@ public class CommandFind extends Command {
 
     private String searchPhrase;
 
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandFind(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
@@ -26,11 +30,15 @@ public class CommandFind extends Command {
     @Override
     protected void parse() {
         searchPhrase = rawArguments;
-
     }
 
-    // Returning new string to avoid editing searchPhrase string stored in CommandFind object
+
+    /**
+     * Getter method to get search phrase
+      * @return Search phrase
+     */
     public String getSearchPhrase() {
+        // Return new string to avoid editing searchPhrase string stored in CommandFind object
         return new String(searchPhrase);
     }
 

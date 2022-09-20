@@ -9,6 +9,10 @@ public class CommandList extends Command {
     private static final ArrayList<String> FLAGS = new ArrayList<>();
 
 
+    /**
+     * Constructor
+     * @param rawArguments Portion of the raw user input that contains the raw arguments
+     */
     public CommandList(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);

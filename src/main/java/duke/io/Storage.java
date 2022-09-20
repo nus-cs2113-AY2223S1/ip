@@ -23,13 +23,26 @@ public class Storage {
     private final Path dataFilePath;
     private final Path dataDirectoryPath;
 
-    public Storage (String dataFileName, String dataDirectoryName) {
+    /**
+     * Constructor
+     * @param dataFileName File name which must have ".txt" file extension
+     * @param dataDirectoryName Name of the directory, relative to the current working directory,
+     *                          where the file will be created
+     */
+    public Storage(String dataFileName, String dataDirectoryName) {
         this.dataFileName = dataFileName;
         this.dataDirectoryName = dataDirectoryName;
         this.dataFilePath = Paths.get(dataDirectoryName + "/" + dataFileName);
         this.dataDirectoryPath = Paths.get(dataDirectoryName);
     }
 
+    /**
+     * Saves the current task list into the external data file
+     * @param dataToWrite Task List
+     * @throws IOException If the named file exists but is a directory rather than a regular file,
+     *                     does not exist but cannot be created,
+     *                     or cannot be opened for any other reason
+     */
     public void saveProgramData(String dataToWrite) throws IOException {
 
         if (!Files.exists(dataDirectoryPath)) {
@@ -46,13 +59,16 @@ public class Storage {
     }
 
 
+    /**
+     * Loads the task list from the data file
+     * @return Task list parsed from the data file
+     */
     public ArrayList<Task> loadProgramData() {
         ArrayList<Task> output = new ArrayList<>();
 
         if (!Files.exists(dataDirectoryPath) || !Files.exists(dataFilePath)) {
             return new ArrayList<>();
         }
-
 
         File f = new File(dataDirectoryName + "/" + dataFileName);
         Scanner sc;
@@ -61,7 +77,7 @@ public class Storage {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
             System.out.println("EXCEPTION: Unable to read data file.");
-            System.out.println("Initialising program with an empty task list...");
+            System.out.println("Initialising program with an empty task list.");
             return new ArrayList<>();
         }
 
@@ -87,7 +103,7 @@ public class Storage {
                     break;
                 case "D":
                     String date = data[3];
-                    String time = data [4];
+                    String time = data[4];
                     Deadline deadline = new Deadline(description, date, time);
                     if (isDone) {
                         deadline.markAsDone();
@@ -96,7 +112,7 @@ public class Storage {
                     break;
                 case "E":
                     date = data[3];
-                    time = data [4];
+                    time = data[4];
                     Event event = new Event(description, date, time);
                     if (isDone) {
                         event.markAsDone();
@@ -109,7 +125,7 @@ public class Storage {
             }
         } catch (Exception e) {
             System.out.println("EXCEPTION: Data file data/dukeData.txt is corrupted.");
-            System.out.println("Initialising program with an empty task list...");
+            System.out.println("Initialising program with an empty task list.");
             return new ArrayList<>();
         }
         sc.close();
