@@ -46,7 +46,6 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
 > ### `bye` - to exit Duke
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will end Duke program and save tasks, if any
 >> Example of usage:  
@@ -59,12 +58,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>------------------------------
 >>Slaving tasks......
 >>```
-></p>
 ></details>
 
 > ### `help` - to try asking for help
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will consider helping
 >> Example of usage:  
@@ -76,12 +73,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>You asked for help, but I don't feel like helping ;p
 >>Maybe try saying the magic word?
 >>```
-></p>
 ></details>
 
 > ### `please` - to actually get help
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will display help message
 >> Example of usage:  
@@ -108,12 +103,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Note: all dates must be entered in the format dd-mm-yyyy, eg. 22-7-2026
 >>and all times must be entered in the format hhmm, eg. 2359
 >>```
-></p>
 ></details>
 
 > ### `todo {description}` - to add a new todo
 ><details><summary>details</summary>
-><p>
 >
 >Slave Kai will add a new todo with {description}
 >> Example of usage:  
@@ -125,12 +118,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Task added:
 >>1.[T][ ] find a girlfriend
 >>```
-></p>
 ></details>
 
 > ### `event {description} /{date} {time}` - to add a new event
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will add a new event with {description} on {date} at {time (optional)}
 >> Example of usage:  
@@ -142,12 +133,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Task added:
 >>2.[E][ ] go on a date (1 Jan 2066)
 >>```
-></p>
 ></details>
 
 > ### `deadline {description} /{date} {time}` - to add a new deadline
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will add a new deadline with {description} on {date} at {time (optional)}
 >> Example of usage:  
@@ -159,12 +148,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Task added:
 >>3.[D][ ] make a new friend (31 Dec 2021 23:59)
 >>```
-></p>
 ></details>
 
 > ### `mark/unmark {task number}` - to mark a task as done/not done
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will mark that task as done/not done
 >> Example of usage:  
@@ -176,12 +163,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Well done. I've marked this task as done:
 >>3.[D][X] make a new friend (31 Dec 2021 23:59)
 >>```
-></p>
 ></details>
 
 > ### `delete {task number}` - to delete a task
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will delete that task (irreversible!)
 >> Example of usage:  
@@ -193,12 +178,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Task deleted:
 >>3.[D][X] make a new friend (31 Dec 2021 23:59)
 >>```
-></p>
 ></details>
 
 > ### `list` - to list all tasks
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will list all tasks and total number of tasks
 >> Example of usage:  
@@ -211,12 +194,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>1.[T][ ] find a girlfriend
 >>2.[E][ ] go on a date (1 Jan 2066)
 >>```
-></p>
 ></details>
 
 > ### `find {keyword}` - to list tasks containing {keyword}
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will list tasks containing {keyword} in task description
 >> Example of usage:  
@@ -228,12 +209,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Slave Kai found these 1 tasks:
 >>1.[T][ ] find a girlfriend
 >>```
-></p>
 ></details>
 
 > ### `done/undone` - to list tasks that are marked as done/not done
 ><details><summary>details</summary>
-><p>  
 >
 >Slave Kai will list tasks that are marked as done/not done
 >> Example of usage:  
@@ -246,12 +225,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>1.[T][ ] find a girlfriend
 >>2.[E][ ] go on a date (1 Jan 2066)
 >>```
-></p>
 ></details>
 
 > ### `on/before/after {date}` - to list tasks on/before/after {date}
 ><details><summary>details</summary>
-><p>  
 >  
 >Slave Kai will list tasks (of types deadline and event) on/before/after {date}  
 >> Example of usage:  
@@ -263,12 +240,10 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>Slave Kai found these 1 tasks:
 >>2.[E][ ] go on a date (1 Jan 2066)
 >>```
-></p>
 ></details>
 
 > ### `hi` - to greet Slave Kai
 ><details><summary>details</summary>
-><p>  
 >  
 >Slave Kai will respond with a greeting  
 >> Example of usage:  
@@ -279,5 +254,4 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 >>```  
 >>Howdy!  
 >>```  
-></p>
 ></details>
