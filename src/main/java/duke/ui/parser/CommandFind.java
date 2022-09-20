@@ -13,7 +13,7 @@ public class CommandFind extends Command {
     public CommandFind(String rawArguments) {
         super.rawArguments = rawArguments;
         super.splitArguments = splitArguments(rawArguments);
-        super.MIN_ARGUMENTS = MIN_ARGUMENTS;
+        super.minArguments = MIN_ARGUMENTS;
         super.FLAGS = FLAGS;
         super.commandType = CommandType.FIND;
     }
