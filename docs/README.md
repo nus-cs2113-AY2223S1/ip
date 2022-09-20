@@ -44,25 +44,28 @@ Duke is powered by Slave Kai, Zhou Zhou's 256 IQ bot**
 All dates must be entered in the format dd-mm-yyyy, eg. 22-7-2026  
 All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 
-> ### `bye` - to exit Duke
-><details><summary>details</summary>
->
->Slave Kai will end Duke program and save tasks, if any  
->>Example of usage:  
->>`bye`  
->>  
->>Expected outcome:  
->> Slave Kai ends Duke program and saves tasks, if any  
->>```  
->>Please don't go :(  
->>------------------------------  
->>Slaving tasks......  
->>```  
->
-></details>
+<blockquote>
+### `bye` - to exit Duke
+<details><summary>details</summary>
+
+Slave Kai will end Duke program and save tasks, if any  
+>Example of usage:  
+>`bye`  
+>  
+>Expected outcome:  
+> Slave Kai ends Duke program and saves tasks, if any  
+>```  
+>Please don't go :(  
+>------------------------------  
+>Slaving tasks......  
+>```  
+
+</details>
+</blockquote>
 
 > ### `help` - to try asking for help
 ><details><summary>details</summary>
+>
 >
 >Slave Kai will consider helping  
 >>Example of usage:  
@@ -258,13 +261,14 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 ><details><summary>details</summary>
 >  
 >Slave Kai will respond with a greeting  
->>Example of usage:  
->>`hi`  
->>  
->>Expected outcome:  
->>Slave Kai's response  
->>```  
->>Howdy!  
->>```  
->
+><blockquote>
+>Example of usage:  
+>`hi`  
+>  
+>Expected outcome:  
+>Slave Kai's response  
+>```  
+>Howdy!  
+>```  
+></blockquote>
 ></details>
