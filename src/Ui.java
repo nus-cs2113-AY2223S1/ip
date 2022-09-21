@@ -24,8 +24,7 @@ public class Ui{
             + " | |__| | (_| | (__|   <\\__ \\ (_) | | | |\n"
             + "  \\____/ \\__,_|\\___|_|\\_\\___/\\___/|_| |_|\n";
     public static final String INTRODUCTION =
-        "Hello! I'm Jackson, your personal chat-bot! :)\n" +
-        "What service are you looking for?\n";
+        "Hello! I'm Jackson, your personal task manager! :)\n";
     public static final String FAREWELL = "Leaving already? :( Come back soon!\n";
     final Scanner readInput;
     public Ui() {
@@ -49,8 +48,12 @@ public class Ui{
             LINE
         );
     }
+
+    public void promptMessage() {
+        System.out.println("~~~~~Please enter a command~~~~~");
+    }
     public void listMessage() {
-        System.out.println("Do you mean 'list'?\n");
+        System.out.println("Do you mean 'list'?");
     }
     public void loadListMessage() {
         System.out.println("Loading existing file data...\n");
@@ -71,7 +74,7 @@ public class Ui{
         System.out.println("Please input a number!");
     }
     public void invalidCommandMessage() {
-        System.out.println("Sorry, please input a proper command!\n");
+        System.out.println("Sorry, please input a proper command!");
     }
     /**
      * display the entire list of tasks to the user

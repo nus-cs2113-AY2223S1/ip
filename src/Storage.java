@@ -22,27 +22,25 @@ public class Storage{
     public List<Task> loadFileData(){
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            if (file.length() != 0) {
+            if (file.createNewFile()) {
+                ui.createNewListMessage();
+            }
+            else {
                 ui.loadListMessage();
-                Scanner s = new Scanner(file);
-                while (s.hasNext()) {
-                    String task = s.nextLine();
+                Scanner scan = new Scanner(file);
+                while (scan.hasNext()) {
+                    String task = scan.nextLine();
                     tasks.add(parse.taskFromFile(task));
                 }
                 return tasks;
             }
-            else {
-                ui.createNewListMessage();
-                return null;
-            }
-        } catch (FileNotFoundException error) {
+        } catch (IOException error) {
             ui.missingFile();
-            return null;
         } catch (Error error) {
             System.out.println(error.getMessage());
             System.exit(0);
-            return null;
         }
+        return tasks;
     }
 
     /**

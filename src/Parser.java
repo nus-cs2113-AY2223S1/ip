@@ -165,14 +165,19 @@ public class Parser{
                 break;
             case UNMARK:
                 ui.unmarkErrorMessage();
+                break;
             case MARK:
                 ui.markErrorMessage();
+                break;
             case DEADLINE:
                 ui.deleteErrorMessage();
+                break;
             case FIND:
                 ui.missingKeywordMessage();
+                break;
             default:
                 ui.invalidCommandMessage();
+                break;
         }
 
     }
@@ -187,7 +192,7 @@ public class Parser{
      *                and saving tasks in the file
      */
     public void multipleCommands(String[] get, TaskList taskList, Ui ui, Storage storage) {
-        switch (get[TASK]) {
+        switch (get[TASK].toLowerCase()) {
             case LIST:
                 ui.listMessage();
                 taskList.showList();
@@ -224,6 +229,7 @@ public class Parser{
                 }
                 break;
             case FIND:
+                System.out.println("find details:" + "'" + get[DETAILS] + "'");
                 taskList.showMatchedTasks(get[DETAILS]);
                 break;
             default:

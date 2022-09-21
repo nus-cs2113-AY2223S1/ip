@@ -13,18 +13,22 @@ public class Duke{
         parse = new Parser();
         storage = new Storage(DEFAULT_STORAGE_FILEPATH);
         taskList = new TaskList(storage.loadFileData());
+        ui.promptMessage();
     }
     private void run() {
         String input = ui.userCommand().trim();
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);
             if (get.length == 1) {
-                parse.singleCommand(get[TASK], taskList, ui);
+                parse.singleCommand(get[TASK].toLowerCase(), taskList, ui);
+                ui.promptMessage();
             }
             else {
                 parse.multipleCommands(get, taskList, ui, storage);
+                ui.promptMessage();
             }
-            input = ui.userCommand();
+            input = ui.userCommand().trim();
+
         }
         ui.exit();
     }
