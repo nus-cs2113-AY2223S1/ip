@@ -8,15 +8,20 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        String line;
         Scanner in = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("Hello! I'm Duke");
         System.out.println("What can i do for you?");
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon");
-        System.out.println("-------------------------------------------------------------------------------");
-        String[] List = new String[100];
+
+        String input;
+        do {
+            input = in.nextLine();
+            Echo echo = new Echo(input);
+            echo.EchoInput();
+        } while (input.contains("bye") == false);
+
+        //String[] List = new String[100];
 //        int ListNo = 0;
 //        do{
 //            line = in.nextLine();
