@@ -5,6 +5,7 @@ import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -39,7 +40,7 @@ public class TaskList {
         return todo;
     }
 
-    public Task addDeadline(String title, String dueBy, boolean isDone) {
+    public Task addDeadline(String title, String dueBy, boolean isDone) throws DateTimeParseException {
         Deadline deadline = new Deadline(title, dueBy, isDone);
         tasks.add(deadline);
         return deadline;

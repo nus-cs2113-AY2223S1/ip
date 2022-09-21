@@ -13,6 +13,8 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public void ConvertToDatetime(String dueBy) {}
+
     public String getDueBy() {
         return getDueBy();
     }
@@ -32,6 +34,7 @@ public class Task {
     public String getTaskDetails() {
         return STATUS_ICON_PREFIX + getStatusIcon() + STATUS_ICON_POSTFIX + title;
     }
+
 
     public void setStatus(Boolean isDone) {
         this.isDone = isDone;
