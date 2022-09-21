@@ -48,6 +48,7 @@ All times must be entered in the format hhmm in 24hr notation, eg. 2359**
 ><details><summary>details</summary>
 >
 >Slave Kai will end Duke program and save tasks, if any  
+>  
 >>Example of usage:  
 >>`bye`  
 >>  
