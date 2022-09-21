@@ -41,7 +41,8 @@ public class LoadCommand extends Command {
         } catch (FileNotFoundException e) {
             try {
                 storage.createDataFile();
-                ui.output("Data file created under src/main/java/duke/data/data.txt");
+                ui.output("Data file created under data/data.txt");
+                ui.line();
             } catch (IOException ex) {
                 new MissingDataFileDukeException().handle(ui);
             }

@@ -14,8 +14,8 @@ import java.nio.file.Paths;
  */
 public class Storage {
 
-    private final Path dataDirectory = Paths.get("src/main/java/duke/data/");
-    private final Path dataFile = Paths.get("src/main/java/duke/data/data.txt");
+    private final Path dataDirectory = Paths.get("./data/");
+    private final Path dataFile = Paths.get("./data/data.txt");
 
     public Storage() {
     }
