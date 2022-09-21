@@ -22,80 +22,90 @@ Welcome to the Jackson bot user guide! Jackson bot is a task manager which you c
 2. Download the latest version of `Jackson.jar` from the `Releases` tab on the right of the repo.
 3. Move `Jackson.jar` to your preferred folder. This will be the home folder of your Duke bot program.
 4. Double-click the jar file to run the program. An interface will be similiar to what you see below:
-![jacksonbot](https://user-images.githubusercontent.com/47519031/191457307-6973f457-a625-460a-b7b6-816350eee72b.png)
+
+   ![jacksonbot](https://user-images.githubusercontent.com/47519031/191457307-6973f457-a625-460a-b7b6-816350eee72b.png)
+
 5. Type your desired command into the interface and press Enter to execute it. 
 6. Refer to the `Jackson bot features` section below to get the details for specific commands.
 
 ## Jackson bot features
 
 ### View all tasks: `list`
-View all the tasks you currently have in your task list
+View all the tasks you currently have in your task list <br/>
 Command: `list` 
 
 ### Add a Todo task: `todo`
 Adds a todo task to the list
 Command format: `todo <description>`
 - Things to note:
-   - Task description cannot be empty
-e.g. `todo Go for CS2113 lecture`
+   - Task description cannot be empty 
+
+e.g. `todo Go for CS2113 lecture` <br/>
    
 ### Add a Deadline task: `deadline`
-Adds a task with deadline to the list
+Adds a task with deadline to the list <br/>
 Command format: `deadline <description> /by <time>`
 - Things to note:
    - Task description cannot be empty
    - Date and time must both be provided
       - Date format: `YYYY-MM-DD`
-      - Time format: `HH:mm`
-e.g. `deadline Go for CS2113 lecture /by 2022-09-23 16:00
+      - Time format: `HH:mm` 
+
+e.g. `deadline Go for CS2113 lecture /by 2022-09-23 16:00` <br/>
 
 ### Add a Event task: `event`
-Adds a event with timing to the list
+Adds a event with timing to the list <br/>
 Command format: `event <description> /at <time>`
 - Things to note:
    - Task description cannot be empty
    - Date and time must both be provided
       - Date format: `YYYY-MM-DD`
-      - Time format: `HH:mm`
-e.g. `event CS2113 lecture /at 2022-09-23 16:00
+      - Time format: `HH:mm` 
+
+e.g. `event CS2113 lecture /at 2022-09-23 16:00` <br/>
       
-###Mark a task: `mark`
-Marks the selected task in the list as complete
+### Mark a task: `mark`
+Marks the selected task in the list as complete <br/>
 Command format: mark <index>
 - Things to note:
    - Task index must be in the list 
-   - index refers to the task ranking on the list
-e.g. `mark 1`
+   - index refers to the task ranking on the list 
+
+e.g. `mark 1` <br/>
 
 ### Unmark a task: `unmark`
-Unmarks the selected task in the list as incomplete
+Unmarks the selected task in the list as incomplete <br/>
 Command format: unmark <index>
 - Things to note:
    - Task index must be in the list 
    - index refers to the task ranking on the list
-e.g. `unmark 1`
+
+e.g. `unmark 1` <br/>
 
 ### Delete a task: `delete`
-Deletes the selected task from the list
+Deletes the selected task from the list <br/>
 Command format: `delete <index>`
 - Things to note:
    - Task index must be in the list 
    - index refers to the task ranking on the list
-e.g. `delete 1`
+
+e.g. `delete 1` <br/>
 
 ### Finding tasks: `find`
-Find all the tasks in the list that includes the given keyword. The respective indexes of the tasks are also included.
+Find all the tasks in the list that includes the given keyword. The respective indexes of the tasks are also included. <br/>
 Command format: `find <keyword>`
 - Things to note:
-   - Keyword must not be empty
-e.g. `find CS2113`
+   - Keyword must not be empty 
+   
+e.g. `find CS2113` <br/>
 
 ### Exiting the Jackson bot: `exit`
-Exits the Jackson bot program
+Exits the Jackson bot program <br/>
 Command format: `exit`
 
 ### Uploading data
-When booting up the program, Jackson will check the current file directory for the `data.txt` file to load exisitng tasks to the list. If no such file is present Jackson will create a new file.
+When booting up the program, Jackson will check the current file directory for the `data.txt` file to load exisitng tasks to the list. If no such file is present Jackson will create a new file. <br/>
+   
 Note: If you want to add in your own data directly into the `data.txt` file, ensure that you follow the task format in the data file. If not, Jackson will not be able to understand the task and crash.
 
 ### Saving data
