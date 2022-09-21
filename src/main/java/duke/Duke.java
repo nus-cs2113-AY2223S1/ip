@@ -3,7 +3,6 @@ package duke;
 import duke.exception.*;
 
 import java.io.*;
-import java.util.Scanner;
 
 
 public class Duke {
@@ -12,12 +11,22 @@ public class Duke {
     private Parser parser;
 
 
+    /**
+     * Runs the list of task operations until bye command is executed.
+     *
+     * @throws IOException When there is error when writing to file.
+     */
     public void run() throws IOException {
         start();
         runCommandUntilByeCommand();
     }
 
 
+    /**
+     * Initiates Storage and Ui objects and show welcome message.
+     *
+     * @throws IOException When there is error creating the file if it does not exist.
+     */
     private void start() throws IOException {
         this.storage = new Storage();
         this.ui = new Ui();
@@ -25,6 +34,9 @@ public class Duke {
         ui.showWelcomeMessage();
     }
 
+    /**
+     * Reads and execute commands until bye command is entered.
+     */
     private void runCommandUntilByeCommand() {
         this.parser = new Parser();
         String command;
@@ -34,7 +46,7 @@ public class Duke {
                 this.parser.parseCommand(command);
             } catch (EmptyDescriptionException emptyException) {
                 System.out.println("OOPS!!! The description of the task cannot be empty.");
-            } catch (NoSpecficTimeException e) {
+            } catch (NoSpecificTimeException e) {
                 System.out.println("No time is entered. Please re-enter and include '/at'.");
             } catch (NoSpecificDeadlineException e) {
                 System.out.println("No deadline is entered. Please re-enter and include '/by'. ");
@@ -46,6 +58,7 @@ public class Duke {
 
         } while (!command.equals("bye"));
     }
+
 
 
     public static void main(String[] args) throws IOException {
