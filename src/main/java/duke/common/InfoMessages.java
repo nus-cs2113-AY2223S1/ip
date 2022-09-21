@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Provides enum variables for storing custom program information messages.
+ */
 public enum InfoMessages {
     MESSAGE_INFO_DIVIDER("____________________________________________________________"),
     MESSAGE_INFO_WELCOME("Kon'nichiwa! Doraemon desu. What can I do for you?"),
@@ -16,10 +19,20 @@ public enum InfoMessages {
 
     public final String message;
 
+    /**
+     * Instantiates a new information message when user initialises a new instance of this enum.
+     *
+     * @param message A string containing the message.
+     */
     InfoMessages(String message) {
         this.message = message;
     }
 
+    /**
+     * Gets the information message as a string.
+     *
+     * @return A string containing the message.
+     */
     public String toString() {
         return message;
     }

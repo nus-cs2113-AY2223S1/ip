@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Provides enum variables for storing custom program error messages.
+ */
 public enum ErrorMessages {
     MESSAGE_ERROR_INVALID_COMMAND("Oh no, Doraemon didn't understand your command."),
     MESSAGE_ERROR_INVALID_TASK_INDEX("Nobita, the specified task does not exist in Doramon's 4D pocket."),
@@ -14,10 +17,20 @@ public enum ErrorMessages {
 
     public final String message;
 
+    /**
+     * Instantiates a new error message when user initialises a new instance of this enum.
+     *
+     * @param message A string containing the message.
+     */
     ErrorMessages(String message) {
         this.message = message;
     }
 
+    /**
+     * Gets the error message as a string.
+     *
+     * @return A string containing the message.
+     */
     public String toString() {
         return message;
     }
