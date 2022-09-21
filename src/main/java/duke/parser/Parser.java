@@ -1,13 +1,6 @@
 package duke.parser;
 
-import duke.commands.Command;
-import duke.commands.ByeCommand;
-import duke.commands.DeadlineCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.EventCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkCommand;
-import duke.commands.TodoCommand;
+import duke.commands.*;
 import duke.data.exception.InvalidCommandException;
 
 import static duke.common.Utils.splitInput;
@@ -43,6 +36,9 @@ public class Parser {
             break;
         case EventCommand.COMMAND:
             command = new EventCommand(inputDescription, false);
+            break;
+        case FindCommand.COMMAND:
+            command = new FindCommand(inputDescription);
             break;
         case ListCommand.COMMAND:
             command = new ListCommand();
