@@ -88,7 +88,7 @@ public class Ui {
     /**
      * Prints the task that is being deleted from list of task.
      *
-     * @param deleteNumber The task number that is being deleted.
+     * @param deleteNumber The task number that is being deleted from the list of task.
      */
     public static void printDeletedTask(int deleteNumber) {
         System.out.println("Hehe... I've deleted the task below: ");
@@ -98,7 +98,7 @@ public class Ui {
     /**
      * Prints the specific task that is indicated by index.
      *
-     * @param index The index which the task will be printed.
+     * @param index The index which the task will be printed from the list of task..
      */
     public static void printTask(int index) {
         String status = TaskList.tasks.get(index).getStatusIcon();
