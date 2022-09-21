@@ -1,6 +1,8 @@
 package duke;
 
 
+import duke.task.Task;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -97,5 +99,37 @@ public class Ui {
         }
         return "";
     }
+
+    public static void findMatchingTasks(String matchingString) {
+        boolean isContain;
+        boolean isTitlePrinted = false;
+        int listNumber = 1;
+
+        for (int i = 0; i < TaskList.tasks.size(); i += 1) {
+            String currentTask = TaskList.tasks.get(i).getTask();
+            isContain = currentTask.contains(matchingString);
+            if (isContain) {
+                if (!isTitlePrinted) {
+                    System.out.println("Here are the matching tasks in your list: :)");
+                    isTitlePrinted = true;
+                }
+                printMatchingTask(i, listNumber);
+                listNumber += 1;
+            }
+        }
+
+        if (listNumber == 1 ) {
+            System.out.println("Sorry we don't have any task that match with your input. :/");
+        }
+    }
+
+    public static void printMatchingTask(int taskIndex, int listIndex) {
+        String status = TaskList.tasks.get(taskIndex).getStatusIcon();
+        String task = TaskList.tasks.get(taskIndex).getTask();
+        String taskType = getClass(taskIndex);
+
+        System.out.println((listIndex) + ". " + taskType + "[" + status + "] " + task);
+    }
+
 
 }
