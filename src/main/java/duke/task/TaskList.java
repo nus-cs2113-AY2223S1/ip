@@ -92,7 +92,6 @@ public class TaskList {
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! You must have a /at ' for events!!\n");
         }
-
     }
 
     /**
@@ -112,6 +111,8 @@ public class TaskList {
             System.out.println("OOPS!!! You must input the right delete index number\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("OOPS!!! You must input the right delete index number\n");
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS!! You must use a number!\n");
         }
 
     }
