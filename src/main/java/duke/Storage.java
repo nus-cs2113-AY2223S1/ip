@@ -33,7 +33,7 @@ public class Storage {
 
                 String taskType = entries[0];
                 boolean isMark = entries[1].equals("1");
-                String entryText = entries[2];
+                String entryText = entries[2].replace(")", "");
 
                 importTask(taskType, entryText, isMark);
 

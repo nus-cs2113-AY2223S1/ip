@@ -4,9 +4,14 @@ import duke.exception.EmptyDescriptionException;
 import duke.exception.NoSpecficTimeException;
 import duke.exception.NoSpecificDeadlineException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String task;
     protected boolean isDone;
+
+
     //Constructor
     public Task(String task) throws EmptyDescriptionException, NoSpecificDeadlineException, NoSpecficTimeException {
         boolean isEmpty = (task.length() == 0);
@@ -17,6 +22,7 @@ public class Task {
         if (isEmpty) {
             throw new EmptyDescriptionException();
         } else {
+
             // Initialise task and print completion message
             if (isDeadline) {
                 boolean hasDeadline = task.contains("(by:");
