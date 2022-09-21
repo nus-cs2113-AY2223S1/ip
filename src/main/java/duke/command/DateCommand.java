@@ -8,9 +8,7 @@ import java.time.format.DateTimeFormatter;
 import duke.data.task.Date;
 import duke.data.task.Task;
 
-/**
- * Represent the DateCommand
- */
+
 public class DateCommand extends Command {
     public static final String COMMAND_NAME = "date";
     public static final String SYNTAX = "Syntax for date\n\t>>>date <yyyy-mm-dd>";
