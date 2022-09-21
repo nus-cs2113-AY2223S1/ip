@@ -1,6 +1,8 @@
 package duke.data.task;
 
-/** Represent Event Task */
+/**
+ * Represent Event Task
+ */
 public class Event extends Task {
     public static final String TYPE_EVENT = "E";
 
@@ -9,8 +11,10 @@ public class Event extends Task {
         this.date = new Date(date);
         this.taskType = TYPE_EVENT;
     }
-    
-    /** Initiate with isDone */
+
+    /**
+     * Initiate with isDone
+     */
     public Event(boolean status, String description, String date) {
         this(description, date);
         this.isDone = status;

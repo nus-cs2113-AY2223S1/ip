@@ -23,17 +23,22 @@ import duke.command.UnmarkCommand;
 import duke.command.TodoCommand;
 
 
-/** Represent a class that handle the parsing of command */
+/**
+ * Represent a class that handle the parsing of command
+ */
 public class Parser {
     private TaskList taskList;
 
-    /** Parser instance take in the taskList to be manipulated */
+    /**
+     * Parser instance take in the taskList to be manipulated
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
     /**
      * Parse user input string
+     *
      * @param userInput User input string
      * @return Command and its appropriate arguments
      */
@@ -150,21 +155,22 @@ public class Parser {
             return new IncorrectCommand(DeleteCommand.SYNTAX);
         }
     }
-    private Command parseFindCommand(String arguments){
-        try{
-            if (arguments.equals("")){
+
+    private Command parseFindCommand(String arguments) {
+        try {
+            if (arguments.equals("")) {
                 throw new DukeException();
             }
             return new FindCommand(arguments);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             return new IncorrectCommand(FindCommand.SYNTAX);
         }
     }
 
-    private Command parseDateCommand(String arguments){
+    private Command parseDateCommand(String arguments) {
         try {
             return new DateCommand(LocalDate.parse(arguments));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             return new IncorrectCommand(DateCommand.SYNTAX);
         }
     }

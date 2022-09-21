@@ -15,7 +15,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        target = new ArrayList<>(
+        target = new ArrayList<>( //Find target task with string that contains keyword
                 this.taskList.data.stream()
                         .filter(i -> i.description.getData().contains(this.keyword))
                         .collect(Collectors.toList())

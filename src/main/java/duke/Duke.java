@@ -25,19 +25,23 @@ public class Duke {
     }
 
 
-    /** Run the program until termination */
+    /**
+     * Run the program until termination
+     */
     private void run() {
         start();
         runCommandLoopUntilExitCommand();
         exit();
     }
 
-    /** Setup the required objects, loads the data from storage, print welcome message  */
+    /**
+     * Setup the required objects, loads the data from storage, print welcome message
+     */
     private void start() {
         this.ui = new TextUi();
         ui.showWelcomeMessage();
         this.storage = new StorageFile();
-        try{
+        try {
             this.taskList = storage.load();
             ui.showToUser(StorageFile.MESSAGE_LOADED);
         } catch (StorageException e) {
@@ -46,14 +50,18 @@ public class Duke {
         }
     }
 
-    /** Print exit message and exits */
+    /**
+     * Print exit message and exits
+     */
     private void exit() {
         ui.showExitMessage();
         ui.input.close();
         System.exit(0);
     }
 
-    /** Read user command and execute until exit command */
+    /**
+     * Read user command and execute until exit command
+     */
     private void runCommandLoopUntilExitCommand() {
         Command command;
         do {
@@ -65,23 +73,27 @@ public class Duke {
         } while (!ExitCommand.isExit(command));
     }
 
-    /** Save and catch error */
+    /**
+     * Save and catch error
+     */
     private void save() {
-        try{
+        try {
             storage.save(taskList);
-        } catch (StorageException e){
+        } catch (StorageException e) {
             ui.showToUser(e.getMessage());
         }
     }
 
 
-    /** Execute the command, save into the file, return the results */
+    /**
+     * Execute the command, save into the file, return the results
+     */
 
     private CommandResult executeCommand(Command command) {
-        try{
+        try {
             command.setTaskList(taskList); // pass the main taskList instance for the command to work on
             return command.execute();
-        } catch (Exception e){
+        } catch (Exception e) {
             ui.showToUser(e.getMessage());
             throw new RuntimeException(e);
         }

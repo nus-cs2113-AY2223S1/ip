@@ -3,6 +3,7 @@ package duke.ui;
 import duke.common.Messages;
 import duke.data.task.Task;
 import duke.command.CommandResult;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -15,11 +16,17 @@ import java.util.Scanner;
 
 public class TextUi {
 
-    /** Offset 0 index to 1 */
+    /**
+     * Offset 0 index to 1
+     */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
-    /** Format of indexed list item */
+    /**
+     * Format of indexed list item
+     */
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-    /** User Prompt */
+    /**
+     * User Prompt
+     */
     private static final String UI_PROMPT = ">>> ";
 
 
@@ -31,7 +38,9 @@ public class TextUi {
         this.output = System.out;
     }
 
-    /** Get command and filter blank lines */
+    /**
+     * Get command and filter blank lines
+     */
     public String getUserCommand() {
         output.print(UI_PROMPT);
         String userInput = input.nextLine();
@@ -40,9 +49,11 @@ public class TextUi {
         }
         return userInput;
     }
-    
-    /** Display various messages, separated by newline
-     *  @param messages String array of message to display
+
+    /**
+     * Display various messages, separated by newline
+     *
+     * @param messages String array of message to display
      */
     public void showToUser(String... messages) {
         for (String m : messages) {
@@ -50,8 +61,9 @@ public class TextUi {
         }
     }
 
-    /** 
+    /**
      * Wrap showToUser between top and bottom DIVIDER
+     *
      * @param messages String array of message to display
      */
     public void showToUserDivider(String... messages) {
@@ -69,34 +81,42 @@ public class TextUi {
         this.showToUser(Messages.EXIT);
     }
 
-    /** Show message and the target tasks affected by the command
-     * @param result CommandResult of a command 
+    /**
+     * Show message and the target tasks affected by the command
+     *
+     * @param result CommandResult of a command
      */
     public void showResultToUser(CommandResult result) {
         final Optional<List<? extends Task>> resultTasks = result.getTarget();
         showToUser(result.getMessage());
-        if(resultTasks.isPresent()){
+        if (resultTasks.isPresent()) {
             showTaskListView(resultTasks.get());
         }
         output.println(Messages.DIVIDER);
     }
 
-    /** Show a list of Tasks to the user, formatted as an indexed list */
-    private void showTaskListView(List<? extends Task> tasks){
+    /**
+     * Show a list of Tasks to the user, formatted as an indexed list
+     */
+    private void showTaskListView(List<? extends Task> tasks) {
         List<String> taskToString = new ArrayList<>();
-        for (Task task : tasks){
+        for (Task task : tasks) {
             taskToString.add(task.toString());
         }
         showToUserAsIndexedList(taskToString);
     }
-    
 
-    /** Shows a list of strings to the user, formatted as an indexed list. */
+
+    /**
+     * Shows a list of strings to the user, formatted as an indexed list.
+     */
     private void showToUserAsIndexedList(List<String> list) {
         showToUser(getIndexedListForViewing(list));
     }
 
-    /** Formats a list of strings as a viewable indexed list. */
+    /**
+     * Formats a list of strings as a viewable indexed list.
+     */
     private static String getIndexedListForViewing(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
         int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
@@ -106,6 +126,7 @@ public class TextUi {
         }
         return formatted.toString();
     }
+
     /**
      * Formats a string as a viewable indexed list item.
      *
@@ -115,7 +136,9 @@ public class TextUi {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
 
-    /** Ignore if empty line */
+    /**
+     * Ignore if empty line
+     */
     private boolean shouldIgnore(String userInput) {
         return userInput.trim().isEmpty();
     }

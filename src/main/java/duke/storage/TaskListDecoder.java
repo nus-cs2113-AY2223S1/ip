@@ -20,8 +20,9 @@ public class TaskListDecoder {
 
     /**
      * Read the file path and add Task based on a line in the file
+     *
      * @param path path to file
-     * @return TaskList to be initiated 
+     * @return TaskList to be initiated
      */
 
     public static ArrayList<Task> decodeFile(String path) throws DecodeException, IOException {

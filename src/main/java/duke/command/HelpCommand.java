@@ -5,9 +5,8 @@ import duke.common.Messages;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_NAME = "help";
-    public static final String MESSAGE ="";
 
-    public HelpCommand(){
+    public HelpCommand() {
         super(COMMAND_NAME);
     }
 
