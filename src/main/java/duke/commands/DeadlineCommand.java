@@ -6,6 +6,8 @@ import duke.data.task.Task;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a deadline command object that will execute the operations for Deadline command.
  */
@@ -40,7 +42,7 @@ public class DeadlineCommand extends AddCommand {
             ui.showAddTaskInfo(task.getTaskDetails(), tasks.getTaskCount());
             // Writes each task from the updated task list into the file
             writeToFile(ui, tasks, storage);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             ui.showCustomText(ErrorMessages.MESSAGE_ERROR_INVALID_DEADLINE_FORMAT);
         }
     }

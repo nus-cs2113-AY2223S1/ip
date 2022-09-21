@@ -22,11 +22,8 @@ public class Task {
         this.isDone = isDone;
     }
 
-    /**
-     * Gets the deadline of a deadline task.
-     *
-     * @return A string that represents the deadline of the task.
-     */
+    public void ConvertToDatetime(String dueBy) {}
+
     public String getDueBy() {
         return getDueBy();
     }
@@ -66,6 +63,7 @@ public class Task {
     public String getTaskDetails() {
         return STATUS_ICON_PREFIX + getStatusIcon() + STATUS_ICON_POSTFIX + title;
     }
+
 
     /**
      * Marks a task as done or undone.

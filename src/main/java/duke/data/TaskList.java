@@ -5,6 +5,7 @@ import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -71,8 +72,10 @@ public class TaskList {
      * @param dueBy A string that represents the deadline of the task.
      * @param isDone A boolean that indicates whether the task is done or undone.
      * @return A deadline task.
+     * @throws DateTimeParseException If an error is caught in converting the string to datetime format.
      */
-    public Task addDeadline(String title, String dueBy, boolean isDone) {
+
+    public Task addDeadline(String title, String dueBy, boolean isDone) throws DateTimeParseException {
         Deadline deadline = new Deadline(title, dueBy, isDone);
         tasks.add(deadline);
         return deadline;
