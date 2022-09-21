@@ -13,10 +13,16 @@ import java.util.Scanner;
 
 public class Storage {
 
-
     private String fileFolder;
     private String filePath;
 
+    /**
+     * Constructor of Storage
+     *
+     * @param fileFolder path to the file's folder
+     * @param filePath path to the data file
+     * @throws DukeIOException Exception thrown when IO Exception occurs
+     */
     public Storage(String fileFolder, String filePath) throws DukeIOException {
         //create folder if needed
         this.fileFolder = fileFolder;
@@ -36,10 +42,14 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeIOException();
         }
-
     }
 
-
+    /**
+     * Loads Tasks from Storage into Duke
+     *
+     * @return Tasks
+     * @throws DukeFileNotFoundException if the File is not found
+     */
     public ArrayList<Task> load() throws DukeFileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -73,11 +83,15 @@ public class Storage {
         catch(FileNotFoundException e){
             throw new DukeFileNotFoundException();
         }
-
         return tasks;
     }
 
-
+    /**
+     * Writes over the file
+     *
+     * @param tasks TaskList of tasks
+     * @throws DukeIOException thrown when IO Exception occurs
+     */
     public void writeToFile(TaskList tasks) throws DukeIOException {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -88,18 +102,6 @@ public class Storage {
             fw.write(textToAdd);
             fw.close();
         } catch (IOException e) {
-            throw new DukeIOException();
-        }
-    }
-
-    public void appendToFile(Task t) throws DukeIOException {
-        try {
-            FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-            String textToAppend = t.getSavedString() + System.lineSeparator();
-            fw.write(textToAppend);
-            fw.close();
-        }
-        catch (IOException e) {
             throw new DukeIOException();
         }
     }

@@ -1,17 +1,21 @@
 package duke;
 
-import duke.exception.UnknownInputException;
+import duke.exception.DukeUnknownInputException;
 import duke.command.*;
 
 public class Parser {
 
-
-    public static Command parse(String input) throws UnknownInputException {
+    /**
+     * Parses the input to create Commands
+     *
+     * @param input User input from UI
+     * @return specific command from user
+     * @throws DukeUnknownInputException Exception if user command does not match any built in commands
+     */
+    public static Command parse(String input) throws DukeUnknownInputException {
         Command command = null;
         String[] splitInput = input.split(" ");
 
-        // list commands duke to list all the tasks stored and their completion status
-        // try at the start cos of the errors possibly
         switch (splitInput[0]) {
             case "list":
                 command = new ListCommand();
@@ -41,9 +45,8 @@ public class Parser {
                 command = new ByeCommand();
                 break;
             default:
-                throw new UnknownInputException();
+                throw new DukeUnknownInputException();
         }
-
         return command;
     }
 }

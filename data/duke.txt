@@ -1,10 +1,2 @@
-D |   | return book | june 6th
-D | X | groupwork | my house
-T |   | swe ip v annoying
-D | X | work to do | hall
-T |   | calculations work
-D |   | ip | noon tmr
-D |   | jamband prac | jamband room
-D |   | os quiz | noon
-D | X | os lab | thurs
-  |   | hello
+T |   | work
+D |   | cu session | 6pm today

@@ -1,8 +1,8 @@
 package duke.task;
 
 import duke.Ui;
-import duke.exception.EmptyDescriptionException;
-import duke.exception.UnknownInputException;
+import duke.exception.DukeEmptyDescriptionException;
+import duke.exception.DukeUnknownInputException;
 
 import java.util.ArrayList;
 
@@ -10,19 +10,34 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructor of TaskList
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Constructor of TaskList when tasks has already been saved previously
+     *
+     * @param tasks Arraylist of Tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public void addDeadline (String input, Ui ui) throws EmptyDescriptionException {
+    /**
+     * Add Deadline Task to Tasks
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     * @throws DukeEmptyDescriptionException when no description is inputted
+     */
+    public void addDeadline (String input, Ui ui) throws DukeEmptyDescriptionException {
         try {
             String [] splitInput = input.split(" ");
             if (splitInput.length == 1) {
-                throw new EmptyDescriptionException();
+                throw new DukeEmptyDescriptionException();
             }
             String description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /by "));
             String by = input.substring(input.indexOf("/by ") + 4);
@@ -31,16 +46,22 @@ public class TaskList {
             // print to CLI
             ui.addTaskMessage(tasks, d);
         } catch (StringIndexOutOfBoundsException e) {
+            //when /by is not used in the user command
             System.out.println("OOPS!!! You must have a /by ' for deadlines!!\n");
         }
-
     }
 
-
-    public void addTodo (String input, Ui ui) throws EmptyDescriptionException {
+    /**
+     * Add Todo Task to Tasks
+     *
+     * @param input User input line
+     * @param ui Instance of UI
+     * @throws DukeEmptyDescriptionException when no description is inputted
+     */
+    public void addTodo (String input, Ui ui) throws DukeEmptyDescriptionException {
         String [] splitInput = input.split(" ");
         if (splitInput.length == 1) {
-            throw new EmptyDescriptionException();
+            throw new DukeEmptyDescriptionException();
         }
         String description = input.substring(input.indexOf(" ") + 1);
         Task td = new Todo(description);
@@ -49,11 +70,18 @@ public class TaskList {
         ui.addTaskMessage(tasks, td);
     }
 
-    public void addEvent (String input, Ui ui) throws EmptyDescriptionException {
+    /**
+     * Add Event Task to Tasks
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     * @throws DukeEmptyDescriptionException when no description is inputted
+     */
+    public void addEvent (String input, Ui ui) throws DukeEmptyDescriptionException {
         try {
             String [] splitInput = input.split(" ");
             if (splitInput.length == 1) {
-                throw new EmptyDescriptionException();
+                throw new DukeEmptyDescriptionException();
             }
             String description = input.substring(input.indexOf(" ") + 1, input.indexOf(" /at "));
             String at = input.substring(input.indexOf("/at ") + 4);
@@ -66,7 +94,13 @@ public class TaskList {
         }
 
     }
-    
+
+    /**
+     * Delete a Task from Tasks
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     */
     public void deleteTask (String input, Ui ui) {
         try {
             String[] splitInput = input.split(" ");
@@ -82,9 +116,14 @@ public class TaskList {
 
     }
 
+    /**
+     * Mark a Task as completed
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     */
     public void markTask (String input, Ui ui) {
         try {
-            // mark x commands duke to mark the corresponding task as completed
             String numericString = input.substring(input.indexOf(" ") + 1);
             int markedNum = Integer.parseInt(numericString) - 1;
             tasks.get(markedNum).setStatus(Boolean.TRUE);
@@ -95,14 +134,17 @@ public class TaskList {
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! You must input an index number \n");
         }
-
-
-
     }
 
+    /**
+     * Unmark an initially completed Task as uncompleted
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     * @throws DukeEmptyDescriptionException when no description is inputted
+     */
     public void unmarkTask (String input, Ui ui) {
         try {
-            // unmark x commands duke to mark the corresponding task as uncompleted
             String numericString = input.substring(input.indexOf(" ") + 1);
             int markedNum = Integer.parseInt(numericString) - 1;
             tasks.get(markedNum).setStatus(Boolean.FALSE);
@@ -115,34 +157,44 @@ public class TaskList {
         }
     }
 
-
-    public void findTask (String input, Ui ui) throws EmptyDescriptionException {
+    /**
+     * Find matched tasks in Tasks whose description match the search phrase
+     *
+     * @param input User input line
+     * @param ui Instance of Ui
+     * @throws DukeEmptyDescriptionException when no description is inputted
+     */
+    public void findTask (String input, Ui ui) throws DukeEmptyDescriptionException {
         try {
             String [] splitInput = input.split(" ");
             if (splitInput.length == 1) {
-                throw new EmptyDescriptionException();
+                throw new DukeEmptyDescriptionException();
             } else if (splitInput.length > 2) {
-                throw new UnknownInputException();
+                throw new DukeUnknownInputException();
             }
             // print to CLI
             ui.printMatchedTasks(tasks, splitInput[1]);
-        } catch (UnknownInputException e) {
+        } catch (DukeUnknownInputException e) {
             System.out.println("OOPS!! Duke can only handle one search word!!\n");
         }
     }
 
-
-
+    /**
+     * Returns tasks' size
+     *
+     * @return Integer of the Size of Task
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Return a Task
+     * @param i index of the Task to be returned
+     * @return Task
+     */
     public Task getTask(int i) {
         return tasks.get(i);
-    }
-
-    public void removeTask(int i) {
-        tasks.remove(i);
     }
 
 }
