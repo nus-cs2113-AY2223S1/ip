@@ -1,7 +1,7 @@
 package duke;
 
 import duke.exception.EmptyDescriptionException;
-import duke.exception.NoSpecficTimeException;
+import duke.exception.NoSpecificTimeException;
 import duke.exception.NoSpecificDeadlineException;
 import duke.exception.TaskNumberExceedException;
 import duke.task.Deadline;
@@ -16,15 +16,20 @@ public class TaskList {
 
     protected static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void addTodo(String command) {
+    /**
+     * Adds a Todo Task.
+     *
+     * @param description The description that will be added into Todo task.
+     */
+    public static void addTodo(String description) {
         try {
-            tasks.add(new Todo(command));
+            tasks.add(new Todo(description));
             Ui.addCompleteMessage("todo");
             Storage.appendFile("todo");
         } catch (EmptyDescriptionException e) {
             System.out.println("The description cannot be empty. :/");
             System.out.println("Please re-enter the same command but with a description");
-        } catch (NoSpecficTimeException e) {
+        } catch (NoSpecificTimeException e) {
             System.out.println("Please re-enter and specify the time. :/");
         } catch (NoSpecificDeadlineException e) {
             System.out.println("Please re-enter and specify the deadline time. :/");
@@ -32,15 +37,19 @@ public class TaskList {
 
     }
 
-    public static void addDeadline(String command) {
+    /**
+     * Adds a Deadline Task.
+     * @param description The description that will be added into Deadline task.
+     */
+    public static void addDeadline(String description) {
         try {
-            tasks.add(new Deadline(command));
+            tasks.add(new Deadline(description));
             Ui.addCompleteMessage("deadline");
             Storage.appendFile("deadline");
         } catch (EmptyDescriptionException e) {
             System.out.println("The description cannot be empty. :/");
             System.out.println("Please re-enter the same command but with a description");
-        } catch (NoSpecficTimeException e) {
+        } catch (NoSpecificTimeException e) {
             System.out.println("Please re-enter and specify the time. :/");
         } catch (NoSpecificDeadlineException e) {
             System.out.println("Please re-enter and specify the deadline time. :/");
@@ -48,15 +57,20 @@ public class TaskList {
 
     }
 
-    public static void addEvent(String command) {
+    /**
+     * Adds an Event Task.
+     *
+     * @param description The description that will be added into Event task.
+     */
+    public static void addEvent(String description) {
         try {
-            tasks.add(new Event(command));
+            tasks.add(new Event(description));
             Ui.addCompleteMessage("event");
             Storage.appendFile("event");
         } catch (EmptyDescriptionException e) {
             System.out.println("The description cannot be empty. :/");
             System.out.println("Please re-enter the same command but with a description");
-        } catch (NoSpecficTimeException e) {
+        } catch (NoSpecificTimeException e) {
             System.out.println("Please re-enter and specify the time. :/");
         } catch (NoSpecificDeadlineException e) {
             System.out.println("Please re-enter and specify the deadline time. :/");
@@ -64,6 +78,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks a task indicated by the user.
+     *
+     * @param taskNumber The task number that will be marked.
+     * @throws TaskNumberExceedException When the number indicated exceed the size of the task.
+     * @throws IOException When there is an error writing to the file.
+     */
     public static void markTask(int taskNumber) throws TaskNumberExceedException, IOException {
         boolean isValidTaskNumber = taskNumber <= TaskList.tasks.size();
         if (!isValidTaskNumber) {
@@ -76,6 +97,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list of task.
+     *
+     * @param taskNumber The task number that will be deleted from the list.
+     * @throws TaskNumberExceedException When the number indicated exceed the size of the task.
+     * @throws IOException When there is an error writing to the file.
+     */
     public static void deleteTask(int taskNumber) throws TaskNumberExceedException, IOException {
         boolean isValidTaskNumber = taskNumber <= TaskList.tasks.size();
         if (!isValidTaskNumber) {
@@ -90,6 +118,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Unmarks a task indicated by the user.
+     *
+     * @param taskNumber The task number that will be unmarked.
+     * @throws TaskNumberExceedException When the number indicated exceed the size of the task.
+     * @throws IOException When there is an error writing to the file.
+     */
     public static void unmarkTask(int taskNumber) throws TaskNumberExceedException, IOException {
         boolean isValidTaskNumber = taskNumber <= TaskList.tasks.size();
         if (!isValidTaskNumber) {

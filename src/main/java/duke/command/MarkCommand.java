@@ -1,17 +1,28 @@
 package duke.command;
 
 import duke.TaskList;
-import duke.command.Command;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.TaskNumberExceedException;
 
+
 public class MarkCommand extends Command {
 
+    /**
+     * Initialises default state of mark command and execute the operations.
+     * @param commands User input indicating the command and task number to mark.
+     * @throws EmptyDescriptionException If commands length is 1.
+     */
     public MarkCommand(String[] commands) throws EmptyDescriptionException {
         super();
         executeCommand(commands);
     }
 
+    /**
+     * Marks the task that is indicated by the user.
+     *
+     * @param commands User input that contains command and task to be marked.
+     * @throws EmptyDescriptionException If commands length is 1.
+     */
     @Override
     public void executeCommand(String[] commands) throws EmptyDescriptionException {
         boolean isEmpty = commands.length == 1;
