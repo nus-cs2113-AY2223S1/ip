@@ -34,6 +34,9 @@ public class Parser {
             case "delete":
                 command = new DeleteCommand(input);
                 break;
+            case "find":
+                command = new FindCommand(input);
+                break;
             case "bye":
                 command = new ByeCommand();
                 break;

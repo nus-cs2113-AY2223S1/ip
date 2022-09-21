@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.Ui;
 import duke.exception.EmptyDescriptionException;
+import duke.exception.UnknownInputException;
 
 import java.util.ArrayList;
 
@@ -112,8 +113,22 @@ public class TaskList {
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! You must input an index number \n");
         }
+    }
 
 
+    public void findTask (String input, Ui ui) throws EmptyDescriptionException {
+        try {
+            String [] splitInput = input.split(" ");
+            if (splitInput.length == 1) {
+                throw new EmptyDescriptionException();
+            } else if (splitInput.length > 2) {
+                throw new UnknownInputException();
+            }
+            // print to CLI
+            ui.printMatchedTasks(tasks, splitInput[1]);
+        } catch (UnknownInputException e) {
+            System.out.println("OOPS!! Duke can only handle one search word!!\n");
+        }
     }
 
 

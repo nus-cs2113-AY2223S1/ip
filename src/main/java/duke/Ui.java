@@ -80,6 +80,18 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
+    public void printMatchedTasks(ArrayList<Task> tasks, String searchPhrase) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskDescription = tasks.get(i).getDescription();
+            boolean isMatch = taskDescription.indexOf(searchPhrase) !=-1? true: false;
+            if (isMatch) {
+                System.out.println(i + 1 + ". " + tasks.get(i));
+            }
+        }
+        System.out.println();
+    }
+
     public void goodbyeMessage() {
         System.out.println("Bye good friend! Hope to see you again soon!\n");
     }
