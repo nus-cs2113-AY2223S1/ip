@@ -69,7 +69,12 @@ public class Ui {
      */
     public void addTaskMessage(ArrayList<Task> tasks, Task t) {
         System.out.println("Got it. I've added this task: \n  " + t);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+        if (tasks.size() == 1) {
+            System.out.println("Now you have " + tasks.size() + " task in the list\n");
+        } else {
+            System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+        }
+
     }
 
     /**
@@ -81,7 +86,11 @@ public class Ui {
     public void deleteTaskMessage(ArrayList<Task> tasks, int taskInt) {
         System.out.println("Noted. I've removed this task: \n  " + tasks.get(taskInt));
         Integer remainingTasks = tasks.size() - 1;
-        System.out.println("Now you have " + remainingTasks + " tasks in the list\n");
+        if (remainingTasks == 1) {
+            System.out.println("Now you have " + remainingTasks + " task in the list\n");
+        } else {
+            System.out.println("Now you have " + remainingTasks + " tasks in the list\n");
+        }
     }
 
     /**
