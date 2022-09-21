@@ -22,6 +22,7 @@ public class Ui {
             + "  delete __              to delete a task\n"
             + "  mark __                to mark a task\n"
             + "  unmark __              to unmark a task\n"
+            + "  find --                to find a task]\n"
             + "  bye                    to end the Duke Application\n";
 
     private Scanner in;

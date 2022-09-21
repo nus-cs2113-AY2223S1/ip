@@ -1,26 +1,37 @@
-# duke.Duke project template
+# Duke Project
+Welcome to Duke, the leading Command-line Interface to keep track of your tasks!!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Running the application
+Run the Jar file provided!
 
-You will use this as a baseline for the individual project, as well as the team project later in the semester.
+## Command Format
 
-## Setting up in Intellij
+Duke runs on CLI commands, and the command instructions will be listed below. Users should follow this format, 
+replacing the square bracket segments (eg. **[description], [deadline], [place], [index]**) with the relevant information. 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+**1. Add a todo task to the TasksList**
+> `todo` [description]
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/duke.Duke.java` file, right-click it, and choose `Run duke.Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+**2. Add a deadline task to the TasksList**
+> `deadline` [description] `/by` [deadline] 
+
+**3. Add an event task to the TasksList**
+> `event` [description] `/at` [place] 
+
+**4. List out all tasks in TasksList**
+> `list`
+
+**5. Delete the task in index [index] of TasksList**
+> `delete` [index]
+
+**6. Mark the task in index [index] of TasksList as completed**
+> `mark` [index]
+
+**7. Unmark the task in index [index] of TasksList to make it uncompleted**
+> `unmark` [index]
+
+**8. List all tasks that match the searchPhrase **
+> `find` [searchPhrase]
+
+**9. End the Duke App**
+> `bye`
