@@ -6,22 +6,17 @@ import duke.task.TaskList;
 
 public class Duke {
 
-    private static final String filePath = "data/duke.txt";
-    private static final String fileFolder = "data";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      * Initialises UI, Storage and TaskList
-     *
-     * @param fileFolder path to the file's folder
-     * @param filePath path to the data source
      */
-    public Duke(String fileFolder, String filePath) {
+    public Duke() {
         ui = new Ui();
         try {
-            storage = new Storage(fileFolder, filePath);
+            storage = new Storage();
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showError(e.getErrorMessage());
@@ -56,7 +51,7 @@ public class Duke {
      * @param args
      */
     public static void main(String[] args) {
-        new Duke(fileFolder,filePath).run();
+        new Duke().run();
     }
 
 }

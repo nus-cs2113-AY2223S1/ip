@@ -8,37 +8,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
-    private String fileFolder;
-    private String filePath;
+    private static final String root = System.getProperty("user.dir");
+    private static final Path filePath = Paths.get(root, "data", "duke.txt");
+    private static final Path dirPath = Paths.get(root, "data");
 
     /**
      * Constructor of Storage
      *
-     * @param fileFolder path to the file's folder
-     * @param filePath path to the data file
      * @throws DukeIOException Exception thrown when IO Exception occurs
      */
-    public Storage(String fileFolder, String filePath) throws DukeIOException {
+    public Storage() throws DukeIOException {
         //create folder if needed
-        this.fileFolder = fileFolder;
-        this.filePath = filePath;
-
-        try {
-            File folder = new File(fileFolder);
-            if (!folder.exists()) {
-                folder.mkdir();
+        try{
+            File fileDirectory = new File(dirPath.toString());
+            if (!fileDirectory.exists()) {
+                fileDirectory.mkdir();
             }
 
-            //create file if needed
-            File f = new File(filePath);
-            if (!f.exists()) {
-                f.createNewFile();
-            }
+            File dataFile = new File(filePath.toString());
+            dataFile.createNewFile();
         } catch (IOException e) {
             throw new DukeIOException();
         }
@@ -53,7 +48,7 @@ public class Storage {
     public ArrayList<Task> load() throws DukeFileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File dataFile = new File(filePath);
+            File dataFile = new File(filePath.toString());
             Scanner scanner = new Scanner(dataFile);
 
             while (scanner.hasNext()) {
@@ -94,7 +89,7 @@ public class Storage {
      */
     public void writeToFile(TaskList tasks) throws DukeIOException {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(filePath.toString());
             String textToAdd = "";
             for (int i = 0; i < tasks.getSize(); i++) {
                 textToAdd = textToAdd + tasks.getTask(i).getSavedString() + System.lineSeparator();
