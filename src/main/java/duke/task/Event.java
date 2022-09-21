@@ -1,16 +1,20 @@
 package duke.task;
 
 import duke.exception.EmptyDescriptionException;
-import duke.exception.NoSpecficTimeException;
+import duke.exception.NoSpecificTimeException;
 import duke.exception.NoSpecificDeadlineException;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Event extends Task {
-    private static String filePath = "test.txt";
 
-    public Event(String task) throws EmptyDescriptionException, NoSpecificDeadlineException, NoSpecficTimeException {
+    /**
+     * Constructs the event task.
+     *
+     * @param task The task to be store in the list of task.
+     * @throws EmptyDescriptionException If task is empty
+     * @throws NoSpecificDeadlineException If /by is not specified for deadline task
+     * @throws NoSpecificTimeException If /at is not specified for event task.
+     */
+    public Event(String task) throws EmptyDescriptionException, NoSpecificDeadlineException, NoSpecificTimeException {
         // Call constructor for superclass and change formatting to brackets
         super(task.replace("/at", "(at:") + ")");
     }

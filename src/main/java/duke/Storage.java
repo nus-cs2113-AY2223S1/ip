@@ -1,7 +1,7 @@
 package duke;
 
 import duke.exception.EmptyDescriptionException;
-import duke.exception.NoSpecficTimeException;
+import duke.exception.NoSpecificTimeException;
 import duke.exception.NoSpecificDeadlineException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -13,17 +13,27 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private final static String directory = "./data/";
-    private final static String filePath = "./data/duke.txt";
+    private final static String DIRECTORY = "./data/";
+    private final static String FILE_PATH = "./data/duke.txt";
+    private final static String TODO_SHORTCUT = "T";
+    private final static String EVENT_SHORTCUT = "E";
+    private final static String DEADLINE_SHORTCUT = "D";
+    private final static String UNMARKED_INDICATOR = "0";
+    private final static String MARKED_INDICATOR = "1";
 
+    /**
+     * Creates file and directory if it does not exist.
+     *
+     * @throws IOException When creating directory or file results in an error.
+     */
     public Storage() throws IOException {
-        File dir = new File(directory);
+        File dir = new File(DIRECTORY);
         boolean isExist = dir.exists();
         if (!isExist) {
             dir.mkdir();
         }
 
-        File f = new File(filePath);
+        File f = new File(FILE_PATH);
         boolean hasFile = f.exists();
         if (hasFile) {
             Scanner s = new Scanner(f);
@@ -41,25 +51,33 @@ public class Storage {
         }
     }
 
-    public static void importTask(String taskType, String command, boolean isMark) {
-        boolean isTodo = taskType.contains("T");
-        boolean isEvent = taskType.contains("E");
-        boolean isDeadline = taskType.contains("D");
+    /**
+     * Imports the task that is stored in text file back to the list of task when ran.
+     *
+     * @param taskType A string indicate the type of task.
+     * @param description The description of the task that is imported.
+     * @param isMark A boolean to indicate whether the task is marked.
+     */
+    public static void importTask(String taskType, String description, boolean isMark) {
+        boolean isTodo = taskType.contains(TODO_SHORTCUT);
+        boolean isEvent = taskType.contains(EVENT_SHORTCUT);
+        boolean isDeadline = taskType.contains(DEADLINE_SHORTCUT);
 
+        // Import the task to the specific type according to the type.
         try {
             if (isTodo) {
-                TaskList.tasks.add(new Todo(command));
+                TaskList.tasks.add(new Todo(description));
             } else if (isDeadline) {
-                TaskList.tasks.add(new Deadline(command));
+                TaskList.tasks.add(new Deadline(description));
             } else if (isEvent){
-                TaskList.tasks.add(new Event(command));
+                TaskList.tasks.add(new Event(description));
             }
 
         } catch (EmptyDescriptionException emptyException) {
             System.out.println("OOPS!!! The description cannot be empty.");
         } catch (NoSpecificDeadlineException e) {
             System.out.println("You did not enter the deadline. Please re-enter the deadline by including '/by'.");
-        } catch (NoSpecficTimeException e) {
+        } catch (NoSpecificTimeException e) {
             System.out.println("You did not specify the time for the event. Please re-enter the event by including '/at'. ");
         }
 
@@ -69,14 +87,24 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the line indicated when user calls a mark or unmark operation.
+     *
+     * @param command A command indicating whether it's 'mark' or 'unmark'
+     * @param index The index of which the statement need to be updated.
+     * @throws IOException If there is an error when writing to the file.
+     */
     public static void updateLine(String command, int index) throws IOException {
-        File f = new File(filePath);
+        File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         String text = "";
         int currentIndex = 0;
+
         while (s.hasNext()) {
             String currentLine = s.nextLine();
-            if (index == currentIndex) {
+
+            boolean isCurrentIndex = index == currentIndex;
+            if (isCurrentIndex) {
                 text += changeMarkValue(currentLine, command) + System.lineSeparator();
             } else {
                 text += currentLine + System.lineSeparator();
@@ -84,48 +112,78 @@ public class Storage {
             currentIndex += 1;
         }
 
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILE_PATH);
         fw.write(text);
         fw.close();
     }
 
+    /**
+     * Changes the marked value of the file.
+     *
+     * @param currentLine The line of which marked value will be changed.
+     * @param markOrUnmark A string containing either "mark" or "unmark"
+     * @return The string of which mark value is changed.
+     */
     public static String changeMarkValue(String currentLine, String markOrUnmark) {
         if (markOrUnmark.equals("mark")) {
-            return currentLine.replace(" | 0 | ", " | 1 | ");
+            String oldString = " | " + UNMARKED_INDICATOR + " | ";
+            String newString = " | " + MARKED_INDICATOR + " | ";
+            return currentLine.replace(oldString, newString);
         }
-        return currentLine.replace(" | 1 | ", " | 0 | ");
+        String oldString = " | " + UNMARKED_INDICATOR + " | ";
+        String newString = " | " + MARKED_INDICATOR + " | ";
+        return currentLine.replace(newString, oldString);
     }
 
+    /**
+     * Deletes the specified line from the file.
+     *
+     * @param index The line that will be deleted.
+     * @throws IOException When there is an error when writing to the file.
+     */
     public static void deleteLine(int index) throws IOException {
-        File f = new File(filePath);
+        File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         String text = "";
         int currentIndex = 0;
         while (s.hasNext()) {
             String currentLine = s.nextLine();
-            if (index != currentIndex) {
+            boolean isNotCurrentLine = index != currentIndex;
+
+            if (isNotCurrentLine) {
                 text += currentLine + System.lineSeparator();
             }
             currentIndex += 1;
         }
 
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILE_PATH);
         fw.write(text);
         fw.close();
     }
 
+
+    /**
+     * Appends a new line to the file.
+     *
+     * @param taskType The type of the task to be appended.
+     */
     public static void appendFile(String taskType) {
         try {
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+
+            // Get the latest task added to the list.
             int lastIndex = TaskList.tasks.size() - 1;
             String appendTask = TaskList.tasks.get(lastIndex).getTask();
 
             if (taskType.equals("todo")) {
-                fw.write("T | 0 | " + appendTask + System.lineSeparator());
+                String text = TODO_SHORTCUT + " | " + UNMARKED_INDICATOR + " | " + appendTask + System.lineSeparator();
+                fw.write(text);
             } else if (taskType.equals("deadline")) {
-                fw.write("D | 0 | " + appendTask + System.lineSeparator());
+                String text = DEADLINE_SHORTCUT + " | " + UNMARKED_INDICATOR + " | " + appendTask + System.lineSeparator();
+                fw.write(text);
             } else {
-                fw.write("E | 0 | " + appendTask + System.lineSeparator());
+                String text = EVENT_SHORTCUT + " | " + UNMARKED_INDICATOR + " | " + appendTask + System.lineSeparator();
+                fw.write(text);
             }
             fw.close();
 
