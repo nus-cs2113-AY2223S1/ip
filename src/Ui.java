@@ -46,6 +46,10 @@ public class Ui{
         System.out.println(FILE_NOT_FOUND);
     }
 
+    /**
+     * display the entire list of tasks to the user
+     * @param tasks list of all the tasks the user has added
+     */
     public void showList(List<Task> tasks) {
         int itemNumber = 1;
         System.out.println(LINE + "Here are your list of tasks:");
@@ -55,6 +59,13 @@ public class Ui{
         }
         System.out.println(LINE);
     }
+
+    /**
+     * Display the number of tasks that include the specified keyword, and their corresponding
+     * ranking in the list
+     * @param tasks list of all the tasks the user has added
+     * @param keyword word specified by the user to be searched for
+     */
     public void showMatchedTasks(List<Task> tasks, String keyword) {
         System.out.println(LINE + "Here are the list of matching tasks:");
         int count = 0;
@@ -90,7 +101,8 @@ public class Ui{
     public void addTaskMessage(Task task, List<Task> tasks) {
         System.out.println(
             LINE +
-            "Noted. Following task has been added: " + '\n' + task.getDescriptionAndStatus() + "\n" +
+            "Noted. Following task has been added: " + '\n' +
+            task.getDescriptionAndStatus() + "\n" +
             "Total tasks in list: " + tasks.size() + '\n' +
             LINE
         );

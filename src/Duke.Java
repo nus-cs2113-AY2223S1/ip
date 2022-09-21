@@ -7,14 +7,14 @@ public class Duke{
     public static final String BYE = "bye";
     public static final String DEFAULT_STORAGE_FILEPATH = "./data.txt";
     public static final int TASK = 0;
-    public Duke() {
+    private Duke() {
         ui = new Ui();
         ui.greet();
         parse = new Parser();
         storage = new Storage(DEFAULT_STORAGE_FILEPATH);
         taskList = new TaskList(storage.loadFileData());
     }
-    public void run() {
+    private void run() {
         String input = ui.userCommand().trim();
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);

@@ -3,6 +3,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser extends Constants{
+    /**
+     * Takes in a task stored in the data file and convert it to be stored
+     * in the Duke bot's list if tasks
+     * @param task get task written in file format
+     * @return converted task based on its type
+     * @throws Error if task in file is in the wrong format and cannot be converted
+     */
     public Task taskFromFile(String task) throws Error {
         String[] reconstruct = task.split(" \\| ");
         switch (reconstruct[0]) {
@@ -16,7 +23,17 @@ public class Parser extends Constants{
                 throw new Error(FILE_TASK_CONVERSION_ERROR);
         }
     }
-    public Task task(String taskType, String details) throws Error {
+
+    /**
+     * Takes in the user input to store a certain type of task, and returns the task in
+     * the correct format to be stored in the Duke bot's list of tasks
+     * @param taskType get the type of task user has specified
+     * @param details get the corresponding task description and time (if any) based on
+     *                the task type
+     * @return the specified task in the proper format to be stored
+     * @throws Error if the user inputs the task details in the wrong format
+     */
+    private Task task(String taskType, String details) throws Error {
         String[] separateDetails;
         String description;
         String time;
@@ -65,7 +82,16 @@ public class Parser extends Constants{
                 throw new Error(INVALID_COMMAND);
         }
     }
-    public void modifyTask(int index, String command, TaskList taskList, Storage storage) {
+
+    /**
+     * The function modifies the list of tasks and file contents based on the user's actions
+     * @param index determines which task on the list to be modified
+     * @param command determines the action to be done on the selected task
+     * @param taskList is the list of tasks to choose the task from
+     * @param storage is the class that handles loading of tasks from the file
+     *                and saving tasks in the file
+     */
+    private void modifyTask(int index, String command, TaskList taskList, Storage storage) {
         switch (command) {
             case MARK:
                 taskList.mark(index);
@@ -82,6 +108,12 @@ public class Parser extends Constants{
         }
     }
 
+    /**
+     * Takes in a 1 word user input and handles cases where the user has sent a command
+     * in the wrong format
+     * @param input gets the user command
+     * @param taskList is the lists of tasks to be accessed based on the user command
+     */
     public void singleCommand(String input, TaskList taskList) {
         try {
             switch (input) {
@@ -104,8 +136,17 @@ public class Parser extends Constants{
         }
     }
 
+    /**
+     * Takes in a multi-word input from the user and handles cases where
+     * the user has sent a command in the wrong format
+     * @param get the multi-word command as an array of single commands
+     * @param taskList is the lists of tasks to be accessed based on the user command
+     * @param ui is the class that deals with displaying messages to the user
+     * @param storage is the class that handles loading of tasks from the file
+     *                and saving tasks in the file
+     */
     public void multipleCommands(String[] get, TaskList taskList, Ui ui, Storage storage) {
-        switch (get[TASK]) { //if input more than 1
+        switch (get[TASK]) {
             case LIST:
                 ui.listMessage();
                 taskList.showList();
