@@ -48,6 +48,9 @@ public class Duke {
             case "deadline":
                 tasks.addDeadline(command);
                 break;
+            case "delete":
+                tasks.deleteTask(command);
+                break;
             default:
                 UnknownCommandDetection();
                 break;
