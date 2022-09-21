@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
+/** Represent Date Attribute, data can be String or LocalDate */
 public class Date implements Attributes {
 
-    private static final String PRINT_FORMAT = "dd MMM yyyy";
+    public static final String PRINT_FORMAT = "dd MMM yyyy";
     public String dateString;
     public LocalDate date;
 
+    /** Initiate Date with blank information */
     public Date(){
         this.setData("");
     }
@@ -44,6 +46,7 @@ public class Date implements Attributes {
     public boolean isValid(){
         return !this.dateString.isBlank();
     }
+    /** Check if LocalDate is null */
     public boolean isNull(){
         return this.date == null;
     }

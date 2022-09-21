@@ -1,25 +1,20 @@
 package duke.command;
 
-import java.util.ArrayList;
-
-import duke.data.task.*;
+import duke.data.task.Deadline;
 
 public class DeadlineCommand extends Command {
+    public static final String COMMAND_NAME = "deadline";
+    public static final String SYNTAX = "Syntax for deadline\n\t>>>deadline <task> / <date of deadline>";
+    public static final String MESSAGE = "Deadline added";
+    public String description;
+    public String date;
+
     public DeadlineCommand(String description, String date) {
         super(COMMAND_NAME);
         this.description = description;
         this.date = date;
     }
 
-    /*Variables*/
-    public static final String COMMAND_NAME = "deadline";
-    public static final String SYNTAX = "Syntax for deadline\n\t>>>deadline <task> / <date of deadline>";
-    public static final String MESSAGE = "Deadline added";
-
-
-    public String description;
-    public String date;
-    public ArrayList<Task> target = new ArrayList<Task>();
 
     @Override
     public CommandResult execute() {

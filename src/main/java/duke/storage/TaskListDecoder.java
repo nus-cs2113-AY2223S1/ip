@@ -1,7 +1,6 @@
 package duke.storage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import duke.data.task.Deadline;
@@ -12,12 +11,18 @@ import duke.data.task.Todo;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Represent the class that handles decoding task from a line in the file and add Task to TaskList
+ */
+
 public class TaskListDecoder {
     private static final String PARSE_LIMITER = " \\| ";
 
-    public TaskListDecoder() {
-
-    }
+    /**
+     * Read the file path and add Task based on a line in the file
+     * @param path path to file
+     * @return TaskList to be initiated 
+     */
 
     public static ArrayList<Task> decodeFile(String path) throws DecodeException, IOException {
         ArrayList<Task> taskListData = new ArrayList<>();
@@ -39,16 +44,13 @@ public class TaskListDecoder {
             String description = parsed[2];
             switch (commandWord) {
             case Todo.TYPE_TODO:
-                toAdd = new Todo(description);
-                toAdd.setIsDone(isDone);
+                toAdd = new Todo(isDone, description);
                 return toAdd;
             case Event.TYPE_EVENT:
-                toAdd = new Event(description, parsed[3]);
-                toAdd.setIsDone(isDone);
+                toAdd = new Event(isDone, description, parsed[3]);
                 return toAdd;
             case Deadline.TYPE_DEADLINE:
-                toAdd = new Deadline(description, parsed[3]);
-                toAdd.setIsDone(isDone);
+                toAdd = new Deadline(isDone, description, parsed[3]);
                 return toAdd;
             default:
                 throw new DecodeException();

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Represent the middleman class taking in user input and display command output
+ */
 
 public class TextUi {
 
@@ -16,6 +19,9 @@ public class TextUi {
     public static final int DISPLAYED_INDEX_OFFSET = 1;
     /** Format of indexed list item */
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+    /** User Prompt */
+    private static final String UI_PROMPT = ">>> ";
+
 
     public final Scanner input;
     public final PrintStream output;
@@ -25,9 +31,7 @@ public class TextUi {
         this.output = System.out;
     }
 
-    /** User Prompt */
-    public static final String UI_PROMPT = ">>> ";
-
+    /** Get command and filter blank lines */
     public String getUserCommand() {
         output.print(UI_PROMPT);
         String userInput = input.nextLine();
@@ -37,17 +41,19 @@ public class TextUi {
         return userInput;
     }
     
-    /** Ignore if empty line */
-    private boolean shouldIgnore(String userInput) {
-        return userInput.trim().isEmpty();
-    }
-    
+    /** Display various messages, separated by newline
+     *  @param messages String array of message to display
+     */
     public void showToUser(String... messages) {
         for (String m : messages) {
             output.println(m);
         }
     }
-    
+
+    /** 
+     * Wrap showToUser between top and bottom DIVIDER
+     * @param messages String array of message to display
+     */
     public void showToUserDivider(String... messages) {
         output.println(Messages.DIVIDER);
         showToUser(messages);
@@ -63,12 +69,9 @@ public class TextUi {
         this.showToUser(Messages.EXIT);
     }
 
-    public void showUnknownMessage() {
-        this.showToUserDivider(Messages.COMMAND_LISTS);
-    }
-
-
-    /** Show the result of the command to the user list of tasks involved and the message */
+    /** Show message and the target tasks affected by the command
+     * @param result CommandResult of a command 
+     */
     public void showResultToUser(CommandResult result) {
         final Optional<List<? extends Task>> resultTasks = result.getTarget();
         showToUser(result.getMessage());
@@ -111,4 +114,10 @@ public class TextUi {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
+
+    /** Ignore if empty line */
+    private boolean shouldIgnore(String userInput) {
+        return userInput.trim().isEmpty();
+    }
 }
+

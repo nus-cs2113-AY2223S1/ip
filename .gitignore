@@ -20,3 +20,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Class file
 /src/main/java/*.class
+# Storage
+storage

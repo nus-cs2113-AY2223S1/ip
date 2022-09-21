@@ -1,11 +1,13 @@
 package duke;
 
+import java.lang.RuntimeException;
 
 import duke.ui.TextUi;
 import duke.parser.Parser;
 import duke.data.tag.TaskList;
-import java.lang.RuntimeException;
-import duke.command.*;
+import duke.command.Command;
+import duke.command.CommandResult;
+import duke.command.ExitCommand;
 import duke.storage.StorageFile;
 import duke.storage.StorageFile.StorageException;
 
@@ -24,7 +26,7 @@ public class Duke {
 
 
     /** Run the program until termination */
-    public void run() {
+    private void run() {
         start();
         runCommandLoopUntilExitCommand();
         exit();
@@ -59,23 +61,31 @@ public class Duke {
             command = new Parser(taskList).parseCommand(userCommandText);
             CommandResult result = executeCommand(command);
             ui.showResultToUser(result);
-            storage.save(taskList);
+            save();
         } while (!ExitCommand.isExit(command));
     }
 
+    /** Save and catch error */
+    private void save() {
+        try{
+            storage.save(taskList);
+        } catch (StorageException e){
+            ui.showToUser(e.getMessage());
+        }
+    }
 
 
     /** Execute the command, save into the file, return the results */
 
     private CommandResult executeCommand(Command command) {
         try{
-            command.setTaskList(taskList); // Give the taskList for the command to work ont
-//            storage.save(taskList);
+            command.setTaskList(taskList); // pass the main taskList instance for the command to work on
             return command.execute();
         } catch (Exception e){
             ui.showToUser(e.getMessage());
             throw new RuntimeException(e);
         }
     }
+
 
 }

@@ -1,5 +1,6 @@
 package duke.data.task;
 
+/** Represent parent class Task */
 public abstract class Task {
     public Description description;
     public String taskType;
@@ -27,9 +28,11 @@ public abstract class Task {
         return (this.isDone() ? "[X]" : "[ ]");
     }
 
+    /** toString for viewing */
     public String toString() {
         return (this.wrapType(taskType) + this.getStatusIcon() + " " + this.description.getData());
     }
+    /** Wrap task type in bracket */
     public String wrapType(String type) {
         return "[" + type + "]";
     }

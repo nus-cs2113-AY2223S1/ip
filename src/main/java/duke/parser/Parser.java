@@ -2,19 +2,41 @@ package duke.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import duke.command.*;
+
+
 import duke.common.Messages;
-import duke.data.exceptions.*;
+import duke.data.exceptions.DukeException;
 import duke.data.tag.TaskList;
 
+import duke.command.Command;
+import duke.command.DateCommand;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.IncorrectCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.TodoCommand;
+
+
+/** Represent a class that handle the parsing of command */
 public class Parser {
     private TaskList taskList;
 
-
+    /** Parser instance take in the taskList to be manipulated */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Parse user input string
+     * @param userInput User input string
+     * @return Command and its appropriate arguments
+     */
     public Command parseCommand(String userInput) {
         String[] parsedInput = userInput.split(" ");
         if (parsedInput.length == 0) {
@@ -52,7 +74,6 @@ public class Parser {
         }
     }
 
-    /* Parse Command */
     private Command parseTodoCommand(String arguments) {
         try {
             if (arguments.equals("")) {

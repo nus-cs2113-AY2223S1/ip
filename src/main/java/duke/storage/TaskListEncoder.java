@@ -5,8 +5,17 @@ import duke.data.tag.TaskList;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represent the class that handles encode task from TaskList to file
+ */
+
 public class TaskListEncoder {
-    public static final String SEPARATOR = " | ";
+    private static final String SEPARATOR = " | ";
+
+    /** Encode the tasklist
+     * @param list tasklist to be represent in strings
+     * @return ArrayList of String (each string is a task to be saved)
+     */
 
     public static List<String> encodeList(TaskList list){
         final List<String> encodedTasks = new ArrayList<>();

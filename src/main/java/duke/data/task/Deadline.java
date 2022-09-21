@@ -1,5 +1,6 @@
 package duke.data.task;
 
+/** Represent the Deadline Task */
 public class Deadline extends Task {
     public static final String TYPE_DEADLINE = "D";
 
@@ -7,6 +8,12 @@ public class Deadline extends Task {
         super(description);
         this.date = new Date(date);
         this.taskType = TYPE_DEADLINE;
+    }
+
+    /** Initiate with isDone */
+    public Deadline(Boolean isDone, String description, String date) {
+        this(description, date);
+        this.setIsDone(isDone);
     }
 
     @Override

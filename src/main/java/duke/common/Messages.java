@@ -1,8 +1,6 @@
 package duke.common;
 
-/**
- * For Common Messages
- */
+/** Represent the messages used */
 public class Messages {
 
     public static final String PROMPT = ">>> ";
@@ -19,9 +17,4 @@ public class Messages {
     public static final String UNKNOWN_COMMAND = "Unknown Command";
 
     public static final int OFFSET = 1;
-    public static final String FILE_CREATED = "Storage file created";
-    public static final String FILE_OVERWRITTEN = "Storage file overwritten";
-    public static final String FILE_LOADED = "Storage file loaded";
-    public static final String NO_FILE = "There is no existing file!";
-    public static final String WRONG_FILE = "The data in storage file is invalid. Please delete the file!";
 }

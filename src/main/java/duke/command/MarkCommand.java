@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.data.task.*;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import duke.data.task.Task;
 
 public class MarkCommand extends Command {
     public MarkCommand(int... index) {
@@ -20,13 +20,11 @@ public class MarkCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        for (int i = 0; i < index.length; i++) {
+        for (int i = 0; i < index.length; i++) { // Mark and get target task based on index from user 
             this.taskList.data.get(index[i]).setIsDone(true);
+            target.add(this.taskList.data.get(index[i]));
         }
-        target = new ArrayList<Task>(
-                IntStream.range(0, this.taskList.data.size())
-                        .filter(i -> contains(index, i))
-                        .mapToObj(i -> this.taskList.data.get(i)).collect(Collectors.toList()));
+
         this.message = "Mark " + targetCount() + " " + printTaskPlural();
         return new CommandResult(message, target);
     }

@@ -1,5 +1,7 @@
 package duke.data.task;
 
+
+/** Represent Description Attribute */
 public class Description implements Attributes {
     public String data;
 
