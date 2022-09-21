@@ -1,8 +1,33 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
-public class Parser extends Constants{
+public class Parser{
+    public static final String TODO = "todo";
+    public static final String LIST = "list";
+    public static final String MARK = "mark";
+    public static final String UNMARK = "unmark";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String DELETE = "delete";
+    public static final String FIND = "find";
+    public static final int TASK = 0;
+    public static final int NUMBER = 1;
+    public static final int DETAILS = 1;
+    public static final String INVALID_COMMAND = "Sorry, please input a proper command!\n";
+    public static final String DEADLINE_FORMAT_ERROR = "Invalid deadline format! Please remember to add '/by' before your deadline!";
+    public static final String DEADLINE_DESCRIPTION_ERROR = "Please input a description before your deadline!";
+    public static final String EVENT_DESCRIPTION_ERROR = "Please input a description before your event timing!";
+    public static final String EVENT_FORMAT_ERROR = "Invalid event format! Please remember to add '/at' before your event timing!";
+    public static final String FILE_TASK_CONVERSION_ERROR = "Invalid task format in data file! Please check data file!";
+    public static final String DEADLINE_DATETIME_ERROR = "Please enter the date and time correctly!\n" +
+            "Include a space ' ' to separate the date and time for your deadline!";
+    public static final String EVENT_DATETIME_ERROR = "Please enter the date and time correctly!\n" +
+            "Include a space ' ' to separate the date and time for your event timing!";
+    public static final String WRONG_DATETIME_FORMAT = "Please input your date in YYYY-MM-DD format and time in HH:mm format!\n" +
+            "Make sure that HH is between 0-23 and mm is between 00-60!";
     /**
      * Takes in a task stored in the data file and convert it to be stored
      * in the Duke bot's list if tasks
@@ -23,6 +48,16 @@ public class Parser extends Constants{
                 throw new Error(FILE_TASK_CONVERSION_ERROR);
         }
     }
+    private String parseDateAndTime(String[] dateTimeDetails) {
+        String time, date;
+        LocalTime parseTime;
+        LocalDate parseDate;
+        parseDate = LocalDate.parse(dateTimeDetails[0]);
+        parseTime = LocalTime.parse(dateTimeDetails[1]);
+        date = parseDate.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy"));
+        time = parseTime.format(DateTimeFormatter.ofPattern("HH:mm a"));
+        return "(by: " + date + " " + time + ")";
+    }
 
     /**
      * Takes in the user input to store a certain type of task, and returns the task in
@@ -34,10 +69,8 @@ public class Parser extends Constants{
      * @throws Error if the user inputs the task details in the wrong format
      */
     private Task task(String taskType, String details) throws Error {
-        String[] separateDetails;
-        String description;
-        String time;
-        LocalDateTime parseTime;
+        String[] separateDetails, dateTimeDetails;
+        String description, dateAndTime;
         switch (taskType) {
             case TODO:
                 return new Todo(details, false);
@@ -49,15 +82,17 @@ public class Parser extends Constants{
                 } else if (separateDetails[0].equals("")) {
                     throw new Error(DEADLINE_DESCRIPTION_ERROR);
                 }
+                description = separateDetails[0].trim();
+                dateTimeDetails = separateDetails[1].trim().split(" ",2);
+                if (dateTimeDetails.length != 2) {
+                    throw new Error(DEADLINE_DATETIME_ERROR);
+                }
                 try {
-                    description = separateDetails[0];
-                    parseTime = LocalDateTime.parse(separateDetails[1]);
-                    time = parseTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm"));
-                    time = "(by: " + time + ")";
-                    return new Deadline(description, time, false);
+                    dateAndTime = parseDateAndTime(dateTimeDetails);
+                    return new Deadline(description, dateAndTime, false);
                 }
                 catch (DateTimeParseException error) {
-                    throw new Error(WRONG_TIME_FORMAT);
+                    System.out.println(WRONG_DATETIME_FORMAT);
                 }
 
             case EVENT:
@@ -67,22 +102,31 @@ public class Parser extends Constants{
                 } else if (separateDetails[0].equals("")) {
                     throw new Error(EVENT_DESCRIPTION_ERROR);
                 }
+                description = separateDetails[0].trim();
+                dateTimeDetails = separateDetails[1].trim().split(" ",2);
+                if (dateTimeDetails.length != 2) {
+                    throw new Error(EVENT_DATETIME_ERROR);
+                }
                 try {
-                    description = separateDetails[0];
-                    parseTime = LocalDateTime.parse(separateDetails[1]);
-                    time = parseTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm"));
-                    time = "(at: " + time + ")";
-                    return new Deadline(description, time, false);
+                    dateAndTime = parseDateAndTime(dateTimeDetails);
+                    return new Event(description, dateAndTime, false);
                 }
                 catch (DateTimeParseException error) {
-                    throw new Error(WRONG_TIME_FORMAT);
+                    System.out.println(WRONG_DATETIME_FORMAT);
                 }
 
             default:
                 throw new Error(INVALID_COMMAND);
         }
     }
-
+    private boolean checkDuplicate(Task checkTask, List<Task> tasks) {
+        for (Task task : tasks) {
+            if (checkTask.getDescription().equals(task.getDescription())) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * The function modifies the list of tasks and file contents based on the user's actions
      * @param index determines which task on the list to be modified
@@ -114,26 +158,23 @@ public class Parser extends Constants{
      * @param input gets the user command
      * @param taskList is the lists of tasks to be accessed based on the user command
      */
-    public void singleCommand(String input, TaskList taskList) {
-        try {
-            switch (input) {
-                case LIST:
-                    taskList.showList();
-                    break;
-                case UNMARK:
-                    throw new Error(UNMARK_ERROR);
-                case MARK:
-                    throw new Error(MARK_ERROR);
-                case DEADLINE:
-                    throw new Error(DELETE_ERROR);
-                case FIND:
-                    throw new Error(MISSING_KEYWORD);
-                default:
-                    throw new Error(INVALID_COMMAND);
-            }
-        } catch (Error error) {
-            System.out.println(error.getMessage());
+    public void singleCommand(String input, TaskList taskList, Ui ui) {
+        switch (input) {
+            case LIST:
+                taskList.showList();
+                break;
+            case UNMARK:
+                ui.unmarkErrorMessage();
+            case MARK:
+                ui.markErrorMessage();
+            case DEADLINE:
+                ui.deleteErrorMessage();
+            case FIND:
+                ui.missingKeywordMessage();
+            default:
+                ui.invalidCommandMessage();
         }
+
     }
 
     /**
@@ -159,18 +200,22 @@ public class Parser extends Constants{
                     modifyTask(index, get[TASK], taskList, storage);
                 }
                 catch (IndexOutOfBoundsException error) {
-                    System.out.println(OUT_OF_BOUNDS);
+                    ui.outOfBoundsMessage();
                 }
                 catch (NumberFormatException error) {
-                    System.out.println(NOT_INTEGER);
+                    ui.notIntegerMessage();
                 }
                 break;
             case DEADLINE:
             case EVENT:
             case TODO:
                 try {
-                    String details = get[DETAILS].replaceAll("\\s", "");
-                    Task task = task(get[TASK], details);
+                    Task task = task(get[TASK], get[DETAILS]);
+                    List<Task> tasks = taskList.getTaskList();
+                    if (checkDuplicate(task, tasks)) {
+                        ui.duplicateDetected();
+                        break;
+                    }
                     taskList.addTask(task);
                     storage.appendToFile(task.fileFormat());
                 }
@@ -182,8 +227,7 @@ public class Parser extends Constants{
                 taskList.showMatchedTasks(get[DETAILS]);
                 break;
             default:
-                System.out.println(INVALID_COMMAND);
-                break;
+                ui.invalidCommandMessage();
         }
     }
 }

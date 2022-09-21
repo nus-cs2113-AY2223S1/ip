@@ -19,7 +19,7 @@ public class Duke{
         while (!input.equals(BYE)) {
             String[] get = input.split(" ", 2);
             if (get.length == 1) {
-                parse.singleCommand(get[TASK], taskList);
+                parse.singleCommand(get[TASK], taskList, ui);
             }
             else {
                 parse.multipleCommands(get, taskList, ui, storage);

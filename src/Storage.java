@@ -23,7 +23,7 @@ public class Storage{
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (file.length() != 0) {
-                System.out.println("Loading existing file data...\n");
+                ui.loadListMessage();
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
                     String task = s.nextLine();
@@ -32,7 +32,7 @@ public class Storage{
                 return tasks;
             }
             else {
-                System.out.println("No existing file data...creating empty list\n");
+                ui.createNewListMessage();
                 return null;
             }
         } catch (FileNotFoundException error) {

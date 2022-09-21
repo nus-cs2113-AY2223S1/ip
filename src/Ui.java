@@ -2,6 +2,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ui{
+    public void unmarkErrorMessage() {
+        System.out.println("Please input a task number to unmark");
+    }
+    public void markErrorMessage() {
+        System.out.println("Please input a task number to mark");
+    }
+    public void deleteErrorMessage(){
+        System.out.println("Please input a task number for me to delete the task :)");
+    }
+    public void missingKeywordMessage() {
+        System.out.println("Please input a keyword to find a matching task!");
+    }
     public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public static final String BOT_LOGO =
             "Hello from\n" +
@@ -15,7 +27,6 @@ public class Ui{
         "Hello! I'm Jackson, your personal chat-bot! :)\n" +
         "What service are you looking for?\n";
     public static final String FAREWELL = "Leaving already? :( Come back soon!\n";
-    public static final String FILE_NOT_FOUND = "File not found! Please ensure file path is correct!";
     final Scanner readInput;
     public Ui() {
         readInput = new Scanner(System.in);
@@ -41,11 +52,27 @@ public class Ui{
     public void listMessage() {
         System.out.println("Do you mean 'list'?\n");
     }
-
-    public void missingFile() {
-        System.out.println(FILE_NOT_FOUND);
+    public void loadListMessage() {
+        System.out.println("Loading existing file data...\n");
     }
-
+    public void createNewListMessage() {
+        System.out.println("No existing file data...creating empty list\n");
+    }
+    public void missingFile() {
+        System.out.println("File not found! Please ensure file path is correct!");
+    }
+    public void duplicateDetected() {
+        System.out.println("This task is already in the list!");
+    }
+    public void outOfBoundsMessage() {
+        System.out.println("Sorry, there is no such task. Please input a correct number");
+    }
+    public void notIntegerMessage() {
+        System.out.println("Please input a number!");
+    }
+    public void invalidCommandMessage() {
+        System.out.println("Sorry, please input a proper command!\n");
+    }
     /**
      * display the entire list of tasks to the user
      * @param tasks list of all the tasks the user has added
