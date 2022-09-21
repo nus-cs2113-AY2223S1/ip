@@ -14,6 +14,16 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String helpGuide = "Here are some commands to start off:\n"
+            + "  todo ____              to create a todo task\n"
+            + "  deadline ____ /by ___  to create a deadline task\n"
+            + "  event ____ /at ___     to create an event task\n"
+            + "  list                   to list all tasks\n"
+            + "  delete __              to delete a task\n"
+            + "  mark __                to mark a task\n"
+            + "  unmark __              to unmark a task\n"
+            + "  bye                    to end the Duke Application\n";
+
 
     private Scanner in;
     private String input;
@@ -23,7 +33,9 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        System.out.println(helpGuide);
+
     }
 
     public String readCommand() {
