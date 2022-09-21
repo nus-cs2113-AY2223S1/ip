@@ -64,7 +64,10 @@ public class Ui {
 
     public static void printDeletedTask(int deleteNumber) {
         System.out.println("Hehe... I've deleted the task below: ");
-        System.out.println("  [T][ ] " + TaskList.tasks.get(deleteNumber).getTask());
+        String className = Ui.getClass(deleteNumber);
+        String status = TaskList.tasks.get(deleteNumber).getStatusIcon();
+        String deleteMessage = "  " + className + "[" + status + "] " + TaskList.tasks.get(deleteNumber).getTask();
+        System.out.println(deleteMessage);
     }
 
     public static void printTask(int index) {
