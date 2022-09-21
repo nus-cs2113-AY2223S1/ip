@@ -92,7 +92,7 @@ public class Parser{
                     return new Deadline(description, dateAndTime, false);
                 }
                 catch (DateTimeParseException error) {
-                    System.out.println(WRONG_DATETIME_FORMAT);
+                    throw new Error(WRONG_DATETIME_FORMAT);
                 }
 
             case EVENT:
@@ -112,7 +112,7 @@ public class Parser{
                     return new Event(description, dateAndTime, false);
                 }
                 catch (DateTimeParseException error) {
-                    System.out.println(WRONG_DATETIME_FORMAT);
+                    throw new Error(WRONG_DATETIME_FORMAT);
                 }
 
             default:
