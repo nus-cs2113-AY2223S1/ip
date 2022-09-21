@@ -27,7 +27,6 @@ public class Duke {
 
     private void runCommandUntilByeCommand() {
         this.parser = new Parser();
-        Scanner in = new Scanner(System.in);
         String command;
         do {
             command = Ui.readCommand();
@@ -52,7 +51,5 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         new Duke().run();
     }
-
-
 
 }

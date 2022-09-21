@@ -28,7 +28,6 @@ public class Parser {
         case "event":
         case "deadline":
             return new AddCommand(commands);
-
         case "list":
             return new ListCommand(commands);
         case "mark":
@@ -39,6 +38,8 @@ public class Parser {
             return new UnmarkCommand(commands);
         case "bye":
             return new ByeCommand();
+        case "find":
+            return new FindCommand(commands);
         default:
             throw new IncorrectCommandException();
         }
