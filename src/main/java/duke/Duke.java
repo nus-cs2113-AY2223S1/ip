@@ -1,7 +1,10 @@
 package duke;
 
 import duke.ui.Ui;
-import duke.ui.parser.*;
+import duke.ui.parser.Command;
+import duke.ui.parser.CommandExit;
+import duke.ui.parser.Parser;
+
 import duke.io.Storage;
 
 public class Duke {
