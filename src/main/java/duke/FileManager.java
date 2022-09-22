@@ -26,7 +26,6 @@ public class FileManager {
                 } catch (DukeException e) {
                     System.out.println("Todo not added");
                 }
-
                 break;
             case "D":
                 try {
@@ -75,7 +74,6 @@ public class FileManager {
 
     public static void addInputFileTodo(ArrayList<Task> tasks, String[] task) throws DukeException {
         tasks.add(new Todo(task[2]));
-        System.out.println(tasks.size());
         if (task[1].equals("1")) {
             tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
         }
@@ -105,7 +103,7 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

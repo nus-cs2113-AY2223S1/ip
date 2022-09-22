@@ -48,6 +48,7 @@ public class Duke {
                 System.out.println("\tBye. Hope to see you again soon!");
                 clearCurrentFile();
                 saveNewList(tasks);
+                return;
             }
             switch (type) {
             case "list":
