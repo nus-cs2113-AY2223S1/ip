@@ -3,257 +3,188 @@ package duke;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
+import duke.task.ToDo;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
-    public static final String DEADLINE_INFO_SEPARATOR = "/by";
-    public static final String DUKE_TXT = "data/duke.txt";
-    private static final Scanner SCANNER = new Scanner(System.in);
 
-    private static final String INTRO_MESSAGE = "Hello! I'm Duke";
     public static final String QUERY_COMMAND_MESSAGE = "What can I do for you?";
     public static final String PRINT_LIST_MESSAGE = "Here are the tasks in your list:";
     public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String MARK_TASK_UNDONE_MESSAGE = "Nice! I've marked this task as not done:";
     public static final String MARK_TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
-    public static final String EVENT_INFO_SEPARATOR = "/at";
 
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
+    public static final String EVENT_DESCRIPTION_SEPARATOR = " /at ";
+    public static final String DEADLINE_DESCRIPTION_SEPARATOR = " /by ";
+    public static final String DATA_DUKE_TXT = "data/duke.txt";
+    public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:";
 
-    private static String commandWord;
-    private static String commandInfo;
-    private static String description;
-    private static String time;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    private Parser parser;
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        parser = new Parser();
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
 
     public static void main(String[] args) {
-        try {
-            readDukeTxt();
-        } catch (IOException e) {
-            System.out.println("Error occurred when reading duke txt");
-        }
-        printWelcomeMessage();
+        new Duke(DATA_DUKE_TXT).run();
+    }
+
+    private void run() {
+        ui.showWelcomeMessage();
         while (true) {
-            String inputString = getUserInput();
             try {
-                executeCommand(inputString);
+                String input = ui.readCommand();
+                String[] CommandTypeAndArguments = parser.splitCommandTypeAndArguments(input);
+                String feedback = executeCommand(CommandTypeAndArguments);
+                ui.showFeedbackToUser(feedback);
+            }  catch (InvalidCommandException e) {
+                ui.showFeedbackToUser(e.getMessage());
             } catch (EmptyDescriptionException e) {
-                System.out.println(e.getExceptionDescription());
-            } catch (InvalidCommandException e) {
-                System.out.println(e.getExceptionDescription());
+                ui.showFeedbackToUser(e.getMessage());
             } catch (IOException e) {
-            System.out.println("Error writing to duke txt");
+                throw new RuntimeException(e);
             }
         }
     }
 
-    private static void readDukeTxt() throws IOException {
-        File dukeTxt = new File(DUKE_TXT);
-        File dukeTxtFolder = new File (dukeTxt.getParentFile().getAbsolutePath());
-        dukeTxtFolder.mkdir();
-        dukeTxt.createNewFile();
 
-        Scanner taskListScanner = new Scanner(dukeTxt);
-        while (taskListScanner.hasNext()) {
-            String taskString = taskListScanner.nextLine();
-            int FirstSeparatorIndex = taskString.indexOf("|");
-            int SecondSeparatorIndex = taskString.indexOf("|", FirstSeparatorIndex + 1);
-            boolean isDone = Integer.parseInt(taskString.substring(FirstSeparatorIndex + 1, SecondSeparatorIndex).trim()) == 1;
-            commandInfo = taskString.substring(SecondSeparatorIndex + 1).trim();
-            if (taskString.startsWith("T")) {
-                Todo addedToDo = new Todo(commandInfo);
-                tasks.add(addedToDo);
-            } else if (taskString.startsWith("D")) {
-                int ThirdSeparatorIndex = commandInfo.indexOf("|");
-                description = commandInfo.substring(0, ThirdSeparatorIndex).trim();
-                time = commandInfo.substring(ThirdSeparatorIndex + 1).trim();
-                Deadline addedDeadline = new Deadline(description, time);
-                tasks.add(addedDeadline);
-            } else if (taskString.startsWith("E")) {
-                int ThirdSeparatorIndex = commandInfo.indexOf("|");
-                description = commandInfo.substring(0, ThirdSeparatorIndex).trim();
-                time = commandInfo.substring(ThirdSeparatorIndex + 1).trim();
-                Event addedEvent = new Event(description, time);
-                tasks.add(addedEvent);
-            }
-            if (isDone) {
-                tasks.get(tasks.size() - 1).setIsDone(true);
-            }
-        }
-    }
-    private static void executeCommand(String inputString) throws EmptyDescriptionException, InvalidCommandException, IOException {
-        separateCommandWordAndCommandInfo(inputString);
-        switch (commandWord) {
+    private String executeCommand(String[] commandTypeAndArguments) throws EmptyDescriptionException, InvalidCommandException, IOException {
+       String commandType = commandTypeAndArguments[0];
+       String commandArguments = getCommandArguments(commandTypeAndArguments);
+        switch (commandType) {
         case "list":
-            listTasks();
-            break;
+            return executeListCommand();
         case "mark":
-            changeTaskStatus(true);
-            break;
+            return executeMark(true, commandArguments);
         case "unmark":
-            changeTaskStatus(false);
-            break;
+            return executeMark(false, commandArguments);
         case "todo":
-            createToDo();
-            break;
+            return executeCreateToDo(commandArguments);
         case "deadline":
-            handleCreateDeadlineCommand();
-            break;
+            return executeCreateDeadline(commandArguments);
         case "event":
-            handleCreateEventCommand();
-            break;
+            return executeCreateEvent(commandArguments);
         case "delete":
-            handleDelete();
-            break;
+            return executeDelete(commandArguments);
         case "bye":
             exitProgramme();
         default:
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-    private static void overWriteDukeTxt() throws IOException {
-        String newText = generateNewText();
-        writeToFile(newText);
-    }
 
-    private static void handleDelete() throws IOException {
-        int taskIndex = Integer.parseInt(commandInfo) - 1;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + tasks.get(taskIndex).getTaskInfo());
-        tasks.remove(taskIndex);
-        printTasksCount();
-        overWriteDukeTxt();
-    }
-
-    private static String generateNewText() {
-        String newText = "";
-        for (Task task : tasks) {
-            newText += task.toString();
-        }
-        return newText;
-    }
-
-    private static void writeToFile(String textToAdd) throws IOException {
-            FileWriter fileWriter = new FileWriter(Duke.DUKE_TXT);
-            fileWriter.write(textToAdd);
-            fileWriter.close();
-    }
-    private static void appendToFile(String textToAppend) throws IOException {
-            FileWriter fileWriter = new FileWriter(Duke.DUKE_TXT, true); // create a FileWriter in append mode
-            fileWriter.write(textToAppend);
-            fileWriter.close();
-    }
-    private static void separateCommandWordAndCommandInfo(String inputString) {
-        commandWord = getSubStringBeforeSeparator(inputString, " ");
-        commandInfo = getSubStringAfterSeparator(inputString, " ", 0);
-    }
-
-    private static String getSubStringAfterSeparator(String inputString, String separator, int additionalIndex) {
-        int separatorIndex = inputString.indexOf(separator);
-        if (separatorIndex == -1) {
+    private String getCommandArguments(String[] commandTypeAndArguments) {
+        if (commandTypeAndArguments.length == 1) {
             return "";
         }
-        return inputString.substring(separatorIndex + 1 + additionalIndex);
+        return commandTypeAndArguments[1];
     }
 
+    private String executeDelete(String commandArguments) throws IOException {
+        int taskIndex = Integer.parseInt(commandArguments) - 1;
+        String feedback = DELETE_TASK_MESSAGE + System.lineSeparator() + "  " + taskList.getTasks().get(taskIndex).getTaskInfo();
+        taskList.getTasks().remove(taskIndex);
+        storage.overWriteDukeTxt(taskList.getTasks());
+        return feedback + System.lineSeparator()+ getTasksCountFeedback();
+    }
 
-    private static String getSubStringBeforeSeparator(String inputString, String separator) {
-        int separatorIndex = inputString.indexOf(separator);
-        if (separatorIndex == -1) {
-            return inputString;
+    private String executeCreateEvent(String commandArguments) throws EmptyDescriptionException, IOException {
+        if (commandArguments.length() == 0) {
+            throw new EmptyDescriptionException("The description of an event cannot be empty");
         }
-        return inputString.substring(0,separatorIndex);
-    }
-
-    private static void handleCreateEventCommand() throws EmptyDescriptionException, IOException {
-        if (commandInfo.length() == 0) {
-            throw new EmptyDescriptionException("event");
+        String[] separatedArguments = getDescriptionAndTime(commandArguments, EVENT_DESCRIPTION_SEPARATOR);
+        if (separatedArguments.length < 2) {
+            throw new EmptyDescriptionException("pty");
         }
-        getDescriptionAndTime(EVENT_INFO_SEPARATOR);
-        createEvent();
+        return createEvent(separatedArguments);
     }
 
-    private static void createEvent() throws IOException {
-        Event newEvent = new Event(description, time);
-        tasks.add(newEvent);
-        newEvent.echo();
-        printTasksCount();
-        appendToFile(newEvent.toString());
+    private String createEvent(String[] separatedArguments) throws IOException {
+        Event newEvent = new Event(separatedArguments[0], separatedArguments[1]);
+        taskList.getTasks().add(newEvent);
+        storage.appendToFile(newEvent.toString());
+        return ADD_TASK_MESSAGE + System.lineSeparator() +  newEvent.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
     }
 
 
-    private static void handleCreateDeadlineCommand() throws EmptyDescriptionException, IOException {
-        if (commandInfo.length() == 0) {
-            throw new EmptyDescriptionException("deadline");
+    private String executeCreateDeadline(String commandArguments) throws EmptyDescriptionException, IOException {
+        if (commandArguments.length() == 0) {
+            throw new EmptyDescriptionException("The description  of a deadline cannot be empty");
         }
-        getDescriptionAndTime(DEADLINE_INFO_SEPARATOR);
-        createDeadline();
-    }
-
-    private static void createDeadline() throws IOException {
-        Deadline newDeadline = new Deadline(description, time);
-        tasks.add(newDeadline);
-        newDeadline.echo();
-        printTasksCount();
-        appendToFile(newDeadline.toString());
-    }
-
-    private static void createToDo() throws EmptyDescriptionException, IOException {
-        if (commandInfo.length() == 0) {
-            throw new EmptyDescriptionException("todo");
+        String[] separatedArguments = getDescriptionAndTime(commandArguments, DEADLINE_DESCRIPTION_SEPARATOR);
+        if (separatedArguments.length < 2) {
+            throw new EmptyDescriptionException("The description of a deadline cannot be empty");
         }
-        Todo newToDo = new Todo(commandInfo);
-        tasks.add(newToDo);
-        newToDo.echo();
-        printTasksCount();
-        appendToFile(newToDo.toString());
-    }
-    private static void getDescriptionAndTime(String separator) {
-        description = getSubStringBeforeSeparator(commandInfo, separator).trim();
-        time = getSubStringAfterSeparator(commandInfo, separator, 2).trim();
+        return createDeadline(separatedArguments);
     }
 
-    private static void changeTaskStatus(boolean isMarkAsDone) throws IOException {
-        int taskIndex = Integer.parseInt(commandInfo) - 1;
-        Task targetTask = tasks.get(taskIndex);
+    private String createDeadline(String[] separatedArguments) throws IOException {
+        Deadline newDeadline = new Deadline(separatedArguments[0], separatedArguments[1]);
+        taskList.getTasks().add(newDeadline);
+        storage.appendToFile(newDeadline.toString());
+        return ADD_TASK_MESSAGE + System.lineSeparator() +  newDeadline.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
+    }
+
+    private static String[] getDescriptionAndTime(String commandArguments, String deadlineInfoSeparator) {
+        return commandArguments.split(deadlineInfoSeparator);
+    }
+
+    private String executeCreateToDo(String commandArgument) throws EmptyDescriptionException, IOException {
+        if (commandArgument.length() == 0) {
+            throw new EmptyDescriptionException("The description of a todo cannot be empty.");
+        }
+        ToDo newToDo = new ToDo(commandArgument);
+        taskList.getTasks().add(newToDo);
+        storage.appendToFile(newToDo.toString());
+        String feedback = "Got it. I've added this task";
+        feedback += System.lineSeparator() + newToDo.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
+        return feedback;
+    }
+
+    private String executeMark(boolean isMarkAsDone, String commandArgument) throws IOException {
+        int taskIndex = Integer.parseInt(commandArgument) - 1;
+        Task targetTask = taskList.getTasks().get(taskIndex);
+        String feedback= "";
         if (isMarkAsDone) {
-            targetTask.setIsDone(true);
-            System.out.println(MARK_TASK_DONE_MESSAGE);
+            targetTask.setDone(true);
+            feedback = MARK_TASK_DONE_MESSAGE;
         } else {
-            targetTask.setIsDone(false);
-            System.out.println(MARK_TASK_UNDONE_MESSAGE);
+            targetTask.setDone(false);
+            feedback = MARK_TASK_UNDONE_MESSAGE;
         }
-        System.out.println("  " + targetTask.getTaskInfo());
-        overWriteDukeTxt();
+        storage.overWriteDukeTxt(taskList.getTasks());
+        feedback = feedback + System.lineSeparator() + "  " + targetTask.getTaskInfo();
+        return feedback;
     }
 
-    private static void exitProgramme() {
-        System.out.println(EXIT_MESSAGE);
+    private void exitProgramme() {
+        ui.showFeedbackToUser(EXIT_MESSAGE);
         System.exit(0);
     }
 
 
-    private static void printWelcomeMessage() {
-        System.out.println(INTRO_MESSAGE);
-        System.out.println(QUERY_COMMAND_MESSAGE);
-    }
-    private static String getUserInput() {
-        return SCANNER.nextLine();
+    private String executeListCommand() {
+        ui.showTaskList(taskList.getTasks());
+        return getTasksCountFeedback();
     }
 
-    private static void printTasksCount() {
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-    private static void listTasks() {
-        System.out.println(PRINT_LIST_MESSAGE);
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s" + System.lineSeparator() , i + 1, tasks.get(i).getTaskInfo());
-        }
+    private String getTasksCountFeedback() {
+        int taskCount = taskList.getTaskCount();
+        String taskName = taskCount < 2 ? "task" : "tasks";
+        return System.lineSeparator() + String.format("Now you have %d %s in the list.", taskCount, taskName);
     }
 
 }
