@@ -18,7 +18,7 @@ Duke is a desktop application for making todo list via Command Line interface
 - Delete tasks
 
 
-### Ignorecase
+## Ignorecase
 - Command is case non-sensitive: `DeAdLINe` is recognized as `deadline` 
 
 ### Multiple indices
