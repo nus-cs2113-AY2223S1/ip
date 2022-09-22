@@ -20,13 +20,13 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
+//    private static void printFileContents(String filePath) throws FileNotFoundException {
+//        File f = new File(filePath); // create a File for the given file path
+//        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+//        while (s.hasNext()) {
+//            System.out.println(s.nextLine());
+//        }
+//    }
 
 //    private static void writeToFile(String filePath, String textToAdd) throws IOException {
 //        FileWriter fw = new FileWriter(filePath);
@@ -34,8 +34,8 @@ public class Duke {
 //        fw.close();
 //    }
 
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+    private static void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt", true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
@@ -117,7 +117,8 @@ public class Duke {
 
             if (type.equals("bye")) {
                 System.out.println("\tBye. Hope to see you again soon!");
-                // save all tasks in list to file
+                clearCurrentList();
+                saveNewList(tasks);
             }
             switch (type) {
             case "list":
@@ -201,6 +202,49 @@ public class Duke {
                 System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } while (!line.equals("bye"));
+    }
+
+    private static void saveNewList(ArrayList<Task> tasks) {
+        try {
+            for (Task task : tasks) {
+                // if task is Todo type, append to file T | 0/1 | task description
+                String boolValue = getBoolValue(task);
+                if (task instanceof Todo) {
+                    appendToFile("T | " + boolValue + " | " + task.description + System.lineSeparator());
+                }
+                // if task is Deadline type, append to file D | 0/1 | task description | by: deadline
+                if (task instanceof Deadline) {
+                    appendToFile("D | " + boolValue + " | " + task.description + " | " + ((Deadline) task).by + System.lineSeparator());
+                }
+                // if task is Event type, append to file E | 0/1 | task description | at: event time
+                if (task instanceof Event) {
+                    appendToFile("E | " + boolValue + " | " + task.description + " | " + ((Event) task).at + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void clearCurrentList() {
+        try {
+            FileWriter fw = new FileWriter("data/duke.txt");
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static String getBoolValue(Task task) {
+        String boolValue;
+        if (task.isDone()) {
+            boolValue = "1";
+        } else {
+            boolValue = "0";
+        }
+        return boolValue;
     }
 }
 

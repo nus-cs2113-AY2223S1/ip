@@ -3,7 +3,7 @@ package duke.task;
 import duke.TaskManager;
 
 public class Task extends TaskManager {
-    protected String description;
+    public String description;
     public boolean isDone;
     
 
@@ -40,5 +40,7 @@ public class Task extends TaskManager {
 //        return getStatusIcon() ;
     }
 
-
+    public boolean isDone() {
+        return isDone;
+    }
 }

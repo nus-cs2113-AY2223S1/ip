@@ -4,7 +4,7 @@ import duke.exception.DukeException;
 
 public class Deadline extends Task {
 
-    protected String by;
+    public String by;
 
     public Deadline(String description, String by) throws DukeException {
         super(description);
