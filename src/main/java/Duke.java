@@ -42,31 +42,51 @@ public class Duke {
                 System.out.println(unmarktask);
                 System.out.println("-------------------------------------------------------------------------------");
             case "todo":
-                task = createTodo(input);
-                tasklist.add(task);
-                System.out.println("-------------------------------------------------------------------------------");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task);
-                System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                System.out.println("-------------------------------------------------------------------------------");
+                try {
+                    task = createTodo(input, inputArr);
+                    tasklist.add(task);
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task);
+                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                } catch (InvalidCommandException e){
+
+                }
                 break;
             case "deadline":
-                task = createDeadline(input);
-                tasklist.add(task);
-                System.out.println("-------------------------------------------------------------------------------");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task);
-                System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                System.out.println("-------------------------------------------------------------------------------");
+                try {
+                    task = createDeadline(input, inputArr);
+                    tasklist.add(task);
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task);
+                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                } catch (InvalidCommandException e){
+
+                } catch (StringIndexOutOfBoundsException e){
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Missing '/by' keyword after description.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                }
                 break;
             case "event":
-                task = createEvent(input);
-                tasklist.add(task);
-                System.out.println("-------------------------------------------------------------------------------");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task);
-                System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                System.out.println("-------------------------------------------------------------------------------");
+                try {
+                    task = createEvent(input, inputArr);
+                    tasklist.add(task);
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task);
+                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                } catch (InvalidCommandException e){
+
+                } catch (StringIndexOutOfBoundsException e){
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Missing '/at' keyword after description.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                }
                 break;
             default:
                 if (input.contains("unmark")){
@@ -74,21 +94,32 @@ public class Duke {
                 }
                 else{
                     System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Missing keywords, please type again.");
+                    System.out.println("Wrong command, please type again.");
                     System.out.println("-------------------------------------------------------------------------------");
                 }
         }
     }
 
 
-    public static Task createTodo(String input){
+
+    public static Task createTodo(String input, String[] inputArr) throws InvalidCommandException{
+        if (inputArr.length < 2){
+            throw new InvalidCommandException("OOPS!!! The description of a todo cannot be empty.");
+        }
         return new Todo(input.substring(5));
     }
-    public static Task createDeadline(String input){
+    public static Task createDeadline(String input, String[] inputArr) throws InvalidCommandException{
+        if (inputArr.length < 2){
+            throw new InvalidCommandException("OOPS!!! The description of a deadline cannot be empty.");
+        }
         int cutoff = input.indexOf("/by");
-        return new Deadlines(input.substring(9, cutoff - 1 ), input.substring(cutoff + 4));
+        return new Deadlines(input.substring(9, cutoff - 1), input.substring(cutoff + 4));
     }
-    public static Task createEvent(String input){
+    public static Task createEvent(String input, String[] inputArr) throws InvalidCommandException, StringIndexOutOfBoundsException{
+        if (inputArr.length < 2){
+            throw new InvalidCommandException("OOPS!!! The description of a event cannot be empty.");
+        }
+
         int cutoff = input.indexOf("/at");
         return new Events(input.substring(6, cutoff - 1), input.substring(cutoff + 4));
     }
@@ -109,9 +140,12 @@ public class Duke {
 
         String input = new String("");
 
-        while(input.contains("bye") == false){
+
+        while(!input.startsWith("bye")){
             input = in.nextLine();
             Echo(input);
+
+
         }
 
     }
