@@ -24,11 +24,11 @@ public class Duke {
 
     public void run() {
         ui.printGreeting();
-        boolean isRun = true;
-        while (isRun) {
+        boolean isRunning = true;
+        while (isRunning) {
             String line = ui.readCommand();
             Parser parser = new Parser(tasks, line, ui, storage);
-            isRun = parser.handleCommand();
+            isRunning = parser.handleCommand();
         }
     }
 

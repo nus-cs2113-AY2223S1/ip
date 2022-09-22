@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final static String logo2 = "                   _      \n"
+    private final static String logo = "                   _      \n"
             + "                  | |     \n"
             + "  _   _ _ __   ___| | ___ \n"
             + " | | | | '_ \\ / __| |/ _ |\n"
@@ -50,7 +50,7 @@ public class Ui {
      * prints greeting when program is started
      */
     public void printGreeting() {
-        printToUser("Hello I'm\n" + logo2 + System.lineSeparator() + "What you want?");
+        printToUser("Hello I'm\n" + logo + System.lineSeparator() + "What you want?");
     }
 
     /**

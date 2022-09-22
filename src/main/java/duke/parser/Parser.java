@@ -2,7 +2,11 @@ package duke.parser;
 
 import duke.DukeException;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.Task;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -55,12 +59,23 @@ public class Parser {
      * @throws DukeException if input is incomplete (input does not contain /)
      */
     private static Event prepareEvent(String input) throws DukeException {
-        if (input.length() < 7 || !input.contains("/")) {
+        if (!input.contains("/at")) {
             throw new DukeException();
         }
-        int endOfDescription = input.indexOf("/") - 1;
-        String description = input.substring(6, endOfDescription);
-        String at = input.substring(input.indexOf("/") + 4);
+        String[] command = input.split(" ", 2);
+        String[] eventInput = command[1].split("/at", 2);
+        String description = eventInput[0].trim();
+        if (description.length() == 0) {
+            throw new DukeException();
+        }
+        String at = eventInput[1].trim();
+        try {
+            LocalDate dateOfEvent = LocalDate.parse(at);
+            String eventDate = dateOfEvent.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return new Event(description, eventDate);
+        } catch (DateTimeParseException e) {
+            System.out.println("date is not of valid format and will not be treated as a date");
+        }
         return new Event(description, at);
     }
 
@@ -73,12 +88,16 @@ public class Parser {
      * @throws DukeException if input is incomplete (input does not contain /)
      */
     private static Deadline prepareDeadline(String input) throws DukeException {
-        if (input.length() < 10 || !input.contains("/")) {
+        if (!input.contains("/by")) {
             throw new DukeException();
         }
-        int endOfDescription = input.indexOf("/") - 1;
-        String description = input.substring(9, endOfDescription);
-        String by = input.substring(input.indexOf("/") + 4);
+        String[] command = input.split(" ", 2);
+        String[] deadlineInput= command[1].split("/by", 2);
+        String description = deadlineInput[0].trim();
+        if (description.length() == 0) {
+            throw new DukeException();
+        }
+        String by = deadlineInput[1].trim();
         String[] date = by.split(" ", 2);
         try {
             LocalDate dateOfDeadline = LocalDate.parse(date[0]);
@@ -86,7 +105,7 @@ public class Parser {
             return new Deadline(description, deadlineDate + " " + date[1]);
 
         } catch (DateTimeParseException e) {
-            System.out.println("date is not valid and will be treated as a string");
+            System.out.println("date is not of valid format and will not be treated as a date");
         }
         return new Deadline(description, by);
     }
@@ -171,7 +190,7 @@ public class Parser {
                 tasks.addTask(task);
                 ui.printAddTask(tasks);
             } catch (DukeException e) {
-                ui.printToUser("Please key in a valid event input (missing '/' or missing description)");
+                ui.printToUser("Please key in a valid event input (missing '/at' or missing description)");
             }
             break;
         case DEADLINE:
@@ -180,7 +199,7 @@ public class Parser {
                 tasks.addTask(task);
                 ui.printAddTask(tasks);
             } catch (DukeException e) {
-                ui.printToUser("Please key in a valid deadline input (missing '/' or missing description)");
+                ui.printToUser("Please key in a valid deadline input (missing '/by' or missing description)");
             }
             break;
         default:
@@ -189,10 +208,8 @@ public class Parser {
         try {
             String toBeAppend = task.taskToString();
             storage.appendTask(toBeAppend);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             ui.printError("cannot update file");
-        } catch (NullPointerException e) {
-            ui.printError("error finding task");
         }
     }
 
@@ -222,7 +239,7 @@ public class Parser {
     private void unmarkCommand() {
         try {
             int taskNum = prepareUnmark(input);
-            tasks.findTask(taskNum).markDone();
+            tasks.findTask(taskNum).markUndone();
             ui.printUnmarkTask(tasks, taskNum);
             storage.writeFile(tasks);
         } catch (DukeException e) {
@@ -277,12 +294,12 @@ public class Parser {
     }
 
     /**
-     * function to handle the command input by user and returns false if case: BYE to exit the program else return true
-     * parses the input and carries out command based on the user input
+     * Function to handle the command input by user, parses the input and carries out command based on the user input
+     * if case: BYE returns false to exit the program, else return true
      * @return a boolean isRun. False if case: bye, otherwise returns true
      */
     public boolean handleCommand() {
-        boolean isRun = true;
+        boolean isRunning = true;
         String[] command = input.split(" ", 2);
         switch (command[0]) {
         case TODO:
@@ -306,12 +323,12 @@ public class Parser {
             findCommand();
             break;
         case BYE:
-            isRun = exitCommand();
+            isRunning = exitCommand();
             break;
         default:
             ui.printError("what are you saying?");
             break;
         }
-        return isRun;
+        return isRunning;
     }
 }

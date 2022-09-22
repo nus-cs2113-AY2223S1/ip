@@ -37,7 +37,6 @@ public class Storage {
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
-            //System.out.println(s.nextLine());
             String toBeConverted = s.nextLine();
             Task task = stringToTask(toBeConverted);
             tasks.add(task);
@@ -100,7 +99,9 @@ public class Storage {
             StringBuilder toWrite = new StringBuilder(tasks.findTask(0).taskToString());
             toWrite.append(System.lineSeparator());
             for (int i = 1; i < tasks.getSize(); i += 1) {
-                toWrite.append(tasks.findTask(i).taskToString()).append(System.lineSeparator());
+                Task taskToAppend = tasks.findTask(i);
+                String stringToAppend = taskToAppend.taskToString();
+                toWrite.append(stringToAppend).append(System.lineSeparator());
             }
             String directory = filePath.substring(0, filePath.lastIndexOf("/"));
             new File(directory).mkdir();
