@@ -7,6 +7,7 @@
 4. Using the terminal, change directory to the folder containing the JAR file.
 5. Run the JAR file using the following command: `java -jar CS2113-ip.jar`
 6. You should see the following output printed:
+
 ```
 Hello I'm
                    _      
