@@ -1,5 +1,8 @@
 package Duke;
 
+import Duke.Exception.UnknownCommandException;
+import Duke.Exception.EmptyArgumentException;
+
 public class InputParser {
 
     private String userCommand;
@@ -47,7 +50,7 @@ public class InputParser {
         return new String[]{ descriptionMain , descriptionOption };
     }
 
-    public void parseUserInput(String userInput) throws UnknownCommandException, DukeException {
+    public void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
         final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
         String[] inputSplitBySpace = userInput.split(" ", NUM_CMD_SPLIT);
@@ -55,13 +58,14 @@ public class InputParser {
         userCommand = inputSplitBySpace[0];
 
         if (!isValidCommand()) {
-            throw new UnknownCommandException();
+            throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         if (!isCorrectInput(inputSplitBySpace) ) {
-            throw new DukeException();
+            throw new EmptyArgumentException("☹ OOPS!!! The description cannot be empty.");
         }
 
+        //if the particular command requires arguments
         if ( inputSplitBySpace.length > 1) {
             inputBuffer = inputSplitBySpace[1];
         }

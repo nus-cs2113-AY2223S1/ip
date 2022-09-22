@@ -1,6 +1,8 @@
 package Duke;
 
-import java.io.IOException;
+import Duke.Exception.DukeException;
+import Duke.Exception.UnknownCommandException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,38 +35,41 @@ public class Duke {
     public static InputParser parser = new InputParser();
 
     //need to refactor to remove redundant inputs
-    public static ArrayList<String> userSessionInput = new ArrayList<String>();
+    public static ArrayList<String> userSessionInput = new ArrayList<>();
 
     public static void executeUserInput() throws UnknownCommandException {
         String command = parser.getCommand();
         String[] parameters = parser.getTaskParameters();
 
-        switch (command) {
-            case ("list"):
-                taskManager.listAllTask();
-                break;
-            case ("mark"):
-                taskManager.setTask(Integer.parseInt(parameters[0]) - 1, true);
-                break;
-            case ("unmark"):
-                taskManager.setTask(Integer.parseInt(parameters[0]) - 1, false);
-                break;
-            case ("delete"):
-                taskManager.deleteTask(Integer.parseInt(parameters[0]) - 1);
-                break;
-            case ("todo"):
-                taskManager.addTodo(parameters[0]);
-                break;
-            case ("deadline"):
-                taskManager.addDeadline(parameters[0], parameters[1]);
-                break;
-            case ("event"):
-                taskManager.addEvent(parameters[0], parameters[1]);
-                break;
-            default:
-                throw new UnknownCommandException();
+        try {
+            switch (command) {
+                case ("list"):
+                    taskManager.listAllTask();
+                    break;
+                case ("mark"):
+                    taskManager.setTask(Integer.parseInt(parameters[0]) - 1, true);
+                    break;
+                case ("unmark"):
+                    taskManager.setTask(Integer.parseInt(parameters[0]) - 1, false);
+                    break;
+                case ("delete"):
+                    taskManager.deleteTask(Integer.parseInt(parameters[0]) - 1);
+                    break;
+                case ("todo"):
+                    taskManager.addTodo(parameters[0]);
+                    break;
+                case ("deadline"):
+                    taskManager.addDeadline(parameters[0], parameters[1]);
+                    break;
+                case ("event"):
+                    taskManager.addEvent(parameters[0], parameters[1]);
+                    break;
+                default:
+                    throw new UnknownCommandException("Error: Unknown Command");
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getErrorMessage());
         }
-
     }
 
     public static void loadPastSession(){
@@ -76,16 +81,12 @@ public class Duke {
             try {
                 parser.parseUserInput(userInput);
                 executeUserInput();
-            } catch (UnknownCommandException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (DukeException e) {
-                System.out.println("☹ OOPS!!! The description cannot be empty.");
+                System.out.println(e.getErrorMessage());
             }
         }
 
-        for(var pastCommand: pastData) {
-            userSessionInput.add(pastCommand);
-        }
+        userSessionInput.addAll(pastData);
 
         taskManager.setHasLoaded(true);
     }
@@ -118,10 +119,8 @@ public class Duke {
             try {
                 parser.parseUserInput(userInput);
                 executeUserInput();
-            } catch (UnknownCommandException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (DukeException e) {
-                System.out.println("☹ OOPS!!! The description cannot be empty.");
+                System.out.println(e.getErrorMessage());
             }
             userInput = sc.nextLine();
         }

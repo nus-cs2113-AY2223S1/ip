@@ -1,4 +1,7 @@
 package Duke;
+
+import Duke.Exception.TaskNotFoundException;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -98,7 +101,7 @@ public class TaskManager {
         }
     }
 
-    public void setTask(int taskIndex, boolean isDone) {
+    public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
         final String MESSAGE_DONE = "Nice! I've marked this task as done:";
         final String MESSAGE_NOT_DONE = "OK, I've marked this task as not done yet:";
         final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
@@ -107,8 +110,7 @@ public class TaskManager {
 
         if (hasLoadHistory) {
             if (taskIndex > taskCount) { //to add exception here
-                System.out.println(ERROR_OUT_OF_BOUND);
-                return;
+                throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
             }
 
             if (isDone) {
