@@ -6,6 +6,12 @@ public class Deadline extends Task{
         super(description);
         this.by = by;
     }
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";

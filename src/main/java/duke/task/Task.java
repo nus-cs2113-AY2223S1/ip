@@ -8,6 +8,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String getDescription();
+
     public abstract String getTaskInfo();
 
     public abstract void setDone(boolean isDone);

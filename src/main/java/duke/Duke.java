@@ -6,12 +6,11 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Duke {
 
-    public static final String QUERY_COMMAND_MESSAGE = "What can I do for you?";
-    public static final String PRINT_LIST_MESSAGE = "Here are the tasks in your list:";
-    public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String MARK_TASK_UNDONE_MESSAGE = "Nice! I've marked this task as not done:";
     public static final String MARK_TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
 
@@ -21,11 +20,11 @@ public class Duke {
     public static final String DATA_DUKE_TXT = "data/duke.txt";
     public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:";
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
 
-    private Parser parser;
+    private final Parser parser;
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -50,9 +49,7 @@ public class Duke {
                 String[] CommandTypeAndArguments = parser.splitCommandTypeAndArguments(input);
                 String feedback = executeCommand(CommandTypeAndArguments);
                 ui.showFeedbackToUser(feedback);
-            }  catch (InvalidCommandException e) {
-                ui.showFeedbackToUser(e.getMessage());
-            } catch (EmptyDescriptionException e) {
+            }  catch (InvalidCommandException | EmptyDescriptionException e) {
                 ui.showFeedbackToUser(e.getMessage());
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -79,10 +76,30 @@ public class Duke {
             return executeCreateEvent(commandArguments);
         case "delete":
             return executeDelete(commandArguments);
+        case "find":
+            return executeFind(commandArguments);
         case "bye":
             exitProgramme();
         default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private String executeFind(String commandArguments) throws EmptyDescriptionException {
+        handleEmptyDescriptionException(commandArguments.length() == 0, "The description of a find command cannot be empty.");
+        ArrayList<Task> filteredTasks = getFilteredTasks(commandArguments);
+        ui.showMatchingTasks(filteredTasks);
+        return "";
+    }
+
+    private ArrayList<Task> getFilteredTasks(String commandArguments) {
+        return (ArrayList<Task>) taskList.getTasks().stream()
+                .filter(t -> t.getDescription().contains(commandArguments)).collect(Collectors.toList());
+    }
+
+    private static void handleEmptyDescriptionException(boolean commandArguments, String message) throws EmptyDescriptionException {
+        if (commandArguments) {
+            throw new EmptyDescriptionException(message);
         }
     }
 
@@ -102,13 +119,9 @@ public class Duke {
     }
 
     private String executeCreateEvent(String commandArguments) throws EmptyDescriptionException, IOException {
-        if (commandArguments.length() == 0) {
-            throw new EmptyDescriptionException("The description of an event cannot be empty");
-        }
+        handleEmptyDescriptionException(commandArguments.length() == 0, "The description of an event cannot be empty");
         String[] separatedArguments = getDescriptionAndTime(commandArguments, EVENT_DESCRIPTION_SEPARATOR);
-        if (separatedArguments.length < 2) {
-            throw new EmptyDescriptionException("pty");
-        }
+        handleEmptyDescriptionException(separatedArguments.length < 2, "The description of an event cannot be empty");
         return createEvent(separatedArguments);
     }
 
@@ -121,13 +134,9 @@ public class Duke {
 
 
     private String executeCreateDeadline(String commandArguments) throws EmptyDescriptionException, IOException {
-        if (commandArguments.length() == 0) {
-            throw new EmptyDescriptionException("The description  of a deadline cannot be empty");
-        }
+        handleEmptyDescriptionException(commandArguments.length() == 0, "The description  of a deadline cannot be empty");
         String[] separatedArguments = getDescriptionAndTime(commandArguments, DEADLINE_DESCRIPTION_SEPARATOR);
-        if (separatedArguments.length < 2) {
-            throw new EmptyDescriptionException("The description of a deadline cannot be empty");
-        }
+        handleEmptyDescriptionException(separatedArguments.length < 2, "The description of a deadline cannot be empty");
         return createDeadline(separatedArguments);
     }
 
@@ -143,21 +152,17 @@ public class Duke {
     }
 
     private String executeCreateToDo(String commandArgument) throws EmptyDescriptionException, IOException {
-        if (commandArgument.length() == 0) {
-            throw new EmptyDescriptionException("The description of a todo cannot be empty.");
-        }
+        handleEmptyDescriptionException(commandArgument.length() == 0, "The description of a todo cannot be empty.");
         ToDo newToDo = new ToDo(commandArgument);
         taskList.getTasks().add(newToDo);
         storage.appendToFile(newToDo.toString());
-        String feedback = "Got it. I've added this task";
-        feedback += System.lineSeparator() + newToDo.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
-        return feedback;
+        return ADD_TASK_MESSAGE + System.lineSeparator() + newToDo.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
     }
 
     private String executeMark(boolean isMarkAsDone, String commandArgument) throws IOException {
         int taskIndex = Integer.parseInt(commandArgument) - 1;
         Task targetTask = taskList.getTasks().get(taskIndex);
-        String feedback= "";
+        String feedback;
         if (isMarkAsDone) {
             targetTask.setDone(true);
             feedback = MARK_TASK_DONE_MESSAGE;
@@ -171,14 +176,14 @@ public class Duke {
     }
 
     private void exitProgramme() {
-        ui.showFeedbackToUser(EXIT_MESSAGE);
+        ui.showExitMessage();
         System.exit(0);
     }
 
 
     private String executeListCommand() {
         ui.showTaskList(taskList.getTasks());
-        return getTasksCountFeedback();
+        return "";
     }
 
     private String getTasksCountFeedback() {

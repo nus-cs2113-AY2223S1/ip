@@ -6,6 +6,12 @@ public class Event extends Task{
         super(description);
         this.time = time;
     }
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";

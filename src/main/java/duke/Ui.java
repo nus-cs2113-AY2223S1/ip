@@ -11,8 +11,10 @@ public class Ui {
 
     public static final String PRINT_LIST_MESSAGE = "Here are the tasks in your list:";
 
+    public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+
     public static final String LINE_DIVIDER = "____________________________________________________________";
-    private Scanner scanner;
+    private final Scanner scanner;
     public Ui() {
         scanner =new Scanner(System.in);
     }
@@ -33,12 +35,15 @@ public class Ui {
     }
 
     public String readCommand() {
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     public void showFeedbackToUser(String result) {
-        printOutput(result, LINE_DIVIDER);
+        if (result.length() == 0) {
+            printOutput(LINE_DIVIDER);
+        } else {
+            printOutput(result, LINE_DIVIDER);
+        }
     }
 
     public void showFeedbackToUser(ArrayList<String> result) {
@@ -48,16 +53,26 @@ public class Ui {
     }
 
     public void showTaskList(ArrayList<Task> tasks) {
-        ArrayList<String> feedbackTaskList = getTaskListFeedback(tasks);
-        showFeedbackToUser(feedbackTaskList);
-    }
-
-    private static ArrayList<String> getTaskListFeedback(ArrayList<Task> tasks) {
         ArrayList<String> taskListFeedback = new ArrayList<>();
         taskListFeedback.add(PRINT_LIST_MESSAGE);
+        getTasksFeedback(tasks, taskListFeedback);
+        showFeedbackToUser(taskListFeedback);
+    }
+
+    public void showMatchingTasks(ArrayList<Task> filterTasks) {
+        ArrayList<String> matchingTasksFeedback  = new ArrayList<>();
+        matchingTasksFeedback.add("Here are the matching tasks in your list:");
+        getTasksFeedback(filterTasks, matchingTasksFeedback);
+        showFeedbackToUser(matchingTasksFeedback);
+    }
+
+    private static void getTasksFeedback(ArrayList<Task> tasks, ArrayList<String> tasksFeedback) {
         for (int i = 0; i < tasks.size(); i++) {
-            taskListFeedback.add(String.format("%d.", i + 1) + tasks.get(i).getTaskInfo());
+            tasksFeedback.add(String.format("%d.", i + 1) + tasks.get(i).getTaskInfo());
         }
-        return taskListFeedback;
+    }
+
+    public void showExitMessage() {
+        showFeedbackToUser(EXIT_MESSAGE);
     }
 }
