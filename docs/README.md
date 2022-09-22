@@ -18,7 +18,7 @@ Hello I'm
 
 What you want?
 -------------------------------------------------
-  ```
+```
 
 ## Features 
 
@@ -133,7 +133,6 @@ Unmark the task as incomplete using the command `unmark task number`
 
 - **Expected outcome and output:**
 the first task wil be unmarked as incomplete
-
 ```
 can you make up your mind
   [E][ ] football match (at: 2022-10-14)
