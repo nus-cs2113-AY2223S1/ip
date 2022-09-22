@@ -1,7 +1,7 @@
-Hello! I'm Duke
-What can I do for you?
+Hello! I'm Duke, your personal task manager!
+You have no tasks in your list. Try adding some!
 	_____________________
-There are no tasks yet!
+	There is no task!
 	_____________________
 	_____________________
 	Got it. I've added this task:
@@ -64,4 +64,4 @@ There are no tasks yet!
 	3. [E][ ] project meeting (at: Mon 2-4pm)
 	4. [D][ ] do homework (by: no idea :-p)
 	_____________________
-Bye. Hope to see you again soon!
+	Bye. Hope to see you again soon!

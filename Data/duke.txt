@@ -1,5 +1,5 @@
-T | 1 | huat ah
-T | 0 | test boolValue
-T | 0 | asiuasucwer
-T | 0 | asucawe
-T | 1 | asiucgwea
+T | 0 | borrow book
+D | 0 | return book  |  Sunday
+E | 1 | project meeting  |  Mon 2-4pm
+E | 0 | group work  |  CLB
+T | 1 | eat medicine
