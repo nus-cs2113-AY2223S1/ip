@@ -6,15 +6,15 @@
 3. Create a new folder containing the JAR file
 4. Using the terminal, change directory to the folder containing the JAR file.
 5. Run the JAR file using the following command: `java -jar CS2113-ip.jar`
-6. You should see the following output printed
+6. You should see the following output printed:
 ```
 Hello I'm
-                   _
-                  | |
-  _   _ _ __   ___| | ___
+                   _      
+                  | |     
+  _   _ _ __   ___| | ___ 
  | | | | '_ \ / __| |/ _ |
- | |_| | | | | (__| |  __/
-  \__,_|_| |_|\___|_|\___|
+ | |_| | | | | (__| |  __/ 
+  \__,_|_| |_|\___|_|\___| 
 
 What you want?
 -------------------------------------------------
