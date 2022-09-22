@@ -14,7 +14,7 @@ src/main/resources/docs/
 bin/
 
 
-.vscode
+/.vscode
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
 
@@ -22,4 +22,3 @@ text-ui-test/EXPECTED-UNIX.TXT
 /src/main/java/*.class
 # Storage
 storage
-.vscode
