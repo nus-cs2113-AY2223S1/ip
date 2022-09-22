@@ -8,12 +8,12 @@ public class Duke {
         String[] inputArr = input.split(" ");
         int task_no;
         switch (inputArr[0]){
-            case ("bye"):
+            case "bye":
                 System.out.println("-------------------------------------------------------------------------------");
                 System.out.println("Bye. Hope to see you again soon");
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
-            case ("list"):
+            case "list":
                 System.out.println("-------------------------------------------------------------------------------");
                 System.out.println("Here are the tasks in your list:");
                 int i = 1;
@@ -24,7 +24,7 @@ public class Duke {
                 }
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
-            case ("mark"):
+            case "mark":
                 task_no = Integer.parseInt(inputArr[1]);
                 Task marktask = tasklist.get(task_no - 1);
                 marktask.setisDone(true);
@@ -33,7 +33,7 @@ public class Duke {
                 System.out.println(marktask);
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
-            case ("unmark"):
+            case "unmark":
                 task_no = Integer.parseInt(inputArr[1]);
                 Task unmarktask = tasklist.get(task_no - 1);
                 unmarktask.setisDone(false);
@@ -41,7 +41,7 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(unmarktask);
                 System.out.println("-------------------------------------------------------------------------------");
-            case ("todo"):
+            case "todo":
                 task = createTodo(input);
                 tasklist.add(task);
                 System.out.println("-------------------------------------------------------------------------------");
@@ -50,7 +50,7 @@ public class Duke {
                 System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
-            case ("deadline"):
+            case "deadline":
                 task = createDeadline(input);
                 tasklist.add(task);
                 System.out.println("-------------------------------------------------------------------------------");
@@ -59,7 +59,7 @@ public class Duke {
                 System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
-            case ("event"):
+            case "event":
                 task = createEvent(input);
                 tasklist.add(task);
                 System.out.println("-------------------------------------------------------------------------------");
@@ -71,6 +71,11 @@ public class Duke {
             default:
                 if (input.contains("unmark")){
                     break;
+                }
+                else{
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Missing keywords, please type again.");
+                    System.out.println("-------------------------------------------------------------------------------");
                 }
         }
     }
