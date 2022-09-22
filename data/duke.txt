@@ -1,4 +1,1 @@
-event, 1, Joshua attend CS2113 lecture, Friday 16 Sep 2022 from 4 to 6pm
-todo, 1, read book
-deadline, 0, return book, Oct 15 2019
-todo, 0, borrow book
+todo, 0, that

@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
+    private static String FILE_DIRECTORY = "./data";
     private static String FILE_PATH = "./data/duke.txt";
 
     /**
@@ -20,10 +21,34 @@ public class Storage {
      */
     public static void loadFile() {
         try {
-            readFile(FILE_PATH);
+            readFile();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            handleFileNotFound();
         }
+    }
+
+    private static void handleFileNotFound() {
+        System.out.println("File not found");
+
+        try {
+            createFile();
+        } catch (IOException ex) {
+            System.out.println("Unable to create file");
+        }
+    }
+
+    private static void createFile() throws IOException {
+        File directory = new File(FILE_DIRECTORY);
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File file = new File(FILE_PATH);
+
+        file.createNewFile();
+
+        System.out.println("New file created");
     }
 
     /**
@@ -43,11 +68,11 @@ public class Storage {
      * @param filePath the file path provided
      * @throws FileNotFoundException if the file path is invalid
      */
-    private static void readFile(String filePath) throws FileNotFoundException {
+    private static void readFile() throws FileNotFoundException {
         final String READING_FILE_START = "Reading file inputs...";
         final String READING_FILE_END = "Done reading file inputs!";
 
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
 
         Scanner scanner = new Scanner(file);
 

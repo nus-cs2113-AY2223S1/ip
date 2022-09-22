@@ -1,7 +1,6 @@
 package duke.command;
 
 import java.util.Scanner;
-import duke.Duke;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
