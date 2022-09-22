@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class FindCommand extends Command {
+    public static final String COMMAND_NAME = "find";
+    public static final String SYNTAX = "Find syntax\n\t>>>find <keyword>";
+    public String keyword;
+
     public FindCommand(String keyword) {
         super(COMMAND_NAME);
         this.keyword = keyword;
     }
-
-    public static final String COMMAND_NAME = "find";
-    public static final String SYNTAX = "Find syntax\n\t>>>find <keyword>";
-    public String keyword;
 
     @Override
     public CommandResult execute() {
