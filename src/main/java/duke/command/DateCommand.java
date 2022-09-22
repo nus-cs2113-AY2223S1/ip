@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import duke.data.task.Date;
-import duke.data.task.Task;
-
 
 public class DateCommand extends Command {
     public static final String COMMAND_NAME = "date";
