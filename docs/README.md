@@ -7,7 +7,6 @@ Duke is a desktop application for making todo list via Command Line interface
 4. In the command line enter `java -jar ip.jar` to start using the application
 
 ## Features 
-
 ### Add, (Un)mark, Delete, Find by keyword and date
 - Add task based on the type: 
 	- Todo
@@ -24,9 +23,9 @@ Duke is a desktop application for making todo list via Command Line interface
 
 ## Command
 
-
 ### `help` - help
 - Show help 
+
 ```
 >>> help
 Supported commands:
@@ -39,6 +38,7 @@ To exit: exit
 
 ### `exit` - exit 
 - Exit the program
+
 ```
 >>> exit
 Bye!
