@@ -8,7 +8,12 @@ public class Event extends Task{
     }
     @Override
     public String getTaskInfo() {
-        return "[E]" + super.getTaskInfo() + " (at: " + this.time + ")";
+        String statusIcon = isDone ? "X" : " ";
+        return "[E]" +"[" + statusIcon + "] " + this.description +  " (at: " + this.time + ")";
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
     @Override
     public String toString () {

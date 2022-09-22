@@ -1,13 +1,18 @@
 package duke.task;
 
-public class Todo extends Task {
-    public Todo(String description) {
+public class ToDo extends Task {
+    public ToDo(String description) {
         super(description);
     }
 
     @Override
     public String getTaskInfo() {
-        return "[T]" + super.getTaskInfo();
+        String statusIcon = isDone ? "X" : " ";
+        return "[T]" +"[" + statusIcon + "] " + this.description;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
     @Override
     public String toString () {

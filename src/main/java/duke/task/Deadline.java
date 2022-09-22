@@ -8,8 +8,15 @@ public class Deadline extends Task{
     }
     @Override
     public String getTaskInfo() {
-        return "[D]" + super.getTaskInfo() + " (by: " + this.by + ")";
+        String statusIcon = isDone ? "X" : " ";
+        return "[D]" + "[" + statusIcon + "] " + this.description + " (by: " + this.by + ")";
     }
+
+    @Override
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString () {
         int isDoneInNumber = this.isDone ? 1 : 0;

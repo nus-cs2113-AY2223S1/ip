@@ -1,5 +1,5 @@
 package duke.task;
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -8,19 +8,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public void echo() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + getTaskInfo());
-    }
-    public String getTaskInfo() {
-        return "[" + getStatusIcon() + "] " + this.description;
-    }
+    public abstract String getTaskInfo();
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
+    public abstract void setDone(boolean isDone);
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
-    }
 }
