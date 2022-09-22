@@ -5,6 +5,7 @@ import duke.TaskManager;
 public class Task extends TaskManager {
     protected String description;
     public boolean isDone;
+    
 
     public Task(String description) {
         this.description = description;
@@ -38,4 +39,6 @@ public class Task extends TaskManager {
         return getStatusIcon() + description;
 //        return getStatusIcon() ;
     }
+
+
 }
