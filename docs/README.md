@@ -2,7 +2,7 @@
 Duke is a desktop application for making todo list via Command Line interface
 ## Quick Start 
 1. Ensure that you have Java 11 installed
-2. Download the latest `ip.jar` here
+2. Download the latest `ip.jar` [here](https://github.com/Than-Duc-Huy/ip/releases/tag/A-Release)
 3. Copy the file to the folder you want to use as the home folder for your application
 4. In the command line enter `java -jar ip.jar` to start using the application
 
