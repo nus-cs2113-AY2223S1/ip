@@ -1,15 +1,28 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    protected String time;
-    public Event(String description, String time) {
+
+    private final LocalDateTime dateAndTime;
+    public Event(String description, String dateAndTime) {
         super(description);
-        this.time = time;
+        this.dateAndTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
+
+    public String getDateAndTimeForPrint() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+    }
+    public String getDateAndTimeForSave() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";
-        return "[E]" +"[" + statusIcon + "] " + this.description +  " (at: " + this.time + ")";
+        return "[E]" +"[" + statusIcon + "] " + description +  " (at: "
+                + getDateAndTimeForPrint()+ ")";
     }
 
     public void setDone(boolean isDone) {
@@ -18,6 +31,6 @@ public class Event extends Task{
     @Override
     public String toString () {
         int isDoneInNumber = this.isDone ? 1 : 0;
-        return String.format("E | %d | %s | %s", isDoneInNumber, description, time) + System.lineSeparator();
+        return String.format("E | %d | %s | %s", isDoneInNumber, description, getDateAndTimeForSave()) + System.lineSeparator();
     }
 }

@@ -105,7 +105,7 @@ public class Duke {
         if (commandArguments.length() == 0) {
             throw new EmptyDescriptionException("The description of an event cannot be empty");
         }
-        String[] separatedArguments = getDescriptionAndTime(commandArguments, EVENT_DESCRIPTION_SEPARATOR);
+        String[] separatedArguments = parser.getDescriptionAndTime(commandArguments, EVENT_DESCRIPTION_SEPARATOR);
         if (separatedArguments.length < 2) {
             throw new EmptyDescriptionException("pty");
         }
@@ -124,7 +124,7 @@ public class Duke {
         if (commandArguments.length() == 0) {
             throw new EmptyDescriptionException("The description  of a deadline cannot be empty");
         }
-        String[] separatedArguments = getDescriptionAndTime(commandArguments, DEADLINE_DESCRIPTION_SEPARATOR);
+        String[] separatedArguments = parser.getDescriptionAndTime(commandArguments, DEADLINE_DESCRIPTION_SEPARATOR);
         if (separatedArguments.length < 2) {
             throw new EmptyDescriptionException("The description of a deadline cannot be empty");
         }
@@ -138,9 +138,6 @@ public class Duke {
         return ADD_TASK_MESSAGE + System.lineSeparator() +  newDeadline.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback();
     }
 
-    private static String[] getDescriptionAndTime(String commandArguments, String deadlineInfoSeparator) {
-        return commandArguments.split(deadlineInfoSeparator);
-    }
 
     private String executeCreateToDo(String commandArgument) throws EmptyDescriptionException, IOException {
         if (commandArgument.length() == 0) {

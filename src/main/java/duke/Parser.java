@@ -82,6 +82,8 @@ public class Parser {
     public String[] splitCommandTypeAndArguments(String input) {
         return input.split(" ", 2);
     }
-
+   public String[] getDescriptionAndTime(String commandArguments, String deadlineInfoSeparator) {
+       return commandArguments.split(deadlineInfoSeparator);
+   }
 
 }

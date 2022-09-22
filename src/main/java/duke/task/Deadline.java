@@ -1,15 +1,27 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
-    protected String by;
-    public Deadline(String description, String by) {
+
+    private final LocalDateTime dateAndTime;
+    public Deadline(String description, String dateAndTime) {
         super(description);
-        this.by = by;
+        this.dateAndTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
+    public String getDateAndTimeForPrint() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+    }
+    public String getDateAndTimeForSave() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";
-        return "[D]" + "[" + statusIcon + "] " + this.description + " (by: " + this.by + ")";
+        return "[D]" +"[" + statusIcon + "] " + description +  " (at: "
+                + getDateAndTimeForPrint()+ ")";
     }
 
     @Override
@@ -20,6 +32,6 @@ public class Deadline extends Task{
     @Override
     public String toString () {
         int isDoneInNumber = this.isDone ? 1 : 0;
-        return String.format("D | %d | %s | %s", isDoneInNumber, description, by) + System.lineSeparator();
+        return String.format("D | %d | %s | %s", isDoneInNumber, description, getDateAndTimeForSave()) + System.lineSeparator();
     }
 }
