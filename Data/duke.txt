@@ -1,1 +1,5 @@
 T | 1 | huat ah
+T | 0 | test boolValue
+T | 0 | asiuasucwer
+T | 0 | asucawe
+T | 1 | asiucgwea

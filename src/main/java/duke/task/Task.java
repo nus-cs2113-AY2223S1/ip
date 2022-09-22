@@ -43,4 +43,14 @@ public class Task extends TaskManager {
     public boolean isDone() {
         return isDone;
     }
+
+    public static String getBoolValue(Task task) {
+        String boolValue;
+        if (task.isDone()) {
+            boolValue = "1";
+        } else {
+            boolValue = "0";
+        }
+        return boolValue;
+    }
 }
