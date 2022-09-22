@@ -5,7 +5,6 @@ public class UnmarkCommand extends Command {
     public static final String COMMAND_NAME = "unmark";
     public static final String SYNTAX = "Syntax for unmark\n\t>>> unmark <index 1> <index 2> <...>\nNote: item indices must exist in the current list";
     public static final String MESSAGE_TOP = "Unmarked Task";
-
     public int[] index;
 
     public UnmarkCommand(int... index) {
