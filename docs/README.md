@@ -16,11 +16,8 @@ Duke is a desktop application for making todo list via Command Line interface
 - Mark task as done or unmark it
 - Find keyword in the task description or find by date
 - Delete tasks
-
-
-## Ignorecase
+### Ignorecase
 - Command is case non-sensitive: `DeAdLINe` is recognized as `deadline` 
-
 ### Multiple indices
 - Can (un)mark or delete multiple task at the same time regardless of order `mark 1 4 2 3 `
 
@@ -51,6 +48,8 @@ Program ends
 
 ### `todo` - todo task
 - Add todo task
+
+
 ```
 >>> todo <description>
 
@@ -65,6 +64,8 @@ Todo added
 
 ### `deadline` - deadline task
 - Add deadline task
+
+
 ```
 >>> deadline <description> / <date (can be in yyyy-mm-dd)>
 
@@ -82,6 +83,8 @@ Deadline added
 ```
 ### `event` - event task
 - Add event task
+
+
 ```
 >>> event <description> / <date (can be in yyyy-mm-dd)>>
 
@@ -101,6 +104,8 @@ Event added
 
 ### `list` - list
 - List existing tasks in the task list
+
+
 ```
 >>> list
 =====================================LIST======================================
@@ -115,6 +120,8 @@ Event added
 ```
 ### `mark` - mark
 - Mark task as done
+
+
 ```
 >>> mark <index 1> <index 2> <...>
 
@@ -141,6 +148,8 @@ Mark 4 tasks
 
 ### `unmark` - unmark 
 - Mark task as undone (unmark done)
+
+
 ```
 >>> unmark <index 1> <index 2> <...>
 
@@ -165,6 +174,8 @@ Unmark 2 tasks
 
 ### `Find` - Find task
 - Find task by keyword
+
+
 ```
 >>> find <keyword>
 
@@ -178,6 +189,8 @@ Found 2 tasks with "Eve"
 
 ### `Date` - Find task by date
 - Find task by date
+
+
 ```
 >>> date <yyyy-mm-dd>
 
@@ -191,6 +204,8 @@ Found 2 task on 2000-02-01
 ```
 ### `delete` - delete task
 - Delete task
+
+
 ```
 >>> delete <index 1> <index 2> <...>
 
