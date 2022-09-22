@@ -3,6 +3,7 @@ package duke.storage;
 import duke.data.task.Task;
 import duke.data.tag.TaskList;
 
+import java.text.DateFormat;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class TaskListEncoder {
         encodedTaskBuilder.append(SEPARATOR);
         encodedTaskBuilder.append(task.description.getData());
         encodedTaskBuilder.append(SEPARATOR);
-        encodedTaskBuilder.append(task.date.isValid() ? task.date.getData() : "");
+        encodedTaskBuilder.append(task.date.isValid() ? task.date.getDataSave() : "");
         return encodedTaskBuilder.toString();
     }
 }

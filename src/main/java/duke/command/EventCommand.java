@@ -5,7 +5,7 @@ import duke.data.task.Event;
 
 public class EventCommand extends Command {
     public static final String COMMAND_NAME = "event";
-    public static final String SYNTAX = "Syntax for event \n\t>>>event <task> / <date of event>";
+    public static final String SYNTAX = "Syntax for event \n\t>>>event <description> / <date (can be in yyyy-mm-dd)>";
     public static final String MESSAGE = "Event added";
     public String description;
     public String date;

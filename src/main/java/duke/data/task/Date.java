@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Date implements Attributes {
 
     public static final String PRINT_FORMAT = "dd MMM yyyy";
+    public static final String SAVE_FORMAT = "yyyy-MM-dd";
     public String dateString;
     public LocalDate date;
 
@@ -32,6 +33,16 @@ public class Date implements Attributes {
     public String getData() {
         if (this.date != null) {
             return this.date.format(DateTimeFormatter.ofPattern(PRINT_FORMAT));
+        }
+        return this.dateString;
+    }
+
+    /**
+     * Get Date data to save
+     */
+    public String getDataSave() {
+        if (this.date != null) {
+            return this.date.format(DateTimeFormatter.ofPattern(SAVE_FORMAT));
         }
         return this.dateString;
     }

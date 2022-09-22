@@ -4,7 +4,7 @@ import duke.data.task.Todo;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_NAME = "todo";
-    public static final String SYNTAX = "Syntax for todo \n\t>>>todo <task>";
+    public static final String SYNTAX = "Syntax for todo \n\t>>>todo <description>";
     public static final String MESSAGE_TOP = "Todo added";
     public String description;
 

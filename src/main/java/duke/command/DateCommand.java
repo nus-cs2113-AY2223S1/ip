@@ -21,8 +21,7 @@ public class DateCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        ArrayList<? extends Task> target = new ArrayList<>( // Get the target by compare the date of task in the
-                // tasklist
+        target = new ArrayList<>( // Get the target by compare the date of task in the taskList
                 this.taskList.data.stream().filter(i -> !i.date.isNull()).filter(
                                 i -> i.date.getData().equals(this.date.format(DateTimeFormatter.ofPattern(Date.PRINT_FORMAT))))
                         .collect(Collectors.toList()));

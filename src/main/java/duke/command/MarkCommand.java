@@ -1,15 +1,15 @@
 package duke.command;
 
 public class MarkCommand extends Command {
+    public static final String COMMAND_NAME = "mark";
+    public static final String SYNTAX = "Syntax for mark\n\t>>> mark <index 1> <index 2> <...>\nNote: item indices must exist in the current list";
+    public int[] index;
+
     public MarkCommand(int... index) {
         super(COMMAND_NAME);
         this.index = index;
     }
 
-    public static final String COMMAND_NAME = "mark";
-    public static final String SYNTAX = "Syntax for mark\n\t>>> mark <index 1> <index 2> <...>\nNote: item indices must exist in the current list";
-
-    public int[] index;
 
     @Override
     public CommandResult execute() {
