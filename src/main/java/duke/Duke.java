@@ -1,7 +1,11 @@
-package Duke;
+package duke;
 
-import Duke.Exception.DukeException;
-import Duke.Exception.UnknownCommandException;
+import duke.exception.DukeException;
+import duke.exception.UnknownCommandException;
+
+import duke.util.Storage;
+import duke.util.InputParser;
+import duke.util.TaskManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +33,7 @@ public class Duke {
     public static final String MESSAGE_GREET = "Hello! I'm Duke\n What can I do for you?";
 
     public static Scanner sc;
-    public static DataManager dataManager = new DataManager();
+    public static Storage dataManager = new Storage();
 
     public static TaskManager taskManager = new TaskManager();
     public static InputParser parser = new InputParser();

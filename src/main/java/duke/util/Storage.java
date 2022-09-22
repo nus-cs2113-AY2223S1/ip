@@ -1,4 +1,4 @@
-package Duke;
+package duke.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class DataManager {
+public class Storage {
 
     private String path = "data/userData.txt";
     private ArrayList<String> userData;
 
-    public DataManager() {
+    public Storage() {
         userData = new ArrayList<String>();
     }
 

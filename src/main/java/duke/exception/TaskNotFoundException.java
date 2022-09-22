@@ -1,4 +1,4 @@
-package Duke.Exception;
+package duke.exception;
 
 public class TaskNotFoundException extends DukeException {
 

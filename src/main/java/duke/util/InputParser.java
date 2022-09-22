@@ -1,7 +1,7 @@
-package Duke;
+package duke.util;
 
-import Duke.Exception.UnknownCommandException;
-import Duke.Exception.EmptyArgumentException;
+import duke.exception.UnknownCommandException;
+import duke.exception.EmptyArgumentException;
 
 public class InputParser {
 

@@ -1,4 +1,4 @@
-package Duke;
+package duke.util.asset;
 
 public class Task {
     private boolean isDone;

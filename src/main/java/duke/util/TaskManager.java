@@ -1,6 +1,11 @@
-package Duke;
+package duke.util;
 
-import Duke.Exception.TaskNotFoundException;
+import duke.util.asset.Deadline;
+import duke.util.asset.Event;
+import duke.util.asset.Task;
+import duke.util.asset.Todo;
+
+import duke.exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
