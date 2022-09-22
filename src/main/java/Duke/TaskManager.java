@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class TaskManager {
 
     private static final int RESIZE_FACTOR = 2;
-    private static int NUM_TASK;
+    private static int numTask;
     private static int taskCount;
 
     private static ArrayList<Task> tasks;
@@ -12,27 +12,27 @@ public class TaskManager {
     private static boolean hasLoadHistory;
 
     public TaskManager() {
-        NUM_TASK = 100;
+        numTask = 100;
         taskCount = 0;
-        tasks = new ArrayList<Task>(NUM_TASK);
+        tasks = new ArrayList<Task>(numTask);
         hasLoadHistory = false;
     }
 
     private void resize() {
-        ArrayList<Task> buffer = new ArrayList<Task>(NUM_TASK * RESIZE_FACTOR);
+        ArrayList<Task> buffer = new ArrayList<Task>(numTask * RESIZE_FACTOR);
 
         if (taskCount >= 0) {
             System.arraycopy(tasks, 0, buffer, 0, taskCount);
         }
 
         tasks = buffer;
-        NUM_TASK *= RESIZE_FACTOR;
+        numTask *= RESIZE_FACTOR;
     }
 
     private void printSummary() {
         System.out.println("Beep boop, now you have " + taskCount + " tasks");
 
-        if(taskCount == NUM_TASK){
+        if(taskCount == numTask){
             System.out.println("BEEP BEEP BEEEEEEP! LIST FULL!!! Increasing list capacity");
             resize();
         }
@@ -41,7 +41,7 @@ public class TaskManager {
 
     public void clearAllTask() {
         taskCount = 0;
-        tasks = new ArrayList<>(NUM_TASK);
+        tasks = new ArrayList<>(numTask);
     }
 
     public static void listAllTask() {

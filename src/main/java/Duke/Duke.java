@@ -6,6 +6,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static final String LOGO = "\n"
+            + "     _________________________________________\n"
+            + "   /  _____________________________________   \\ \n"
+            + "   | |                                     |  | \n"
+            + "   | |  C:\\> Initiating programme. .  .    |  | \n"
+            + "   | |                                     |  | \n"
+            + "   | |  C:\\> Creating Duke...              |  | \n"
+            + "   | |                                     |  | \n"
+            + "   | |                                     |  | \n"
+            + "   | |                                     |  | \n"
+            + "   | |_____________________________________|  | \n"
+            + "    \\_____________________________________/ \n"
+            + "       \\________________________________/ \n"
+            + "        _________________________________ \n"
+            + "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ \n"
+            + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
+
+    public static final String MESSAGE_GREET = "Hello! I'm Duke\n What can I do for you?";
+
     public static Scanner sc;
     public static DataManager dataManager = new DataManager();
 
@@ -71,34 +91,14 @@ public class Duke {
     }
 
     public static void greetUser() {
-
-        final String LOGO = "\n"
-                + "     _________________________________________\n"
-                + "   /  _____________________________________   \\ \n"
-                + "   | |                                     |  | \n"
-                + "   | |  C:\\> Initiating programme. .  .    |  | \n"
-                + "   | |                                     |  | \n"
-                + "   | |  C:\\> Creating Duke...              |  | \n"
-                + "   | |                                     |  | \n"
-                + "   | |                                     |  | \n"
-                + "   | |                                     |  | \n"
-                + "   | |_____________________________________|  | \n"
-                + "    \\_____________________________________/ \n"
-                + "       \\________________________________/ \n"
-                + "        _________________________________ \n"
-                + "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ \n"
-                + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
-
         System.out.println(LOGO);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println(MESSAGE_GREET);
     }
 
-    public static boolean isToExit(String userInput) {
+    public static boolean isExit(String userInput) {
         if (userInput.equals("bye")) {
             System.out.println("BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>");
             dataManager.writeData(userSessionInput);
-
             return true;
         }
         return false;
@@ -111,7 +111,7 @@ public class Duke {
         sc = new Scanner(System.in);
         String userInput = sc.nextLine();
 
-        while (!isToExit(userInput)) {
+        while (!isExit(userInput)) {
 
             userSessionInput.add(userInput);
 

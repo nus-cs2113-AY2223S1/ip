@@ -17,11 +17,11 @@ public class InputParser {
 
     private boolean isValidCommand() {
         switch (userCommand) {
-            case ("list"): //Fallthrough
-            case ("mark"): //Fallthrough
-            case ("unmark"): //Fallthrough
-            case ("todo"): //Fallthrough
-            case ("deadline"): //Fallthrough
+            case ("list"):
+            case ("mark"):
+            case ("unmark"):
+            case ("todo"):
+            case ("deadline"):
             case ("event"): //Fallthrough
             case ("delete"):
                 return true;
@@ -29,6 +29,7 @@ public class InputParser {
                 return false;
         }
     }
+
     private boolean isCorrectInput(String[] parsed ) {
         if (userCommand.equals("list")){
             return true;
@@ -37,19 +38,19 @@ public class InputParser {
     }
 
     private String[] parseParameter(String inputString, String optionFlag){
-        int OPTION_LEN = 4;
+        int optionLen = 4;
         int optionIndex = inputString.indexOf(optionFlag);
 
         String descriptionMain = inputString.substring(0, optionIndex);
-        String descriptionOption = inputString.substring(optionIndex + OPTION_LEN);
+        String descriptionOption = inputString.substring(optionIndex + optionLen);
 
         return new String[]{ descriptionMain , descriptionOption };
     }
 
     public void parseUserInput(String userInput) throws UnknownCommandException, DukeException {
-
-        String[] inputSplitBySpace = userInput.split(" ", 2);
+        final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
+        String[] inputSplitBySpace = userInput.split(" ", NUM_CMD_SPLIT);
 
         userCommand = inputSplitBySpace[0];
 
@@ -75,8 +76,8 @@ public class InputParser {
         String[] parameters;
 
         switch (userCommand) {
-            case ("todo"): //Fallthrough
-            case ("mark"): //Fallthrough
+            case ("todo"):
+            case ("mark"):
             case ("delete"): //Fallthrough
             case ("unmark"):
                 parameters = new String[]{ inputBuffer };
