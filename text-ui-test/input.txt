@@ -1,0 +1,22 @@
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /at Mon 2-4pm
+list
+deadline do homework /by no idea :-p
+list
+mark 2
+list
+unmark 2
+list
+delete 2
+list
+todo
+deadline
+event Name provided but not date
+list
+find project
+event christmas party /at 2022-12-25 2:00pm
+list
+event new year's /at 1 jan 2023 1am
+bye
