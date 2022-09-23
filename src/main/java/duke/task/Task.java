@@ -41,7 +41,11 @@ public abstract class Task {
      * 
      * @return Serialized task
      */
-    public abstract String serialize();
+    public String serialize() {
+        return getKeyword() + " " + getName() + " /" + DONE_PARAM + " " + isDone();
+    }
+
+    public abstract String getKeyword();
 
     /**
      * Formats a task as a string to be displayed to the user.

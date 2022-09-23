@@ -48,7 +48,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            // empty list
+            // if data file does not exist, then task list should be empty
         }
         return tasks;
     }
@@ -72,6 +72,7 @@ public class Storage {
      */
     public static void writeDataFile(List<Task> tasks, String path) throws DukeException {
         try {
+            // create ./data folder if it does not exist
             File dataFile = new File(path);
             if (!dataFile.getParentFile().exists()) {
                 dataFile.getParentFile().mkdirs();

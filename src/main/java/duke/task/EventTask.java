@@ -76,7 +76,12 @@ public class EventTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("%s %s /at %s /done %s", KEYWORD, getName(), eventDateTime, isDone());
+        return super.serialize() + " /" + AT_PARAM + " " + eventDateTime;
+    }
+
+    @Override
+    public String getKeyword() {
+        return KEYWORD;
     }
 
 }

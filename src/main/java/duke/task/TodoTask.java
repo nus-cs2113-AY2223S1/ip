@@ -46,6 +46,11 @@ public class TodoTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("%s %s /%s %s", KEYWORD, getName(), DONE_PARAM, isDone());
+        return super.serialize();
+    }
+
+    @Override
+    public String getKeyword() {
+        return KEYWORD;
     }
 }

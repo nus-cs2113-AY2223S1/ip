@@ -78,7 +78,12 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("%s %s /by %s /done %s", KEYWORD, getName(), deadline, isDone());
+        return super.serialize() + " /" + BY_PARAM + " " + deadline;
+    }
+
+    @Override
+    public String getKeyword() {
+        return KEYWORD;
     }
 
 }
