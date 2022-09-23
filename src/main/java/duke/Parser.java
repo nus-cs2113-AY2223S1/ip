@@ -39,4 +39,29 @@ public class Parser {
         }
     }
 
+    static String parseTodo(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    static String parseDeadline(String line) {
+        String[] result = line.split("/by ");
+        return result[0].substring(9);
+    }
+
+    static String parseDeadlineDate(String line) {
+        String[] result = line.split("/by ");
+        return result[1];
+    }
+
+    static String parseEvent(String line) {
+        String[] result = line.split("/at ");
+        return result[0].substring(6);
+    }
+
+    static String parseEventDate(String line) {
+        String[] result = line.split("/at ");
+        return result[1];
+    }
+
 }
