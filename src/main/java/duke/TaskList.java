@@ -18,10 +18,12 @@ public class TaskList {
 
     protected ArrayList<Task> myTasks;
 
+    //numbers to help parse the input
     private final int START_INDEX_TODO = 5;
     private final int START_INDEX_DEADLINE = 9;
     private final int START_INDEX_EVENT = 6;
     private final int START_INDEX_FIND = 5;
+    //proper format to guide the user on the input
     private final String DEADLINE_FORMAT = "deadline {task name} /by {task deadline}";
     private final String EVENT_FORMAT = "event {task name} /at {task time}";
     private final String NO_TASKS = "No current tasks";
