@@ -21,7 +21,7 @@ public class Duke {
     public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
     public static final String EVENT_DESCRIPTION_SEPARATOR = " /at ";
     public static final String DEADLINE_DESCRIPTION_SEPARATOR = " /by ";
-    public static final String DATA_DUKE_TXT = "data/duke.txt";
+    public static final String DUKE_DATA_PATH = "data/duke.txt";
     public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:";
 
     private final Storage storage;
@@ -43,7 +43,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(DATA_DUKE_TXT).run();
+        new Duke(DUKE_DATA_PATH).run();
     }
 
     /**

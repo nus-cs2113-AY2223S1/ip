@@ -1,5 +1,4 @@
-T | 1 | test
-T | 1 | check
-T | 1 | read book
-D | 0 | return book | June 6th
-T | 0 | sx
+T | 0 | first
+E | 0 | attend cca | 2022-02-28 1900
+D | 1 | sep | 2022-03-23 1335
+T | 0 | cca
