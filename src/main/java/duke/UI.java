@@ -1,14 +1,11 @@
 package duke;
 
+import duke.taskmanager.Tasklist;
 import duke.taskmanager.tasks.Task;
-
-import java.util.ArrayList;
-
-import static duke.taskmanager.TaskManager.oneBasedIndex;
 
 public class UI {
     public final String DASH_SEPARATOR = "------------------------------------------------------------\n";
-
+    public static int oneBasedIndex = 1;
     public void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
     }
@@ -43,11 +40,11 @@ public class UI {
                 + " tasks in the list.");
     }
 
-    public void printList(ArrayList tasks) {
+    public void printList(Tasklist tasks1) {
         StringBuilder s = new StringBuilder();
         s.append("Here are the tasks in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
-            s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
+            s.append(i).append(".").append(tasks1.get(i)).append(System.lineSeparator());
         }
         formatOutput(s.toString());
     }
@@ -70,8 +67,13 @@ public class UI {
     public void printNumberFormatException() {
         formatOutput("☹ OOPS!!! You did not enter a number.");
     }
+    public void showLoadingError() {
+        formatOutput("☹ OOPS!!! There was no previously saved tasks.");
+    }
     public void printExitMessage() {
         String bye = "Bye. Hope to see you again soon!";
         formatOutput(bye);
     }
+
+
 }
