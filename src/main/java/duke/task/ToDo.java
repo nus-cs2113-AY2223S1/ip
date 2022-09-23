@@ -8,11 +8,17 @@ public class ToDo extends Task {
         super(description);
     }
 
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns the information of the todo for printing.
      *
      * @return Todo in string format.
      */
+
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";

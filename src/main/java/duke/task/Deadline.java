@@ -14,6 +14,12 @@ public class Deadline extends Task{
         this.dateAndTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+
     /**
      * Converts dates and times to string for printing.
      *
@@ -54,7 +60,8 @@ public class Deadline extends Task{
         this.isDone = isDone;
     }
 
-/**
+
+    /**
  * Returns the information of the deadline for storing.
  *
  * @return Deadline in string format.

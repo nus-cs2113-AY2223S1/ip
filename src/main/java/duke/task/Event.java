@@ -14,6 +14,11 @@ public class Event extends Task{
         this.dateAndTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Converts dates and times to string for printing.
      *
@@ -32,6 +37,8 @@ public class Event extends Task{
     public String getDateAndTimeForSave() {
         return dateAndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
+
+
 
     /**
      * Returns the information of the event for printing.
@@ -53,6 +60,7 @@ public class Event extends Task{
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
 
     /**
      * Returns the information of the event for storing.

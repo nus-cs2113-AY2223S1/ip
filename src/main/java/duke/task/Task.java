@@ -12,8 +12,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+
     public abstract String getTaskInfo();
 
     public abstract void setDone(boolean isDone);
 
+    public abstract String getDescription();
 }
