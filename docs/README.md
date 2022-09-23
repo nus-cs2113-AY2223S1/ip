@@ -8,7 +8,7 @@ The location of this file will be at {JAR File Location}/data/duke.txt
 
 ## Setup 
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest Duke.jar from [here](https://github.com/wangtingjia/ip/releases).
+2. Download the latest ip.jar from [here](https://github.com/wangtingjia/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for your todo list.
 4. Open the command line in that folder and run the command `java -jar ip.jar`.
 5. A default greeting is expected as per following :
