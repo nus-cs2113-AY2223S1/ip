@@ -1,5 +1,8 @@
+package duke;
+
+import duke.exceptions.DukeException;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
 
@@ -15,7 +18,7 @@ public class Duke {
     static void startSession() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINEBREAK);
-        System.out.println("Hello! I'm Duke Nukem");
+        System.out.println("Hello! I'm duke.Duke Nukem");
         System.out.println("What can I do for you today? Let's rock!");
         System.out.println(LINEBREAK);
     }
@@ -26,7 +29,7 @@ public class Duke {
         System.out.println(LINEBREAK);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         startSession();
 
@@ -34,17 +37,8 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        while (!line.equals("bye")) {
-            if (line.length() > 3 && line.startsWith("mark")) {
-
-                Manager.markTasks(line);
-            } else if (line.length() > 4 && line.startsWith("unmark")) {
-                Manager.unmarkTasks(line);
-            } else if (line.equals("list")) {
-                Manager.printTasks();
-            } else {
-                Manager.storeTasks(line);
-            }
+        while (!Parser.checkBye(line)) {
+            Parser.parse(Manager,line);
             line = in.nextLine();
         }
 
