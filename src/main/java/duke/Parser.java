@@ -17,6 +17,9 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.TodoTask;
 import duke.command.FindCommand;
 import duke.command.HelpCommand;
 
@@ -24,6 +27,12 @@ import duke.command.HelpCommand;
  * The parser handles parsing of commands.
  */
 public class Parser {
+    public static final List<String> MONTHS_LIST = List.of("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
+            "sep", "oct", "nov", "dec");
+    public static final String YEAR_REGEX = "\\b(2\\d{3})\\b";
+    public static final String DAY_REGEX = "\\b(\\d{1,2})\\b";
+    public static final String PM_SUFFIX = "PM";
+    public static final String AM_SUFFIX = "AM";
 
     /**
      * Parses a user input string as a command.
@@ -35,26 +44,26 @@ public class Parser {
     public static Command parseCommand(String description) throws DukeException {
         String keyword = parseKeyword(description);
         switch (keyword) {
-        case "bye":
+        case ExitCommand.KEYWORD:
             return new ExitCommand(description);
-        case "list":
+        case ListCommand.KEYWORD:
             return new ListCommand(description);
-        case "mark":
+        case MarkCommand.KEYWORD:
             return new MarkCommand(description);
-        case "unmark":
+        case UnmarkCommand.KEYWORD:
             return new UnmarkCommand(description);
-        case "delete":
+        case DeleteCommand.KEYWORD:
             return new DeleteCommand(description);
-        case "deadline":
-        case "event":
-        case "todo":
+        case DeadlineTask.KEYWORD:
+        case EventTask.KEYWORD:
+        case TodoTask.KEYWORD:
             return new AddCommand(description);
-        case "find":
+        case FindCommand.KEYWORD:
             return new FindCommand(description);
-        case "help":
+        case HelpCommand.KEYWORD:
             return new HelpCommand(description);
         default:
-            throw new DukeException("I don't understand this command!");
+            throw new DukeException(DukeException.getDidNotUnderstandMessage());
         }
     }
 
@@ -151,19 +160,17 @@ public class Parser {
             return LocalDate.of(year, month, day);
         }
         try {
-            Pattern yearPattern = Pattern.compile("\\b(2\\d{3})\\b"); // four digit number starting with 2
+            Pattern yearPattern = Pattern.compile(YEAR_REGEX); // four digit number starting with 2
             Matcher yearMatcher = yearPattern.matcher(input);
             // default to current year
             int year = yearMatcher.find() ? Integer.parseInt(yearMatcher.group()) : LocalDate.now().getYear();
-            List<String> months = List.of("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov",
-                    "dec");
-            Pattern monthPattern = Pattern.compile("(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)");
+            Pattern monthPattern = Pattern.compile("(" + String.join("|", MONTHS_LIST) + ")");
             Matcher monthMatcher = monthPattern.matcher(input.toLowerCase());
             if (!monthMatcher.find()) {
                 return null;
             }
-            int month = months.indexOf(monthMatcher.group()) + 1;
-            Pattern dayPattern = Pattern.compile("\\b(\\d{1,2})\\b");
+            int month = MONTHS_LIST.indexOf(monthMatcher.group()) + 1;
+            Pattern dayPattern = Pattern.compile(DAY_REGEX);
             Matcher dayMatcher = dayPattern.matcher(input);
             if (!dayMatcher.find()) {
                 return null;
@@ -202,20 +209,20 @@ public class Parser {
         }
         String suffix = "";
         input = input.toUpperCase();
-        if (input.endsWith("PM")) {
-            suffix = "PM";
-            input = input.replace("PM", "");
-        } else if (input.endsWith("AM")) {
-            suffix = "AM";
-            input = input.replace("AM", "");
+        if (input.endsWith(PM_SUFFIX)) {
+            suffix = PM_SUFFIX;
+            input = input.replace(PM_SUFFIX, "");
+        } else if (input.endsWith(AM_SUFFIX)) {
+            suffix = AM_SUFFIX;
+            input = input.replace(AM_SUFFIX, "");
         }
         try {
             String[] components = input.split(":");
             int hours = Integer.parseInt(components[0]);
             int minutes = Integer.parseInt(components[1]);
-            if (suffix.equals("PM")) {
+            if (suffix.equals(PM_SUFFIX)) {
                 hours += 12;
-            } else if (suffix.equals("AM") && hours == 12) {
+            } else if (suffix.equals(AM_SUFFIX) && hours == 12) {
                 hours -= 12;
             }
             return LocalTime.of(hours, minutes);

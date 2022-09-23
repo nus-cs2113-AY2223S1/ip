@@ -6,6 +6,9 @@ import duke.DukeException;
  * A TodoTask represents a simple task to be done.
  */
 public class TodoTask extends Task {
+    public static final String KEYWORD = "todo";
+    private static final String NAME_EMPTY_ERROR_MESSAGE = "Todo name cannot be empty";
+
     /**
      * Creates a new TodoTask object.
      * 
@@ -26,7 +29,7 @@ public class TodoTask extends Task {
     public TodoTask(String name, boolean status) throws DukeException {
         super(name, status);
         if ("".equals(name)) {
-            throw new DukeException("Todo name cannot be empty");
+            throw new DukeException(NAME_EMPTY_ERROR_MESSAGE);
         }
     }
 
@@ -43,6 +46,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("todo %s /done %s", getName(), isDone());
+        return String.format("%s %s /%s %s", KEYWORD, getName(), DONE_PARAM, isDone());
     }
 }

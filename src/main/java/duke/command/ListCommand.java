@@ -9,6 +9,7 @@ import duke.Ui;
  * Command to list out tasks.
  */
 public class ListCommand extends Command {
+    public static final String KEYWORD = "list";
 
     /**
      * Creates a List command.

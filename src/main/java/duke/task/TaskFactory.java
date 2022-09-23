@@ -23,14 +23,17 @@ public class TaskFactory {
         String name = Parser.parseName(description);
         Map<String, String> params = Parser.parseParams(description);
         switch (keyword) {
-        case "deadline":
-            return new DeadlineTask(name, params.get("by"), Boolean.parseBoolean(params.getOrDefault("done", "false")));
-        case "event":
-            return new EventTask(name, params.get("at"), Boolean.parseBoolean(params.getOrDefault("done", "false")));
-        case "todo":
-            return new TodoTask(name, Boolean.parseBoolean(params.getOrDefault("done", "false")));
+        case DeadlineTask.KEYWORD:
+            return new DeadlineTask(name, params.get(DeadlineTask.BY_PARAM),
+                    Boolean.parseBoolean(params.getOrDefault(Task.DONE_PARAM, Boolean.toString(false))));
+        case EventTask.KEYWORD:
+            return new EventTask(name, params.get(EventTask.AT_PARAM),
+                    Boolean.parseBoolean(params.getOrDefault(Task.DONE_PARAM, Boolean.toString(false))));
+        case TodoTask.KEYWORD:
+            return new TodoTask(name,
+                    Boolean.parseBoolean(params.getOrDefault(Task.DONE_PARAM, Boolean.toString(false))));
         default:
-            throw new DukeException("I don't know what that means :-(");
+            throw new DukeException(DukeException.getDidNotUnderstandMessage());
         }
     }
 }

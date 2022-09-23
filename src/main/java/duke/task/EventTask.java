@@ -12,6 +12,11 @@ import duke.Parser;
  * An EventTask represents an task that happens at a certain time.
  */
 public class EventTask extends Task {
+    private static final String EVENT_NAME_EMPTY_ERROR_MESSAGE = "Event name cannot be empty";
+    private static final String EVENT_NAME_NULL_ERROR_MESSAGE = "Please provide a date and time (/at)";
+    private static final String DATE_FORMAT = "E, dd MMM yyyy";
+    public static final String AT_PARAM = "at";
+    public static final String KEYWORD = "event";
     private String eventDateTime;
     private Optional<LocalDate> eventDate;
     private Optional<LocalTime> eventTime;
@@ -38,10 +43,10 @@ public class EventTask extends Task {
     public EventTask(String name, String eventDateTime, boolean status) throws DukeException {
         super(name, status);
         if ("".equals(name)) {
-            throw new DukeException("Event name cannot be empty");
+            throw new DukeException(EVENT_NAME_EMPTY_ERROR_MESSAGE);
         }
         if (eventDateTime == null) {
-            throw new DukeException("Please provide a date and time (/at)");
+            throw new DukeException(EVENT_NAME_NULL_ERROR_MESSAGE);
         }
         this.eventDateTime = eventDateTime;
         this.eventDate = Optional.ofNullable(Parser.parseDateString(eventDateTime));
@@ -55,7 +60,7 @@ public class EventTask extends Task {
     public String toString() {
         String dateString = "";
         if (eventDate.isPresent()) {
-            dateString = eventDate.get().format(DateTimeFormatter.ofPattern("E, dd MMM yyyy"));
+            dateString = eventDate.get().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             if (eventTime.isPresent()) {
                 dateString += ", " + eventTime.get().toString();
             }
@@ -70,7 +75,7 @@ public class EventTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("event %s /at %s /done %s", getName(), eventDateTime, isDone());
+        return String.format("%s %s /at %s /done %s", KEYWORD, getName(), eventDateTime, isDone());
     }
 
 }

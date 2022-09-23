@@ -10,7 +10,9 @@ import duke.Ui;
  * Command to mark a task as undone.
  */
 public class UnmarkCommand extends Command {
+    public static final String KEYWORD = "unmark";
     private final int index;
+    private static final String SUCCESS_MESSAGE = "OK, I've marked this task as not done yet:";
 
     /**
      * Creates an Unmark command.
@@ -23,7 +25,7 @@ public class UnmarkCommand extends Command {
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            throw new DukeException("Sorry I didn't understand '" + indexString + "' for parameter INDEX");
+            throw new DukeException(DukeException.getDidNotUnderstandIndexMessage(indexString));
         }
     }
 
@@ -35,7 +37,7 @@ public class UnmarkCommand extends Command {
     @Override
     public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
         taskList.markUndone(lastResults.getItem(index));
-        ui.displayMessage(String.format("OK, I've marked this task as not done yet:\n %s", taskList.getItem(index)));
+        ui.displayMessage(SUCCESS_MESSAGE + "\n " + taskList.getItem(index));
         return lastResults;
     }
 

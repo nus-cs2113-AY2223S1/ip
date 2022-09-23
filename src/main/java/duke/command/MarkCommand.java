@@ -10,8 +10,9 @@ import duke.Ui;
  * Command to mark a task as done
  */
 public class MarkCommand extends Command {
-
+    public static final String KEYWORD = "mark";
     private final int index;
+    private static final String SUCCESS_MESSAGE = "Nice! I've marked this task as done:";
 
     /**
      * Creates a Mark command
@@ -24,7 +25,7 @@ public class MarkCommand extends Command {
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            throw new DukeException("Sorry I didn't understand '" + indexString + "' for parameter INDEX");
+            throw new DukeException(DukeException.getDidNotUnderstandIndexMessage(indexString));
         }
     }
 
@@ -36,7 +37,7 @@ public class MarkCommand extends Command {
     @Override
     public TaskList execute(TaskList taskList, Ui ui, Storage storage, TaskList lastResults) throws DukeException {
         taskList.markDone(lastResults.getItem(index));
-        ui.displayMessage(String.format("Nice! I've marked this task as done:\n %s", taskList.getItem(index)));
+        ui.displayMessage(SUCCESS_MESSAGE + "\n " + taskList.getItem(index));
         return lastResults;
     }
 

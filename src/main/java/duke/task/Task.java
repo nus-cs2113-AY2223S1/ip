@@ -4,6 +4,7 @@ package duke.task;
  * Abstract task class.
  */
 public abstract class Task {
+    public static String DONE_PARAM = "done";
     private String name;
     private boolean status;
 

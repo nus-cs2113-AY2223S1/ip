@@ -11,7 +11,7 @@ import duke.task.Task;
  * Command to remove a task from the list.
  */
 public class DeleteCommand extends Command {
-
+    public static final String KEYWORD = "delete";
     private final int index;
 
     /**
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            throw new DukeException("Sorry I didn't understand '" + indexString + "' for parameter INDEX");
+            throw new DukeException(DukeException.getDidNotUnderstandIndexMessage(indexString));
         }
     }
 

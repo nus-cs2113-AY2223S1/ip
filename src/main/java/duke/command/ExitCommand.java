@@ -9,6 +9,7 @@ import duke.Ui;
  * Command to exit the application
  */
 public class ExitCommand extends Command {
+    public static final String KEYWORD = "bye";
 
     /**
      * Creates an exit command

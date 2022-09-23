@@ -12,6 +12,11 @@ import duke.Parser;
  * A DeadlineTask represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
+    private static final String DEADLINE_EMPTY_ERROR_MESSAGE = "Deadline name cannot be empty";
+    private static final String DEADLINE_NULL_ERROR_MESSAGE = "Please provide a deadline (/by)";
+    private static final String DATE_FORMAT = "E, dd MMM yyyy";
+    public static final String BY_PARAM = "by";
+    public static final String KEYWORD = "deadline";
     private final String deadline;
     private final Optional<LocalDate> deadlineDate;
     private final Optional<LocalTime> deadlineTime;
@@ -40,10 +45,10 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String name, String deadline, boolean status) throws DukeException {
         super(name, status);
         if ("".equals(name)) {
-            throw new DukeException("Deadline name cannot be empty");
+            throw new DukeException(DEADLINE_EMPTY_ERROR_MESSAGE);
         }
         if (deadline == null) {
-            throw new DukeException("Please provide a deadline (/by)");
+            throw new DukeException(DEADLINE_NULL_ERROR_MESSAGE);
         }
         this.deadline = deadline;
         this.deadlineDate = Optional.ofNullable(Parser.parseDateString(deadline));
@@ -57,7 +62,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         String dateString = "";
         if (deadlineDate.isPresent()) {
-            dateString = deadlineDate.get().format(DateTimeFormatter.ofPattern("E, dd MMM yyyy"));
+            dateString = deadlineDate.get().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             if (deadlineTime.isPresent()) {
                 dateString += ", " + deadlineTime.get().toString();
             }
@@ -72,7 +77,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("deadline %s /by %s /done %s", getName(), deadline, isDone());
+        return String.format("%s %s /by %s /done %s", KEYWORD, getName(), deadline, isDone());
     }
 
 }

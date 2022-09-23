@@ -19,6 +19,7 @@ import duke.task.TaskFactory;
 public class Storage {
 
     public static final String FILE_PATH = "data/duke.txt";
+    private static final String FILE_WRITING_ERROR_MESSAGE = "Data file cannot be written to.";
 
     /**
      * Reads a list of tasks from the default data file.
@@ -82,7 +83,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("Data file cannot be written to.");
+            throw new DukeException(FILE_WRITING_ERROR_MESSAGE);
         }
     }
 }

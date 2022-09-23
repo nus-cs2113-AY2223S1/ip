@@ -10,6 +10,8 @@ import duke.task.Task;
  * The TaskList class handles operations on the list of tasks.
  */
 public class TaskList {
+    private static final String TASK_DOES_NOT_EXIST_ERROR_MESSAGE = "Task at index %d does not exist!";
+    private static final String LIST_TASKS_HEADER = "Here are the tasks in your list:";
     List<Task> items;
 
     /**
@@ -47,7 +49,7 @@ public class TaskList {
      */
     public Task getItem(int index) throws DukeException {
         if (index < 1 || index > items.size()) {
-            throw new DukeException("Task at index " + index + " does not exist!");
+            throw new DukeException(String.format(TASK_DOES_NOT_EXIST_ERROR_MESSAGE, index));
         }
         return items.get(index - 1);
     }
@@ -120,7 +122,8 @@ public class TaskList {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
+        sb.append(LIST_TASKS_HEADER);
+        sb.append("\n");
         for (int i = 0; i < items.size(); i++) {
             sb.append(String.format("%d.%s\n", i + 1, items.get(i)));
         }
