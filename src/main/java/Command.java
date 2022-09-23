@@ -6,8 +6,8 @@ public class Command {
         this.commandAction = commandAction;
     }
 
-    public boolean executeCommand(TaskList tasks, String fullCommand){
-        switch(commandAction.toLowerCase()){
+    public boolean executeCommand(TaskList tasks, String fullCommand) {
+        switch (commandAction.toLowerCase()) {
             case "bye":
                 return true;
             case "list":
@@ -16,15 +16,30 @@ public class Command {
                 break;
             case "todo":
                 //add todo to task list, no date
-                tasks.addTodo(commandAction, fullCommand);
+                if(commandAction.matches(fullCommand)){
+//                    throw new DukeException();
+                    System.out.println("OOPS! The description of todo cannot be empty");
+                } else {
+                    tasks.addTodo(commandAction, fullCommand);
+                }
                 break;
             case "deadline":
                 //add deadline to task list, got date
-                tasks.addDeadline(commandAction, fullCommand);
+                if(commandAction.matches(fullCommand)){
+//                    throw new DukeException();
+                    System.out.println("OOPS! The description of deadline cannot be empty");
+                } else {
+                    tasks.addDeadline(commandAction, fullCommand);
+                }
                 break;
             case "event":
                 //add event to task list, got date
-                tasks.addEvent(commandAction, fullCommand);
+                if(commandAction.matches(fullCommand)){
+//                    throw new DukeException();
+                    System.out.println("OOPS! The description of event cannot be empty");
+                } else {
+                    tasks.addEvent(commandAction, fullCommand);
+                }
                 break;
             case "mark":
                 tasks.markDone(fullCommand);
@@ -32,6 +47,8 @@ public class Command {
             case "unmark":
                 tasks.markUndone(fullCommand);
                 break;
+            default:
+                System.out.println("OOPS! I'm sorry, I don't know what that means :(");
         }
         return false;
     }

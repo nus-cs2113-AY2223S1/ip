@@ -7,7 +7,7 @@ public class TaskList{
         tasks = new Task[max];
     }
     public void addTodo(String commandAction, String fullCommand) {
-        String description = Parser.parseDescription(fullCommand);
+        String description = Parser.parseDescription(fullCommand); //throw error when todo is empty
         tasks[taskCounter] = new Task(commandAction, description);
         System.out.println("Got it. I've added this task:");
         tasks[taskCounter].printTask();
@@ -16,7 +16,7 @@ public class TaskList{
     }
 
     public void addDeadline(String commandAction, String fullCommand) {
-        String description = Parser.parseDescription(fullCommand);
+        String description = Parser.parseDescription(fullCommand); //throw error when deadline is empty, or no time attached
         tasks[taskCounter] = new Task(commandAction, description);
         System.out.println("Got it. I've added this task:");
         tasks[taskCounter].printTask();
@@ -25,7 +25,7 @@ public class TaskList{
     }
 
     public void addEvent(String commandAction, String fullCommand) {
-        String description = Parser.parseDescription(fullCommand);
+        String description = Parser.parseDescription(fullCommand); //throw error when event is empty, or no time attached
         tasks[taskCounter] = new Task(commandAction, description);
         System.out.println("Got it. I've added this task:");
         tasks[taskCounter].printTask();
