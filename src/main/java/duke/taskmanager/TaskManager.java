@@ -1,5 +1,6 @@
 package duke.taskmanager;
 
+import duke.UI;
 import duke.exceptions.EmptyException;
 import duke.exceptions.NoBackslashException;
 import duke.exceptions.TaskOutOfBoundsException;
@@ -16,8 +17,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
-
     public static StringBuilder toSave = new StringBuilder();
 
     public static ArrayList<Task> tasks = new ArrayList<>() {
@@ -25,9 +24,14 @@ public class TaskManager {
             add(new Todo("Todo buffer for one based input", ' '));
         }
     };
-    private static int oneBasedIndex = 1;
+    public static int oneBasedIndex = 1;
+
+    private Storage storage;
+    private UI ui;
 
     public TaskManager() {
+        ui = new UI();
+        ui.printGreetingMessage();
         try {
             File f = new File("data/duke.txt"); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -36,49 +40,18 @@ public class TaskManager {
                 tryCommand(command);
             }
         } catch (FileNotFoundException e) {
-            formatOutput("File not found sorry.");
+            ui.printFileNotFoundException();
         }
 
     }
 
-    public static void formatOutput(String stringToOutput) {
-        System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
-    }
-
-    public static void printMark(Task task, boolean done) {
-        formatOutput(task.markDone(done));
-    }
-
-    public static void printTask(Task task) {
-        formatOutput("Got it. I've added this task:" + System.lineSeparator()
-                + task + System.lineSeparator() + "Now you have " + oneBasedIndex
-                + " tasks in the list.");
-        oneBasedIndex++;
-    }
-
-    public static void printTaskAfterDelete(Task task) {
-        oneBasedIndex--;
-        formatOutput("Noted. I've removed this task:" + System.lineSeparator()
-                + task + System.lineSeparator() + "Now you have " + (oneBasedIndex - 1)
-                + " tasks in the list.");
-    }
-
-    public static void printList() {
-        StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list:").append(System.lineSeparator());
-        for (int i = 1; i < oneBasedIndex; i++) {
-            s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
-        }
-        formatOutput(s.toString());
-    }
-
-    public static void receiveCommands() {
+    public void receiveCommands() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine().trim();
         while (!command.equals("bye")) {
             boolean isList = command.equals("list");
             if (isList) {
-                printList();
+                ui.printList(tasks);
             } else {
                 tryCommand(command);
             }
@@ -89,9 +62,10 @@ public class TaskManager {
         } catch (IOException e) {
             System.out.println("I/O error...");
         }
+        ui.printExitMessage();
     }
 
-    private static void saveTasks() throws IOException {
+    private void saveTasks() throws IOException {
         File file = new File("data/duke.txt");
         FileWriter fw;
         file.getParentFile().mkdirs();
@@ -101,7 +75,7 @@ public class TaskManager {
         fw.close();
     }
 
-    private static void tryCommand(String command) {
+    private void tryCommand(String command) {
         String firstWord;
         try {
             firstWord = command.substring(0, command.indexOf(' '));
@@ -110,20 +84,20 @@ public class TaskManager {
             try {
                 checkExceptions(command);
             }catch (EmptyException ee) {
-                formatOutput("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                ui.printEmptyException(command);
             } catch (WrongCommandException ee) {
-                formatOutput("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                ui.printWrongCommandException();
             }
         } catch (WrongCommandException e) {
-            formatOutput("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            ui.printWrongCommandException();
         } catch (TaskOutOfBoundsException e) {
-            formatOutput("☹ OOPS!!! The task number you specified does not exist.");
+            ui.printTaskOutOfBoundsException();
         } catch (NoBackslashException e) {
-            formatOutput("☹ OOPS!!! You did not specify a deadline OR event datetime.");
+            ui.printNoBackslashException();
         }
     }
 
-    private static void doCommand(String command, String firstWord)
+    private void doCommand(String command, String firstWord)
             throws WrongCommandException, TaskOutOfBoundsException, NoBackslashException {
         switch (firstWord) {
         case "mark":
@@ -136,7 +110,7 @@ public class TaskManager {
             break;
         case "todo":
             tasks.add(new Todo(command, ' '));
-            printTask(tasks.get(oneBasedIndex));
+            ui.printTask(tasks.get(oneBasedIndex));
             toSave.append(command).append(System.lineSeparator());
             break;
         case "deadline":
@@ -154,21 +128,21 @@ public class TaskManager {
         }
     }
 
-    private static void delete(String command) throws TaskOutOfBoundsException {
+    private void delete(String command) throws TaskOutOfBoundsException {
         try {
             int startIdx = "delete ".length();
             int pos = Integer.parseInt(command.substring(startIdx));
             if (pos >= oneBasedIndex || pos < 1) {
                 throw new TaskOutOfBoundsException();
             }
-            printTaskAfterDelete(tasks.get(pos));
+            ui.printTaskAfterDelete(tasks.get(pos));
             tasks.remove(pos);
         } catch (NumberFormatException e) {
-            formatOutput("☹ OOPS!!! You did not enter a number.");
+            ui.printNumberFormatException();
         }
     }
 
-    private static void addDeadlineOrEvent(String command, String firstWord) throws NoBackslashException {
+    private void addDeadlineOrEvent(String command, String firstWord) throws NoBackslashException {
         if (command.contains("/")){
             switch (firstWord) {
             case "deadline":
@@ -178,26 +152,26 @@ public class TaskManager {
                 tasks.add(new Event(command, '/'));
                 break;
             }
-            printTask(tasks.get(oneBasedIndex));
+            ui.printTask(tasks.get(oneBasedIndex));
         } else {
             throw new NoBackslashException();
         }
     }
 
-    private static void mark(String command, boolean done) throws TaskOutOfBoundsException {
+    private void mark(String command, boolean done) throws TaskOutOfBoundsException {
         try {
             int startIdx = command.substring(0, command.indexOf(' ') + 1).length();
             int pos = Integer.parseInt(command.substring(startIdx));
             if (pos >= oneBasedIndex || pos < 1) {
                 throw new TaskOutOfBoundsException();
             }
-            printMark(tasks.get(pos), done);
+            ui.printMark(tasks.get(pos), done);
         } catch (NumberFormatException e) {
-            formatOutput("☹ OOPS!!! You did not enter a number.");
+            ui.printNumberFormatException();
         }
     }
 
-    private static void checkExceptions(String command) throws EmptyException, WrongCommandException {
+    private void checkExceptions(String command) throws EmptyException, WrongCommandException {
         if (command.matches("mark|unmark|todo|deadline|event|delete")) {
             throw new EmptyException();
         } else {
