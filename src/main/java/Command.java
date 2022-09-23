@@ -47,6 +47,9 @@ public class Command {
             case "unmark":
                 tasks.markUndone(fullCommand);
                 break;
+            case "delete":
+                tasks.deleteTask(fullCommand);
+                break;
             default:
                 System.out.println("OOPS! I'm sorry, I don't know what that means :(");
         }
