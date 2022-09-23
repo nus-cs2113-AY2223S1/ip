@@ -17,6 +17,9 @@ import java.util.Scanner;
 
 public class TaskManager {
     public static final String DASH_SEPARATOR = "------------------------------------------------------------\n";
+
+    public static StringBuilder toSave = new StringBuilder();
+
     public static ArrayList<Task> tasks = new ArrayList<>() {
         {
             add(new Todo("Todo buffer for one based input", ' '));
@@ -29,35 +32,11 @@ public class TaskManager {
             File f = new File("data/duke.txt"); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
-                String line = s.nextLine();
-                StringBuilder command = new StringBuilder();
-                switch (line.charAt(1)) {
-                case 'T':
-                    command.append("todo");
-                    command.append(line.substring("[ ][ ]".length()));
-                    break;
-                case 'D':
-                    command.append("deadline");
-                    command.append(line.substring("[ ][ ]".length(), line.indexOf('('))).append("/by ");
-                    command.append(line.substring(line.indexOf('(') + "(by: ".length(),line.indexOf(')')));
-                    break;
-                case 'E':
-                    command.append("event");
-                    command.append(line.substring("[ ][ ]".length(), line.indexOf('('))).append("/at ");
-                    command.append(line.substring(line.indexOf('(') + "(at: ".length(),line.indexOf(')')));
-                    break;
-                default:
-                    break;
-                }
-                System.out.println(command);
-                tryCommand(String.valueOf(command));
-                Character mark = line.charAt(4);
-                if (mark.equals('X')) {
-                    tryCommand("mark " + (oneBasedIndex - 1));
-                }
+                String command = s.nextLine();
+                tryCommand(command);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found sorry.");
+            formatOutput("File not found sorry.");
         }
 
     }
@@ -65,15 +44,18 @@ public class TaskManager {
     public static void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
     }
+
     public static void printMark(Task task, boolean done) {
         formatOutput(task.markDone(done));
     }
+
     public static void printTask(Task task) {
         formatOutput("Got it. I've added this task:" + System.lineSeparator()
                 + task + System.lineSeparator() + "Now you have " + oneBasedIndex
                 + " tasks in the list.");
         oneBasedIndex++;
     }
+
     public static void printTaskAfterDelete(Task task) {
         oneBasedIndex--;
         formatOutput("Noted. I've removed this task:" + System.lineSeparator()
@@ -115,11 +97,7 @@ public class TaskManager {
         file.getParentFile().mkdirs();
         file.createNewFile();
         fw = new FileWriter(file);
-        StringBuilder textToAppend = new StringBuilder();
-        for (int i = 1; i < oneBasedIndex; i++) {
-            textToAppend.append(tasks.get(i)).append(System.lineSeparator());
-        }
-        fw.write(String.valueOf(textToAppend));
+        fw.write(String.valueOf(toSave));
         fw.close();
     }
 
@@ -149,29 +127,34 @@ public class TaskManager {
             throws WrongCommandException, TaskOutOfBoundsException, NoBackslashException {
         switch (firstWord) {
         case "mark":
-            tryMark(command, true);
+            mark(command, true);
+            toSave.append(command).append(System.lineSeparator());
             break;
         case "unmark":
-            tryMark(command, false);
+            mark(command, false);
+            toSave.append(command).append(System.lineSeparator());
             break;
         case "todo":
             tasks.add(new Todo(command, ' '));
             printTask(tasks.get(oneBasedIndex));
+            toSave.append(command).append(System.lineSeparator());
             break;
         case "deadline":
             //Fallthrough
         case "event":
-            tryDeadlineOrEvent(command,firstWord);
+            addDeadlineOrEvent(command,firstWord);
+            toSave.append(command).append(System.lineSeparator());
             break;
         case "delete":
-            tryDelete(command);
+            delete(command);
+            toSave.append(command).append(System.lineSeparator());
             break;
         default:
             throw new WrongCommandException();
         }
     }
 
-    private static void tryDelete(String command) throws TaskOutOfBoundsException {
+    private static void delete(String command) throws TaskOutOfBoundsException {
         try {
             int startIdx = "delete ".length();
             int pos = Integer.parseInt(command.substring(startIdx));
@@ -185,7 +168,7 @@ public class TaskManager {
         }
     }
 
-    private static void tryDeadlineOrEvent(String command, String firstWord) throws NoBackslashException {
+    private static void addDeadlineOrEvent(String command, String firstWord) throws NoBackslashException {
         if (command.contains("/")){
             switch (firstWord) {
             case "deadline":
@@ -201,7 +184,7 @@ public class TaskManager {
         }
     }
 
-    private static void tryMark(String command, boolean done) throws TaskOutOfBoundsException {
+    private static void mark(String command, boolean done) throws TaskOutOfBoundsException {
         try {
             int startIdx = command.substring(0, command.indexOf(' ') + 1).length();
             int pos = Integer.parseInt(command.substring(startIdx));
@@ -215,12 +198,7 @@ public class TaskManager {
     }
 
     private static void checkExceptions(String command) throws EmptyException, WrongCommandException {
-        if (command.equals("mark") ||
-                command.equals("unmark") ||
-                command.equals("todo") ||
-                command.equals("deadline") ||
-                command.equals("event") ||
-                command.equals("delete")) {
+        if (command.matches("mark|unmark|todo|deadline|event|delete")) {
             throw new EmptyException();
         } else {
             throw new WrongCommandException();
