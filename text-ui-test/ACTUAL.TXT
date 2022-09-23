@@ -9,97 +9,84 @@ ____________________________________________________________
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 ____________________________________________________________
-Added deadline: [D][ ] do homework (by: no idea :-p)
-Total tasks = 1
 Added deadline: [D][ ] return book (by: Sunday)
-Total tasks = 2
-Added event: [E][ ] project meeting (at: Mon 2-4pm)
-Total tasks = 3
+Total tasks = 1
 Added deadline: [D][ ] do homework (by: no idea :-p)
+Total tasks = 2
+Added todo: [T][ ] return book
+Total tasks = 3
+Added deadline: [D][ ] return book (by: Sunday)
 Total tasks = 4
+Added event: [E][ ] project meeting (at: Mon 2-4pm)
+Total tasks = 5
+Added deadline: [D][ ] do homework (by: no idea :-p)
+Total tasks = 6
 ____________________________________________________________
 Previously saved task: 
-1. [D][ ] do homework (by: no idea :-p)
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
-4. [D][ ] do homework (by: no idea :-p)
+1. [D][ ] return book (by: Sunday)
+2. [D][ ] do homework (by: no idea :-p)
+3. [T][ ] return book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+6. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
  
 Added todo: [T][ ] return book
-Total tasks = 5
-
-Added deadline: [D][ ] return book (by: Sunday)
-Total tasks = 6
-
-Added event: [E][ ] project meeting (at: Mon 2-4pm)
 Total tasks = 7
 
-Added deadline: [D][ ] do homework (by: no idea :-p)
+Added deadline: [D][ ] return book (by: Sunday)
 Total tasks = 8
 
-Marked: 
-[D][X] return book (by: Sunday)
+Added event: [E][ ] project meeting (at: Mon 2-4pm)
+Total tasks = 9
 
-1. [D][ ] do homework (by: no idea :-p)
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
-4. [D][ ] do homework (by: no idea :-p)
-5. [T][ ] return book
-6. [D][ ] return book (by: Sunday)
-7. [E][ ] project meeting (at: Mon 2-4pm)
-8. [D][ ] do homework (by: no idea :-p)
+Added deadline: [D][ ] do homework (by: no idea :-p)
+Total tasks = 10
 
 Marked: 
-[E][X] project meeting (at: Mon 2-4pm)
-
-1. [D][ ] do homework (by: no idea :-p)
-2. [D][X] return book (by: Sunday)
-3. [E][X] project meeting (at: Mon 2-4pm)
-4. [D][ ] do homework (by: no idea :-p)
-5. [T][ ] return book
-6. [D][ ] return book (by: Sunday)
-7. [E][ ] project meeting (at: Mon 2-4pm)
-8. [D][ ] do homework (by: no idea :-p)
-
-Unmarked: 
-[D][ ] return book (by: Sunday)
-
-1. [D][ ] do homework (by: no idea :-p)
-2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (at: Mon 2-4pm)
-4. [D][ ] do homework (by: no idea :-p)
-5. [T][ ] return book
-6. [D][ ] return book (by: Sunday)
-7. [E][ ] project meeting (at: Mon 2-4pm)
-8. [D][ ] do homework (by: no idea :-p)
-
-Unmarked: 
-[E][ ] project meeting (at: Mon 2-4pm)
-
-1. [D][ ] do homework (by: no idea :-p)
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
-4. [D][ ] do homework (by: no idea :-p)
-5. [T][ ] return book
-6. [D][ ] return book (by: Sunday)
-7. [E][ ] project meeting (at: Mon 2-4pm)
-8. [D][ ] do homework (by: no idea :-p)
-
-Deleting task:
-[D][ ] do homework (by: no idea :-p)
-Remaining task count 7
+[D][X] do homework (by: no idea :-p)
 
 1. [D][ ] return book (by: Sunday)
-2. [E][ ] project meeting (at: Mon 2-4pm)
-3. [D][ ] do homework (by: no idea :-p)
-4. [T][ ] return book
-5. [D][ ] return book (by: Sunday)
-6. [E][ ] project meeting (at: Mon 2-4pm)
-7. [D][ ] do homework (by: no idea :-p)
+2. [D][X] do homework (by: no idea :-p)
+3. [T][ ] return book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+6. [D][ ] do homework (by: no idea :-p)
+7. [T][ ] return book
+8. [D][ ] return book (by: Sunday)
+9. [E][ ] project meeting (at: Mon 2-4pm)
+10. [D][ ] do homework (by: no idea :-p)
 
-Deleting task:
-[E][ ] project meeting (at: Mon 2-4pm)
-Remaining task count 6
+Marked: 
+[T][X] return book
+
+1. [D][ ] return book (by: Sunday)
+2. [D][X] do homework (by: no idea :-p)
+3. [T][X] return book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+6. [D][ ] do homework (by: no idea :-p)
+7. [T][ ] return book
+8. [D][ ] return book (by: Sunday)
+9. [E][ ] project meeting (at: Mon 2-4pm)
+10. [D][ ] do homework (by: no idea :-p)
+
+Unmarked: 
+[D][ ] do homework (by: no idea :-p)
+
+1. [D][ ] return book (by: Sunday)
+2. [D][ ] do homework (by: no idea :-p)
+3. [T][X] return book
+4. [D][ ] return book (by: Sunday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+6. [D][ ] do homework (by: no idea :-p)
+7. [T][ ] return book
+8. [D][ ] return book (by: Sunday)
+9. [E][ ] project meeting (at: Mon 2-4pm)
+10. [D][ ] do homework (by: no idea :-p)
+
+Unmarked: 
+[T][ ] return book
 
 1. [D][ ] return book (by: Sunday)
 2. [D][ ] do homework (by: no idea :-p)
@@ -107,6 +94,37 @@ Remaining task count 6
 4. [D][ ] return book (by: Sunday)
 5. [E][ ] project meeting (at: Mon 2-4pm)
 6. [D][ ] do homework (by: no idea :-p)
+7. [T][ ] return book
+8. [D][ ] return book (by: Sunday)
+9. [E][ ] project meeting (at: Mon 2-4pm)
+10. [D][ ] do homework (by: no idea :-p)
+
+Deleting task:
+[D][ ] return book (by: Sunday)
+Remaining task count 9
+
+1. [D][ ] do homework (by: no idea :-p)
+2. [T][ ] return book
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (at: Mon 2-4pm)
+5. [D][ ] do homework (by: no idea :-p)
+6. [T][ ] return book
+7. [D][ ] return book (by: Sunday)
+8. [E][ ] project meeting (at: Mon 2-4pm)
+9. [D][ ] do homework (by: no idea :-p)
+
+Deleting task:
+[T][ ] return book
+Remaining task count 8
+
+1. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+4. [D][ ] do homework (by: no idea :-p)
+5. [T][ ] return book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (at: Mon 2-4pm)
+8. [D][ ] do homework (by: no idea :-p)
 
 Bye. Hope to see you again soon
 
