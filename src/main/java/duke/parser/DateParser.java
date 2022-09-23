@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The parser handles parsing of dates embedded as parameters in the user input.
+ */
 public class DateParser {
     public static final List<String> MONTHS_LIST = List.of("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
             "sep", "oct", "nov", "dec");
+    public static final String MONTH_REGEX = "(" + String.join("|", MONTHS_LIST) + ")";
     public static final String YEAR_REGEX = "\\b(2\\d{3})\\b";
     public static final String DAY_REGEX = "\\b(\\d{1,2})\\b";
 
@@ -22,6 +26,8 @@ public class DateParser {
      * @return A LocalDate object, or null if the date cannot be parsed
      */
     public static LocalDate parseDateString(String input) {
+        // date either does not contain spaces (e.g. 2022-01-01)
+        // or has the month written out (e.g. 1 jan 2022)
         if (input.contains(" ")) {
             for (String part : input.split(" ")) {
                 LocalDate attempt = parseDateString(part); // attempt to process recursively
@@ -41,11 +47,12 @@ public class DateParser {
             return LocalDate.of(year, month, day);
         }
         try {
+            // day, month and optionally year separated by spaces
             Pattern yearPattern = Pattern.compile(YEAR_REGEX); // four digit number starting with 2
             Matcher yearMatcher = yearPattern.matcher(input);
             // default to current year
             int year = yearMatcher.find() ? Integer.parseInt(yearMatcher.group()) : LocalDate.now().getYear();
-            Pattern monthPattern = Pattern.compile("(" + String.join("|", MONTHS_LIST) + ")");
+            Pattern monthPattern = Pattern.compile(MONTH_REGEX);
             Matcher monthMatcher = monthPattern.matcher(input.toLowerCase());
             if (!monthMatcher.find()) {
                 return null;

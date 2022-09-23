@@ -2,7 +2,6 @@ package duke;
 
 import duke.command.Command;
 import duke.parser.CommandParser;
-import duke.parser.Parser;
 
 /**
  * Duke is the main class in the duke application.

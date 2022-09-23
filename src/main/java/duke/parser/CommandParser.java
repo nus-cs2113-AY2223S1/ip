@@ -14,6 +14,9 @@ import duke.task.DeadlineTask;
 import duke.task.EventTask;
 import duke.task.TodoTask;
 
+/**
+ * The parser handles parsing of commands.
+ */
 public class CommandParser {
 
     /**

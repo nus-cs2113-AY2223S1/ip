@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * The parser handles parsing of commands.
+ * The parser handles parsing of user input.
  */
 public class Parser {
     /**
