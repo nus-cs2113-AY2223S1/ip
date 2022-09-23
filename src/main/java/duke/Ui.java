@@ -17,10 +17,10 @@ public class Ui {
         scanner =new Scanner(System.in);
     }
 
+
     public void showLoadingError() {
+        printOutput("Error loading txt file", LINE_DIVIDER);
     }
-
-
     public void showWelcomeMessage() {
         printOutput(LINE_DIVIDER, WELCOME_MESSAGE, QUESTION_MESSAGE);
     }
@@ -32,26 +32,54 @@ public class Ui {
         }
     }
 
+    /**
+     * Reads the input in next line.
+     *
+     * @return Input from the next line.
+     */
     public String readCommand() {
         String input = scanner.nextLine();
         return input;
     }
 
+    /**
+     * Prints the feedback.
+     *
+     * @param result Feedback to be printed in string.
+     */
+
+
     public void showFeedbackToUser(String result) {
         printOutput(result, LINE_DIVIDER);
     }
 
+    /**
+     * Prints the feedback.
+     *
+     * @param result Feedback to be printed in ArrayList.
+     */
     public void showFeedbackToUser(ArrayList<String> result) {
         for (String string : result) {
             System.out.println(string);
         }
     }
 
+    /**
+     * Prints the task list to the user.
+     *
+     * @param tasks Tasks in the TaskList.
+     */
     public void showTaskList(ArrayList<Task> tasks) {
         ArrayList<String> feedbackTaskList = getTaskListFeedback(tasks);
         showFeedbackToUser(feedbackTaskList);
     }
 
+    /**
+     * Returns an ArrayList of formatted tasks in string with opening message.
+     *
+     * @param tasks Tasks to be formatted
+     * @return Feedback to the user.
+     */
     private static ArrayList<String> getTaskListFeedback(ArrayList<Task> tasks) {
         ArrayList<String> taskListFeedback = new ArrayList<>();
         taskListFeedback.add(PRINT_LIST_MESSAGE);
@@ -60,4 +88,5 @@ public class Ui {
         }
         return taskListFeedback;
     }
+
 }
