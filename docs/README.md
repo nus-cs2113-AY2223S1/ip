@@ -40,6 +40,8 @@ List all the current tasks in the todo list
 
 ### Usage `list`
 Input: `list`
+
+Expected Output:
 ```
 list
 1. [E][ ] CS2113 tutorial (at: Wednesday 12pm)
@@ -55,6 +57,8 @@ Add an event to the current list of tasks
 Format: `event {task name} /at {task time}`
 ### Usage `event`
 Input: `event CS2113 tutorial /at Wednesday 12pm`
+
+Expected Output:
 ```
 event CS2113 tutorial /at Wednesday 12pm
 Added event: [E][ ] CS2113 tutorial (at: Wednesday 12pm)
@@ -67,6 +71,8 @@ Add a deadline to current list of tasks
 Format: `deadline {task name} /by {task deadline}`
 ### Usage `deadline`
 Input: `deadline CS2113 ip /by tonight 2359`
+
+Expected Output:
 ```
 deadline CS2113 ip /by tonight 2359
 Added deadline: [D][ ] CS2113 ip (by: tonight 2359)
@@ -79,6 +85,8 @@ Add a todo to the current list of tasks
 Format: `todo {task name}`
 ### Usage `todo`
 Input: `todo CS2113 tp`
+
+Expected Output:
 ```
 todo CS2113 tp
 Added todo: [T][ ] CS2113 tp
@@ -92,6 +100,8 @@ Find a task based on a keyword
 Format: `find {keyword}`
 ### Usage `find`
 Input: `find CS2113`
+
+Expected Output:
 ```
 find CS2113
 1: [E][ ] CS2113 tutorial (at: Wednesday 12pm)
@@ -108,6 +118,8 @@ Take note to only mark tasks within range of (1 to number of tasks)
 Format: `mark {task number}`
 ### Usage `mark`
 Input: `mark 2`
+
+Expected Output:
 ```
 mark 2
 Marked:
@@ -122,6 +134,8 @@ Take note to only remove marking of tasks within range of (1 to number of tasks)
 Format: `unmark {task number}`
 ### Usage `unmark`
 Input: `unmark 2`
+
+Expected Output:
 ```
 unmark 2
 Unmarked:
@@ -137,6 +151,8 @@ Take note to only delete tasks within the range of (1 to number of tasks)
 Format: `delete {task number}`
 ### Usage `delete`
 Input: `delete 1`
+
+Expected Output:
 ```
 delete 1
 Deleting task:
@@ -149,6 +165,8 @@ ____________________________________________________________
 ### 9) Exiting the app `bye`
 Says bye to the user
 ### Usage `bye`
+
+Expected Output:
 ```
 bye
 Bye. Hope to see you again soon
@@ -156,16 +174,3 @@ Bye. Hope to see you again soon
 ____________________________________________________________
 ```
 ____________________________________________________________
-
-## Summary of commands
-| Command     | Example Usage                              |
-|-------------|--------------------------------------------|
-| `list`      | `list`                                     |
-| `event`     | `event CS2113 tutorial /at Wednesday 12pm` |
-| `deadline`  | `deadline CS2113 ip /by tonight 2359`      |
-| `todo`      | `todo CS2113 tp`                           |
-| `mark`      | `mark 2`                                   |
-| `unmark`    | `unmark 2`                                 |
-| `find`      | `find CS2113`                              |
-| `delete`    | `delete 1`                                 |
-| `bye`       | `bye`                                      |
