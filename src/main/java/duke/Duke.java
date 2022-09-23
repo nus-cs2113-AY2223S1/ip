@@ -3,6 +3,7 @@ package duke;
 import duke.commands.ByeCommand;
 import duke.commands.Command;
 import duke.common.ErrorMessages;
+import duke.common.InfoMessages;
 import duke.data.TaskList;
 import duke.data.exception.InvalidCommandException;
 import duke.parser.Parser;
@@ -42,9 +43,12 @@ public class Duke {
         try {
             // Initialises tasks with saved input from an existing file
             tasks = storage.readFromFile();
+            ui.showCustomText(InfoMessages.MESSAGE_INFO_FILE_READ);
         } catch (IOException e) {
             ui.showCustomText(ErrorMessages.MESSAGE_ERROR_FILE_IO);
         }
+
+        ui.showWelcomeText();
 
         String input;
         do {

@@ -17,7 +17,6 @@ public class TextUi {
      * Shows welcome text and provides input stream when user initialises a new instance of this class.
      */
     public TextUi() {
-        showWelcomeText();
         in = new Scanner(System.in);
     }
 
@@ -31,7 +30,7 @@ public class TextUi {
         // Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/ui/TextUi.java
         // with minor modifications
         System.out.println(INDENT_SPACE + InfoMessages.MESSAGE_INFO_DIVIDER.toString());
-        // Prints the string of arguments line by line in a loop.
+        // Prints the string of arguments line by line in a loop
         for (String message : messages) {
             System.out.println(INDENT_SPACE + message);
         }

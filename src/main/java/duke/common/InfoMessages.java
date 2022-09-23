@@ -6,6 +6,7 @@ package duke.common;
 public enum InfoMessages {
     MESSAGE_INFO_DIVIDER("____________________________________________________________"),
     MESSAGE_INFO_WELCOME("Kon'nichiwa! Doraemon desu. What can I do for you?"),
+    MESSAGE_INFO_FILE_READ("Nobita, entries have been loaded from the file and new entries will be stored too."),
     MESSAGE_INFO_LIST_EMPTY("Doraemon's 4D pocket is empty. Go take a rest, Nobita!"),
     MESSAGE_INFO_LIST("Here are the tasks stored in Doraemon's 4D pocket:"),
     MESSAGE_INFO_LIST_FILTERED("Here are the tasks that match your search expression in Doraemon's 4D pocket:"),
