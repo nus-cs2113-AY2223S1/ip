@@ -41,6 +41,10 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(unmarktask);
                 System.out.println("-------------------------------------------------------------------------------");
+                break;
+            case "delete":
+                removeTask(input, inputArr);
+                break;
             case "todo":
                 try {
                     task = createTodo(input, inputArr);
@@ -89,14 +93,10 @@ public class Duke {
                 }
                 break;
             default:
-                if (input.contains("unmark")){
-                    break;
-                }
-                else{
-                    System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Wrong command, please type again.");
-                    System.out.println("-------------------------------------------------------------------------------");
-                }
+                System.out.println("-------------------------------------------------------------------------------");
+                System.out.println("Wrong command, please type again.");
+                System.out.println("-------------------------------------------------------------------------------");
+                break;
         }
     }
 
@@ -122,6 +122,18 @@ public class Duke {
 
         int cutoff = input.indexOf("/at");
         return new Events(input.substring(6, cutoff - 1), input.substring(cutoff + 4));
+    }
+
+    public static void removeTask(String input, String[] inputArr){
+        int task_index = Integer.parseInt(inputArr[1]);
+        Task task = tasklist.get(task_index - 1);
+        tasklist.remove(task_index - 1);
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+        System.out.println("-------------------------------------------------------------------------------");
+
     }
 
     public static void main(String[] args) {
