@@ -100,4 +100,14 @@ public class Parser {
     }
 
 
+/**
+ * Returns an array of separated task name and date with time.
+ *
+ * @param commandArguments Command arguments given by the user.
+ * @param separator Separator to split the string.
+ * @return Array of description and date with time.
+ */
+    public String[] getDescriptionAndTime(String commandArguments, String separator) {
+        return commandArguments.split(separator);
+    }
 }

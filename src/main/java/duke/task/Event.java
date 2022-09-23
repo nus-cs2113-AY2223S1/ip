@@ -10,6 +10,8 @@ public class Event extends Task{
         this.time = time;
     }
 
+
+
     /**
      * Returns the information of the event for printing.
      *

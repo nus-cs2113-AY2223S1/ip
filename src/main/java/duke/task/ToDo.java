@@ -14,6 +14,11 @@ public class ToDo extends Task {
      * @return Todo in string format.
      */
     @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";
         return "[T]" +"[" + statusIcon + "] " + this.description;
