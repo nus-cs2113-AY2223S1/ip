@@ -3,4 +3,4 @@ cd text-ui-test
 ./runtest.sh
 cd ..
 cd bin
-jar cfe duke.jar duke.Duke duke/*.class duke/command/*.class duke/task/*.class
+jar cfe Duke.jar duke.Duke duke/*.class duke/command/*.class duke/task/*.class
