@@ -43,7 +43,13 @@ public class Duke {
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
             case "delete":
-                removeTask(input, inputArr);
+                try {
+                    removeTask(input, inputArr);
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("-------------------------------------------------------------------------------");
+                    System.out.println("Invalid task number.");
+                    System.out.println("-------------------------------------------------------------------------------");
+                }
                 break;
             case "todo":
                 try {
