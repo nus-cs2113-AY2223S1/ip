@@ -3,7 +3,7 @@ package duke.task;
 import java.util.Map;
 
 import duke.DukeException;
-import duke.Parser;
+import duke.parser.Parser;
 
 /**
  * Instantiates tasks from input strings.

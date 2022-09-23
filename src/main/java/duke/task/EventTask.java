@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import duke.DukeException;
-import duke.Parser;
+import duke.parser.DateParser;
+import duke.parser.Parser;
+import duke.parser.TimeParser;
 
 /**
  * An EventTask represents an task that happens at a certain time.
@@ -49,8 +51,8 @@ public class EventTask extends Task {
             throw new DukeException(EVENT_NAME_NULL_ERROR_MESSAGE);
         }
         this.eventDateTime = eventDateTime;
-        this.eventDate = Optional.ofNullable(Parser.parseDateString(eventDateTime));
-        this.eventTime = Optional.ofNullable(Parser.parseTimeString(eventDateTime));
+        this.eventDate = Optional.ofNullable(DateParser.parseDateString(eventDateTime));
+        this.eventTime = Optional.ofNullable(TimeParser.parseTimeString(eventDateTime));
     }
 
     /**

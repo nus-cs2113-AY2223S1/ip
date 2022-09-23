@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import duke.DukeException;
-import duke.Parser;
+import duke.parser.DateParser;
+import duke.parser.TimeParser;
 
 /**
  * A DeadlineTask represents a task with a deadline.
@@ -51,8 +52,8 @@ public class DeadlineTask extends Task {
             throw new DukeException(DEADLINE_NULL_ERROR_MESSAGE);
         }
         this.deadline = deadline;
-        this.deadlineDate = Optional.ofNullable(Parser.parseDateString(deadline));
-        this.deadlineTime = Optional.ofNullable(Parser.parseTimeString(deadline));
+        this.deadlineDate = Optional.ofNullable(DateParser.parseDateString(deadline));
+        this.deadlineTime = Optional.ofNullable(TimeParser.parseTimeString(deadline));
     }
 
     /**

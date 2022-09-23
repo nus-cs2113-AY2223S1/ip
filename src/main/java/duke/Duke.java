@@ -1,6 +1,8 @@
 package duke;
 
 import duke.command.Command;
+import duke.parser.CommandParser;
+import duke.parser.Parser;
 
 /**
  * Duke is the main class in the duke application.
@@ -29,7 +31,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String input = ui.getInput().trim();
-                Command command = Parser.parseCommand(input);
+                Command command = CommandParser.parseCommand(input);
                 if (command.isExit()) {
                     isExit = true;
                 }
