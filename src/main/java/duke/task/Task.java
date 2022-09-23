@@ -17,4 +17,5 @@ public abstract class Task {
 
     public abstract void setDone(boolean isDone);
 
+    public abstract String getDescription();
 }

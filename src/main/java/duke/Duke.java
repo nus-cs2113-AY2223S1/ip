@@ -190,7 +190,6 @@ public class Duke {
         handleEmptyDescriptionException(commandArguments.length() == 0, "The description  of a deadline cannot be empty");
         String[] separatedArguments = parser.getDescriptionAndTime(commandArguments, DEADLINE_DESCRIPTION_SEPARATOR);
         handleEmptyDescriptionException(separatedArguments.length < 2, "The description of a deadline cannot be empty");
-
         return createDeadline(separatedArguments);
     }
 
@@ -207,7 +206,6 @@ public class Duke {
         storage.appendToFile(newDeadline.toString());
         return ADD_TASK_MESSAGE + System.lineSeparator() +  newDeadline.getTaskInfo() + System.lineSeparator() + ui.getTasksCountFeedback(taskList);
     }
-
 
 
     /**

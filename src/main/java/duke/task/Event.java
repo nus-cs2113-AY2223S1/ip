@@ -1,13 +1,41 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents the event.
  */
 public class Event extends Task{
-    protected String time;
-    public Event(String description, String time) {
+
+    private final LocalDateTime dateAndTime;
+    public Event(String description, String dateAndTime) {
         super(description);
-        this.time = time;
+        this.dateAndTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Converts dates and times to string for printing.
+     *
+     * @return dates and times
+     */
+
+    public String getDateAndTimeForPrint() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+    }
+
+    /**
+     * Converts date and times to string to save.
+     *
+     * @return dates and times.
+     */
+    public String getDateAndTimeForSave() {
+        return dateAndTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
 
@@ -20,7 +48,8 @@ public class Event extends Task{
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";
-        return "[E]" +"[" + statusIcon + "] " + this.description +  " (at: " + this.time + ")";
+        return "[E]" +"[" + statusIcon + "] " + description +  " (at: "
+                + getDateAndTimeForPrint()+ ")";
     }
 
     /**
@@ -31,6 +60,8 @@ public class Event extends Task{
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+
     /**
      * Returns the information of the event for storing.
      *
@@ -39,6 +70,6 @@ public class Event extends Task{
     @Override
     public String toString () {
         int isDoneInNumber = this.isDone ? 1 : 0;
-        return String.format("E | %d | %s | %s", isDoneInNumber, description, time) + System.lineSeparator();
+        return String.format("E | %d | %s | %s", isDoneInNumber, description, getDateAndTimeForSave()) + System.lineSeparator();
     }
 }
