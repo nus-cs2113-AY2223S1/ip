@@ -7,10 +7,19 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * Parse the input.
+ */
 public class Parser {
     public Parser() {
     }
 
+    /**
+     * Converts task in string format to object.
+     *
+     * @param fileContent Tasks to be converted.
+     * @return Task objects.
+     */
     public ArrayList<Task> decodeTaskListFromFile(ArrayList<String> fileContent) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : fileContent) {
@@ -63,12 +72,12 @@ public class Parser {
         }
         return todo;
     }
-    public String getTaskType(ArrayList<String> words) {
+    private String getTaskType(ArrayList<String> words) {
         return words.get(0);
     }
 
 
-    public ArrayList<String> parsedCommand(String line) {
+    private ArrayList<String> parsedCommand(String line) {
         ArrayList<String> words = new ArrayList<>();
         int separatorIndex = line.indexOf("|");
         while (separatorIndex != -1) {
@@ -79,9 +88,26 @@ public class Parser {
         words.add(line);
         return words;
     }
+
+    /**
+     * Separates command type and command arguments.
+     *
+     * @param input Input from user.
+     * @return Separated command type and arguments.
+     */
     public String[] splitCommandTypeAndArguments(String input) {
         return input.split(" ", 2);
     }
 
 
+/**
+ * Returns an array of separated task name and date with time.
+ *
+ * @param commandArguments Command arguments given by the user.
+ * @param separator Separator to split the string.
+ * @return Array of description and date with time.
+ */
+    public String[] getDescriptionAndTime(String commandArguments, String separator) {
+        return commandArguments.split(separator);
+    }
 }

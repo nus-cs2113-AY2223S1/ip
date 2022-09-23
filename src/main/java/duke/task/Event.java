@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents the event.
+ */
 public class Event extends Task{
     protected String time;
     public Event(String description, String time) {
@@ -7,20 +10,32 @@ public class Event extends Task{
         this.time = time;
     }
 
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
 
+
+    /**
+     * Returns the information of the event for printing.
+     *
+     * @return Event in string format.
+     */
     @Override
     public String getTaskInfo() {
         String statusIcon = isDone ? "X" : " ";
         return "[E]" +"[" + statusIcon + "] " + this.description +  " (at: " + this.time + ")";
     }
 
+    /**
+     * Sets the complete status of the event.
+     *
+     * @param isDone Complete status to be updated to.
+     */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+    /**
+     * Returns the information of the event for storing.
+     *
+     * @return Event in string format.
+     */
     @Override
     public String toString () {
         int isDoneInNumber = this.isDone ? 1 : 0;

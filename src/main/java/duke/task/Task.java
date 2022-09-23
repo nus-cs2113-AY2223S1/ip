@@ -1,4 +1,8 @@
 package duke.task;
+
+/**
+ * Represents the task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -8,7 +12,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public abstract String getDescription();
 
     public abstract String getTaskInfo();
 
