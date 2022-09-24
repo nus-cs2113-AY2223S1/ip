@@ -14,9 +14,21 @@ import java.util.Scanner;
 
 public class Storage {
     public String filePath;
+    public ArrayList<Task> tasks;
+    public int numberOfTasks;
 
-    public Storage(String filePath) {
+    public Storage(String filePath, ArrayList<Task> tasks, int numberOfTasks) {
         this.filePath = filePath;
+        this.tasks = tasks;
+        this.numberOfTasks = numberOfTasks;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public int getNumberOfTasks() {
+        return numberOfTasks;
     }
 
     public void readFile() throws FileNotFoundException {
@@ -29,7 +41,7 @@ public class Storage {
             ui.printLoadingError();
         }
 
-        Scanner scanner = new Scanner(filePath);
+        Scanner scanner = new Scanner(file);
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -39,10 +51,8 @@ public class Storage {
                 if (words.length == 1) {
                     throw new DukeException();
                 }
-
                 Task newTask = new Task("");
-
-                switch (words[0]) {
+                switch (words[1]) {
                 case "todo" :
                     newTask = new Todo(command.substring(5));
                     break;

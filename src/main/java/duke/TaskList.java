@@ -11,17 +11,30 @@ import java.util.ArrayList;
 public class TaskList {
     public String command;
     public String filePath;
+    public ArrayList<Task> tasks;
+    public int numberOfTasks;
 
     public String[] words;
     public String firstWord;
 
     UI ui = new UI();
 
-    public TaskList(String command, String filePath) {
+    public TaskList(String command, String filePath, ArrayList<Task> tasks, int numberOfTasks) {
         this.command = command;
         this.filePath = filePath;
+        this.tasks = tasks;
+        this.numberOfTasks = numberOfTasks;
+
         words = command.split(" ");
         firstWord = words[0];
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public int getNumberOfTasks() {
+        return numberOfTasks;
     }
 
     public Task createTask(String command) throws DukeException{
@@ -57,7 +70,7 @@ public class TaskList {
             System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
             System.out.print("\t  ");
             System.out.println(currentTask);
-            System.out.println("\tNow you have " + Integer.toString(numberOfTasks) + " task(s) in the list! 凸(￣ヘ￣)");
+            System.out.println("\tNow you have " + numberOfTasks + " task(s) in the list! 凸(￣ヘ￣)");
             System.out.println("");
             ui.printDivider();
         }
@@ -93,7 +106,7 @@ public class TaskList {
     }
 
     public void markAsDone(String index, boolean isFile) {
-        Storage storage = new Storage(filePath);
+        Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
         try {
             Task currentTask = tasks.get(Integer.parseInt(index) - 1);
@@ -116,7 +129,7 @@ public class TaskList {
     }
 
     public void markAsUndone(String index, boolean isFile) {
-        Storage storage = new Storage(filePath);
+        Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
         try {
             Task currentTask = tasks.get(Integer.parseInt(index) - 1);

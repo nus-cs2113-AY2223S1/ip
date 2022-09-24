@@ -1,29 +1,24 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class Duke {
-    private static UI ui = new UI();
-    private static Storage storage;
+    private static final UI ui = new UI();
 
-    public ArrayList<Task> tasks;
-    public int numberOfTasks = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static int numberOfTasks = 0;
 
     public static void run(String filePath) {
-        storage = new Storage(filePath);
+        Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
         try {
             storage.readFile();
+            tasks = storage.getTasks();
+            numberOfTasks = storage.getNumberOfTasks();
         } catch (FileNotFoundException e) {
             ui.printLoadingError();
         }
@@ -38,9 +33,11 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             }
-            Parser task = new Parser(userInput, filePath);
+            Parser task = new Parser(userInput, filePath, tasks, numberOfTasks);
             try {
                 task.performAction(userInput);
+                tasks = task.getTasks();
+                numberOfTasks = task.getNumberOfTasks();
             } catch (DukeException e) {
                 ui.printUnrecognizedCommandError();
             }
@@ -50,6 +47,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        run("files/duke.txt");
+        run("duke.txt");
     }
 }
