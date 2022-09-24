@@ -2,7 +2,7 @@ package Duke.Tasks;
 
 import Duke.Duke;
 
-public class Tasks {
+public abstract class Tasks {
     protected String description;
     protected boolean isDone;
     protected String taskType;
@@ -12,6 +12,12 @@ public class Tasks {
         this.isDone = false;
         this.taskType = "T";
     }
+
+//    public Tasks(String description, boolean isDone) {
+//        this.description = description;
+//        this.isDone = isDone;
+//
+//    }
 
     /**
      * Get status of list item if it is done or undone
@@ -49,4 +55,14 @@ public class Tasks {
                         + "\n" + Duke.PRINT_LINE
         );
     }
+
+    public void insertDone() {
+        this.isDone = true;
+    }
+
+    public void insertNotDone() {
+        this.isDone = false;
+    }
+
+    public abstract String toFile();
 }

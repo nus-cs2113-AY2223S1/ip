@@ -1,15 +1,29 @@
 package Duke.Tasks;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import Duke.Duke;
 import Duke.Exceptions.ArguementNotFoundException;
 import Duke.Exceptions.WrongArgumentException;
+import Duke.Storage.Storage;
 
-public class TaskManager {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+
+public class TaskManager extends ArrayList<Tasks> {
 
     public static final String TASK_ADDED = "Got it. I've added this task:\n";
     public static final int MAX_NUMBER_OF_TASKS = 100;
-    public Tasks[] taskList = new Tasks[MAX_NUMBER_OF_TASKS];
-    public int numOfTasks = 0;
+    //public Tasks[] taskList = new Tasks[MAX_NUMBER_OF_TASKS];
+    public static ArrayList<Tasks> taskList = new ArrayList<>();
+    public static int numOfTasks = 0;
+
+    public ArrayList<Tasks> getTasks() {
+        return taskList;
+    }
+
 
     public String checkCommandLength(String description) throws ArguementNotFoundException {
         if (description.isEmpty()) {
@@ -34,8 +48,8 @@ public class TaskManager {
      *
      * @param task task to add
      */
-    public void addTask(Tasks task) {
-        taskList[numOfTasks] = task;
+    public static void addTask(Tasks task) {
+        taskList.add(numOfTasks, task);
         numOfTasks++;
         System.out.println(Duke.PRINT_LINE
                 + TASK_ADDED
@@ -111,7 +125,7 @@ public class TaskManager {
             checkCommandLength(input.substring("mark".length()));
             int taskNum = getTaskNumber(input);
             checkTaskNumber(taskNum);
-            taskList[taskNum - 1].markAsDone();
+            taskList.get(taskNum - 1).markAsDone();
         } catch (ArguementNotFoundException e) {
             e.ArgumentNotFoundMessage();
         } catch (WrongArgumentException e) {
@@ -129,7 +143,7 @@ public class TaskManager {
             checkCommandLength(input.substring("unmark".length()));
             int taskNum = getTaskNumber(input);
             checkTaskNumber(taskNum);
-            taskList[taskNum - 1].markAsNotDone();
+            taskList.get(taskNum - 1).markAsNotDone();
         } catch (ArguementNotFoundException e) {
             e.ArgumentNotFoundMessage();
         } catch (WrongArgumentException e) {
@@ -145,14 +159,15 @@ public class TaskManager {
                 Duke.PRINT_LINE
                         + "Here are the tasks in your list:"
         );
-        for (int i = 0; i < numOfTasks; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println(
                     (i + 1) + "."
-                            + taskList[i]
+                            + taskList.get(i)
             );
         }
         System.out.println(
                 Duke.PRINT_LINE
         );
     }
+
 }

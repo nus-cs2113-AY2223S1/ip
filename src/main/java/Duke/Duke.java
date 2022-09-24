@@ -1,8 +1,11 @@
 package Duke;
 
+import Duke.Exceptions.DukeException;
 import Duke.Exceptions.UnknownCommandException;
 import Duke.Tasks.TaskManager;
+import Duke.Storage.Storage;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -10,10 +13,21 @@ public class Duke {
     public static final String PRINT_LINE = "____________________________________________________________\n";
 
     public static void main(String[] args) {
-
+        Storage storage = null;
         WelcomeMessage();
+        try {
+            storage = new Storage();
+            storage.loadData(tasks);
+        } catch (IOException e) {
+            System.out.println(
+                    Duke.PRINT_LINE
+                            + "Error loading file \n"
+                            + Duke.PRINT_LINE
+            );
+        }
         readInput();
         GoodbyeMessage();
+
     }
 
 
@@ -28,6 +42,11 @@ public class Duke {
 
             switch (splitCommand[0]) {
             case "bye":
+                try {
+                    Storage.writeToFile();
+                } catch (IOException e) {
+                    System.out.println("Error inputting data to file");
+                }
                 isFinished = true;
                 break;
             case "mark":

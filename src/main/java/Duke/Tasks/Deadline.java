@@ -14,7 +14,11 @@ public class Deadline extends Tasks {
         return "[D]" + getStatusIcon() + super.description + " (by: " + this.by + ")";
     }
 
-    public String getBy() {
-        return this.by;
+    @Override
+    public String toFile() {
+        //String isDoneValue = (this.isDone) ? "1" : "0";
+        return "D|" + ((this.isDone) ? 1 : 0) + "|" + super.description + " | " + this.by + "\n";
     }
+
+
 }
