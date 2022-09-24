@@ -1,9 +1,8 @@
 package duke.task;
 
-import duke.command.DukeException;
+import duke.exception.DukeException;
 
 import java.util.ArrayList;
-
 
 
 public class TaskList {
@@ -104,12 +103,16 @@ public class TaskList {
             if (line.replaceFirst("unmark", "").trim().equals("")) {
                 throw new DukeException();
             }
+            int unmarkId = Integer.parseInt(line.replaceFirst("unmark ", "")) - 1;
+            if ((unmarkId >= tasks.size()) || (unmarkId <= 0)) {
+                throw new DukeException();
+            }
             unmarkTask(tasks, line);
             String[] parsedInput = line.split(" ");
-            int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
+            unmarkId = Integer.parseInt(parsedInput[1]) - 1;
             printUnmark(tasks.get(unmarkId));
         } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! The description of an unmark cannot be empty.");
+            System.out.println("     T_T OOPS!!! Please input the unmark id again.");
         }
     }
 
@@ -124,12 +127,16 @@ public class TaskList {
             if (line.replaceFirst("mark", "").trim().equals("")) {
                 throw new DukeException();
             }
+            int markId = Integer.parseInt(line.replaceFirst("mark ", "")) - 1;
+            if ((markId >= tasks.size()) || (markId <= 0)) {
+                throw new DukeException();
+            }
             markTask(tasks, line);
             String[] parsedInput = line.split(" ");
-            int markId = Integer.parseInt(parsedInput[1]) - 1;
+            markId = Integer.parseInt(parsedInput[1]) - 1;
             printMark(tasks.get(markId));
         } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! The description of a mark cannot be empty.");
+            System.out.println("     T_T OOPS!!! Please input the mark id again.");
         }
     }
 
@@ -149,7 +156,7 @@ public class TaskList {
     public static void tryDeleteTask(ArrayList<Task> tasks, String[] parsedInput) {
         int deleteId = Integer.parseInt(parsedInput[1]) - 1;
         try {
-            if (deleteId > tasks.size()) {
+            if ((deleteId >= tasks.size()) || (deleteId <= 0)) {
                 throw new DukeException();
             }
             deleteTask(tasks, deleteId);
