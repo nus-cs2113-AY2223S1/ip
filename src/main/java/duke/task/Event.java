@@ -13,4 +13,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(at: " + at + ")";
     }
+
+    public String toSaveString(){return "[E]" + super.toString() + "/at " + at;}
+
+    public String getType(){
+        return "E";
+    }
 }

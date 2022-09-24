@@ -1,7 +1,10 @@
 package duke;
 
+import duke.data.Storage;
 import duke.exceptions.DukeException;
+import duke.task.Task;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -21,7 +24,7 @@ public class Duke {
         UI.printLine();
     }
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
 
         startSession();
 
