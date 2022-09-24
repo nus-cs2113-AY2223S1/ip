@@ -29,4 +29,5 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon! qwq");
         showSeparator();
     }
+
 }
