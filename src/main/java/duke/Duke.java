@@ -11,6 +11,7 @@ import duke.exception.MissingListIndexException;
 import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.MissingDeadlineDateTimeReferenceException;
 import duke.exception.MissingEventDateTimeReferenceException;
+import duke.exception.EmptyKeywordException;
 
 public class Duke {
     private static Ui ui;
@@ -86,6 +87,8 @@ public class Duke {
                 ui.showMissingDeadlineDateTimeReferenceExceptionMessage();
             } catch (MissingEventDateTimeReferenceException e) {
                 ui.showMissingEventDateTimeReferenceExceptionMessage();
+            } catch (EmptyKeywordException e) {
+                ui.showEmptyKeywordExceptionMessage();
             }
         } while (!isBye);
     }

@@ -5,6 +5,7 @@ import duke.commands.add.ToDoCommand;
 import duke.commands.add.DeadlineCommand;
 import duke.commands.add.EventCommand;
 import duke.commands.ListCommand;
+import duke.commands.FindCommand;
 import duke.commands.UnmarkCommand;
 import duke.commands.MarkCommand;
 import duke.commands.DeleteCommand;
@@ -15,6 +16,7 @@ import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.MissingDateTimeReferenceException;
 import duke.exception.MissingDeadlineDateTimeReferenceException;
 import duke.exception.MissingEventDateTimeReferenceException;
+import duke.exception.EmptyKeywordException;
 import duke.exception.MissingListIndexException;
 
 public class Parser {
@@ -22,8 +24,9 @@ public class Parser {
     public Parser() {
     }
 
-    public Command parseCommand(String userInput) throws MissingListIndexException, EmptyTaskDescriptionException,
-            MissingDeadlineDateTimeReferenceException, MissingEventDateTimeReferenceException {
+    public Command parseCommand(String userInput) throws EmptyTaskDescriptionException,
+            MissingDeadlineDateTimeReferenceException, MissingEventDateTimeReferenceException, EmptyKeywordException,
+            MissingListIndexException {
         // split the input into command and arguments
         String[] words = userInput.trim().split(" ", 2);
         if (words.length == 0) {
@@ -45,6 +48,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(commandDetails);
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmarkCommand(commandDetails);
@@ -116,6 +122,14 @@ public class Parser {
             throw new MissingDateTimeReferenceException();
         }
         return taskDescription.substring(dateTimeIndex + 3).trim();
+    }
+
+    private static Command prepareFindCommand(String commandDetails) throws EmptyKeywordException {
+        boolean isEmptyKeyword = commandDetails.isEmpty();
+        if (isEmptyKeyword) {
+            throw new EmptyKeywordException();
+        }
+        return new FindCommand(commandDetails);
     }
 
     private static Command prepareUnmarkCommand(String commandDetails)

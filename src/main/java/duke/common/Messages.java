@@ -69,4 +69,8 @@ public class Messages {
             "\nPlease try again.";
 
     public static final String MESSAGE_UNDEFINED_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
+    public static final String MESSAGE_EMPTY_KEYWORD = "OOPS!!! Please provide a keyword to find tasks.";
+
+    public static final String MESSAGE_NO_MATCHING_TASK = "OOP!!! No matching task is found in your list.";
 }
