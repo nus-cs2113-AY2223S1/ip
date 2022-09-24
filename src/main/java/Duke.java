@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-
 public class Duke {
     public static void main(String[] args) {
         showLogo();
@@ -25,42 +24,19 @@ public class Duke {
         showGoodbyeMsg();
     }
 
-    private static void showLogo() {
-        String logo = " ____        _\n"
-                + "|  _ \\ _   _| | _____\n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println(logo);
-    }
 
     private static final String END_CMD = "bye";
     private static final String DEADLINE_FLAG = "/by";
     private static final String EVENT_FLAG = "/at";
     private static final String[] ILLEGAL_ARGS = {"blah"};
     private static final int MAX_TASK = 100;
-    private static final int SEPARATOR_LEN = 50;
+
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String DUKE_DUMP_FILE = "duke.txt";
 
 
-    private static void showSeparator() {
-        String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
-        System.out.println(separator);
-    }
 
-    private static void showWelcomeMsg() {
-        showSeparator();
-        System.out.println("Hello! I'm Duke ^_^");
-        System.out.println("What can I do for you?");
-        showSeparator();
-    }
-
-    private static void showGoodbyeMsg() {
-        System.out.println("Bye. Hope to see you again soon! qwq");
-        showSeparator();
-    }
 
     private static void showTaskCount() {
         System.out.printf("Now we have %d tasks in the list.\n", tasks.size());
