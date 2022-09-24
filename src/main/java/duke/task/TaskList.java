@@ -18,7 +18,7 @@ public class TaskList {
         // TODO: Init tasks with storage.loadtask
     }
 
-    private static void addTask(String taskDescription) throws IllegalArgsTypeException {
+    public static void addTask(String taskDescription) throws IllegalArgsTypeException {
         if (Arrays.asList(ILLEGAL_ARGS).contains(taskDescription)) {
             throw new IllegalArgsTypeException();
         }
@@ -29,7 +29,7 @@ public class TaskList {
         showTaskCount();
     }
 
-    private static void listTask() {
+    public static void listTask() {
         if (tasks.size() == 0) {
             System.out.println(">>>No Current Tasks.");
         } else {
@@ -41,7 +41,7 @@ public class TaskList {
         }
     }
 
-    private static void markTask(int taskId, boolean setMark) {
+    public static void markTask(int taskId, boolean setMark) {
         if (taskId <= 0 || taskId > tasks.size()) {
             System.out.println(">>>Pls Enter the Right TaskId!");
         }
@@ -57,7 +57,7 @@ public class TaskList {
         }
     }
 
-    private static void deleteTask(int num) {
+    public static void deleteTask(int num) {
         if (num <= 0 || num > tasks.size()) return;
         Task tmp_task = tasks.get(num - 1);
         tasks.remove(num - 1);
@@ -66,9 +66,7 @@ public class TaskList {
         showTaskCount();
     }
 
-
-
-    private static void addTodo(String todoDescription) throws IllegalArgsNumException {
+    public static void addTodo(String todoDescription) throws IllegalArgsNumException {
         if (todoDescription.equals("")) {
             throw new IllegalArgsNumException();
         }
@@ -78,7 +76,7 @@ public class TaskList {
         showTaskCount();
     }
 
-    private static void addDeadline(String str) throws DukeException {
+    public static void addDeadline(String str) throws DukeException {
         if (str.equals("")) {
             throw new IllegalArgsNumException();
         }
@@ -95,7 +93,7 @@ public class TaskList {
         showTaskCount();
     }
 
-    private static void addEvent(String str) throws DukeException {
+    public static void addEvent(String str) throws DukeException {
         if (str.equals("")) {
             throw new IllegalArgsNumException();
         }
@@ -112,7 +110,7 @@ public class TaskList {
         showTaskCount();
     }
 
-    private static void showTaskCount() {
+    public static void showTaskCount() {
         System.out.printf("Now we have %d tasks in the list.\n", tasks.size());
     }
 
