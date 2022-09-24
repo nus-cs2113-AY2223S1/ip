@@ -6,12 +6,14 @@ import duke.exception.UnknownCommandException;
 import duke.util.Storage;
 import duke.util.InputParser;
 import duke.util.TaskManager;
+import duke.util.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+
 
     public static final String LOGO = "\n"
             + "     _________________________________________\n"
@@ -32,41 +34,34 @@ public class Duke {
 
     public static final String MESSAGE_GREET = "Hello! I'm Duke\n What can I do for you?";
 
-    public static Scanner sc;
-    public static Storage dataManager = new Storage();
-
-    public static TaskManager taskManager = new TaskManager();
-    public static InputParser parser = new InputParser();
-
-    //need to refactor to remove redundant inputs
-    public static ArrayList<String> userSessionInput = new ArrayList<>();
+    public static final String MESSAGE_BYE = "BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>";
 
     public static void executeUserInput() throws UnknownCommandException {
-        String command = parser.getCommand();
-        String[] parameters = parser.getTaskParameters();
+        String command = InputParser.getCommand();
+        String[] parameters = InputParser.getTaskParameters();
 
         try {
             switch (command) {
                 case ("list"):
-                    taskManager.listAllTask();
+                    TaskManager.listAllTask();
                     break;
                 case ("mark"):
-                    taskManager.setTask(Integer.parseInt(parameters[0]) - 1, true);
+                    TaskManager.setTask(Integer.parseInt(parameters[0]) - 1, true);
                     break;
                 case ("unmark"):
-                    taskManager.setTask(Integer.parseInt(parameters[0]) - 1, false);
+                    TaskManager.setTask(Integer.parseInt(parameters[0]) - 1, false);
                     break;
                 case ("delete"):
-                    taskManager.deleteTask(Integer.parseInt(parameters[0]) - 1);
+                    TaskManager.deleteTask(Integer.parseInt(parameters[0]) - 1);
                     break;
                 case ("todo"):
-                    taskManager.addTodo(parameters[0]);
+                    TaskManager.addTodo(parameters[0]);
                     break;
                 case ("deadline"):
-                    taskManager.addDeadline(parameters[0], parameters[1]);
+                    TaskManager.addDeadline(parameters[0], parameters[1]);
                     break;
                 case ("event"):
-                    taskManager.addEvent(parameters[0], parameters[1]);
+                    TaskManager.addEvent(parameters[0], parameters[1]);
                     break;
                 default:
                     throw new UnknownCommandException("Error: Unknown Command");
@@ -77,22 +72,21 @@ public class Duke {
     }
 
     public static void loadPastSession(){
-        dataManager.loadData();
+        Storage.loadData();
 
-        List<String> pastData = dataManager.getData();
+        List<String> pastData = Storage.getHistory();
 
         for(String userInput: pastData) {
             try {
-                parser.parseUserInput(userInput);
+                InputParser.parseUserInput(userInput);
                 executeUserInput();
             } catch (DukeException e) {
                 System.out.println(e.getErrorMessage());
             }
         }
 
-        userSessionInput.addAll(pastData);
-
-        taskManager.setHasLoaded(true);
+        Storage.addSessionCommands(pastData);
+        TaskManager.setHasLoaded(true);
     }
 
     public static void greetUser() {
@@ -102,33 +96,51 @@ public class Duke {
 
     public static boolean isExit(String userInput) {
         if (userInput.equals("bye")) {
-            System.out.println("BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>");
-            dataManager.writeData(userSessionInput);
+            Ui.endMessage();
+            Storage.writeData();
             return true;
         }
         return false;
     }
 
-    public static void main(String[] args) {
-        greetUser();
-        loadPastSession();
+    public static void initUtil() {
+        Ui.init();
+        InputParser.init();
+        Storage.init();
+        TaskManager.init();
+    }
 
-        sc = new Scanner(System.in);
-        String userInput = sc.nextLine();
+    public static void closeUtil() {
+        Ui.close();
+        InputParser.close();
+        Storage.close();
+        TaskManager.close();
+    }
+
+    public static void main(String[] args) {
+        initUtil();
+        Ui.greetUser();
+        loadPastSession();
+        InputParser.readInput();
+        String userInput = InputParser.getCommand();
+
 
         while (!isExit(userInput)) {
 
-            userSessionInput.add(userInput);
+            Storage.addSessionCommand(userInput);
 
             try {
-                parser.parseUserInput(userInput);
+                InputParser.parseUserInput(userInput);
                 executeUserInput();
             } catch (DukeException e) {
                 System.out.println(e.getErrorMessage());
             }
-            userInput = sc.nextLine();
+            InputParser.readInput();
+            userInput = InputParser.getCommand();
         }
 
-        sc.close();
+        closeUtil();
     }
+
+
 }

@@ -9,28 +9,42 @@ import java.io.IOException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Storage {
+public class Storage implements Utilities{
 
-    private String path = "data/userData.txt";
-    private ArrayList<String> userData;
+    private static String filePath = "data/userData.txt";
+    private static ArrayList<String> dataHistory = new ArrayList<>();
+
+    //need to refactor to not record redundant input
+    private static ArrayList<String> dataSession = new ArrayList<>();
+
 
     public Storage() {
-        userData = new ArrayList<String>();
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public static void init() {
+        dataHistory = new ArrayList<>();
+        dataSession = new ArrayList<>();
     }
 
-    public void loadData() {
+    public static void close() {
+        dataHistory = new ArrayList<>();
+        dataSession = new ArrayList<>();
+    }
+
+    public static void setPath(String path) {
+        filePath = path;
+    }
+
+    public static void loadData() {
 
         try {
-            Scanner sc = new Scanner(new FileInputStream(path));
+            Scanner sc = new Scanner(new FileInputStream(filePath));
 
             while (sc.hasNextLine()) {
                 String pastCommand = sc.nextLine();
-                userData.add(pastCommand);
+                dataHistory.add(pastCommand);
             }
 
         } catch (FileNotFoundException e) {
@@ -39,13 +53,24 @@ public class Storage {
 
     }
 
-    public ArrayList<String> getData() {
-        return userData;
+    public static ArrayList<String> getHistory() {
+        return dataHistory;
     }
 
-    public void writeData(ArrayList<String> history) {
+    public static void addSessionCommand(String command) {
+        dataSession.add(command);
+    }
+
+    public static void addSessionCommands(List<String> commands) {
+        for(String command: commands){
+            addSessionCommand(command);
+        }
+    }
+
+    public static void writeData() {
         try {
-            File dataFile = new File(path);
+            File dataFile = new File(filePath);
+
 
             if (!dataFile.getParentFile().exists()) {
                 dataFile.getParentFile().mkdirs();
@@ -53,7 +78,7 @@ public class Storage {
 
             FileWriter writer = new FileWriter(dataFile);
 
-            for (String pastCommand : history) {
+            for (String pastCommand : dataSession) {
                 writer.append(pastCommand);
                 writer.append("\n");
             }

@@ -3,22 +3,35 @@ package duke.util;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyArgumentException;
 
-public class InputParser {
+import java.util.Scanner;
 
-    private String userCommand;
-    private String inputBuffer;
+public class InputParser implements Utilities{
+
+    private static String userCommand;
+    private static String inputBuffer;
+    private static Scanner scanner;
 
     public InputParser() {
+    }
+
+    public static void init() {
+        inputBuffer = "";
+        userCommand = "";
+        scanner = new Scanner(System.in);
+    }
+
+    public static void close() {
+        inputBuffer = "";
+        userCommand = "";
+        scanner.close();
+    }
+
+    private static void clear() {
         inputBuffer = "";
         userCommand = "";
     }
 
-    private void clear() {
-        inputBuffer = "";
-        userCommand = "";
-    }
-
-    private boolean isValidCommand() {
+    private static boolean isValidCommand() {
         switch (userCommand) {
             case ("list"):
             case ("mark"):
@@ -33,14 +46,14 @@ public class InputParser {
         }
     }
 
-    private boolean isCorrectInput(String[] parsed ) {
+    private static boolean isCorrectInput(String[] parsed ) {
         if (userCommand.equals("list")){
             return true;
         }
         return (parsed.length > 1);
     }
 
-    private String[] parseParameter(String inputString, String optionFlag){
+    private static String[] parseParameter(String inputString, String optionFlag){
         int optionLen = 4;
         int optionIndex = inputString.indexOf(optionFlag);
 
@@ -50,7 +63,7 @@ public class InputParser {
         return new String[]{ descriptionMain , descriptionOption };
     }
 
-    public void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
+    public static void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
         final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
         String[] inputSplitBySpace = userInput.split(" ", NUM_CMD_SPLIT);
@@ -72,11 +85,15 @@ public class InputParser {
 
     }
 
-    public String getCommand() {
+    public static void readInput() {
+        userCommand = scanner.nextLine();
+    }
+
+    public static String getCommand() {
         return userCommand;
     }
 
-    public String[] getTaskParameters() {
+    public static String[] getTaskParameters() {
         String[] parameters;
 
         switch (userCommand) {
