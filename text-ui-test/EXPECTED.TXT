@@ -1,3 +1,5 @@
+Reading file inputs...
+Done reading file inputs!
 ______________________________
 Hihi, my name is Jay!
 What can I do for you today?
@@ -34,33 +36,33 @@ ______________________________
 ______________________________
 
 ______________________________
-added: [D][ ] return book (by: Sunday)
+added: [D][ ] return book (by: Oct 15 2019)
 There are 2 task(s) in your list.
 ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 ______________________________
 
 ______________________________
 Completed! The following task is marked as done:
-[D][X] return book (by: Sunday)
+[D][X] return book (by: Oct 15 2019)
 ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
+2. [D][X] return book (by: Oct 15 2019)
 ______________________________
 
 ______________________________
 Oh no! The following task is marked as undone:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Oct 15 2019)
 ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 ______________________________
 
 ______________________________
@@ -70,7 +72,7 @@ ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][ ] project meeting (at: Mon 2-4pm)
 ______________________________
 
@@ -81,7 +83,7 @@ ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][X] project meeting (at: Mon 2-4pm)
 ______________________________
 
@@ -92,7 +94,7 @@ ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][ ] project meeting (at: Mon 2-4pm)
 ______________________________
 
@@ -146,11 +148,91 @@ ______________________________
 
 ______________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][ ] project meeting (at: Mon 2-4pm)
+______________________________
+
+______________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Oct 15 2019)
+______________________________
+
+______________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Oct 15 2019)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+______________________________
+
+______________________________
+Keyword missing
+______________________________
+
+______________________________
+No matching tasks found
+______________________________
+
+______________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Oct 15 2019)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+______________________________
+
+______________________________
+deleted: 
+[T][ ] borrow book
+There are 2 task(s) in your list.
+______________________________
+
+______________________________
+1. [D][ ] return book (by: Oct 15 2019)
+2. [E][ ] project meeting (at: Mon 2-4pm)
+______________________________
+
+______________________________
+Missing task number
+______________________________
+
+______________________________
+Out of bounds task number
+______________________________
+
+______________________________
+Out of bounds task number
+______________________________
+
+______________________________
+1. [D][ ] return book (by: Oct 15 2019)
+2. [E][ ] project meeting (at: Mon 2-4pm)
+______________________________
+
+______________________________
+deleted: 
+[D][ ] return book (by: Oct 15 2019)
+There are 1 task(s) in your list.
+______________________________
+
+______________________________
+deleted: 
+[E][ ] project meeting (at: Mon 2-4pm)
+There are 0 task(s) in your list.
+______________________________
+
+______________________________
+Out of bounds task number
+______________________________
+
+______________________________
+Out of bounds task number
+______________________________
+
+______________________________
+Out of bounds task number
 ______________________________
 
 ______________________________
 Goodbye! Hope to see you again!
 ______________________________
 
+Writing file outputs...
+Nothing in list!
+Done writing file outputs!

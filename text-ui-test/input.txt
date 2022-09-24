@@ -5,7 +5,7 @@ mark 1
 list
 unmark 1
 list
-deadline return book /by Sunday
+deadline return book /by 2019-10-15
 list
 mark 2
 list
@@ -16,8 +16,6 @@ list
 mark 3
 list
 unmark 3
-list
-delete 1
 list
 test
 todo
@@ -31,8 +29,21 @@ mark 999
 unmark 999
 mark this
 unmark this
+list
+find book
+list
+find
+find -1
+list
+delete 1
+list
 delete
 delete -1
 delete 999
 list
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
 bye
