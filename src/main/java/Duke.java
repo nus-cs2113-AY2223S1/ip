@@ -33,7 +33,7 @@ public class Duke {
     private static final int MAX_TASK = 100;
 
     private static ArrayList<Task> tasks = new ArrayList<Task>();
-    private static final String DUKE_DUMP_FILE = "duke.txt";
+
 
 
 
@@ -150,18 +150,7 @@ public class Duke {
         showTaskCount();
     }
 
-    private static void dumpTask(Task task) {
-        try {
-            File file_name = new File(DUKE_DUMP_FILE);
-            file_name.createNewFile();
-            BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
-            out.write(String.valueOf(task) + "\r\n");
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private static void addTodo(String todoDescription) throws IllegalArgsNumException {
         if (todoDescription.equals("")) {

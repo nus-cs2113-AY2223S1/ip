@@ -11,6 +11,14 @@ public class Task {
         this.isMarked = false;
     }
 
+    public String getTaskDescription() {
+        return description;
+    }
+
+    public boolean getTaskMark() {
+        return isMarked;
+    }
+
     public void setMarked(boolean isMarked) {
         this.isMarked = isMarked;
     }
