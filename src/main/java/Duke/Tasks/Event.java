@@ -14,7 +14,8 @@ public class Event extends Tasks {
         return "[E]" + getStatusIcon() + super.description + " (at: " + this.at + ")";
     }
 
-    public String getAt() {
-        return this.at;
+    @Override
+    public String toFile() {
+        return "E|" + ((this.isDone) ? 1 : 0) + "|" + super.description + " | " + this.at + "\n";
     }
 }
