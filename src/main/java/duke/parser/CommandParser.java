@@ -6,6 +6,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.FilterCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
@@ -92,6 +93,9 @@ public class CommandParser implements Parser<Command> {
             break;
         case FilterCommand.COMMAND_WORD:
             command = new FilterCommand();
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand();
             break;
         case ByeCommand.COMMAND_WORD:
             command = new ByeCommand();
