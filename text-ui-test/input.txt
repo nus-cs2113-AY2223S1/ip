@@ -9,15 +9,15 @@ deadline return book6 /by Sep 18 2020 11:00 PM
 deadline return book7 /by 2022-09-18 2359
 deadline return book8 /by 18/09/2021 2359
 deadline return book9 /by Sep 18 2020 2359
-event project meeting1 /at 2022-09-18
-event project meeting2 /at 18/09/2021
-event project meeting3 /at Sep 18 2020
-event project meeting4 /at 2022-09-18 11:00 PM
-event project meeting5 /at 18/09/2021 11:00 PM
-event project meeting6 /at Sep 18 2020 11:00 PM
-event project meeting7 /at 2022-09-18 2359
-event project meeting8 /at 18/09/2021 2359
-event project meeting9 /at Sep 18 2020 2359
+event book meeting1 /at 2022-09-18
+event book meeting2 /at 18/09/2021
+event book meeting3 /at Sep 18 2020
+event book meeting4 /at 2022-09-18 11:00 PM
+event book meeting5 /at 18/09/2021 11:00 PM
+event book meeting6 /at Sep 18 2020 11:00 PM
+event book meeting7 /at 2022-09-18 2359
+event book meeting8 /at 18/09/2021 2359
+event book meeting9 /at Sep 18 2020 2359
 todo join sports club
 mark 1
 mark 4
@@ -61,5 +61,9 @@ filter Sep 18 2022 11:00 PM
 filter ABC
 filter 99/99/9999
 filter Sep 11 2022
+find book
+find book5
+find Sep 11 2022
+list
 byee
 bye
