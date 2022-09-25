@@ -9,6 +9,14 @@ import java.util.Date;
 public class Todo extends Task {
     protected LocalDate date;
     protected String time;
+
+    /**
+     * Parses the command base on type of task to set description
+     *
+     * @param command  userInput in the form of "TASK_TYPE description ADDITIONAL_INFORMATION_FOR_DEADLINE_AND_EVENT"
+     * @param lastChar ' ' represents a <code>todo</code> command while
+     *                 '/' represents a <code>event</code> or <code>deadline</code> command
+     */
     public Todo(String command, Character lastChar) {
         int DescStartIdx = command.indexOf(' ') + 1;
         String description;
@@ -21,6 +29,7 @@ public class Todo extends Task {
         setDescription(description);
         setDone(false);
     }
+
     public void findDateAndTime(String dateAndTime) {
         try {
             Date dateTime = new SimpleDateFormat("yyyy-MM-dd HHmm").parse(dateAndTime);

@@ -1,8 +1,6 @@
 package duke.taskmanager.commands;
 
 import duke.UI;
-import duke.exceptions.NoBackslashException;
-import duke.exceptions.WrongCommandException;
 import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 import duke.taskmanager.tasks.Deadline;
@@ -16,6 +14,12 @@ public class AddCommand extends Command {
         super(userInput, firstWord);
     }
 
+    /**
+     * Add a new task of the user specified type to the <code>TaskList</code>
+     * @param tasks   list that stores all the user's current tasks
+     * @param ui      contains the formatted outputs
+     * @param storage to store the tasks after the programme is closed
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         switch (firstWord) {

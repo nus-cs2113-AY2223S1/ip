@@ -1,15 +1,18 @@
 package duke.taskmanager.tasks;
 
-public class Task {
+/**
+ * Represents the simplest task
+ */
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task() {
-        setDescription(null);
-        setDone(false);
-    }
+//    public Task() {
+//        setDescription(null);
+//        setDone(false);
+//    }
 
-    public String getTypeIcon() {
+    protected String getTypeIcon() {
         return "[T]";
     }
 
@@ -37,13 +40,13 @@ public class Task {
 
     public String markDone(boolean done) {
         setDone(done);
-        String s = "";
+        StringBuilder markMessage = new StringBuilder();
         if (done) {
-            s += "Nice! I've marked this task as done:";
+            markMessage.append("Nice! I've marked this task as done:");
         } else {
-            s += "OK, I've marked this task as not done yet:";
+            markMessage.append("OK, I've marked this task as not done yet:");
         }
-        s += System.lineSeparator() + this;
-        return s;
+        markMessage.append(System.lineSeparator()).append(this);
+        return String.valueOf(markMessage);
     }
 }

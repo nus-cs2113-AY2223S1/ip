@@ -4,13 +4,14 @@ import duke.UI;
 import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
-public class WrongCommand extends Command {
-    public WrongCommand(String userInput, String firstWord) {
-        super(userInput, firstWord);
+public class EmptyCommand extends Command{
+    private String keyword;
+    public EmptyCommand(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.printWrongCommandException();
+        ui.printEmptyException(keyword);
     }
 }

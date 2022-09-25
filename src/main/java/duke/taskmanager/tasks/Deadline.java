@@ -15,7 +15,7 @@ public class Deadline extends Todo {
     }
 
     @Override
-    public String getTypeIcon() {
+    protected String getTypeIcon() {
         return "[D]";
     }
 

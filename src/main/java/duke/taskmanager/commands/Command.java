@@ -5,12 +5,19 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 public abstract class Command {
+    /**
+     * Execute the <code>Command</code> base on the type.
+     *
+     * @param tasks   list that stores all the user's current tasks
+     * @param ui      contains the formatted outputs
+     * @param storage to store the tasks after the programme is closed
+     */
     public abstract void execute(TaskList tasks, UI ui, Storage storage);
     public boolean isExit = false;
 
-    public String userInput;
+    protected String userInput;
 
-    public String firstWord;
+    protected String firstWord;
     public Command() {
         userInput = null;
     }
