@@ -4,18 +4,20 @@ import duke.exception.AbsentArgsFlagException;
 import duke.exception.DukeException;
 import duke.exception.IllegalArgsNumException;
 import duke.exception.IllegalArgsTypeException;
+import duke.Storage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TaskList {
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks;
     private static final String DEADLINE_FLAG = "/by";
     private static final String EVENT_FLAG = "/at";
     private static final String[] ILLEGAL_ARGS = {"blah"};
 
     public TaskList(Storage storage) {
-        // TODO: Init tasks with storage.loadtask
+        // nit tasks with storage.loadtask
+        tasks = storage.loadTask();
     }
 
     public static void addTask(String taskDescription) throws IllegalArgsTypeException {

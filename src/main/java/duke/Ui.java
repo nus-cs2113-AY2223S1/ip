@@ -1,9 +1,13 @@
+package duke;
+
+import duke.exception.DukeException;
+
 import java.util.Collections;
 
 public class Ui {
     private static final int SEPARATOR_LEN = 50;
 
-    private static void showLogo() {
+    public static void showLogo() {
         String logo = " ____        _\n"
                 + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -13,21 +17,24 @@ public class Ui {
         System.out.println(logo);
     }
 
-    private static void showSeparator() {
+    public static void showSeparator() {
         String separator = String.join("", Collections.nCopies(SEPARATOR_LEN, "="));
         System.out.println(separator);
     }
 
-    private static void showWelcomeMsg() {
+    public static void showWelcomeMsg() {
         showSeparator();
         System.out.println("Hello! I'm Duke ^_^");
         System.out.println("What can I do for you?");
         showSeparator();
     }
 
-    private static void showGoodbyeMsg() {
+    public static void showGoodbyeMsg() {
         System.out.println("Bye. Hope to see you again soon! qwq");
         showSeparator();
     }
 
+    public static void showError(DukeException e) {
+        System.out.println("OOPS!!! " + e.getMessage());
+    }
 }

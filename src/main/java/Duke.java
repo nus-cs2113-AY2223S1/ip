@@ -27,15 +27,6 @@ public class Duke {
 
 
     private static final String END_CMD = "bye";
-    private static final int MAX_TASK = 100;
-
-
-
-
-
-
-
-
 
     private static void readUserCmd() {
         Scanner sc = new Scanner(System.in);
