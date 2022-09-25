@@ -12,17 +12,25 @@ public class TaskList {
         tasks.add(task);
     }
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    /**
+     * Show the adding message of the newly added task.
+     *
+     * @param task the new added task.
+     * @param tasksSize the size of taskList.
+     */
     public static void printNewTask(Task task, int tasksSize) {
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task);
         System.out.println("     Now you have " + tasksSize + " tasks in the list.");
     }
+
 
     public static void printTaskList(ArrayList<Task> tasks) {
         System.out.println("     Here are the tasks in your list:");
@@ -31,16 +39,32 @@ public class TaskList {
         }
     }
 
+    /**
+     * Show the mark message of the newly marked task.
+     *
+     * @param task the new marked task.
+     */
     public static void printMark(Task task) {
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("       " + task);
     }
 
+    /**
+     * Show the unmark message of the newly unmarked task.
+     *
+     * @param task the new unmarked task.
+     */
     public static void printUnmark(Task task) {
         System.out.println("     OK, I've marked this task as not done yet:");
         System.out.println("       " + task);
     }
 
+    /**
+     * Try to add an event, dealing with all the exceptions then adding.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void tryAddEvent(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("event", "").trim().equals("")) {
@@ -54,6 +78,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Directly add an event, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void addEvent(ArrayList<Task> tasks, String line) {
         String[] descriptionAt = line.replaceFirst("event ", "").split(" /at ");
         String eventDescription = descriptionAt[0];
@@ -62,6 +92,12 @@ public class TaskList {
         tasks.add(newEvent);
     }
 
+    /**
+     * Try to add a deadline, dealing with all the exceptions then adding.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void tryAddDeadline(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("deadline", "").trim().equals("")) {
@@ -75,6 +111,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Directly add an deadline, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void addDeadline(ArrayList<Task> tasks, String line) {
         String[] descriptionBy = line.replaceFirst("deadline ", "").split(" /by ");
         String deadlineDescription = descriptionBy[0];
@@ -83,6 +125,12 @@ public class TaskList {
         tasks.add(newDeadline);
     }
 
+    /**
+     * Try to add a todoTask, dealing with all the exceptions then adding.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void tryAddTodo(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("todo", "").trim().equals("")) {
@@ -96,12 +144,24 @@ public class TaskList {
         }
     }
 
+    /**
+     * Directly add an todoTask, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void addTodo(ArrayList<Task> tasks, String line) {
         String todoDescription = line.replaceFirst("todo ", "");
         Todo newTodo = new Todo(todoDescription);
         tasks.add(newTodo);
     }
 
+    /**
+     * Try to unmark a task, dealing with all the exceptions then unmark.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void tryUnmarkTask(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("unmark", "").trim().equals("")) {
@@ -120,12 +180,24 @@ public class TaskList {
         }
     }
 
+    /**
+     * Directly unmark a task, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void unmarkTask(ArrayList<Task> tasks, String line) {
         String[] parsedInput = line.split(" ");
         int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(unmarkId).setNotDone();
     }
 
+    /**
+     * Try to mark a task, dealing with all the exceptions then mark.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void tryMarkTask(ArrayList<Task> tasks, String line) {
         try {
             if (line.replaceFirst("mark", "").trim().equals("")) {
@@ -144,12 +216,24 @@ public class TaskList {
         }
     }
 
+    /**
+     * Directly mark a task, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param line the parsed input.
+     */
     public static void markTask(ArrayList<Task> tasks, String line) {
         String[] parsedInput = line.split(" ");
         int markId = Integer.parseInt(parsedInput[1]) - 1;
         tasks.get(markId).setDone();
     }
 
+    /**
+     * Directly delete a task, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param deleteId the id of the task to be deleted.
+     */
     private static void deleteTask(ArrayList<Task> tasks, int deleteId) {
         System.out.println("     Noted. I've removed this task:");
         System.out.println("       " + tasks.get(deleteId));
@@ -157,6 +241,12 @@ public class TaskList {
         tasks.remove(deleteId);
     }
 
+    /**
+     * Try to delete a task, dealing with all the exceptions then delete.
+     *
+     * @param tasks the taskList.
+     * @param parsedInput the parsed input.
+     */
     public static void tryDeleteTask(ArrayList<Task> tasks, String[] parsedInput) {
         int deleteId = Integer.parseInt(parsedInput[1]) - 1;
         try {

@@ -13,12 +13,20 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The chatting bot Duke.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initialization of Duke and loading of file.
+     *
+     * @param filePath The path of the file that stores the tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -30,6 +38,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Process of user's input and storage of the new taskList.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
