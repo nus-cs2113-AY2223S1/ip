@@ -2,6 +2,8 @@ package duke;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
@@ -26,7 +28,6 @@ public class Storage {
 
     public int loadDukeTextFile(TaskList taskList) throws FileNotFoundException {
         String taskDescription;
-        String dateTime = "";
         int taskIndex = 0;
         boolean isMarked;
         int taskDetailsSize;
@@ -37,7 +38,7 @@ public class Storage {
             char taskType = taskDescription.charAt(0);
 
             if (taskType == 'D' || taskType == 'E' ) {
-                taskDetailsSize = 4;
+                taskDetailsSize = 5;
             } else {
                 taskDetailsSize = 3;
             }
@@ -50,8 +51,14 @@ public class Storage {
             String markedStatus = taskDetails[1];
             String taskName     = taskDetails[2];
 
+            String date = "";
+            String time = "";
             if (taskType == 'D' || taskType == 'E' ) {
-                dateTime = taskDetails[3];
+                if (taskDetails.length == 5) {
+                    time = taskDetails[4];
+                }
+                date = processDate(taskDetails[3]);
+
             }
 
             switch (taskType) {
@@ -59,10 +66,12 @@ public class Storage {
                 taskList.addToDoTask(taskName);
                 break;
             case 'D':
-                taskList.addDeadlineTask(taskName, dateTime);
+                LocalDate deadlineDate = LocalDate.parse(date);
+                taskList.addDeadlineTask(taskName, deadlineDate, time);
                 break;
             case 'E':
-                taskList.addEventTask(taskName, dateTime);
+                LocalDate eventDate = LocalDate.parse(date);
+                taskList.addEventTask(taskName, eventDate, time);
                 break;
             default:
             }
@@ -76,6 +85,19 @@ public class Storage {
             taskIndex++;
         }
         return taskIndex;
+    }
+
+    private String processDate(String dateStr) {
+        String[] dateMonthDayYear = dateStr.trim().split(" ", 3);
+        HashMap<String, String> month = new HashMap<>();
+        String[] monthName = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for (int i = 1; i <= monthName.length; i++) {
+            month.put(monthName[i - 1], String.format("%02d", i));
+        }
+        String dateYear  = dateMonthDayYear[2];
+        String dateMonth = month.get(dateMonthDayYear[0]);
+        String dateDay   = String.format("%02d", Integer.parseInt(dateMonthDayYear[1]));
+        return dateYear + "-" + dateMonth + "-" + dateDay;
     }
 
     public void updateDukeTextFile(int lineToEdit, Boolean isMarked) throws IOException {

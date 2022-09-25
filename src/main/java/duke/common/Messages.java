@@ -60,13 +60,22 @@ public class Messages {
 
     public static final String MESSAGE_DEADLINE_MISSING_BY = "OOPS!!! The description of a deadline requires " +
             "a specific date/time denoted after '/by'."  +
-            "\nExample: deadline return book /by Sunday" +
+            "\nExample: deadline return book /by date time(if any)" +
             "\nPlease try again.";
 
     public static final String MESSAGE_EVENT_MISSING_AT = "OOPS!!! The description of a event requires " +
             "a date and specific start & end time denoted after '/at'." +
-            "\nExample: event project meeting /at Mon 2-4pm" +
+            "\nExample: event project meeting /at date startTime-endTime" +
             "\nPlease try again.";
+
+    public static final String MESSAGE_EVENT_MISSING_TIME = "OOP!!! Please include startTime-endTime for event.";
+
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "OOPS!!! Pleas enter date in the following format:" +
+            "\n    dd/mm/yyyy";
+
+    public static final String MESSAGE_INVALID_TIME_FORMAT = "OOPS!!! Pleas enter time in 24hr-format as shown:" +
+            "\n    For deadline(if any): 1800" +
+            "\n    For event: 1130-1400";
 
     public static final String MESSAGE_UNDEFINED_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 }

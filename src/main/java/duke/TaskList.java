@@ -5,6 +5,7 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -47,13 +48,13 @@ public class TaskList {
         currentListSize++;
     }
 
-    public void addDeadlineTask(String deadlineTaskName, String deadlineTaskBy) {
-        taskList.add(new Deadline(deadlineTaskName, deadlineTaskBy));
+    public void addDeadlineTask(String deadlineTaskName, LocalDate deadlineTaskByDate, String deadlineTaskByTime) {
+        taskList.add(new Deadline(deadlineTaskName, deadlineTaskByDate, deadlineTaskByTime));
         currentListSize++;
     }
 
-    public void addEventTask(String eventTaskName, String eventTaskAt) {
-        taskList.add(new Event(eventTaskName, eventTaskAt));
+    public void addEventTask(String eventTaskName, LocalDate eventTaskAtDate, String eventTaskAtTime) {
+        taskList.add(new Event(eventTaskName, eventTaskAtDate, eventTaskAtTime));
         currentListSize++;
     }
 }
