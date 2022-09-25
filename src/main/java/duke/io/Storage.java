@@ -86,14 +86,12 @@ public class Storage {
             fileScanner.close();
             isLoaded = true;
             return tasks;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // if file has an issue with opening/closing, return empty task list and delete file
             fileScanner.close();
             file.delete();
             return new TaskList();
-        }
-        catch (SaveFileFormatException e) {
+        } catch (SaveFileFormatException e) {
             // return whatever is currently available and delete file
             fileScanner.close();
             file.delete();
@@ -153,8 +151,7 @@ public class Storage {
                 file.createNewFile();
             }
             fileWriter.write(Duke.FULL_TASK_LIST.getSaveString());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // If cannot write, just delete file.
             file.delete();
         }

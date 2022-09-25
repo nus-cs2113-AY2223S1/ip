@@ -73,8 +73,7 @@ public class Duke {
                 } else {
                     throw new NotRecognizedException(input);
                 }
-            }
-            catch (DukeException e) {
+            } catch (DukeException e) {
                 ErrorHandler.printErrorMessage(e);
             }
         }

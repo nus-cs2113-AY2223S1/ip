@@ -99,9 +99,9 @@ public class StringFormatting {
     /**
      * Formats string for when an item is deleted.
      *
-     * @param taskList {@link TaskList} item that is a subset of {@link Duke#FULL_TASK_LIST}, filtered by if it contains
-     *                                 a substring for the {@link Duke#COMMAND_FIND} command.
-     * @param substring                search substring
+     * @param taskList  {@link TaskList} item that is a subset of {@link Duke#FULL_TASK_LIST}, filtered by if it contains
+     *                  a substring for the {@link Duke#COMMAND_FIND} command.
+     * @param substring search substring
      * @return formatted string
      */
     public static String formatFindString(TaskList taskList, String substring) {

@@ -264,7 +264,7 @@ public class Parser {
     /**
      * Check if the given input is equal to any substring in a given array
      *
-     * @param input      input to be checked
+     * @param input     input to be checked
      * @param substring substrings to be checked for equality
      * @return boolean true or false
      */
@@ -281,8 +281,7 @@ public class Parser {
     public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;

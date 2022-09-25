@@ -32,8 +32,7 @@ public class ItemNotFoundAtIndexException extends DukeException {
         }
         if (Duke.FULL_TASK_LIST.getItemCount() == 0) {
             tempString += "\nYour to-do list is currently empty.";
-        }
-        else {
+        } else {
             tempString += String.format(
                     "\nYour to-do list currently has %s item(s).", Duke.FULL_TASK_LIST.getItemCount());
         }

@@ -67,8 +67,7 @@ public class DeadlineTask extends Task {
             if (icon.trim().equals("X")) {
                 bufferTask.setDone(true);
             }
-        }
-        catch (NoStateChangeException e) {
+        } catch (NoStateChangeException e) {
             // This will never trigger as isDone is always initialized as false.
         }
 

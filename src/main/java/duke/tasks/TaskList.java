@@ -19,17 +19,15 @@ public class TaskList {
      * List containing item
      */
     private final List<Task> tasks;
-
-    /**
-     * Count of number of items in list
-     */
-    private int itemCount = 0;
-
     /**
      * For if custom numbering is to be used for string formatting. If this list is empty,
      * use default numbering (just ascending order starting from 1).
      */
     private final List<Integer> numbers = new ArrayList<Integer>();
+    /**
+     * Count of number of items in list
+     */
+    private int itemCount = 0;
 
     /**
      * Constructor that initializes list of task items.
@@ -103,8 +101,7 @@ public class TaskList {
     public void markItem(int index) throws ItemNotFoundAtIndexException, NoStateChangeException {
         try {
             tasks.get(index).setDone(true);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ItemNotFoundAtIndexException(index);
         }
     }
@@ -118,8 +115,7 @@ public class TaskList {
     public void unmarkItem(int index) throws ItemNotFoundAtIndexException, NoStateChangeException {
         try {
             tasks.get(index).setDone(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ItemNotFoundAtIndexException(index);
         }
     }
@@ -137,8 +133,7 @@ public class TaskList {
             tasks.remove(index);
             itemCount--;
             return itemText;
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ItemNotFoundAtIndexException(index);
         }
     }
