@@ -1,0 +1,9 @@
+todo eat food
+deadline do assignment /by tomorrow
+event cs1231 quiz /at next week
+list
+mark 2
+list
+unmark 2
+list
+bye
