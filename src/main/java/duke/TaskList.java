@@ -150,4 +150,20 @@ public class TaskList {
             ui.printLoadingError();
         }
     }
+
+    public void findTask(String taskSubstring) {
+        int currentIndex = 1;
+
+        ui.printDivider();
+        System.out.println("\t  Here are the matching tasks in your list:");
+
+        for (Task task : tasks) {
+            if (task.description.contains(taskSubstring)) {
+                System.out.println("\t  " + currentIndex + "." + task);
+                currentIndex++;
+            }
+        }
+
+        ui.printDivider();
+    }
 }
