@@ -11,8 +11,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Storage {
-    public static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
-    public static String path = "";
+    private static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
+    private static String path = "";
+    private static File file_name;
 
     public Storage() {
         this(DEFAULT_STORAGE_FILEPATH);
@@ -59,27 +60,30 @@ public class Storage {
         return "";
     }
 
-    public static void dumpTask(Task task) {
+    public static void dumpTask(ArrayList<Task> tasks) {
+        File file_name = new File(path);
         try {
-            File file_name = new File(path);
-            file_name.createNewFile();
-            BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
+        file_name.createNewFile();
+        BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
+        for (Task task : tasks) {
 
             String type = getItemType(task);
             String description = getItemDescription(task);
             String isMarked = getItemMark(task);
             String time = getItemTime(task);
             String item = type + " "
-                        + description + " "
-                        + isMarked + " "
-                        + time;
+                    + isMarked + " "
+                    + description + " "
+                    + time;
 
             out.write(item + "\r\n");
             out.flush();
-            out.close();
+        }
+        out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public static TaskList loadTask() {

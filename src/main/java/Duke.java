@@ -1,14 +1,6 @@
-import duke.Parser;
-import duke.exception.AbsentArgsFlagException;
 import duke.exception.DukeException;
-import duke.exception.IllegalArgsNumException;
-import duke.exception.IllegalArgsTypeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.Parser;
 import duke.task.TaskList;
-
 import duke.Storage;
 import duke.Ui;
 
@@ -41,6 +33,7 @@ public class Duke {
     }
 
     private static void exit() {
+        Storage.dumpTask(taskList.getTaskList());
         ui.showGoodbyeMsg();
         System.exit(0);
     }

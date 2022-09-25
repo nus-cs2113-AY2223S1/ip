@@ -15,6 +15,9 @@ public class TaskList {
     private static final String EVENT_FLAG = "/at";
     private static final String[] ILLEGAL_ARGS = {"blah"};
 
+    public static ArrayList<Task> getTaskList() {
+        return tasks;
+    }
     public static void setTaskList(ArrayList<Task> taskList) {
         tasks = taskList;
     }
@@ -26,7 +29,6 @@ public class TaskList {
         Task new_task = new Task(taskDescription);
         tasks.add(new_task);
         System.out.println(">>>Added: " + new_task);
-        Storage.dumpTask(new_task);
         showTaskCount();
     }
 
