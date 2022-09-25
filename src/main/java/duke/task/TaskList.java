@@ -15,9 +15,8 @@ public class TaskList {
     private static final String EVENT_FLAG = "/at";
     private static final String[] ILLEGAL_ARGS = {"blah"};
 
-    public TaskList(Storage storage) {
-        // nit tasks with storage.loadtask
-        tasks = storage.loadTask();
+    public static void setTaskList(ArrayList<Task> taskList) {
+        tasks = taskList;
     }
 
     public static void addTask(String taskDescription) throws IllegalArgsTypeException {
@@ -27,7 +26,7 @@ public class TaskList {
         Task new_task = new Task(taskDescription);
         tasks.add(new_task);
         System.out.println(">>>Added: " + new_task);
-        // TODO: dumpTask(new_task) outside
+        Storage.dumpTask(new_task);
         showTaskCount();
     }
 
@@ -79,7 +78,7 @@ public class TaskList {
     }
 
     public static void addDeadline(String str) throws DukeException {
-        if (str.equals("")) {
+        if ("".equals(str)) {
             throw new IllegalArgsNumException();
         }
 

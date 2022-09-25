@@ -30,7 +30,7 @@ public class Ui {
     }
 
     public static void showGoodbyeMsg() {
-        System.out.println("Bye. Hope to see you again soon! qwq");
+        System.out.println("Bye. Hope to see you again soon!");
         showSeparator();
     }
 

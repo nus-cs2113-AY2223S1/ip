@@ -7,10 +7,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
+
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String DUKE_DUMP_FILE = "duke.txt";
+    public static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
+    public static String path = "";
+
+    public Storage() {
+        this(DEFAULT_STORAGE_FILEPATH);
+    }
+
+    public Storage(String filePath) {
+        path = filePath;
+    }
+
 
     private static String getItemType(Task task) {
         if (task instanceof Deadline) {
@@ -50,7 +61,7 @@ public class Storage {
 
     public static void dumpTask(Task task) {
         try {
-            File file_name = new File(DUKE_DUMP_FILE);
+            File file_name = new File(path);
             file_name.createNewFile();
             BufferedWriter out = new BufferedWriter(new FileWriter(file_name));
 
@@ -71,10 +82,11 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> loadTask() {
+    public static TaskList loadTask() {
+        TaskList taskList = new TaskList();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            BufferedReader in = new BufferedReader(new FileReader(DUKE_DUMP_FILE));
+            BufferedReader in = new BufferedReader(new FileReader(path));
             String line;
             while ((line = in.readLine()) != null) {
                 String[] items = line.split(" ");
@@ -110,9 +122,11 @@ public class Storage {
                     break;
                 }
             }
+            taskList.setTaskList(tasks);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tasks;
+
+        return taskList;
     }
 }
