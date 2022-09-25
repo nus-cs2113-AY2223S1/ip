@@ -15,6 +15,7 @@ public class Duke {
     public static void run(String filePath) {
         Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
+        //Read tasks from the file and store them in the tasks array
         try {
             storage.readFile();
             tasks = storage.getTasks();
