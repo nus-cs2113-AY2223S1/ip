@@ -17,17 +17,17 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileCommands {
+public class Storage {
     public static final String IS_MARKED = "1";
     public static final String IS_UNMARKED = "0";
     public static final String TODO = "T";
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
     public static final String LINE_SEPARATOR = " / ";
-    public static void readFromFile (String filePath, ArrayList<Task> taskList)
+    public void readFromFile (String filePath, ArrayList<Task> taskList)
             throws FileNotFoundException, InvalidFileDataException {
         File f = new File(filePath);
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             String data = s.nextLine();
             String[] taskData = data.split(" / ");
@@ -45,7 +45,6 @@ public class FileCommands {
             }
         }
     }
-    //filePath for function is for temp file
     public static void arrayToText (String filePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         for (int i = 0; i < taskList.size(); i++) {
@@ -64,7 +63,7 @@ public class FileCommands {
         }
         fw.close();
     }
-    public static void writeToFile (String filePath, String tempFilePath, ArrayList<Task> taskList)
+    public void writeToFile (String filePath, String tempFilePath, ArrayList<Task> taskList)
             throws IOException {
         try {
             arrayToText(tempFilePath, taskList);
