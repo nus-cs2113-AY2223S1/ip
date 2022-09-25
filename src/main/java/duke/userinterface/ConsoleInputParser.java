@@ -13,6 +13,7 @@ import duke.commands.ConsoleCommandUnmark;
 import duke.common.Messages;
 import duke.data.task.Task;
 import duke.exceptions.ConsoleInputParserException;
+import duke.storage.LocalStorage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +22,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Parses user input entered via standard input.
  */
-@SuppressWarnings("EnhancedSwitchMigration")
+@SuppressWarnings({"EnhancedSwitchMigration", "RedundantIfStatement"})
 public class ConsoleInputParser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -32,6 +33,14 @@ public class ConsoleInputParser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
+
+    private static boolean hasForbiddenCharacters(String input) {
+        if (input.contains(LocalStorage.FORMAT_DELIMITER)) {
+            return true;
+        }
+
+        return false;
+    }
 
     private static ConsoleCommandBye parseCommandBye() {
         return new ConsoleCommandBye();
@@ -61,15 +70,18 @@ public class ConsoleInputParser {
         }
     }
 
-    private static ConsoleCommandTodo parseCommandTodo(String arguments) throws ConsoleInputParserException.InvalidCommandTodoException {
+    private static ConsoleCommandTodo parseCommandTodo(String arguments) throws ConsoleInputParserException.InvalidCommandTodoException, ConsoleInputParserException.ForbiddenCharactersCommandTodoException {
         if (arguments.isEmpty()) {
             throw new ConsoleInputParserException.InvalidCommandTodoException(Messages.CONSOLE_ERROR_COMMAND_TODO_INVALID_SYNTAX);
+        }
+        if (hasForbiddenCharacters(arguments)) {
+            throw new ConsoleInputParserException.ForbiddenCharactersCommandTodoException(Messages.CONSOLE_ERROR_COMMAND_TODO_FORBIDDEN_CHARACTERS);
         }
 
         return new ConsoleCommandTodo(arguments);
     }
 
-    private static ConsoleCommandDeadline parseCommandDeadline(String arguments) throws ConsoleInputParserException.InvalidCommandDeadlineException {
+    private static ConsoleCommandDeadline parseCommandDeadline(String arguments) throws ConsoleInputParserException.InvalidCommandDeadlineException, ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException {
         String description;
         String by;
         try {
@@ -83,6 +95,9 @@ public class ConsoleInputParser {
         if (description.isEmpty() || by.isEmpty()) {
             throw new ConsoleInputParserException.InvalidCommandDeadlineException(Messages.CONSOLE_ERROR_COMMAND_DEADLINE_INVALID_SYNTAX);
         }
+        if (hasForbiddenCharacters(description)) {
+            throw new ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException(Messages.CONSOLE_ERROR_COMMAND_DEADLINE_FORBIDDEN_CHARACTERS);
+        }
 
         LocalDateTime byDateTime;
         try {
@@ -94,7 +109,7 @@ public class ConsoleInputParser {
         return new ConsoleCommandDeadline(description, byDateTime);
     }
 
-    private static ConsoleCommandEvent parseCommandEvent(String arguments) throws ConsoleInputParserException.InvalidCommandEventException {
+    private static ConsoleCommandEvent parseCommandEvent(String arguments) throws ConsoleInputParserException.InvalidCommandEventException, ConsoleInputParserException.ForbiddenCharactersCommandEventException {
         String description;
         String startAt;
         String endAt;
@@ -111,6 +126,9 @@ public class ConsoleInputParser {
 
         if (description.isEmpty()) {
             throw new ConsoleInputParserException.InvalidCommandEventException(Messages.CONSOLE_ERROR_COMMAND_EVENT_INVALID_SYNTAX);
+        }
+        if (hasForbiddenCharacters(description)) {
+            throw new ConsoleInputParserException.ForbiddenCharactersCommandEventException(Messages.CONSOLE_ERROR_COMMAND_EVENT_FORBIDDEN_CHARACTERS);
         }
 
         LocalDateTime startAtDateTime;
@@ -148,16 +166,20 @@ public class ConsoleInputParser {
      *
      * @param consoleInput Command and arguments entered by the user.
      * @return Parsed arguments for the corresponding commands.
-     * @throws ConsoleInputParserException.InvalidCommandMarkException     If the format of the mark command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandUnmarkException   If the format of the unmark command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandTodoException     If the format of the todo command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandDeadlineException If the format of the deadline command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandEventException    If the format of the event command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandDeleteException   If the format of the delete command is not valid.
-     * @throws ConsoleInputParserException.InvalidCommandFindException     If the format of the find command is not valid.
-     * @throws ConsoleInputParserException.CommandNotFoundException        If the command is not found.
+     * @throws ConsoleInputParserException.CommandNotFoundException                    If the command is not found.
+     * @throws ConsoleInputParserException.InvalidCommandMarkException                 If the format of the mark command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandUnmarkException               If the format of the unmark command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandTodoException                 If the format of the todo command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandDeadlineException             If the format of the deadline command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandEventException                If the format of the event command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandDeleteException               If the format of the delete command is not valid.
+     * @throws ConsoleInputParserException.InvalidCommandFindException                 If the format of the find command is not valid.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandTodoException     If forbidden characters are found in the todo command.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException If forbidden characters are found in the deadline command.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandEventException    If forbidden characters are found in the event command.
      */
     public static ConsoleCommand parseConsoleInput(ConsoleInput consoleInput) throws
+            ConsoleInputParserException.CommandNotFoundException,
             ConsoleInputParserException.InvalidCommandMarkException,
             ConsoleInputParserException.InvalidCommandUnmarkException,
             ConsoleInputParserException.InvalidCommandTodoException,
@@ -165,7 +187,9 @@ public class ConsoleInputParser {
             ConsoleInputParserException.InvalidCommandEventException,
             ConsoleInputParserException.InvalidCommandDeleteException,
             ConsoleInputParserException.InvalidCommandFindException,
-            ConsoleInputParserException.CommandNotFoundException {
+            ConsoleInputParserException.ForbiddenCharactersCommandTodoException,
+            ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException,
+            ConsoleInputParserException.ForbiddenCharactersCommandEventException {
         String command = consoleInput.getCommand();
         String arguments = consoleInput.getArguments();
 
@@ -189,7 +213,7 @@ public class ConsoleInputParser {
         case COMMAND_FIND:
             return parseCommandFind(arguments);
         default:
-            throw new ConsoleInputParserException.CommandNotFoundException();
+            throw new ConsoleInputParserException.CommandNotFoundException(Messages.CONSOLE_ERROR_COMMAND_NOT_FOUND);
         }
     }
 }

@@ -103,4 +103,43 @@ public class ConsoleInputParserException {
             super(message);
         }
     }
+
+    /**
+     * Thrown when forbidden characters are found in command todo
+     */
+    public static class ForbiddenCharactersCommandTodoException extends DukeException {
+        public ForbiddenCharactersCommandTodoException() {
+
+        }
+
+        public ForbiddenCharactersCommandTodoException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Thrown when forbidden characters are found in command deadline
+     */
+    public static class ForbiddenCharactersCommandDeadlineException extends DukeException {
+        public ForbiddenCharactersCommandDeadlineException() {
+
+        }
+
+        public ForbiddenCharactersCommandDeadlineException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Thrown when forbidden characters are found in command event
+     */
+    public static class ForbiddenCharactersCommandEventException extends DukeException {
+        public ForbiddenCharactersCommandEventException() {
+
+        }
+
+        public ForbiddenCharactersCommandEventException(String message) {
+            super(message);
+        }
+    }
 }

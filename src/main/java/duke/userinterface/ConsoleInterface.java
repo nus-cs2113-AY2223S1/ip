@@ -37,7 +37,7 @@ public class ConsoleInterface {
      */
     public ConsoleInterface() {
         scanner = new Scanner(System.in);
-        taskManager = new TaskManager(Configurations.TASKS_DIRECTORY_PATH, Configurations.TASKS_FILENAME);
+        taskManager = new TaskManager(Configurations.LOCAL_STORAGE_TASKS_DIRECTORY_PATH, Configurations.LOCAL_STORAGE_TASKS_FILENAME);
     }
 
     /**
@@ -281,19 +281,22 @@ public class ConsoleInterface {
             try {
                 consoleCommand = ConsoleInputParser.parseConsoleInput(consoleInput);
                 hasParseError = false;
-            } catch (ConsoleInputParserException.InvalidCommandMarkException |
+            } catch (ConsoleInputParserException.CommandNotFoundException |
+                     ConsoleInputParserException.InvalidCommandMarkException |
                      ConsoleInputParserException.InvalidCommandUnmarkException |
                      ConsoleInputParserException.InvalidCommandTodoException |
                      ConsoleInputParserException.InvalidCommandDeadlineException |
                      ConsoleInputParserException.InvalidCommandEventException |
                      ConsoleInputParserException.InvalidCommandDeleteException |
-                     ConsoleInputParserException.InvalidCommandFindException e) {
+                     ConsoleInputParserException.InvalidCommandFindException |
+                     ConsoleInputParserException.ForbiddenCharactersCommandTodoException |
+                     ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException |
+                     ConsoleInputParserException.ForbiddenCharactersCommandEventException e) {
                 printErrorMessage(e.getMessage());
-            } catch (ConsoleInputParserException.CommandNotFoundException e) {
-                printErrorMessage("I'm sorry, but I don't know what that means :-(");
             }
 
             if (hasParseError) {
+                // Do nothing on parse error
             } else if (consoleCommand instanceof ConsoleCommandBye) {
                 return;
             } else if (consoleCommand instanceof ConsoleCommandList) {
@@ -313,6 +316,7 @@ public class ConsoleInterface {
             } else if (consoleCommand instanceof ConsoleCommandFind) {
                 executeCommandFind((ConsoleCommandFind) consoleCommand);
             } else {
+                // Do nothing on command not found
             }
 
             ConsoleInterface.printBlankLine();

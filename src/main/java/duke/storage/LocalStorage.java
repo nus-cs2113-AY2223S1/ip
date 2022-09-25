@@ -16,44 +16,55 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"PatternVariableCanBeUsed", "StringConcatenationInLoop"})
 public class LocalStorage {
+    public static final String FORMAT_DELIMITER = " | ";
+    public static final String FORMAT_SYMBOL_TASK = " ";
+    public static final String FORMAT_SYMBOL_TODO = "T";
+    public static final String FORMAT_SYMBOL_DEADLINE = "D";
+    public static final String FORMAT_SYMBOL_EVENT = "E";
+    public static final String FORMAT_SYMBOL_TASK_COMPLETE = "1";
+    public static final String FORMAT_SYMBOL_TASK_NOT_COMPLETE = "0";
+
     private static String convertTodoToStorageSafeFormat(Todo todo) {
-        String taskStr = "T | ";
+        String taskStr = FORMAT_SYMBOL_TODO;
+        taskStr += FORMAT_DELIMITER;
         if (todo.isComplete()) {
-            taskStr += "1";
+            taskStr += FORMAT_SYMBOL_TASK_COMPLETE;
         } else {
-            taskStr += "0";
+            taskStr += FORMAT_SYMBOL_TASK_NOT_COMPLETE;
         }
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += todo.getDescription();
 
         return taskStr;
     }
 
     private static String convertDeadlineToStorageSafeFormat(Deadline deadline) {
-        String taskStr = "D | ";
+        String taskStr = FORMAT_SYMBOL_DEADLINE;
+        taskStr += FORMAT_DELIMITER;
         if (deadline.isComplete()) {
-            taskStr += "1";
+            taskStr += FORMAT_SYMBOL_TASK_COMPLETE;
         } else {
-            taskStr += "0";
+            taskStr += FORMAT_SYMBOL_TASK_NOT_COMPLETE;
         }
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += deadline.getDescription();
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += deadline.getBy().format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
 
         return taskStr;
     }
 
     private static String convertEventToStorageSafeFormat(Event event) {
-        String taskStr = "E | ";
+        String taskStr = FORMAT_SYMBOL_EVENT;
+        taskStr += FORMAT_DELIMITER;
         if (event.isComplete()) {
-            taskStr += "1";
+            taskStr += FORMAT_SYMBOL_TASK_COMPLETE;
         } else {
-            taskStr += "0";
+            taskStr += FORMAT_SYMBOL_TASK_NOT_COMPLETE;
         }
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += event.getDescription();
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += event.getStartAt().format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         taskStr += " ";
         taskStr += event.getEndAt().format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
@@ -62,13 +73,14 @@ public class LocalStorage {
     }
 
     private static String convertTaskToStorageSafeFormat(Task task) {
-        String taskStr = " | ";
+        String taskStr = FORMAT_SYMBOL_TASK;
+        taskStr += FORMAT_DELIMITER;
         if (task.isComplete()) {
-            taskStr += "1";
+            taskStr += FORMAT_SYMBOL_TASK_COMPLETE;
         } else {
-            taskStr += "0";
+            taskStr += FORMAT_SYMBOL_TASK_NOT_COMPLETE;
         }
-        taskStr += " | ";
+        taskStr += FORMAT_DELIMITER;
         taskStr += task.getDescription();
 
         return taskStr;
@@ -100,7 +112,7 @@ public class LocalStorage {
 
     private static Task convertFromStorageSafeFormatToTodo(String isCompleteStr, String description) {
         Todo todo = new Todo(description);
-        todo.setComplete(isCompleteStr.equals("1"));
+        todo.setComplete(isCompleteStr.equals(FORMAT_SYMBOL_TASK_COMPLETE));
 
         return todo;
     }
@@ -108,7 +120,7 @@ public class LocalStorage {
     private static Task convertFromStorageSafeFormatToDeadline(String isCompleteStr, String description, String byStr) {
         LocalDateTime byDateTime = LocalDateTime.parse(byStr, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         Deadline deadline = new Deadline(description, byDateTime);
-        deadline.setComplete(isCompleteStr.equals("1"));
+        deadline.setComplete(isCompleteStr.equals(FORMAT_SYMBOL_TASK_COMPLETE));
 
         return deadline;
     }
@@ -121,14 +133,14 @@ public class LocalStorage {
         LocalDateTime startAtDateTime = LocalDateTime.parse(startAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         LocalDateTime endAtDateTime = LocalDateTime.parse(endAt, DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT));
         Event event = new Event(description, startAtDateTime, endAtDateTime);
-        event.setComplete(isCompleteStr.equals("1"));
+        event.setComplete(isCompleteStr.equals(FORMAT_SYMBOL_TASK_COMPLETE));
 
         return event;
     }
 
     private static Task convertFromStorageSafeFormatToTask(String isCompleteStr, String description) {
         Task task = new Task(description);
-        task.setComplete(isCompleteStr.equals("1"));
+        task.setComplete(isCompleteStr.equals(FORMAT_SYMBOL_TASK_COMPLETE));
 
         return task;
     }
@@ -150,13 +162,13 @@ public class LocalStorage {
         String description = taskStrArr[2].trim();
 
         //noinspection IfCanBeSwitch
-        if (type.equals("T")) {
+        if (type.equals(FORMAT_SYMBOL_TODO)) {
             return convertFromStorageSafeFormatToTodo(isCompleteStr, description);
-        } else if (type.equals("D")) {
+        } else if (type.equals(FORMAT_SYMBOL_DEADLINE)) {
             String by = taskStrArr[3].trim();
 
             return convertFromStorageSafeFormatToDeadline(isCompleteStr, description, by);
-        } else if (type.equals("E")) {
+        } else if (type.equals(FORMAT_SYMBOL_EVENT)) {
             String at = taskStrArr[3].trim();
 
             return convertFromStorageSafeFormatToEvent(isCompleteStr, description, at);
