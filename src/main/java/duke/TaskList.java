@@ -160,6 +160,7 @@ public class TaskList {
         for (Task task : tasks) {
             if (task.description.contains(taskSubstring)) {
                 System.out.println("\t  " + currentIndex + "." + task);
+                currentIndex++;
             }
         }
 
