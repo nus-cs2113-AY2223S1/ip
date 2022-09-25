@@ -4,13 +4,20 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class Todo extends Task {
+    public static final String ICON = "T";
+
     public Todo(String description) {
         super(description);
     }
 
+    public Todo(String description, String taskStatus) {
+        super(description, taskStatus);
+    }
+
+
     @Override
     public String toString() {
-        return ("[T]" + super.toString());
+        return ("[" + ICON + "]" + super.toString());
     }
 
     public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
@@ -20,6 +27,6 @@ public class Todo extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskList.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, ICON, this.getStatusValue(), this.description);
     }
 }

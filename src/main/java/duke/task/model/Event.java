@@ -6,6 +6,7 @@ import duke.task.TaskList;
 public class Event extends Task {
     private String datetime;
 
+    public static final String ICON = "E";
     public static final String SEPARATOR = " /at ";
 
     public Event(String description, String datetime) {
@@ -13,9 +14,14 @@ public class Event extends Task {
         this.datetime = datetime;
     }
 
+    public Event(String description, String datetime, String status) {
+        super(description, status);
+        this.datetime = datetime;
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (at: %s)", super.toString(), this.datetime);
+        return String.format("[%s]%s (at: %s)", ICON, super.toString(), this.datetime);
     }
 
     public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
@@ -25,6 +31,6 @@ public class Event extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskList.FILE_STRING_SEPARATOR, "E", this.getStatusValue(), this.description, this.datetime);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, ICON, this.getStatusValue(), this.description, this.datetime);
     }
 }

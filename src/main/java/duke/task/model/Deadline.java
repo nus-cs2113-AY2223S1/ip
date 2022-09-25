@@ -6,6 +6,7 @@ import duke.task.TaskList;
 public class Deadline extends Task {
     private String deadlineDate;
 
+    public static final String ICON = "D";
     public static final String SEPARATOR = " /by ";
 
     public Deadline(String description, String deadlineDate) {
@@ -13,9 +14,14 @@ public class Deadline extends Task {
         this.deadlineDate = deadlineDate;
     }
 
+    public Deadline(String description, String deadlineDate, String status) {
+        super(description, status);
+        this.deadlineDate = deadlineDate;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadlineDate);
+        return String.format("[%s]%s (by: %s)", ICON, super.toString(), this.deadlineDate);
     }
 
     public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
@@ -25,6 +31,6 @@ public class Deadline extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskList.FILE_STRING_SEPARATOR, "D", this.getStatusValue(), this.description, this.deadlineDate);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, ICON, this.getStatusValue(), this.description, this.deadlineDate);
     }
 }

@@ -16,9 +16,14 @@ public class Duke {
     private static final String HORIZONTAL_LINE = "==================================================================";
 
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final TaskList TASKS = new TaskList();
+    private static TaskList taskList = new TaskList();
 
     public static final Map<String, Command> COMMANDS = new LinkedHashMap<>();
+
+    public Duke() {
+        taskList = new TaskList();
+        initCommand();
+    }
 
     private static void initCommand() {
         COMMANDS.put("help", new Command("help", "Get help for the commands supported and their syntax"));
@@ -61,25 +66,25 @@ public class Duke {
             displayCommandMenu();
             break;
         case "list":
-            TASKS.listTasks();
+            taskList.list();
             break;
         case "mark":
-            TASKS.markTaskAsDone(input);
+            taskList.markTaskAsDone(input);
             break;
         case "unmark":
-            TASKS.markTaskAsUndone(input);
+            taskList.markTaskAsUndone(input);
             break;
         case "todo":
-            TASKS.addTodoTask(input);
+            taskList.addTodoTask(input);
             break;
         case "deadline":
-            TASKS.addDeadlineTask(input);
+            taskList.addDeadlineTask(input);
             break;
         case "event":
-            TASKS.addEventTask(input);
+            taskList.addEventTask(input);
             break;
         case "delete":
-            TASKS.deleteTask(input);
+            taskList.delete(input);
             break;
         case "":
             System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);
@@ -90,10 +95,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        initCommand();
-        TASKS.loadTasks();
-
+    public void run() {
         greet();
 
         while (true) {
@@ -105,5 +107,9 @@ public class Duke {
         }
 
         exit();
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
