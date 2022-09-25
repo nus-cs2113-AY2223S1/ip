@@ -10,6 +10,13 @@ public class DeleteCommand extends Command {
         super(userInput, firstWord);
     }
 
+    /**
+     * Deletes the task specified by user. Checks if the user input an existing task.
+     *
+     * @param tasks   list that stores all the user's current tasks
+     * @param ui      contains the formatted outputs
+     * @param storage to store the tasks after the programme is closed
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         try {

@@ -24,6 +24,14 @@ public class MarkCommand extends Command {
         mark(tasks,ui,userInput,isMarked);
     }
 
+    /**
+     * Mark whether the task specified by user is done. Checks if the user input an existing task.
+     *
+     * @param tasks     list that stores all the user's current tasks
+     * @param ui        contains the formatted outputs
+     * @param userInput the <code>String</code> that the user input
+     * @param done      whether the task is done
+     */
     private void mark(TaskList tasks, UI ui, String userInput, boolean done) {
         try {
             int startIdx = userInput.substring(0, userInput.indexOf(' ') + 1).length();

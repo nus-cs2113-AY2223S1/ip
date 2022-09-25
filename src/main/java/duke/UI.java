@@ -41,12 +41,12 @@ public class UI {
     }
 
     public void printList(TaskList tasks) {
-        StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list:").append(System.lineSeparator());
+        StringBuilder listMessage = new StringBuilder();
+        listMessage.append("Here are the tasks in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
-            s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
+            listMessage.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
         }
-        formatOutput(s.toString());
+        formatOutput(listMessage.toString());
     }
 
     public void printEmptyException(String command) {
@@ -71,8 +71,7 @@ public class UI {
         formatOutput("☹ OOPS!!! There was no previously saved tasks.");
     }
     public void printExitMessage() {
-        String bye = "Bye. Hope to see you again soon!";
-        formatOutput(bye);
+        formatOutput("Bye. Hope to see you again soon!");
     }
 
 

@@ -19,7 +19,7 @@ public class Event extends Todo {
     }
 
     @Override
-    public String getTypeIcon() {
+    protected String getTypeIcon() {
         return "[E]";
     }
 
