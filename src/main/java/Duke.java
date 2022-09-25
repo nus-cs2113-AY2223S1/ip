@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * This is the main class of the programme, where the programme starts and ends, and exceptions are being handled.
- * It is also the barebones of the programme, where other classes are called from here.
+ * It is also the base of the programme, where other classes are called from here.
  */
 public class Duke {
     public static final String filePath = "data/duke.txt";
