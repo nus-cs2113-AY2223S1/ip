@@ -32,13 +32,8 @@ Unmark a task from done
 Delete a task from the list
     delete <task-number>
 
-Save the tasks into a .txt file
-    save
-
 Exit the application
     bye
-==================================================================
-There are no tasks added yet. Type 'help' if you need help.
 ==================================================================
 There are no tasks added yet. Type 'help' if you need help.
 ==================================================================
@@ -103,8 +98,6 @@ Syntax: unmark <task-number>
 2. [T][ ] exercise
 3. [E][X] watch movie (at: Sep 30th 6pm)
 4. [D][ ] submit quiz (by: Sep 6th 23:59)
-==================================================================
-File saved. Please check /data/duke.txt
 ==================================================================
 Sorry, you have not provide the task number.
 Syntax: delete <task-number>

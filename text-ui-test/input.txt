@@ -1,6 +1,5 @@
 help
 list
-save
 todo
 todo read book
 todo exercise
@@ -22,7 +21,6 @@ unmark one
 unmark 2
 unmark 0
 list
-save
 delete
 delete one
 delete 5
