@@ -6,11 +6,12 @@ public class Event extends Todo {
     public Event(String command, Character lastChar) {
         super(command, lastChar);
         int atStartIdx = command.indexOf('/') + "at _".length();
-        setAt(command.substring(atStartIdx));
+        command = command.substring(atStartIdx);
+        findDateAndTime(command);
     }
 
     public String getAt() {
-        return this.at;
+        return formatDate() + " " + this.time;
     }
 
     public void setAt(String at) {
