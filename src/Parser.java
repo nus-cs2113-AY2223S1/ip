@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-public class Parser{
+public class Parser {
     public static final String TODO = "todo";
     public static final String LIST = "list";
     public static final String MARK = "mark";
@@ -26,11 +26,14 @@ public class Parser{
             "Include a space ' ' to separate the date and time for your deadline!";
     public static final String EVENT_DATETIME_ERROR = "Please enter the date and time correctly!\n" +
             "Include a space ' ' to separate the date and time for your event timing!";
-    public static final String WRONG_DATETIME_FORMAT = "Please input your date in YYYY-MM-DD format and time in HH:mm format!\n" +
+    public static final String WRONG_DATETIME_FORMAT = "Please input your date in YYYY-MM-DD format and time in HH:mm format!\n"
+            +
             "Make sure that HH is between 0-23 and mm is between 00-60!";
+
     /**
      * Takes in a task stored in the data file and convert it to be stored
      * in the Duke bot's list if tasks
+     * 
      * @param task get task written in file format
      * @return converted task based on its type
      * @throws Error if task in file is in the wrong format and cannot be converted
@@ -48,6 +51,7 @@ public class Parser{
                 throw new Error(FILE_TASK_CONVERSION_ERROR);
         }
     }
+
     private String parseDateAndTime(String[] dateTimeDetails) {
         String time, date;
         LocalTime parseTime;
@@ -60,11 +64,14 @@ public class Parser{
     }
 
     /**
-     * Takes in the user input to store a certain type of task, and returns the task in
+     * Takes in the user input to store a certain type of task, and returns the task
+     * in
      * the correct format to be stored in the Duke bot's list of tasks
+     * 
      * @param taskType get the type of task user has specified
-     * @param details get the corresponding task description and time (if any) based on
-     *                the task type
+     * @param details  get the corresponding task description and time (if any)
+     *                 based on
+     *                 the task type
      * @return the specified task in the proper format to be stored
      * @throws Error if the user inputs the task details in the wrong format
      */
@@ -83,15 +90,14 @@ public class Parser{
                     throw new Error(DEADLINE_DESCRIPTION_ERROR);
                 }
                 description = separateDetails[0].trim();
-                dateTimeDetails = separateDetails[1].trim().split(" ",2);
+                dateTimeDetails = separateDetails[1].trim().split(" ", 2);
                 if (dateTimeDetails.length != 2) {
                     throw new Error(DEADLINE_DATETIME_ERROR);
                 }
                 try {
                     dateAndTime = parseDateAndTime(dateTimeDetails);
                     return new Deadline(description, dateAndTime, false);
-                }
-                catch (DateTimeParseException error) {
+                } catch (DateTimeParseException error) {
                     throw new Error(WRONG_DATETIME_FORMAT);
                 }
 
@@ -103,15 +109,14 @@ public class Parser{
                     throw new Error(EVENT_DESCRIPTION_ERROR);
                 }
                 description = separateDetails[0].trim();
-                dateTimeDetails = separateDetails[1].trim().split(" ",2);
+                dateTimeDetails = separateDetails[1].trim().split(" ", 2);
                 if (dateTimeDetails.length != 2) {
                     throw new Error(EVENT_DATETIME_ERROR);
                 }
                 try {
                     dateAndTime = parseDateAndTime(dateTimeDetails);
                     return new Event(description, dateAndTime, false);
-                }
-                catch (DateTimeParseException error) {
+                } catch (DateTimeParseException error) {
                     throw new Error(WRONG_DATETIME_FORMAT);
                 }
 
@@ -119,6 +124,16 @@ public class Parser{
                 throw new Error(INVALID_COMMAND);
         }
     }
+
+    /**
+     * Checks through the current task list to find if there are any
+     * tasks that have the same description and/or timings
+     * 
+     * @param checkTask is the task the user has just created and needs
+     *                  to be checked for similiarities
+     * @param tasks     list of tasks to find duplicate
+     * @return true if duplicate is found, else return false
+     */
     private boolean checkDuplicate(Task checkTask, List<Task> tasks) {
         for (Task task : tasks) {
             if (checkTask.getDescription().equals(task.getDescription())) {
@@ -127,13 +142,16 @@ public class Parser{
         }
         return false;
     }
+
     /**
-     * The function modifies the list of tasks and file contents based on the user's actions
-     * @param index determines which task on the list to be modified
-     * @param command determines the action to be done on the selected task
+     * The function modifies the list of tasks and file contents based on the user's
+     * actions
+     * 
+     * @param index    determines which task on the list to be modified
+     * @param command  determines the action to be done on the selected task
      * @param taskList is the list of tasks to choose the task from
-     * @param storage is the class that handles loading of tasks from the file
-     *                and saving tasks in the file
+     * @param storage  is the class that handles loading of tasks from the file
+     *                 and saving tasks in the file
      */
     private void modifyTask(int index, String command, TaskList taskList, Storage storage) {
         switch (command) {
@@ -153,10 +171,13 @@ public class Parser{
     }
 
     /**
-     * Takes in a 1 word user input and handles cases where the user has sent a command
+     * Takes in a 1 word user input and handles cases where the user has sent a
+     * command
      * in the wrong format
-     * @param input gets the user command
-     * @param taskList is the lists of tasks to be accessed based on the user command
+     * 
+     * @param input    gets the user command
+     * @param taskList is the lists of tasks to be accessed based on the user
+     *                 command
      */
     public void singleCommand(String input, TaskList taskList, Ui ui) {
         switch (input) {
@@ -185,11 +206,13 @@ public class Parser{
     /**
      * Takes in a multi-word input from the user and handles cases where
      * the user has sent a command in the wrong format
-     * @param get the multi-word command as an array of single commands
-     * @param taskList is the lists of tasks to be accessed based on the user command
-     * @param ui is the class that deals with displaying messages to the user
-     * @param storage is the class that handles loading of tasks from the file
-     *                and saving tasks in the file
+     * 
+     * @param get      the multi-word command as an array of single commands
+     * @param taskList is the lists of tasks to be accessed based on the user
+     *                 command
+     * @param ui       is the class that deals with displaying messages to the user
+     * @param storage  is the class that handles loading of tasks from the file
+     *                 and saving tasks in the file
      */
     public void multipleCommands(String[] get, TaskList taskList, Ui ui, Storage storage) {
         switch (get[TASK].toLowerCase()) {
@@ -203,11 +226,9 @@ public class Parser{
                 try {
                     int index = Integer.parseInt(get[NUMBER]);
                     modifyTask(index, get[TASK], taskList, storage);
-                }
-                catch (IndexOutOfBoundsException error) {
+                } catch (IndexOutOfBoundsException error) {
                     ui.outOfBoundsMessage();
-                }
-                catch (NumberFormatException error) {
+                } catch (NumberFormatException error) {
                     ui.notIntegerMessage();
                 }
                 break;
@@ -223,8 +244,7 @@ public class Parser{
                     }
                     taskList.addTask(task);
                     storage.appendToFile(task.fileFormat());
-                }
-                catch (Error error) {
+                } catch (Error error) {
                     System.out.println(error.getMessage());
                 }
                 break;
