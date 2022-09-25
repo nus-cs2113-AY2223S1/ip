@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Parser {
     private static final String END_CMD = "bye";
 
-    public static void readUserCmd() throws DukeException {
+    public static boolean readUserCmd() throws DukeException {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals(END_CMD)) {
@@ -45,7 +45,9 @@ public class Parser {
             default:
                 TaskList.addTask(input);
             }
+            Ui.showSeparator();
             input = sc.nextLine();
         }
+        return true;
     }
 }

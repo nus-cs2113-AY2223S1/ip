@@ -8,6 +8,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        String str = super.toString().substring(prefex_length);
+        return "[O]" + str;
     }
 }

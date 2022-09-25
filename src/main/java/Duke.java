@@ -21,7 +21,6 @@ public class Duke {
     static private Ui ui;
     static private Storage storage;
     static private TaskList taskList;
-    static private Parser parser;
 
     public static void main(String[] args) {
         new Duke().run(args);
@@ -48,13 +47,15 @@ public class Duke {
 
     private void runCmdLoopTillExit() {
         boolean isExit = false;
-        try {
-            parser.readUserCmd();
-        } catch (DukeException e) {
-            ui.showError(e);
-        } finally {
-            ui.showSeparator();
-        }
+        do {
+            try {
+                isExit = Parser.readUserCmd();
+            } catch (DukeException e) {
+                ui.showError(e);
+            } finally {
+                ui.showSeparator();
+            }
+        } while (!isExit);
     }
 
     private Storage initStorage(String[] launchArgs) {

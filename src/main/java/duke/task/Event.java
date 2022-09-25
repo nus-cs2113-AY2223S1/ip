@@ -14,6 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + duration + ")";
+        String str = super.toString().substring(prefex_length);
+        return "[E]" + str + " (at: " + duration + ")";
     }
 }

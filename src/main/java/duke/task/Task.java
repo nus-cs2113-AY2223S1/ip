@@ -4,6 +4,7 @@ public class Task {
 
     protected String description;
     protected boolean isMarked;
+    protected final int prefex_length = 3;
 
 
     public Task(String description) {

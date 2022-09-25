@@ -14,7 +14,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String str = super.toString().substring(prefex_length);
+        return "[D]" + str + " (by: " + by + ")";
     }
 
 }
