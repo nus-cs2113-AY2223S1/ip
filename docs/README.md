@@ -57,8 +57,8 @@ Available time format:
 
 | Time Format | Example |
 | ----------- | ------- |
-| hh:mm a | 06:00 AM |
-| HHmm | 0600 |
+| hh:mm a | 06:00 PM |
+| HHmm | 1800 |
 
 ## Usage
 
