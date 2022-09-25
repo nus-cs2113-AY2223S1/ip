@@ -17,6 +17,10 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class is used to read/write data to/from text file and ArrayList of tasks
+ * Class also has method of converting tasks to string to be stored as data
+ */
 public class Storage {
     public static final String IS_MARKED = "1";
     public static final String IS_UNMARKED = "0";
@@ -24,6 +28,12 @@ public class Storage {
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
     public static final String LINE_SEPARATOR = " / ";
+
+    /**
+     * Method is used to read string from text file, and convert it into task objects to be inputted into ArrayList
+     * @param filePath is the relative filePath of the file to be read
+     * @param taskList is the ArrayList of tasks, to read data from text file
+     */
     public void readFromFile (String filePath, ArrayList<Task> taskList)
             throws FileNotFoundException, InvalidFileDataException {
         File f = new File(filePath);
@@ -45,8 +55,15 @@ public class Storage {
             }
         }
     }
-    public static void arrayToText (String filePath, ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+
+    /**
+     * Method is used to convert task objects into string for writing to text file at the end of programme
+     * Method creates a temp file and inputs the string converted from ArrayList
+     * @param tempFilePath is the relative filePath of the temporary file to be written to
+     * @param taskList is the ArrayList of tasks, to write data to text file
+     */
+    public static void arrayToText (String tempFilePath, ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(tempFilePath, true);
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             String textToAppend = currentTask.getTaskClass();
@@ -63,6 +80,15 @@ public class Storage {
         }
         fw.close();
     }
+
+    /**
+     * Method is used to write data from ArrayList to text file
+     * Method calls .arrayToText() to create a temporary text file, with data from ArrayList written to it
+     * Method then copies data from the temporary file to the main text file, then deletes the temporary file
+     * @param filePath is the relative filePath of the file to be written to
+     * @param taskList is the ArrayList of tasks, to write data to text file
+     * @param tempFilePath is the relative filePath of the temporary file to be written to
+     */
     public void writeToFile (String filePath, String tempFilePath, ArrayList<Task> taskList)
             throws IOException {
         try {

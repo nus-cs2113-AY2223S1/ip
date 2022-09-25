@@ -5,21 +5,15 @@ import exception.InvalidFileDataException;
 import exception.InvalidArgumentsException;
 import exception.NotEnoughArgumentsException;
 import task.Task;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*
- * End programme: bye
- * List tasks: List
- * Add todo: todo (name)
- * Add deadline: deadline (name) /by (time)
- * Add event: event (name) /at (time)
- * Mark/Unmark: mark/unmark (task number)
- * Delete: delete (task number)
- * Find: find (input text)
+/**
+ * This is the main class of the programme, where the programme starts and ends, and exceptions are being handled.
+ * It is also the barebones of the programme, where other classes are called from here.
  */
-
 public class Duke {
     public static final String filePath = "data/duke.txt";
     public static final String tempFilePath = "data/temp.txt";
@@ -30,18 +24,30 @@ public class Duke {
     private Parser parser;
     private ArrayList<Task> taskList = new ArrayList<>();
     private Command c;
+    /**
+     * Duke reads in data from text file to fill taskList array
+     * @throws InvalidFileDataException if the file contains data that is wrong or not formatted correctly
+     * @throws IOException if filePath is invalid or file cannot be found
+    */
     public Duke () {
         ui = new Ui();
         storage = new Storage();
         parser = new Parser();
         try {
             storage.readFromFile(filePath, taskList);
-        } catch (InvalidFileDataException e) {
+        } catch (InvalidFileDataException |
+                 IOException e) {
             ui.showError(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
+    /**
+     * Calls .start() to send introduction message
+     * Runs the programme in a while-loop, until isExit is true
+     * Catches the exception from .execute() and calls ui.showError() to print error message
+     * After exiting while-loop, calls .writeToFile() to write data from taskList to text file
+     * Calls .end() to send goodbye message and end programme
+     * @throws IOException if filePath is invalid or file cannot be found
+     */
     public void run () throws IOException {
         ui.start();
         boolean isExit = false;
@@ -65,6 +71,10 @@ public class Duke {
         }
         ui.end();
     }
+
+    /**
+     * @throws IOException if filePath is invalid or file cannot be found
+     */
     public static void main (String[] args) throws IOException {
         new Duke().run();
     }
