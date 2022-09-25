@@ -27,8 +27,9 @@ The tasks added to the list will be automatically stored to `tasks.txt`, and is 
 Notes on the command format:
  - Command words are insensitive
  - Words in `UPPERCASE` refers to the parameters of the command
- - All parts of the command are mandatory
-   - e.g. A deadline cannot have missing separator or datetime
+ - Parameters in `[SQUAREBRACKET]` are optional. Otherwise, all parts of the command are mandatory
+   - A deadline cannot have missing separator or datetime
+   - A find query can be empty (same effect as list)
  - For `DATETIME`, the `DATE` must be entered before the `TIME`
 
 | Command | Format | Description |
@@ -39,7 +40,7 @@ Notes on the command format:
 | list | list | List the tasks |
 | mark | mark TASKINDEX | Mark a task as done |
 | unmark | unmark TASKINDEX | Unark a task as not done |
-| find | find QUERY | Find the tasks with a query |
+| find | find [QUERY] | Find the tasks with a query |
 | filter | filter DATE | Filter the tasks with a date |
 | delete | delete TASKINDEX | Delete a task |
 | bye | bye | Exit the program |
