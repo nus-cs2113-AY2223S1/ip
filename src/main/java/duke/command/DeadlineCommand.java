@@ -2,8 +2,9 @@ package duke.command;
 
 public class DeadlineCommand extends Command{
 
-    // 0 - description, 1 - time
-    private String[] argument = new String[2];
+    public static final int DESCRIPTION = 0;
+    public static final int TIME = 1;
+    private final String[] argument = new String[2];
 
     public DeadlineCommand() {
         super();
@@ -17,9 +18,9 @@ public class DeadlineCommand extends Command{
     @Override
     public String getArgument(boolean b) {
         if (b) {
-            return argument[0];
+            return argument[DESCRIPTION];
         }   else {
-            return argument[1];
+            return argument[TIME];
         }
     }
 }

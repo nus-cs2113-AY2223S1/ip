@@ -1,7 +1,7 @@
 package duke.exception;
 
 public class NotIntegerException extends DukeException {
-    private String message;
+    private final String message;
 
     public NotIntegerException(String message) {
         super();

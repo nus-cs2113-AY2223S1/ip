@@ -1,8 +1,8 @@
 package duke.command;
 
-public class ByeOrListCommand extends Command {
+public class ListCommand extends Command {
 
-    public ByeOrListCommand() {
+    public ListCommand() {
         super();
     }
 

@@ -5,10 +5,28 @@ import duke.manager.Parser;
 
 public class ExceptionChecker {
 
-    public static void checkFlagExistence(String input, String keyword) throws MissingFlagException {
+    public static final String EMPTY_STRING = "";
 
-        int flagPosition = Parser.getFlagPosition(input, keyword);
+    private static boolean isEmptyDescription(String description) {
+        return description.equals(EMPTY_STRING);
+    }
+
+    private static boolean isEmptyTime(String time) {
+        return time.equals(EMPTY_STRING);
+    }
+
+    public static boolean doesFlagExists(int flagPosition) {
+
         if (flagPosition < 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static void checkFlagExistence(String input, String keyword) throws MissingFlagException {
+        int flagPosition = Parser.getFlagPosition(input, keyword);
+        if (!doesFlagExists(flagPosition)) {
             throw new MissingFlagException(keyword);
         }
     }
@@ -33,20 +51,20 @@ public class ExceptionChecker {
     } // only for mark, unmark and delete
 
     public static void checkDescription(String description) throws MissingDescriptionException {
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             throw new MissingDescriptionException();
         }
     }
 
     public static void checkDescriptionAndTime(String description, String time) throws
             MissingDescriptionAndTimeException, MissingTimeException, MissingDescriptionException {
-        if (time.equals("")) {
-            if (description.equals("")) {
+        if (isEmptyTime(time)) {
+            if (isEmptyDescription(description)) {
                 throw new MissingDescriptionAndTimeException();
             } else {
                 throw new MissingTimeException();
             }
-        } else if (description.equals("")) {
+        } else if (isEmptyDescription(description)) {
             throw new MissingDescriptionException();
         }
     }
@@ -68,7 +86,7 @@ public class ExceptionChecker {
         case "delete":
             if (splitInput.length > 2) {
                 throw new TooManyArgumentsException();
-            }   else if (splitInput.length == 1) {
+            } else if (splitInput.length == 1) {
                 throw new MissingIntegerException(keyword);
             }
             break;

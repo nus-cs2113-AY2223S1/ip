@@ -1,6 +1,14 @@
 package duke.manager;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ByeCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.DeleteCommand;
+import duke.command.TodoCommand;
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
 import duke.exception.NoSuchCommandException;
 import duke.task.TaskList;
 
@@ -10,34 +18,36 @@ public class Manager {
 
     public static Command commandCreator(String input) throws NoSuchCommandException {
         String keyword = Parser.getKeyword(input);
-        Command c;
+        Command newCommand;
         switch (keyword) {
         case "bye":
+            newCommand = new ByeCommand();
+            break;
         case "list":
-            c = new ByeOrListCommand();
+            newCommand = new ListCommand();
             break;
         case "mark":
-            c = new MarkCommand();
+            newCommand = new MarkCommand();
             break;
         case "unmark":
-            c = new UnmarkCommand();
+            newCommand = new UnmarkCommand();
             break;
         case "delete":
-            c = new DeleteCommand();
+            newCommand = new DeleteCommand();
             break;
         case "todo":
-            c = new TodoCommand();
+            newCommand = new TodoCommand();
             break;
         case "event":
-            c = new EventCommand();
+            newCommand = new EventCommand();
             break;
         case "deadline":
-            c = new DeadlineCommand();
+            newCommand = new DeadlineCommand();
             break;
         default:
             throw new NoSuchCommandException();
         }
-        return c;
+        return newCommand;
     }
 
     public static void readInput() {

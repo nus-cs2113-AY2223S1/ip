@@ -7,18 +7,17 @@ public class TaskExecutor {
 
     private static final String MESSAGE_INDENTATION = "  ";
 
-    // to move message printing to UserInterface once stuff works
-
     public static void listResponse(int taskNumber) {
 
-        if (taskNumber == 0) {
+        if (taskNumber == 0) { // Guard Clause
             System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
-        }   else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskNumber; i++) {
-                Task task = TaskList.get(i);
-                System.out.println((i + 1) + "." + task);
-            }
+            return;
+        }
+
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskNumber; i++) {
+            Task task = TaskList.get(i);
+            System.out.println((i + 1) + "." + task);
         }
     }
 
@@ -40,16 +39,15 @@ public class TaskExecutor {
                 + MESSAGE_INDENTATION + task);
     }
 
-    public static void deleteResponse(TaskList taskList, int taskPosition) {
+    public static void deleteResponse(int taskPosition) {
         if (taskPosition < 0) {
             System.out.println("Please give me a positive number instead!");
             return;
-        }   else if (taskPosition < taskList.getSize()) {
+        }   else if (taskPosition < TaskList.getSize()) {
             System.out.println("☹ OOPS!!! You don't have that many tasks!");
             return;
         }
         taskPosition--;
-        Task task = taskList.get(taskPosition);
         TaskList.deleteTask(taskPosition);
 
     }
@@ -85,7 +83,7 @@ public class TaskExecutor {
             unmarkResponse(Integer.parseInt(c.getArgument(true)));
             break;
         case "delete":
-            deleteResponse(taskList, Integer.parseInt(c.getArgument(true)));
+            deleteResponse(Integer.parseInt(c.getArgument(true)));
             break;
         case "todo":
             todoResponse(taskList, c.getArgument(true));

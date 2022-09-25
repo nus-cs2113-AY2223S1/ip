@@ -3,7 +3,7 @@ package duke.command;
 public class EventCommand extends Command {
 
     // 0 - description, 1 - time
-    private String[] argument = new String[2];
+    private final String[] argument = new String[2];
 
     public EventCommand() {
         super();
