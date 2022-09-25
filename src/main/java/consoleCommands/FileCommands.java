@@ -18,42 +18,43 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileCommands {
-    public static final String TRUE = "1";
-    public static final String FALSE = "0";
+    public static final String IS_MARKED = "1";
+    public static final String IS_UNMARKED = "0";
     public static final String TODO = "T";
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
     public static final String LINE_SEPARATOR = " / ";
-    public static void readFromFile (String filePath, ArrayList<Task> Array) throws FileNotFoundException, InvalidFileDataException {
+    public static void readFromFile (String filePath, ArrayList<Task> taskList)
+            throws FileNotFoundException, InvalidFileDataException {
         File f = new File(filePath);
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNextLine()) {
             String data = s.nextLine();
             String[] taskData = data.split(" / ");
             if (taskData[0].equals(TODO)) {
-                Array.add(new Todo(taskData[2]));
+                taskList.add(new Todo(taskData[2]));
             } else if (taskData[0].equals(DEADLINE)) {
-                Array.add(new Deadline(taskData[2],taskData[3]));
+                taskList.add(new Deadline(taskData[2],taskData[3]));
             } else if (taskData[0].equals(EVENT)) {
-                Array.add(new Event(taskData[2],taskData[3]));
+                taskList.add(new Event(taskData[2],taskData[3]));
             } else {
                 throw new InvalidFileDataException();
             }
-            if (taskData[1].equals(TRUE)) {
-                Array.get(Array.size()-1).isDone = true;
+            if (taskData[1].equals(IS_MARKED)) {
+                taskList.get(taskList.size()-1).isDone = true;
             }
         }
     }
     //filePath for function is for temp file
-    public static void arrayToText (String filePath, ArrayList<Task> Array) throws IOException {
+    public static void arrayToText (String filePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
-        for (int i = 0; i < Array.size(); i++) {
-            Task currentTask = Array.get(i);
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currentTask = taskList.get(i);
             String textToAppend = currentTask.getTaskClass();
             if (currentTask.isDone) {
-                textToAppend += LINE_SEPARATOR + TRUE ;
+                textToAppend += LINE_SEPARATOR + IS_MARKED ;
             } else {
-                textToAppend += LINE_SEPARATOR + FALSE;
+                textToAppend += LINE_SEPARATOR + IS_UNMARKED;
             }
             textToAppend += LINE_SEPARATOR + currentTask.getDescription();
             if (currentTask.getTaskClass().equals(EVENT) || currentTask.getTaskClass().equals(DEADLINE)) {
@@ -63,9 +64,10 @@ public class FileCommands {
         }
         fw.close();
     }
-    public static void writeToFile (String filePath, String tempFilePath, ArrayList<Task> Array) throws IOException {
+    public static void writeToFile (String filePath, String tempFilePath, ArrayList<Task> taskList)
+            throws IOException {
         try {
-            arrayToText(tempFilePath, Array);
+            arrayToText(tempFilePath, taskList);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }

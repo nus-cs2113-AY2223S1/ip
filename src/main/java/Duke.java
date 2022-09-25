@@ -1,5 +1,9 @@
 import consoleCommands.ConsoleCommands;
-import exception.*;
+import exception.TaskDoesNotExistException;
+import exception.InvalidCommandException;
+import exception.InvalidFileDataException;
+import exception.InvalidArgumentsException;
+import exception.NotEnoughArgumentsException;
 import task.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,14 +11,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 /*
-* End programme: bye
-* List tasks: List
-* Add todo: todo (name)
-* Add deadline: deadline (name) /by (time)
-* Add event: event (name) /at (time)
-* Mark/Unmark: mark/unmark (task number)
-* Delete: delete (task number)
-*/
+ * End programme: bye
+ * List tasks: List
+ * Add todo: todo (name)
+ * Add deadline: deadline (name) /by (time)
+ * Add event: event (name) /at (time)
+ * Mark/Unmark: mark/unmark (task number)
+ * Delete: delete (task number)
+ */
 
 public class Duke {
     public static final String COMMAND_UNMARKED = "unmark";
@@ -29,6 +33,7 @@ public class Duke {
     public static final String INVALID_FILE_DATA_ERROR_MESSAGE = "Invalid file data detected. File data will not be read.";
     public static final String filePath = "data/duke.txt";
     public static final String tempFilePath = "data/temp.txt";
+
     public static void main(String[] args) throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
@@ -53,14 +58,14 @@ public class Duke {
             } else if (input.contains(COMMAND_MARKED) || input.contains(COMMAND_UNMARKED)) {
                 try {
                     ConsoleCommands.markStatus(input, taskList);
-                } catch (TaskDoesNotExistException e){
+                } catch (TaskDoesNotExistException e) {
                     System.out.println(TASK_DOES_NOT_EXIST_ERROR_MESSAGE);
                     ConsoleCommands.printLine();
                 }
             } else if (input.contains(COMMAND_DELETE)) {
                 try {
                     ConsoleCommands.deleteTask(input, taskList);
-                } catch (TaskDoesNotExistException e){
+                } catch (TaskDoesNotExistException e) {
                     System.out.println(TASK_DOES_NOT_EXIST_ERROR_MESSAGE);
                     ConsoleCommands.printLine();
                 }
