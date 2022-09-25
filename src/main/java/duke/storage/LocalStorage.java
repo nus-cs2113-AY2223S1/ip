@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 @SuppressWarnings({"PatternVariableCanBeUsed", "StringConcatenationInLoop"})
@@ -200,7 +201,6 @@ public class LocalStorage {
         }
 
         Files.writeString(tasksFilePath, tasksStr, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-
     }
 
     /**
@@ -220,7 +220,15 @@ public class LocalStorage {
 
         String[] tasksStrArr = tasksStr.split("\n");
         for (String taskStr : tasksStrArr) {
-            Task task = convertFromStorageSafeFormat(taskStr);
+            Task task;
+
+            try {
+                task = convertFromStorageSafeFormat(taskStr);
+            } catch (IndexOutOfBoundsException |
+                     DateTimeParseException e) {
+                task = null;
+            }
+
             if (task != null) {
                 tasks.add(task);
             }
