@@ -3,6 +3,8 @@ package duke;
 import duke.taskmanager.TaskList;
 import duke.taskmanager.tasks.Task;
 
+import java.util.regex.Pattern;
+
 public class UI {
     public final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     public static int oneBasedIndex = 1;
@@ -47,6 +49,25 @@ public class UI {
             s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
         }
         formatOutput(s.toString());
+    }
+
+    public void printMatchList(TaskList tasks, String description) {
+        Pattern pattern = Pattern.compile(description, Pattern.CASE_INSENSITIVE);
+        StringBuilder s = new StringBuilder();
+        int count = 0;
+        s.append("Here are the tasks matching \"" + description + "\" in your list:").append(System.lineSeparator());
+        for (int i = 1; i < oneBasedIndex; i++) {
+            if (pattern.matcher(tasks.get(i).getDescription()).find()) {
+                s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
+                count++;
+            }
+        }
+        if (count > 0) {
+            formatOutput(s.toString());
+        } else {
+            formatOutput("Sorry! There are no tasks matching your specified keyword");
+        }
+
     }
 
     public void printEmptyException(String command) {
