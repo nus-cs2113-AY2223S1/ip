@@ -168,7 +168,7 @@ public class TaskList {
                 throw new DukeException();
             }
             int unmarkId = Integer.parseInt(line.replaceFirst("unmark ", "")) - 1;
-            if ((unmarkId >= tasks.size()) || (unmarkId <= 0)) {
+            if ((unmarkId >= tasks.size()) || (unmarkId < 0)) {
                 throw new DukeException();
             }
             unmarkTask(tasks, line);
@@ -204,7 +204,7 @@ public class TaskList {
                 throw new DukeException();
             }
             int markId = Integer.parseInt(line.replaceFirst("mark ", "")) - 1;
-            if ((markId >= tasks.size()) || (markId <= 0)) {
+            if ((markId >= tasks.size()) || (markId < 0)) {
                 throw new DukeException();
             }
             markTask(tasks, line);
@@ -250,7 +250,7 @@ public class TaskList {
     public static void tryDeleteTask(ArrayList<Task> tasks, String[] parsedInput) {
         int deleteId = Integer.parseInt(parsedInput[1]) - 1;
         try {
-            if ((deleteId >= tasks.size()) || (deleteId <= 0)) {
+            if ((deleteId >= tasks.size()) || (deleteId < 0)) {
                 throw new DukeException();
             }
             deleteTask(tasks, deleteId);
