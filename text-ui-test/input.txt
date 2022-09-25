@@ -28,4 +28,8 @@ delete 4
 list
 delete 7
 list
+find
+find todo
+find deadline 1
+find 2
 bye

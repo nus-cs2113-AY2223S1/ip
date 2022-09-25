@@ -63,6 +63,14 @@ public class Parser {
             String taskData = args[1];
             addTask(action, taskData);
             break;
+        case "find":
+            if (args.length < 2) {
+                ui.printLine("Not enough arguments, dude.");
+                break;
+            }
+            String searchTerm = args[1];
+            findAndShowTasks(searchTerm);
+            break;
         case "delete":
             try {
                 index = Integer.parseInt(args[1].trim()) - 1;
@@ -75,6 +83,10 @@ public class Parser {
             ui.printLine("I don't recognise that command, dude.");
             break;
         }
+    }
+
+    private void findAndShowTasks(String searchTerm) {
+        ui.printLine(tasks.findTasks(searchTerm));
     }
 
     private void addTask(String taskType, String taskData) {
