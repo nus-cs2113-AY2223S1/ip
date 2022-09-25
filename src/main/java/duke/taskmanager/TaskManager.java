@@ -19,35 +19,27 @@ public class TaskManager {
     private TaskList tasks;
 
     /**
-     * Manages all the tasks in one <code>Tasklist</code>. It will check if there is any previously saved tasks and enter those
-     * tasks into the <code>Tasklist</code>.
+     * Manages all the tasks in one <code>TaskList</code>. It will check if there is any previously saved tasks and enter those
+     * tasks into the <code>TaskList</code>.
      */
     public TaskManager() {
         ui = new UI();
-        boolean haveSavedTasks = true;
+        tasks = new TaskList();
         try {
             storage = new Storage();
+            tasks = new TaskList(storage.storedTasks);
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundException();
-            haveSavedTasks = false;
             storage = new Storage("no saved tasks");
+        } catch (DukeException e) {
+            ui.showLoadingError();
         }
         ui.printGreetingMessage();
-        if (haveSavedTasks) {
-            try {
-                tasks = new TaskList(storage.storedTasks);
-            } catch (DukeException e) {
-                ui.showLoadingError();
-                tasks = new TaskList();
-            }
-        } else {
-            tasks = new TaskList();
-        }
     }
 
     /**
      * Keeps on receiving user commands until the user closes the programme. Once the user closes the programme,
-     * the <code>Task</code>s in the <code>Tasklist</code> will be saved.
+     * the <code>Task</code>s in the <code>TaskList</code> will be saved.
      */
     public void receiveCommands() {
         Scanner in = new Scanner(System.in);

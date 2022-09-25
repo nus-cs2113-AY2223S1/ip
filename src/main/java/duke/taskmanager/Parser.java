@@ -51,6 +51,8 @@ public class Parser {
                 return new AddCommand(userInput,firstWord);
             case "delete":
                 return new DeleteCommand(userInput,firstWord);
+            case "find":
+                return new FindCommand(userInput,firstWord);
             default:
                 return new WrongCommand(userInput,firstWord);
             }
@@ -76,7 +78,7 @@ public class Parser {
      * @throws WrongCommandException The command does not exist and is not valid
      */
     private static void checkExceptions(String userInput) throws EmptyException, WrongCommandException {
-        if (userInput.matches("mark|unmark|todo|deadline|event|delete")) {
+        if (userInput.matches("mark|unmark|todo|deadline|event|delete|find")) {
             throw new EmptyException();
         } else {
             throw new WrongCommandException();

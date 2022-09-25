@@ -1,7 +1,7 @@
 package duke.taskmanager.tasks;
 
 /**
- * Represents the simplest
+ * Represents the simplest task
  */
 public abstract class Task {
     protected String description;

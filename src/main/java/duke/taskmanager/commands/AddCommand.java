@@ -1,8 +1,6 @@
 package duke.taskmanager.commands;
 
 import duke.UI;
-import duke.exceptions.NoBackslashException;
-import duke.exceptions.WrongCommandException;
 import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 import duke.taskmanager.tasks.Deadline;
