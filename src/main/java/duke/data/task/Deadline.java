@@ -39,7 +39,8 @@ public class Deadline extends Task {
      *
      * @return A date value of the task.
      */
-    public LocalDate getDeadlineDate() {
+    @Override
+    public LocalDate getTaskDate() {
         LocalDate localDate = deadlineTime.toLocalDate();
         return localDate;
     }

@@ -5,7 +5,7 @@ package duke.exception;
  * when an event task given by the user does not contain a valid " /at " tag.
  */
 public class EventMissingTagException extends DukeException {
-    
+
     /**
      * Concatenate the error message prefix and error message, and returns it.
      *

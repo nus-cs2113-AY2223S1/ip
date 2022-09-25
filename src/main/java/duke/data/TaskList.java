@@ -4,7 +4,7 @@ import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.Todo;
-import duke.exception.*;
+import duke.exception.DukeException;
 import duke.ui.Ui;
 
 import java.time.LocalDate;
@@ -134,6 +134,7 @@ public class TaskList {
         }
         return tempTaskList;
     }
+
     /**
      * Filter the current task list to find all the deadline or event task
      * that the stored date matches with the requested date.
@@ -145,22 +146,11 @@ public class TaskList {
      */
     public TaskList filterTasks(LocalDate targetDate) {
         TaskList tempTaskList = new TaskList();
-        boolean isDeadline;
-        boolean isEvent;
-        boolean isValidDate = false;
+        boolean isValidDate;
 
         for (int i = 0; i < tasks.size(); i++) {
-            LocalDate tempDate = null;
             Task tempTask = tasks.get(i);
-            isDeadline = tempTask instanceof Deadline;
-            isEvent = tempTask instanceof Event;
-            if (isDeadline) {
-                tempDate = ((Deadline) tempTask).getDeadlineDate();
-            }
-            if (isEvent) {
-                tempDate = ((Event) tempTask).getEventDate();
-            }
-
+            LocalDate tempDate = tempTask.getTaskDate();
             isValidDate = tempDate != null && tempDate.equals(targetDate);
             if (isValidDate) {
                 tempTaskList.tasks.add(tempTask);

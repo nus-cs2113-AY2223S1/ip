@@ -20,11 +20,11 @@ public class Duke {
      * Constructor of <code>Duke</code>.
      * Initialise the program by creating a new storage, user interface and task list classes.
      *
-     * @param filePath The relative file path used to store the list of tasks
+     * @param fileName The file name used to store the list of tasks
      */
-    public Duke(String filePath) {
+    public Duke(String fileName) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(fileName);
         commandParser = new CommandParser();
         try {
             tasks = new TaskList(storage.initialize());

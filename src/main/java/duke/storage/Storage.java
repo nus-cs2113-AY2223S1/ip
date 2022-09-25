@@ -25,29 +25,31 @@ import java.util.Scanner;
  * <p>
  * The class is used to store the added list of tasks in the application into a file,
  * such that the list of tasks in previous executions can be read from the file.
+ * <p>
+ * Warning: The file feature is only implemented for storing at current directory.
  */
 public class Storage {
-    // A relative file path of the file used to store the task list
-    private String filePath;
+    // A file name of the file used to store the task list
+    private String fileName;
     // A TaskList object used to hold the tasks stored in the file during initialisation
     private TaskList storedTaskList;
     // A DukeDateTimeParser object to parse the file output in string into a LocalDateTime object
     private DukeDateTimeParser dukeDateTimeParser;
 
     /**
-     * Constructor of <code>Storage</code>. Stores the given file path,
+     * Constructor of <code>Storage</code>. Stores the given file name,
      * and creates a new TaskList and DukeDateTimeParser object.
      *
-     * @param filePath A relative file path of the file used to store the task list
+     * @param fileName A file name of the file used to store the task list
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String fileName) {
+        this.fileName = fileName;
         this.storedTaskList = new TaskList();
         this.dukeDateTimeParser = new DukeDateTimeParser();
     }
 
     /**
-     * Initialise the application by opening and reading the file specified in filePath
+     * Initialise the application by opening and reading the file specified in fileName
      * and return the TaskList object containing all the tasks stored in the file.
      *
      * @return A TaskList object with all the tasks stored in file storage.
@@ -59,14 +61,14 @@ public class Storage {
     }
 
     /**
-     * Check if the file specified in filePath exists,
+     * Check if the file specified in fileName exists,
      * open the file and read it if an existing file is found.
      *
      * @throws DukeException Exception triggered on erroneous file output operations.
      */
     public void openDukeFile() throws DukeException {
-        if (Files.exists(Paths.get(filePath))) {
-            File dukeFile = new File(filePath);
+        if (Files.exists(Paths.get(fileName))) {
+            File dukeFile = new File(fileName);
             safeReadDukeFile(dukeFile);
         }
     }
@@ -144,13 +146,13 @@ public class Storage {
     public void rewriteDukeFile(TaskList taskList) throws DukeException {
         try {
             // Creates the file if it does not exist
-            if (!Files.exists(Paths.get(filePath))) {
-                File dukeFile = new File(filePath);
+            if (!Files.exists(Paths.get(fileName))) {
+                File dukeFile = new File(fileName);
                 dukeFile.createNewFile();
             }
 
             // Write each task in the task list into the file
-            FileWriter dukeFileWriter = new FileWriter(filePath, false);
+            FileWriter dukeFileWriter = new FileWriter(fileName, false);
             for (Task task : taskList.getTasks()) {
                 String output = retrieveTaskInformationForFileStorage(task);
                 dukeFileWriter.append(output);
@@ -173,12 +175,12 @@ public class Storage {
     public void appendDukeFile(TaskList taskList) throws DukeException {
         try {
             FileWriter dukeFileWriter;
-            if (Files.exists(Paths.get(filePath))) {
-                dukeFileWriter = new FileWriter(filePath, true);
+            if (Files.exists(Paths.get(fileName))) {
+                dukeFileWriter = new FileWriter(fileName, true);
             } else {
-                File dukeFile = new File(filePath);
+                File dukeFile = new File(fileName);
                 dukeFile.createNewFile();
-                dukeFileWriter = new FileWriter(filePath, false);
+                dukeFileWriter = new FileWriter(fileName, false);
             }
 
             Task newTask = taskList.getTasks().get(taskList.getTasks().size() - 1);

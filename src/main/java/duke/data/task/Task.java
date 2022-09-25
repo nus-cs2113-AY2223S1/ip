@@ -1,5 +1,7 @@
 package duke.data.task;
 
+import java.time.LocalDate;
+
 /**
  * <code>Task</code> is the super class for every type of tasks in the application.
  */
@@ -74,5 +76,14 @@ public class Task {
     public String getTaskInStorageFormat() {
         String format = String.format("%s | %s", this.isDone() ? "1" : "0", this.getTaskName());
         return format;
+    }
+
+    /**
+     * To be overridden by tasks with datetime stored, for the purpose of task filtering with date.
+     *
+     * @return Null by default.
+     */
+    public LocalDate getTaskDate() {
+        return null;
     }
 }

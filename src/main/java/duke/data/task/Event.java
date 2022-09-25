@@ -40,7 +40,8 @@ public class Event extends Task {
      *
      * @return A date value of the task.
      */
-    public LocalDate getEventDate() {
+    @Override
+    public LocalDate getTaskDate() {
         LocalDate localDate = eventTime.toLocalDate();
         return localDate;
     }
