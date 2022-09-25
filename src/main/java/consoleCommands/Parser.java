@@ -1,6 +1,4 @@
 package consoleCommands;
-
-
 public class Parser {
     public Command Parse (String input) {
         String[] tempInput = input.split(" ", 2);

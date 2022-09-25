@@ -1,14 +1,12 @@
 package consoleCommands;
 
 import exception.InvalidArgumentsException;
-import exception.InvalidCommandException;
 import exception.NotEnoughArgumentsException;
 import exception.TaskDoesNotExistException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
 import java.util.ArrayList;
 
 import static consoleCommands.Ui.printLine;

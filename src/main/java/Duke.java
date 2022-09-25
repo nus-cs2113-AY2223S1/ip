@@ -7,8 +7,6 @@ import exception.NotEnoughArgumentsException;
 import task.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /*
@@ -23,11 +21,6 @@ import java.util.ArrayList;
  */
 
 public class Duke {
-    public static final String TASK_DOES_NOT_EXIST_ERROR_MESSAGE = "Task does not exist. Please try again.";
-    public static final String COMMAND_DOES_NOT_EXIST_ERROR_MESSAGE = "Invalid command. Please try again.";
-    public static final String INVALID_ARGUMENTS_ERROR_MESSAGE = "Invalid arguments detected. Please try again.";
-    public static final String NOT_ENOUGH_ARGUMENTS_ERROR_MESSAGE = "Not enough arguments entered. Please try again.";
-    public static final String INVALID_FILE_ERROR_MESSAGE = "Invalid file data detected. File data will not be read.";
     public static final String filePath = "data/duke.txt";
     public static final String tempFilePath = "data/temp.txt";
 
@@ -72,7 +65,7 @@ public class Duke {
         }
         ui.end();
     }
-    public static void main (String[] args) throws IOException, InvalidFileDataException {
+    public static void main (String[] args) throws IOException {
         new Duke().run();
     }
 }
