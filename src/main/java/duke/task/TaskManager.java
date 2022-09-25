@@ -1,6 +1,8 @@
 package duke.task;
 
-import duke.*;
+import duke.Duke;
+import duke.FileHandler;
+import duke.Message;
 import duke.task.exception.IllegalTaskNumberInputException;
 import duke.task.model.Deadline;
 import duke.task.model.Event;
@@ -160,6 +162,7 @@ public class TaskManager {
     private String[] parseFileLine(String line) {
         return line.split(FILE_STRING_SEPARATOR);
     }
+
     public void loadTasks() {
         FileHandler.initDataFile();
 
