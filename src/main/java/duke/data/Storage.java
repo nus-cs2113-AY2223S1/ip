@@ -23,15 +23,21 @@ public class Storage {
     private static final String FILE_PATH = "data/duke.txt";
 
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        Path directory = Paths.get(FILE_PATH);
-        Path file= Paths.get(FILE_DIRECTORY);
+        Path fileDir= Paths.get(FILE_DIRECTORY);
+
+        if (Files.notExists(fileDir)) {
+            Files.createDirectories(fileDir);
+            System.out.println("Creating save file location!");
+        }
+
+        Path file= Paths.get(FILE_PATH);
 
         if (Files.notExists(file)) {
-            Files.createDirectories(file);
+            Files.createFile(file);
             System.out.println("Autosaving for the first time!");
         }
 
-        Files.createDirectories(file);
+
         FileWriter writer = new FileWriter(FILE_PATH);
 
         for (Task task:tasks) {
@@ -47,8 +53,11 @@ public class Storage {
     }
 
     public static void loadTasks(ArrayList<Task> tasks) {
-        Path directory = Paths.get(FILE_PATH);
-        Path file= Paths.get(FILE_DIRECTORY);
+        Path fileDir= Paths.get(FILE_DIRECTORY);
+        if (Files.notExists(fileDir)) {
+            System.out.println("You have no save folder!");
+        }
+        Path file= Paths.get(FILE_PATH);
         if (Files.notExists(file)) {
             System.out.println("You have no save file! Hardcore mode?");
         }
