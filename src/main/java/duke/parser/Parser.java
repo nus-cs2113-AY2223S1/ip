@@ -24,6 +24,8 @@ public class Parser {
             return new DeadlineCommand(keyword, statement);
         case "event":
             return new EventCommand(keyword, statement);
+        case "find":
+            return new FindCommand(statement);
         case "bye":
             return new ByeCommand();
         case "delete":
