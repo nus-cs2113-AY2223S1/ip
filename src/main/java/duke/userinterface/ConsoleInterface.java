@@ -54,11 +54,10 @@ public class ConsoleInterface {
     }
 
     /**
-     * Prints line separator to standard out.
+     * Prints a blank line to standard out.
      */
-    public static void printLineSeparator() {
-        String lineSeparator = "________________________________________________________________________________";
-        System.out.println(lineSeparator);
+    public static void printBlankLine() {
+        System.out.println();
     }
 
     /**
@@ -269,14 +268,12 @@ public class ConsoleInterface {
      */
     @SuppressWarnings("StatementWithEmptyBody")
     public void executeProgram() {
-        ConsoleInterface.printLineSeparator();
+        ConsoleInterface.printBlankLine();
 
         while (true) {
-            System.out.println();
-
             ConsoleInput consoleInput = getConsoleInput();
 
-            ConsoleInterface.printLineSeparator();
+            ConsoleInterface.printBlankLine();
 
             ConsoleCommand consoleCommand = null;
             boolean hasParseError = true;
@@ -318,7 +315,7 @@ public class ConsoleInterface {
             } else {
             }
 
-            ConsoleInterface.printLineSeparator();
+            ConsoleInterface.printBlankLine();
         }
     }
 }
