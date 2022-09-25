@@ -71,6 +71,9 @@ public class Parser {
             } catch (IOException e) {
                 ui.printLoadingError();
             }
+        } else if (firstWord.equals("find")) {
+            //Find a task in the list that contains the substring given
+            taskList.findTask(command.substring(6));
         } else {
             throw new DukeException();
         }
