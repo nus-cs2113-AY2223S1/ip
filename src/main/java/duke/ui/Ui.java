@@ -4,22 +4,34 @@ package duke.ui;
 public class Ui {
     public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
 
+    /**
+     * Show the horizontal divider line.
+     */
     public static void showLine() {
         System.out.println(HORIZONTAL_LINE);
     }
+
+    /**
+     * Show the loading error of the file that stores the tasks, which may not exist.
+     */
     public void showLoadingError() {
         showMessage("     Sorry! The file does not exist T_T");
     }
 
+
+    /**
+     * Show welcome message to the user.
+     */
     public static void showWelcome() {
         showMessage("     Hello! I'm Duke\n" +
                 "     What can I do for you?");
     }
 
-    public static void showGoodbye() {
-        showMessage("     Bye. Hope to see you again soon!");
-    }
-
+    /**
+     * Formatting the output message, adding divider line above and below.
+     *
+     * @param message the message that needs to be formatted and shown.
+     */
     public static void showMessage(String message) {
         showLine();
         System.out.println(message);
