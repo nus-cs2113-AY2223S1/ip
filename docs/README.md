@@ -56,7 +56,7 @@ Examples:
 - ```unmark 1```
 
 ### List all tasks: ```list```
-List all tasks added to Duke.\
+Lists all tasks added to Duke.\
 Syntax: ```list```
 
 ### Delete a task: ```delete```
@@ -66,7 +66,8 @@ Examples:
 - ```delete 1```
 
 ### Find a task: ```find```
-Find and list tasks in Duke that fully or partially matches a description.\
+
+Finds and list tasks in Duke that fully or partially matches a description.\
 Syntax: ```find DESCRIPTION```
 Examples:
 - ```find CS2113T```
