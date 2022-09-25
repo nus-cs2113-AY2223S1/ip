@@ -17,8 +17,7 @@ public class MarkCommand extends ModifyCommand {
     }
 
     /**
-     * Check that the task index is within the valid range of task list.
-     * Mark the task in the task list as done.
+     * Checks that the task index is within the valid range of task list and marks the task as done.
      * Display a mark as done successful message to user.
      * Rewrite the file storage based on new task list.
      *

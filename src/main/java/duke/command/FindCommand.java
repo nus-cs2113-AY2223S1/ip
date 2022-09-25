@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Store the query to the user input received.
+     * Stores the query to the user input received.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Unused.
@@ -39,7 +39,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Search through the current task list to receive a temporary task list
+     * Searches through the current task list to receive a temporary task list
      * containing the tasks that the description contains the query requested by user.
      * <p>
      * Then, get all the found tasks from the task lists into a formatted output.

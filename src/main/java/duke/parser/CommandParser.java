@@ -26,7 +26,7 @@ public class CommandParser implements Parser<Command> {
 
 
     /**
-     * Parsing the user input into a valid Command object and returns it.
+     * Parses the user input into a valid Command object and returns it.
      * The method will first split the command word from the parameters in the input,
      * then create a Command object, followed by checking and setting the parameters for the Command object.
      *
@@ -43,7 +43,7 @@ public class CommandParser implements Parser<Command> {
     }
 
     /**
-     * Split the full user input into command word and parameters
+     * Splits the full user input into command word and parameters
      *
      * @param userInput The complete user input given by user.
      * @return A string array storing [Command Word, Parameter]
@@ -58,7 +58,7 @@ public class CommandParser implements Parser<Command> {
     }
 
     /**
-     * Create and return a Command object based on the command word given,
+     * Creates and returns a Command object based on the command word given,
      * or throws an exception if the command word is not found in the valid list of commands.
      *
      * @param commandInput Command word

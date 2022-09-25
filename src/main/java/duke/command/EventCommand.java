@@ -24,7 +24,7 @@ public class EventCommand extends AddCommand {
     }
 
     /**
-     * Check the validity of user input and set the event description and time of the event.
+     * Checks the validity of user input and set the event description and time of the event.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -36,7 +36,7 @@ public class EventCommand extends AddCommand {
     }
 
     /**
-     * Check that user input contains a description, separator and a time.
+     * Checks that user input contains a description, separator and a time.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -55,7 +55,7 @@ public class EventCommand extends AddCommand {
     }
 
     /**
-     * Store the event description and time of the event.
+     * Stores the event description and time of the event.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      */
@@ -67,7 +67,7 @@ public class EventCommand extends AddCommand {
     }
 
     /**
-     * Create an event task and add it to the task list.
+     * Creates an event task and add it to the task list.
      * Display an addition successful message to user.
      * Append the event task to the file storage.
      *

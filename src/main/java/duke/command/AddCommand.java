@@ -34,7 +34,7 @@ public abstract class AddCommand extends Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
-     * Check if the user's input contains a task description.
+     * Checks if the user's input contains a task description.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @param separator      The separator used to separate description and other parameter, such as /by or /at.
@@ -59,7 +59,7 @@ public abstract class AddCommand extends Command {
     }
 
     /**
-     * Check if the user's input contains a time after its separator.
+     * Checks if the user's input contains a time after its separator.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @param separator      The separator used to separate description and time, such as /by or /at.
@@ -79,7 +79,7 @@ public abstract class AddCommand extends Command {
     }
 
     /**
-     * Check if the user's input contains a separator.
+     * Checks if the user's input contains a separator.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @param separator      The separator used to separate description and time, such as /by or /at.
@@ -96,7 +96,7 @@ public abstract class AddCommand extends Command {
     }
 
     /**
-     * Check if the user's input starts from a separator.
+     * Checks if the user's input starts from a separator.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @param separator      The separator used to separate description and time, such as /by or /at.
@@ -111,8 +111,8 @@ public abstract class AddCommand extends Command {
     }
 
     /**
+     * Splits the user input into two parts.
      * <ui>
-     * Split the user input into two parts.
      * <li>First part contains the task description.</li>
      * <li>Second part contains the task time, if there's any.</li>
      * </ui>
@@ -134,7 +134,7 @@ public abstract class AddCommand extends Command {
     }
 
     /**
-     * Parse the datetime in String extracted from the user input into a LocalDateTime object
+     * Parses the datetime in String extracted from the user input into a LocalDateTime object
      *
      * @param parameterInput A string containing the datetime of the task
      * @return A parsed LocalDateTime object from the user input

@@ -16,7 +16,7 @@ public class DeleteCommand extends ModifyCommand {
     }
 
     /**
-     * Check that the task index is within the valid range of task list.
+     * Checks that the task index is within the valid range of task list.
      * Delete the task from task list.
      * Display a deletion successful message to user.
      * Rewrite the file storage based on new task list.

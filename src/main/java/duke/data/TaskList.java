@@ -40,7 +40,7 @@ public class TaskList {
     }
 
     /**
-     * Return the all the tasks stored in the list.
+     * Returns the all the tasks stored in the list.
      *
      * @return An array list storing the tasks.
      */
@@ -49,7 +49,7 @@ public class TaskList {
     }
 
     /**
-     * Return the number of the tasks stored in the TaskList.
+     * Returns the number of the tasks stored in the TaskList.
      *
      * @return The size of the array list.
      */
@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Add a to-do task into the list with a task description
+     * Adds a to-do task into the list with a task description
      *
      * @param taskName Description of the task.
      * @return The to-do task object added.
@@ -70,7 +70,7 @@ public class TaskList {
     }
 
     /**
-     * Add a deadline task into the list with a task description and deadline time
+     * Adds a deadline task into the list with a task description and deadline time
      *
      * @param taskName     Description of the task.
      * @param deadlineTime Time before the task is to be completed.
@@ -83,7 +83,7 @@ public class TaskList {
     }
 
     /**
-     * Add an event task into the list with a task description and event time
+     * Adds an event task into the list with a task description and event time
      *
      * @param taskName  Description of the task.
      * @param eventTime Time when the task should be completed.
@@ -96,7 +96,7 @@ public class TaskList {
     }
 
     /**
-     * Return all the task stored in the task list in a formatted output.
+     * Returns all the task stored in the task list in a formatted output.
      *
      * @return The formatted content of the array list
      */
@@ -115,7 +115,7 @@ public class TaskList {
     }
 
     /**
-     * Search through the current task list to find all the tasks
+     * Searches through the current task list to find all the tasks
      * that the description contains the string queried by user.
      * <p>
      * Add each task that matches the query into a temporary TaskList object
@@ -136,7 +136,7 @@ public class TaskList {
     }
 
     /**
-     * Filter the current task list to find all the deadline or event task
+     * Filters the current task list to find all the deadline or event task
      * that the stored date matches with the requested date.
      * <p>
      * Add each task that matches the query into a temporary TaskList object
@@ -161,7 +161,7 @@ public class TaskList {
 
 
     /**
-     * Delete the task requested from the task list.
+     * Deletes the task requested from the task list.
      *
      * @param taskIndex One-based task index
      * @return A string storing the description of the removed task.
@@ -173,7 +173,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task requested in the task list as completed.
+     * Marks the task requested in the task list as completed.
      *
      * @param taskIndex One-based task index
      * @return The updated task object.
@@ -185,7 +185,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task requested in the task list as not completed.
+     * Marks the task requested in the task list as not completed.
      *
      * @param taskIndex One-based task index
      * @return The updated task object.

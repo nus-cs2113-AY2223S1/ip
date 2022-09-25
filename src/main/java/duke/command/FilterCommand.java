@@ -27,7 +27,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Check the validity of user input and parse it into LocalDate class.
+     * Checks the validity of user input and parse it into LocalDate class.
      * Then store the targeted date to filter for.
      *
      * @param parameterInput The extracted part of user input after the command entered.
@@ -47,7 +47,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Filter the current task list to receive a temporary task list
+     * Filters the current task list to receive a temporary task list
      * containing the tasks that the date matches with the date requested by user.
      * <p>
      * Then, get all the filtered tasks from the task lists into a formatted output.

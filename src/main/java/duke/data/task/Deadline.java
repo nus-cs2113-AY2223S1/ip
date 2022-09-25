@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the time before the deadline is to be completed.
+     * Returns the time before the deadline is to be completed.
      *
      * @return A date time value of the task.
      */
@@ -35,7 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return only the date of the time before the deadline is to be completed.
+     * Returns only the date of the time before the deadline is to be completed.
      *
      * @return A date value of the task.
      */
@@ -46,7 +46,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the formatted deadline task details with task name, task completion status icon and date time.
+     * Returns the formatted deadline task details with task name, task completion status icon and date time.
      *
      * @return A string containing the formatted deadline task details.
      */
@@ -57,7 +57,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the formatted deadline task details for storing.
+     * Returns the formatted deadline task details for storing.
      *
      * @return A string containing the formatted deadline task details.
      */

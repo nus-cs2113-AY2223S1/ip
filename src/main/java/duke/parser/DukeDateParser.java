@@ -17,7 +17,7 @@ import static duke.common.Constants.DATE_INPUT_PATTERN_3;
 public class DukeDateParser implements Parser<LocalDate> {
 
     /**
-     * Parsing the user input into a valid LocalDate object and returns it.
+     * Parses the user input into a valid LocalDate object and returns it.
      * The method will first generate a string array storing all the supported date format
      * that parsable into LocalDate by application,
      * and call a method to parse the user input using any of the supported format.
@@ -39,7 +39,7 @@ public class DukeDateParser implements Parser<LocalDate> {
     }
 
     /**
-     * Attempt to parse the date input into a LocalDate object using all the supported date format.
+     * Parses the date input into a LocalDate object using all the supported date format.
      * Triggers a duke exception if the string is unable to be parsed by any of the supported format.
      * Returns a LocalDate object if the string is successfully parsed using any of the supported format.
      *

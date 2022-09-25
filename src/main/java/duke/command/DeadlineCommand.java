@@ -24,7 +24,7 @@ public class DeadlineCommand extends AddCommand {
     }
 
     /**
-     * Check the validity of user input and set the deadline description and time of the deadline.
+     * Checks the validity of user input and set the deadline description and time of the deadline.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -36,7 +36,7 @@ public class DeadlineCommand extends AddCommand {
     }
 
     /**
-     * Check that user input contains a description, separator and a time.
+     * Checks that user input contains a description, separator and a time.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -55,7 +55,7 @@ public class DeadlineCommand extends AddCommand {
     }
 
     /**
-     * Store the deadline description and time of the deadline.
+     * Stores the deadline description and time of the deadline.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      */
@@ -67,9 +67,9 @@ public class DeadlineCommand extends AddCommand {
     }
 
     /**
-     * Create a deadline task and add it to the task list.
-     * Display an addition successful message to user.
-     * Append the deadline task to the file storage.
+     * Creates a deadline task and add it to the task list.
+     * Displays an addition successful message to user.
+     * Appends the deadline task to the file storage.
      *
      * @param taskList List of tasks stored in current execution.
      * @param ui       User interface to display messages.

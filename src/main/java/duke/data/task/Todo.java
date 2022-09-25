@@ -14,7 +14,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the formatted to-do task details with task name and task completion status icon.
+     * Returns the formatted to-do task details with task name and task completion status icon.
      *
      * @return A string containing the formatted to-do task details.
      */
@@ -24,7 +24,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the formatted to-do task details for storing.
+     * Returns the formatted to-do task details for storing.
      *
      * @return A string containing the formatted to-do task details.
      */

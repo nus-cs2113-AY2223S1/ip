@@ -26,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the time when the event should be completed.
+     * Returns the time when the event should be completed.
      *
      * @return A date time value of the task.
      */
@@ -36,7 +36,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return only the date of the time when the event should be completed.
+     * Returns only the date of the time when the event should be completed.
      *
      * @return A date value of the task.
      */
@@ -47,7 +47,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the formatted event task details with task name, task completion status icon and date time.
+     * Returns the formatted event task details with task name, task completion status icon and date time.
      *
      * @return A string containing the formatted event task details.
      */
@@ -58,7 +58,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the formatted event task details for storing.
+     * Returns the formatted event task details for storing.
      *
      * @return A string containing the formatted event task details.
      */

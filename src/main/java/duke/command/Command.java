@@ -22,7 +22,7 @@ public abstract class Command {
     }
 
     /**
-     * Get the is exit status.
+     * Returns the is exit status.
      *
      * @return A boolean value to represent whether to exit the program.
      */
@@ -31,7 +31,7 @@ public abstract class Command {
     }
 
     /**
-     * Set the is exit status.
+     * Sets the is exit status.
      *
      * @param isExit A boolean value to represents whether to exit the program.
      */
@@ -40,7 +40,7 @@ public abstract class Command {
     }
 
     /**
-     * To check the user's input and store necessary parameters for execution.
+     * Checks the user's input and stores necessary parameters for execution.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -48,7 +48,7 @@ public abstract class Command {
     public abstract void checkAndSetParameters(String parameterInput) throws DukeException;
 
     /**
-     * To check the validity of the user's input. Throws exception on invalid input.
+     * Checks the validity of the user's input. Throws exception on invalid input.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -56,7 +56,7 @@ public abstract class Command {
     protected abstract void checkParameters(String parameterInput) throws DukeException;
 
     /**
-     * To store the necessary parameters for execution.
+     * Stores the necessary parameters for execution.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid user input.
@@ -64,7 +64,7 @@ public abstract class Command {
     protected abstract void setParameters(String parameterInput) throws DukeException;
 
     /**
-     * To execute the command provided by the user.
+     * Executes the command provided by the user.
      *
      * @param taskList List of tasks stored in current execution.
      * @param ui       User interface to display messages.

@@ -8,7 +8,7 @@ package duke.exception;
 public class StorageOutputException extends DukeException {
 
     /**
-     * Concatenate the error message prefix and error message, and returns it.
+     * Concatenates the error message prefix and error message, and returns it.
      *
      * @return The full error message
      */

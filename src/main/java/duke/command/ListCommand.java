@@ -27,7 +27,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Get all the tasks from the task lists in a formatted output.
+     * Gets all the tasks from the task lists in a formatted output.
      * Display the received formatted output to the user.
      *
      * @param taskList List of tasks stored in current execution.

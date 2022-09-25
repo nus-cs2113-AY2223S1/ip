@@ -5,14 +5,14 @@ package duke.exception;
  */
 public abstract class DukeException extends Exception {
     /**
-     * Return the error message of the exception for user interface output display.
+     * Returns the error message of the exception for user interface output display.
      *
      * @return A string storing the error message.
      */
     public abstract String getMessage();
 
     /**
-     * Return the prefix of the error message to be appended to the front of every error message.
+     * Returns the prefix of the error message to be appended to the front of every error message.
      *
      * @return A string storing the prefix of the error message.
      */

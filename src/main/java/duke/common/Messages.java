@@ -20,7 +20,7 @@ public enum Messages {
     }
 
     /**
-     * Return the message stored in the corresponding Messages enum.
+     * Returns the message stored in the corresponding Messages enum.
      *
      * @return A string storing the message
      */

@@ -22,7 +22,7 @@ public class Task {
     }
 
     /**
-     * Get the task description.
+     * Returns the task description.
      *
      * @return Description of the task.
      */
@@ -31,7 +31,7 @@ public class Task {
     }
 
     /**
-     * Get the completion status of task.
+     * Returns the completion status of task.
      *
      * @return A boolean value to represent whether a task is completed.
      */
@@ -40,7 +40,7 @@ public class Task {
     }
 
     /**
-     * Set the completion status of a task.
+     * Stores the completion status of a task.
      *
      * @param done A boolean value to represent whether a task is completed.
      */
@@ -49,7 +49,7 @@ public class Task {
     }
 
     /**
-     * Return the completion status of the task as an icon.
+     * Returns the completion status of the task as an icon.
      * "X" represents completed/done.
      * " " represents not completed/not done.
      *
@@ -60,7 +60,7 @@ public class Task {
     }
 
     /**
-     * Return the formatted task details with task name and task completion status icon for listing.
+     * Returns the formatted task details with task name and task completion status icon for listing.
      *
      * @return A string containing the formatted task details.
      */
@@ -69,7 +69,7 @@ public class Task {
     }
 
     /**
-     * Return the formatted task details with task name and task completion status icon for storing.
+     * Returns the formatted task details with task name and task completion status icon for storing.
      *
      * @return A string containing the formatted task details.
      */
@@ -79,6 +79,7 @@ public class Task {
     }
 
     /**
+     * Returns the date of the tasks.
      * To be overridden by tasks with datetime stored, for the purpose of task filtering with date.
      *
      * @return Null by default.

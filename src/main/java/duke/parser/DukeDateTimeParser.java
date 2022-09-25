@@ -18,7 +18,7 @@ import static duke.common.Constants.TIME_INPUT_PATTERN_2;
  */
 public class DukeDateTimeParser implements Parser<LocalDateTime> {
     /**
-     * Parsing the user input into a valid LocalDateTime object and returns it.
+     * Parses the user input into a valid LocalDateTime object and returns it.
      * The method will first generate a string array storing all the supported datetime format
      * that parsable into LocalDateTime by application,
      * and call a method to parse the user input using any of the supported format.
@@ -43,7 +43,7 @@ public class DukeDateTimeParser implements Parser<LocalDateTime> {
     }
 
     /**
-     * Attempt to parse the datetime input into a LocalDateTime object using all the supported datetime format.
+     * Parses the datetime input into a LocalDateTime object using all the supported datetime format.
      * Triggers a duke exception if the string is unable to be parsed by any of the supported format.
      * Returns a LocalDateTime object if the string is successfully parsed using any of the supported format.
      *

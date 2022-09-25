@@ -18,7 +18,7 @@ public class Duke {
 
     /**
      * Constructor of <code>Duke</code>.
-     * Initialise the program by creating a new storage, user interface and task list classes.
+     * Initialises the program by creating a new storage, user interface and task list classes.
      *
      * @param fileName The file name used to store the list of tasks
      */
@@ -35,11 +35,13 @@ public class Duke {
     }
 
     /**
-     * To execute the program in an infinite loop to received user's input,
-     * parsing the user input into a valid command,
-     * and execute the command until the user chooses to exit the program.
-     * <pr>
-     * Display the error message if an application exception is caught.
+     * Runs the program by reading and processing the user inputs in an infinite loop.
+     * <p>
+     * Executes the program in an infinite loop to received user's input,
+     * parses the user input into a valid command,
+     * and executes the command until the user chooses to exit the program.
+     * <p>
+     * Displays the error message if an application exception is caught.
      */
     public void run() {
         ui.displayGreetingMessage();

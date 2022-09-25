@@ -28,7 +28,7 @@ public abstract class ModifyCommand extends Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
-     * Check the validity of user input and set the one-based task index.
+     * Checks the validity of user input and set the one-based task index.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid task index.
@@ -40,7 +40,7 @@ public abstract class ModifyCommand extends Command {
     }
 
     /**
-     * Check that user input contains a valid task index.
+     * Checks that user input contains a valid task index.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid task index.
@@ -51,7 +51,7 @@ public abstract class ModifyCommand extends Command {
     }
 
     /**
-     * Cast the one-based task index into integer and stores it.
+     * Casts the one-based task index into integer and stores it.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      */
@@ -61,7 +61,7 @@ public abstract class ModifyCommand extends Command {
     }
 
     /**
-     * Check if the user input is a string parsable to integer.
+     * Checks if the user input is a string parsable to integer.
      *
      * @param parameterInput The extracted part of user input after the command entered.
      * @throws DukeException Exception triggered on invalid task index.
@@ -78,7 +78,7 @@ public abstract class ModifyCommand extends Command {
     }
 
     /**
-     * Check if the task index is within the valid range of task list
+     * Checks if the task index is within the valid range of task list
      *
      * @param taskIndex    One-based task index
      * @param taskListSize The size of the task list

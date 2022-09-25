@@ -8,7 +8,7 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * <code>TodoCommand</code> is the command that adds a to-do task into the task list.
+ * <code>TodoCommand</code> is the command thatadds a to-do task into the task list.
  */
 public class TodoCommand extends AddCommand {
     public static final String COMMAND_WORD = "TODO";

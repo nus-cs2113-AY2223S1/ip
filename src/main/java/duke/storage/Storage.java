@@ -2,10 +2,7 @@ package duke.storage;
 
 import duke.data.TaskList;
 import duke.exception.DukeException;
-import duke.data.task.Deadline;
-import duke.data.task.Event;
 import duke.data.task.Task;
-import duke.data.task.Todo;
 import duke.exception.StorageInitializationException;
 import duke.exception.StorageOutputException;
 import duke.parser.DukeDateTimeParser;
@@ -49,7 +46,7 @@ public class Storage {
     }
 
     /**
-     * Initialise the application by opening and reading the file specified in fileName
+     * Initialises the application by opening and reading the file specified in fileName
      * and return the TaskList object containing all the tasks stored in the file.
      *
      * @return A TaskList object with all the tasks stored in file storage.
@@ -61,7 +58,7 @@ public class Storage {
     }
 
     /**
-     * Check if the file specified in fileName exists,
+     * Checks if the file specified in fileName exists,
      * open the file and read it if an existing file is found.
      *
      * @throws DukeException Exception triggered on erroneous file output operations.
@@ -75,7 +72,7 @@ public class Storage {
 
     /**
      * Creates a Scanner object to read the file and call another method to read it.
-     * Capture the exceptions returned and throws a DukeException if there's any.
+     * Captures the exceptions returned and throws a DukeException if there's any.
      *
      * @param dukeFile File object containing the opened file
      * @throws DukeException Exception triggered on erroneous file output operations.
@@ -92,7 +89,9 @@ public class Storage {
     }
 
     /**
-     * Read the file attached to the Scanner object line by line,
+     * Reads the file and initialise the task based on the file content.
+     * <p>
+     * Reads the file attached to the Scanner object line by line,
      * split each of the lines representing a task into a string array separated by " | ",
      * then passes the split line into another method to add the task into task list.
      *
@@ -108,7 +107,9 @@ public class Storage {
     }
 
     /**
-     * Determine the type of task represented in the line,
+     * Initialises the tasks based on the content given.
+     * <p>
+     * Determines the type of task represented in the line,
      * create a corresponding Task object for it and stores the necessary parameters.
      * Then, mark the task as completed if necessary.
      *
@@ -135,7 +136,7 @@ public class Storage {
     }
 
     /**
-     * Rewrite the file with the updated task list provided.
+     * Rewrites the file with the updated task list provided.
      * Used when the modification made to the task list results in changes
      * that is not in the end of the file, which is unsuitable to use append operation,
      * and thus requires a rewrite.
@@ -165,7 +166,7 @@ public class Storage {
     }
 
     /**
-     * Append the file with the updated task list provided.
+     * Appends the file with the updated task list provided.
      * Used when a new task is added to the task list,
      * such that an append operation is sufficient to add the new task into the file storage.
      *
@@ -193,7 +194,7 @@ public class Storage {
     }
 
     /**
-     * Take in a Task object and format the task information
+     * Takes in a Task object and format the task information
      * into the format suitable to write into the file storage.
      *
      * @param task A task to be written into the file storage.

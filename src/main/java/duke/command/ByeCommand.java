@@ -31,8 +31,8 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Execute the bye command.
-     * Set the exit boolean to true to exit the program from main method.
+     * Executes the bye command.
+     * Sets the exit boolean to true to exit the program from main method.
      *
      * @param taskList Unused.
      * @param ui       User Interface to display messages.

@@ -7,7 +7,7 @@ package duke.exception;
 public class EventMissingTagException extends DukeException {
 
     /**
-     * Concatenate the error message prefix and error message, and returns it.
+     * Concatenates the error message prefix and error message, and returns it.
      *
      * @return The full error message
      */

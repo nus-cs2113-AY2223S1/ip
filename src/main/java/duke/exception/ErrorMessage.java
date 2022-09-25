@@ -25,7 +25,7 @@ public enum ErrorMessage {
     }
 
     /**
-     * Return the message stored in the corresponding ErrorMessage enum.
+     * Returns the message stored in the corresponding ErrorMessage enum.
      *
      * @return A string storing the error message
      */
