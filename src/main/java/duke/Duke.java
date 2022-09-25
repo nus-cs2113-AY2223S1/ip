@@ -1,6 +1,6 @@
 package duke;
 
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class Duke {
     private static final String HORIZONTAL_LINE = "==================================================================";
 
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final TaskManager TASK_MANAGER = new TaskManager();
+    private static final TaskList TASKS = new TaskList();
 
     public static final Map<String, Command> COMMANDS = new LinkedHashMap<>();
 
@@ -61,25 +61,25 @@ public class Duke {
             displayCommandMenu();
             break;
         case "list":
-            TASK_MANAGER.listTasks();
+            TASKS.listTasks();
             break;
         case "mark":
-            TASK_MANAGER.markTaskAsDone(input);
+            TASKS.markTaskAsDone(input);
             break;
         case "unmark":
-            TASK_MANAGER.markTaskAsUndone(input);
+            TASKS.markTaskAsUndone(input);
             break;
         case "todo":
-            TASK_MANAGER.addTodoTask(input);
+            TASKS.addTodoTask(input);
             break;
         case "deadline":
-            TASK_MANAGER.addDeadlineTask(input);
+            TASKS.addDeadlineTask(input);
             break;
         case "event":
-            TASK_MANAGER.addEventTask(input);
+            TASKS.addEventTask(input);
             break;
         case "delete":
-            TASK_MANAGER.deleteTask(input);
+            TASKS.deleteTask(input);
             break;
         case "":
             System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);
@@ -92,7 +92,7 @@ public class Duke {
 
     public static void main(String[] args) {
         initCommand();
-        TASK_MANAGER.loadTasks();
+        TASKS.loadTasks();
 
         greet();
 

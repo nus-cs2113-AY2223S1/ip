@@ -1,7 +1,7 @@
 package duke.task.model;
 
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 public class Event extends Task {
     private String datetime;
@@ -25,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskManager.FILE_STRING_SEPARATOR, "E", this.getStatusValue(), this.description, this.datetime);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, "E", this.getStatusValue(), this.description, this.datetime);
     }
 }

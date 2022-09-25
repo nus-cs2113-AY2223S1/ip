@@ -1,7 +1,7 @@
 package duke.task.model;
 
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 public class Deadline extends Task {
     private String deadlineDate;
@@ -25,6 +25,6 @@ public class Deadline extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskManager.FILE_STRING_SEPARATOR, "D", this.getStatusValue(), this.description, this.deadlineDate);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, "D", this.getStatusValue(), this.description, this.deadlineDate);
     }
 }

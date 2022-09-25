@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-public class TaskManager {
+public class TaskList {
     private final ArrayList<Task> tasks;
     public static final String FILE_STRING_SEPARATOR = " // ";
 
-    public TaskManager() {
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 

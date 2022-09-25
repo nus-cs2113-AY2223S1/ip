@@ -1,7 +1,7 @@
 package duke.task.model;
 
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 public class Todo extends Task {
     public Todo(String description) {
@@ -20,6 +20,6 @@ public class Todo extends Task {
 
     @Override
     public String getStringForSave() {
-        return String.join(TaskManager.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description);
+        return String.join(TaskList.FILE_STRING_SEPARATOR, "T", this.getStatusValue(), this.description);
     }
 }
