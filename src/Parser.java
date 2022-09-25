@@ -130,7 +130,7 @@ public class Parser {
      * tasks that have the same description and/or timings
      * 
      * @param checkTask is the task the user has just created and needs
-     *                  to be checked for similiarities
+     *                  to be checked for similarities
      * @param tasks     list of tasks to find duplicate
      * @return true if duplicate is found, else return false
      */
