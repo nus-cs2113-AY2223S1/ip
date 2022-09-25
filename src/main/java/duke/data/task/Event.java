@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Stores events.
  */
+@SuppressWarnings("unused")
 public class Event extends Task {
     protected LocalDateTime startAt;
     protected LocalDateTime endAt;
@@ -19,6 +20,22 @@ public class Event extends Task {
     public Event(String description, LocalDateTime startAt, LocalDateTime endAt) {
         super(description);
         this.startAt = startAt;
+        this.endAt = endAt;
+    }
+
+    public LocalDateTime getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(LocalDateTime startAt) {
+        this.startAt = startAt;
+    }
+
+    public LocalDateTime getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(LocalDateTime endAt) {
         this.endAt = endAt;
     }
 }
