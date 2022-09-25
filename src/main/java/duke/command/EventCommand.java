@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  */
 public class EventCommand extends AddCommand {
     public static final String COMMAND_WORD = "EVENT";
+    public static final String TIME_SEPARATOR = " /at ";
     private LocalDateTime eventTime;
 
     public EventCommand() {
@@ -42,13 +43,13 @@ public class EventCommand extends AddCommand {
      */
     @Override
     protected void checkParameters(String parameterInput) throws DukeException {
-        if (!containsTimeSeparator(parameterInput, " /at ")) {
+        if (!containsTimeSeparator(parameterInput, TIME_SEPARATOR)) {
             throw new EventMissingTagException();
         }
-        if (!containsTaskDescription(parameterInput, " /at ")) {
+        if (!containsTaskDescription(parameterInput, TIME_SEPARATOR)) {
             throw new EventMissingDescriptionException();
         }
-        if (!containsTaskTime(parameterInput, " /at ")) {
+        if (!containsTaskTime(parameterInput, TIME_SEPARATOR)) {
             throw new EventMissingTimeException();
         }
     }
@@ -60,7 +61,7 @@ public class EventCommand extends AddCommand {
      */
     @Override
     protected void setParameters(String parameterInput) throws DukeException {
-        String[] splits = splitTaskName(" /at ", parameterInput);
+        String[] splits = splitTaskName(TIME_SEPARATOR, parameterInput);
         super.taskName = splits[0];
         eventTime = convertStringToLocalDateTime(splits[1]);
     }

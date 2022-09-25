@@ -11,7 +11,6 @@ import duke.ui.Ui;
  */
 public class MarkCommand extends ModifyCommand {
     public static final String COMMAND_WORD = "MARK";
-    private static final boolean IS_MARK_METHOD = true;
 
     public MarkCommand() {
         super();
@@ -32,7 +31,7 @@ public class MarkCommand extends ModifyCommand {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         checkTaskIndexRange(taskIndex, taskList.getSize());
         Task task = taskList.markTask(taskIndex);
-        ui.displayMarkOrUnmarkMessage(task.getTaskName(), IS_MARK_METHOD);
+        ui.displayTaskMarkedMessage(task.getTaskName());
         storage.rewriteDukeFile(taskList);
     }
 }

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  */
 public class DeadlineCommand extends AddCommand {
     public static final String COMMAND_WORD = "DEADLINE";
+    public static final String TIME_SEPARATOR = " /by ";
     private LocalDateTime deadlineTime;
 
     public DeadlineCommand() {
@@ -42,13 +43,13 @@ public class DeadlineCommand extends AddCommand {
      */
     @Override
     protected void checkParameters(String parameterInput) throws DukeException {
-        if (!containsTimeSeparator(parameterInput, " /by ")) {
+        if (!containsTimeSeparator(parameterInput, TIME_SEPARATOR)) {
             throw new DeadlineMissingTagException();
         }
-        if (!containsTaskDescription(parameterInput, " /by ")) {
+        if (!containsTaskDescription(parameterInput, TIME_SEPARATOR)) {
             throw new DeadlineMissingDescriptionException();
         }
-        if (!containsTaskTime(parameterInput, " /by ")) {
+        if (!containsTaskTime(parameterInput, TIME_SEPARATOR)) {
             throw new DeadlineMissingTimeException();
         }
     }
@@ -60,7 +61,7 @@ public class DeadlineCommand extends AddCommand {
      */
     @Override
     protected void setParameters(String parameterInput) throws DukeException {
-        String[] splits = splitTaskName(" /by ", parameterInput);
+        String[] splits = splitTaskName(TIME_SEPARATOR, parameterInput);
         super.taskName = splits[0];
         deadlineTime = convertStringToLocalDateTime(splits[1]);
     }

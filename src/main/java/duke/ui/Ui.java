@@ -10,7 +10,6 @@ import static duke.common.Messages.MESSAGE_DELETE_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_MARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_UNMARK_TASK_ACKNOWLEDGEMENT;
 import static duke.common.Messages.MESSAGE_TASK_LISTING_HEADER;
-import static duke.common.Messages.MESSAGE_TASK_FILTERING_HEADER;
 
 /**
  * <code>Ui</code> is the class that represents the user interface of the program.
@@ -19,6 +18,9 @@ import static duke.common.Messages.MESSAGE_TASK_FILTERING_HEADER;
  */
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
+    private static final String FORMATTED_MARK_LOGO = "\t[X] ";
+    private static final String FORMATTED_UNMARK_LOGO = "\t[ ] ";
+
 
     private Scanner in;
 
@@ -61,8 +63,8 @@ public class Ui {
     public void displayGreetingMessage() {
         displayMessages(
                 DIVIDER,
-                MESSAGE_GREETING,
-                MESSAGE_INQUIRY,
+                MESSAGE_GREETING.toString(),
+                MESSAGE_INQUIRY.toString(),
                 DIVIDER
         );
     }
@@ -75,7 +77,7 @@ public class Ui {
     public void displayListingMessage(String listContent) {
         displayMessages(
                 DIVIDER,
-                MESSAGE_TASK_LISTING_HEADER,
+                MESSAGE_TASK_LISTING_HEADER.toString(),
                 listContent,
                 DIVIDER
         );
@@ -90,7 +92,7 @@ public class Ui {
     public void displayTaskAdditionMessage(String taskDetails, int count) {
         displayMessages(
                 DIVIDER,
-                MESSAGE_ADD_TASK_ACKNOWLEDGEMENT,
+                MESSAGE_ADD_TASK_ACKNOWLEDGEMENT.toString(),
                 "\t" + taskDetails,
                 "Now you have " + count + " tasks in the list",
                 DIVIDER
@@ -106,7 +108,7 @@ public class Ui {
     public void displayTaskDeletionMessage(String taskDetails, int count) {
         displayMessages(
                 DIVIDER,
-                MESSAGE_DELETE_TASK_ACKNOWLEDGEMENT,
+                MESSAGE_DELETE_TASK_ACKNOWLEDGEMENT.toString(),
                 "\t" + taskDetails,
                 "Now you have " + count + " tasks in the list",
                 DIVIDER
@@ -114,16 +116,29 @@ public class Ui {
     }
 
     /**
-     * Display the information of the marked task to user on successful mark or unmark.
+     * Display the information of the marked task to user on successful marK.
      *
      * @param taskName The description of the task marked.
-     * @param isMark   Boolean value represent whether it is a mark operation or unmark operation.
      */
-    public void displayMarkOrUnmarkMessage(String taskName, boolean isMark) {
+    public void displayTaskMarkedMessage(String taskName) {
         displayMessages(
                 DIVIDER,
-                getMessageAcknowledgementForMarkAndUnmark(isMark),
-                getCheckboxForMarkAndUnmark(isMark) + taskName,
+                MESSAGE_MARK_TASK_ACKNOWLEDGEMENT.toString(),
+                FORMATTED_MARK_LOGO + taskName,
+                DIVIDER
+        );
+    }
+
+    /**
+     * Display the information of the unmarked task to user on successful unmark.
+     *
+     * @param taskName The description of the task umarked.
+     */
+    public void displayTaskUnmarkedMessage(String taskName) {
+        displayMessages(
+                DIVIDER,
+                MESSAGE_UNMARK_TASK_ACKNOWLEDGEMENT.toString(),
+                FORMATTED_UNMARK_LOGO + taskName,
                 DIVIDER
         );
     }
@@ -134,7 +149,7 @@ public class Ui {
     public void displayExitMessage() {
         displayMessages(
                 DIVIDER,
-                MESSAGE_FAREWELL,
+                MESSAGE_FAREWELL.toString(),
                 DIVIDER
         );
     }
@@ -150,37 +165,5 @@ public class Ui {
                 exceptionMessage,
                 DIVIDER
         );
-    }
-
-    /**
-     * Return a mark acknowledgement or unmark acknowledgement correspondingly.
-     *
-     * @param isMark A boolean value to indicate whether it is a mark or unmark option
-     * @return A string containing the acknowledgement message
-     */
-    private static String getMessageAcknowledgementForMarkAndUnmark(boolean isMark) {
-        String output = "";
-        if (isMark) {
-            output = MESSAGE_MARK_TASK_ACKNOWLEDGEMENT;
-        } else {
-            output = MESSAGE_UNMARK_TASK_ACKNOWLEDGEMENT;
-        }
-        return output;
-    }
-
-    /**
-     * Return a marked checkbox or unmarked checkbox correspondingly.
-     *
-     * @param isMark A boolean value to indicate whether it is a mark or unmark option
-     * @return A string containing the marking checkbox
-     */
-    private static String getCheckboxForMarkAndUnmark(boolean isMark) {
-        String output = "";
-        if (isMark) {
-            output = "\t[X] ";
-        } else {
-            output = "\t[ ] ";
-        }
-        return output;
     }
 }

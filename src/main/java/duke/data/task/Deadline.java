@@ -54,4 +54,16 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)",
                 super.getTaskFullDetails(), this.getDeadlineTime());
     }
+
+    /**
+     * Return the formatted deadline task details for storing.
+     *
+     * @return A string containing the formatted deadline task details.
+     */
+    @Override
+    public String getTaskInStorageFormat() {
+        String format = String.format("%s | %s | %s", "D", super.getTaskInStorageFormat(), this.getDeadlineTime());
+
+        return format;
+    }
 }

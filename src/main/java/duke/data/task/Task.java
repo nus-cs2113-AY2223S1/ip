@@ -1,7 +1,7 @@
 package duke.data.task;
 
 /**
- * <code>Task</code> is the abstract base class for every type of tasks in the application.
+ * <code>Task</code> is the super class for every type of tasks in the application.
  */
 public class Task {
     // The description of the task.
@@ -22,7 +22,7 @@ public class Task {
     /**
      * Get the task description.
      *
-     * @return
+     * @return Description of the task.
      */
     public String getTaskName() {
         return taskName;
@@ -58,11 +58,21 @@ public class Task {
     }
 
     /**
-     * Return the formatted task details with task name and task completion status icon.
+     * Return the formatted task details with task name and task completion status icon for listing.
      *
      * @return A string containing the formatted task details.
      */
     public String getTaskFullDetails() {
         return String.format("[%s] %s", getStatusIcon(), getTaskName());
+    }
+
+    /**
+     * Return the formatted task details with task name and task completion status icon for storing.
+     *
+     * @return A string containing the formatted task details.
+     */
+    public String getTaskInStorageFormat() {
+        String format = String.format("%s | %s", this.isDone() ? "1" : "0", this.getTaskName());
+        return format;
     }
 }

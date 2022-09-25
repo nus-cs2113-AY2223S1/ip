@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.data.TaskList;
 import duke.exception.DukeException;
+import duke.exception.InvalidDateTimeFormatException;
 import duke.parser.DukeDateTimeParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -41,8 +42,9 @@ public abstract class AddCommand extends Command {
      */
     protected boolean containsTaskDescription(String parameterInput, String separator) {
         boolean separatorIsEmpty = separator.isEmpty();
-        if (!separatorIsEmpty && startFromTimeSeparator(parameterInput, separator)) {
-            return false;
+        boolean hasDescription = false;
+        if (!separatorIsEmpty && isStartedFromTimeSeparator(parameterInput, separator)) {
+            return hasDescription;
         }
 
         // Trim description from parameterInput
@@ -51,11 +53,9 @@ public abstract class AddCommand extends Command {
 
         // Check if description is empty or only contain whitespaces
         description = description.replaceAll("\\s+", "");
-        if (description.equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+        hasDescription = !description.equals("");
+
+        return hasDescription;
     }
 
     /**
@@ -66,17 +66,16 @@ public abstract class AddCommand extends Command {
      * @return A boolean value to indicate if the parameterInput contains a time.
      */
     protected boolean containsTaskTime(String parameterInput, String separator) {
+        boolean hasTime = false;
         // Trim time from parameterInput
         String[] splits = parameterInput.split(separator, 2);
         String time = splits[1];
 
         // Check if time is empty or only contain whitespaces
         time = time.replaceAll("\\s+", "");
-        if (time.equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+        hasTime = !time.equals("");
+
+        return hasTime;
     }
 
     /**
@@ -87,24 +86,23 @@ public abstract class AddCommand extends Command {
      * @return A boolean value to indicate if the parameterInput contains the given time separator.
      */
     protected boolean containsTimeSeparator(String parameterInput, String separator) {
-        if (startFromTimeSeparator(parameterInput, separator)) {
-            return true;
-        }
-        if (!parameterInput.contains(separator)) {
-            return false;
-        } else {
-            return true;
-        }
+        boolean startsFromTimeSeparator;
+        boolean hasTimeSeparator;
+
+        startsFromTimeSeparator = isStartedFromTimeSeparator(parameterInput, separator);
+        hasTimeSeparator = parameterInput.contains(separator);
+
+        return startsFromTimeSeparator || hasTimeSeparator;
     }
 
     /**
      * Check if the user's input starts from a separator.
      *
      * @param parameterInput The extracted part of user input after the command entered.
-     * @param separator The separator used to separate description and time, such as /by or /at.
+     * @param separator      The separator used to separate description and time, such as /by or /at.
      * @return A boolean value to indicate if the parameterInput starts with given time separator.
      */
-    private boolean startFromTimeSeparator(String parameterInput, String separator) {
+    private boolean isStartedFromTimeSeparator(String parameterInput, String separator) {
         if (parameterInput.startsWith(separator.trim())) {
             return true;
         } else {
@@ -123,18 +121,21 @@ public abstract class AddCommand extends Command {
      * @param parameterInput The extracted part of user input after the command entered.
      * @return A string array of size 2 containing the task description and task time.
      */
-    protected static String[] splitTaskName(String regex, String parameterInput) {
+    protected static String[] splitTaskName(String regex, String parameterInput) throws DukeException {
         // Split the user input into [task description, task time]
         String[] splits = parameterInput.split(regex, 2);
+
+        // Triggers format error when task time cannot be found
         if (splits.length == 1) {
-            // Populate an empty string into the array when the size is only 1 for code security
-            return new String[]{splits[0], ""};
+            throw new InvalidDateTimeFormatException();
         }
+
         return splits;
     }
 
     /**
      * Parse the datetime in String extracted from the user input into a LocalDateTime object
+     *
      * @param parameterInput A string containing the datetime of the task
      * @return A parsed LocalDateTime object from the user input
      * @throws DukeException Exception triggered on invalid LocalDateTime format.

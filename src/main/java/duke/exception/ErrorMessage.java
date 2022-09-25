@@ -18,10 +18,10 @@ public enum ErrorMessage {
     STORAGE_INITIALIZATION_ERROR_MESSAGE("Something went wrong while reading the file."),
     STORAGE_OUTPUT_ERROR_MESSAGE("Something went wrong while writing to file.");
 
-    final String message;
+    final String errorMessage;
 
-    ErrorMessage(String message) {
-        this.message = message;
+    ErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /**
@@ -31,6 +31,6 @@ public enum ErrorMessage {
      */
     @Override
     public String toString() {
-        return message;
+        return errorMessage;
     }
 }

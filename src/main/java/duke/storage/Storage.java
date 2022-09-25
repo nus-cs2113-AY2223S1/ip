@@ -198,18 +198,7 @@ public class Storage {
      * @return A formatted string containing the information of the task, ready to be stored in file storage.
      */
     private static String retrieveTaskInformationForFileStorage(Task task) {
-        String output = "";
-        if (task instanceof Todo) {
-            output = String.format("%s | %s | %s", "T", task.isDone() ? "1" : "0", task.getTaskName());
-        }
-        if (task instanceof Deadline) {
-            output = String.format("%s | %s | %s | %s", "D", task.isDone() ? "1" : "0",
-                    task.getTaskName(), ((Deadline) task).getDeadlineTime());
-        }
-        if (task instanceof Event) {
-            output = String.format("%s | %s | %s | %s", "E", task.isDone() ? "1" : "0",
-                    task.getTaskName(), ((Event) task).getEventTime());
-        }
+        String output = task.getTaskInStorageFormat();
         output += System.lineSeparator();
         return output;
     }

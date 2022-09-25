@@ -55,4 +55,15 @@ public class Event extends Task {
         return String.format("[E]%s (at: %s)",
                 super.getTaskFullDetails(), this.getEventTime());
     }
+
+    /**
+     * Return the formatted event task details for storing.
+     *
+     * @return A string containing the formatted event task details.
+     */
+    @Override
+    public String getTaskInStorageFormat() {
+        String format = String.format("%s | %s | %s", "E", super.getTaskInStorageFormat(), this.getEventTime());
+        return format;
+    }
 }
