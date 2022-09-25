@@ -124,4 +124,17 @@ public class ConsoleCommands {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         printLine();
     }
+    public static void findTask (String input, ArrayList<Task> taskList) throws NotEnoughArgumentsException{
+        printLine();
+        String taskToFind = input.replace("find ", "");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask.getDescription().contains(taskToFind)) {
+                System.out.print((i + 1) + ".");
+                System.out.println(currTask.toString());
+            }
+        }
+        printLine();
+    }
 }

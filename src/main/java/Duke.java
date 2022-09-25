@@ -26,6 +26,7 @@ public class Duke {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     public static final String TASK_DOES_NOT_EXIST_ERROR_MESSAGE = "Task does not exist. Please try again.";
     public static final String COMMAND_DOES_NOT_EXIST_ERROR_MESSAGE = "Invalid command. Please try again.";
     public static final String INVALID_ARGUMENTS_ERROR_MESSAGE = "Invalid arguments detected. Please try again.";
@@ -67,6 +68,13 @@ public class Duke {
                     ConsoleCommands.deleteTask(input, taskList);
                 } catch (TaskDoesNotExistException e) {
                     System.out.println(TASK_DOES_NOT_EXIST_ERROR_MESSAGE);
+                    ConsoleCommands.printLine();
+                }
+            } else if (input.contains(COMMAND_FIND)) {
+                try {
+                    ConsoleCommands.findTask(input, taskList);
+                } catch (NotEnoughArgumentsException e) {
+                    System.out.println(NOT_ENOUGH_ARGUMENTS_ERROR_MESSAGE);
                     ConsoleCommands.printLine();
                 }
             } else {
