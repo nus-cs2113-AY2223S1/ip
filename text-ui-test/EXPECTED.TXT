@@ -30,6 +30,7 @@ You have 5 tasks in the list.
 3.[E][ ] valid event 2 (at: event time)
 4.[T][ ] valid todo 2
 5.[T][ ] valid todo 3
+
 OK, dude, I've added this task: 
 [D][ ] valid deadline 2 (by: due date 2)
 You have 6 tasks in the list.
@@ -47,6 +48,7 @@ valid todo 1
 5.[T][ ] valid todo 3
 6.[D][ ] valid deadline 2 (by: due date 2)
 7.[E][ ] valid event 2 (at: event time 2)
+
 Okay, dude, I've marked this task as not done yet: 
 valid todo 1
 1.[T][ ] valid todo 1
@@ -56,6 +58,7 @@ valid todo 1
 5.[T][ ] valid todo 3
 6.[D][ ] valid deadline 2 (by: due date 2)
 7.[E][ ] valid event 2 (at: event time 2)
+
 Not enough arguments, dude.
 Not enough arguments, dude.
 Not enough arguments, dude.
@@ -73,6 +76,7 @@ That's not even a number, dude.
 5.[T][ ] valid todo 3
 6.[D][ ] valid deadline 2 (by: due date 2)
 7.[E][ ] valid event 2 (at: event time 2)
+
 Deleting task: valid todo 3
 1.[T][ ] valid todo 1
 2.[D][ ] valid deadline 1 (by: due date)
@@ -80,16 +84,19 @@ Deleting task: valid todo 3
 4.[T][X] valid todo 2
 5.[D][ ] valid deadline 2 (by: due date 2)
 6.[E][ ] valid event 2 (at: event time 2)
+
 Deleting task: valid todo 2
 1.[T][ ] valid todo 1
 2.[D][ ] valid deadline 1 (by: due date)
 3.[E][ ] valid event 2 (at: event time)
 4.[D][ ] valid deadline 2 (by: due date 2)
 5.[E][ ] valid event 2 (at: event time 2)
+
 There's no task with that number, dude.
 1.[T][ ] valid todo 1
 2.[D][ ] valid deadline 1 (by: due date)
 3.[E][ ] valid event 2 (at: event time)
 4.[D][ ] valid deadline 2 (by: due date 2)
 5.[E][ ] valid event 2 (at: event time 2)
+
 Catch you later, dude.
