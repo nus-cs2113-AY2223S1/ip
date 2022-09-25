@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 import static duke.taskmanager.TaskManager.toSave;
 
-public class Tasklist extends ArrayList<Task> {
+public class TaskList extends ArrayList<Task> {
 
     private final UI ui = new UI();
-    public Tasklist() {
+    public TaskList() {
         this.add(new Todo("Todo buffer for one based input", ' '));
     }
 
-    public Tasklist(ArrayList<String> storedTasks) throws DukeException {
+    public TaskList(ArrayList<String> storedTasks) throws DukeException {
         if (storedTasks.isEmpty()) {
             throw new DukeException();
         }

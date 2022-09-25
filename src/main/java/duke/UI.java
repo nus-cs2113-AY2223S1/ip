@@ -1,6 +1,6 @@
 package duke;
 
-import duke.taskmanager.Tasklist;
+import duke.taskmanager.TaskList;
 import duke.taskmanager.tasks.Task;
 
 public class UI {
@@ -40,11 +40,11 @@ public class UI {
                 + " tasks in the list.");
     }
 
-    public void printList(Tasklist tasks1) {
+    public void printList(TaskList tasks) {
         StringBuilder s = new StringBuilder();
         s.append("Here are the tasks in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
-            s.append(i).append(".").append(tasks1.get(i)).append(System.lineSeparator());
+            s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
         }
         formatOutput(s.toString());
     }

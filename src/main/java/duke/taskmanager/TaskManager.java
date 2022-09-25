@@ -2,26 +2,18 @@ package duke.taskmanager;
 
 import duke.UI;
 import duke.exceptions.DukeException;
-import duke.taskmanager.tasks.Task;
-import duke.taskmanager.tasks.Todo;
+import duke.taskmanager.commands.Command;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
     public static StringBuilder toSave = new StringBuilder();
 
-    public static ArrayList<Task> tasks = new ArrayList<>() {
-        {
-            add(new Todo("Todo buffer for one based input", ' '));
-        }
-    };
-
     private Storage storage;
     private final UI ui;
-    private Tasklist tasks1;
+    private TaskList tasks;
 
     public TaskManager() {
         ui = new UI();
@@ -36,34 +28,32 @@ public class TaskManager {
         ui.printGreetingMessage();
         if (haveSavedTasks) {
             try {
-                tasks1 = new Tasklist(storage.storedTasks);
+                tasks = new TaskList(storage.storedTasks);
             } catch (DukeException e) {
                 ui.showLoadingError();
-                tasks1 = new Tasklist();
+                tasks = new TaskList();
             }
         } else {
-            tasks1 = new Tasklist();
+            tasks = new TaskList();
         }
     }
 
     public void receiveCommands() {
         Scanner in = new Scanner(System.in);
-        String command = in.nextLine().trim();
-        while (!command.equals("bye")) {
-            boolean isList = command.equals("list");
-            if (isList) {
-                ui.printList(tasks1);
-            } else {
-                tasks1.tryCommand(command);
-            }
-            command = in.nextLine().trim();
+        String userInput;
+        boolean isExit = false;
+        while (!isExit) {
+            userInput = in.nextLine().trim();
+            Command c = Parser.parser(userInput);
+            c.execute(tasks,ui,storage);
+            isExit = c.isExit;
+
         }
         try {
             storage.saveTasks(toSave);
         } catch (IOException e) {
             System.out.println("I/O error...");
         }
-        ui.printExitMessage();
     }
 
 }
