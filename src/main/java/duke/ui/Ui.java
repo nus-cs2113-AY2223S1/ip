@@ -136,7 +136,7 @@ public class Ui {
      * (in case of vertical overflow)
      *
      * @param difference difference in height that must be accounted for (negative implies overflow)
-     * @return list of string tthat may have been extended
+     * @return list of strings that may have been extended
      */
     public static List<String> extendScreen(int difference) {
         List<String> outputRows = new ArrayList<>();

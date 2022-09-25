@@ -18,7 +18,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- * Class for managing loading/saving files. Also handles parsing for text files.
+ * Class for managing loading and saving files. Also handles parsing for text files.
  */
 public class Storage {
     /**
