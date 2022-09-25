@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+
+    public void add(Task task) {
+        tasks.add(task);
+    }
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -252,6 +256,23 @@ public class TaskList {
             deleteTask(tasks, deleteId);
         } catch (DukeException e) {
             System.out.println("     T_T OOPS!!! There is no such task number");
+        }
+    }
+
+    public static void findTask(ArrayList<Task> tasks, String statement) {
+        TaskList result = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(statement)) {
+                result.add(task);
+            }
+        }
+        if (result.getTasks().size() == 0) {
+            System.out.println("     Sorry, no matching tasks.");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < result.getTasks().size(); i++) {
+                System.out.println("     " + (i + 1) + "." + result.getTasks().get(i));
+            }
         }
     }
 

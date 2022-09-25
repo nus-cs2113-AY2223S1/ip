@@ -11,8 +11,7 @@ public abstract class Command {
     String keyword;
     String statement;
     Boolean isExit = false;
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage){
-    }
+    public abstract void execute(ArrayList<Task> tasks, Ui ui, Storage storage);
 
     public Boolean isExit() {
         return isExit;
