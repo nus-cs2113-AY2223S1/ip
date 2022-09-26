@@ -1,4 +1,7 @@
     ____________________________________________________________
+    Nobita, entries have been loaded from the file and new entries will be stored too.
+    ____________________________________________________________
+    ____________________________________________________________
     *******     *******   *******       **
     /**////**   **/////** /**////**     ****
     /**    /** **     //**/**   /**    **//**
@@ -7,85 +10,109 @@
     /**    ** //**     ** /**  //** /**//////**
     /*******   //*******  /**   //**/**     /**
     ///////     ///////   //     // //      //
-
-    Kon'nichiwa! Doraemon desu.
-    What can I do for you?
+    Kon'nichiwa! Doraemon desu. What can I do for you?
     ____________________________________________________________
     ____________________________________________________________
     Nobita, wake up. Here's your new task:
-    * [T][ ] read book
+    [T][ ] buy a Dorayaki for Doraemon
     Now you have 1 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Nobita, wake up. Here's your new task:
-    * [D][ ] return book (by: June 6th)
+    [D][ ] Nobita marry Shizuka (by: 03 September 2022 (Sat), 3:00 PM)
     Now you have 2 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
+    Nobita, the format is: deadline <description> /by <d/MM/yyyy HHmm> (either date/time or both), e.g. deadline marry Shizuka /by 3/09/2022.
+    ____________________________________________________________
+    ____________________________________________________________
+    Nobita, the format is: event <description> /at <eventTime>, e.g. event marry Shizuka /at September 3rd 10-12pm.
+    ____________________________________________________________
+    ____________________________________________________________
     Nobita, wake up. Here's your new task:
-    * [E][ ] project meeting (at: Aug 6th 2-4pm)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
     Now you have 3 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
+    Here are the tasks stored in Doraemon's 4D pocket:
+    [T][ ] buy a Dorayaki for Doraemon
+    [D][ ] Nobita marry Shizuka (by: 03 September 2022 (Sat), 3:00 PM)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    ____________________________________________________________
+    ____________________________________________________________
     Nobita, wake up. Here's your new task:
-    * [T][ ] join sports club
+    [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
     Now you have 4 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
+    Nobita, the format is todo <description>, e.g. todo read books.
+    ____________________________________________________________
+    ____________________________________________________________
     Nobita, wake up. Here's your new task:
-    * [T][ ] borrow book
+    [T][ ] complete all the tasks for Doraemon
     Now you have 5 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks stored in Doraemon's 4D pocket:
-    1.[T][ ] read book
-    2.[D][ ] return book (by: June 6th)
-    3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-    4.[T][ ] join sports club
-    5.[T][ ] borrow book
-    ____________________________________________________________
-    ____________________________________________________________
-    Nobita, wake up. Here's your new task:
-    * [D][ ] return book (by: Sunday)
-    Now you have 6 tasks in Doraemon's 4D pocket.
-    ____________________________________________________________
-    ____________________________________________________________
-    Nobita, wake up. Here's your new task:
-    * [E][ ] project meeting (at: Mon 2-4pm)
-    Now you have 7 tasks in Doraemon's 4D pocket.
+    [T][ ] buy a Dorayaki for Doraemon
+    [D][ ] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
+    [T][ ] complete all the tasks for Doraemon
     ____________________________________________________________
     ____________________________________________________________
     Subarashi! Good job in completing your task, Nobita:
-    * [T][X] join sports club
-    ____________________________________________________________
-    ____________________________________________________________
-    Subarashi! Good job in completing your task, Nobita:
-    * [T][X] read book
-    ____________________________________________________________
-    ____________________________________________________________
-    Here are the tasks stored in Doraemon's 4D pocket:
-    1.[T][X] read book
-    2.[D][ ] return book (by: June 6th)
-    3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-    4.[T][X] join sports club
-    5.[T][ ] borrow book
-    6.[D][ ] return book (by: Sunday)
-    7.[E][ ] project meeting (at: Mon 2-4pm)
+    [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
     ____________________________________________________________
     ____________________________________________________________
     Gambate Nobita, complete it soon! Don't procrastinate:
-    * [T][ ] read book
+    [T][ ] buy a Dorayaki for Doraemon
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks stored in Doraemon's 4D pocket:
-    1.[T][ ] read book
-    2.[D][ ] return book (by: June 6th)
-    3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-    4.[T][X] join sports club
-    5.[T][ ] borrow book
-    6.[D][ ] return book (by: Sunday)
-    7.[E][ ] project meeting (at: Mon 2-4pm)
+    [T][ ] buy a Dorayaki for Doraemon
+    [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
+    [T][ ] complete all the tasks for Doraemon
+    ____________________________________________________________
+    ____________________________________________________________
+    Subarashi! Good job in completing your task, Nobita:
+    [T][X] buy a Dorayaki for Doraemon
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks stored in Doraemon's 4D pocket:
+    [T][X] buy a Dorayaki for Doraemon
+    [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
+    [T][ ] complete all the tasks for Doraemon
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks that match your search expression in Doraemon's 4D pocket:
+    [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks that match your search expression in Doraemon's 4D pocket:
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    ____________________________________________________________
+    ____________________________________________________________
+    Nobita, the specified task does not exist in Doramon's 4D pocket.
+    ____________________________________________________________
+    ____________________________________________________________
+    Nobita, sugoi! One task has been deleted from Doraemon's 4D pocket.
+    [T][X] buy a Dorayaki for Doraemon
+    Now you have 4 tasks in Doraemon's 4D pocket.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks stored in Doraemon's 4D pocket:
+    [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
+    [T][ ] complete all the tasks for Doraemon
     ____________________________________________________________
     ____________________________________________________________
     Sayonara. Hope to see you again soon!
     ____________________________________________________________
+
+Process finished with exit code 0
