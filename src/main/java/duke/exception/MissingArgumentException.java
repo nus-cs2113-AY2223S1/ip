@@ -1,10 +1,10 @@
 package duke.exception;
 
-public class MissingIntegerException extends DukeException {
+public class MissingArgumentException extends DukeException {
 
     private final String keyword;
 
-    public MissingIntegerException(String message) {
+    public MissingArgumentException(String message) {
         super();
         this.keyword = message;
     }
@@ -12,7 +12,7 @@ public class MissingIntegerException extends DukeException {
     @Override
     public String getMessage() {
         String partOne = "☹ OOPS!!! Your ";
-        String partTwo = " command is missing an integer to indicate which task.";
+        String partTwo = " command is missing an argument!";
         return partOne + keyword + partTwo;
     }
 }

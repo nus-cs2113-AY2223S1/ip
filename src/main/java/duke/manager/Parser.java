@@ -38,7 +38,7 @@ public class Parser {
         return String.join(SPACES_BETWEEN_WORDS, splitTime);
     }
 
-    public static String getTaskPosition(String input) {
+    public static String getTaskParameter(String input) {
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         return splitInput[1];
     }
@@ -69,8 +69,12 @@ public class Parser {
         String keyword = getKeyword(input);
         command.setKeyword(keyword);
         String time = EMPTY_STRING;
+        /* description represents description for todo, deadline, event and task position for
+        mark, unmark, delete and the word to search for find
+         */
         String description = EMPTY_STRING;
-        String taskPosition;
+        String taskParameter;
+        String lookingFor;
         int flagPosition;
 
         switch (keyword) {
@@ -82,9 +86,10 @@ public class Parser {
         case "mark":
         case "unmark":
         case "delete":
-            taskPosition = getTaskPosition(input);
-            if (ExceptionChecker.isExceptionFree(input, taskPosition, time, keyword)) {
-                command.setArgument(taskPosition, 0);
+        case "find":
+            taskParameter = getTaskParameter(input);
+            if (ExceptionChecker.isExceptionFree(input, taskParameter, time, keyword)) {
+                command.setArgument(taskParameter, 0);
                 break;
             }
         case "todo":

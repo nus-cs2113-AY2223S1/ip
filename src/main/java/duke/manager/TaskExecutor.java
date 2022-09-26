@@ -1,5 +1,6 @@
 package duke.manager;
 
+import duke.exception.NoSuchCommandException;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -10,6 +11,7 @@ import duke.command.Command;
 public class TaskExecutor {
 
     private static final String MESSAGE_INDENTATION = "  ";
+    public static final String SPACES_BETWEEN_WORDS = " ";
 
     private static void listCommand(int taskNumber) {
         if (taskNumber == 0) { // Guard Clause
@@ -73,11 +75,33 @@ public class TaskExecutor {
         taskList.addTask(task);
     }
 
-    private static void findCommand(TaskList taskList) {
-
+    private static void findCommand(String lookingFor, int taskNumber) {
+        // case-sensitive
+        Task task;
+        String description;
+        String[] splitDescription;
+        int tasksFound = 0;
+        // no point searching if no tasks
+        if (taskNumber == 0) {
+            System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskNumber; i++) {
+            task = TaskList.get(i);
+            description = task.getDescription();
+            splitDescription = description.split(SPACES_BETWEEN_WORDS);
+            if (Parser.searchArray(splitDescription, lookingFor) != -1) {
+                System.out.println((i + 1) + "." + task);
+                tasksFound++;
+            }
+        }
+        if (tasksFound == 0) {
+            System.out.println("I did not find any matching tasks in your list. ☹");
+        }
     }
 
-    public static void execute(TaskList taskList, Command c) {
+    public static void execute(TaskList taskList, Command c) throws NoSuchCommandException {
         String keyword = c.getKeyword();
         switch (keyword) {
         case "bye":
@@ -105,9 +129,10 @@ public class TaskExecutor {
             eventCommand(taskList, c.getArgument(true), c.getArgument(false));
             break;
         case "find":
-            findCommand(taskList);
-        default:
+            findCommand(c.getArgument(true), taskList.getSize());
             break;
+        default:
+            throw new NoSuchCommandException();
         }
     }
 
