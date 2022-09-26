@@ -6,13 +6,10 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.FileNotFoundException;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,9 +31,9 @@ public class Storage {
      * @param filePath is the relative filePath of the file to be read
      * @param taskList is the ArrayList of tasks, to read data from text file
      */
-    public void readFromFile (String filePath, ArrayList<Task> taskList)
-            throws FileNotFoundException, InvalidFileDataException {
-        File f = new File(filePath);
+    public void readFromFile (Path filePath, ArrayList<Task> taskList)
+            throws IOException, InvalidFileDataException {
+        FileReader f = new FileReader(filePath.toString());
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             String data = s.nextLine();
@@ -44,16 +41,17 @@ public class Storage {
             if (taskData[0].equals(TODO)) {
                 taskList.add(new Todo(taskData[2]));
             } else if (taskData[0].equals(DEADLINE)) {
-                taskList.add(new Deadline(taskData[2],taskData[3]));
+                taskList.add(new Deadline(taskData[2], taskData[3]));
             } else if (taskData[0].equals(EVENT)) {
-                taskList.add(new Event(taskData[2],taskData[3]));
+                taskList.add(new Event(taskData[2], taskData[3]));
             } else {
                 throw new InvalidFileDataException();
             }
             if (taskData[1].equals(IS_MARKED)) {
-                taskList.get(taskList.size()-1).isDone = true;
+                taskList.get(taskList.size() - 1).isDone = true;
             }
         }
+        f.close();
     }
 
     /**
@@ -62,8 +60,8 @@ public class Storage {
      * @param tempFilePath is the relative filePath of the temporary file to be written to
      * @param taskList is the ArrayList of tasks, to write data to text file
      */
-    public static void arrayToText (String tempFilePath, ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(tempFilePath, true);
+    public static void arrayToText (Path tempFilePath, ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(tempFilePath.toString(), true);
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             String textToAppend = currentTask.getTaskClass();
@@ -89,15 +87,15 @@ public class Storage {
      * @param taskList is the ArrayList of tasks, to write data to text file
      * @param tempFilePath is the relative filePath of the temporary file to be written to
      */
-    public void writeToFile (String filePath, String tempFilePath, ArrayList<Task> taskList)
+    public void writeToFile (Path filePath, Path tempFilePath, ArrayList<Task> taskList)
             throws IOException {
         try {
             arrayToText(tempFilePath, taskList);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
-        Path tempPath = Paths.get(tempFilePath);
-        Files.copy(tempPath, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+        Path tempPath = Paths.get(tempFilePath.toString());
+        Files.copy(tempPath, Paths.get(filePath.toString()), StandardCopyOption.REPLACE_EXISTING);
         Files.delete(tempPath);
     }
 }

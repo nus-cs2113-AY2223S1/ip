@@ -15,8 +15,9 @@ import java.util.ArrayList;
  * It is also the base of the programme, where other classes are called from here.
  */
 public class Duke {
-    public static final String filePath = "data/duke.txt";
-    public static final String tempFilePath = "data/temp.txt";
+    static String dir = System.getProperty("user.dir");
+    public static final java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "duke.txt");
+    public static final java.nio.file.Path tempFilePath = java.nio.file.Paths.get(dir, "data", "temp.txt");
 
     private Ui ui;
     private Storage storage;
@@ -29,7 +30,7 @@ public class Duke {
      * @throws InvalidFileDataException if the file contains data that is wrong or not formatted correctly
      * @throws IOException if filePath is invalid or file cannot be found
     */
-    public Duke () {
+    public Duke () throws InvalidFileDataException, IOException{
         ui = new Ui();
         storage = new Storage();
         parser = new Parser();
@@ -75,7 +76,7 @@ public class Duke {
     /**
      * @throws IOException if filePath is invalid or file cannot be found
      */
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) throws IOException, InvalidFileDataException {
         new Duke().run();
     }
 }

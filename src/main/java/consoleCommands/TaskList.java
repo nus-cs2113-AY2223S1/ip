@@ -184,11 +184,13 @@ public class TaskList {
             throw new NotEnoughArgumentsException();
         }
         System.out.println("Here are the matching tasks in your list:");
+        int count = 1;
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
             if (currTask.getDescription().contains(arguments)) {
-                System.out.print((i + 1) + ".");
+                System.out.print((count) + ".");
                 System.out.println(currTask.toString());
+                count++;
             }
         }
         printLine();
