@@ -19,7 +19,7 @@ public class Storage { ;
         dataFile = new File(DATA_DIRECTORY, DATA_FILE_NAME);
     }
 
-    public static void createFile() {
+    public static void createFile(Ui ui) {
         try {
             if (dataFile.exists()) {
                 return;
@@ -32,7 +32,7 @@ public class Storage { ;
 
             dataFile.createNewFile();
         } catch (IOException e) {
-            System.out.println(Message.CREATE_FILE_FAIL_ERROR_MESSAGE);
+            ui.showCreateFileFailErrorMessage();
         }
     }
 
@@ -56,7 +56,7 @@ public class Storage { ;
         return taskData;
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks(Ui ui) {
         ArrayList<Task> taskList = new ArrayList<>();
 
         try {
@@ -65,13 +65,13 @@ public class Storage { ;
                 taskList = Parser.parseTaskData(taskData);
             }
         } catch (FileNotFoundException e) {
-            createFile();
+            createFile(ui);
         }
 
         return taskList;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(ArrayList<Task> tasks, Ui ui) {
         try {
             // Create parent directory if it does not exist
             if (!dataFile.getParentFile().exists()) {
@@ -88,7 +88,7 @@ public class Storage { ;
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(Message.SAVE_TASK_FAIL_ERROR_MESSAGE);
+            ui.showSaveTaskFailErrorMessage();
         }
     }
 }

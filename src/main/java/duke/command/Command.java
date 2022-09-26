@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.Message;
+import duke.Ui;
 import duke.task.TaskList;
 import duke.task.model.Deadline;
 import duke.task.model.Event;
@@ -42,43 +42,43 @@ public class Command {
         this.isExit = false;
     }
 
-    public void execute(CommandMenu commandMenu, TaskList taskList) {
+    public void execute(TaskList taskList, Ui ui) {
         switch(command) {
         case CommandMenu.HELP_COMMAND:
-            commandMenu.display();
+            CommandMenu.display(ui);
             break;
         case CommandMenu.LIST_COMMAND:
-            taskList.list();
+            taskList.list(ui);
             break;
         case CommandMenu.EXIT_COMMAND:
             this.isExit = true;
             break;
         case CommandMenu.MARK_COMMAND:
-            taskList.markTaskAsDone(taskNumber);
+            taskList.markTaskAsDone(taskNumber, ui);
             break;
         case CommandMenu.UNMARK_COMMAND:
-            taskList.markTaskAsUndone(taskNumber);
+            taskList.markTaskAsUndone(taskNumber, ui);
             break;
         case CommandMenu.DELETE_COMMAND:
-            taskList.delete(taskNumber);
+            taskList.delete(taskNumber, ui);
             break;
         case CommandMenu.ADD_TODO_COMMAND:
             Todo todo = new Todo(description);
-            taskList.add(todo);
+            taskList.add(todo, ui);
             break;
         case CommandMenu.ADD_DEADLINE_COMMAND:
             Deadline deadline = new Deadline(description, datetime);
-            taskList.add(deadline);
+            taskList.add(deadline, ui);
             break;
         case CommandMenu.ADD_EVENT_COMMAND:
             Event event = new Event(description, datetime);
-            taskList.add(event);
+            taskList.add(event, ui);
             break;
         case "":
-            System.out.println(Message.EMPTY_INPUT_MESSAGE + " " + Message.HELP_MESSAGE);
+            ui.showEmptyInputErrorMessage();
             break;
         case CommandMenu.INVALID_COMMAND:
-            System.out.println(Message.INVALID_COMMAND_MESSAGE + " " + Message.HELP_MESSAGE);
+            ui.showInvalidCommandErrorMessage();
             break;
         }
     }

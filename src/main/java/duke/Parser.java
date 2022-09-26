@@ -4,7 +4,6 @@ import duke.command.Command;
 import duke.command.CommandMenu;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.exception.IllegalTaskNumberInputException;
 import duke.task.model.Deadline;
 import duke.task.model.Event;
 import duke.task.model.Todo;
@@ -69,7 +68,7 @@ public abstract class Parser {
         return taskParameters.split(separator, 2)[1].trim();
     }
 
-    public static Command parseCommand(String fullCommand) {
+    public static Command parseCommand(String fullCommand, Ui ui) {
         String commandKeyword = fullCommand.split(" ", 2)[0];
         Command command = new Command();
         String taskParameters;
@@ -89,8 +88,12 @@ public abstract class Parser {
             try {
                 int taskNumber = getTaskNumber(fullCommand);
                 command = new Command(commandKeyword, taskNumber);
-            } catch (IllegalTaskNumberInputException e) {
-                // Ignore the command when task number is out of range or
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showMissingTaskNumberErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
+            } catch (NumberFormatException e) {
+                ui.showTaskNumberFormatErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
             }
             break;
         case CommandMenu.ADD_TODO_COMMAND:
@@ -98,8 +101,8 @@ public abstract class Parser {
                 taskDescription = getTaskParameters(fullCommand, " ", 2, 1);
                 command = new Command(commandKeyword, taskDescription);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(Message.INVALID_ADD_TODO_FORMAT_ERROR_MESSAGE);
-                System.out.println("Syntax: " + CommandMenu.COMMANDS.get(commandKeyword).syntax);
+                ui.showAddTodoErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
             }
             break;
         case CommandMenu.ADD_DEADLINE_COMMAND:
@@ -109,8 +112,8 @@ public abstract class Parser {
                 taskDatetime = getTaskDatetime(taskParameters, Deadline.SEPARATOR);
                 command = new Command(commandKeyword, taskDescription, taskDatetime);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(Message.INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE);
-                System.out.println("Syntax: " + CommandMenu.COMMANDS.get(commandKeyword).syntax);
+                ui.showAddDeadlineErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
             }
             break;
         case CommandMenu.ADD_EVENT_COMMAND:
@@ -120,8 +123,8 @@ public abstract class Parser {
                 taskDatetime = getTaskDatetime(taskParameters, Event.SEPARATOR);
                 command = new Command(commandKeyword, taskDescription, taskDatetime);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(Message.INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE);
-                System.out.println("Syntax: " + CommandMenu.COMMANDS.get(commandKeyword).syntax);
+                ui.showAddEventErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
             }
             break;
         default:
@@ -132,23 +135,9 @@ public abstract class Parser {
         return command;
     }
 
-    private static int getTaskNumber(String fullCommand) throws IllegalTaskNumberInputException {
-        try {
-            String taskNumberInput = fullCommand.split(" ", 2)[1];
-            int taskNumber = Integer.parseInt(taskNumberInput);
-            return taskNumber;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            String commandKeyword = fullCommand.split(" ", 2)[0];
-            String commandSyntax = CommandMenu.COMMANDS.get(commandKeyword).syntax;
-            System.out.println(Message.MISSING_TASK_NUMBER_ERROR_MESSAGE);
-            System.out.println("Syntax: " + commandSyntax);
-            throw new IllegalTaskNumberInputException();
-        } catch (NumberFormatException e) {
-            String commandKeyword = fullCommand.split(" ", 2)[0];
-            String commandSyntax = CommandMenu.COMMANDS.get(commandKeyword).syntax;
-            System.out.println(Message.WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE);
-            System.out.println("Syntax: " + commandSyntax);
-            throw new IllegalTaskNumberInputException();
-        }
+    private static int getTaskNumber(String fullCommand) throws ArrayIndexOutOfBoundsException, NumberFormatException {
+        String taskNumberInput = fullCommand.split(" ", 2)[1];
+        int taskNumber = Integer.parseInt(taskNumberInput);
+        return taskNumber;
     }
 }

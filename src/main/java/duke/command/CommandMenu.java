@@ -1,11 +1,11 @@
 package duke.command;
 
+import duke.Ui;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CommandMenu {
-    public static final Map<String, CommandDocumentation> COMMANDS = new LinkedHashMap<>();
-
+public abstract class CommandMenu {
     public static final String HELP_COMMAND = "help";
     public static final String LIST_COMMAND = "list";
     public static final String ADD_TODO_COMMAND = "todo";
@@ -17,7 +17,10 @@ public class CommandMenu {
     public static final String EXIT_COMMAND = "bye";
     public static final String INVALID_COMMAND = "invalid";
 
-    private static void initCommand() {
+    public static final Map<String, CommandDocumentation> COMMANDS;
+    static {
+        COMMANDS = new LinkedHashMap<>();
+
         COMMANDS.put(HELP_COMMAND, new CommandDocumentation("help",
                 "Get help for the commands supported and their syntax"));
         COMMANDS.put(LIST_COMMAND, new CommandDocumentation("list",
@@ -37,14 +40,13 @@ public class CommandMenu {
         COMMANDS.put(EXIT_COMMAND, new CommandDocumentation("bye", "Exit the application"));
     }
 
-    public CommandMenu() {
-        initCommand();
+    public static void display(Ui ui) {
+        for (Map.Entry<String, CommandDocumentation> command: COMMANDS.entrySet()) {
+            ui.showCommandDocumentation(command.getValue());
+        }
     }
 
-    public void display() {
-        for (Map.Entry<String, CommandDocumentation> command: COMMANDS.entrySet()) {
-            System.out.println();
-            System.out.println(command.getValue());
-        }
+    public static String getCommandSyntaxHint(String commandKeyword) {
+        return COMMANDS.get(commandKeyword).syntax;
     }
 }
