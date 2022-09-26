@@ -8,6 +8,10 @@ public class Event extends Task{
         this.time = time;
     }
 
+    public String getTime() {
+        return time;
+    }
+
     public String toString(){
         return String.format("[E]%s (at: %s)", super.toString(), time);
     }

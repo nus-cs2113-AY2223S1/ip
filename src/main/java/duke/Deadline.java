@@ -8,6 +8,10 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
     public String toString(){
         return String.format("[D]%s (by: %s)", super.toString(), deadline);
     }
