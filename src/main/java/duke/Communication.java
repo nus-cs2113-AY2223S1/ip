@@ -73,7 +73,6 @@ public class Communication {
             task.UpdateStatus();
         }
         return task;
-
     }
     public static ToDo ToDos(String name, boolean isDone) {
         ToDo task = new ToDo(name);
