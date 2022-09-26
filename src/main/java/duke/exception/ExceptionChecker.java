@@ -16,7 +16,6 @@ public class ExceptionChecker {
     }
 
     public static boolean doesFlagExists(int flagPosition) {
-
         if (flagPosition < 0) {
             return false;
         } else {
@@ -69,9 +68,12 @@ public class ExceptionChecker {
         }
     }
 
+    /*public static void checkParameters(String input, String keyword) {
+       // to throw description, flag, time existence checking all into one function
+    }*/
+
     public static void checkNumberOfArguments(String input, String keyword) throws TooManyArgumentsException,
             MissingIntegerException {
-
         // only for list, bye, mark, unmark, delete
         String[] splitInput = input.split(" ");
         switch (keyword) {

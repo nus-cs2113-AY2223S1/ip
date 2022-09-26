@@ -1,15 +1,15 @@
 package duke.task;
 
 public class Task {
-    private final String description;
+
+    private String keyword;
+    private String description;
     private boolean isDone;
 
-    private static int taskNumber = 0;
-
-    public Task(String description) {
+    public Task(String keyword, String description) {
+        this.keyword = keyword;
         this.description = description;
         this.isDone = false;
-        taskNumber++;
     }
 
     public String getStatusIcon() {
@@ -24,11 +24,16 @@ public class Task {
         return isDone;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String toString() {
         return  "[" + getStatusIcon() + "] " + description;
     }
 
-    public static int getTaskNumber() {
-        return taskNumber;
-    }
 }

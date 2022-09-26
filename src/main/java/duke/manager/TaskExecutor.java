@@ -34,6 +34,10 @@ public class TaskExecutor {
 
     public static void unmarkResponse(int taskPosition) {
         Task task = TaskList.get(taskPosition - 1);
+        if (!task.isDone()) {
+            System.out.println("You haven't done this task yet!");
+            return;
+        }
         task.setDone(false);
         System.out.println("OK, I've marked this task as not done yet:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + task);
@@ -49,7 +53,6 @@ public class TaskExecutor {
         }
         taskPosition--;
         TaskList.deleteTask(taskPosition);
-
     }
 
     public static void todoResponse(TaskList taskList, String description) {
