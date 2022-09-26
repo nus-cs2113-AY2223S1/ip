@@ -49,7 +49,7 @@ public class TaskList {
         if (index > taskList.size()) {
             throw new TaskDoesNotExistException();
         }
-        if (command.equals(COMMAND_MARKED)) {
+        if (command.equalsIgnoreCase(COMMAND_MARKED)) {
             taskList.get(index-1).isDone = true;
             System.out.println(MARKED_MESSAGE);
         } else {

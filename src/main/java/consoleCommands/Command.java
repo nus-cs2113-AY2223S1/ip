@@ -54,21 +54,21 @@ public class Command {
             throws NotEnoughArgumentsException, TaskDoesNotExistException, InvalidArgumentsException,
             InvalidCommandException {
         try {
-            if (command.equals(COMMAND_BYE)) {
+            if (command.equalsIgnoreCase(COMMAND_BYE)) {
                 isExit = true;
-            } else if (command.equals(COMMAND_LIST)) {
+            } else if (command.equalsIgnoreCase(COMMAND_LIST)) {
                 TaskList.printList(taskList);
-            } else if (command.equals(COMMAND_FIND)) {
+            } else if (command.equalsIgnoreCase(COMMAND_FIND)) {
                 TaskList.findTask(arguments, taskList);
-            } else if (command.equals(COMMAND_MARKED) || command.equals(COMMAND_UNMARKED)) {
+            } else if (command.equalsIgnoreCase(COMMAND_MARKED) || command.equalsIgnoreCase(COMMAND_UNMARKED)) {
                 TaskList.markStatus(command, arguments, taskList);
-            } else if (command.equals(COMMAND_DELETE)) {
+            } else if (command.equalsIgnoreCase(COMMAND_DELETE)) {
                 TaskList.deleteTask(arguments, taskList);
-            } else if (command.equals(COMMAND_TODO)) {
+            } else if (command.equalsIgnoreCase(COMMAND_TODO)) {
                 TaskList.addTodo(arguments, taskList);
-            } else if (command.equals(COMMAND_EVENT)) {
+            } else if (command.equalsIgnoreCase(COMMAND_EVENT)) {
                 TaskList.addEvent(arguments, taskList);
-            } else if (command.equals(COMMAND_DEADLINE)) {
+            } else if (command.equalsIgnoreCase(COMMAND_DEADLINE)) {
                 TaskList.addDeadline(arguments, taskList);
             } else {
                 Ui.printLine();
