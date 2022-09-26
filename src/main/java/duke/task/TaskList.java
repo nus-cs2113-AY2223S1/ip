@@ -117,5 +117,22 @@ public class TaskList {
         System.out.printf("Now we have %d tasks in the list.\n", tasks.size());
     }
 
+    public static void findTask(String keyword) {
+        ArrayList<Task> task_list_contain_keyword = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                task_list_contain_keyword.add(task);
+            }
+        }
+        if (task_list_contain_keyword.size() == 0) {
+            System.out.println("No matching tasks in your list...");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < task_list_contain_keyword.size(); ++i) {
+            System.out.print((i + 1) + ".");
+            System.out.println(task_list_contain_keyword.get(i));
+        }
+    }
 
 }
