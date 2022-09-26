@@ -26,31 +26,8 @@ public class Storage {
 
     private static String DEFAULT_FOLDER = "./data";
     private static String DEFAULT_FILE_PATH = "./data/duke.txt";
-    private static String SPACES_BETWEEN_WORDS = " ";
     private static String SEPARATOR_LINE = "|";
     private static String SPACED_SEPARATOR = " | ";
-
-    private static boolean getStoredBoolean(String input) throws StorageReadException {
-        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
-        int booleanNumber = Integer.parseInt(splitInput[2]);
-        if (booleanNumber == 1) {
-            return true;
-        } else if (booleanNumber == 0) {
-            return false;
-        } else {
-            throw new StorageReadException("boolean");
-        }
-    }
-
-    private static String getStoredDescription(String unprocessedInput, int separatorPosition) {
-        String description = unprocessedInput.substring(0, separatorPosition - 1);
-        return description;
-    }
-
-    private static String getStoredTime(String unprocessedInput, int separatorPosition) {
-        String time = unprocessedInput.substring(separatorPosition + 2);
-        return time;
-    }
 
     private static TaskList createMissingFile() throws IOException {
         // first handle the folder-does-not-exist-case
@@ -88,14 +65,14 @@ public class Storage {
             break;
         case "d":
             lastSeparator = input.lastIndexOf(SEPARATOR_LINE); // to account for existence of | in description
-            description = getStoredDescription(input, lastSeparator);
-            time = getStoredTime(input, lastSeparator);
+            description = FileParser.getStoredDescription(input, lastSeparator);
+            time = FileParser.getStoredTime(input, lastSeparator);
             currentTask = new Deadline(description, time);
             break;
         case "e":
             lastSeparator = input.lastIndexOf(SEPARATOR_LINE); // to account for existence of | in description
-            description = getStoredDescription(input, lastSeparator);
-            time = getStoredTime(input, lastSeparator);
+            description = FileParser.getStoredDescription(input, lastSeparator);
+            time = FileParser.getStoredTime(input, lastSeparator);
             currentTask = new Event(description, time);
             break;
         default:
@@ -121,7 +98,7 @@ public class Storage {
         while (storedData.hasNext()) {
             newLine = storedData.nextLine();
             keyword = Parser.getKeyword(newLine);
-            isDone = getStoredBoolean(newLine);
+            isDone = FileParser.getStoredBoolean(newLine);
             // get the parts of newLine that is not retrieved yet
             // firstly cut the part with the keyword: "T,D,E"
             firstSeparatorPosition = newLine.indexOf(SEPARATOR_LINE);
