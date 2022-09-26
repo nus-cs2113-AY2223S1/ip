@@ -2,7 +2,8 @@ package duke.command;
 
 public class EventCommand extends Command {
 
-    // 0 - description, 1 - time
+    public static final int DESCRIPTION_INT = 0;
+    public static final int TIME_INT = 1;
     private final String[] argument = new String[2];
 
     public EventCommand() {
@@ -15,11 +16,11 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public String getArgument(boolean b) {
-        if (b) {
-            return argument[0];
+    public String getArgument(boolean type) {
+        if (type) {
+            return argument[DESCRIPTION_INT];
         }   else {
-            return argument[1];
+            return argument[TIME_INT];
         }
     }
 }

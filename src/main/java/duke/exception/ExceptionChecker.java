@@ -5,6 +5,8 @@ import duke.manager.Parser;
 
 public class ExceptionChecker {
 
+    // TAKE NOTE: SOME EXCEPTIONS CAUSES REPEATED EXCEPTION HANDLING MESSAGE PRINTING - TO FIX
+
     public static final String EMPTY_STRING = "";
 
     private static boolean isEmptyDescription(String description) {

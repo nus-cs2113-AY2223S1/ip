@@ -22,7 +22,6 @@ public class Parser {
     }
 
     public static String getDescription(String input, int flagPosition) {
-
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         if (flagPosition < 0) { // todo
             String[] truncatedInput = Arrays.copyOfRange(splitInput, 1, splitInput.length);
@@ -34,20 +33,17 @@ public class Parser {
     }
 
     public static String getTime(String input, int flagPosition) {
-
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         String[] splitTime = Arrays.copyOfRange(splitInput, flagPosition + 1, splitInput.length);
         return String.join(SPACES_BETWEEN_WORDS, splitTime);
     }
 
     public static String getTaskPosition(String input) {
-
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         return splitInput[1];
     }
 
     public static int searchArray(String[] s, String target) {
-
         for (int i = 0; i < s.length; i++) {
             if (s[i].equals(target)) {
                 return i;
@@ -57,7 +53,6 @@ public class Parser {
     }
 
     public static int getFlagPosition(String input, String keyword) {
-
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         switch (keyword) {
         case "deadline":
@@ -69,11 +64,10 @@ public class Parser {
         }
     }
 
-    public static Command parse(Command c, String input) {
-
+    public static Command parse(Command command, String input) {
         // parse keyword portion
         String keyword = getKeyword(input);
-        c.setKeyword(keyword);
+        command.setKeyword(keyword);
         String time = EMPTY_STRING;
         String description = EMPTY_STRING;
         String taskPosition;
@@ -90,13 +84,13 @@ public class Parser {
         case "delete":
             taskPosition = getTaskPosition(input);
             if (ExceptionChecker.isExceptionFree(input, taskPosition, time, keyword)) {
-                c.setArgument(taskPosition, 0);
+                command.setArgument(taskPosition, 0);
                 break;
             }
         case "todo":
             description = getDescription(input, -1);
             if (ExceptionChecker.isExceptionFree(input, description, time, keyword)) {
-                c.setArgument(description, 0);
+                command.setArgument(description, 0);
                 break;
             }
         case "event":
@@ -105,13 +99,13 @@ public class Parser {
             description = getDescription(input, flagPosition);
             time = getTime(input, flagPosition);
             if (ExceptionChecker.isExceptionFree(input, description, time, keyword)) {
-                c.setArgument(description, 0);
-                c.setArgument(time, 1);
+                command.setArgument(description, 0);
+                command.setArgument(time, 1);
                 break;
             }
         default:
-            c.setLegal(false);
+            command.setLegal(false);
         }
-        return c;
+        return command;
     }
 }

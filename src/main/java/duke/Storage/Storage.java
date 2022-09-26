@@ -137,34 +137,43 @@ public class Storage {
         return storedTasks;
     }
 
-    private static String saveTodoMessage(Task task, String formattedKeyword) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + task.isDone() + SPACED_SEPARATOR
+    private static String saveTodoMessage(Task task, String formattedKeyword, int booleanInt) {
+        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
                 + task.getDescription();
         return saveMessage;
     }
 
-    private static String saveDeadlineOrEventMessage(Task task, String formattedKeyword, String time) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + task.isDone() + SPACED_SEPARATOR
+    private static String saveDeadlineOrEventMessage(Task task, String formattedKeyword, int booleanInt, String time) {
+        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
                 + task.getDescription() + SPACED_SEPARATOR + time;
         return saveMessage;
     }
 
+    private static int setBooleanInt(boolean isDone) {
+        if (isDone) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
     private static String saveTask(Task task) throws UnrecognisedCommandException {
-        String keyword;
+        String keyword = task.getKeyword();
         String time;
         String saveMessage;
-        keyword = task.getKeyword();
+        int booleanInt = setBooleanInt(task.isDone());
         switch (keyword) {
         case "todo":
-            saveMessage = saveTodoMessage(task, "T");
+            saveMessage = saveTodoMessage(task, "T", booleanInt);
             break;
         case "deadline":
             time = ((Deadline)task).getBy();
-            saveMessage = saveDeadlineOrEventMessage(task, "D", time);
+            saveMessage = saveDeadlineOrEventMessage(task, "D", booleanInt, time);
             break;
         case "event":
             time = ((Event)task).getAt();
-            saveMessage = saveDeadlineOrEventMessage(task, "E", time);
+            saveMessage = saveDeadlineOrEventMessage(task, "E", booleanInt, time);
             break;
         default:
             throw new UnrecognisedCommandException();

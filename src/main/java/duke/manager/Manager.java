@@ -1,15 +1,7 @@
 package duke.manager;
 
 import duke.Storage.Storage;
-import duke.command.Command;
-import duke.command.ByeCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import duke.command.DeleteCommand;
-import duke.command.TodoCommand;
-import duke.command.DeadlineCommand;
-import duke.command.EventCommand;
+import duke.command.*;
 import duke.exception.NoSuchCommandException;
 import duke.task.TaskList;
 import java.util.Scanner;
@@ -43,6 +35,9 @@ public class Manager {
             break;
         case "deadline":
             newCommand = new DeadlineCommand();
+            break;
+        case "find":
+            newCommand = new FindCommand();
             break;
         default:
             throw new NoSuchCommandException();
