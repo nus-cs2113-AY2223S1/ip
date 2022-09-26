@@ -4,7 +4,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class Deadline extends Task {
-    private String deadlineDate;
+    private final String deadlineDate;
 
     public static final String ICON = "D";
     public static final String SEPARATOR = " /by ";

@@ -7,7 +7,7 @@ import duke.task.model.Event;
 import duke.task.model.Todo;
 
 public class Command {
-    private String command;
+    private final String command;
     private int taskNumber;
     private String description;
     private String datetime;

@@ -4,7 +4,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class Event extends Task {
-    private String datetime;
+    private final String datetime;
 
     public static final String ICON = "E";
     public static final String SEPARATOR = " /at ";

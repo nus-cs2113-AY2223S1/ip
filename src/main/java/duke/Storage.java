@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class Storage { ;
+public class Storage {
     private static final String DATA_DIRECTORY = "data";
     private static final String DATA_FILE_NAME = "duke.txt";
 
