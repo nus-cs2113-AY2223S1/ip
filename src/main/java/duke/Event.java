@@ -16,6 +16,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String recordString() {
+        return "E | " + super.recordString() + " | " + at;
+    }
+
+    @Override
     public String toString() {
         return  this.index +"."+"[E]" + "["+this.getStatusIcon()+"] " + this.name + " (by: " + at + ")";
     }

@@ -21,4 +21,9 @@ public class ToDo extends Task {
     public String toString() {
         return this.index + "."+"[T]" + "["+this.getStatusIcon()+"] " + this.name;
     }
+    @Override
+    public String recordString() {
+        return "T | " + super.recordString();
+
+    }
 }
