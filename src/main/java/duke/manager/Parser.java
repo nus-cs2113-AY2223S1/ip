@@ -1,12 +1,14 @@
 package duke.manager;
 
 import duke.command.Command;
-import duke.task.TaskList;
 import duke.exception.ExceptionChecker;
 
 import java.util.Arrays;
 
 public class Parser {
+
+    private static String EMPTY_STRING = "";
+    private static String SPACES_BETWEEN_WORDS = " ";
 
     /**
      * Returns the keyword of the command in lowercase
@@ -15,33 +17,32 @@ public class Parser {
      * @return the keyword of the command in lowercase
      */
     public static String getKeyword(String input) {
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         return splitInput[0].toLowerCase();
     }
 
     public static String getDescription(String input, int flagPosition) {
 
-        String[] splitInput = input.split(" ");
-        // todo
-        if (flagPosition < 0) {
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
+        if (flagPosition < 0) { // todo
             String[] truncatedInput = Arrays.copyOfRange(splitInput, 1, splitInput.length);
-            return String.join(" ", truncatedInput);
+            return String.join(SPACES_BETWEEN_WORDS, truncatedInput);
         }   else { // deadline + event
             String[] splitDescription = Arrays.copyOfRange(splitInput, 1, flagPosition);
-            return String.join(" ", splitDescription);
+            return String.join(SPACES_BETWEEN_WORDS, splitDescription);
         }
     }
 
     public static String getTime(String input, int flagPosition) {
 
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         String[] splitTime = Arrays.copyOfRange(splitInput, flagPosition + 1, splitInput.length);
-        return String.join(" ", splitTime);
+        return String.join(SPACES_BETWEEN_WORDS, splitTime);
     }
 
     public static String getTaskPosition(String input) {
 
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         return splitInput[1];
     }
 
@@ -57,7 +58,7 @@ public class Parser {
 
     public static int getFlagPosition(String input, String keyword) {
 
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         switch (keyword) {
         case "deadline":
             return searchArray(splitInput, "/by");
@@ -68,13 +69,13 @@ public class Parser {
         }
     }
 
-    public static Command parse(TaskList taskList, Command c, String input) {
+    public static Command parse(Command c, String input) {
 
         // parse keyword portion
         String keyword = getKeyword(input);
         c.setKeyword(keyword);
-        String time = "";
-        String description = "";
+        String time = EMPTY_STRING;
+        String description = EMPTY_STRING;
         String taskPosition;
         int flagPosition;
 

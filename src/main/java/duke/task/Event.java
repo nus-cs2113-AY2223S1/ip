@@ -5,8 +5,12 @@ public class Event extends Task {
     private final String at;
 
     public Event(String description, String at) {
-        super(description);
+        super("event", description);
         this.at = at;
+    }
+
+    public String getAt() {
+        return at;
     }
 
     @Override

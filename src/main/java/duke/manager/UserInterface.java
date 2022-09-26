@@ -41,16 +41,6 @@ public class UserInterface {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    /**
-     * Reads and then returns the next line of the user input
-     *
-     * @param in the scanner that takes in user input
-     * @return the next line of the input for parsing
-     */
-    public static String readInput(Scanner in) {
-        return in.nextLine();
-    }
-
     public static void printAddTaskMessage(Task newTask) {
         System.out.println("Got it. I've added this task:" + System.lineSeparator()
                 + MESSAGE_INDENTATION + newTask + System.lineSeparator()
