@@ -36,7 +36,7 @@ public class Storage {
         }
     }
 
-    private ArrayList<String> readFile() throws FileNotFoundException {
+    private ArrayList<String> readFile() throws IOException {
         if (!dataFile.exists()) {
             throw new FileNotFoundException();
         }
@@ -51,6 +51,7 @@ public class Storage {
             taskData = (ArrayList<String>) Files.readAllLines(dataFile.toPath());
         } catch (IOException e) {
             // Fail to read file
+            throw new IOException();
         }
 
         return taskData;
@@ -64,7 +65,7 @@ public class Storage {
             if (taskData != null) {
                 taskList = Parser.parseTaskData(taskData);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             createFile(ui);
         }
 
