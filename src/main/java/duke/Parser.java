@@ -8,7 +8,15 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
 public class Parser {
+
+    public static final String DATA_TIME_FORMAT = "uuuu-MM-dd H:mm";
+    public static final String PRINT_TIME_FORMAT = "MMM dd uuuu, HH:mm";
 
     public static String retrieveCommand(String input) {
         return input.split(" ")[0];
@@ -38,6 +46,15 @@ public class Parser {
             return parsed[1];
         }
         return "";
+    }
+
+    public static boolean isValidTime(String time) {
+        try {
+            LocalDateTime.parse(time, DateTimeFormatter.ofPattern(DATA_TIME_FORMAT));
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public static String retrieveTaskDescription(String parameters, String separator) {
@@ -77,6 +94,10 @@ public class Parser {
         if (retrieveTime(parameters, TaskList.EVENT_SEPERATOR).isEmpty()) {
             throw new IncorrectFormatException(Ui.MISSING_EVENT_TIME_ERROR_MESSAGE);
         }
+        if (!isValidTime(retrieveTime(parameters, TaskList.EVENT_SEPERATOR))) {
+            throw new IncorrectFormatException("Error! The time entered is not valid!");
+        }
+
     }
 
     public static void handlePossibleDeadlineExceptions(String parameters) throws IncorrectFormatException {
@@ -92,6 +113,9 @@ public class Parser {
         if (retrieveTime(parameters, TaskList.DEADLINE_SEPERATOR).isEmpty()) {
             throw new IncorrectFormatException(Ui.MISSING_DEADLINE_TIME_ERROR_MESSAGE);
         }
+        if (!isValidTime(retrieveTime(parameters, TaskList.DEADLINE_SEPERATOR))) {
+            throw new IncorrectFormatException(Ui.INVALID_TIME_FORMAT_ERROR_MESSAGE);
+        }
     }
 
     public static Command parse(String input) {
@@ -102,7 +126,7 @@ public class Parser {
         try {
             Parser.validateFormat(commandName, parameters);
         } catch (NumberFormatException e) {
-            Ui.showErrorMessage("Incorrect format! Please enter a valid integer number to mark a task as done or not done!");
+            Ui.showErrorMessage(Ui.INVALID_TASK_NUMBER_ERROR_MESSAGE);
             return command;
         } catch (IncorrectFormatException e) {
             Ui.showErrorMessage(e.getMessage());
@@ -112,8 +136,16 @@ public class Parser {
         return createCommand(commandName, parameters);
     }
 
+    public static LocalDateTime parseDateTime(String time) {
+        return LocalDateTime.from(DateTimeFormatter.ofPattern(DATA_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT).parse(time));
+    }
+
+    public static String getFormattedTime(LocalDateTime dateTime, String format) {
+        return dateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
     private static Command createCommand(String commandName, String parameters) {
-        Command command;
+        Command command = null;
         String deadline;
         String description;
         int taskNumber;

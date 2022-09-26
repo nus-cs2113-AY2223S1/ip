@@ -1,22 +1,26 @@
 package duke.tasks;
 
+import duke.Parser;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
-    public String getTime() {
-        return at;
+    private LocalDateTime at;
+    public static final String TASK_TYPE = "E";
+
+    public String getTime(String format) {
+        return Parser.getFormattedTime(at, format);
     }
 
-    private String at;
-
-    public static final String TASK_TYPE = "E";
 
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        this.at = Parser.parseDateTime(at);
     }
 
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (at: " + at + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (at: " + getTime(Parser.PRINT_TIME_FORMAT) + ")";
     }
 
     public String getTaskType() {
