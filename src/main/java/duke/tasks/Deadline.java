@@ -1,6 +1,7 @@
 package duke.tasks;
 
 public class Deadline extends Task {
+
     public String getDeadline() {
         return by;
     }
