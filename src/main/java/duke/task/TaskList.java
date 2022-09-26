@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.Duke;
+import duke.command.CommandMenu;
 import duke.Message;
 import duke.Storage;
 import duke.task.exception.IllegalTaskNumberInputException;
@@ -43,22 +43,17 @@ public class TaskList {
             return Integer.parseInt(inputWords[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Message.MISSING_TASK_NUMBER_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get(inputWords[0]).syntax);
             throw new IllegalTaskNumberInputException();
         } catch (NumberFormatException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_FORMAT_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get(inputWords[0]).syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get(inputWords[0]).syntax);
             throw new IllegalTaskNumberInputException();
         }
     }
 
-    public void markTaskAsDone(String input) {
-        int taskIndex;
-        try {
-            taskIndex = getTaskIndex(input);
-        } catch (IllegalTaskNumberInputException e) {
-            return;
-        }
+    public void markTaskAsDone(int taskNumber) {
+        int taskIndex = taskNumber - 1;
 
         try {
             tasks.get(taskIndex).markAsDone();
@@ -66,17 +61,12 @@ public class TaskList {
             save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("mark").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("mark").syntax);
         }
     }
 
-    public void markTaskAsUndone(String input) {
-        int taskIndex;
-        try {
-            taskIndex = getTaskIndex(input);
-        } catch (IllegalTaskNumberInputException e) {
-            return;
-        }
+    public void markTaskAsUndone(int taskNumber) {
+        int taskIndex = taskNumber - 1;
 
         try {
             tasks.get(taskIndex).unmarkDone();
@@ -84,7 +74,7 @@ public class TaskList {
             save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("unmark").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("unmark").syntax);
         }
     }
 
@@ -95,7 +85,7 @@ public class TaskList {
             add(new Todo(description));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_TODO_FORMAT_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("todo").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("todo").syntax);
         }
     }
 
@@ -107,7 +97,7 @@ public class TaskList {
             add(new Deadline(description, deadlineDate));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_DEADLINE_FORMAT_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("deadline").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("deadline").syntax);
         }
     }
 
@@ -119,17 +109,12 @@ public class TaskList {
             add(new Event(description, datetime));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("event").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("event").syntax);
         }
     }
 
-    public void delete(String input) {
-        int taskIndex;
-        try {
-            taskIndex = getTaskIndex(input);
-        } catch (IllegalTaskNumberInputException e) {
-            return;
-        }
+    public void delete(int taskNumber) {
+        int taskIndex = taskNumber - 1;
 
         try {
             tasks.remove(taskIndex);
@@ -137,15 +122,11 @@ public class TaskList {
             save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Message.WRONG_TASK_NUMBER_RANGE_ERROR_MESSAGE);
-            System.out.println("Syntax: " + Duke.COMMANDS.get("delete").syntax);
+            System.out.println("Syntax: " + CommandMenu.COMMANDS.get("delete").syntax);
         }
     }
 
     public void save() {
         storage.saveTasks(tasks);
-    }
-
-    private String[] parseFileLine(String line) {
-        return line.split(FILE_STRING_SEPARATOR);
     }
 }

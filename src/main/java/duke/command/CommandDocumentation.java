@@ -1,10 +1,10 @@
-package duke;
+package duke.command;
 
-public class Command {
+public class CommandDocumentation {
     public String syntax;
     public String description;
 
-    public Command(String syntax, String description) {
+    public CommandDocumentation(String syntax, String description) {
         this.syntax = syntax;
         this.description = description;
     }
