@@ -75,8 +75,8 @@ public class ExceptionChecker {
     }*/
 
     public static void checkNumberOfArguments(String input, String keyword) throws TooManyArgumentsException,
-            MissingIntegerException {
-        // only for list, bye, mark, unmark, delete
+            MissingArgumentException {
+        // only for list, bye, mark, unmark, delete, find
         String[] splitInput = input.split(" ");
         switch (keyword) {
         case "bye":
@@ -88,11 +88,15 @@ public class ExceptionChecker {
         case "mark":
         case "unmark":
         case "delete":
+        case "find":
             if (splitInput.length > 2) {
                 throw new TooManyArgumentsException();
             } else if (splitInput.length == 1) {
-                throw new MissingIntegerException(keyword);
+                throw new MissingArgumentException(keyword);
             }
+            break;
+        default:
+            System.out.println("Wrong command given to this method.");
             break;
         }
     }
@@ -103,6 +107,7 @@ public class ExceptionChecker {
             switch (keyword) {
             case "bye":
             case "list":
+            case "find":
                 checkNumberOfArguments(input, keyword);
                 break;
             case "mark":
@@ -135,7 +140,7 @@ public class ExceptionChecker {
         } catch (OutOfBoundsException e) {
             System.out.println(e.getMessage());
             return false;
-        } catch (MissingIntegerException e) {
+        } catch (MissingArgumentException e) {
             System.out.println(e.getMessage());
             return false;
         } catch (MissingDescriptionException e) {
