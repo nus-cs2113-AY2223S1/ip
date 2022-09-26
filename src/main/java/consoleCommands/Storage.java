@@ -33,25 +33,31 @@ public class Storage {
      */
     public void readFromFile (Path filePath, ArrayList<Task> taskList)
             throws IOException, InvalidFileDataException {
-        FileReader f = new FileReader(filePath.toString());
-        Scanner s = new Scanner(f);
-        while (s.hasNextLine()) {
-            String data = s.nextLine();
-            String[] taskData = data.split(" / ");
-            if (taskData[0].equals(TODO)) {
-                taskList.add(new Todo(taskData[2]));
-            } else if (taskData[0].equals(DEADLINE)) {
-                taskList.add(new Deadline(taskData[2], taskData[3]));
-            } else if (taskData[0].equals(EVENT)) {
-                taskList.add(new Event(taskData[2], taskData[3]));
-            } else {
-                throw new InvalidFileDataException();
+        File f = new File(filePath.toString());
+        if (f.exists()) {
+            FileReader fr = new FileReader(filePath.toString());
+            Scanner s = new Scanner(fr);
+            while (s.hasNextLine()) {
+                String data = s.nextLine();
+                String[] taskData = data.split(" / ");
+                if (taskData[0].equals(TODO)) {
+                    taskList.add(new Todo(taskData[2]));
+                } else if (taskData[0].equals(DEADLINE)) {
+                    taskList.add(new Deadline(taskData[2], taskData[3]));
+                } else if (taskData[0].equals(EVENT)) {
+                    taskList.add(new Event(taskData[2], taskData[3]));
+                } else {
+                    throw new InvalidFileDataException();
+                }
+                if (taskData[1].equals(IS_MARKED)) {
+                    taskList.get(taskList.size() - 1).isDone = true;
+                }
             }
-            if (taskData[1].equals(IS_MARKED)) {
-                taskList.get(taskList.size() - 1).isDone = true;
-            }
+            fr.close();
+        } else {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
         }
-        f.close();
     }
 
     /**
