@@ -64,7 +64,7 @@ public class Manager {
                 if (c.isBye()) {
                     UserInterface.printGoodbye();
                 }
-                Storage.saveManager(taskList);
+                Storage.saveManager();
                 UserInterface.printBorderLines();
             } catch (NoSuchCommandException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
