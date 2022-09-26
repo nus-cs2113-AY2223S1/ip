@@ -24,11 +24,6 @@ public class Event extends Task {
         return String.format("[%s]%s (at: %s)", ICON, super.toString(), this.datetime);
     }
 
-    public static String[] extractParameters(String command) throws ArrayIndexOutOfBoundsException {
-        String commandParameters = command.split(" ", 2)[1];
-        return commandParameters.split(SEPARATOR);
-    }
-
     @Override
     public String getStringForSave() {
         return String.join(TaskList.FILE_STRING_SEPARATOR, ICON, this.getStatusValue(), this.description, this.datetime);

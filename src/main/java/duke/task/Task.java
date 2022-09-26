@@ -49,9 +49,5 @@ public abstract class Task {
         return String.format("[%s] %s", this.getStatusIcon(), description);
     }
 
-    public static String[] extractParameters(String command) {
-        return new String[0];
-    }
-
     public abstract String getStringForSave();
 }
