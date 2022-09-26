@@ -3,6 +3,8 @@ package duke.Storage;
 import duke.exception.StorageReadException;
 import duke.exception.UnrecognisedCommandException;
 import duke.manager.CommandParser;
+import duke.manager.TaskExecutor;
+import duke.manager.UserInterface;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -17,17 +19,9 @@ import java.util.Scanner;
 
 public class Storage {
 
-    /*
-        Will follow the format below:
-        T | 1 | read book
-        D | 0 | return book | June 6th
-        E | 0 | project meeting | Aug 6th 2-4pm
-    */
-
     private static String DEFAULT_FOLDER = "./data";
     private static String DEFAULT_FILE_PATH = "./data/duke.txt";
     private static String SEPARATOR_LINE = "|";
-    private static String SPACED_SEPARATOR = " | ";
 
     private static TaskList createMissingFile() throws IOException {
         // first handle the folder-does-not-exist-case
@@ -109,56 +103,20 @@ public class Storage {
             // create tasks based on storage input
             currentTask = loadTask(unprocessedInput, keyword);
             currentTask.setDone(isDone);
-            storedTasks.addTask(currentTask);
+            storedTasks.addTask(currentTask, false);
         }
+        TaskExecutor.listCommand(storedTasks.getSize());
+        UserInterface.printBorderLines();
         return storedTasks;
     }
 
-    private static String saveTodoMessage(Task task, String formattedKeyword, int booleanInt) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
-                + task.getDescription();
-        return saveMessage;
-    }
-
-    private static String saveDeadlineOrEventMessage(Task task, String formattedKeyword, int booleanInt, String time) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
-                + task.getDescription() + SPACED_SEPARATOR + time;
-        return saveMessage;
-    }
-
-    private static int setBooleanInt(boolean isDone) {
-        if (isDone) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-
     private static String saveTask(Task task) throws UnrecognisedCommandException {
-        String keyword = task.getKeyword();
-        String time;
         String saveMessage;
-        int booleanInt = setBooleanInt(task.isDone());
-        switch (keyword) {
-        case "todo":
-            saveMessage = saveTodoMessage(task, "T", booleanInt);
-            break;
-        case "deadline":
-            time = ((Deadline)task).getBy();
-            saveMessage = saveDeadlineOrEventMessage(task, "D", booleanInt, time);
-            break;
-        case "event":
-            time = ((Event)task).getAt();
-            saveMessage = saveDeadlineOrEventMessage(task, "E", booleanInt, time);
-            break;
-        default:
-            throw new UnrecognisedCommandException();
-        }
+        saveMessage = task.saveFormat();
         return saveMessage;
     }
 
-    private static void saveStorage(TaskList taskList) throws IOException, UnrecognisedCommandException {
+    private static void saveStorage() throws IOException, UnrecognisedCommandException {
         String saveMessage;
         FileWriter storingData = new FileWriter(DEFAULT_FILE_PATH);
         int taskNumber = TaskList.getSize();
@@ -188,7 +146,7 @@ public class Storage {
 
     public static void saveManager(TaskList taskList) {
         try {
-            saveStorage(taskList);
+            saveStorage();
         } catch (IOException e) {
             System.out.println("Sorry, but I have failed to save your list into the hard disk.");
         } catch (UnrecognisedCommandException e) {

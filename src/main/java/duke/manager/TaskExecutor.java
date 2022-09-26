@@ -13,7 +13,7 @@ public class TaskExecutor {
     private static final String MESSAGE_INDENTATION = "  ";
     public static final String SPACES_BETWEEN_WORDS = " ";
 
-    private static void listCommand(int taskNumber) {
+    public static void listCommand(int taskNumber) {
         if (taskNumber == 0) { // Guard Clause
             System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
             return;
@@ -62,17 +62,17 @@ public class TaskExecutor {
 
     private static void todoCommand(TaskList taskList, String description) {
         Task task = new Todo(description);
-        taskList.addTask(task);
+        taskList.addTask(task, true);
     }
 
     private static void deadlineCommand(TaskList taskList, String description, String time) {
         Task task = new Deadline(description, time);
-        taskList.addTask(task);
+        taskList.addTask(task, true);
     }
 
     private static void eventCommand(TaskList taskList, String description, String time) {
         Task task = new Event(description, time);
-        taskList.addTask(task);
+        taskList.addTask(task, true);
     }
 
     private static void findCommand(String lookingFor, int taskNumber) {

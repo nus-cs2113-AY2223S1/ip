@@ -5,13 +5,16 @@ import duke.exception.ExceptionChecker;
 
 import java.util.Arrays;
 
+/**
+ * This class deals with making sense of the user command.
+ */
 public class CommandParser {
 
     private static String EMPTY_STRING = "";
     private static String SPACES_BETWEEN_WORDS = " ";
 
     /**
-     * Returns the keyword of the command in lowercase
+     * Returns the keyword of the command in lowercase.
      *
      * @param input the entire command just read in by the scanner
      * @return the keyword of the command in lowercase
@@ -74,7 +77,6 @@ public class CommandParser {
          */
         String description = EMPTY_STRING;
         String taskParameter;
-        String lookingFor;
         int flagPosition;
 
         switch (keyword) {
