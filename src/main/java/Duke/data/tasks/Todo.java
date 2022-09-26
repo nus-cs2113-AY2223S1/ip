@@ -1,14 +1,15 @@
 package Duke.data.tasks;
+
+import Duke.data.exception.DukeException;
+
 public class Todo extends Task{
-    public Todo(String[] splitInputs) {
+    public Todo(String userInput) throws DukeException {
         super();
-        super.taskType = "T";
-        int i = 2;
-        super.description = splitInputs[1];
-        while(i < splitInputs.length) {
-            this.description += " ";
-            super.description += splitInputs[i++];
+        if(userInput.equals(" ")) {
+            throw new DukeException();
         }
+        super.taskType = "T";
+        super.description = userInput;
         super.dueDate = "";
     }
 }

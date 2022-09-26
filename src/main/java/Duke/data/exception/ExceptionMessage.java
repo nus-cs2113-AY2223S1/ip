@@ -2,8 +2,8 @@ package Duke.data.exception;
 
 public class ExceptionMessage {
     public static final String EMPTY_HANDLER = "The list is empty and there is nothing to print :(";
-    public static final String EMPTY_MARK_INDEX = "No index given to mark";
-    public static final String MARK_INDEX_OUT_OF_BOUNDS = "There is no task with index ";
+    public static final String EMPTY_MARK_INDEX = "No index given to mark/unmark:(\nPlease key in a valid integer :)";
+    public static final String INPUT_INDEX_OUT_OF_BOUNDS = "There is no task with index ";
     public static final String DEADLINE_INPUT_ERROR = ("Sorry :(\n I don't think you have properly keyed in all the parameters.\n" +
             "Please enter \"deadline\", followed by the task, followed by \"/by\", \n" +
             "and lastly followed by the due date :)");
