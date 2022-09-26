@@ -61,6 +61,21 @@ public class Parser {
         return result[0].substring(6);
     }
 
+    public static String parseMark(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    public static String parseUnmark(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    public static String parseDelete(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
     public static String parseEventDate(String line) {
         String[] result = line.split("/at ");
         return result[1];

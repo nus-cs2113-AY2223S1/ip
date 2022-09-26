@@ -9,11 +9,7 @@ public class UI {
 
     private static final String LINEBREAK = "____________________________________________________________";
 
-    static void printLine(){
-        System.out.println(LINEBREAK);
-    }
+    static void printLine(){System.out.println(LINEBREAK); }
 
-    static void printLogo(){
-        System.out.println("Hello from\n" + LOGO);
-    }
+    static void printLogo(){System.out.println("Hello from\n" + LOGO);}
 }
