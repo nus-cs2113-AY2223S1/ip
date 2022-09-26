@@ -26,4 +26,8 @@ public class ToDo extends Task {
         return "T | " + super.recordString();
 
     }
+    @Override
+    public String recordString() {
+        return "T | " + super.recordString();
+    }
 }
