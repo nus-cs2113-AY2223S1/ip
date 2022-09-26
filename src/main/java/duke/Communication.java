@@ -69,15 +69,11 @@ public class Communication {
         String name = str.split(" \\| ",2)[0];
         String at = str.split(" \\| ",2)[1];
 
-<<<<<<< HEAD
-
-=======
         Event task = new Event(name, at);
         if (isDone) {
             task.UpdateStatus();
         }
         return task;
->>>>>>> branch-Level-7
     }
     public static ToDo ToDos(String name, boolean isDone) {
         ToDo task = new ToDo(name);

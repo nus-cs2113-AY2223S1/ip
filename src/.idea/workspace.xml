@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d32fdde-6ff2-4475-b4f6-e2f8889253b3" name="Changes" comment="">
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Duke.java" afterDir="false" />
-=======
       <change afterPath="$PROJECT_DIR$/main/java/duke/Cache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Duke.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Duke.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/DukeException/DukeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/DukeException/DukeException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/DukeException/InvalidException.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/DukeException/InvalidException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/DukeException/todoException.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/DukeException/todoException.java" afterDir="false" />
->>>>>>> branch-Level-7
       <change beforePath="$PROJECT_DIR$/main/java/duke/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Communication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/duke/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Deadline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/duke/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Event.java" afterDir="false" />
