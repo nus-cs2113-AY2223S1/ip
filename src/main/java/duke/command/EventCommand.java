@@ -13,6 +13,6 @@ public class EventCommand extends Command{
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryAddEvent(tasks, keyword + " " + statement);
+        tryAddEvent(tasks, statement);
     }
 }

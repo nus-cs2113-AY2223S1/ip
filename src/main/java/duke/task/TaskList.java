@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public void add(Task task) {
         tasks.add(task);
@@ -63,18 +63,21 @@ public class TaskList {
      * Try to add an event, dealing with all the exceptions then adding.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description and time of the event.
      */
-    public static void tryAddEvent(ArrayList<Task> tasks, String line) {
+    public static void tryAddEvent(ArrayList<Task> tasks, String statement) {
         try {
-            if (line.replaceFirst("event", "").trim().equals("")) {
+            if (statement.equals("")) {
                 throw new DukeException();
             }
-            addEvent(tasks, line);
+            if (!statement.contains(" /at ")) {
+                throw new DukeException();
+            }
+            addEvent(tasks, statement);
             int eventId = tasks.size() - 1;
             printNewTask(tasks.get(eventId), tasks.size());
         } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! The description of an event cannot be empty.");
+            System.out.println("     T_T OOPS!!! The statement of the event is not correct.");
         }
     }
 
@@ -82,10 +85,10 @@ public class TaskList {
      * Directly add an event, having dealt with the exception before.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description and time of the event.
      */
-    public static void addEvent(ArrayList<Task> tasks, String line) {
-        String[] descriptionAt = line.replaceFirst("event ", "").split(" /at ");
+    public static void addEvent(ArrayList<Task> tasks, String statement) {
+        String[] descriptionAt = statement.split("\\s+/at\\s+");
         String eventDescription = descriptionAt[0];
         String at = descriptionAt[1];
         Event newEvent = new Event(eventDescription, at);
@@ -96,29 +99,32 @@ public class TaskList {
      * Try to add a deadline, dealing with all the exceptions then adding.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description and time of the deadline.
      */
-    public static void tryAddDeadline(ArrayList<Task> tasks, String line) {
+    public static void tryAddDeadline(ArrayList<Task> tasks, String statement) {
         try {
-            if (line.replaceFirst("deadline", "").trim().equals("")) {
+            if (statement.equals("")) {
                 throw new DukeException();
             }
-            addDeadline(tasks, line);
+            if (!statement.contains(" /by ")) {
+                throw new DukeException();
+            }
+            addDeadline(tasks, statement);
             int deadlineId = tasks.size() - 1;
             printNewTask(tasks.get(deadlineId), tasks.size());
         } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println("     T_T OOPS!!! The statement of the deadline is not correct.");
         }
     }
 
     /**
-     * Directly add an deadline, having dealt with the exception before.
+     * Directly add a deadline, having dealt with the exception before.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description and time of the deadline.
      */
-    public static void addDeadline(ArrayList<Task> tasks, String line) {
-        String[] descriptionBy = line.replaceFirst("deadline ", "").split(" /by ");
+    public static void addDeadline(ArrayList<Task> tasks, String statement) {
+        String[] descriptionBy = statement.split("\\s+/by\\s+ ");
         String deadlineDescription = descriptionBy[0];
         String by = descriptionBy[1];
         Deadline newDeadline = new Deadline(deadlineDescription, by);
@@ -129,14 +135,14 @@ public class TaskList {
      * Try to add a todoTask, dealing with all the exceptions then adding.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description of todoTask.
      */
-    public static void tryAddTodo(ArrayList<Task> tasks, String line) {
+    public static void tryAddTodo(ArrayList<Task> tasks, String statement) {
         try {
-            if (line.replaceFirst("todo", "").trim().equals("")) {
+            if (statement.equals("")) {
                 throw new DukeException();
             }
-            addTodo(tasks, line);
+            addTodo(tasks, statement);
             int todoId = tasks.size() - 1;
             printNewTask(tasks.get(todoId), tasks.size());
         } catch (DukeException e) {
@@ -148,11 +154,10 @@ public class TaskList {
      * Directly add an todoTask, having dealt with the exception before.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param statement the description of todoTask.
      */
-    public static void addTodo(ArrayList<Task> tasks, String line) {
-        String todoDescription = line.replaceFirst("todo ", "");
-        Todo newTodo = new Todo(todoDescription);
+    public static void addTodo(ArrayList<Task> tasks, String statement) {
+        Todo newTodo = new Todo(statement);
         tasks.add(newTodo);
     }
 

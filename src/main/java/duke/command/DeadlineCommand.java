@@ -14,6 +14,6 @@ public class DeadlineCommand extends Command {
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryAddDeadline(tasks, keyword + " " + statement);
+        tryAddDeadline(tasks, statement);
     }
 }

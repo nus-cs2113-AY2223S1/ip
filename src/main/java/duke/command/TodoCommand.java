@@ -14,6 +14,6 @@ public class TodoCommand extends Command {
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryAddTodo(tasks, keyword + " " + statement);
+        tryAddTodo(tasks, statement);
     }
 }
