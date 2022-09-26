@@ -7,7 +7,7 @@ import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     ArrayList<Task> tasks;
 
     static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event", "delete"};
@@ -15,35 +15,7 @@ public class TaskManager {
     public static final String DEADLINE_SEPERATOR = " /by ";
     public static final String EVENT_SEPERATOR = " /at ";
 
-    public static final String HELP_MESSAGE
-            = "\tlist of valid commands" +
-            "\n\t----------------------" +
-            "\n\n\ttodo " +
-            "\n\t----" +
-            "\n\trecord a generic task without a deadline; format: 'todo' [name of task]" +
-            "\n\n\tdeadline " +
-            "\n\t--------" +
-            "\n\trecord a task with a specific deadline; format: 'deadline' [name of task] '/by' [deadline]" +
-            "\n\n\tevent " +
-            "\n\t-----" +
-            "\n\trecord a task happening at a specific time; format: 'event' [name of event] '/at' [time]" +
-            "\n\n\tmark " +
-            "\n\t----" +
-            "\n\tmark a specific task as done; format: 'mark' [number of task]" +
-            "\n\n\tunmark" +
-            "\n\t------" +
-            "\n\tmark a specific task as not done; format: 'unmark' [number of task]" +
-            "\n\n\tdelete" +
-            "\n\t------" +
-            "\n\tdelete a specific task from the list of tasks; format: 'delete' [number of task]" +
-            "\n\n\tlist" +
-            "\n\t----" +
-            " \n\tlist out all tasks and their completion status" +
-            "\n\n\tbye" +
-            "\n\t---" +
-            " \n\texit the program";
-
-    public TaskManager() {
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
@@ -58,10 +30,6 @@ public class TaskManager {
                 return true;
         }
         return false;
-    }
-
-    public void printHelpMessage() {
-        System.out.println(HELP_MESSAGE);
     }
 
     public ArrayList<Task> getTasks() {
