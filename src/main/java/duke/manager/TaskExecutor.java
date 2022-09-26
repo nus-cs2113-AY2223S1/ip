@@ -91,7 +91,7 @@ public class TaskExecutor {
             task = TaskList.get(i);
             description = task.getDescription();
             splitDescription = description.split(SPACES_BETWEEN_WORDS);
-            if (Parser.searchArray(splitDescription, lookingFor) != -1) {
+            if (CommandParser.searchArray(splitDescription, lookingFor) != -1) {
                 System.out.println((i + 1) + "." + task);
                 tasksFound++;
             }

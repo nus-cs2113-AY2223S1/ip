@@ -1,7 +1,7 @@
 package duke.exception;
 
 import duke.task.TaskList;
-import duke.manager.Parser;
+import duke.manager.CommandParser;
 
 public class ExceptionChecker {
 
@@ -26,7 +26,7 @@ public class ExceptionChecker {
     }
 
     public static void checkFlagExistence(String input, String keyword) throws MissingFlagException {
-        int flagPosition = Parser.getFlagPosition(input, keyword);
+        int flagPosition = CommandParser.getFlagPosition(input, keyword);
         if (!doesFlagExists(flagPosition)) {
             throw new MissingFlagException(keyword);
         }

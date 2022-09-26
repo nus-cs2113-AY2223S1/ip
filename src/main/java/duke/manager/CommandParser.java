@@ -5,7 +5,7 @@ import duke.exception.ExceptionChecker;
 
 import java.util.Arrays;
 
-public class Parser {
+public class CommandParser {
 
     private static String EMPTY_STRING = "";
     private static String SPACES_BETWEEN_WORDS = " ";

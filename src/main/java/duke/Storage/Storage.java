@@ -2,7 +2,7 @@ package duke.Storage;
 
 import duke.exception.StorageReadException;
 import duke.exception.UnrecognisedCommandException;
-import duke.manager.Parser;
+import duke.manager.CommandParser;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -97,7 +97,7 @@ public class Storage {
         Scanner storedData = new Scanner(file);
         while (storedData.hasNext()) {
             newLine = storedData.nextLine();
-            keyword = Parser.getKeyword(newLine);
+            keyword = CommandParser.getKeyword(newLine);
             isDone = FileParser.getStoredBoolean(newLine);
             // get the parts of newLine that is not retrieved yet
             // firstly cut the part with the keyword: "T,D,E"

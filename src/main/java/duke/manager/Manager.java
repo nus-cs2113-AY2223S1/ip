@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Manager {
 
     private static Command commandCreator(String input) throws NoSuchCommandException {
-        String keyword = Parser.getKeyword(input);
+        String keyword = CommandParser.getKeyword(input);
         Command newCommand;
         switch (keyword) {
         case "bye":
@@ -55,7 +55,7 @@ public class Manager {
                 UserInterface.printBorderLines();
                 Command c = commandCreator(input);
                 // parse
-                Parser.parse(c, input);
+                CommandParser.parse(c, input);
                 // execute
                 if (c.isLegal()) {
                     TaskExecutor.execute(taskList, c);
