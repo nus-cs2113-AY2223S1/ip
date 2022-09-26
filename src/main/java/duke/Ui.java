@@ -44,9 +44,13 @@ public class Ui {
             "\n\n\tlist" +
             "\n\t----" +
             " \n\tlist out all tasks and their completion status" +
+            "\n\n\tfind" +
+            "\n\t----" +
+            " \n\tshortlist tasks with a specific keyword; format 'find' [keyword]" +
             "\n\n\tbye" +
             "\n\t---" +
             " \n\texit the program";
+    public static final String MISSING_FIND_KEYWORD_ERROR_MESSAGE = "Incorrect format! The search keyword for a find command cannot be empty!";
 
     Scanner scanner;
 
