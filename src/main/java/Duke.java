@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 
 public class Duke {
+
     public static void main(String[] args) throws IOException {
         System.out.println("Hello, my name is Duke! \nWhat can I do for you?");
 
         ArrayList<Task> todoList;
 
         Scanner myObj = new Scanner(System.in);
-
-
 
         Path path = Paths.get("src","main","data");
 
@@ -27,12 +26,12 @@ public class Duke {
         try{
             todoList = ReadFromFile.addFileContents(path);
             System.out.println("I found some tasks saved, I have added them to the current session");
-        } catch (FileNotFoundException | DukeExceptions e){
+
+        }catch (FileNotFoundException | DukeExceptions e){
             System.out.println("File not found, creating one");
             WriteToFile.createFile(path);
             todoList = new ArrayList<>();
         }
-
 
         String userInput;
         String taskType;
@@ -62,7 +61,9 @@ public class Duke {
                 case LIST:
                     System.out.println(LINES);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < todoList.size(); i++) { System.out.println("\t" + (i + 1) + ") " + todoList.get(i).toString());}
+                    for (int i = 0; i < todoList.size(); i++) {
+                        System.out.println("\t" + (i + 1) + ") " + todoList.get(i).toString());
+                    }
                     System.out.println(LINES);
                     break;
 
@@ -145,6 +146,19 @@ public class Duke {
                     System.out.println("Now you have " + (todoList.size() - 1) + taskString + "in the list.");
                     System.out.println(LINES);
                     todoList.remove(markedValue);
+                    break;
+                case FIND:
+                    int counter = 0;
+                    System.out.println("I have found these tasks:");
+                    for (Task currentTask: todoList){
+                        String currentDescription = currentTask.getDescription();
+                        if (currentDescription.contains(userInputNewValue)){
+                            System.out.println(counter + "." + currentTask.toString());
+                            counter++;
+                        }
+                    }
+
+                    break;
                 }
 
             } catch (Exception e) {

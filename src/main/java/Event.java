@@ -1,3 +1,6 @@
+/**
+ * Creates an event of type task
+ */
 public class Event extends Task{
     protected String date;
     public Event(String description) {
@@ -7,11 +10,20 @@ public class Event extends Task{
 
     public String getCommandIcon(){return "[E]";}
 
+    /**
+     * Sets the date of the event
+     *
+     * @param description
+     */
     public void setDate(String description){
         int dateIndex = description.indexOf("/") + 3;
         this.date = description.substring(dateIndex);
 
     }
+    /**
+     * Gets the date of the event
+     *
+     */
     public String getDate(){return date;}
 
     private String getDescriptionNoDate(){
