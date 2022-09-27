@@ -40,6 +40,8 @@ public class AddCommand extends Command {
                 break;
         }
         tasks.getTasks().add(task);
+        System.out.println("Got it, I've added the task below.");
+        ui.printTask(task);
         ui.printNumberOfTasksMessage(tasks.getTasks().size());
         storage.saveTasks(tasks);
 

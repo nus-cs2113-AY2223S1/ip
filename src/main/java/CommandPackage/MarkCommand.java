@@ -22,10 +22,9 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
             tasks.getTasks().get(index - 1).markAsDone();
-            System.out.println("____________________________________________________________\n" +
+            System.out.println(
                     "Nice! I've marked this task as done:\n" +
-                    tasks.getTasks().get(index - 1).toString() +
-                    "\n____________________________________________________________");
+                    tasks.getTasks().get(index - 1).toString() );
             storage.saveTasks(tasks);
         }catch(IndexOutOfBoundsException e){
             System.out.println("Task index is out of bounds");

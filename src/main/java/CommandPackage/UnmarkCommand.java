@@ -20,10 +20,9 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             tasks.getTasks().get(index - 1).markAsNotDone();
-            System.out.println("____________________________________________________________\n" +
+            System.out.println(
                     "Nice! I've marked this task as undone:\n" +
-                    tasks.getTasks().get(index - 1).toString() +
-                    "\n____________________________________________________________");
+                    tasks.getTasks().get(index - 1).toString() );
             storage.saveTasks(tasks);
         }catch(IndexOutOfBoundsException e){
             System.out.println("Task index is out of bounds");

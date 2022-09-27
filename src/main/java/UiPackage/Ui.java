@@ -1,6 +1,6 @@
 package UiPackage;
 
-import TaskPackage.TaskList;
+import TaskPackage.*;
 
 import java.util.Scanner;
 /*
@@ -35,6 +35,12 @@ public class Ui {
      */
     public static void showLine(){
         System.out.println("____________________________________________________________");
+    }
+    /*
+    Prints a single Task
+     */
+    public static void printTask(Task task){
+        System.out.println(task.toString());
     }
     /*
     reads input from user and returns it
@@ -80,9 +86,7 @@ public class Ui {
     Print message indicating number of tasks
      */
     public static void printNumberOfTasksMessage(int numberOfTasks){
-        showLine();
         System.out.println("You have " + numberOfTasks +" task(s) in the list.");
-        showLine();
     }
 
     /*
