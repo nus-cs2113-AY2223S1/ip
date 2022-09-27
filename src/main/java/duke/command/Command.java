@@ -6,43 +6,91 @@ import duke.task.model.Deadline;
 import duke.task.model.Event;
 import duke.task.model.Todo;
 
+/**
+ * Represents a command inputted by the user with all the parameters extracted from the string of command.
+ * The execution of command is done in this class object.
+ */
 public class Command {
     private final String command;
     private int taskNumber;
     private String description;
     private String datetime;
     private boolean isExit;
+    private boolean hasValidCommandKeyword;
 
+    /**
+     * Constructor of <code>Command</code> class when an invalid command is inputted.
+     */
     public Command() {
-        this.command = "test";
+        this.hasValidCommandKeyword = true;
+        this.command = CommandMenu.INVALID_COMMAND;
         this.isExit = false;
     }
 
+    /**
+     * Constructor of <code>Command</code> class for commands that don't need any parameters.
+     * For example, help, list and bye command.
+     * @param command Command keyword of the command inputted.
+     */
     public Command(String command) {
         this.command = command;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
+    /**
+     * Constructor of <code>Command</code> class for commands that need a task number to be provided.
+     * For example, mark task as done, mark task as undone and delete task operations.
+     * @param command Command keyword of the command inputted.
+     * @param taskNumber Task number of the task to be processed on.
+     */
     public Command(String command, int taskNumber) {
         this.command = command;
         this.taskNumber = taskNumber;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
+    /**
+     * Constructor of <code>Command</code> class for commands that only need a description to be provided.
+     * For example, adding a todo task and finding matching tasks.
+     * @param command Command keyword of the command inputted.
+     * @param description Description of the task to be added.
+     */
     public Command(String command, String description) {
         this.command = command;
         this.description = description;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
+    /**
+     * Constructor of <code>Command</code> class for commands that need a description and a datetime to be provided.
+     * For example, adding an event or a deadline task.
+     * @param command Command keyword of the command inputted.
+     * @param description Description of the task to be added.
+     * @param datetime Date and time of the task to be added.
+     */
     public Command(String command, String description, String datetime) {
         this.command = command;
         this.description = description;
         this.datetime = datetime;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
+    /**
+     * Execute the command. It executes task list operations to the specified task list, and interact with users using
+     * the specified user interface.
+     * @param taskList List of <code>Task</code> objects to be processed on.
+     * @param ui User interface of the application.
+     */
     public void execute(TaskList taskList, Ui ui) {
+        if (!this.hasValidCommandKeyword) {
+            ui.showInvalidCommandErrorMessage();
+            return;
+        }
+
         switch(command) {
         case CommandMenu.HELP_COMMAND:
             CommandMenu.display(ui);
@@ -81,13 +129,23 @@ public class Command {
         case "":
             ui.showEmptyInputErrorMessage();
             break;
-        case CommandMenu.INVALID_COMMAND:
-            ui.showInvalidCommandErrorMessage();
-            break;
         }
     }
 
+    /**
+     * Return the boolean value of whether the command has exit the application.
+     * @return Boolean value of whether the application is exit.
+     */
     public boolean isExit() {
         return this.isExit;
+    }
+
+    /**
+     * Set the <code>hasValidCommandKeyword</code> as false.
+     * <code>hasValidCommandKeyword</code> is true only when the command keyword is a command supported by the
+     * application. If the command is not supported, it is considered an invalid command keyword.
+     */
+    public void setHasInvalidCommandKeyword() {
+        this.hasValidCommandKeyword = false;
     }
 }
