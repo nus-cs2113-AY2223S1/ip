@@ -1,19 +1,18 @@
 package duke.data.task;
 
+import duke.common.Configurations;
 import duke.exceptions.TaskManagerException;
 import duke.storage.LocalStorage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Stores tasks and manages task-list.
  */
-@SuppressWarnings({"FieldMayBeFinal", "unused"})
+@SuppressWarnings({"FieldMayBeFinal", "unused", "PatternVariableCanBeUsed", "StatementWithEmptyBody"})
 public class TaskManager {
-    public final String DEFAULT_TASKS_PATH = "./data/";
-    public final String DEFAULT_TASKS_FILENAME = "tasks.txt";
-
     private ArrayList<Task> tasks;
     private String tasksPath;
     private String tasksFilename;
@@ -23,8 +22,8 @@ public class TaskManager {
      */
     public TaskManager() {
         this.tasks = new ArrayList<>();
-        this.tasksPath = DEFAULT_TASKS_PATH;
-        this.tasksFilename = DEFAULT_TASKS_FILENAME;
+        this.tasksPath = Configurations.LOCAL_STORAGE_TASKS_DIRECTORY_PATH;
+        this.tasksFilename = Configurations.LOCAL_STORAGE_TASKS_FILENAME;
     }
 
     /**
@@ -40,16 +39,45 @@ public class TaskManager {
     }
 
     /**
-     * Prints all tasks in list to standard out.
+     * Returns list of task in task manager.
+     *
+     * @return List of tasks.
      */
-    public void printTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            int taskNumber = i + 1;
-            System.out.print(taskNumber + ".");
+    public ArrayList<Task> getTasks() {
+        return new ArrayList<>(tasks);
+    }
 
-            Task task = tasks.get(i);
-            task.print();
+    /**
+     * Returns list of tasks in task manager that occurs at a certain date.
+     *
+     * @return List of tasks.
+     */
+    public ArrayList<Task> getTasks(LocalDate date) {
+        if (date == null) {
+            return getTasks();
         }
+
+        ArrayList<Task> tasksWithDate = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                LocalDate byDate = deadline.getBy().toLocalDate();
+                if (date.equals(byDate)) {
+                    tasksWithDate.add(deadline);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                LocalDate startAtDate = event.getStartAt().toLocalDate();
+                LocalDate endAtDate = event.getEndAt().toLocalDate();
+                if (!date.isBefore(startAtDate) && !date.isAfter(endAtDate)) {
+                    tasksWithDate.add(event);
+                }
+            } else {
+                // Do nothing if the current task is not an instance of the objects in the clauses above;
+            }
+        }
+
+        return tasksWithDate;
     }
 
     /**
@@ -73,12 +101,11 @@ public class TaskManager {
     /**
      * Gets a task from list of tasks.
      *
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @param taskIndex Task index.
      * @return Task.
      * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
-    public Task getTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
-        int taskIndex = taskNumber - 1;
+    public Task getTask(int taskIndex) throws TaskManagerException.TaskNotFoundException {
         try {
             return tasks.get(taskIndex);
         } catch (IndexOutOfBoundsException e) {
@@ -90,21 +117,20 @@ public class TaskManager {
      * Gets task number for task in list of tasks.
      *
      * @param task Task.
-     * @return Task number.
+     * @return Task index.
      */
-    public int getTaskNumber(Task task) {
-        return tasks.indexOf(task) + 1;
+    public int getTaskIndex(Task task) {
+        return tasks.indexOf(task);
     }
 
     /**
      * Deletes a task from list of tasks.
      *
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @param taskIndex Task index.
      * @return Task.
      * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
-    public Task deleteTask(int taskNumber) throws TaskManagerException.TaskNotFoundException {
-        int taskIndex = taskNumber - 1;
+    public Task deleteTask(int taskIndex) throws TaskManagerException.TaskNotFoundException {
         try {
             Task task = tasks.get(taskIndex);
             tasks.remove(taskIndex);
@@ -136,11 +162,10 @@ public class TaskManager {
     /**
      * Marks a task as completed.
      *
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @param taskIndex Task index.
      * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
-    public void markTaskAsCompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
-        int taskIndex = taskNumber - 1;
+    public void markTaskAsCompleted(int taskIndex) throws TaskManagerException.TaskNotFoundException {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(true);
@@ -152,11 +177,10 @@ public class TaskManager {
     /**
      * Marks a task as uncompleted.
      *
-     * @param taskNumber Task number of task as shown by the function {@link #printTasks()}.
+     * @param taskIndex Task index.
      * @throws TaskManagerException.TaskNotFoundException If task is not the task manager.
      */
-    public void markTaskAsUncompleted(int taskNumber) throws TaskManagerException.TaskNotFoundException {
-        int taskIndex = taskNumber - 1;
+    public void markTaskAsUncompleted(int taskIndex) throws TaskManagerException.TaskNotFoundException {
         try {
             Task task = tasks.get(taskIndex);
             task.setComplete(false);

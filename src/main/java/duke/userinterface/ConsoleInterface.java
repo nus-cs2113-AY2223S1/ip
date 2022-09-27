@@ -20,7 +20,9 @@ import duke.exceptions.ConsoleInputParserException;
 import duke.exceptions.TaskManagerException;
 import duke.data.task.Todo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,10 +106,25 @@ public class ConsoleInterface {
     /**
      * Prints all tasks in task manager to standard out.
      */
-    public void executeCommandList() {
-        System.out.println("Here are the tasks in your list:");
+    public void executeCommandList(ConsoleCommandList consoleCommand) {
+        LocalDate date = consoleCommand.getDate();
 
-        taskManager.printTasks();
+        if (date == null) {
+            System.out.println("Here are the tasks in your list:");
+        } else {
+            String formattedDate = date.format(DateTimeFormatter.ofPattern(Configurations.CONSOLE_INTERFACE_DATE_FORMAT));
+            System.out.println("Here are the tasks in your list occurring on " + formattedDate + ":");
+        }
+
+        ArrayList<Task> tasks = taskManager.getTasks(date);
+
+        for (int taskIndex = 0; taskIndex < tasks.size(); taskIndex++) {
+            int taskNumber = taskIndex + 1;
+            System.out.print(taskNumber + ".");
+
+            Task task = tasks.get(taskIndex);
+            task.print();
+        }
     }
 
     /**
@@ -117,12 +134,13 @@ public class ConsoleInterface {
      */
     public void executeCommandMark(ConsoleCommandMark consoleCommandMark) {
         int taskNumber = consoleCommandMark.getTaskNumber();
+        int taskIndex = taskNumber - 1;
 
         try {
-            taskManager.markTaskAsCompleted(taskNumber);
+            taskManager.markTaskAsCompleted(taskIndex);
 
             System.out.println("Nice! I've marked this task as done:");
-            taskManager.getTask(taskNumber).print();
+            taskManager.getTask(taskIndex).print();
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException taskNotFoundException) {
@@ -139,12 +157,13 @@ public class ConsoleInterface {
      */
     public void executeCommandUnmark(ConsoleCommandUnmark consoleCommandUnmark) {
         int taskNumber = consoleCommandUnmark.getTaskNumber();
+        int taskIndex = taskNumber - 1;
 
         try {
-            taskManager.markTaskAsUncompleted(taskNumber);
+            taskManager.markTaskAsUncompleted(taskIndex);
 
             System.out.println("OK, I've marked this task as not done yet:");
-            taskManager.getTask(taskNumber).print();
+            taskManager.getTask(taskIndex).print();
 
             taskManager.saveTasks();
         } catch (TaskManagerException.TaskNotFoundException e) {
@@ -230,9 +249,10 @@ public class ConsoleInterface {
      */
     public void executeCommandDelete(ConsoleCommandDelete consoleCommandDelete) {
         int taskNumber = consoleCommandDelete.getTaskNumber();
+        int taskIndex = taskNumber - 1;
 
         try {
-            Task task = taskManager.deleteTask(taskNumber);
+            Task task = taskManager.deleteTask(taskIndex);
 
             System.out.println("Noted. I've removed this task:");
             task.print();
@@ -258,7 +278,8 @@ public class ConsoleInterface {
 
         System.out.println("Here are the matching tasks in your list:");
         for (Task task : matchingTasks) {
-            System.out.print(taskManager.getTaskNumber(task) + ".");
+            int taskNumber = taskManager.getTaskIndex(task) + 1;
+            System.out.print(taskNumber + ".");
             task.print();
         }
     }
@@ -282,25 +303,26 @@ public class ConsoleInterface {
                 consoleCommand = ConsoleInputParser.parseConsoleInput(consoleInput);
                 hasParseError = false;
             } catch (ConsoleInputParserException.CommandNotFoundException |
+                     ConsoleInputParserException.InvalidCommandListException |
                      ConsoleInputParserException.InvalidCommandMarkException |
                      ConsoleInputParserException.InvalidCommandUnmarkException |
                      ConsoleInputParserException.InvalidCommandTodoException |
-                     ConsoleInputParserException.InvalidCommandDeadlineException |
-                     ConsoleInputParserException.InvalidCommandEventException |
-                     ConsoleInputParserException.InvalidCommandDeleteException |
-                     ConsoleInputParserException.InvalidCommandFindException |
                      ConsoleInputParserException.ForbiddenCharactersCommandTodoException |
+                     ConsoleInputParserException.InvalidCommandDeadlineException |
                      ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException |
-                     ConsoleInputParserException.ForbiddenCharactersCommandEventException e) {
+                     ConsoleInputParserException.InvalidCommandEventException |
+                     ConsoleInputParserException.ForbiddenCharactersCommandEventException |
+                     ConsoleInputParserException.InvalidCommandDeleteException |
+                     ConsoleInputParserException.InvalidCommandFindException e) {
                 printErrorMessage(e.getMessage());
             }
 
             if (hasParseError) {
-                // Do nothing on parse error
+                // Do nothing if there is a parse error
             } else if (consoleCommand instanceof ConsoleCommandBye) {
                 return;
             } else if (consoleCommand instanceof ConsoleCommandList) {
-                executeCommandList();
+                executeCommandList((ConsoleCommandList) consoleCommand);
             } else if (consoleCommand instanceof ConsoleCommandMark) {
                 executeCommandMark((ConsoleCommandMark) consoleCommand);
             } else if (consoleCommand instanceof ConsoleCommandUnmark) {
@@ -316,7 +338,7 @@ public class ConsoleInterface {
             } else if (consoleCommand instanceof ConsoleCommandFind) {
                 executeCommandFind((ConsoleCommandFind) consoleCommand);
             } else {
-                // Do nothing on command not found
+                // Do nothing if the command is not found
             }
 
             ConsoleInterface.printBlankLine();

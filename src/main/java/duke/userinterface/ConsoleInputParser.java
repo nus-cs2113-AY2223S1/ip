@@ -15,6 +15,7 @@ import duke.data.task.Task;
 import duke.exceptions.ConsoleInputParserException;
 import duke.storage.LocalStorage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -46,8 +47,19 @@ public class ConsoleInputParser {
         return new ConsoleCommandBye();
     }
 
-    private static ConsoleCommandList parseCommandList() {
-        return new ConsoleCommandList();
+    private static ConsoleCommandList parseCommandList(String arguments) throws ConsoleInputParserException.InvalidCommandListException {
+        if (arguments.isEmpty()) {
+            return new ConsoleCommandList();
+        }
+
+        LocalDate date;
+        try {
+            date = LocalDate.parse(arguments, DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
+        } catch (DateTimeParseException e) {
+            throw new ConsoleInputParserException.InvalidCommandListException(Messages.CONSOLE_ERROR_COMMAND_LIST_INVALID_SYNTAX);
+        }
+
+        return new ConsoleCommandList(date);
     }
 
     private static ConsoleCommandMark parseCommandMark(String arguments) throws ConsoleInputParserException.InvalidCommandMarkException {
@@ -167,29 +179,31 @@ public class ConsoleInputParser {
      * @param consoleInput Command and arguments entered by the user.
      * @return Parsed arguments for the corresponding commands.
      * @throws ConsoleInputParserException.CommandNotFoundException                    If the command is not found.
+     * @throws ConsoleInputParserException.InvalidCommandListException                 If the format of the lsit command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandMarkException                 If the format of the mark command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandUnmarkException               If the format of the unmark command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandTodoException                 If the format of the todo command is not valid.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandTodoException     If forbidden characters are found in the todo command.
      * @throws ConsoleInputParserException.InvalidCommandDeadlineException             If the format of the deadline command is not valid.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException If forbidden characters are found in the deadline command.
      * @throws ConsoleInputParserException.InvalidCommandEventException                If the format of the event command is not valid.
+     * @throws ConsoleInputParserException.ForbiddenCharactersCommandEventException    If forbidden characters are found in the event command.
      * @throws ConsoleInputParserException.InvalidCommandDeleteException               If the format of the delete command is not valid.
      * @throws ConsoleInputParserException.InvalidCommandFindException                 If the format of the find command is not valid.
-     * @throws ConsoleInputParserException.ForbiddenCharactersCommandTodoException     If forbidden characters are found in the todo command.
-     * @throws ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException If forbidden characters are found in the deadline command.
-     * @throws ConsoleInputParserException.ForbiddenCharactersCommandEventException    If forbidden characters are found in the event command.
      */
     public static ConsoleCommand parseConsoleInput(ConsoleInput consoleInput) throws
             ConsoleInputParserException.CommandNotFoundException,
+            ConsoleInputParserException.InvalidCommandListException,
             ConsoleInputParserException.InvalidCommandMarkException,
             ConsoleInputParserException.InvalidCommandUnmarkException,
             ConsoleInputParserException.InvalidCommandTodoException,
-            ConsoleInputParserException.InvalidCommandDeadlineException,
-            ConsoleInputParserException.InvalidCommandEventException,
-            ConsoleInputParserException.InvalidCommandDeleteException,
-            ConsoleInputParserException.InvalidCommandFindException,
             ConsoleInputParserException.ForbiddenCharactersCommandTodoException,
+            ConsoleInputParserException.InvalidCommandDeadlineException,
             ConsoleInputParserException.ForbiddenCharactersCommandDeadlineException,
-            ConsoleInputParserException.ForbiddenCharactersCommandEventException {
+            ConsoleInputParserException.InvalidCommandEventException,
+            ConsoleInputParserException.ForbiddenCharactersCommandEventException,
+            ConsoleInputParserException.InvalidCommandDeleteException,
+            ConsoleInputParserException.InvalidCommandFindException {
         String command = consoleInput.getCommand();
         String arguments = consoleInput.getArguments();
 
@@ -197,7 +211,7 @@ public class ConsoleInputParser {
         case COMMAND_BYE:
             return parseCommandBye();
         case COMMAND_LIST:
-            return parseCommandList();
+            return parseCommandList(arguments);
         case COMMAND_MARK:
             return parseCommandMark(arguments);
         case COMMAND_UNMARK:

@@ -10,7 +10,7 @@ public class ConsoleCommandUnmark extends ConsoleCommand {
     /**
      * Initializes object with arguments for unmark command.
      *
-     * @param taskNumber Task number of the task as listed by the function {@link duke.data.task.TaskManager#printTasks()}.
+     * @param taskNumber Task number of the task as listed by the function {@link duke.userinterface.ConsoleInterface#executeCommandList(ConsoleCommandList)}.
      */
     public ConsoleCommandUnmark(int taskNumber) {
         this.taskNumber = taskNumber;

@@ -1,9 +1,7 @@
 package duke.exceptions;
 
-import duke.userinterface.ConsoleInputParser;
-
 /**
- * Define exceptions thrown by {@link ConsoleInputParser#}.
+ * Define exceptions thrown by {@link duke.userinterface.ConsoleInputParser#}.
  */
 @SuppressWarnings("unused")
 public class ConsoleInputParserException {
@@ -15,6 +13,18 @@ public class ConsoleInputParserException {
         }
 
         public CommandNotFoundException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Thrown when command list is not valid.
+     */
+    public static class InvalidCommandListException extends DukeException {
+        public InvalidCommandListException() {
+        }
+
+        public InvalidCommandListException(String message) {
             super(message);
         }
     }
@@ -105,7 +115,7 @@ public class ConsoleInputParserException {
     }
 
     /**
-     * Thrown when forbidden characters are found in command todo
+     * Thrown when forbidden characters are found in command todo.
      */
     public static class ForbiddenCharactersCommandTodoException extends DukeException {
         public ForbiddenCharactersCommandTodoException() {
@@ -118,7 +128,7 @@ public class ConsoleInputParserException {
     }
 
     /**
-     * Thrown when forbidden characters are found in command deadline
+     * Thrown when forbidden characters are found in command deadline.
      */
     public static class ForbiddenCharactersCommandDeadlineException extends DukeException {
         public ForbiddenCharactersCommandDeadlineException() {
@@ -131,7 +141,7 @@ public class ConsoleInputParserException {
     }
 
     /**
-     * Thrown when forbidden characters are found in command event
+     * Thrown when forbidden characters are found in command event.
      */
     public static class ForbiddenCharactersCommandEventException extends DukeException {
         public ForbiddenCharactersCommandEventException() {

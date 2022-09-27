@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Stores tasks.
  */
 public class Task {
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
 
     protected String description;

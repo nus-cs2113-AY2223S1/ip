@@ -1,9 +1,7 @@
 package duke.exceptions;
 
-import duke.Duke;
-
 /**
- * Define exceptions thrown by {@link Duke#}.
+ * Define exceptions thrown by {@link duke.Duke#}.
  */
 public abstract class DukeException extends Exception {
     private String message;

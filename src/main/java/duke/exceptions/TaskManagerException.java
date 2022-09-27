@@ -1,14 +1,12 @@
 package duke.exceptions;
 
-import duke.data.task.TaskManager;
-
 /**
- * Define exceptions thrown by {@link TaskManager#}.
+ * Define exceptions thrown by {@link duke.data.task.TaskManager#}.
  */
 @SuppressWarnings("unused")
 public class TaskManagerException {
     /**
-     * Thrown when a task cannot be found in {@link TaskManager#}.
+     * Thrown when a task cannot be found in {@link duke.data.task.TaskManager#}.
      */
     public static class TaskNotFoundException extends DukeException {
         public TaskNotFoundException() {
@@ -20,7 +18,7 @@ public class TaskManagerException {
     }
 
     /**
-     * Thrown when a task cannot be saved by {@link TaskManager#}.
+     * Thrown when a task cannot be saved by {@link duke.data.task.TaskManager#}.
      */
     public static class TasksFileIOException extends DukeException {
         public TasksFileIOException() {
