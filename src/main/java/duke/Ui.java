@@ -1,11 +1,10 @@
 package duke;
+
+import java.util.Scanner;
 /**
  * Deals with interactions with the user,
  * takes in user input and handles user output
  */
-
-import java.util.Scanner;
-
 public class Ui {
     /**
      * Prints a line separator.
@@ -17,7 +16,7 @@ public class Ui {
     /**
      * Prints welcome message.
      */
-    public static void showWelcome() {
+    public void showWelcome() {
         String logo =  " _____ __    _____ _____ _____\n"
                 + "| __  |  |  |     |     |     |\n"
                 + "| __ -|  |__|  |  |  |  | | | |\n"
@@ -33,7 +32,7 @@ public class Ui {
     /**
      * Prints goodbye message.
      */
-    public static void showGoodbye() {
+    public void showGoodbye() {
         System.out.println("Bye. Hope to see you again!");
         drawLine();
     }
@@ -42,10 +41,9 @@ public class Ui {
      * Reads in user input and returns it.
      * @return user input.
      */
-    public static String readCommand() {
+    public String readCommand() {
         Scanner in = new Scanner(System.in);
-        String command = in.nextLine();
-        return command;
+        return in.nextLine();
     }
 
     /**
@@ -53,7 +51,7 @@ public class Ui {
      * @param tasks List of tasks.
      * @param taskCounter Number of tasks.
      */
-    public static void showList(TaskList tasks, int taskCounter) {
+    public void showList(TaskList tasks, int taskCounter) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCounter; ++i) {
             char taskTypeCharacter = tasks.getTasks().get(i).getType();
@@ -68,7 +66,7 @@ public class Ui {
      * @param tasks List of tasks.
      * @param taskID User input of task ID.
      */
-    public static void showMarked(TaskList tasks, int taskID) {
+    public void showMarked(TaskList tasks, int taskID) {
         System.out.println("Nice! I've marked this task as done:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
         System.out.println("[" + taskType + "]" + "[X] " + tasks.getTasks().get(taskID - 1));
@@ -79,7 +77,7 @@ public class Ui {
      * @param tasks List of tasks.
      * @param taskID User input of task ID.
      */
-    public static void showUnmarked(TaskList tasks, int taskID) {
+    public void showUnmarked(TaskList tasks, int taskID) {
         System.out.println("Okay, I've marked this task as not done yet:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
         System.out.println("[" + taskType + "]"+ "[ ] " + tasks.getTasks().get(taskID - 1));
@@ -90,7 +88,7 @@ public class Ui {
      * @param tasks List of tasks.
      * @param taskID User input of task ID.
      */
-    public static void showDeleted(TaskList tasks, int taskID) {
+    public void showDeleted(TaskList tasks, int taskID) {
         System.out.println("Noted. I've removed this task:");
         char taskType = tasks.getTasks().get(taskID - 1).getType();
         System.out.print("[" + taskType + "]");
@@ -109,7 +107,7 @@ public class Ui {
         System.out.println("  [" + task.getType() + "]" + "[ ] " + task);
         System.out.println("Now you have " + taskCounter + " tasks in your list.");
     }
-    public static void showSearched(TaskList tasks, String keyword) {
+    public void showSearched(TaskList tasks, String keyword) {
         int foundSearches = 0;
         for (int i = 0; i < tasks.getTasks().size(); ++i) {
             if (tasks.getTasks().get(i).getName().contains(keyword)) {
@@ -127,7 +125,7 @@ public class Ui {
             System.out.println("There are no matching tasks in your list");
         }
     }
-    public static void showInvalidInputError() {
+    public void showInvalidInputError() {
         System.out.println("Sorry, I do not understand. Please try again.");
     }
     public static void showLoadingError() {
@@ -135,14 +133,14 @@ public class Ui {
         System.out.println("Let's start with a new empty list");
         System.out.println();
     }
-    public static void showError(String errorMessage) {
+    public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
     public static void showInvalidFormat() {
         System.out.println("Task list format is invalid.");
     }
-    public static void showOutOfBoundsError() {
+    public void showOutOfBoundsError() {
         System.out.println("Task ID not found. Please enter a valid task ID.");
     }
 }

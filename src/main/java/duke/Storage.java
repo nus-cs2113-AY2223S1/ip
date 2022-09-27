@@ -14,7 +14,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    public static String getFilePath() {
+    public String getFilePath() {
         return filePath;
     }
 
@@ -24,7 +24,7 @@ public class Storage {
      * @param textToAdd Text to write into the file.
      * @throws IOException If input/output operations fail or are interrupted.
      */
-    public static void saveFile(String filePath, String textToAdd) throws IOException {
+    public void saveFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         fw.write(textToAdd);
         fw.close();

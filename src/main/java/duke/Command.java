@@ -9,21 +9,18 @@ import java.io.IOException;
 public class Command {
     private static String command;
     public Command(String command) {
-        this.command = command;
+        Command.command = command;
     }
 
     public static String getCommand() {
         return command;
     }
 
-    public static boolean isExit() {
-        if (command.equals("bye")) {
-            return true;
-        }
-        return false;
+    public boolean isExit() {
+        return command.equals("bye");
     }
 
-    public static void execute(TaskList tasks, Ui ui, Storage storage, String fullCommand) throws DukeException, IOException{
+    public void execute(TaskList tasks, Ui ui, Storage storage, String fullCommand) throws DukeException, IOException{
         String command = getCommand();
         int taskID;
         String keyword;

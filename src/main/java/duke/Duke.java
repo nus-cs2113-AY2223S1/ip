@@ -7,15 +7,15 @@ import java.io.IOException;
  * A task manager app that uses Command-Line Interface (CLI)
  */
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     public Duke(String filePath) {
         ui  = new Ui();
         storage = new Storage(filePath);
         try {
-            String fileContent = storage.loadFile();
-            if(fileContent == "") {   //file is empty
+            String fileContent = Storage.loadFile();
+            if(fileContent.equals("")) {   //file is empty
                 tasks = new TaskList();
             } else {                    //file has content
                 tasks = new TaskList(fileContent);
@@ -35,7 +35,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.drawLine();
+                Ui.drawLine();
                 Command c = new Command(Parser.parse(fullCommand));
                 c.execute(tasks, ui, storage, fullCommand);
                 isExit = c.isExit();
@@ -46,7 +46,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 ui.showOutOfBoundsError();
             } finally {
-                ui.drawLine();
+                Ui.drawLine();
             }
         }
         ui.showGoodbye();

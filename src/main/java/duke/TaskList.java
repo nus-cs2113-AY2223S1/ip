@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * and deals with operations in the list eg. add, delete
  */
 public class TaskList {
-    private ArrayList<Task> tasks= new ArrayList<>();
+    private final ArrayList<Task> tasks= new ArrayList<>();
     private int taskCounter = 0;
 
     public TaskList() {
@@ -84,15 +84,10 @@ public class TaskList {
      * and adds it into the task list.
      * @param fullCommand Entire user input.
      */
-    public void createTask(String fullCommand) {
+    public void createTask(String fullCommand) throws DukeException{
         fullCommand = fullCommand.trim();
         char taskType = fullCommand.toUpperCase().charAt(0);    //first char is the type in uppercase
-        try {
-            fullCommand = Parser.removeTaskType(fullCommand);   //get taskName from command
-        } catch (DukeException e) {
-            Ui.showError(e.getErrorMessage());
-            return;
-        }
+        fullCommand = Parser.removeTaskType(fullCommand);   //get taskName from command
         String taskDateTime, taskName;
         switch(taskType) {
         case 'T':
@@ -117,7 +112,7 @@ public class TaskList {
             }
             break;
         default:
-            Ui.drawLine();
+
         }
     }
     private void createNewToDo(ToDo toDo) {
