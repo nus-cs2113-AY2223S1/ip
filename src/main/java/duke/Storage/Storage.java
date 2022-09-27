@@ -1,8 +1,10 @@
 package duke.Storage;
 
+import duke.exception.NoTasksException;
 import duke.exception.StorageReadException;
-import duke.exception.UnrecognisedCommandException;
 import duke.manager.CommandParser;
+import duke.manager.TaskExecutor;
+import duke.manager.UserInterface;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -15,20 +17,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class that deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
-    /*
-        Will follow the format below:
-        T | 1 | read book
-        D | 0 | return book | June 6th
-        E | 0 | project meeting | Aug 6th 2-4pm
-    */
+    private static final String DEFAULT_FOLDER = "./data";
+    private static final String DEFAULT_FILE_PATH = "./data/duke.txt";
+    private static final String SEPARATOR_LINE = "|";
 
-    private static String DEFAULT_FOLDER = "./data";
-    private static String DEFAULT_FILE_PATH = "./data/duke.txt";
-    private static String SEPARATOR_LINE = "|";
-    private static String SPACED_SEPARATOR = " | ";
-
+    /**
+     * Creates the directory/folder and the file to load from at the start of execution if
+     * the directory/folder and/or file is missing.
+     *
+     * @return a list that stores tasks
+     * @throws IOException If an input or output exception occurred
+     */
     private static TaskList createMissingFile() throws IOException {
         // first handle the folder-does-not-exist-case
         File folder = new File(DEFAULT_FOLDER);
@@ -39,10 +43,14 @@ public class Storage {
         File file = new File(DEFAULT_FILE_PATH);
         file.createNewFile(); // this part throws IOException
         System.out.println("Since the storage file is missing, I have created it for you.");
-        TaskList taskList = new TaskList();
-        return taskList;
+        return new TaskList();
     }
 
+    /**
+     * Calls the <code>createMissingFile</code> and handles any IOExceptions that occurs.
+     *
+     * @return an empty list to store tasks in
+     */
     private static TaskList createManager() {
         try {
             return createMissingFile();
@@ -52,6 +60,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates todo, deadline and event tasks locally based on the data stored in the file.
+     *
+     * @param input the truncated stored data with only description and time fields left
+     * @param keyword the type of task to create
+     * @return the created <code>Task</code> object
+     * @throws StorageReadException If unexpected characters or values are read during loading of data
+     */
     private static Task loadTask(String input, String keyword) throws StorageReadException {
         Task currentTask;
         String time;
@@ -81,6 +97,13 @@ public class Storage {
         return currentTask;
     }
 
+    /**
+     * Reads the data in the indicated storage file line by line and processes it for task creation.
+     *
+     * @return a list with the stored tasks
+     * @throws FileNotFoundException If the file to read data from does not exist
+     * @throws StorageReadException If unexpected characters or values are read during loading of data
+     */
     private static TaskList loadStorage() throws FileNotFoundException, StorageReadException {
         Task currentTask;
         String newLine;
@@ -109,62 +132,35 @@ public class Storage {
             // create tasks based on storage input
             currentTask = loadTask(unprocessedInput, keyword);
             currentTask.setDone(isDone);
-            storedTasks.addTask(currentTask);
+            storedTasks.addTask(currentTask, false);
         }
         return storedTasks;
     }
 
-    private static String saveTodoMessage(Task task, String formattedKeyword, int booleanInt) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
-                + task.getDescription();
-        return saveMessage;
-    }
-
-    private static String saveDeadlineOrEventMessage(Task task, String formattedKeyword, int booleanInt, String time) {
-        String saveMessage = formattedKeyword + SPACED_SEPARATOR + booleanInt + SPACED_SEPARATOR
-                + task.getDescription() + SPACED_SEPARATOR + time;
-        return saveMessage;
-    }
-
-    private static int setBooleanInt(boolean isDone) {
-        if (isDone) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-
-    private static String saveTask(Task task) throws UnrecognisedCommandException {
-        String keyword = task.getKeyword();
-        String time;
+    /**
+     * Creates a string with the task details for saving into the hard disk.
+     *
+     * @param task task to save in the hard disk
+     * @return a string message containing task data to write into the file
+     */
+    private static String saveTask(Task task) {
         String saveMessage;
-        int booleanInt = setBooleanInt(task.isDone());
-        switch (keyword) {
-        case "todo":
-            saveMessage = saveTodoMessage(task, "T", booleanInt);
-            break;
-        case "deadline":
-            time = ((Deadline)task).getBy();
-            saveMessage = saveDeadlineOrEventMessage(task, "D", booleanInt, time);
-            break;
-        case "event":
-            time = ((Event)task).getAt();
-            saveMessage = saveDeadlineOrEventMessage(task, "E", booleanInt, time);
-            break;
-        default:
-            throw new UnrecognisedCommandException();
-        }
+        saveMessage = task.saveFormat();
         return saveMessage;
     }
 
-    private static void saveStorage(TaskList taskList) throws IOException, UnrecognisedCommandException {
+    /**
+     * Loops for every task in the list and crafts a string of task details and writes it
+     * into the file at the default file path.
+     *
+     * @throws IOException If an input or output exception occurred.
+     */
+    private static void saveStorage() throws IOException, NoTasksException {
         String saveMessage;
         FileWriter storingData = new FileWriter(DEFAULT_FILE_PATH);
         int taskNumber = TaskList.getSize();
         if (taskNumber == 0) { // Guard Clause
-            System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
-            return;
+            throw new NoTasksException();
         }
 
         for (int i = 0; i < taskNumber; i++) {
@@ -175,6 +171,13 @@ public class Storage {
         storingData.close();
     }
 
+    /**
+     * Calls the <code>loadStorage</code> method and handles the FileNotFoundException if file
+     * is not present in the file path and the StorageReadException if there was an error in
+     * reading the stored data.
+     *
+     * @return either a list with stored tasks or an empty list
+     */
     public static TaskList loadManager() {
         try {
             return loadStorage();
@@ -186,12 +189,15 @@ public class Storage {
         }
     }
 
-    public static void saveManager(TaskList taskList) {
+    /**
+     * Calls the method to save any changes and handles any IOExceptions.
+     */
+    public static void saveManager() {
         try {
-            saveStorage(taskList);
+            saveStorage();
         } catch (IOException e) {
             System.out.println("Sorry, but I have failed to save your list into the hard disk.");
-        } catch (UnrecognisedCommandException e) {
+        } catch (NoTasksException e) {
             System.out.println(e.getMessage());
         }
     }

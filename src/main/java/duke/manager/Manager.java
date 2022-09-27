@@ -2,12 +2,24 @@ package duke.manager;
 
 import duke.Storage.Storage;
 import duke.command.*;
+import duke.exception.MissingArgumentException;
 import duke.exception.NoSuchCommandException;
+import duke.exception.TooManyArgumentsException;
 import duke.task.TaskList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading of saved tasks in the hard drive if any and the creation of commands.
+ */
 public class Manager {
 
+    /**
+     * Creates a command based on the type of command the user provide.
+     *
+     * @param input the user command that was loaded or read by the scanner
+     * @return the command created
+     * @throws NoSuchCommandException If the command provided is not recognised by Duke
+     */
     private static Command commandCreator(String input) throws NoSuchCommandException {
         String keyword = CommandParser.getKeyword(input);
         Command newCommand;
@@ -45,6 +57,11 @@ public class Manager {
         return newCommand;
     }
 
+    /**
+     * Reads the user input and passes it the relevant methods and classes for execution.
+     *
+     * @param taskList the list of tasks
+     */
     private static void readInput(TaskList taskList) {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
@@ -64,15 +81,23 @@ public class Manager {
                 if (c.isBye()) {
                     UserInterface.printGoodbye();
                 }
-                Storage.saveManager(taskList);
+                Storage.saveManager();
                 UserInterface.printBorderLines();
             } catch (NoSuchCommandException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                UserInterface.printBorderLines();
+            } catch (TooManyArgumentsException | MissingArgumentException e) {
+                System.out.println(e.getMessage());
                 UserInterface.printBorderLines();
             }
         }
     }
 
+    /**
+     * Prints the hello message for the user upon program start up. Then calls
+     * <code>loadManager</code> and stores the returned list and reads it for storing
+     * into Duke.
+     */
     public static void run() {
         UserInterface.printHello();
         // load
