@@ -12,6 +12,7 @@ import static duke.common.Messages.MESSAGE_DUKE_FILE_CREATION;
 import static duke.common.Messages.MESSAGE_WELCOME;
 import static duke.common.Messages.MESSAGE_BYE;
 import static duke.common.Messages.MESSAGE_UNDEFINED_COMMAND;
+import static duke.common.Messages.MESSAGE_NO_MATCHING_TASK;
 import static duke.common.Messages.MESSAGE_DUKE_FILE_NOT_FOUND;
 import static duke.common.Messages.MESSAGE_IO_EXCEPTION_TRIGGERED;
 import static duke.common.Messages.MESSAGE_SECURITY_EXCEPTION_TRIGGERED;
@@ -26,6 +27,7 @@ import static duke.common.Messages.MESSAGE_EVENT_MISSING_TIME;
 import static duke.common.Messages.MESSAGE_INVALID_TIME_FORMAT;
 import static duke.common.Messages.MESSAGE_NO_MATCHING_DEADLINE_OR_EVENT;
 import static duke.common.Messages.MESSAGE_EMPTY_LIST;
+import static duke.common.Messages.MESSAGE_EMPTY_KEYWORD;
 
 public class Ui {
     private final Scanner in;
@@ -34,7 +36,7 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
-    public static void showToUser(String message) {
+    public void showToUser(String message) {
         System.out.println(message);
     }
 
@@ -116,6 +118,18 @@ public class Ui {
         System.out.println("Now you have " + currentListSize + task + " in the list.");
     }
 
+    public void printMatchingTaskMessage(String matchingTaskDescriptions, int matchingTaskSize) {
+        boolean hasFound = (matchingTaskSize > 0);
+        if (!hasFound) {
+            showToUser(MESSAGE_NO_MATCHING_TASK);
+        } else {
+            boolean isSingleTask = (matchingTaskSize == 1);
+            String matchingTaskString = isSingleTask ? " is the matching task" : " are the matching tasks";
+            showToUser("Here" + matchingTaskString + " in your list:");
+            showToUser(matchingTaskDescriptions);
+        }
+    }
+
     //Show Exception Messages Zone
     public void showDukeTextFileNotFoundMessage() {
         showToUser(MESSAGE_DUKE_FILE_NOT_FOUND);
@@ -175,5 +189,9 @@ public class Ui {
 
     public void showEmptyListMessage() {
         showToUser(MESSAGE_EMPTY_LIST);
+    }
+
+    public void showEmptyKeywordExceptionMessage() {
+        showToUser(MESSAGE_EMPTY_KEYWORD);
     }
 }
