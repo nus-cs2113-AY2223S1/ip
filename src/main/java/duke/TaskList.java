@@ -7,22 +7,43 @@ import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains an {@code ArrayList} of {@code Task}s, and contains methods to do a variety of methods involving these tasks.
+ * These include adding, removing, deleting, marking and unmarking as done, and finding.
+ *
+ * @author Dhanish
+ */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event", "delete", "find"};
 
     public static final String DEADLINE_SEPERATOR = " /by ";
     public static final String EVENT_SEPERATOR = " /at ";
 
+    /**
+     * Constructor that initialises an empty {@code ArrayList} of {@code Task}s.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the {@code Task} corresponding to the input task number.
+     *
+     * @param taskNumber - number of the {@code Task} to be retrieved.
+     * @return the corresponding {@code Task}.
+     */
     public Task getTask(int taskNumber) {
         return tasks.get(taskNumber);
     }
 
+    /**
+     * Checks if input command {@code String} is a valid command
+     *
+     * @param command - {@code String} to be checked whether it is a valid command
+     * @return {@code true} if input {@code String} is a valid command, {@code false} otherwise.
+     */
     public static boolean isValidCommand(String command) {
         for (String validCommand : LIST_OF_COMMANDS) {
             if (command.equals(validCommand))
@@ -31,18 +52,27 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * @return the {@code ArrayList} of {@code Task}s in this {@code TaskList}.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public int getTotalNumberOfTasks() {
+    private int getTotalNumberOfTasks() {
         return tasks.size();
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * This method adds the input {@code Task} into the {@code TaskList} and notifies the user that the {@code Task} has been added.
+     * It also prints the total number of tasks after adding.
+     *
+     * @param task - {@code Task} to be added into he {@code TaskList}.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("\tGot it. I've added this task:");
@@ -50,6 +80,12 @@ public class TaskList {
         System.out.println("\tNow you have " + (getTotalNumberOfTasks()) + " task(s) in the list.");
     }
 
+    /**
+     * This method checks if the input task number corresponds to a valid {@code Task} in the {@code TaskList}
+     * If yes, it removes the corresponding {@code Task} from the {@code TaskList}
+     *
+     * @param taskNumber - number of the {@code Task} to be removed from the {@code TaskList}
+     */
     public void removeTask(int taskNumber) {
         if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
@@ -68,10 +104,21 @@ public class TaskList {
     }
 
 
+    /**
+     * adds a {@code Task} into the {@code TaskList} 'silently', without printing any output.
+     * Used when appropriate (such as initial loading of {@code Task}s from data file.
+     *
+     * @param task - {@code Task} to be added into the {@code TaskList} 'silently'.
+     */
     public void loadTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * This method marks a {@code Task} as done.
+     *
+     * @param taskNumber - the number of the {@code Task} to be marked as done.
+     */
     public void markTaskAsDone(int taskNumber) {
         if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
@@ -85,9 +132,14 @@ public class TaskList {
 
         System.out.println("\tNice! I've marked this task as done: ");
         tasks.get(taskNumber).markAsDone();
-        System.out.println("\t  " + tasks.get(taskNumber));
+        System.out.println("\t  " + getTask(taskNumber));
     }
 
+    /**
+     * This method marks a {@code Task} as undone.
+     *
+     * @param taskNumber - the number of the {@code Task} to be marked undone.
+     */
     public void markTaskAsUndone(int taskNumber) {
         if (taskNumber >= getTotalNumberOfTasks() || taskNumber < 0) {
             System.out.println("\tInvalid input! Please key in an existing task number!");
@@ -101,10 +153,13 @@ public class TaskList {
 
         System.out.println("\tOK, I've marked this task as not done yet: ");
         tasks.get(taskNumber).markAsUndone();
-        System.out.println("\t  " + tasks.get(taskNumber));
+        System.out.println("\t  " + getTask(taskNumber));
 
     }
 
+    /**
+     * Lists all the present tasks in a numbered list.
+     */
     public void listTasks() {
         if (isEmpty()) {
             System.out.println("\tNothing in list right now!");
@@ -112,7 +167,7 @@ public class TaskList {
         }
         System.out.println("\tHere are the tasks in your list: ");
         for (int taskNumber = 0; taskNumber < getTotalNumberOfTasks(); taskNumber++) {
-            System.out.println("\t" + (taskNumber + 1) + ". " + tasks.get(taskNumber));
+            System.out.println("\t" + (taskNumber + 1) + ". " + getTask(taskNumber));
         }
     }
 
@@ -138,6 +193,16 @@ public class TaskList {
         matchingTaskList.listMatchingTasks();
     }
 
+    /**
+     * Given the type of {@code Task}, the description of the {@code Task}, the completion status of the {@code Task} and time (if any),
+     * this method creates a {@code Task} that encapsulates the above data and returns it
+     *
+     * @param taskType
+     * @param description
+     * @param status
+     * @param time
+     * @return the {@code Task} that contains the above information.
+     */
     public static Task initialiseTaskFromParameters(String taskType, String description, String status, String time) {
         Task task;
         switch (taskType) {

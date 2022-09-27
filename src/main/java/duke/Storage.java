@@ -13,6 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * This class contains the main mechanism to read and write into datafiles, and hence acts as the program's way of saving user data.
+ *
+ * @author Dhanish
+ */
 public class Storage {
 
     private static final String TEXT_FILE_NAME = "/duke.txt";
@@ -21,14 +26,17 @@ public class Storage {
     private static final int DESCRIPTION_INDEX = 2;
     private static final int TIME_INDEX = 3;
 
-    File dataFile;
+    private File dataFile;
 
+    /**
+     * Constructor used to initialize file path of data file
+     */
     public Storage() {
         String filePath = retrieveFilePath();
         dataFile = new File(filePath);
     }
 
-    public static String retrieveFilePath() {
+    private static String retrieveFilePath() {
         Path path = Paths.get("src", "main", "java", "duke", "data");
         boolean directoryExists = Files.exists(path);
         if (!directoryExists) {
@@ -37,6 +45,11 @@ public class Storage {
         return path + TEXT_FILE_NAME;
     }
 
+    /**
+     * This method takes in an empty {@code TaskList}, reads the data from the data file and loads the data into the {@code TaskList}.
+     *
+     * @param taskList - empty {@code TaskList} in which the data in the data file is to be loaded
+     */
     public void loadData(TaskList taskList) {
         if (!dataFile.exists()) {
             createDataFile();
@@ -75,7 +88,7 @@ public class Storage {
         taskList.loadTask(task);
     }
 
-    public Scanner initializeScanner() {
+    private Scanner initializeScanner() {
         Scanner fileScanner = null;
         try {
             fileScanner = new Scanner(dataFile);
@@ -85,7 +98,7 @@ public class Storage {
         return fileScanner;
     }
 
-    public void createDataFile() {
+    private void createDataFile() {
         try {
             dataFile.createNewFile();
         } catch (IOException e) {
@@ -98,6 +111,12 @@ public class Storage {
         return input.split(" \\| ", 4);
     }
 
+    /**
+     * This method processes the {@code Task}s in the {@code TaskList} one by one, and logs them into a data file.
+     * It is usually called after the {@code TaskList} is changed one way or another.
+     *
+     * @param taskList - {@code TaskList} that contains {@code Task}s to be saved and logged into a data file.
+     */
     public void saveData(TaskList taskList) {
         FileWriter fileWriter = null;
         try {
