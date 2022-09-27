@@ -13,5 +13,7 @@ public class ExceptionMessage {
     public static final String TODO_INPUT_ERROR = ("Sorry :(\n I don't think you have properly keyed in all the parameters.\n" +
             " Please enter \"todo\", followed by the task :)");
     public static final String UNKNOWN_INPUTS = "Sorry I do not understand your command :(";
-    public static final String FILE_IO_ERROR = "File does not exist or Path is wrong :(";
+    public static final String FILE_ERROR = "File does not exist or Path is wrong :(";
+    public static final String LOAD_FILE_ERROR = "Unable to load file. File does not exist or Path is wrong :(";
+    public static final String UNKNOWN_INPUTS_LOAD = "There is an unknown command in your load file :(\n Please check that you have uploaded the correct file";
 }

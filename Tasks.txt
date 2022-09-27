@@ -1,1 +1,2 @@
-T [✓] aidlad 
+[X] T DB assignment 
+[✓] D tutorial  by : friday

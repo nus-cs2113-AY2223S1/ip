@@ -1,12 +1,11 @@
 package Duke.data.tasks;
-import Duke.data.exception.DukeException;
 
 public class Deadline extends Task{
     public Deadline(String userInput) {
         super();
-        super.taskType = "E";
+        super.taskType = "D";
         String[] splitInputs = userInput.split("/by", 2);
         super.description = splitInputs[0];
-        super.dueDate = "( by :" + splitInputs[1] + ")";
+        super.dueDate = "by :" + splitInputs[1];
     }
 }

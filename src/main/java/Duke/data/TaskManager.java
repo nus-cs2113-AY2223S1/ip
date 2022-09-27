@@ -21,14 +21,10 @@ public class TaskManager {
     }
     public void markDone(int taskNumber) {
         tasks.get(taskNumber).setDone(true);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println();
     }
 
     public void unmarkDone(int taskNumber) {
         tasks.get(taskNumber).setDone(false);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println();
     }
     public void printList() throws DukeException {
         if(tasks.size() == 0) {

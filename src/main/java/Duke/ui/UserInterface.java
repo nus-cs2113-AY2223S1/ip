@@ -15,12 +15,9 @@ public class UserInterface {
     public final String GREETING = " Hello! I'm Duke\n What can I do for you?\n";
     public final String LINEBREAK = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public final String COMMAND_BYE = "bye";
-    private static String dir = System.getProperty("user.dir");
-    public static final java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "duke.txt");
-    public static final java.nio.file.Path tempFilePath = java.nio.file.Paths.get(dir, "data", "temp.txt");
     private final TaskManager myTaskManager;
     private final Scanner scanner;
-    private Memory myStorage;
+    private final Memory myStorage;
 
     public UserInterface(String filePath) {
         scanner = new Scanner(System.in);
@@ -30,12 +27,12 @@ public class UserInterface {
 
     public void runProgram() {
         String input;
+        myStorage.loadFromFile(myTaskManager);
         input = scanner.nextLine();
         while(!(input.equalsIgnoreCase(COMMAND_BYE))) {
             System.out.print(LINEBREAK);
             Command command = Parser.parse(input);
-            command.execute(myTaskManager);
-            myStorage.saveToFile(myTaskManager);
+            command.execute(myTaskManager, myStorage);
             System.out.println(LINEBREAK);
             input = scanner.nextLine();
         }

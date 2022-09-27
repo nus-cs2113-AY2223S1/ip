@@ -1,5 +1,6 @@
 package Duke.commands;
 
+import Duke.data.Memory;
 import Duke.data.TaskManager;
 import Duke.data.exception.DukeException;
 import Duke.data.exception.ExceptionMessage;
@@ -29,7 +30,7 @@ public class Command {
         this.userInput = userInput;
     }
 
-    public void execute (TaskManager myTaskManager) {
+    public void execute (TaskManager myTaskManager, Memory myStorage) {
         switch(commandWord){
         case COMMAND_LIST:
             try {
@@ -40,8 +41,11 @@ public class Command {
             break;
         case COMMAND_MARK:
             try {
-                myTaskManager.markDone(Integer.parseInt(this.userInput));
+                myTaskManager.markDone(Integer.parseInt(this.userInput) - 1);
                 myTaskManager.printList();
+                myStorage.saveToFile(myTaskManager);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println();
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + this.userInput);
             } catch(DukeException e) {
@@ -52,8 +56,11 @@ public class Command {
             break;
         case COMMAND_UNMARK:
             try {
-                myTaskManager.unmarkDone(Integer.parseInt(this.userInput));
+                myTaskManager.unmarkDone(Integer.parseInt(this.userInput) - 1);
                 myTaskManager.printList();
+                myStorage.saveToFile(myTaskManager);
+                System.out.println("Nice! I've marked this task as undone:");
+                System.out.println();
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + this.userInput);
             } catch(DukeException e) {
@@ -68,6 +75,7 @@ public class Command {
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
+                myStorage.saveToFile(myTaskManager);
             } catch(ArrayIndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.DEADLINE_INPUT_ERROR);
             }
@@ -78,6 +86,7 @@ public class Command {
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
+                myStorage.saveToFile(myTaskManager);
             } catch(ArrayIndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.EVENT_INPUT_ERROR);
             }
@@ -88,14 +97,16 @@ public class Command {
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
+                myStorage.saveToFile(myTaskManager);
             } catch(DukeException e) {
                 System.out.println(ExceptionMessage.TODO_INPUT_ERROR);
             }
             break;
         case COMMAND_DELETE:
             try {
-                myTaskManager.deleteTasks(Integer.parseInt(userInput));
+                myTaskManager.deleteTasks(Integer.parseInt(userInput) - 1);
                 myTaskManager.printSize();
+                myStorage.saveToFile(myTaskManager);
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + userInput);
             } catch(DukeException e) {

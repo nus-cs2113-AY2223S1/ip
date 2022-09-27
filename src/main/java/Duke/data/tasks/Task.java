@@ -11,7 +11,7 @@ public abstract class Task {
 
 
     public String getStatusIcon() {
-        return (this.isDone) ? "X" : "\u2713";
+        return (this.isDone) ? "\u2713" : "X";
     }
 
     public String getTaskType() {
@@ -34,9 +34,8 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return this.taskType + " " + this.getMarkStatus() + " " +
+        return this.getMarkStatus() + " " + this.taskType + " " +
                 this.description + " " + this.dueDate;
     }
-
 
 }
