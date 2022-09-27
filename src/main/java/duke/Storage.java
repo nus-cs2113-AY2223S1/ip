@@ -2,6 +2,8 @@ package duke;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
@@ -26,56 +28,97 @@ public class Storage {
 
     public int loadDukeTextFile(TaskList taskList) throws FileNotFoundException {
         String taskDescription;
-        String dateTime = "";
         int taskIndex = 0;
-        boolean isMarked;
-        int taskDetailsSize;
         Scanner dukeScanner = new Scanner(dukeFile);
 
         while (dukeScanner.hasNext()) {
             taskDescription = dukeScanner.nextLine().trim();
-            char taskType = taskDescription.charAt(0);
 
-            if (taskType == 'D' || taskType == 'E' ) {
-                taskDetailsSize = 4;
-            } else {
-                taskDetailsSize = 3;
-            }
-
-            String[] taskDetails = taskDescription.trim().split("\\|", taskDetailsSize);
-            for (int i = 0; i < taskDetails.length; i++) {
-                taskDetails[i] = taskDetails[i].trim();
-            }
+            char taskType = extractTaskType(taskDescription);
+            String[] taskDetails = extractTaskDetails(taskDescription, taskType);
 
             String markedStatus = taskDetails[1];
             String taskName     = taskDetails[2];
 
+            String date = "";
+            String time = "";
             if (taskType == 'D' || taskType == 'E' ) {
-                dateTime = taskDetails[3];
+                if (taskDetails.length == 5) {
+                    time = readTaskTime(taskDetails);
+                }
+                date = processDate(taskDetails[3]);
             }
 
-            switch (taskType) {
-            case 'T':
-                taskList.addToDoTask(taskName);
-                break;
-            case 'D':
-                taskList.addDeadlineTask(taskName, dateTime);
-                break;
-            case 'E':
-                taskList.addEventTask(taskName, dateTime);
-                break;
-            default:
-            }
-
-            isMarked = (markedStatus.equals("1"));
-            if (isMarked) {
-                taskList.markAsDone(taskIndex);
-            } else {
-                taskList.markAsUndone(taskIndex);
-            }
+            addTaskFromDukeTextFile(taskList, taskType, taskName, date, time);
+            updateMarkStatus(taskList, taskIndex, markedStatus);
             taskIndex++;
         }
         return taskIndex;
+    }
+
+    private static char extractTaskType(String taskDescription) {
+        return taskDescription.charAt(0);
+    }
+
+    private static String[] extractTaskDetails(String taskDescription, char taskType) {
+        int taskDetailsSize;
+        if (taskType == 'D' || taskType == 'E' ) {
+            taskDetailsSize = 5;
+        } else {
+            taskDetailsSize = 3;
+        }
+
+        String[] taskDetails = taskDescription.trim().split("\\|", taskDetailsSize);
+        for (int i = 0; i < taskDetails.length; i++) {
+            taskDetails[i] = taskDetails[i].trim();
+        }
+        return taskDetails;
+    }
+
+    private static String readTaskTime(String[] taskDetails) {
+        String time;
+        time = taskDetails[4];
+        return time;
+    }
+
+    private String processDate(String dateStr) {
+        String[] dateMonthDayYear = dateStr.trim().split(" ", 3);
+        HashMap<String, String> month = new HashMap<>();
+        String[] monthName = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for (int i = 1; i <= monthName.length; i++) {
+            month.put(monthName[i - 1], String.format("%02d", i));
+        }
+        String dateYear  = dateMonthDayYear[2];
+        String dateMonth = month.get(dateMonthDayYear[0]);
+        String dateDay   = String.format("%02d", Integer.parseInt(dateMonthDayYear[1]));
+        return dateYear + "-" + dateMonth + "-" + dateDay;
+    }
+
+    private static void addTaskFromDukeTextFile(TaskList taskList, char taskType, String taskName, String date, String time) {
+        switch (taskType) {
+        case 'T':
+            taskList.addToDoTask(taskName);
+            break;
+        case 'D':
+            LocalDate deadlineDate = LocalDate.parse(date);
+            taskList.addDeadlineTask(taskName, deadlineDate, time);
+            break;
+        case 'E':
+            LocalDate eventDate = LocalDate.parse(date);
+            taskList.addEventTask(taskName, eventDate, time);
+            break;
+        default:
+        }
+    }
+
+    private static void updateMarkStatus(TaskList taskList, int taskIndex, String markedStatus) {
+        boolean isMarked;
+        isMarked = (markedStatus.equals("1"));
+        if (isMarked) {
+            taskList.markAsDone(taskIndex);
+        } else {
+            taskList.markAsUndone(taskIndex);
+        }
     }
 
     public void updateDukeTextFile(int lineToEdit, Boolean isMarked) throws IOException {
