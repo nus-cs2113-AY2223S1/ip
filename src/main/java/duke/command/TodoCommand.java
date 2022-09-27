@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.storage.Storage;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -14,7 +15,8 @@ public class TodoCommand extends Command {
         this.keyword = keyword;
         this.statement = statement;
     }
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ArrayList<Task> tasks = taskList.getTasks();
         tryAddTodo(tasks, statement);
         try {
             storage.write(tasks);

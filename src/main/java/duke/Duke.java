@@ -9,7 +9,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -43,8 +42,6 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        ArrayList<Task> tasks = this.tasks.getTasks();
-
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
