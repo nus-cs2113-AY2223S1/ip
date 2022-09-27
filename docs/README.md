@@ -23,6 +23,7 @@
 3. Open terminal and change directory to where the `ip.jar` file is stored.
 4. Enter `java -jar ip.jar` to launch the `ip.jar` file.
 5. If the file is successfully launched, you should see the following output in the terminal:
+
 ```
  ________      ________ _____
 |  ____\ \    / /  ____|  __ \
@@ -51,6 +52,7 @@ Expected outcome:
 Supported commands' descriptions and syntax are listed in the command-line interface.
 
 Expected output:
+
 ```
 help
 
@@ -107,6 +109,8 @@ Examples:
     2. A deadline task with description "Submit lab assignment", deadline date "Sep 30 23:59" and is marked as not done
     3. An event task with description "Movie watching", date "1 Oct 16:00 - 18:00" and is marked as not done
     `list` returns the following output
+
+
 ```
 list
 1. [T][X] Buy a pencil
@@ -116,6 +120,7 @@ list
 ```
 
 * If the task list has no tasks, `list` returns the following output
+
 ```
 list
 There are no tasks added yet. Type 'help' if you need help.
@@ -141,6 +146,7 @@ Task added: [T][ ] Buy a pencil
 ```
 
 * `todo` Shows error message that the input is invalid as the description is missing.
+
 ```
 todo
 Invalid input, todo task could not be added
@@ -160,6 +166,7 @@ Expected outcome:
 
 Examples:
 * `deadline Submit lab assignment /by Sep 30 23:59`
+
 ```
 deadline Submit lab assignment /by Sep 30 23:59
 Task added: [D][ ] Submit lab assignment (by: Sep 30 23:59)
@@ -167,6 +174,7 @@ Task added: [D][ ] Submit lab assignment (by: Sep 30 23:59)
 ```
 
 * `deadline` Shows error message that the input is invalid as both the description and datetime are missing.
+
 ```
 deadline
 Invalid input, please provide the description and deadline
@@ -175,6 +183,7 @@ Syntax: deadline <description> /by <deadline-datetime>
 ```
 
 * `deadline Submit lab assignment` Shows error message that the input is invalid as the datetime is missing.
+
 ```
 deadline Submit lab assignment
 Invalid input, please provide the description and deadline
@@ -194,19 +203,24 @@ Expected outcome:
 
 Examples:
 * `event Movie watching /at 1 Oct 16:00 - 18:00` Adds an event task `Movie watching` which happens at `1 Oct 16:00 - 18:00` to the task list.
+
 ```
 event Movie watching /at 1 Oct 16:00 - 18:00
 Task added: [E][ ] Movie watching (at: 1 Oct 16:00 - 18:00)
 ==================================================================
 ```
+
 * `event` Shows error message that the input is invalid as both the description and datetime are missing.
+
 ```
 event
 Invalid input, please provide the description and date time
 Syntax: event <description> /at <event-datetime>
 ==================================================================
 ```
+
 * `event Movie watching` Shows error message that the input is invalid as the datetime is missing.
+
 ```
 event Movie watching
 Invalid input, please provide the description and date time
@@ -229,6 +243,7 @@ Expected outcomes:
 
 Examples:
 Given the list by`list` 
+
 ```
 list
 1. [T][X] Buy a pencil
@@ -238,6 +253,7 @@ list
 ```
 
 * `mark 2` Marks the 2nd task of the list as done.
+
 ```
 mark 2
 Marked as done: [D][X] Submit lab assignment (by: Sep 30 23:59)
@@ -245,6 +261,7 @@ Marked as done: [D][X] Submit lab assignment (by: Sep 30 23:59)
 ```
 
 * `mark 4` Shows an error message that the task number is out of range.
+
 ```
 mark 4
 Sorry, the task number is out of range. Type "list" for viewing all the tasks.
@@ -253,6 +270,7 @@ Syntax: mark <task-number>
 ```
 
 * `mark` Shows an error message that the task number is missing from the command.
+
 ```
 mark 
 Sorry, you have not provide the task number.
@@ -261,6 +279,7 @@ Syntax: mark <task-number>
 ```
 
 * `mark two` Shows an error message when the task number is not provided as an integer.
+
 ```
 mark two
 Invalid input. Please type an integer for the task number.
@@ -283,6 +302,7 @@ Expected outcomes:
 
 Examples:
 Given the list by`list` 
+
 ```
 list
 1. [T][X] Buy a pencil
@@ -292,6 +312,7 @@ list
 ```
 
 * `unmark 2` Marks the 2nd task of the list as not done.
+
 ```
 unmark 2
 Unmarked done: [D][ ] Submit lab assignment (by: Sep 30 23:59)
@@ -299,6 +320,7 @@ Unmarked done: [D][ ] Submit lab assignment (by: Sep 30 23:59)
 ```
 
 * `unmark 4` Shows an error message that the task number is out of range.
+
 ```
 unmark 4
 Sorry, the task number is out of range. Type "list" for viewing all the tasks.
@@ -315,6 +337,7 @@ Syntax: unmark <task-number>
 ```
 
 * `unmark two` Shows an error message when the task number is not provided as an integer.
+
 ```
 unmark two
 Invalid input. Please type an integer for the task number.
@@ -337,6 +360,7 @@ Expected outcomes:
 
 Examples:
 Given the list by`list` 
+
 ```
 list
 1. [T][X] Buy a pencil
@@ -346,6 +370,7 @@ list
 ```
 
 * `delete 3` Deletes the 3rd task from the list.
+
 ```
 delete 3
 Task 3 deleted
@@ -353,6 +378,7 @@ Task 3 deleted
 ```
 
 * `delete 4` Shows an error message that the task number is out of range.
+
 ```
 delete 4
 Sorry, the task number is out of range. Type "list" for viewing all the tasks.
@@ -361,6 +387,7 @@ Syntax: delete <task-number>
 ```
 
 * `delete` Shows an error message that the task number is missing from the command.
+
 ```
 delete
 Sorry, you have not provide the task number.
@@ -369,6 +396,7 @@ Syntax: delete <task-number>
 ```
 
 * `delete two` Shows an error message when the task number is not provided as an integer.
+
 ```
 delete two
 Invalid input. Please type an integer for the task number.
@@ -392,6 +420,7 @@ Expected outcomes:
 
 Examples:
 Given the list by`list` 
+
 ```
 list
 1. [T][X] Buy a pencil
@@ -402,6 +431,7 @@ list
 ```
 
 * `find submit` Returns the list of tasks that has the word `submit` in the description.
+
 ```
 find submit
 1. [D][ ] Submit lab assignment (by: Sep 30 23:59)
@@ -410,6 +440,7 @@ find submit
 ```
 
 * `find apple` Returns the message that no tasks match with the search word.
+
 ```
 find apple
 No matching tasks for the given search word.
@@ -417,6 +448,7 @@ No matching tasks for the given search word.
 ```
 
 * `find` Shows an error message that a search word was not provided in the command.
+
 ```
 find
 Please provide a search word to find the task.
@@ -431,6 +463,7 @@ Exit the program.
 Format: `bye`
 
 Expected output:
+
 ```
 bye
 Bye. Hope to see you again soon!
@@ -440,6 +473,7 @@ Bye. Hope to see you again soon!
 Data in the task list of Ever are saved as a .txt file `[JAR file location]/data/duke.txt` automatically after any operation that changes the list. No manual saving is needed nor allowed.
 
 ## Command summary
+
 | Action   | Format, Examples |
 | -------- | ---------------- |
 | Help     | `help` |
