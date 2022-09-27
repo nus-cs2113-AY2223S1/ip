@@ -74,6 +74,10 @@ public class Command {
             Event event = new Event(description, datetime);
             taskList.add(event, ui);
             break;
+        case CommandMenu.FIND_COMMAND:
+            TaskList matchingTasks = taskList.find(description, ui);
+            matchingTasks.list(ui);
+            break;
         case "":
             ui.showEmptyInputErrorMessage();
             break;

@@ -14,6 +14,7 @@ public abstract class CommandMenu {
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
     public static final String DELETE_COMMAND = "delete";
+    public static final String FIND_COMMAND = "find";
     public static final String EXIT_COMMAND = "bye";
     public static final String INVALID_COMMAND = "invalid";
 
@@ -37,6 +38,8 @@ public abstract class CommandMenu {
                 "Unmark a task from done"));
         COMMANDS.put(DELETE_COMMAND, new CommandDocumentation("delete <task-number>",
                 "Delete a task from the list"));
+        COMMANDS.put(FIND_COMMAND, new CommandDocumentation("find <search-word>",
+                "Find task(s) with keywords in the description"));
         COMMANDS.put(EXIT_COMMAND, new CommandDocumentation("bye", "Exit the application"));
     }
 
