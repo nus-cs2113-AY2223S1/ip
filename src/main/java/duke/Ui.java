@@ -7,11 +7,16 @@ import java.util.Scanner;
 
 public class Ui {
     public static final String WELCOME_MESSAGE = "Hello! I'm Duke";
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
     public static final String QUESTION_MESSAGE = "What can I do for you?";
 
     public static final String PRINT_LIST_MESSAGE = "Here are the tasks in your list:";
 
     public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+
+    public static final String MARK_TASK_UNDONE_MESSAGE = "Nice! I've marked this task as not done:";
+    public static final String MARK_TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:";
 
     public static final String LINE_DIVIDER = "____________________________________________________________";
     private final Scanner scanner;
@@ -92,6 +97,11 @@ public class Ui {
         return taskListFeedback;
     }
 
+    /**
+     * Display the tasks matching the keyword
+     *
+     * @param filterTasks tasks that match the keyword
+     */
     public void showMatchingTasks(ArrayList<Task> filterTasks) {
         ArrayList<String> matchingTasksFeedback  = new ArrayList<>();
         matchingTasksFeedback.add("Here are the matching tasks in your list:");
@@ -119,6 +129,61 @@ public class Ui {
 
     public void showExitMessage() {
         showFeedbackToUser(EXIT_MESSAGE);
+    }
+
+    public String getMarkMessage() {
+        return MARK_TASK_DONE_MESSAGE;
+    }
+
+    public String getUnmarkMessage() {
+        return MARK_TASK_UNDONE_MESSAGE;
+    }
+
+    /**
+     * Returns the final feedback after updating the status of the task.
+     *
+     * @param feedback Initial feedback.
+     * @param task Task which the status is being updated.
+     * @return Feedback
+     */
+    public static String appendFeedbackForUpdatingStatus(String feedback, Task task) {
+        feedback = feedback + System.lineSeparator() + "  " + task.getTaskInfo();
+        return feedback;
+    }
+
+
+    /**
+     * Returns the feedback for create and add a task.
+     * @param task Task created.
+     * @param taskList TaskList which the task is the added to.
+     * @return Feedback
+     */
+    public String getAddTaskFeedback(Task task, TaskList taskList) {
+        return ADD_TASK_MESSAGE + System.lineSeparator() + task.getTaskInfo() + System.lineSeparator() + getTasksCountFeedback(taskList);
+    }
+
+    /**
+     * Returns the final feedback after deleting the task.
+     *
+     * @param feedback Feedback obtained before removing the task.
+     * @param taskList TaskList which contains the tasks.
+     * @return Final feedback
+     */
+    public String getFinalDeleteFeedback(String feedback, TaskList taskList) {
+        return feedback + System.lineSeparator() + getTasksCountFeedback(taskList);
+    }
+
+    /**
+     * Returns the initial feedback before deleting the task.
+     *
+     * @param taskIndex Index of the task to be deleted.
+     * @param taskList TaskList which the tasks are in.
+     * @return Feedback before deleting.
+     */
+
+    public String getInitialDeleteFeedback(int taskIndex, TaskList taskList) {
+        String feedback = DELETE_TASK_MESSAGE + System.lineSeparator() + "  " + taskList.getTasks().get(taskIndex).getTaskInfo();
+        return feedback;
     }
 
 }

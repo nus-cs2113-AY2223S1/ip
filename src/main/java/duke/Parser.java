@@ -18,9 +18,9 @@ public class Parser {
      * Converts task in string format to object.
      *
      * @param fileContent Tasks to be converted.
-     * @return Task objects.
+     * @return ArrayList of Task objects.
      */
-    public ArrayList<Task> decodeTaskListFromFile(ArrayList<String> fileContent) {
+    public ArrayList<Task> decodeTaskListFromFile(ArrayList<String> fileContent) throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : fileContent) {
             ArrayList<String> commandWordAndParameters = parsedCommand(line);
@@ -29,49 +29,28 @@ public class Parser {
         return tasks;
     }
 
-    private void decodeTaskFromString(ArrayList<Task> tasks, ArrayList<String> commandWordAndParameters) {
+    private void decodeTaskFromString(ArrayList<Task> tasks, ArrayList<String> commandWordAndParameters) throws DukeException {
         String taskType  = getTaskType(commandWordAndParameters);
+       Command command = new Command();
         switch (taskType) {
         case ("T"):
-            ToDo todo = createToDoAndUpdateStatus(commandWordAndParameters);
+            ToDo todo = command.createToDo(commandWordAndParameters);
             tasks.add(todo);
             break;
         case ("D"):
-            Deadline deadline = createDeadlineAndUpdateStatus(commandWordAndParameters);
+            Deadline deadline = command.createDeadline(commandWordAndParameters);
             tasks.add(deadline);
             break;
         case ("E"):
-            Event event = createEventAndUpdateStatus(commandWordAndParameters);
+            Event event = command.createEvent(commandWordAndParameters);
             tasks.add(event);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + taskType);
+            throw new DukeException("Error reading command");
         }
     }
 
-    private Event createEventAndUpdateStatus(ArrayList<String> words) {
-        Event event = new Event(words.get(2), words.get(3));
-        if (words.get(1).equals("1")) {
-            event.setDone(true);
-        }
-        return event;
-    }
 
-    private Deadline createDeadlineAndUpdateStatus(ArrayList<String> words) {
-        Deadline deadline = new Deadline(words.get(2), words.get(3));
-        if (words.get(1).equals("1")) {
-            deadline.setDone(true);
-        }
-        return deadline;
-    }
-
-    private ToDo createToDoAndUpdateStatus(ArrayList<String> words) {
-        ToDo todo = new ToDo(words.get(2));
-        if (words.get(1).equals("1")) {
-            todo.setDone(true);
-        }
-        return todo;
-    }
     private String getTaskType(ArrayList<String> words) {
         return words.get(0);
     }
@@ -111,4 +90,21 @@ public class Parser {
    }
 
 
+    /**
+     * Returns command arguments from an array.
+     *
+     * @param commandTypeAndArguments Array containing command type and command arguments
+     * @return command arguments
+     */
+    public String getCommandArguments(String[] commandTypeAndArguments) {
+        if (commandTypeAndArguments.length == 1) {
+            return "";
+        }
+        return commandTypeAndArguments[1];
+    }
+
+
+    public String getCommand(String[] commandTypeAndArguments) {
+        return commandTypeAndArguments[0];
+    }
 }

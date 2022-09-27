@@ -26,6 +26,7 @@ public class TaskList {
         return tasks;
     }
 
+
     /**
      * Returns the number of tasks in the TaskList.
      *
@@ -34,4 +35,14 @@ public class TaskList {
     public int getTaskCount() {
         return tasks.size();
     }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public void removeTask (int index) {
+        tasks.remove(index);
+    }
+
+
 }

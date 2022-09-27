@@ -27,11 +27,16 @@ public class Storage {
      * @return Tasks.
      * @throws IOException If error caused by reading file.
      */
-    public ArrayList<Task> load() throws IOException {
-        ArrayList<String> fileContent = readFile();
-        Parser parser = new Parser();
-        ArrayList<Task> taskList = parser.decodeTaskListFromFile(fileContent);
-        return taskList;
+    public ArrayList<Task> load() throws DukeException {
+        try {
+            ArrayList<String> fileContent = readFile();
+            Parser parser = new Parser();
+            ArrayList<Task> taskList = parser.decodeTaskListFromFile(fileContent);
+            return taskList;
+        } catch (IOException e) {
+            throw new DukeException("Error loading file");
+        }
+
     }
 
     private ArrayList<String> readFile() throws IOException {
@@ -52,9 +57,13 @@ public class Storage {
      * @param tasks tasks used to overwrite
      * @throws IOException If error caused by writing to the storage file occurs.
      */
-   public void overWriteDukeTxt(ArrayList<Task> tasks) throws IOException {
-        String newText = generateNewText(tasks);
-        writeToFile(newText);
+   public void overWriteDukeTxt(ArrayList<Task> tasks) throws DukeException {
+       try {
+           String newText = generateNewText(tasks);
+           writeToFile(newText);
+       } catch (IOException e) {
+           throw new DukeException("Error writing to file");
+       }
     }
 
     private String generateNewText(ArrayList<Task> tasks) {
@@ -66,20 +75,24 @@ public class Storage {
     }
 
     private void writeToFile(String textToAdd) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        fileWriter.write(textToAdd);
-        fileWriter.close();
+           FileWriter fileWriter = new FileWriter(filePath);
+           fileWriter.write(textToAdd);
+           fileWriter.close();
     }
 
     /**
      * Appends to the storage file.
      *
      * @param textToAppend String to be added.
-     * @throws IOException If error caused by writing occurs.
+     * @throws DukeException If error appending to file.
      */
-    public void appendToFile(String textToAppend) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        fileWriter.write(textToAppend);
-        fileWriter.close();
+    public void appendToFile(String textToAppend) throws DukeException{
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            fileWriter.write(textToAppend);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new DukeException("Error appending to file");
+        }
     }
 }
