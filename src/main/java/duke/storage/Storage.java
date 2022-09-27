@@ -27,10 +27,9 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.file = new File(filePath);
+        file = new File(filePath);
     }
 
-    // check whether I need file not found exception here
     public void loadDataIntoTaskList(TaskList taskList) throws FileFormatException, FileNotFoundException{
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
@@ -47,13 +46,13 @@ public class Storage {
                 String taskDescription = dataLineSplit[2];
 
                 if (taskType.equals(TODO_TASK_TYPE)){
-                    taskList.addTodo(taskDescription, isDone);
+                    TaskList.addTodo(taskDescription, isDone);
                 } else if (taskType.equals(EVENT_TASK_TYPE)){
                     String at = dataLineSplit[3];
-                    taskList.addEvent(taskDescription, at, isDone);
+                    TaskList.addEvent(taskDescription, at, isDone);
                 } else if (taskType.equals(DEADLINE_TASK_TYPE)){
                     String by = dataLineSplit[3];
-                    taskList.addDeadline(taskDescription, by, isDone);
+                    TaskList.addDeadline(taskDescription, by, isDone);
                 }
             }
             myReader.close();
@@ -90,8 +89,8 @@ public class Storage {
 
     public static void writeToFile(TaskList taskList) throws IOException{
         FileWriter outputFile = new FileWriter(file);
-        for (int i = 0; i < taskList.taskList.size(); i++) {
-            Task task = taskList.taskList.get(i);
+        for (int i = 0; i < TaskList.taskList.size(); i++) {
+            Task task = TaskList.taskList.get(i);
             outputFile.write(task.writeTaskToFile() + "\n");
         }
         outputFile.close();

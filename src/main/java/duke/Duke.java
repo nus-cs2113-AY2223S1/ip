@@ -72,21 +72,21 @@ public class Duke {
     }
 
     public void run(){
-        ui.printGreeting();
+        UI.printGreeting();
         System.out.println("Please enter your taskList command: (send 'bye' to exit)");
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
 
         while (!userInput.equals(BYE)) {
 
-            Command command = parser.parsedCommand(taskList, userInput);
+            Command command = Parser.parsedCommand(taskList, userInput);
 
             ExecutedCommand executedCommand = executeCommand(command);
 
             if (executedCommand.isTaskListChanged()){
                 taskList = executedCommand.getTaskList();
                 try {
-                    storage.writeToFile(taskList);
+                    Storage.writeToFile(taskList);
                 } catch (IOException e){
                     UI.printMessageWithLines("Error writing to file.");
                 }
@@ -97,12 +97,10 @@ public class Duke {
             userInput = in.nextLine();
 
         }
-        ui.printGoodbye();
+        UI.printGoodbye();
     }
     public static void main(String[] args) {
         new Duke("./data/data.txt").run();
     }
 
 }
-
-//

@@ -35,7 +35,7 @@ public class UI {
      * Constructor
      */
     public UI() {
-        this.in = new Scanner(System.in);
+        in = new Scanner(System.in);
     }
 
     /**

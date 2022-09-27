@@ -3,9 +3,9 @@ package duke.command;
 import duke.tasks.TaskList;
 
 public class ExecutedCommand {
-    private String executionMessage;
-    private TaskList taskList;
-    private boolean isTaskListChanged;
+    private final String executionMessage;
+    private final TaskList taskList;
+    private final boolean isTaskListChanged;
 
     public ExecutedCommand(String executionMessage, TaskList taskList, boolean isTaskListChanged) {
         this.executionMessage = executionMessage;
