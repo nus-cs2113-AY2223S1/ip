@@ -8,6 +8,10 @@ import Duke.data.tasks.Deadline;
 import Duke.data.tasks.Event;
 import Duke.data.tasks.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 
 /**
  * Class to handle all command calls in programme
@@ -22,6 +26,8 @@ public class Command {
     public final String COMMAND_TODO = "todo";
     public final String COMMAND_DEADLINE = "deadline";
     public final String COMMAND_DELETE = "delete";
+    public final String COMMAND_FIND = "find";
+    public final String COMMAND_DATE_SEARCH = "date";
     private final String commandWord;
     private final String userInput;
 
@@ -41,7 +47,7 @@ public class Command {
             break;
         case COMMAND_MARK:
             try {
-                myTaskManager.markDone(Integer.parseInt(this.userInput) - 1);
+                myTaskManager.markDone(Integer.parseInt(userInput) - 1);
                 myTaskManager.printList();
                 myStorage.saveToFile(myTaskManager);
                 System.out.println("Nice! I've marked this task as done:");
@@ -56,7 +62,7 @@ public class Command {
             break;
         case COMMAND_UNMARK:
             try {
-                myTaskManager.unmarkDone(Integer.parseInt(this.userInput) - 1);
+                myTaskManager.unmarkDone(Integer.parseInt(userInput) - 1);
                 myTaskManager.printList();
                 myStorage.saveToFile(myTaskManager);
                 System.out.println("Nice! I've marked this task as undone:");
@@ -114,6 +120,17 @@ public class Command {
             } catch(NumberFormatException e) {
                 System.out.println(ExceptionMessage.EMPTY_MARK_INDEX);
             }
+            break;
+        case COMMAND_DATE_SEARCH:
+            try {
+                LocalDate searchDate = LocalDate.parse(userInput);
+                myTaskManager.searchForDate(searchDate);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println(ExceptionMessage.DATE_PARSE_ERROR);
+            }
+            break;
+        case COMMAND_FIND:
+            myTaskManager.searchForWord(userInput);
             break;
         default:
             System.out.println(ExceptionMessage.UNKNOWN_INPUTS);

@@ -1,14 +1,21 @@
 package Duke.data.tasks;
+
+import java.time.LocalDate;
+
 public abstract class Task {
     protected String description;
     protected String dueDate;
     protected String taskType;
     protected boolean isDone;
+    public LocalDate assignedDate = LocalDate.parse("1999-01-01");
 
     public Task() {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
     public String getStatusIcon() {
         return (this.isDone) ? "\u2713" : "X";

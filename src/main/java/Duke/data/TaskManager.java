@@ -1,4 +1,5 @@
 package Duke.data;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Duke.data.exception.DukeException;
@@ -33,6 +34,38 @@ public class TaskManager {
         System.out.println("\tHere are the tasks in your list:");
         for (Task element : tasks) {
             element.printTask();
+        }
+    }
+
+    public void searchForDate(LocalDate date) {
+        Boolean hasResults = false;
+        System.out.println("\tHere are the tasks in your list that matches the given date:");
+        for(Task element : tasks) {
+            if(element.assignedDate.equals(date)) {
+                element.printTask();
+                hasResults = true;
+            }
+        }
+        if(!hasResults) {
+            System.out.println("There is no results.\n" +
+                    "Please make sure you have keyed in the right keyword" +
+                    "\n*note that keyword is case-sensitive*");
+        }
+    }
+
+    public void searchForWord(String word) {
+        Boolean hasResults = false;
+        System.out.println("\tHere are the tasks in your list that matches the given word:");
+        for(Task element : tasks) {
+            if((element.getDescription()).contains(word)) {
+                element.printTask();
+                hasResults = true;
+            }
+        }
+        if(!hasResults) {
+            System.out.println("There is no results.\n" +
+                    "Please make sure you have keyed in the right keyword" +
+                    "\n*note that keyword is case-sensitive*");
         }
     }
 
