@@ -40,5 +40,5 @@ public class Printables {
     public static final String TASK_SEARCH_INIT_STRING = "Here are the matching results from your task list!\n";
     public static final String EMPTY_TASK_SEARCH_RESULT_MESSAGE = "No relevant tasks were found\n";
     public static final String DATE_SEARCH_INIT_STRING = "Here are the corresponding deadlines and events!\n";
-    public static final String EMPTY_DATE_SEARCH_RESULT_MESSAGE = "No deadlines or events found for this date!";
+    public static final String EMPTY_DATE_SEARCH_RESULT_MESSAGE = "No deadlines or events found for this date!\n";
 }

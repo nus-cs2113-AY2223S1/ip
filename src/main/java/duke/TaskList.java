@@ -24,7 +24,7 @@ public class TaskList {
      * @return A non-null string if success message needs to be shown to user, or null string if not needed.
      */
     public String addNewTodo(String taskName, boolean toPrint) {
-        tasks.add(new Todos(taskName));
+        tasks.add(new Todos(taskName.trim()));
         if (toPrint) {
             return ("Added new todo task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                     + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
@@ -41,7 +41,7 @@ public class TaskList {
      */
     public String addNewDeadline(String taskName, String toBeDoneBy, boolean toPrint) {
         String[] arrOfBy = toBeDoneBy.split(" ");
-        tasks.add(new Deadlines(taskName, toBeDoneBy, LocalDate.parse(arrOfBy[0]), LocalTime.parse(arrOfBy[1])));
+        tasks.add(new Deadlines(taskName.trim(), toBeDoneBy, LocalDate.parse(arrOfBy[0]), LocalTime.parse(arrOfBy[1])));
         if (toPrint) {
             return ("Added new deadline task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                     + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);
@@ -58,7 +58,7 @@ public class TaskList {
      */
     public String addNewEvent(String taskName, String happeningAt, boolean toPrint) {
         String[] arrOfAt = happeningAt.split(" ");
-        tasks.add(new Events(taskName, happeningAt, LocalDate.parse(arrOfAt[0]), LocalTime.parse(arrOfAt[1])));
+        tasks.add(new Events(taskName.trim(), happeningAt, LocalDate.parse(arrOfAt[0]), LocalTime.parse(arrOfAt[1])));
         if (toPrint) {
             return ("Added new event task: " + taskName + "\n " + tasks.get(tasks.size() - 1).toString()
                     + "\nYou have " + tasks.size() + " tasks in the list." + END_OF_LINE);

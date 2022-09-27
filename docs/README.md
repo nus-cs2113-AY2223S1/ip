@@ -176,7 +176,7 @@ Lists out deadlines or events on a specified date, if any.
 `checkout 2022-10-15`
 
 **Expected outcome:**
-All deadlines and events occuring on the specified date will be listed out.
+All deadlines and events occurring on the specified date will be listed out.
 ```
 Here are the corresponding deadlines and events!
 [E][ ] minecraft event 2022 (at: Oct 15 2022, SATURDAY, 19:30)

@@ -1,6 +1,12 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.CommandFind;
+import duke.commands.CommandTodo;
+import duke.commands.CommandDeadline;
+import duke.commands.CommandEvent;
+import duke.commands.CommandDelete;
+import duke.commands.CommandMarking;
+import duke.commands.CommandCheckout;
 
 /**
  * Used for making sense of user command and processes them accordingly to the commands.
