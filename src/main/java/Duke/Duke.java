@@ -53,20 +53,34 @@ public class Duke {
         try {
             File dataFile = new File(DATA_FILE_PATH);
             Scanner s = new Scanner(dataFile);
+            int taskNumber = -1;
             while (s.hasNext()) {
                 String[] fileWords = s.nextLine().split("\\| ");
+                taskNumber += 1;
                 switch (fileWords[0].charAt(0)) {
                 case 'T':
                     Todo todoTask = new Todo(fileWords[2], 'T');
                     tasksList.addToTasksList(todoTask);
+                    String isMarked = fileWords[1].replaceAll("\\s+","");
+                    if (isMarked.equals("1")){
+                        tasksList.setTaskDoneStatus(taskNumber, true);
+                    }
                     break;
                 case 'D':
                     Deadline deadlineTask = new Deadline(fileWords[2], 'D', fileWords[ 3 ]);
                     tasksList.addToTasksList(deadlineTask);
+                    isMarked = fileWords[1].replaceAll("\\s+","");
+                    if (isMarked.equals("1")){
+                        tasksList.setTaskDoneStatus(taskNumber, true);
+                    }
                     break;
                 case 'E':
                     Event eventTask = new Event(fileWords[ 2 ], 'E', fileWords[ 3 ]);
                     tasksList.addToTasksList(eventTask);
+                    isMarked = fileWords[1].replaceAll("\\s+","");
+                    if (isMarked.equals("1")){
+                        tasksList.setTaskDoneStatus(taskNumber, true);
+                    }
                     break;
                 default:
                     System.out.println("Error reading data from file: Invalid format");
@@ -88,10 +102,9 @@ public class Duke {
             System.out.printf("Error has occured when loading the task to data file.");
             ioException.printStackTrace();
         }
-
     }
 
-    public static void updateTaskDoneInDataFile(int taskNumber, String commandType) throws IOException {
+    public static void updateTaskInDataFile(int taskNumber, String commandType) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));
             String updatedTaskToLoadInDataFile = "";
@@ -102,7 +115,7 @@ public class Duke {
             lines.removeIf(String::isEmpty);
             Files.write(Paths.get(DATA_FILE_PATH), lines);
         } catch (IOException ioException) {
-            System.out.printf("Error has occured when updating the task in data file.");
+            System.out.printf("Error occured when updating the task in data file.");
             ioException.printStackTrace();
         }
     }
@@ -118,95 +131,42 @@ public class Duke {
             switch (inputWords[0]) {
             case "bye":
                 printExitText();
-                break;
+                System.exit(0);
             case "list":
                 tasksList.printTaskList();
                 break;
-            case "mark":
-                try {
-                    if (inputWords.length == 1) {
-                        String correctFormatMessage = "The command should be 'mark (task number to mark)'.";
-                        throw new InvalidCommandFormatException(correctFormatMessage);
-                    }
-                    int taskNumber =  Integer.parseInt(inputWords[1]) - 1;
-                    tasksList.markTask(taskNumber, "mark", true);
-                    updateTaskDoneInDataFile(taskNumber,"edit");
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TaskNumberNotNumberException();
-                }
-            case "unmark":
-                try {
-                    if (inputWords.length == 1) {
-                        String correctFormatMessage = "The command should be 'unmark (task number to mark)'.";
-                        throw new InvalidCommandFormatException(correctFormatMessage);
-                    }
-                    int taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
-                    tasksList.markTask(taskNumber, "unmark", false);
-                    updateTaskDoneInDataFile(taskNumber,"edit");
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TaskNumberNotNumberException();
-                }
             case "todo":
-                try {
-                    if (inputWords.length < 2) {
-                        String correctFormatMessage = "The command should be 'todo (task name)'.";
-                        throw new InvalidCommandFormatException(correctFormatMessage);
-                    }
-                    Todo newTodo = new Todo(inputWords[1], 'T');
-                    tasksList.addToTasksList(newTodo);
-                    tasksList.printAddTaskText(newTodo);
-                    int taskNumber = tasksList.getTasksListSize() - 1;
-                    loadTasktoDataFile(taskNumber);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    String correctFormatMessage = "The command should be 'todo (task name)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
-                }
+                tasksList.addTodoTask(inputWords);
+                loadTasktoDataFile(tasksList.getTaskNumberOfInterest());
+                break;
+
             case "deadline":
-                try {
-                    String[] DescriptionWithTime = inputWords[1].split("/by ", 2);
-                    Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
-                    tasksList.addToTasksList(newDeadlineTask);
-                    tasksList.printAddTaskText(newDeadlineTask);
-                    int taskNumber = tasksList.getTasksListSize() - 1;
-                    loadTasktoDataFile(taskNumber);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    String correctFormatMessage = "The command should be 'deadline (task name) /by (deadline)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
-                }
+                tasksList.addDeadlineTask(inputWords);
+                loadTasktoDataFile(tasksList.getTaskNumberOfInterest());
+                break;
 
             case "event":
-                try {
-                    String[] DescriptionWithTime = inputWords[1].split("/at ", 2);
-                    Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
-                    tasksList.addToTasksList(newEvent);
-                    tasksList.printAddTaskText(newEvent);
-                    int taskNumber = tasksList.getTasksListSize() - 1;
-                    loadTasktoDataFile(taskNumber);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
-                    throw new InvalidCommandFormatException(correctFormatMessage);
-                }
+                tasksList.addEventTask(inputWords);
+                loadTasktoDataFile(tasksList.getTaskNumberOfInterest());
+                break;
+
+            case "mark":
+                tasksList.doMarkTask(inputWords);
+                updateTaskInDataFile(tasksList.getTaskNumberOfInterest(), "edit");
+                break;
+
+            case "unmark":
+                tasksList.doUnmarkTask(inputWords);
+                updateTaskInDataFile(tasksList.getTaskNumberOfInterest(), "edit");
+                break;
 
             case "delete":
-                try {
-                    if (inputWords.length < 2) {
-                        String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
-                        throw new InvalidCommandFormatException(correctFormatMessage);
-                    }
-                    int taskNumber = Integer.parseInt(inputWords[ 1 ]) - 1;
-                    tasksList.deleteTask(taskNumber);
-                    updateTaskDoneInDataFile(taskNumber,"delete");
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TaskNumberNotNumberException();
-                }
+                tasksList.doDeleteTask(inputWords);
+                updateTaskInDataFile(tasksList.getTaskNumberOfInterest(), "delete");
+                break;
+
             default:
-                throw new EmptyArgumentException();
+                System.out.println("Please provide a correct command!");
             }
         }
     }

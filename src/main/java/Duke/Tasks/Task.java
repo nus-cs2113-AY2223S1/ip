@@ -32,7 +32,6 @@ public class Task {
 
     public String taskDataFileText() {
         String isDoneString = (this.isDone) ? "1" : "0";
-        String text = taskType + " | " + isDoneString + " | " + description;
-        return text;
+        return taskType + " | " + isDoneString + " | " + description;
     }
 }
