@@ -57,9 +57,9 @@ public class TaskManager {
         if(tasks.size() == 0) {
             throw new DukeException();
         }
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for (Task element : tasks) {
-            System.out.print("\t" + index++ + ": ");
+            System.out.print(index++ + ": ");
             element.printTask();
         }
     }
@@ -132,6 +132,6 @@ public class TaskManager {
      * This method prints the current total number of task in list
      */
     public void printSize() {
-        System.out.println("\t There are currently " + tasks.size() + " task(s) in the list :)");
+        System.out.println("There are currently " + tasks.size() + " task(s) in the list :)");
     }
 }

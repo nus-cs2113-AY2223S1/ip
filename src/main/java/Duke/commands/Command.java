@@ -82,7 +82,7 @@ public class Command {
         case COMMAND_DEADLINE:
             try {
                 myTaskManager.addTask(new Deadline(userInput));
-                System.out.println("\t Added: ");
+                System.out.println("Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
                 myStorage.saveToFile(myTaskManager);
