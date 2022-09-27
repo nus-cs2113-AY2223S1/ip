@@ -4,6 +4,11 @@ public class Deadline extends Task{
         super(description);
         setDate(description);
     }
+    /**
+     * Get the command icon
+     *
+     * @return string of type [D]
+     */
     public String getCommandIcon(){return "[D]";}
 
     public void setDate(String description){

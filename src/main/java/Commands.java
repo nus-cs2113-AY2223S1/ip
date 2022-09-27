@@ -6,5 +6,6 @@ enum Commands {
     TODO,
     EVENT,
     DEADLINE,
-    DELETE
+    DELETE,
+    FIND
 }
