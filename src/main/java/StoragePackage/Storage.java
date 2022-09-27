@@ -7,6 +7,10 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+
+/*
+Storage reads and writes Tasks from and into a txt file.
+ */
 public class Storage {
     private static String filePath;
     public Storage(String filePath){
@@ -17,6 +21,9 @@ public class Storage {
         fw.write(textToAdd);
         fw.close();
     }
+    /*
+    takes in TaskList as an input and converts into String fileContent which is saved into .txt file
+     */
     public static void saveTasks(TaskList tasksToSave) {
         String fileContent = "";
         for (int i = 0; i < tasksToSave.getTasks().size(); i++) {
@@ -29,6 +36,11 @@ public class Storage {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
+
+    /*
+    Raw file content is converted into TaskList. This is done by repeatedly calling
+    decodeSingleTask for each line in the .txt file
+     */
     public static TaskList retrieveTasks(){
         TaskList tasks = new TaskList();
         File f = new File(filePath);
@@ -43,6 +55,10 @@ public class Storage {
         }
         return tasks;
     }
+
+    /*
+    A single String line from the .txt file is converted into a single Task.
+     */
     private static Task decodeSingleTask(String next){
         char TaskType = next.charAt(1);
         boolean isDone = (next.charAt(4) == 'X');

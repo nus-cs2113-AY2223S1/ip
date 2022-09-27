@@ -9,6 +9,9 @@ import TaskPackage.Todo;
 import UiPackage.Ui;
 import StoragePackage.Storage;
 
+/*
+Command which adds either a Todo, Deadline or Event to list
+ */
 public class AddCommand extends Command {
     protected String type, description, time;
     public AddCommand(String type, String description, String time){

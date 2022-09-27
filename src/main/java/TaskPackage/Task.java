@@ -1,5 +1,7 @@
 package TaskPackage;
-
+/*
+Represents a single Task
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

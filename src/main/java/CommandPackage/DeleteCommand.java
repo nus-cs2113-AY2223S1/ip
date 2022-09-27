@@ -9,6 +9,9 @@ import TaskPackage.Todo;
 import UiPackage.Ui;
 import StoragePackage.Storage;
 
+/*
+A Command which deletes Task at a given index
+ */
 public class DeleteCommand extends Command {
     protected int index;
     public DeleteCommand(int index){

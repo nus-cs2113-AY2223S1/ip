@@ -5,7 +5,13 @@ import ExceptionsPackage.*;
 
 import java.lang.reflect.Array;
 
+/*
+Parser converts raw user input into a Command which can be executed
+ */
 public class Parser {
+    /*
+    String is taken in and converted into Command to be executed
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] fullCommandSplit = fullCommand.split(" ");
         String commandWord = fullCommandSplit[0];

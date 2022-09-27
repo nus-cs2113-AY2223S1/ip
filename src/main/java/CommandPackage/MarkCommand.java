@@ -9,6 +9,9 @@ import TaskPackage.Todo;
 import UiPackage.Ui;
 import StoragePackage.Storage;
 
+/*
+Command which marks Task as done at given index.
+ */
 public class MarkCommand extends Command {
     protected int index;
     public MarkCommand(int index){

@@ -6,6 +6,9 @@ import TaskPackage.Task;
 import UiPackage.Ui;
 import StoragePackage.Storage;
 
+/*
+Command to exit program
+ */
 public class ByeCommand extends Command {
     public ByeCommand(){}
 

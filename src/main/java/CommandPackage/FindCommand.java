@@ -8,7 +8,9 @@ import UiPackage.Ui;
 import StoragePackage.Storage;
 
 import java.util.ArrayList;
-
+/*
+A Command which prints all related Tasks for a given keyword.
+ */
 public class FindCommand extends Command {
     protected String keyword;
     public FindCommand(String keyword){

@@ -7,18 +7,25 @@ import TaskPackage.TaskList;
 import UiPackage.Ui;
 import ParserPackage.Parser;
 
-
+/*
+A Command-Line interface task manager app.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /*
+    Initialisation is done here
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = storage.retrieveTasks();
     }
-
+/*
+Running of commands is done here
+ */
     public void run() {
         ui.greet();
         boolean isExit = false;

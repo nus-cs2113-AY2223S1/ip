@@ -1,7 +1,9 @@
 package TaskPackage;
 
 import TaskPackage.Task;
-
+/*
+Represents Deadline, a type of Task
+ */
 public class Deadline extends Task {
 
     protected String by;

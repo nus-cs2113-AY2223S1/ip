@@ -9,6 +9,9 @@ import TaskPackage.Todo;
 import UiPackage.Ui;
 import StoragePackage.Storage;
 
+/*
+Command which lists all Tasks in list
+ */
 public class ListCommand extends Command {
     public ListCommand(){}
 
