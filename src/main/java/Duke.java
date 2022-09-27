@@ -114,11 +114,16 @@ public class Duke {
                     }
 
                     //Printing result
-                    System.out.println("Added:");
-                    System.out.println(" [T][ ] " + description);
-                    taskList.addToDo(description);
-                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                    break;
+                    if (taskList.searchTask(description) == null){
+                        System.out.println("Added:");
+                        System.out.println(" [T][ ] " + description);
+                        taskList.addToDo(description);
+                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+                        break;
+                    } else {
+                        System.out.println("Sorry, seems like you already have a task with the same name!");
+                        break;
+                    }   
 
                 case ("deadline"):
                     printLine();
@@ -141,11 +146,16 @@ public class Duke {
                     }
 
                     //Printing result
-                    System.out.println("Added:");
-                    System.out.println(" [D][ ] " + description + " (by: " + dueDate + ")");
-                    taskList.addDeadline(description, dueDate);
-                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                    break;
+                    if (taskList.searchTask(description) == null){
+                        System.out.println("Added:");
+                        System.out.println(" [D][ ] " + description + " (by: " + dueDate + ")");
+                        taskList.addDeadline(description, dueDate);
+                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+                        break;
+                    } else {
+                        System.out.println("Sorry, seems like you already have a task with the same name!");
+                        break;
+                    }
 
                 case ("event"):
                     printLine();
@@ -167,11 +177,16 @@ public class Duke {
                         break;
                     }
 
-                    System.out.println("Added:");
-                    System.out.println(" [E][ ] " + description + " (at: " + dateTime + ")");
-                    taskList.addEvent(description, dateTime);
-                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                    break;
+                    if (taskList.searchTask(description) == null){
+                        System.out.println("Added:");
+                        System.out.println(" [E][ ] " + description + " (at: " + dateTime + ")");
+                        taskList.addEvent(description, dateTime);
+                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+                        break;
+                    } else {
+                        System.out.println("Sorry, seems like you already have a task with the same name!");
+                        break;
+                    }
                 
                 case ("delete"):
                     printLine();
