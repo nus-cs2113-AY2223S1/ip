@@ -47,28 +47,38 @@ Examples:
 Marks a task as complete.\
 Syntax: ```mark TASK_NUMBER```\
 Examples:
+
 - ```mark 1```
 
 ### Mark a task as incomplete: ```unmark```
+
 Marks a task as incomplete.\
-Syntax: ```unmark TASK_NUMBER```
+Syntax: ```unmark TASK_NUMBER```\
 Examples:
+
 - ```unmark 1```
 
 ### List all tasks: ```list```
-Lists all tasks added to Duke.\
-Syntax: ```list```
+
+Lists all tasks added to Duke. You can specify a date and Duke will list all tasks that occurs at that date.\
+Syntax: ```list```\
+Examples:
+
+- ```list```
+- ```list 30/09/2022```
 
 ### Delete a task: ```delete```
+
 Deletes a task from Duke.\
-Syntax: ```delete TASK_NUMBER```
+Syntax: ```delete TASK_NUMBER```\
 Examples:
+
 - ```delete 1```
 
 ### Find a task: ```find```
 
 Finds and list tasks in Duke that fully or partially matches a description.\
-Syntax: ```find DESCRIPTION```
+Syntax: ```find DESCRIPTION```\
 Examples:
 - ```find CS2113T```
 
