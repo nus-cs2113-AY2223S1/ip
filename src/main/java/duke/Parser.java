@@ -191,7 +191,7 @@ public abstract class Parser {
             }
             break;
         default:
-            command = new Command(CommandMenu.INVALID_COMMAND);
+            command.setHasInvalidCommandKeyword();
             break;
         }
 

@@ -16,11 +16,13 @@ public class Command {
     private String description;
     private String datetime;
     private boolean isExit;
+    private boolean hasValidCommandKeyword;
 
     /**
      * Constructor of <code>Command</code> class when an invalid command is inputted.
      */
     public Command() {
+        this.hasValidCommandKeyword = true;
         this.command = CommandMenu.INVALID_COMMAND;
         this.isExit = false;
     }
@@ -33,6 +35,7 @@ public class Command {
     public Command(String command) {
         this.command = command;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
     /**
@@ -45,6 +48,7 @@ public class Command {
         this.command = command;
         this.taskNumber = taskNumber;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
     /**
@@ -57,6 +61,7 @@ public class Command {
         this.command = command;
         this.description = description;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
     /**
@@ -71,6 +76,7 @@ public class Command {
         this.description = description;
         this.datetime = datetime;
         this.isExit = false;
+        this.hasValidCommandKeyword = true;
     }
 
     /**
@@ -80,6 +86,11 @@ public class Command {
      * @param ui User interface of the application.
      */
     public void execute(TaskList taskList, Ui ui) {
+        if (!this.hasValidCommandKeyword) {
+            ui.showInvalidCommandErrorMessage();
+            return;
+        }
+
         switch(command) {
         case CommandMenu.HELP_COMMAND:
             CommandMenu.display(ui);
@@ -118,9 +129,6 @@ public class Command {
         case "":
             ui.showEmptyInputErrorMessage();
             break;
-        case CommandMenu.INVALID_COMMAND:
-            ui.showInvalidCommandErrorMessage();
-            break;
         }
     }
 
@@ -130,5 +138,14 @@ public class Command {
      */
     public boolean isExit() {
         return this.isExit;
+    }
+
+    /**
+     * Set the <code>hasValidCommandKeyword</code> as false.
+     * <code>hasValidCommandKeyword</code> is true only when the command keyword is a command supported by the
+     * application. If the command is not supported, it is considered an invalid command keyword.
+     */
+    public void setHasInvalidCommandKeyword() {
+        this.hasValidCommandKeyword = false;
     }
 }
