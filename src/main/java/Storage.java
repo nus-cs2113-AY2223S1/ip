@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    String filePath;
+    public String filePath;
 
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
-    public static void load(String filePath) throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> newTaskList = new ArrayList<Task>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -39,6 +39,8 @@ public class Storage {
 
             Parser.implementUserInstruction(newTaskList, deformattedInst, isDone);
         }
+
+        return newTaskList;
     }
 
     public static void saveTasks(ArrayList<Task> taskList, String filePath) throws IOException {

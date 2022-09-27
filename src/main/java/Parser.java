@@ -60,7 +60,7 @@ public class Parser {
                 break;
 
             default:
-                UI.printDontKnowMessage();
+                Ui.printDontKnowMessage();
         }
 
         try {

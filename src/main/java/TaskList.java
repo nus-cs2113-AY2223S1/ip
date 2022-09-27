@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TaskList {
-    public ArrayList<Task> tasks;
+    public ArrayList<Task> taskList;
+
+    public TaskList(){
+        taskList = new ArrayList<>();
+    }
 
     public TaskList(ArrayList<Task> loadedList){
-        tasks = new ArrayList<>(loadedList);
+        taskList = new ArrayList<>(loadedList);
     }
 
     public static void addTodo(ArrayList<Task> taskList, String[] userInputSplit, boolean isDone) throws EmptyDescriptionException {
@@ -23,7 +27,7 @@ public class TaskList {
         newToDo.setIsDone(isDone);
         taskList.add(newToDo);
         Task.numOfTasks ++;
-        UI.printEchoInput(newToDo);
+        Ui.printEchoInput(newToDo);
     }
 
     public static void addEvent(ArrayList<Task> taskList, String[] userInputSplit, boolean isDone) throws StringIndexOutOfBoundsException{
@@ -39,7 +43,7 @@ public class TaskList {
         newEvent.setIsDone(isDone);
         taskList.add(newEvent);
         Task.numOfTasks ++;
-        UI.printEchoInput(newEvent);
+        Ui.printEchoInput(newEvent);
     }
     // add exception
 
@@ -52,8 +56,9 @@ public class TaskList {
         taskList.add(newDeadline);
         newDeadline.setIsDone(isDone);
         Task.numOfTasks ++;
-        UI.printEchoInput(newDeadline);
+        Ui.printEchoInput(newDeadline);
     }
+    // add exception
 
     public static void deleteTask(ArrayList<Task> taskList, int deleteIndex) {
         System.out.println("    ____________________________________________________________");
@@ -80,13 +85,13 @@ public class TaskList {
     public static void markTask(ArrayList<Task> taskList, String[] userInputSplit) {
         int markDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
         taskList.get(markDoneIndex).setIsDone(true);
-        UI.printSetDoneMessage(taskList.get(markDoneIndex));
+        Ui.printSetDoneMessage(taskList.get(markDoneIndex));
     }
 
     public static void unmarkTask(ArrayList<Task> taskList, String[] userInputSplit) {
         int markNotDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
         taskList.get(markNotDoneIndex).setIsDone(false);
-        UI.printSetNotDoneMessage(taskList.get(markNotDoneIndex));
+        Ui.printSetNotDoneMessage(taskList.get(markNotDoneIndex));
     }
 
 

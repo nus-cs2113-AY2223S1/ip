@@ -1,6 +1,19 @@
 import duke.Task;
 
-public class UI {
+import java.util.Scanner;
+
+public class Ui {
+    public String getUserInput(){
+        String input;
+        Scanner in = new Scanner(System.in);
+        input = in.nextLine();
+        return input;
+    }
+
+    public void showLoadingError(){
+        System.out.println("File not found !!!");
+    }
+
     public static void printDontKnowMessage(){
         String dontKnowMessage = "    ____________________________________________________________\n"
                 + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
