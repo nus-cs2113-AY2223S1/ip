@@ -73,9 +73,12 @@ public class TaskManager {
         UI.printLine();
         System.out.println("It just keeps piling up");
         int count = 1;
-        for (Task i : Tasks) {
-            System.out.println(count + "." + i);
+        for (Task task : Tasks) {
+            System.out.println(count + "." + task);
             count++;
+        }
+        if (count==1) {
+            System.out.println("Maybe find something else to do?");
         }
         UI.printLine();
     }
@@ -193,6 +196,28 @@ public class TaskManager {
 
     public static void addFromStorage(Task task) {
         Tasks.add(task);
+    }
+
+    public void findTasks (String text) {
+        try {
+            String position = Parser.parseFind(text);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Find?!! Find what?!");
+            return;
+        }
+        UI.printLine();
+        System.out.println("Look what I found:");
+        int count = 1;
+        for (Task task : Tasks) {
+            if (task.getDescription().contains(text)){
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
+        if (count==1) {
+            System.out.println("Just about nothin'");
+        }
+        UI.printLine();
     }
 }
 
