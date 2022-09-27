@@ -1,14 +1,25 @@
 package Duke.data.tasks;
+
+import Duke.data.exception.DukeException;
+
+/**
+ * Subclass of superclass Task
+ */
 public class Todo extends Task{
-    public Todo(String[] splitInputs) {
+    /**
+     * Constructor for the Todo class
+     * Initialise taskType, description and dueDate variables
+     * Throws an exception when there is no or empty input
+     * @param userInput is the description of task
+     * @throws DukeException
+     */
+    public Todo(String userInput) throws DukeException {
         super();
-        super.taskType = "T";
-        int i = 2;
-        super.description = splitInputs[1];
-        while(i < splitInputs.length) {
-            this.description += " ";
-            super.description += splitInputs[i++];
+        if(userInput.equals(" ")) {
+            throw new DukeException();
         }
+        super.taskType = "T";
+        super.description = userInput;
         super.dueDate = "";
     }
 }
