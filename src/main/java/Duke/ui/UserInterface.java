@@ -2,6 +2,7 @@ package Duke.ui;
 import Duke.Parser;
 import Duke.commands.Command;
 import Duke.data.TaskManager;
+import Duke.data.Memory;
 import java.util.Scanner;
 public class UserInterface {
     public final String EXIT = " Bye! Hope to see you again soon :)\n";
@@ -14,13 +15,17 @@ public class UserInterface {
     public final String GREETING = " Hello! I'm Duke\n What can I do for you?\n";
     public final String LINEBREAK = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public final String COMMAND_BYE = "bye";
-
+    private static String dir = System.getProperty("user.dir");
+    public static final java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "duke.txt");
+    public static final java.nio.file.Path tempFilePath = java.nio.file.Paths.get(dir, "data", "temp.txt");
     private final TaskManager myTaskManager;
     private final Scanner scanner;
+    private Memory myStorage;
 
-    public UserInterface() {
+    public UserInterface(String filePath) {
         scanner = new Scanner(System.in);
         myTaskManager = new TaskManager();
+        myStorage = new Memory(filePath);
     }
 
     public void runProgram() {
@@ -30,6 +35,7 @@ public class UserInterface {
             System.out.print(LINEBREAK);
             Command command = Parser.parse(input);
             command.execute(myTaskManager);
+            myStorage.saveToFile(myTaskManager);
             System.out.println(LINEBREAK);
             input = scanner.nextLine();
         }

@@ -44,6 +44,10 @@ public class TaskManager {
         tasks.get(i).printTask();
     }
 
+    public String getTaskString(int i) {
+        return tasks.get(i).toString();
+    }
+
     public int getSize() {
         return tasks.size();
     }

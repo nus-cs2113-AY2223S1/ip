@@ -5,8 +5,8 @@ public class Deadline extends Task{
     public Deadline(String userInput) {
         super();
         super.taskType = "E";
-        String[] splitInputs = userInput.split("/at", 2);
+        String[] splitInputs = userInput.split("/by", 2);
         super.description = splitInputs[0];
-        super.dueDate = "( at :" + splitInputs[1] + ")";
+        super.dueDate = "( by :" + splitInputs[1] + ")";
     }
 }
