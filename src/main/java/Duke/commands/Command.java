@@ -7,16 +7,10 @@ import Duke.data.exception.ExceptionMessage;
 import Duke.data.tasks.Deadline;
 import Duke.data.tasks.Event;
 import Duke.data.tasks.Todo;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-
 
 /**
- * Class to handle all command calls in programme
- * Takes in two params, command and arguments to carry out command calls
- * Contains boolean isExit, to control when to end the programme
+ * Class to process and execute all command calls in programme
  */
 public class Command {
     public final String COMMAND_LIST = "list";
@@ -31,11 +25,21 @@ public class Command {
     private final String commandWord;
     private final String userInput;
 
+    /**
+     * Constructor for Command class
+     * @param commandWord is the string containing user command
+     * @param userInput is the string containing information related to the command
+     */
     public Command (String commandWord, String userInput) {
         this.commandWord = commandWord;
         this.userInput = userInput;
     }
 
+    /**
+     * This method executes the command based on the command word given when constructing the class
+     * @param myTaskManager is the object which stores all tasks
+     * @param myStorage is the object which handles the saving and loading of data
+     */
     public void execute (TaskManager myTaskManager, Memory myStorage) {
         switch(commandWord){
         case COMMAND_LIST:
@@ -77,7 +81,7 @@ public class Command {
             break;
         case COMMAND_DEADLINE:
             try {
-                myTaskManager.addTasks(new Deadline(userInput));
+                myTaskManager.addTask(new Deadline(userInput));
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
@@ -88,7 +92,7 @@ public class Command {
             break;
         case COMMAND_EVENT:
             try {
-                myTaskManager.addTasks(new Event(userInput));
+                myTaskManager.addTask(new Event(userInput));
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
@@ -99,7 +103,7 @@ public class Command {
             break;
         case COMMAND_TODO:
             try {
-                myTaskManager.addTasks(new Todo(userInput));
+                myTaskManager.addTask(new Todo(userInput));
                 System.out.println("\t Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
@@ -110,7 +114,7 @@ public class Command {
             break;
         case COMMAND_DELETE:
             try {
-                myTaskManager.deleteTasks(Integer.parseInt(userInput) - 1);
+                myTaskManager.deleteTask(Integer.parseInt(userInput) - 1);
                 myTaskManager.printSize();
                 myStorage.saveToFile(myTaskManager);
             } catch(IndexOutOfBoundsException e) {

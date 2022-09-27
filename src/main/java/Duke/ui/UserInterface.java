@@ -4,6 +4,10 @@ import Duke.commands.Command;
 import Duke.data.TaskManager;
 import Duke.data.Memory;
 import java.util.Scanner;
+
+/**
+ * Class to run commands at interface level and start the program
+ */
 public class UserInterface {
     public final String EXIT = " Bye! Hope to see you again soon :)\n";
 
@@ -19,12 +23,20 @@ public class UserInterface {
     private final Scanner scanner;
     private final Memory myStorage;
 
+    /**
+     * constructor for the UserInterface class
+     * @param filePath is the path to the file where we will be loading and saving data from
+     */
     public UserInterface(String filePath) {
         scanner = new Scanner(System.in);
         myTaskManager = new TaskManager();
         myStorage = new Memory(filePath);
     }
 
+    /**
+     * This method starts the program by loading data from the text file and repeatedly reading inputs
+     * from user to process until user key in the keyword to exit program.
+     */
     public void runProgram() {
         String input;
         myStorage.loadFromFile(myTaskManager);
@@ -38,10 +50,16 @@ public class UserInterface {
         }
     }
 
+    /**
+     * This method prints the welcome message
+     */
     public void giveGreeting() {
         System.out.println(LOGO + GREETING + LINEBREAK);
     }
 
+    /**
+     * This method prints the exiting message
+     */
     public void giveFarewell() {
         System.out.println(EXIT + LINEBREAK);
     }
