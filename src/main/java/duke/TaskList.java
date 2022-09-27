@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event", "delete"};
+    static final String[] LIST_OF_COMMANDS = {"help", "todo", "mark", "unmark", "list", "bye", "deadline", "event", "delete", "find"};
 
     public static final String DEADLINE_SEPERATOR = " /by ";
     public static final String EVENT_SEPERATOR = " /at ";
@@ -169,6 +169,28 @@ public class TaskList {
         for (int taskNumber = 0; taskNumber < getTotalNumberOfTasks(); taskNumber++) {
             System.out.println("\t" + (taskNumber + 1) + ". " + getTask(taskNumber));
         }
+    }
+
+    public void listMatchingTasks() {
+        if (isEmpty()) {
+            System.out.println("\tNothing in the list matches your search keyword!");
+            return;
+        }
+        System.out.println("\tHere are the matching tasks in your list: ");
+        for (int taskNumber = 0; taskNumber < getTotalNumberOfTasks(); taskNumber++) {
+            System.out.println("\t" + (taskNumber + 1) + ". " + tasks.get(taskNumber));
+        }
+    }
+
+    public void find(String keyword) { //keyword will be made lower case before the function is called
+        TaskList matchingTaskList = new TaskList();
+        for (Task task : tasks) {
+            String taskName = task.toString().toLowerCase();
+            if (taskName.contains(keyword)) {
+                matchingTaskList.loadTask(task);
+            }
+        }
+        matchingTaskList.listMatchingTasks();
     }
 
     /**

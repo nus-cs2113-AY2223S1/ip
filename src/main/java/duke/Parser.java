@@ -95,6 +95,9 @@ public class Parser {
         if (command.equals("event")) {
             handlePossibleEventExceptions(parameters);
         }
+        if (command.equals("find") && parameters.isEmpty()) {
+            throw new IncorrectFormatException(Ui.MISSING_FIND_KEYWORD_ERROR_MESSAGE);
+        }
         if (parameters.isEmpty()) {
             throw new IncorrectFormatException(Ui.MISSING_TODO_DESCRIPTION_ERROR_MESSAGE);
         }
@@ -200,6 +203,9 @@ public class Parser {
         case "delete":
             taskNumber = Parser.retrieveTaskNumber(parameters);
             command = new DeleteCommand(taskNumber);
+            return command;
+        case "find":
+            command = new FindCommand(parameters);
             return command;
         case "todo":
             task = new Todo(parameters);

@@ -49,9 +49,13 @@ public class Ui {
             "\n\n\tlist" +
             "\n\t----" +
             " \n\tlist out all tasks and their completion status" +
+            "\n\n\tfind" +
+            "\n\t----" +
+            " \n\tshortlist tasks with a specific keyword; format 'find' [keyword]" +
             "\n\n\tbye" +
             "\n\t---" +
             " \n\texit the program";
+    public static final String MISSING_FIND_KEYWORD_ERROR_MESSAGE = "Incorrect format! The search keyword for a find command cannot be empty!";
     public static final String INVALID_TASK_NUMBER_ERROR_MESSAGE = "Incorrect format! Please enter a valid integer number to mark a task as done or not done!";
     public static final String INVALID_TIME_FORMAT_ERROR_MESSAGE = "Incorrect format! The time entered is not a valid date or is not in the correct format (uuuu-MM-dd H:mm)!";
 
