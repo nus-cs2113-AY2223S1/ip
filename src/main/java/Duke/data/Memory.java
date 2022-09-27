@@ -125,7 +125,7 @@ public class Memory {
             System.out.println(ExceptionMessage.UNKNOWN_INPUTS_LOAD);
             break;
         }
-        if(textFromFile.charAt(MARK_STATUS_INDEX) != 'X') {
+        if(textFromFile.charAt(MARK_STATUS_INDEX) == 'X') {
             myTaskManager.markDone(myTaskManager.getSize() - 1);
         }
     }
