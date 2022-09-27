@@ -30,25 +30,23 @@ public class Storage {
             numberOfLine += 1;
             switch (parsedLine[0]) {
             case "T":
-                addTodo(tasks, "todo " + parsedLine[2]);
+                addTodo(tasks, parsedLine[2]);
                 break;
             case "D":
-                String deadline = "deadline " + parsedLine[2] + " /by " + parsedLine[3];
+                String deadline = parsedLine[2] + " /by " + parsedLine[3];
                 addDeadline(tasks, deadline);
                 break;
             case "E":
-                String event = "event " + parsedLine[2] + " /at " + parsedLine[3];
+                String event = parsedLine[2] + " /at " + parsedLine[3];
                 addEvent(tasks, event);
                 break;
             }
             switch (parsedLine[1]) {
             case "1":
-                String mark = "mark " + numberOfLine;
-                markTask(tasks, mark);
+                markTask(tasks, numberOfLine);
                 break;
             case "0":
-                String unmark = "unmark " + numberOfLine;
-                unmarkTask(tasks, unmark);
+                unmarkTask(tasks, numberOfLine);
                 break;
             }
         }

@@ -1,2 +1,2 @@
 T | 0 | answer tutorial questions
-E | 0 | event lecture quiz | Friday 4 to 6 pm
+E | 0 | lecture quiz | Friday 4 to 6 pm

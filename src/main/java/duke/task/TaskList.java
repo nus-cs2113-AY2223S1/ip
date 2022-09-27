@@ -3,7 +3,8 @@ package duke.task;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -124,7 +125,7 @@ public class TaskList {
      * @param statement the description and time of the deadline.
      */
     public static void addDeadline(ArrayList<Task> tasks, String statement) {
-        String[] descriptionBy = statement.split("\\s+/by\\s+ ");
+        String[] descriptionBy = statement.split("\\s+/by\\s+");
         String deadlineDescription = descriptionBy[0];
         String by = descriptionBy[1];
         Deadline newDeadline = new Deadline(deadlineDescription, by);
@@ -162,60 +163,25 @@ public class TaskList {
     }
 
     /**
-     * Try to unmark a task, dealing with all the exceptions then unmark.
-     *
-     * @param tasks the taskList.
-     * @param line the parsed input.
-     */
-    public static void tryUnmarkTask(ArrayList<Task> tasks, String line) {
-        try {
-            if (line.replaceFirst("unmark", "").trim().equals("")) {
-                throw new DukeException();
-            }
-            int unmarkId = Integer.parseInt(line.replaceFirst("unmark ", "")) - 1;
-            if ((unmarkId >= tasks.size()) || (unmarkId < 0)) {
-                throw new DukeException();
-            }
-            unmarkTask(tasks, line);
-            String[] parsedInput = line.split(" ");
-            unmarkId = Integer.parseInt(parsedInput[1]) - 1;
-            printUnmark(tasks.get(unmarkId));
-        } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! Please input the unmark id again.");
-        }
-    }
-
-    /**
-     * Directly unmark a task, having dealt with the exception before.
-     *
-     * @param tasks the taskList.
-     * @param line the parsed input.
-     */
-    public static void unmarkTask(ArrayList<Task> tasks, String line) {
-        String[] parsedInput = line.split(" ");
-        int unmarkId = Integer.parseInt(parsedInput[1]) - 1;
-        tasks.get(unmarkId).setNotDone();
-    }
-
-    /**
      * Try to mark a task, dealing with all the exceptions then mark.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param id the unprocessed markId.
      */
-    public static void tryMarkTask(ArrayList<Task> tasks, String line) {
+    public static void tryMarkTask(ArrayList<Task> tasks, String id) {
         try {
-            if (line.replaceFirst("mark", "").trim().equals("")) {
+            if (id.equals("")) {
                 throw new DukeException();
             }
-            int markId = Integer.parseInt(line.replaceFirst("mark ", "")) - 1;
-            if ((markId >= tasks.size()) || (markId < 0)) {
+            if (!isInteger(id)) {
                 throw new DukeException();
             }
-            markTask(tasks, line);
-            String[] parsedInput = line.split(" ");
-            markId = Integer.parseInt(parsedInput[1]) - 1;
-            printMark(tasks.get(markId));
+            int markId = Integer.parseInt(id);
+            if ((markId > tasks.size()) || (markId <= 0)) {
+                throw new DukeException();
+            }
+            markTask(tasks, markId);
+            printUnmark(tasks.get(markId - 1));
         } catch (DukeException e) {
             System.out.println("     T_T OOPS!!! Please input the mark id again.");
         }
@@ -225,12 +191,71 @@ public class TaskList {
      * Directly mark a task, having dealt with the exception before.
      *
      * @param tasks the taskList.
-     * @param line the parsed input.
+     * @param markId the ID of the mark task.
      */
-    public static void markTask(ArrayList<Task> tasks, String line) {
-        String[] parsedInput = line.split(" ");
-        int markId = Integer.parseInt(parsedInput[1]) - 1;
+    public static void markTask(ArrayList<Task> tasks, int markId) {
+        markId = markId - 1;
         tasks.get(markId).setDone();
+    }
+
+    /**
+     * Try to unmark a task, dealing with all the exceptions then unmark.
+     *
+     * @param tasks the taskList.
+     * @param id the unprocessed unmarkId.
+     */
+    public static void tryUnmarkTask(ArrayList<Task> tasks, String id) {
+        try {
+            if (id.equals("")) {
+                throw new DukeException();
+            }
+            if (!isInteger(id)) {
+                throw new DukeException();
+            }
+            int unmarkId = Integer.parseInt(id);
+            if ((unmarkId > tasks.size()) || (unmarkId <= 0)) {
+                throw new DukeException();
+            }
+            unmarkTask(tasks, unmarkId);
+            printUnmark(tasks.get(unmarkId - 1));
+        } catch (DukeException e) {
+            System.out.println("     T_T OOPS!!! Please input the unmark id again.");
+        }
+    }
+
+    /**
+     * Directly unmark a task, having dealt with the exception before.
+     *
+     * @param tasks the taskList.
+     * @param unmarkId the ID of the unmark task.
+     */
+    public static void unmarkTask(ArrayList<Task> tasks, int unmarkId) {
+        unmarkId = unmarkId - 1;
+        tasks.get(unmarkId).setNotDone();
+    }
+
+    /**
+     * Try to delete a task, dealing with all the exceptions then delete.
+     *
+     * @param tasks the taskList.
+     * @param id the parsed input.
+     */
+    public static void tryDeleteTask(ArrayList<Task> tasks, String id) {
+        try {
+            if (id.equals("")) {
+                throw new DukeException();
+            }
+            if (!isInteger(id)) {
+                throw new DukeException();
+            }
+            int deleteId = Integer.parseInt(id);
+            if ((deleteId > tasks.size()) || (deleteId <= 0)) {
+                throw new DukeException();
+            }
+            deleteTask(tasks, deleteId - 1);
+        } catch (DukeException e) {
+            System.out.println("     T_T OOPS!!! Please input the delete id again.");
+        }
     }
 
     /**
@@ -244,24 +269,6 @@ public class TaskList {
         System.out.println("       " + tasks.get(deleteId));
         System.out.println("     Now you have " + (tasks.size() - 1) + " tasks in the list.");
         tasks.remove(deleteId);
-    }
-
-    /**
-     * Try to delete a task, dealing with all the exceptions then delete.
-     *
-     * @param tasks the taskList.
-     * @param parsedInput the parsed input.
-     */
-    public static void tryDeleteTask(ArrayList<Task> tasks, String[] parsedInput) {
-        int deleteId = Integer.parseInt(parsedInput[1]) - 1;
-        try {
-            if ((deleteId >= tasks.size()) || (deleteId < 0)) {
-                throw new DukeException();
-            }
-            deleteTask(tasks, deleteId);
-        } catch (DukeException e) {
-            System.out.println("     T_T OOPS!!! There is no such task number");
-        }
     }
 
     public static void findTask(ArrayList<Task> tasks, String statement) {
@@ -283,5 +290,14 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public static boolean isInteger(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if( !isNum.matches() ){
+            return false;
+        }
+        return true;
     }
 }

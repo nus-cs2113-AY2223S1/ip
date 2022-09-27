@@ -13,6 +13,6 @@ public class MarkCommand extends Command {
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryMarkTask(tasks, keyword + " " + statement);
+        tryMarkTask(tasks, statement);
     }
 }

@@ -14,6 +14,6 @@ public class DeleteCommand extends Command {
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryDeleteTask(tasks, (keyword + " " + statement).split(" "));
+        tryDeleteTask(tasks, statement);
     }
 }

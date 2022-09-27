@@ -14,6 +14,6 @@ public class UnmarkCommand extends Command{
         this.statement = statement;
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        tryUnmarkTask(tasks, keyword + " " + statement);
+        tryUnmarkTask(tasks, statement);
     }
 }
