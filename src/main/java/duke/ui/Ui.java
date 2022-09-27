@@ -1,6 +1,8 @@
 package duke.ui;
 
 
+import java.util.Scanner;
+
 public class Ui {
     public static final String HORIZONTAL_LINE = "    ____________________________________________________________";
 
@@ -44,5 +46,10 @@ public class Ui {
         } else {
             System.out.println(message);
         }
+    }
+
+    public String readCommand() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
     }
 }
