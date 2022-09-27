@@ -10,41 +10,46 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private static String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
     public static void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
-        File f = new File(filePath);
-        FileWriter fw = new FileWriter(f);
+        File storedFile = new File(filePath);
+        File parent = storedFile.getParentFile();
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
+        if (!storedFile.exists()) {
+            storedFile.createNewFile();
+        }
+        FileWriter writeFile = new FileWriter(storedFile);
         for (Task task: list) {
             Boolean isDone = task.isDone;
-            fw.write(task.type + "|" + isDone + "|" + task.description + "|" + task.by + System.lineSeparator());
+            writeFile.write(task.type + "|" + isDone + "|" + task.description +
+                    "|" + task.by + System.lineSeparator());
         }
-        fw.close();
+        writeFile.close();
     }
-
-    public static void getFileContents(String filePath, ArrayList list) throws FileNotFoundException {
+    public static void getFileContents(String filePath, ArrayList<Task> list) throws FileNotFoundException {
         Scanner s = new Scanner(new FileInputStream((filePath)));
         while (s.hasNext()) {
-            String commands = s.nextLine();
-            String inputCommands[] = commands.split("\\|", 4);
+            String command = s.nextLine();
+            String inputCommands[] = command.split("\\|", 4);
             switch (inputCommands[0]) {
             case "T":
                 Todo addTodo = new Todo(inputCommands[2]);
-                if (inputCommands[1] == "true") {
-                    addTodo.isDone = true;
-                }
+                Ui.checkMarked(addTodo,inputCommands[1]);
                 list.add(addTodo);
                 break;
             case "D":
                 Deadline addDeadline = new Deadline(inputCommands[2], inputCommands[3]);
-                if (inputCommands[1] == "true") {
-                    addDeadline.isDone = true;
-                }
+                Ui.checkMarked(addDeadline,inputCommands[1]);
                 list.add(addDeadline);
                 break;
             case "E":
                 Event addEvent = new Event(inputCommands[2], inputCommands[3]);
-                if (inputCommands[1] == "true") {
-                    addEvent.isDone = true;
-                }
+                Ui.checkMarked(addEvent,inputCommands[1]);
                 list.add(addEvent);
                 break;
             default:

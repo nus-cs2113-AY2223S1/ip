@@ -1,1 +1,7 @@
 E|false|study |11pm
+D|false|report |next Mon
+D|false|submit |tmr
+T|false|do this thing|null
+D|false|homework |tmr
+T|false|Homework|null
+T|false|this thing|null
