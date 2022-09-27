@@ -117,4 +117,12 @@ public class Ui {
     public void showCreateFileFailErrorMessage() {
         System.out.println(Message.CREATE_FILE_FAIL_ERROR_MESSAGE);
     }
+
+    public void showNoMatchingTaskMessage() {
+        System.out.println(Message.NO_MATCHING_TASKS_MESSAGE);
+    }
+
+    public void showMissingSearchWordErrorMessage() {
+        System.out.println(Message.MISSING_SEARCH_WORD_ERROR_MESSAGE);
+    }
 }

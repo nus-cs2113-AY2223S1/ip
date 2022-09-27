@@ -32,6 +32,9 @@ Unmark a task from done
 Delete a task from the list
     delete <task-number>
 
+Find task(s) with keywords in the description
+    find <search-word>
+
 Exit the application
     bye
 ==================================================================
@@ -60,10 +63,13 @@ Syntax: deadline <description> /by <deadline-datetime>
 ==================================================================
 Task added: [D][ ] submit quiz (by: Sep 6th 23:59)
 ==================================================================
+Task added: [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
 1. [T][ ] read book
 2. [T][ ] exercise
 3. [E][ ] watch movie (at: Sep 30th 6pm)
 4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
 ==================================================================
 Sorry, you have not provide the task number.
 Syntax: mark <task-number>
@@ -82,6 +88,7 @@ Syntax: mark <task-number>
 2. [T][X] exercise
 3. [E][X] watch movie (at: Sep 30th 6pm)
 4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
 ==================================================================
 Sorry, you have not provide the task number.
 Syntax: unmark <task-number>
@@ -98,6 +105,7 @@ Syntax: unmark <task-number>
 2. [T][ ] exercise
 3. [E][X] watch movie (at: Sep 30th 6pm)
 4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
 ==================================================================
 Sorry, you have not provide the task number.
 Syntax: delete <task-number>
@@ -113,6 +121,17 @@ Task 2 deleted
 1. [T][ ] read book
 2. [E][X] watch movie (at: Sep 30th 6pm)
 3. [D][ ] submit quiz (by: Sep 6th 23:59)
+4. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+Please provide a search word to find the task.
+Syntax: find <search-word>
+==================================================================
+No matching tasks for the given search word.
+==================================================================
+1. [T][ ] read book
+==================================================================
+1. [D][ ] submit quiz (by: Sep 6th 23:59)
+2. [D][ ] submit ip (by: Sep 30th 23:59)
 ==================================================================
 I can't hear anything from you, can you say it again? Type 'help' if you need help.
 ==================================================================
