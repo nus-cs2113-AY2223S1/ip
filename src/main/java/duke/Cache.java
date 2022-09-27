@@ -27,7 +27,7 @@ public class Cache {
             }
             file = new File(filePath);
             if (file.exists()) {
-                return Communication.loading(file);
+                return retrival(file);
             } else {
                 file.createNewFile();
                 assert(file.exists());
