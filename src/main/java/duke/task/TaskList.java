@@ -15,6 +15,10 @@ public class TaskList {
 
     private final Storage storage;
 
+    /**
+     * Constructor of <code>TaskList</code> object which is temporary.
+     * Temporary list is not stored in any storage, but only used for temporary task list operations.
+     */
     public TaskList() {
         storage = null;
         tasks = new ArrayList<>();
@@ -45,8 +49,11 @@ public class TaskList {
 
     /**
      * List all the <code>Task</code> objects in the task list.
-     * If there are no tasks in the list, it shows a message that tell that there are not tasks.
      * If there are tasks in the list, it shows the tasks in a numbered list, where the number represent the
+     * If there are no tasks in the list and it is not a temporary list, then it shows a message that tell that there
+     * are not tasks.
+     * If the list is temporary and there is no task, then it is the case where a list is created just for the find
+     * operation. The user interface will show that no matched tasks are found.
      * task number of the task.
      * @param ui User interface of the application.
      */
@@ -121,6 +128,13 @@ public class TaskList {
         storage.saveTasks(tasks, ui);
     }
 
+    /**
+     * Return a <code>TaskList</code> object that contains all the matching tasks represented as
+     * <code>Task</code> objects.
+     * @param searchWord Search word to match tasks through their description.
+     * @param ui User interface of the application
+     * @return <code>TaskList</code> object of all the matching tasks.
+     */
     public TaskList find(String searchWord, Ui ui) {
         TaskList matchingTasks = new TaskList();
 
@@ -133,10 +147,21 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Return a boolean value of whether the description of the task contains the specific search word.
+     * @param task <code>Task</code> object to be compared with the search word.
+     * @param searchWord Search word to check if it is a substring in the given task's description.
+     * @return Boolean value of whether the search word is in the description of the task.
+     */
     private boolean isMatched(Task task, String searchWord) {
         return task.description.toLowerCase().contains(searchWord.toLowerCase());
     }
 
+    /**
+     * Return a boolean value of whether the list is temporary.
+     * If the list is temporary, no storage is needed.
+     * @return Boolean value of whether the list is temporary.
+     */
     private boolean isTemporaryList() {
         return storage == null;
     }

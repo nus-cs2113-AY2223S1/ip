@@ -206,10 +206,16 @@ public class Ui {
         System.out.println(Message.CREATE_FILE_FAIL_ERROR_MESSAGE);
     }
 
+    /**
+     * Show the error message that no matching task is found.
+     */
     public void showNoMatchingTaskMessage() {
         System.out.println(Message.NO_MATCHING_TASKS_MESSAGE);
     }
 
+    /**
+     * Show the error message that a search word is missing for a Find operation.
+     */
     public void showMissingSearchWordErrorMessage() {
         System.out.println(Message.MISSING_SEARCH_WORD_ERROR_MESSAGE);
     }

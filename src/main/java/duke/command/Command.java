@@ -49,7 +49,7 @@ public class Command {
 
     /**
      * Constructor of <code>Command</code> class for commands that only need a description to be provided.
-     * For example, adding a todo task.
+     * For example, adding a todo task and finding matching tasks.
      * @param command Command keyword of the command inputted.
      * @param description Description of the task to be added.
      */
