@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represent all the messages the user interface would show to the user.
+ */
 public final class Message {
     public static final String GREETING_MESSAGE = "Hello! I'm Ever\n" +
             "What can I do for you?";
