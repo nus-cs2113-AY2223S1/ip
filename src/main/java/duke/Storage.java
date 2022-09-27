@@ -46,7 +46,6 @@ public class Storage {
         Ui.printLine();
         System.out.println("\tLoading existing data...");
         Ui.printLine();
-        System.out.println();
 
         Scanner fileScanner = initializeScanner();
         if (fileScanner == null) {
@@ -67,6 +66,10 @@ public class Storage {
         description = inputs[DESCRIPTION_INDEX];
         if (inputs.length > 3) {
             time = inputs[TIME_INDEX];
+            if (!Parser.isValidTime(time)) {
+                Ui.showErrorMessage("Error! Data file contains invalid times!");
+                Duke.exit(-1);
+            }
         }
         Task task = TaskList.initialiseTaskFromParameters(taskType, description, status, time);
         taskList.loadTask(task);
@@ -129,10 +132,10 @@ public class Storage {
         fileWriter.write(task.getDescription());
         if (task instanceof Event) {
             fileWriter.write(" | ");
-            fileWriter.write(((Event) task).getTime());
+            fileWriter.write(((Event) task).getTime(Parser.DATA_TIME_FORMAT));
         } else if (task instanceof Deadline) {
             fileWriter.write(" | ");
-            fileWriter.write(((Deadline) task).getDeadline());
+            fileWriter.write(((Deadline) task).getDeadline(Parser.DATA_TIME_FORMAT));
         }
         fileWriter.write(System.lineSeparator());
     }

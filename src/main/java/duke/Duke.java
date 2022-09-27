@@ -39,7 +39,7 @@ public class Duke {
         if (status == NORMAL_EXIT_VALUE) {
             System.out.println("\t" + "Bye. Hope to see you again soon!");
         } else {
-            System.out.println("Terminating due to errors!");
+            System.out.println("\tTerminating due to errors!");
         }
         Ui.printLine();
         System.exit(status);
