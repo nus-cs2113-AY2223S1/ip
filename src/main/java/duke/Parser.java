@@ -36,6 +36,9 @@ public class Parser {
         case "delete":
             Manager.deleteTasks(line);
             break;
+        case "find":
+            Manager.findTasks(line);
+            break;
         default:
             throw new DukeException();
         }
@@ -76,6 +79,10 @@ public class Parser {
         return result[1];
     }
 
+    public static String parseFind(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
     public static String parseEventDate(String line) {
         String[] result = line.split("/at ");
         return result[1];
