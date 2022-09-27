@@ -1,5 +1,6 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -49,6 +50,16 @@ public class TaskList {
         default:
             return null;
         }
+    }
+
+    public ArrayList<Task> search(String keyword){
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task :taskList){
+            if (task.description.contains(keyword)){
+                results.add(task);
+            }
+        }
+        return results;
     }
 
 }

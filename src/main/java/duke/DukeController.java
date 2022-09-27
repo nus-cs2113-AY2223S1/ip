@@ -2,6 +2,7 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DukeController {
     private TaskList taskList = new TaskList();
@@ -31,6 +32,10 @@ public class DukeController {
                 ui.printGoodbye();
                 Duke.exitDuke();
                 return;
+            case "find":
+                ArrayList<Task> searchResults = taskList.search(parsedInput[1]);
+                ui.printSearchResults(searchResults, parsedInput[1]);
+                break;
             case "list":
                 if (taskList.getTaskList().size() == 0){
                     ui.printTaskListEmpty();
