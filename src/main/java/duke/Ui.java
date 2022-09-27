@@ -51,6 +51,8 @@ public class Ui {
             "\n\t---" +
             " \n\texit the program";
     public static final String MISSING_FIND_KEYWORD_ERROR_MESSAGE = "Incorrect format! The search keyword for a find command cannot be empty!";
+    public static final String INVALID_TASK_NUMBER_ERROR_MESSAGE = "Incorrect format! Please enter a valid integer number to mark a task as done or not done!";
+    public static final String INVALID_TIME_FORMAT_ERROR_MESSAGE = "Incorrect format! The time entered is not a valid date or is not in the correct format (uuuu-MM-dd H:mm)!";
 
     Scanner scanner;
 
@@ -101,7 +103,7 @@ public class Ui {
     }
 
     public void greet() {
-        System.out.println("Hello from\n" + Ui.DUKE_LOGO);
+        System.out.println("\nHello from\n" + Ui.DUKE_LOGO);
         printLine();
         System.out.println("\tHello! I'm Duke!");
         System.out.println("\tWhat can I do for you?");
