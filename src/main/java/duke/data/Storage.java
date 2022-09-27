@@ -22,6 +22,11 @@ public class Storage {
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Save the tasks in the existing arraylist to a .txt file duke in the data folder
+     * @param tasks The tasks currently in the list in the program
+     * @throws IOException If errors occur during file operations
+     */
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
         Path fileDir= Paths.get(FILE_DIRECTORY);
 
@@ -52,6 +57,10 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Write the tasks stored in the duke.txt file in folder data into the current list of tasks in the program
+     * @param tasks The tasks currently in the list
+     */
     public static void loadTasks(ArrayList<Task> tasks) {
         Path fileDir= Paths.get(FILE_DIRECTORY);
         if (Files.notExists(fileDir)) {

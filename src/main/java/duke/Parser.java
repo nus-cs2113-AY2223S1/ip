@@ -4,14 +4,34 @@ import duke.exceptions.DukeException;
 
 import java.io.IOException;
 
+/**
+ * The class Parser has methods to handle the parsing of input strings from the user
+ */
 public class Parser {
+    /**
+     * @param line Input string from user
+     * @return a boolean value true if the string contains "bye", false if it does not
+     */
     static boolean checkBye(String line) {
         return line.equals("bye");
     }
 
+    /**
+     * @param line Input string from user
+     * @return the command from the user
+     */
     static String getAction(String line){
         return line.split(" ")[0];
     }
+
+    /**
+     * @param Manager The initialized TaskManager object that handles and contains the task objects
+     * @param line Input string from user
+     * @throws DukeException An exception thrown when the command from the user does not match any
+     * acceptable commands
+     * @throws IOException An exception thrown when there is an error during the read and write to
+     * file during the handling of commands from user
+     */
     static void parse(TaskManager Manager,String line) throws DukeException, IOException {
         String action = getAction(line);
         switch (action) {
