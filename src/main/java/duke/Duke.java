@@ -56,6 +56,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Executes the program.
+     */
     public void run() {
         start();
         runCommandLoopUntilByeCommand();

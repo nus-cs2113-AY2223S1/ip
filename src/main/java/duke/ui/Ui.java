@@ -29,6 +29,9 @@ import static duke.common.Messages.MESSAGE_NO_MATCHING_DEADLINE_OR_EVENT;
 import static duke.common.Messages.MESSAGE_EMPTY_LIST;
 import static duke.common.Messages.MESSAGE_EMPTY_KEYWORD;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     private final Scanner in;
 
@@ -64,6 +67,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Retrieves non-empty user input.
+     */
     public String getUserCommand() {
         String fullInputLine = in.nextLine();
         // silently consume all ignored lines

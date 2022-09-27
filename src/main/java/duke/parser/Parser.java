@@ -29,11 +29,29 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
 
     public Parser() {
     }
 
+    /**
+     * Processes the user command and prepares for corresponding command.
+     *
+     * @param userInput Used to extract command.
+     * @return The command type to be executed. If invalid, returns incorrect command-type.
+     * @exception MissingListIndexException If no task list index provided to mark, unmark or delete a task.
+     * @exception EmptyTaskDescriptionException If no task description provided to add any type of task.
+     * @exception MissingDeadlineDateTimeReferenceException If /by not provided for deadline description.
+     * @exception MissingEventDateTimeReferenceException If /at not provided for event description.
+     * @exception ParseException If date format provided for deadline/event is not valid (dd/mm/yyyy).
+     * @exception DateTimeParseException If date format provided for deadline/event is not valid (dd/mm/yyyy).
+     * @exception MissingEventTimeException If event start time, end time or both are not provided.
+     * @exception InvalidTimeFormatException If event start time, end time or both are not valid (24-hr format).
+     * @exception EmptyKeywordException If no keyword provided to find matching task description.
+     */
     public Command parseCommand(String userInput) throws MissingListIndexException, EmptyTaskDescriptionException,
             MissingDeadlineDateTimeReferenceException, MissingEventDateTimeReferenceException, ParseException,
             DateTimeParseException, MissingEventTimeException, InvalidTimeFormatException, EmptyKeywordException {
@@ -123,7 +141,7 @@ public class Parser {
         }
     }
 
-    public static String extractTaskName(String taskDescription, String dateTimeReference)
+    private static String extractTaskName(String taskDescription, String dateTimeReference)
             throws MissingDateTimeReferenceException, EmptyTaskDescriptionException {
         int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
         boolean haveDataTimeReference = (dateTimeIndex != -1);
@@ -137,7 +155,7 @@ public class Parser {
         return taskDescription.substring(0, dateTimeIndex - 1).trim();
     }
 
-    public static String extractTaskDateTime(String taskDescription, String dateTimeReference)
+    private static String extractTaskDateTime(String taskDescription, String dateTimeReference)
             throws MissingDateTimeReferenceException {
         int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
         boolean haveDataTimeReference = (dateTimeIndex != -1);

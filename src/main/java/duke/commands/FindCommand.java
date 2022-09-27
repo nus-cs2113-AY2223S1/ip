@@ -5,15 +5,31 @@ import duke.TaskList;
 import duke.task.Task;
 import duke.Storage;
 
+/**
+ * Finds task(s) with matching keyword from the task list.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     private final String keyword;
 
+    /**
+     * Constructs constructor for Find command which stores the keyword to be matched.
+     *
+     * @param keyword Keyword to be matched.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Checks for matching task descriptions with keyword when task list is non-empty and prints matching results.
+     * Otherwise, ends function if list is empty.
+     *
+     * @param taskList Used to access taskList information.
+     * @param ui Used to print matching result or empty list messages.
+     * @param storage Used to update task information in duke.txt.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         int currentListSize = taskList.getCurrentListSize();

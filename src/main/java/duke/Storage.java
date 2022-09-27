@@ -9,6 +9,9 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Deals with loading tasks from the file and saving tasks into the file (File: duke.txt).
+ */
 public class Storage {
     private static final String DATA_FILEPATH = "data";
     private static final String DUKE_FILEPATH = "data/duke.txt";
@@ -18,14 +21,33 @@ public class Storage {
     public Storage() {
     }
 
+    /**
+     * Searches for data directory. If directory does not exist, created the directory.
+     *
+     * @return True if new directory created. Otherwise, returns false.
+     * @exception SecurityException If directory has access restrictions.
+     */
     public boolean findDataFile() throws SecurityException {
         return dataFile.mkdir();
     }
 
+    /**
+     * Searches for duke text file. If text file does not exist, created the text file.
+     *
+     * @return True if new text file created. Otherwise, returns false.
+     * @exception IOException If external errors occurs.
+     */
     public boolean findDukeTextFile() throws IOException {
         return dukeFile.createNewFile();
     }
 
+    /**
+     * Loads tasks from the duke text file.
+     *
+     * @param taskList Stores tasks loaded from duke text file.
+     * @return Initial size of task list when program boots.
+     * @exception FileNotFoundException If duke text file not found.
+     */
     public int loadDukeTextFile(TaskList taskList) throws FileNotFoundException {
         String taskDescription;
         int taskIndex = 0;
@@ -121,6 +143,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates tasks mark status or removes task from duke text file.
+     *
+     * @param lineToEdit Represents specific line (row) to be edited in the duke text file.
+     * @param isMarked Contains state of how task should be updated. (True - Mark; False - Unmark; Null - Delete)
+     * @exception IOException If external errors occurs.
+     */
     public void updateDukeTextFile(int lineToEdit, Boolean isMarked) throws IOException {
         StringBuilder taskDescriptions = new StringBuilder();
         int lineNumber = 0;
@@ -143,6 +172,12 @@ public class Storage {
         return currentLine.substring(0, 4) + markStatus + currentLine.substring(5);
     }
 
+    /**
+     * Adds task to duke text file.
+     *
+     * @param addedTaskDescription Contains full description of task to be added into duke text file.
+     * @exception IOException If external errors occurs.
+     */
     public void addTaskToDukeTextFile(String addedTaskDescription) throws IOException {
         Scanner dukeScanner = new Scanner(dukeFile);
         String newDukeTextFileContent = copyFileContent(dukeScanner);
