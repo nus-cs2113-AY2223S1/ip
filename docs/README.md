@@ -139,6 +139,7 @@ Expected outcome:
 
 Examples:
 * `todo Buy a pencil` Adds the todo task `Buy a pencil` to the list.
+
 ```
 todo Buy a pencil
 Task added: [T][ ] Buy a pencil
@@ -329,6 +330,7 @@ Syntax: unmark <task-number>
 ```
 
 * `unmark` Shows an error message that the task number is missing from the command.
+
 ```
 unmark
 Sorry, you have not provide the task number.
