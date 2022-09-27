@@ -259,7 +259,7 @@ Description | Syntax | Examples
 Add a deadline task | `deadline {task description} /by {YYYY-MM-DD} OR {deadline description}` | `deadline submit cs2113T assignment /by 2022-10-01` `deadline submit cs2102 assignment /by two days later` 
 Add an event task | `event {task description} /at {YYYY-MM-DD} OR {deadline description}` | `event run marathon /at 2022-11-03` `event national day /at 1 month ago` 
 Add a todo task | `todo {task description}` | `todo buy new laptop`
-Mark a task as done | `done {task index in list}` | `done 1`
+Mark a task as completed/incomplete | `mark/unmark {task index in list}` | `mark 1`
 Delete a task | `delete {task index in list}` | `delete 3`
 Find tasks by keywords | `find {keyword}` | `find assignments`
 Find tasks by date | `date {YYYY-MM-DD}` | `date 2022-09-30`
