@@ -1,5 +1,8 @@
 # User Guide
 
+## Introduction
+Duke is a Command Line Interface (CLI) program that tracks a user's tasks (todo, deadline and event) 
+
 ## Setting Up
 1. Make sure you have Java 11 installed to run this program
 2. Download the JAR file from the latest release
@@ -19,7 +22,6 @@ Hello I'm
 
 What you want?
 ```
-
 ## Features 
 
 ### Add Task
