@@ -14,6 +14,7 @@ public class Parser {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
 
     public static final String SPACE_DELIMITER = "\\s+";
     public static final String START_LINE_DELIMITER = "^";
@@ -48,6 +49,10 @@ public class Parser {
         if (command.equals(DONE)) {
             return new MarkAsDoneCommand(taskList, commandArguments);
         }
+        if (command.equals(FIND)) {
+            return new MarkAsDoneCommand(taskList, commandArguments);
+        }
+
         return new DoNothingCommand(taskList);
 
     }

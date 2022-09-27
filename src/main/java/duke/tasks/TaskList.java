@@ -196,4 +196,21 @@ public class TaskList {
         throw new DoNothingException();
     }
 
+    public static String findTask(String commandArguments) throws NotFoundException {
+        String found = "Here are the tasks in your list that contains '" + commandArguments + "'";
+
+        int numTasksFound = 0;
+
+        for (int i = 0; i < taskList.size(); i++){
+            if (taskList.get(i).getTaskDescription().toLowerCase().contains(commandArguments.toLowerCase())){
+                numTasksFound++;
+                found += "\n" + (i+1) + ". " + taskList.get(i).showTask();
+            }
+        }
+
+        if (numTasksFound == 0){
+            throw new NotFoundException();
+        }
+        return found;
+    }
 }
