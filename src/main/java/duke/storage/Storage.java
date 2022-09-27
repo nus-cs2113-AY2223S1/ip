@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -19,38 +20,47 @@ public class Storage {
     private File f;
     private String filePath;
     public Storage(String filePath){
-        f = new File(filePath); // create a File for the given file path
+        f = new File(filePath);
         this.filePath = filePath;
     }
-    public ArrayList<Task> load() throws FileNotFoundException {
-        tasks = new ArrayList<Task>();
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+    public ArrayList<Task> load() throws DukeException {
+        tasks = new ArrayList<>();
+        Scanner s;
         int numberOfLine = 0;
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] parsedLine = line.split(" \\| ");
-            numberOfLine += 1;
-            switch (parsedLine[0]) {
-            case "T":
-                addTodo(tasks, parsedLine[2]);
-                break;
-            case "D":
-                String deadline = parsedLine[2] + " /by " + parsedLine[3];
-                addDeadline(tasks, deadline);
-                break;
-            case "E":
-                String event = parsedLine[2] + " /at " + parsedLine[3];
-                addEvent(tasks, event);
-                break;
+        try {
+            s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] parsedLine = line.split(" \\| ");
+                numberOfLine += 1;
+                switch (parsedLine[0]) {
+                case "T":
+                    addTodo(tasks, parsedLine[2]);
+                    break;
+                case "D":
+                    String deadline = parsedLine[2] + " /by " + parsedLine[3];
+                    addDeadline(tasks, deadline);
+                    break;
+                case "E":
+                    String event = parsedLine[2] + " /at " + parsedLine[3];
+                    addEvent(tasks, event);
+                    break;
+                default:
+                    throw new DukeException();
+                }
+                switch (parsedLine[1]) {
+                case "1":
+                    markTask(tasks, numberOfLine);
+                    break;
+                case "0":
+                    unmarkTask(tasks, numberOfLine);
+                    break;
+                default:
+                    throw new DukeException();
+                }
             }
-            switch (parsedLine[1]) {
-            case "1":
-                markTask(tasks, numberOfLine);
-                break;
-            case "0":
-                unmarkTask(tasks, numberOfLine);
-                break;
-            }
+        } catch (ArrayIndexOutOfBoundsException | DukeException | FileNotFoundException e) {
+            throw new DukeException();
         }
         return tasks;
     }

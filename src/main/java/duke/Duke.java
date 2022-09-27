@@ -7,7 +7,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.io.FileNotFoundException;
 
 /**
  * The chatting bot Duke.
@@ -28,7 +27,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
+        } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
