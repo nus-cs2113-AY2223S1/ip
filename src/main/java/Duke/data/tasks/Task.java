@@ -34,7 +34,7 @@ public abstract class Task {
      * @return symbols representing status of task completion
      */
     public String getStatusIcon() {
-        return (this.isDone) ? "X" : " ";
+        return (this.isDone) ? "X" : "-";
     }
 
     /**

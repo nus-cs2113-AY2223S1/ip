@@ -70,7 +70,7 @@ public class TaskManager {
      */
     public void searchForDate(LocalDate date) {
         boolean hasResults = false;
-        System.out.println("\tHere are the tasks in your list that matches the given date:");
+        System.out.println("Here are the tasks in your list that matches the given date:");
         for(Task element : tasks) {
             if(element.assignedDate.equals(date)) {
                 element.printTask();
@@ -79,8 +79,7 @@ public class TaskManager {
         }
         if(!hasResults) {
             System.out.println("There is no results.\n" +
-                    "Please make sure you have keyed in the right keyword" +
-                    "\n*note that keyword is case-sensitive*");
+                    "Please make sure you have keyed in the right date");
         }
     }
 
@@ -90,7 +89,7 @@ public class TaskManager {
      */
     public void searchForWord(String word) {
         boolean hasResults = false;
-        System.out.println("\tHere are the tasks in your list that matches the given word:");
+        System.out.println("Here are the tasks in your list that matches the given word:");
         for(Task element : tasks) {
             if((element.getDescription()).contains(word)) {
                 element.printTask();

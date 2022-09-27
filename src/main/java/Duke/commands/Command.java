@@ -52,14 +52,11 @@ public class Command {
         case COMMAND_MARK:
             try {
                 myTaskManager.markDone(Integer.parseInt(userInput) - 1);
-                myTaskManager.printList();
                 myStorage.saveToFile(myTaskManager);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println();
+                System.out.println("Nice! I've marked this task as completed:");
+                myTaskManager.printTask(Integer.parseInt(userInput) - 1);
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + this.userInput);
-            } catch(DukeException e) {
-                System.out.println(ExceptionMessage.EMPTY_HANDLER);
             } catch(NumberFormatException e) {
                 System.out.println(ExceptionMessage.EMPTY_MARK_INDEX);
             }
@@ -67,14 +64,11 @@ public class Command {
         case COMMAND_UNMARK:
             try {
                 myTaskManager.unmarkDone(Integer.parseInt(userInput) - 1);
-                myTaskManager.printList();
                 myStorage.saveToFile(myTaskManager);
-                System.out.println("Nice! I've marked this task as undone:");
-                System.out.println();
+                System.out.println("Nice! I've marked this task as incomplete:");
+                myTaskManager.printTask(Integer.parseInt(userInput) - 1);
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + this.userInput);
-            } catch(DukeException e) {
-                System.out.println(ExceptionMessage.EMPTY_HANDLER);
             } catch(NumberFormatException e) {
                 System.out.println(ExceptionMessage.EMPTY_MARK_INDEX);
             }
@@ -93,7 +87,7 @@ public class Command {
         case COMMAND_EVENT:
             try {
                 myTaskManager.addTask(new Event(userInput));
-                System.out.println("\t Added: ");
+                System.out.println("Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
                 myStorage.saveToFile(myTaskManager);
@@ -104,7 +98,7 @@ public class Command {
         case COMMAND_TODO:
             try {
                 myTaskManager.addTask(new Todo(userInput));
-                System.out.println("\t Added: ");
+                System.out.println("Added: ");
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
                 myStorage.saveToFile(myTaskManager);
