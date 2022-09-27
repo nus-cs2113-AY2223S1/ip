@@ -17,9 +17,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        boolean isEmptyList = (taskList.getCurrentListSize() == 0);
-        if (isEmptyList) {
-            ui.showEmptyListMessage();
+        if (emptyListCheck(taskList, ui)) {
             return;
         }
 
@@ -32,5 +30,14 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
             ui.showIOExceptionMessage();
         }
+    }
+
+    private static boolean emptyListCheck(TaskList taskList, Ui ui) {
+        boolean isEmptyList = (taskList.getCurrentListSize() == 0);
+        if (isEmptyList) {
+            ui.showEmptyListMessage();
+            return true;
+        }
+        return false;
     }
 }

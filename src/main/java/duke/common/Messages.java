@@ -68,14 +68,16 @@ public class Messages {
             "\nExample: event project meeting /at date startTime-endTime" +
             "\nPlease try again.";
 
-    public static final String MESSAGE_EVENT_MISSING_TIME = "OOP!!! Please include startTime-endTime for event.";
+    public static final String MESSAGE_EVENT_MISSING_TIME = "OOP!!! Please include 'date startTime-endTime' for event.";
 
     public static final String MESSAGE_INVALID_DATE_FORMAT = "OOPS!!! Pleas enter date in the following format:" +
             "\n    dd/mm/yyyy";
 
     public static final String MESSAGE_INVALID_TIME_FORMAT = "OOPS!!! Pleas enter time in 24hr-format as shown:" +
-            "\n    For deadline(if any): 1800" +
-            "\n    For event: 1130-1400";
+            "\n    For deadline(time if any): 1800" +
+            "\n    For event(startTime-endTime): 1130-1400 where startTime is before endTime";
+
+    public static final String MESSAGE_NO_MATCHING_DEADLINE_OR_EVENT = "There is no deadline/event with the matching date.";
 
     public static final String MESSAGE_UNDEFINED_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 }

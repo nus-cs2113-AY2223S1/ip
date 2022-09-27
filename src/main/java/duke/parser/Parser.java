@@ -5,13 +5,20 @@ import duke.commands.add.ToDoCommand;
 import duke.commands.add.DeadlineCommand;
 import duke.commands.add.EventCommand;
 import duke.commands.ListCommand;
+import duke.commands.FindByDateCommand;
 import duke.commands.UnmarkCommand;
 import duke.commands.MarkCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.ByeCommand;
 import duke.commands.IncorrectCommand;
 
-import duke.exception.*;
+import duke.exception.MissingListIndexException;
+import duke.exception.EmptyTaskDescriptionException;
+import duke.exception.MissingDateTimeReferenceException;
+import duke.exception.MissingDeadlineDateTimeReferenceException;
+import duke.exception.MissingEventDateTimeReferenceException;
+import duke.exception.MissingEventTimeException;
+import duke.exception.InvalidTimeFormatException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +56,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case FindByDateCommand.COMMAND_WORD:
+            return prepareFindByDateCommand(commandDetails);
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmarkCommand(commandDetails);
@@ -102,18 +112,6 @@ public class Parser {
         }
     }
 
-    private static void checkForMissingEventStartEndTime(String eventTaskAt) throws MissingEventTimeException {
-        if (!eventTaskAt.contains("-")) {
-            throw new MissingEventTimeException();
-        }
-    }
-
-    private static void checkForMissingEventTime(ArrayList<String> processedDateTime) throws MissingEventTimeException {
-        if (processedDateTime.get(1).isEmpty()) {
-            throw new MissingEventTimeException();
-        }
-    }
-
     private static void checkForEmptyTaskDescription(String commandDetails) throws EmptyTaskDescriptionException {
         if (commandDetails.isEmpty()) {
             throw new EmptyTaskDescriptionException();
@@ -121,11 +119,15 @@ public class Parser {
     }
 
     public static String extractTaskName(String taskDescription, String dateTimeReference)
-            throws MissingDateTimeReferenceException {
+            throws MissingDateTimeReferenceException, EmptyTaskDescriptionException {
         int dateTimeIndex = taskDescription.indexOf(dateTimeReference);
         boolean haveDataTimeReference = (dateTimeIndex != -1);
         if (!haveDataTimeReference) {
             throw new MissingDateTimeReferenceException();
+        }
+        boolean hasEmptyTaskDescription = (dateTimeIndex == 0);
+        if (hasEmptyTaskDescription) {
+            throw new EmptyTaskDescriptionException();
         }
         return taskDescription.substring(0, dateTimeIndex - 1).trim();
     }
@@ -138,6 +140,12 @@ public class Parser {
             throw new MissingDateTimeReferenceException();
         }
         return taskDescription.substring(dateTimeIndex + 3).trim();
+    }
+
+    private static void checkForMissingEventStartEndTime(String eventTaskAt) throws MissingEventTimeException {
+        if (!eventTaskAt.contains("-")) {
+            throw new MissingEventTimeException();
+        }
     }
 
     private static ArrayList<String> processTaskDateTime(String deadlineOrEventDateTime, String command) throws
@@ -161,6 +169,7 @@ public class Parser {
                 String endTime = time.substring(time.indexOf("-") + 1).trim();
                 checkForValidTimeFormat(startTime);
                 checkForValidTimeFormat(endTime);
+                checkForValidStartEndTime(startTime, endTime);
                 String taskStartTime = processTime(startTime);
                 String taskEndTime = processTime(endTime);
                 time = taskStartTime + "-" + taskEndTime;
@@ -170,11 +179,35 @@ public class Parser {
         }
 
         ArrayList<String> processedDateTime = new ArrayList<>();
-        String taskDate = processTaskDate(date);
+        String taskDate = processDate(date);
         processedDateTime.add(taskDate);
         processedDateTime.add(time);
 
         return processedDateTime;
+    }
+
+    private static void checkForMissingEventTime(ArrayList<String> processedDateTime) throws MissingEventTimeException {
+        if (processedDateTime.get(1).isEmpty()) {
+            throw new MissingEventTimeException();
+        }
+    }
+
+    private static void checkForValidTimeFormat(String timeString) throws InvalidTimeFormatException {
+        String regex = "([01]?[0-9]|2[0-3])[0-5][0-9]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(timeString);
+        if (!matcher.matches()) {
+            throw new InvalidTimeFormatException();
+        }
+    }
+
+    private static void checkForValidStartEndTime(String startTime, String endTime) throws InvalidTimeFormatException {
+        int startTiming = Integer.parseInt(startTime);
+        int endTiming   = Integer.parseInt(endTime);
+        boolean isValid = startTiming < endTiming;
+        if (!isValid) {
+            throw new InvalidTimeFormatException();
+        }
     }
 
     private static String processTime(String time) {
@@ -186,12 +219,15 @@ public class Parser {
         if (isBeforeNoon) {
             timeSuffix = "am";
         } else {
-            hour -=12;
             timeSuffix = "pm";
+        }
+        boolean isAfternoon = (hour > 12);
+        if (isAfternoon) {
+            hour -=12;
         }
 
         String hourStr = String.valueOf(hour);
-        String minuteStr = String.valueOf(minute);
+        String minuteStr = String.format("%02d", minute);
 
         boolean hasMinute = (minute != 0);
         String formattedTime;
@@ -203,7 +239,7 @@ public class Parser {
         return formattedTime;
     }
 
-    private static String processTaskDate(String date) throws ParseException {
+    private static String processDate(String date) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("d/MM/yyyy");
         dateFormat.setLenient(false);
         dateFormat.parse(date);
@@ -215,13 +251,9 @@ public class Parser {
         return dateYear + "-" + dateMonth + "-" + dateDay;
     }
 
-    private static void checkForValidTimeFormat(String timeString) throws InvalidTimeFormatException {
-        String regex = "([01]?[0-9]|2[0-3])[0-5][0-9]";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(timeString);
-        if (!matcher.matches()) {
-            throw new InvalidTimeFormatException();
-        }
+    private Command prepareFindByDateCommand(String commandDetails) throws ParseException {
+        String processedDate = processDate(commandDetails.trim());
+        return new FindByDateCommand(processedDate);
     }
 
     private static Command prepareUnmarkCommand(String commandDetails)

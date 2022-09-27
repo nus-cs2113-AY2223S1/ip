@@ -7,7 +7,25 @@ import java.util.Scanner;
 
 import duke.exception.UndefinedCommandException;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.MESSAGE_DATA_FILE_CREATION;
+import static duke.common.Messages.MESSAGE_DUKE_FILE_CREATION;
+import static duke.common.Messages.MESSAGE_WELCOME;
+import static duke.common.Messages.MESSAGE_BYE;
+import static duke.common.Messages.MESSAGE_UNDEFINED_COMMAND;
+import static duke.common.Messages.MESSAGE_DUKE_FILE_NOT_FOUND;
+import static duke.common.Messages.MESSAGE_IO_EXCEPTION_TRIGGERED;
+import static duke.common.Messages.MESSAGE_SECURITY_EXCEPTION_TRIGGERED;
+import static duke.common.Messages.MESSAGE_MISSING_TASK_INDEX;
+import static duke.common.Messages.MESSAGE_INCORRECT_NUMBER_FORMAT;
+import static duke.common.Messages.MESSAGE_OUT_OF_BOUNDS;
+import static duke.common.Messages.MESSAGE_EMPTY_TASK_DESCRIPTION;
+import static duke.common.Messages.MESSAGE_DEADLINE_MISSING_BY;
+import static duke.common.Messages.MESSAGE_EVENT_MISSING_AT;
+import static duke.common.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static duke.common.Messages.MESSAGE_EVENT_MISSING_TIME;
+import static duke.common.Messages.MESSAGE_INVALID_TIME_FORMAT;
+import static duke.common.Messages.MESSAGE_NO_MATCHING_DEADLINE_OR_EVENT;
+import static duke.common.Messages.MESSAGE_EMPTY_LIST;
 
 public class Ui {
     private final Scanner in;
@@ -145,6 +163,14 @@ public class Ui {
 
     public void showInvalidTimeExceptionMessage() {
         showToUser(MESSAGE_INVALID_TIME_FORMAT);
+    }
+
+    public void showMatchingDeadlineOrEvent(String matchingDeadlineOrEvent) {
+        showToUser(matchingDeadlineOrEvent);
+    }
+
+    public void showNoMatchingDeadlineOrEvent() {
+        showToUser(MESSAGE_NO_MATCHING_DEADLINE_OR_EVENT);
     }
 
     public void showEmptyListMessage() {

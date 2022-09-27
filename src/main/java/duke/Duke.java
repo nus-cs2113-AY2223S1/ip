@@ -1,6 +1,5 @@
 package duke;
 
-import duke.exception.*;
 import duke.ui.Ui;
 import duke.parser.Parser;
 import duke.commands.Command;
@@ -8,8 +7,15 @@ import duke.commands.ByeCommand;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import duke.exception.MissingListIndexException;
+import duke.exception.EmptyTaskDescriptionException;
+import duke.exception.MissingDeadlineDateTimeReferenceException;
+import duke.exception.MissingEventDateTimeReferenceException;
+import duke.exception.MissingEventTimeException;
+import duke.exception.InvalidTimeFormatException;
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
+
 
 public class Duke {
     private static Ui ui;

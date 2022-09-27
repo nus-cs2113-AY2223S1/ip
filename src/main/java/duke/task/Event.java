@@ -13,6 +13,10 @@ public class Event extends Task {
         this.atTime = atTime;
     }
 
+    public LocalDate getAtDate() {
+        return atDate;
+    }
+
     @Override
     public String toString() {
         String date = atDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

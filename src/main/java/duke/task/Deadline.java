@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.byTime = byTime;
     }
 
+    public LocalDate getByDate() {
+        return byDate;
+    }
+
     @Override
     public String toString() {
         String date = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
