@@ -1,10 +1,5 @@
 package duke;
 
-/**
- * TO DO:
- * Update EXPECTED.TXT
- */
-
 import duke.command.Command;
 import duke.command.ExecutedCommand;
 import duke.storage.Storage;
@@ -36,11 +31,8 @@ public class Duke {
 
     }
 
-    // Duke attributes
-
     private TaskList taskList;
     private final Storage storage;
-//    public static final String FILEPATH = "./data/data.txt";
 
     private final UI ui;
     private final Parser parser;
@@ -72,7 +64,7 @@ public class Duke {
     }
 
     public void run(){
-        UI.printGreeting();
+        ui.printGreeting();
         System.out.println("Please enter your taskList command: (send 'bye' to exit)");
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
