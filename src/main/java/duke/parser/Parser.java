@@ -5,6 +5,7 @@ import duke.commands.add.ToDoCommand;
 import duke.commands.add.DeadlineCommand;
 import duke.commands.add.EventCommand;
 import duke.commands.ListCommand;
+import duke.commands.FindCommand;
 import duke.commands.FindByDateCommand;
 import duke.commands.UnmarkCommand;
 import duke.commands.MarkCommand;
@@ -19,6 +20,7 @@ import duke.exception.MissingDeadlineDateTimeReferenceException;
 import duke.exception.MissingEventDateTimeReferenceException;
 import duke.exception.MissingEventTimeException;
 import duke.exception.InvalidTimeFormatException;
+import duke.exception.EmptyKeywordException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +36,7 @@ public class Parser {
 
     public Command parseCommand(String userInput) throws MissingListIndexException, EmptyTaskDescriptionException,
             MissingDeadlineDateTimeReferenceException, MissingEventDateTimeReferenceException, ParseException,
-            DateTimeParseException, MissingEventTimeException, InvalidTimeFormatException {
+            DateTimeParseException, MissingEventTimeException, InvalidTimeFormatException, EmptyKeywordException {
         // split the input into command and arguments
         String[] words = userInput.trim().split(" ", 2);
         if (words.length == 0) {
@@ -56,6 +58,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(commandDetails);
 
         case FindByDateCommand.COMMAND_WORD:
             return prepareFindByDateCommand(commandDetails);
@@ -249,6 +254,14 @@ public class Parser {
         String dateMonth = String.format("%02d", Integer.parseInt(dateDayMonthYear[1]));
         String dateDay   = String.format("%02d", Integer.parseInt(dateDayMonthYear[0]));
         return dateYear + "-" + dateMonth + "-" + dateDay;
+    }
+
+    private static Command prepareFindCommand(String commandDetails) throws EmptyKeywordException {
+        boolean isEmptyKeyword = commandDetails.isEmpty();
+        if (isEmptyKeyword) {
+            throw new EmptyKeywordException();
+        }
+        return new FindCommand(commandDetails);
     }
 
     private Command prepareFindByDateCommand(String commandDetails) throws ParseException {
