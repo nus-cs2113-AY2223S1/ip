@@ -8,23 +8,40 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+/**
+ * This class manages everything that has to do with input processing and validation
+ *
+ * @author Dhanish
+ */
 public class Parser {
 
+    /**
+     * Extracts the word that should be the command word in the given input
+     *
+     * @param input
+     * @return expected command keyword
+     */
     public static String retrieveCommand(String input) {
         return input.split(" ")[0];
     }
 
+    /**
+     * checks and validates whether a given word is a recognized command, throws exception otherwise
+     *
+     * @param command - word to be checked
+     * @throws UnrecognizedCommandException
+     */
     public static void validateCommand(String command) throws UnrecognizedCommandException {
         if (!TaskList.isValidCommand(command)) {
             throw new UnrecognizedCommandException();
         }
     }
 
-    public static int retrieveTaskNumber(String input) throws NumberFormatException {
+    private static int retrieveTaskNumber(String input) throws NumberFormatException {
         return Integer.parseInt(input) - 1;
     }
 
-    public static String retrieveParameters(String input) {
+    private static String retrieveParameters(String input) {
         String[] parsed = input.split(" ", 2);
         if (parsed.length > 1) {
             return parsed[1].trim();
@@ -32,7 +49,7 @@ public class Parser {
         return "";
     }
 
-    public static String retrieveTime(String parameters, String separator) {
+    private static String retrieveTime(String parameters, String separator) {
         String[] parsed = parameters.split(separator);
         if (parsed.length > 1) {
             return parsed[1];
@@ -40,11 +57,11 @@ public class Parser {
         return "";
     }
 
-    public static String retrieveTaskDescription(String parameters, String separator) {
+    private static String retrieveTaskDescription(String parameters, String separator) {
         return parameters.split(separator)[0];
     }
 
-    public static void validateFormat(String command, String parameters) throws IncorrectFormatException, NumberFormatException {
+    private static void validateFormat(String command, String parameters) throws IncorrectFormatException, NumberFormatException {
         if (command.equals("list") || command.equals("help") || command.equals("bye"))
             return;
         if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
@@ -64,7 +81,7 @@ public class Parser {
         }
     }
 
-    public static void handlePossibleEventExceptions(String parameters) throws IncorrectFormatException {
+    private static void handlePossibleEventExceptions(String parameters) throws IncorrectFormatException {
         if (!parameters.contains(TaskList.EVENT_SEPERATOR.trim())) {
             throw new IncorrectFormatException(Ui.EVENT_SEPERATOR_ERROR_MESSAGE);
         }
@@ -79,7 +96,7 @@ public class Parser {
         }
     }
 
-    public static void handlePossibleDeadlineExceptions(String parameters) throws IncorrectFormatException {
+    private static void handlePossibleDeadlineExceptions(String parameters) throws IncorrectFormatException {
         if (!parameters.contains(TaskList.DEADLINE_SEPERATOR.trim())) {
             throw new IncorrectFormatException(Ui.DEADLINE_SEPERATOR_ERROR_MESSAGE);
         }
@@ -94,6 +111,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Given user input with a valid command, this method parses the input and extracts the command name and parameters
+     * It then checks if the given command and parameters are in valid format
+     * If yes, it returns the corresponding {@code Command} object
+     * Else, an exception is caught and the method terminates
+     *
+     * @param input - user input with validated command
+     * @return - corresponding {@code Command} object to be executed
+     */
     public static Command parse(String input) {
         Command command = null;
         String commandName = Parser.retrieveCommand(input);

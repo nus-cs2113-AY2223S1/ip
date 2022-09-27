@@ -4,6 +4,11 @@ import duke.exceptions.UnrecognizedCommandException;
 
 import java.util.Scanner;
 
+/**
+ * This class manages everything that has to do with accepting user input, as well as providing important helper functions for output.
+ *
+ * @author Dhanish
+ */
 public class Ui {
 
     public static final String DUKE_LOGO = " ____        _        \n"
@@ -50,16 +55,31 @@ public class Ui {
 
     Scanner scanner;
 
+    /**
+     * Constructor that initializes the Scanner that will be used to read input from user throughout the program.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
-    public static void showErrorMessage(String error) {
+    /**
+     * This method is used to print error messages in a neat format.
+     *
+     * @param errorMessage - error message to be printed.
+     */
+    public static void showErrorMessage(String errorMessage) {
         printLine();
-        System.out.println("\t " + error);
+        System.out.println("\t " + errorMessage);
         printLine();
     }
 
+    /**
+     * This method first accepts user input through other helper functions.
+     * It then processes it to retrieve the command keyword, and validates it. If the input is not valid, an exception is caught.
+     * It repeates the process until a valid input is obtained.
+     *
+     * @return - the valid input obtained at the end of the method.
+     */
     public String acceptAndValidateInput() {
         boolean isInputValid = false;
         String input = "";
@@ -79,15 +99,20 @@ public class Ui {
         return input;
     }
 
-    public String readLine() {
+    private String readLine() {
         return scanner.nextLine().trim();
-
     }
 
+    /**
+     * Prints a help message containing all the valid commands and their formats.
+     */
     public void printHelpMessage() {
         System.out.println(HELP_MESSAGE);
     }
 
+    /**
+     * Useful helper method to print a solid underline.
+     */
     public static void printLine() {
         System.out.print("\t");
         for (int i = 0; i < 60; i++) {
@@ -96,6 +121,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Prints a welcome message to the user at the start of the program.
+     */
     public void greet() {
         System.out.println("Hello from\n" + Ui.DUKE_LOGO);
         printLine();
