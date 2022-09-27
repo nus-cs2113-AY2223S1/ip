@@ -130,6 +130,7 @@ list
     [T][ ] buy Dorayaki for Doraemon
     [D][ ] Nobita marry Shizuka (by: 3/09/2022 1500)
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    Now you have 3 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
 ```
 
@@ -153,6 +154,7 @@ find Shizuka
     Here are the tasks that match your search expression in Doraemon's 4D pocket:
     [D][ ] Nobita marry Shizuka (by: 3/09/2022 1500)
     [T][ ] Shizuka to wear a pink blouse
+    Now you have 2 tasks that match your search expression in Doraemon's 4D pocket.
     ____________________________________________________________
 ```
 

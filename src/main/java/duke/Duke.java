@@ -23,19 +23,10 @@ public class Duke {
     private TextUi ui;
 
     /**
-     * Launches a runnable instance of Duke.
-     *
-     * @param args A list of unused arguments at runtime.
-     */
-    public static void main(String[] args) {
-        new Duke().run();
-    }
-
-    /**
      * Initialises new storage, tasks and user interface classes
      * in the current instance of Duke.
      */
-    public void run() {
+    public Duke() {
         storage = new Storage();
         tasks = new TaskList();
         ui = new TextUi();
@@ -47,7 +38,12 @@ public class Duke {
         } catch (IOException e) {
             ui.showCustomText(ErrorMessages.MESSAGE_ERROR_FILE_IO);
         }
+    }
 
+    /**
+     * Runs Duke via commands entered by the user.
+     */
+    public void run() {
         ui.showWelcomeText();
 
         String input;
@@ -63,5 +59,14 @@ public class Duke {
             }
             // Loops and continue to requests for user input if user has not exited
         } while (!Objects.equals(input, ByeCommand.COMMAND));
+    }
+
+    /**
+     * Launches a runnable instance of Duke.
+     *
+     * @param args A list of unused arguments at runtime.
+     */
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }

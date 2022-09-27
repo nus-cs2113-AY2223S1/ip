@@ -38,6 +38,7 @@
     [T][ ] buy a Dorayaki for Doraemon
     [D][ ] Nobita marry Shizuka (by: 03 September 2022 (Sat), 3:00 PM)
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    Now you have 3 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Nobita, wake up. Here's your new task:
@@ -59,6 +60,7 @@
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
     [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
     [T][ ] complete all the tasks for Doraemon
+    Now you have 5 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Subarashi! Good job in completing your task, Nobita:
@@ -75,6 +77,7 @@
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
     [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
     [T][ ] complete all the tasks for Doraemon
+    Now you have 5 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Subarashi! Good job in completing your task, Nobita:
@@ -87,14 +90,17 @@
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
     [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
     [T][ ] complete all the tasks for Doraemon
+    Now you have 5 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks that match your search expression in Doraemon's 4D pocket:
     [D][X] Nobita marry Shizuka (by: 25 December 2022 (Sun), 3:00 PM)
+    Now you have 5 tasks that match your search expression in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks that match your search expression in Doraemon's 4D pocket:
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
+    Now you have 5 tasks that match your search expression in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Nobita, the specified task does not exist in Doramon's 4D pocket.
@@ -110,9 +116,8 @@
     [E][ ] Singing concert by Gian (at: 20/12/2030 1200 - 20/12/2030 1400)
     [D][ ] Nobita buys Dorayakis (by: 25 December 2022 (Sun), 3:00 PM)
     [T][ ] complete all the tasks for Doraemon
+    Now you have 4 tasks in Doraemon's 4D pocket.
     ____________________________________________________________
     ____________________________________________________________
     Sayonara. Hope to see you again soon!
     ____________________________________________________________
-
-Process finished with exit code 0

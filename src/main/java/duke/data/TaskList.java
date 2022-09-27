@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.common.InfoMessages;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
@@ -154,9 +155,12 @@ public class TaskList {
             tasksList += INDENT_SPACE + task.getTaskDetails() + LINE_SEPARATOR;
         }
         if (!tasksList.equals(EMPTY_STRING)) {
-            // Removes the space indent from the first task and line break from the last task
-            tasksList = tasksList.substring(INDENT_COUNT, tasksList.length() - 1);
+            // Removes the space indent from the first task
+            tasksList = tasksList.substring(INDENT_COUNT);
+            // Includes the count of the tasks with the task list
+            tasksList += String.format("%s%s", INDENT_SPACE, String.format(InfoMessages.MESSAGE_INFO_TASK_COUNT.toString(), tasks.size()));
         }
+
         return tasksList;
     }
 
@@ -170,14 +174,16 @@ public class TaskList {
         String tasksList = EMPTY_STRING;
         // Loops each task from the task list
         for (Task task : tasks) {
-            // Include only tasks that contain the keywords used in the search expression
+            // Includes only tasks that contain the keywords used in the search expression
             if (task.getTaskDetails().contains(keyword)) {
                 tasksList += INDENT_SPACE + task.getTaskDetails() + LINE_SEPARATOR;
             }
         }
         if (!tasksList.equals(EMPTY_STRING)) {
-            // Removes the space indent from the first task and line break from the last task
-            tasksList = tasksList.substring(INDENT_COUNT, tasksList.length() - 1);
+            // Removes the space indent from the first task
+            tasksList = tasksList.substring(INDENT_COUNT);
+            // Includes the count of the tasks with the task list
+            tasksList += String.format("%s%s", INDENT_SPACE, String.format(InfoMessages.MESSAGE_INFO_TASK_COUNT_FIND.toString(), tasks.size()));
         }
         return tasksList;
     }
