@@ -54,6 +54,20 @@ public class Ui {
             System.out.println((i + 1) + "." + list.get(i).toString());
         }
     }
+
+    public static void findTasks (ArrayList<Task> list, String commandActual) {
+        int size = list.size();
+        int numberOfTasks = 1;
+        drawLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < size; i++) {
+            Task currTask = list.get(i);
+            if (currTask.description.contains(commandActual)) {
+                System.out.println(numberOfTasks + "." + list.get(i).toString());
+                numberOfTasks++;
+            }
+        }
+    }
     public static void setUnmarked (ArrayList<Task> list, String commandActual) {
         int indexToUnmark = getIndex(commandActual);
         Task unmarking = list.get(indexToUnmark);

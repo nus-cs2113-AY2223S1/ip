@@ -30,6 +30,9 @@ public class TaskList {
             case "delete":
                 Ui.deleteTask(list, commandActual);
                 break;
+            case "find":
+                Ui.findTasks(list, commandActual);
+                break;
             case "bye":
                 isLast = true;
                 break;
