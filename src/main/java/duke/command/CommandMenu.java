@@ -5,6 +5,10 @@ import duke.Ui;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Represent the menu of commands the user can input, alongside with their syntax and descriptions.
+ * For example, the keyword for the mark task as done command is "mark", and the syntax is "mark task-number".
+ */
 public abstract class CommandMenu {
     public static final String HELP_COMMAND = "help";
     public static final String LIST_COMMAND = "list";
@@ -40,13 +44,23 @@ public abstract class CommandMenu {
         COMMANDS.put(EXIT_COMMAND, new CommandDocumentation("bye", "Exit the application"));
     }
 
+    /**
+     * Display the supported commands' documentation.
+     * @param ui User interface of the application.
+     */
     public static void display(Ui ui) {
         for (Map.Entry<String, CommandDocumentation> command: COMMANDS.entrySet()) {
             ui.showCommandDocumentation(command.getValue());
         }
     }
 
+    /**
+     * Return the command syntax of the command keyword as a hint for user to check.
+     * @param commandKeyword Command keyword that is the first word inputted in a command.
+     *                       The keyword must be supported in the command menu.
+     * @return Syntax of the command specified by the command keyword.
+     */
     public static String getCommandSyntaxHint(String commandKeyword) {
-        return COMMANDS.get(commandKeyword).syntax;
+        return COMMANDS.get(commandKeyword).getSyntax();
     }
 }
