@@ -60,7 +60,24 @@ public class TaskList {
     }
     // add exception
 
-    public static void deleteTask(ArrayList<Task> taskList, int deleteIndex) {
+    public static void findTask(ArrayList<Task> taskList, String[] userInputSplit){
+        String[] contentSpilt = Arrays.copyOfRange(userInputSplit,1, userInputSplit.length);
+        String Content = String.join(" ", contentSpilt);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Here are the matching tasks in your list:");
+        int index = 1;
+        for (int i=0; i<Task.numOfTasks; i++){
+            Task currTask = taskList.get(i);
+            if (currTask.getDescription().contains(Content)){
+                System.out.println("     " + index + "." + currTask);
+                index ++;
+            }
+        }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void deleteTask(ArrayList<Task> taskList, String[] userInputSplit) {
+        int deleteIndex = Integer.parseInt(userInputSplit[1]) - 1;
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
         System.out.println(String.format("       %s", taskList.get(deleteIndex).toString()));

@@ -18,49 +18,52 @@ public class Parser {
     public static void implementUserInstruction(ArrayList<Task> taskList, String userInput, boolean isDone) {
         String[] userInputSplit = userInput.split(" ");
         switch(userInputSplit[0]){
-            case "list":
-                TaskList.printTaskList(taskList, Task.numOfTasks);
-                break;
+        case "list":
+            TaskList.printTaskList(taskList, Task.numOfTasks);
+            break;
 
-            case "mark":
-                TaskList.markTask(taskList, userInputSplit);
-                break;
+        case "mark":
+            TaskList.markTask(taskList, userInputSplit);
+            break;
 
-            case "todo":
-                try{
-                    TaskList.addTodo(taskList, userInputSplit, isDone);
-                }
-                catch(EmptyDescriptionException e){
-                    System.out.println(e);
-                }
+        case "todo":
+            try{
+                TaskList.addTodo(taskList, userInputSplit, isDone);
+            }
+            catch(EmptyDescriptionException e){
+                System.out.println(e);
+            }
 
-                break;
+            break;
 
-            case "event":
-                try{
-                    TaskList.addEvent(taskList, userInputSplit, isDone);
-                }
-                catch(StringIndexOutOfBoundsException e){
-                    System.out.println(e.toString());
-                };
-                break;
+        case "event":
+            try{
+                TaskList.addEvent(taskList, userInputSplit, isDone);
+            }
+            catch(StringIndexOutOfBoundsException e){
+                System.out.println(e.toString());
+            };
+            break;
 
-            case "deadline":
-                TaskList.addDeadline(taskList, userInputSplit, isDone);
-                break;
+        case "deadline":
+            TaskList.addDeadline(taskList, userInputSplit, isDone);
+            break;
 
 
-            case "unmark":
-                TaskList.unmarkTask(taskList, userInputSplit);
-                break;
+        case "unmark":
+            TaskList.unmarkTask(taskList, userInputSplit);
+            break;
 
-            case "delete":
-                int deleteIndex = Integer.parseInt(userInputSplit[1]) - 1;
-                TaskList.deleteTask(taskList, deleteIndex);
-                break;
+        case "delete":
+            TaskList.deleteTask(taskList, userInputSplit);
+            break;
 
-            default:
-                Ui.printDontKnowMessage();
+        case "find":
+            TaskList.findTask(taskList, userInputSplit);
+            break;
+
+        default:
+            Ui.printDontKnowMessage();
         }
 
         try {
