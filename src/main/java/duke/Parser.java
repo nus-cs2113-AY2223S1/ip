@@ -2,7 +2,7 @@ package duke;
 
 import java.util.Scanner;
 
-public class InputParser {
+public class Parser {
 
     private final String EMPTY_DESCRIPTION_ERROR = ":( The description of a %s cannot be empty!";
     private final String EMPTY_DATE_ERROR = ":( A %s task must have a date!";

@@ -2,29 +2,29 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
 
 public class DukeController {
     private TaskList taskList = new TaskList();
     private final Ui ui = new Ui();
     private final Storage storage = new Storage();
-    private final InputParser inputParser = new InputParser();
+    private final Parser parser = new Parser();
     private String userInput;
     public void getUserInput(){
-        userInput = inputParser.readInput();
+        userInput = parser.readInput();
     }
     public void initialise(){
         storage.setHomePath();
         ui.printWelcome();
         try {
             taskList = storage.readData();
+
         } catch (FileNotFoundException e){
             ui.printExceptionMessage(e);
         }
     }
     public void handleUserInput(){
         try {
-            String[] parsedInput = inputParser.parseInput(userInput);
+            String[] parsedInput = parser.parseInput(userInput);
             String userCommand = parsedInput[0];
             switch(userCommand){
             case "bye":
@@ -42,7 +42,7 @@ public class DukeController {
             case "deadline":
             case "event":
                 try {
-                    String[] details = inputParser.parseTaskInformation(parsedInput[1], userCommand);
+                    String[] details = parser.parseTaskInformation(parsedInput[1], userCommand);
                     Task newTask = taskList.generateTask(userCommand, details);
                     taskList.addTask(newTask);
                     ui.printAddTaskSuccess(newTask);
@@ -56,7 +56,7 @@ public class DukeController {
             case "mark":
             case "unmark":
                 try {
-                    int taskIndex = inputParser.parseTaskIndex(parsedInput[1], userCommand);
+                    int taskIndex = parser.parseTaskIndex(parsedInput[1], userCommand);
                     if (userCommand.equals("mark") || userCommand.equals("unmark")) {
                         taskList.updateTaskStatus(taskIndex, userCommand);
                         ui.printUpdateTaskSuccess(taskList.getTaskList().get(taskIndex-1), userCommand);
