@@ -8,7 +8,8 @@ public class IllegalInputException extends Exception{
         this.errorMessage = errorMessage;
     }
 
-    public String getErrorMessage() {
+    @Override
+    public String getMessage() {
         return errorMessage;
     }
 }
