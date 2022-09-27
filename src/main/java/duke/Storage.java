@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Represent the storage that stores all the tasks into the data file.
+ * The <code>Storage</code> object store the data file <code>data/duke.txt</code> and do read/write operations to the
+ * file.
  */
 public class Storage {
     private static final String DATA_DIRECTORY = "data";
@@ -18,6 +20,10 @@ public class Storage {
 
     private static File dataFile;
 
+    /**
+     * Constructor of <code>Storage</code> class.
+     * It creates the <code>File</code> object by the default path <code>data/duke.txt.</code>
+     */
     public Storage() {
         dataFile = new File(DATA_DIRECTORY, DATA_FILE_NAME);
     }
