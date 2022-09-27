@@ -4,12 +4,10 @@ import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 /**
  * The chatting bot Duke.

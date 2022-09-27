@@ -8,7 +8,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static duke.task.TaskList.*;
+import static duke.task.TaskList.tryUnmarkTask;
 
 public class UnmarkCommand extends Command{
     public UnmarkCommand(String keyword, String statement) {

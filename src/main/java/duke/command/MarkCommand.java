@@ -7,7 +7,9 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static duke.task.TaskList.tryMarkTask;
+
 
 public class MarkCommand extends Command {
     public MarkCommand(String keyword, String statement) {

@@ -8,7 +8,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static duke.task.TaskList.*;
+import static duke.task.TaskList.tryAddTodo;
 
 public class TodoCommand extends Command {
     public TodoCommand(String keyword, String statement) {
