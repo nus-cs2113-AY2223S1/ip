@@ -17,8 +17,10 @@ import static duke.task.TaskList.*;
 public class Storage {
     private static ArrayList<Task> tasks;
     private File f;
+    private String filePath;
     public Storage(String filePath){
         f = new File(filePath); // create a File for the given file path
+        this.filePath = filePath;
     }
     public ArrayList<Task> load() throws FileNotFoundException {
         tasks = new ArrayList<Task>();
@@ -53,8 +55,8 @@ public class Storage {
         return tasks;
     }
 
-    public static void write(String filePath, ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    public void write(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.size(); i++) {
             String line = "";
             switch (tasks.get(i).getClass().getSimpleName()) {

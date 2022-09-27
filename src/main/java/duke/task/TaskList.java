@@ -238,7 +238,7 @@ public class TaskList {
      * Try to delete a task, dealing with all the exceptions then delete.
      *
      * @param tasks the taskList.
-     * @param id the parsed input.
+     * @param id the unprocessed deleteId.
      */
     public static void tryDeleteTask(ArrayList<Task> tasks, String id) {
         try {

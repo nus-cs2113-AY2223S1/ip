@@ -4,6 +4,7 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static duke.task.TaskList.tryDeleteTask;
@@ -15,5 +16,10 @@ public class DeleteCommand extends Command {
     }
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         tryDeleteTask(tasks, statement);
+        try {
+            storage.write(tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 }

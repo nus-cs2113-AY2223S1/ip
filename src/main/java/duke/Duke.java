@@ -60,12 +60,6 @@ public class Duke {
                 ui.showLine();
             }
         }
-
-        try {
-            storage.write("data/duke.txt", tasks);
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
     }
 
     public static void main(String[] args) {
