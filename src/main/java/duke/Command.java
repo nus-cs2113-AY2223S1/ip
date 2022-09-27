@@ -43,7 +43,8 @@ public class Command {
             break;
         case "delete":
             taskID = Parser.getTaskID(fullCommand);
-            ui.showDeleted(tasks, taskID);
+            if (taskID <= tasks.getTaskCounter())
+                ui.showDeleted(tasks, taskID);
             tasks.deleteTask(taskID);
             break;
         case "find":

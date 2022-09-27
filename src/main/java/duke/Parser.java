@@ -69,6 +69,9 @@ public class Parser {
         int indexOfBackslash = command.indexOf('/');
         command = command.substring(indexOfBackslash + 1);
         int indexOfFirstBlankspace = command.indexOf(' ');
+        if (indexOfFirstBlankspace == -1) {
+            throw new StringIndexOutOfBoundsException();
+        }
         return command.substring(indexOfFirstBlankspace + 1);
     }
 
