@@ -26,6 +26,10 @@ public final class Message {
     public static final String INVALID_ADD_EVENT_FORMAT_ERROR_MESSAGE =
             "Invalid input, please provide the description and date time";
 
+    // Find Task Message
+    public static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks for the given search word.";
+    public static final String MISSING_SEARCH_WORD_ERROR_MESSAGE = "Please provide a search word to find the task.";
+
     // Save Task Messages
     public static final String SAVE_TASK_FAIL_ERROR_MESSAGE = "Fail to save tasks. Try again ";
 

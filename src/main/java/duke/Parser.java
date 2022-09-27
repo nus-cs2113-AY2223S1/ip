@@ -150,6 +150,15 @@ public abstract class Parser {
                 ui.showCommandSyntaxHint(commandKeyword);
             }
             break;
+        case CommandMenu.FIND_COMMAND:
+            try {
+                taskDescription = getTaskParameters(fullCommand, " ", 2, 1);
+                command = new Command(commandKeyword, taskDescription);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showMissingSearchWordErrorMessage();
+                ui.showCommandSyntaxHint(commandKeyword);
+            }
+            break;
         case CommandMenu.ADD_TODO_COMMAND:
             try {
                 taskDescription = getTaskParameters(fullCommand, " ", 2, 1);

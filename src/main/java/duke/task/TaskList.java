@@ -15,6 +15,11 @@ public class TaskList {
 
     private final Storage storage;
 
+    public TaskList() {
+        storage = null;
+        tasks = new ArrayList<>();
+    }
+
     /**
      * Constructor of <code>TaskList</code> object with the specified user interface.
      * It initializes the storage and list of the tasks.
@@ -32,8 +37,10 @@ public class TaskList {
      */
     public void add(Task task, Ui ui) {
         tasks.add(task);
-        ui.showAddTaskSuccessMessage(task);
-        save(ui);
+        if (!isTemporaryList()) {
+            ui.showAddTaskSuccessMessage(task);
+            save(ui);
+        }
     }
 
     /**
@@ -46,8 +53,10 @@ public class TaskList {
     public void list(Ui ui) {
         if (tasks.size() > 0) {
             ui.showTasks(tasks);
-        } else {
+        } else if (!isTemporaryList()) {
             ui.showNoTaskMessage();
+        } else {
+            ui.showNoMatchingTaskMessage();
         }
     }
 
@@ -110,5 +119,25 @@ public class TaskList {
      */
     private void save(Ui ui) {
         storage.saveTasks(tasks, ui);
+    }
+
+    public TaskList find(String searchWord, Ui ui) {
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task : tasks) {
+            if (isMatched(task, searchWord)){
+                matchingTasks.add(task, ui);
+            }
+        }
+
+        return matchingTasks;
+    }
+
+    private boolean isMatched(Task task, String searchWord) {
+        return task.description.toLowerCase().contains(searchWord.toLowerCase());
+    }
+
+    private boolean isTemporaryList() {
+        return storage == null;
     }
 }
