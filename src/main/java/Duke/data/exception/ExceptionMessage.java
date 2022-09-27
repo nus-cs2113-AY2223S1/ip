@@ -14,7 +14,8 @@ public class ExceptionMessage {
             " Please enter \"todo\", followed by the task :)");
     public static final String UNKNOWN_INPUTS = "Sorry I do not understand your command :(";
     public static final String FILE_ERROR = "File does not exist or Path is wrong :(";
-    public static final String LOAD_FILE_ERROR = "Unable to load file. File does not exist or Path is wrong :(";
+    public static final String LOAD_FILE_ERROR = "Unable to load file. File does not exist or Path is wrong :(\n" +
+            "If you have a load file, please check that the file is in the correct directory. Otherwise, ignore this.\n";
     public static final String UNKNOWN_INPUTS_LOAD = "There is an unknown command in your load file :(\n " +
             "Please check that you have uploaded the correct file";
     public static final String DATE_PARSE_ERROR = "The date specified is wrong.\nPlease give your date in the form of yyyy-mm-dd";
