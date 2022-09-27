@@ -34,7 +34,7 @@ public class TaskExecutor {
             Task task = TaskList.get(i);
             System.out.println((i + 1) + "." + task);
         }
-        // somehow being run after other commands
+        // somehow being run after other commands or repeatedly
     }
 
     /**

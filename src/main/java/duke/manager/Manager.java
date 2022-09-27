@@ -83,10 +83,7 @@ public class Manager {
                 }
                 Storage.saveManager();
                 UserInterface.printBorderLines();
-            } catch (NoSuchCommandException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                UserInterface.printBorderLines();
-            } catch (TooManyArgumentsException | MissingArgumentException e) {
+            } catch (NoSuchCommandException | TooManyArgumentsException | MissingArgumentException e) {
                 System.out.println(e.getMessage());
                 UserInterface.printBorderLines();
             }
