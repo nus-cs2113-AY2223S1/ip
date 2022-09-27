@@ -37,6 +37,8 @@ public class Parser {
             return new ExitCommand(commandWord);
         case "list":
             return new ListCommand(commandWord);
+        case "find":
+            return new FindCommand(commandWord, taskLine);
         case "mark":
         case "unmark":
         case "delete":
