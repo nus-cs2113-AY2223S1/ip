@@ -74,7 +74,7 @@ public class Parser {
             String eventDate = dateOfEvent.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             return new Event(description, eventDate);
         } catch (DateTimeParseException e) {
-            System.out.println("date is not of valid format and will not be treated as a date");
+            System.out.println("date is not of valid format: yyyy-mm-dd");
         }
         return new Event(description, at);
     }
@@ -105,7 +105,7 @@ public class Parser {
             return new Deadline(description, deadlineDate + " " + date[1]);
 
         } catch (DateTimeParseException e) {
-            System.out.println("date is not of valid format and will not be treated as a date");
+            System.out.println("date and time is not of valid format: yyyy-mm-dd time");
         }
         return new Deadline(description, by);
     }
@@ -228,6 +228,8 @@ public class Parser {
             ui.printError("Please input task number");
         } catch (IOException e) {
             ui.printError("cannot update file");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            ui.printError("please choose a valid task");
         }
     }
 
@@ -246,6 +248,8 @@ public class Parser {
             ui.printError("Please input task number");
         } catch (IOException e) {
             ui.printError("cannot update file");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            ui.printError("please choose a valid task");
         }
     }
 
@@ -264,7 +268,7 @@ public class Parser {
             ui.printError("Please input task number");
         } catch (IOException e) {
             ui.printError("cannot update file");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printError("please choose a valid task");
         }
     }
