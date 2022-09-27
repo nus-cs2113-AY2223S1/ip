@@ -170,7 +170,7 @@ There are currently 2 task(s) in the list :)
 ```
 
 
-## Filter tasks by keywords: `find`
+## `find` - Find tasks that contains keywords
 Shows a list of all the user's tasks that contain keywords provided by the user.
 #### Format: `find {keyword(s)}`
 Example of usage:
@@ -201,7 +201,7 @@ Please make sure you have keyed in the right keyword
 ```
 
 
-## Filter tasks by date: `date`
+## `date` - Find tasks with given date
 Shows a list of all the user's tasks that occur on a specific date provided by the user.
 
 #### Format: `date {YYYY-MM-DD}`
@@ -228,7 +228,7 @@ There is no results.
 Please make sure you have keyed in the right date
 ```
 
-## Exit the program: `bye`
+## `bye` - Exit the program
 Exits the program.
 #### Format: `bye`
 
