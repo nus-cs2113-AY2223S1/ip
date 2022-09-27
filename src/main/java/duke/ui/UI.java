@@ -7,26 +7,16 @@ import java.util.Scanner;
  */
 public class UI {
     private static Scanner in = null;
-    public static final String greetingArt = "greeting art placeholder \n";
-    public static final String goodbyeArt = "        .--'''''''''--.\n" +
-            "     .'      .---.      '.\n" +
-            "    /    .-----------.    \\\n" +
-            "   /        .-----.        \\\n" +
-            "   |       .-.   .-.       |\n" +
-            "   |      /   \\ /   \\      |\n" +
-            "    \\    | .-. | .-. |    /\n" +
-            "     '-._| | | | | | |_.-'\n" +
-            "         | '-' | '-' |\n" +
-            "          \\___/ \\___/\n" +
-            "       _.-'  /   \\  `-._\n" +
-            "     .' _.--|     |--._ '.\n" +
-            "     ' _...-|     |-..._ '\n" +
-            "            |     |\n" +
-            "            '.___.'\n" +
-            "              | |\n" +
-            "             _| |_\n" +
-            "            /\\( )/\\\n" +
-            "           /  ` '  \\";
+    public static final String greetingArt = "───▄▄▄\n" +
+            "─▄▀░▄░▀▄\n" +
+            "─█░█▄▀░█\n" +
+            "─█░▀▄▄▀█▄█▄▀\n" +
+            "▄▄█▄▄▄▄███▀\n\n";
+    public static final String goodbyeArt = "───▄▄▄\n" +
+            "─▄▀░▄░▀▄\n" +
+            "─█░█▄▀░█\n" +
+            "─█░▀▄▄▀█▄█▄▀\n" +
+            "▄▄█▄▄▄▄███▀\n";
 
     /**
      * greeting and goodbye messages
@@ -34,7 +24,7 @@ public class UI {
 
     public static final String DIVIDER = "______________________________________";
     public static final String greetingMessage =
-            "Hello! I'm Handsome!\n" +
+            "Hello! I'm Duke!\n" +
                     greetingArt +
                     "How can I help you?";
 

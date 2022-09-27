@@ -1,48 +1,134 @@
 ______________________________________
-Hello! I'm Handsome!
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣠⣤⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠖⠊⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠲⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⡤⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀⠀⡀⠈⠀⡀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠘⡆⡜⠁⠀⠀⠀⠀⢧⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⣀⣤⡂⠀⠇⠱⠀⡀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢇⠀⠀⠀⠀⠀⠀⠀⠀⠈⢄⡀⢠⣟⢭⣥⣤⠽⡆⠀⡶⣊⣉⣲⣤⢀⡞⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀⡀⠀⠐⠂⠘⠄⣈⣙⡡⡴⠀⠀⠙⣄⠙⣛⠜⠘⣆⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠈⢦⡀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠄⠊⠀⠀⠀⠀⡸⠛⠀⠀⠀⢸⠆⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠦⢄⣘⣄⠀⠀⠀⠀⠀⠀⠀⡠⠀⠀⠀⠀⣇⡀⠀⠀⣠⠎⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠁⠈⡟⠒⠲⣄⠀⠀⡰⠇⠖⢄⠀⠀⡹⡇⢀⠎⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⡇⠀⠀⠹⠀⡞⠀⠀⢀⠤⣍⠭⡀⢱⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢀⣀⣀⣠⠞⠀⠀⢠⡇⠀⠀⠀⠀⠁⠀⢴⠥⠤⠦⠦⡼⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣀⣤⣴⣶⣿⣿⡟⠁⠀⠋⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠑⣠⢤⠐⠁⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠬⠥⣄⠀⠀⠈⠲⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⠀⠀⢀⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
-⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠒⠦⠤⢤⣄⣀⣠⠤⢿⣶⣶⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀
-⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠁⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣤⣤⣀⣀⣀⣀⣀⣀⣀⣤⣤⣤⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀How can I help you?
-______________________________________
 
+______________________________________
+______________________________________
+Hello! I'm Duke!
+───▄▄▄
+─▄▀░▄░▀▄
+─█░█▄▀░█
+─█░▀▄▄▀█▄█▄▀
+▄▄█▄▄▄▄███▀
+
+How can I help you?
+______________________________________
 Please enter your taskList command: (send 'bye' to exit)
+unknown command
+______________________________________
+OOPS!!! Command not found
+______________________________________
+todo borrow book
 ______________________________________
 Got it. I've added this task:
   [T][ ] borrow book
 Now you have 1 tasks in the list
 ______________________________________
+todo
 ______________________________________
-1. [T][ ] borrow book
+OOPS!!! Todo command must follow the format:todo <description>
 ______________________________________
+event basketball /at noon
 ______________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [E][ ] basketball (at: noon)
 Now you have 2 tasks in the list
 ______________________________________
+event /at noon
+______________________________________
+OOPS!!! Event command must follow the format <description> /at <time/date>
+______________________________________
+deadline return book /by noon
 ______________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (at: Mon 2-4pm)
+  [D][ ] return book (by: noon)
 Now you have 3 tasks in the list
 ______________________________________
+deadline project /by
+______________________________________
+OOPS!!! Deadline command must follow the format <description> /by <time/date>
+______________________________________
+list
+______________________________________
+1. [T][ ] borrow book
+2. [E][ ] basketball (at: noon)
+3. [D][ ] return book (by: noon)
+
+______________________________________
+done 2
+______________________________________
+Nice! I've marked this task as done:
+  [E][X] basketball (at: noon)
+
+______________________________________
+list
+______________________________________
+1. [T][ ] borrow book
+2. [E][X] basketball (at: noon)
+3. [D][ ] return book (by: noon)
+
+______________________________________
+done three
+______________________________________
+OOPS!!! Done command must follow the format:done <index>
+______________________________________
+done 4
+______________________________________
+OOPS!!! Done command index is out of the range of the number of tasks.
+______________________________________
+event another Event /at 1234
 ______________________________________
 Got it. I've added this task:
-  [D][ ] do homework (by: no idea :-p)
+  [E][ ] another Event (at: 1234)
 Now you have 4 tasks in the list
+______________________________________
+list
+______________________________________
+1. [T][ ] borrow book
+2. [E][X] basketball (at: noon)
+3. [D][ ] return book (by: noon)
+4. [E][ ] another Event (at: 1234)
+
+______________________________________
+done 4
+______________________________________
+Nice! I've marked this task as done:
+  [E][X] another Event (at: 1234)
+
+______________________________________
+list
+______________________________________
+1. [T][ ] borrow book
+2. [E][X] basketball (at: noon)
+3. [D][ ] return book (by: noon)
+4. [E][X] another Event (at: 1234)
+
+______________________________________
+delete return book
+______________________________________
+OOPS!!! Delete command must follow the format: delete <index>
+______________________________________
+delete 5
+______________________________________
+OOPS!!! Delete command is out of range of the number of tasks.
+______________________________________
+delete 1
+______________________________________
+Noted. I've removed this task: [T][ ] borrow book
+ Now you have 3 tasks in the list.
+______________________________________
+list
+______________________________________
+1. [E][X] basketball (at: noon)
+2. [D][ ] return book (by: noon)
+3. [E][X] another Event (at: 1234)
+
+______________________________________
+bye
+______________________________________
+Bye. Hope to see you again soon!
+───▄▄▄
+─▄▀░▄░▀▄
+─█░█▄▀░█
+─█░▀▄▄▀█▄█▄▀
+▄▄█▄▄▄▄███▀
+
 ______________________________________

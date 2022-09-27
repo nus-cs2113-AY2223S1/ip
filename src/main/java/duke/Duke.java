@@ -39,14 +39,16 @@ public class Duke {
     // Duke attributes
 
     private TaskList taskList;
-    private Storage storage;
-    private UI ui;
-    private Parser parser;
+    private final Storage storage;
+//    public static final String FILEPATH = "./data/data.txt";
+
+    private final UI ui;
+    private final Parser parser;
 
 
-    public Duke() {
+    public Duke(String filePath) {
         this.ui = new UI();
-        storage = new Storage();
+        storage = new Storage(filePath);
         parser = new Parser();
 
         InitializeTaskList initializedTaskList = null;
@@ -69,28 +71,22 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-
-        Duke duke = new Duke();
-        // Print greeting message
-        UI.printGreeting();
-
-        // Initialise instance of duke.tasks.TaskList
-        TaskList taskList = new TaskList();
-
+    public void run(){
+        ui.printGreeting();
         System.out.println("Please enter your taskList command: (send 'bye' to exit)");
         Scanner in = new Scanner(System.in);
+        String userInput = in.nextLine();
 
-        while (true) {
-            String userInput = in.nextLine();
-            Command command = Parser.parsedCommand(duke.taskList, userInput);
+        while (!userInput.equals(BYE)) {
+
+            Command command = parser.parsedCommand(taskList, userInput);
 
             ExecutedCommand executedCommand = executeCommand(command);
 
             if (executedCommand.isTaskListChanged()){
-                duke.taskList = executedCommand.getTaskList();
+                taskList = executedCommand.getTaskList();
                 try {
-                    duke.storage.writeToFile(duke.taskList);
+                    storage.writeToFile(taskList);
                 } catch (IOException e){
                     UI.printMessageWithLines("Error writing to file.");
                 }
@@ -98,12 +94,13 @@ public class Duke {
 
             String executionMessage = executedCommand.getExecutionMessage();
             printFormattedMessage(executionMessage);
+            userInput = in.nextLine();
 
-            if (userInput.equals(BYE)) {
-                break;
-            }
         }
-        UI.printGoodbye();
+        ui.printGoodbye();
+    }
+    public static void main(String[] args) {
+        new Duke("./data/data.txt").run();
     }
 
 }

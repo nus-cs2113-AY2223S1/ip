@@ -24,10 +24,9 @@ public class Storage {
 
     private final String filePath;
     private static File file = null;
-    public static final String FILEPATH = "./data/data.txt";
 
-    public Storage() {
-        this.filePath = FILEPATH;
+    public Storage(String filePath) {
+        this.filePath = filePath;
         this.file = new File(filePath);
     }
 
@@ -76,8 +75,12 @@ public class Storage {
         } catch (FileNotFoundException e){
             initialisationMessage += "File not found.\n";
 
-            initialisationMessage += "Creating " + FILEPATH + "\n";
-            createFile();
+            try {
+                initialisationMessage += "Creating " + filePath + "\n";
+                createFile();
+            } catch (IOException e_){
+                initialisationMessage += "Error creating new file";
+            }
 
         } catch (FileFormatException e){
             initialisationMessage += "File data contains format errors.";
