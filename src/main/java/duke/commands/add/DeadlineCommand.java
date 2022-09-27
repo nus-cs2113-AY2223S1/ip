@@ -5,25 +5,35 @@ import duke.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DeadlineCommand extends AddCommand {
     public static final String COMMAND_WORD = "deadline";
 
     private final String deadlineTaskName;
-    private final String deadlineTaskBy;
+    private final String deadlineByDate;
+    private final String deadlineByTime;
 
 
-    public DeadlineCommand(String deadlineTaskName, String deadlineTaskBy) {
+    public DeadlineCommand(String deadlineTaskName, String deadlineByDate, String deadlineByTime) {
         this.deadlineTaskName = deadlineTaskName;
-        this.deadlineTaskBy   = deadlineTaskBy;
+        this.deadlineByDate = deadlineByDate;
+        this.deadlineByTime = deadlineByTime;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addDeadlineTask(deadlineTaskName, deadlineTaskBy);
+        LocalDate deadlineDate = LocalDate.parse(deadlineByDate);
+        String date = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        taskList.addDeadlineTask(deadlineTaskName, deadlineDate, deadlineByTime);
         ui.printTaskAddedMessage(taskList);
+        String addedTaskDescription = "D | 0 | " + deadlineTaskName + " | " + date;
         try {
-            storage.addTaskToDukeTextFile("D | 0 | " + deadlineTaskName + " | " + deadlineTaskBy);
+            if (!deadlineByTime.isEmpty()) {
+                addedTaskDescription += " | " + deadlineByTime;
+            }
+            storage.addTaskToDukeTextFile(addedTaskDescription);
         } catch (IOException e) {
             ui.showIOExceptionMessage();
         }
