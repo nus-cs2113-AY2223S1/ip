@@ -1,13 +1,17 @@
 help
 list
+find book
 mark -1
 mark 2
-deadline finish assignment /by Sunday
+deadline finish assignment /by 2023-19-31 10:00
+deadline finish assignment /by 2023-01-31
+deadline finish BOOK /by 2022-10-15 10:00
 mark 5
 list
+find book
 unmark 2
 mark 6
-event soccer match /at Mon 2-4 pm
+event soccer match /at 2022-11-11 11:11
 mark 6
 unmark 2
 list

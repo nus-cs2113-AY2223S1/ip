@@ -67,6 +67,12 @@ public class Parser {
     }
 
 
+    /**
+     * This method checks if a given {@code String} is a valid text representation of some time.
+     *
+     * @param time - the text to be validated
+     * @return true if the given text is a valid time, false otherwise.
+     */
     public static boolean isValidTime(String time) {
         try {
             LocalDateTime.parse(time, DateTimeFormatter.ofPattern(DATA_TIME_FORMAT));
@@ -76,7 +82,7 @@ public class Parser {
         return true;
     }
 
-    public static String retrieveTaskDescription(String parameters, String separator) {
+    private static String retrieveTaskDescription(String parameters, String separator) {
         return parameters.split(separator)[0];
     }
 
@@ -167,10 +173,23 @@ public class Parser {
         return createCommand(commandName, parameters);
     }
 
+    /**
+     * Takes in a {@code String} representation of a time, and returns the corresponding {@code LocalDateTime} object
+     *
+     * @param time - text representation of time
+     * @return - the corresponding {@code LocalDateTime} object
+     */
     public static LocalDateTime parseDateTime(String time) {
         return LocalDateTime.from(DateTimeFormatter.ofPattern(DATA_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT).parse(time));
     }
 
+    /**
+     * Takes in a {@code LocalDateTime} object and formats it into a textual representation according to the desired format.
+     *
+     * @param dateTime - the {@code LocalDateTime} object
+     * @param format   - the desired format
+     * @return - a textual representation of the {@code LocalDateTime} object in the desired format.
+     */
     public static String getFormattedTime(LocalDateTime dateTime, String format) {
         return dateTime.format(DateTimeFormatter.ofPattern(format));
     }

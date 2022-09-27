@@ -158,7 +158,7 @@ public class TaskList {
     }
 
     /**
-     * Lists all the present tasks in a numbered list.
+     * Lists all the present {@code Task}s in a numbered list.
      */
     public void listTasks() {
         if (isEmpty()) {
@@ -171,7 +171,7 @@ public class TaskList {
         }
     }
 
-    public void listMatchingTasks() {
+    private void listMatchingTasks() {
         if (isEmpty()) {
             System.out.println("\tNothing in the list matches your search keyword!");
             return;
@@ -182,6 +182,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds all {@code Task}s that match the input keyword, and presents them in a numbered list.
+     *
+     * @param keyword - the word to search for in the descriptions of each of the {@code Task}s.
+     */
     public void find(String keyword) { //keyword will be made lower case before the function is called
         TaskList matchingTaskList = new TaskList();
         for (Task task : tasks) {
