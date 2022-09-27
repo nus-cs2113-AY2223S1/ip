@@ -1,23 +1,3 @@
-##  * TO DO:
-
-##  * create tasks package
-
-extend tasks for deadline todo & event types
-
-##  * create command package
-
-Command
-CommandExit
-CommandList
-CommandAdd
-CommandDelete
-CommandMark
-CommandUnmark
-
-##  * improve parser
-
-make a separate class for parser takes in userInput and returns command to execute
-
 # duke.Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are
