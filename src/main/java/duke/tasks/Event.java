@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import duke.Parser;
+import java.time.LocalDateTime;
+
 /**
  * This class is a specific type of {@code Task} that allows users to store events that are happening at a specific time
  *
@@ -7,16 +10,16 @@ package duke.tasks;
  */
 public class Event extends Task {
 
+    private LocalDateTime at;
+    public static final String TASK_TYPE = "E";
+
     /**
      * @return the time the {@code Event} is scheduled at.
      */
-    public String getTime() {
-        return at;
+    public String getTime(String format) {
+        return Parser.getFormattedTime(at, format);
     }
 
-    private final String at;
-
-    public static final String TASK_TYPE = "E";
 
     /**
      * Constructor that initialises the {@code Event} based on its description and the time it is happening
@@ -26,14 +29,14 @@ public class Event extends Task {
      */
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        this.at = Parser.parseDateTime(at);
     }
 
     /**
      * @return - a textual representation of the {@code Event}
      */
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (at: " + at + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (at: " + getTime(Parser.PRINT_TIME_FORMAT) + ")";
     }
 
     /**

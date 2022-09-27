@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import duke.Parser;
+import java.time.LocalDateTime;
+
 /**
  * This class is a specific type of {@code Task}s that have a deadline.
  *
@@ -7,16 +10,15 @@ package duke.tasks;
  */
 public class Deadline extends Task {
 
+    private LocalDateTime by;
+    public static final String TASK_TYPE = "D";
+
     /**
      * @return the time this {@code Deadline} is due by.
      */
-    public String getDeadline() {
-        return by;
+    public String getDeadline(String format) {
+        return Parser.getFormattedTime(by, format);
     }
-
-    private final String by;
-
-    public static final String TASK_TYPE = "D";
 
     /**
      * Constructor that initialises the {@code Deadline} based on its description and when it is due.
@@ -26,7 +28,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = Parser.parseDateTime(by);
     }
 
     /**
@@ -34,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (by: " + getDeadline(Parser.PRINT_TIME_FORMAT) + ")";
     }
 
     /**
