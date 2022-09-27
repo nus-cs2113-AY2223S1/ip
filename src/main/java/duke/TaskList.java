@@ -82,6 +82,16 @@ public class TaskList {
         }
     }
 
+    public void find(String content) {
+        System.out.println("\tBelow are the tasks with the content specified:");
+        for (Task t : tasks) {
+            if (t.getDescription().contains(content)) {
+                int index = tasks.indexOf(t);
+                System.out.println("\t " + standardFormatForEachTask(index));
+            }
+        }
+    }
+
     private String standardFormatForEachTask(int index) {
         return tasks.get(index).getTaskType() + tasks.get(index).getStatus()
                 + tasks.get(index).getDescription() + tasks.get(index).getAddedInfo();
