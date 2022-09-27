@@ -1,9 +1,8 @@
 package duke;
 
-import java.io.IOException;
 
 /**
- * Represents a personal assistant chatbot that helps a person to keep track of various things.
+ * Represents a personal assistant chat-bot that helps a person to keep track of various things.
  * Start the application and interact with the user.
  */
 public class Duke {
@@ -11,10 +10,9 @@ public class Duke {
 
     public static final String DEFAULT_DUKE_PATH = "data/duke.txt";
 
-    private final Storage storage;
     private TaskList taskList;
     private final Ui ui;
-
+    private  Storage storage;
     private Command command;
     private final Parser parser;
 
@@ -46,9 +44,7 @@ public class Duke {
                 String[] CommandTypeAndArguments = parser.splitCommandTypeAndArguments(input);
                 String feedback = command.execute(CommandTypeAndArguments);
                 ui.showFeedbackToUser(feedback);
-            }  catch (InvalidCommandException | EmptyDescriptionException e) {
-                ui.showFeedbackToUser(e.getMessage());
-            } catch (DukeException e) {
+            }  catch (InvalidCommandException | EmptyDescriptionException | DukeException e) {
                 ui.showFeedbackToUser(e.getMessage());
             }
         }

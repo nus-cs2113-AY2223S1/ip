@@ -29,7 +29,7 @@ public class Ui {
         printOutput("Error loading txt file", LINE_DIVIDER);
     }
     public void showWelcomeMessage() {
-        printOutput(LINE_DIVIDER, WELCOME_MESSAGE, QUESTION_MESSAGE);
+        printOutput(LINE_DIVIDER, WELCOME_MESSAGE, QUESTION_MESSAGE,LINE_DIVIDER);
     }
 
 
@@ -182,8 +182,7 @@ public class Ui {
      */
 
     public String getInitialDeleteFeedback(int taskIndex, TaskList taskList) {
-        String feedback = DELETE_TASK_MESSAGE + System.lineSeparator() + "  " + taskList.getTasks().get(taskIndex).getTaskInfo();
-        return feedback;
+        return DELETE_TASK_MESSAGE + System.lineSeparator() + "  " + taskList.getTasks().get(taskIndex).getTaskInfo();
     }
 
 }

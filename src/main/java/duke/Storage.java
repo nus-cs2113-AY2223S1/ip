@@ -13,8 +13,8 @@ import java.util.ArrayList;
  * Represents the file used to store task list.
  */
 public class Storage {
-    private String filePath;
-    private File storageFile;
+    private final String filePath;
+    private final File storageFile;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -25,14 +25,13 @@ public class Storage {
      * Loads the data from the storage file and returns it.
      *
      * @return Tasks.
-     * @throws IOException If error caused by reading file.
+     * @throws DukeException If error caused by reading file.
      */
     public ArrayList<Task> load() throws DukeException {
         try {
             ArrayList<String> fileContent = readFile();
             Parser parser = new Parser();
-            ArrayList<Task> taskList = parser.decodeTaskListFromFile(fileContent);
-            return taskList;
+            return parser.decodeTaskListFromFile(fileContent);
         } catch (IOException e) {
             throw new DukeException("Error loading file");
         }
@@ -55,7 +54,7 @@ public class Storage {
      * Overwrites the storage file.
      *
      * @param tasks tasks used to overwrite
-     * @throws IOException If error caused by writing to the storage file occurs.
+     * @throws DukeException If error caused by writing to the storage file occurs.
      */
    public void overWriteDukeTxt(ArrayList<Task> tasks) throws DukeException {
        try {
@@ -67,11 +66,11 @@ public class Storage {
     }
 
     private String generateNewText(ArrayList<Task> tasks) {
-        String newText = "";
+        StringBuilder newText = new StringBuilder();
         for (Task task : tasks) {
-            newText += task.toString();
+            newText.append(task.toString());
         }
-        return newText;
+        return newText.toString();
     }
 
     private void writeToFile(String textToAdd) throws IOException {
