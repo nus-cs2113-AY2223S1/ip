@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 
 public class Duke {
@@ -29,7 +28,7 @@ public class Duke {
 
         String userInput = getUserInput();
         while(!userInput.equals(BYE)){
-            manageTaskList(taskList, userInput, false);
+            implementUserInstruction(taskList, userInput, false);
             userInput = getUserInput();
         }
 
@@ -59,12 +58,12 @@ public class Duke {
             }
 
 
-            manageTaskList(taskList, deformattedInst, isDone);
+            implementUserInstruction(taskList, deformattedInst, isDone);
         }
     }
 
 
-    private static void manageTaskList(ArrayList<Task> taskList, String userInput, boolean isDone) {
+    private static void implementUserInstruction(ArrayList<Task> taskList, String userInput, boolean isDone) {
         String[] userInputSplit = userInput.split(" ");
         switch(userInputSplit[0]){
         case "list":
@@ -72,9 +71,7 @@ public class Duke {
             break;
 
         case "mark":
-            int markDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
-            taskList.get(markDoneIndex).setIsDone(true);
-            printSetDoneMessage(taskList.get(markDoneIndex));
+            markTask(taskList, userInputSplit);
             break;
 
         case "todo":
@@ -102,12 +99,11 @@ public class Duke {
 
 
         case "unmark":
-            int markNotDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
-            taskList.get(markNotDoneIndex).setIsDone(false);
-            printSetNotDoneMessage(taskList.get(markNotDoneIndex));
+            unmarkTask(taskList, userInputSplit);
             break;
 
         case "delete":
+            // refactor delete method
             int deleteIndex = Integer.parseInt(userInputSplit[1]) - 1;
             deleteTask(taskList, deleteIndex);
             break;
@@ -122,6 +118,18 @@ public class Duke {
         catch (IOException e){
             System.out.println("Something went wrong: " + e.getMessage());
         }
+    }
+
+    private static void markTask(ArrayList<Task> taskList, String[] userInputSplit) {
+        int markDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
+        taskList.get(markDoneIndex).setIsDone(true);
+        printSetDoneMessage(taskList.get(markDoneIndex));
+    }
+
+    private static void unmarkTask(ArrayList<Task> taskList, String[] userInputSplit) {
+        int markNotDoneIndex = Integer.parseInt(userInputSplit[1]) - 1;
+        taskList.get(markNotDoneIndex).setIsDone(false);
+        printSetNotDoneMessage(taskList.get(markNotDoneIndex));
     }
 
 
@@ -286,5 +294,3 @@ public class Duke {
 
 
 }
-
-//Impliment save
