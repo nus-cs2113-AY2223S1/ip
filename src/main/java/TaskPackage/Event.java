@@ -1,3 +1,7 @@
+package TaskPackage;
+
+import TaskPackage.Task;
+
 public class Event extends Task {
     protected String at;
     public Event(String description, String at) {
@@ -6,7 +10,6 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }

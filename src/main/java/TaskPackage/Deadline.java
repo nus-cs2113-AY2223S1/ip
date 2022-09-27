@@ -1,3 +1,7 @@
+package TaskPackage;
+
+import TaskPackage.Task;
+
 public class Deadline extends Task {
 
     protected String by;
