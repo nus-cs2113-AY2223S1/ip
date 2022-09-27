@@ -1,7 +1,8 @@
 # User Guide
 
-## Table of contents
+**Ever** is a personal assistant chatbot that helps a user to manage tasks including todos, deadlines and events, via a Command Line Interface. 
 
+* [Quick start](#quick-start)
 * [Features](#features)
     * [Viewing help: `help`](#viewing-help-help)
     * [Listing all tasks: `list`](#listing-all-tasks-list)
@@ -14,8 +15,31 @@
     * [Finding tasks by description: `find`](#finding-tasks-by-description-find)
     * [Exiting the program: `bye`](#exiting-the-program-bye)
     * [Saving the data](#saving-the-data)
+* [Command summary](#command-summary)
+
+## Quick start
+1. Install Java 11 to your computer.
+2. Download the latest `ip.jar` from the release.
+3. Open terminal and change directory to where the `ip.jar` file is stored.
+4. Enter `java -jar ip.jar` to launch the `ip.jar` file.
+5. If the file is successfully launched, you should see the following output in the terminal:
+```
+ ________      ________ _____
+|  ____\ \    / /  ____|  __ \
+| |__   \ \  / /| |__  | |__) |
+|  __|   \ \/ / |  __| |  _  /
+| |____   \  /  | |____| | \ \
+|______|   \/   |______|_|  \_\
+Hello! I'm Ever
+What can I do for you?
+==================================================================
+```
 
 ## Features
+
+**Notes about the command format:**
+* Words in `<>` are the parameters that are required to be input by the user. e.g in `todo <description>`, `description` is a required parameter.
+* Extra paremeters added to commands that do not require parameters will be ignored. e.g `list task` performs the same operation as `list`.
 
 ### Viewing help: `help`
 
@@ -414,3 +438,18 @@ Bye. Hope to see you again soon!
 
 ### Saving the data
 Data in the task list of Ever are saved as a .txt file `[JAR file location]/data/duke.txt` automatically after any operation that changes the list. No manual saving is needed nor allowed.
+
+## Command summary
+| Action   | Format, Examples |
+| -------- | ---------------- |
+| Help     | `help` |
+| List     | `list` | 
+| Todo     | `todo <description>` <br> e.g `todo Buy food` |
+| Deadline | `deadline <description> /by <deadline-datetime>` <br> e.g `deadline Submit lab assignment /by Sep 30 23:59` |
+| Event    | `event <description> /at <event-datetime>` <br> e.g `event Movie watching /at 1 Oct 16:00 - 18:00` |
+| Mark     | `mark <task-number>` <br> e.g `mark 2` |
+| Unmark   | `unmark <task-number>` <br> e.g `unmark 2` |
+| Delete   | `delete <task-number>` <br> e.g `delete 2` |
+| Find     | `find <search-word>` <br> e.g `find submit` |
+| Bye      | `bye` |
+
