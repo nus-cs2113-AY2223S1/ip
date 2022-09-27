@@ -11,14 +11,13 @@ public class Deadline extends Task {
 
     /**
      * Constructor of the <code>Deadline</code> object.
-     * Stores the due time of the task in this class and the description and the keyword
-     * "deadline" in the Task class.
+     * Stores the due time of the task in this class and the description in the Task class.
      *
      * @param description description field of the deadline object
      * @param by due date of the deadline object
      */
     public Deadline(String description, String by) {
-        super("deadline", description);
+        super(description);
         this.by = by;
     }
 

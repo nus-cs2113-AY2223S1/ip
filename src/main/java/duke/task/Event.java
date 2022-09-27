@@ -10,14 +10,13 @@ public class Event extends Task {
 
     /**
      * Constructor of the <code>Event</code> object.
-     * Stores the starting time of the task in this class and the description and the keyword
-     * "event" in the Task class.
+     * Stores the starting time of the task in this class and the description in the Task class.
      *
      * @param description description field of the event object
      * @param at starting time of the event object
      */
     public Event(String description, String at) {
-        super("event", description);
+        super(description);
         this.at = at;
     }
 

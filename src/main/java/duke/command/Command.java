@@ -67,9 +67,9 @@ public abstract class Command {
 
     /**
      * Sets the boolean <code>isLegal</code> status based on the existence of possible exceptions
-     * in user input.
+     * in user input. True if the command could cause an exception and false if not.
      *
-     * @param legal
+     * @param legal boolean that represents the existence of possible exceptions
      */
     public void setLegal(boolean legal) {
         isLegal = legal;

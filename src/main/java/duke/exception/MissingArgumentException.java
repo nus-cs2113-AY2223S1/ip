@@ -2,21 +2,21 @@ package duke.exception;
 
 /**
  * <code>MissingArgumentException</code> is thrown when the user did not provide
- * enough arguments for the execution of commands.
+ * the necessary arguments for the execution of commands.
  */
 public class MissingArgumentException extends DukeException {
 
-    private final String keyword;
+    private final String missingArgument;
 
     /**
      * Constructor of <code>MissingArgumentException</code>.
      * Stores the type of command for error message printing.
      *
-     * @param message the type of command
+     * @param missingArgument the missing argument of the command
      */
-    public MissingArgumentException(String message) {
+    public MissingArgumentException(String missingArgument) {
         super();
-        this.keyword = message;
+        this.missingArgument = missingArgument;
     }
 
     /**
@@ -26,8 +26,8 @@ public class MissingArgumentException extends DukeException {
      */
     @Override
     public String getMessage() {
-        String partOne = "☹ OOPS!!! Your ";
-        String partTwo = " command is missing an argument!";
-        return partOne + keyword + partTwo;
+        String messagePartOne = "☹ OOPS!!! Your command is missing the ";
+        String messagePartTwo = " argument!";
+        return messagePartOne + missingArgument + messagePartTwo;
     }
 }

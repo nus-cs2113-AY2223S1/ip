@@ -42,9 +42,9 @@ public class TaskList {
      * Then prints a message showing details of the task.
      *
      * @param taskPosition indicates the position of the Task to delete.
-     *
+     * @throws IndexOutOfBoundsException If taskPosition < 0 || taskPosition > size of the list
      */
-    public static void deleteTask(int taskPosition) {
+    public static void deleteTask(int taskPosition) throws IndexOutOfBoundsException {
 
         Task task = get(taskPosition);
         taskList.remove(taskPosition);
@@ -56,8 +56,9 @@ public class TaskList {
      *
      * @param taskPosition position of the task the user chooses
      * @return the task object specified by the taskPosition parameter
+     * @throws IndexOutOfBoundsException If taskPosition < 0 || taskPosition > size of the list
      */
-    public static Task get(int taskPosition) {
+    public static Task get(int taskPosition) throws IndexOutOfBoundsException {
         return taskList.get(taskPosition);
     }
 

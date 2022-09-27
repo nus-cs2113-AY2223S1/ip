@@ -6,7 +6,7 @@ import duke.exception.StorageReadException;
  * This class is for parsing parts of stored data for loading into this program.
  */
 public class FileParser {
-    private static String SPACES_BETWEEN_WORDS = " ";
+    private static final String SPACES_BETWEEN_WORDS = " ";
 
     /**
      * Returns the due time for deadline tasks and the starting time for event tasks.
@@ -16,8 +16,7 @@ public class FileParser {
      * @return the time of the tasks
      */
     public static String getStoredTime(String unprocessedInput, int separatorPosition) {
-        String time = unprocessedInput.substring(separatorPosition + 2);
-        return time;
+        return unprocessedInput.substring(separatorPosition + 2);
     }
 
     /**
@@ -28,8 +27,7 @@ public class FileParser {
      * @return the description of the tasks
      */
     public static String getStoredDescription(String unprocessedInput, int separatorPosition) {
-        String description = unprocessedInput.substring(0, separatorPosition - 1);
-        return description;
+        return unprocessedInput.substring(0, separatorPosition - 1);
     }
 
     /**

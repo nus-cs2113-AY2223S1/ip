@@ -6,9 +6,7 @@ package duke.exception;
  */
 public class StorageReadException extends DukeException {
 
-    private String MESSAGE_FIRST_PART = "Sorry, there was an error loading the ";
-    private String MESSAGE_LAST_PART = " portion of the stored data :-(";
-    private String type;
+    private final String type;
 
     /**
      * Constructor of <code>StorageReadException</code>.
@@ -29,6 +27,6 @@ public class StorageReadException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return MESSAGE_FIRST_PART + type + MESSAGE_LAST_PART;
+        return "Sorry, there was an error loading the " + type + " portion of the stored data :-(";
     }
 }

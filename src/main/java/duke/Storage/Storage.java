@@ -1,5 +1,6 @@
 package duke.Storage;
 
+import duke.exception.NoTasksException;
 import duke.exception.StorageReadException;
 import duke.manager.CommandParser;
 import duke.manager.TaskExecutor;
@@ -21,9 +22,9 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static String DEFAULT_FOLDER = "./data";
-    private static String DEFAULT_FILE_PATH = "./data/duke.txt";
-    private static String SEPARATOR_LINE = "|";
+    private static final String DEFAULT_FOLDER = "./data";
+    private static final String DEFAULT_FILE_PATH = "./data/duke.txt";
+    private static final String SEPARATOR_LINE = "|";
 
     /**
      * Creates the directory/folder and the file to load from at the start of execution if
@@ -42,8 +43,7 @@ public class Storage {
         File file = new File(DEFAULT_FILE_PATH);
         file.createNewFile(); // this part throws IOException
         System.out.println("Since the storage file is missing, I have created it for you.");
-        TaskList taskList = new TaskList();
-        return taskList;
+        return new TaskList();
     }
 
     /**
@@ -99,7 +99,6 @@ public class Storage {
 
     /**
      * Reads the data in the indicated storage file line by line and processes it for task creation.
-     * At the end of the loading of data, the list of tasks is printed for the user to view.
      *
      * @return a list with the stored tasks
      * @throws FileNotFoundException If the file to read data from does not exist
@@ -135,9 +134,6 @@ public class Storage {
             currentTask.setDone(isDone);
             storedTasks.addTask(currentTask, false);
         }
-        // list the tasks stored for user at the start
-        TaskExecutor.listCommand(storedTasks.getSize());
-        UserInterface.printBorderLines();
         return storedTasks;
     }
 
@@ -159,13 +155,12 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    private static void saveStorage() throws IOException {
+    private static void saveStorage() throws IOException, NoTasksException {
         String saveMessage;
         FileWriter storingData = new FileWriter(DEFAULT_FILE_PATH);
         int taskNumber = TaskList.getSize();
         if (taskNumber == 0) { // Guard Clause
-            System.out.println("☹ OOPS!!! You don't have any tasks yet. Why not try creating some?");
-            return;
+            throw new NoTasksException();
         }
 
         for (int i = 0; i < taskNumber; i++) {
@@ -202,6 +197,8 @@ public class Storage {
             saveStorage();
         } catch (IOException e) {
             System.out.println("Sorry, but I have failed to save your list into the hard disk.");
+        } catch (NoTasksException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -9,10 +9,10 @@ public class Todo extends Task {
      * Constructor of the <code>Todo</code> object.
      * Stores the description of the task.
      *
-     * @param description
+     * @param description the description of the Todo task
      */
     public Todo(String description) {
-        super("todo", description);
+        super(description);
     }
 
     /**

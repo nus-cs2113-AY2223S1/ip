@@ -18,11 +18,9 @@ public class Task {
      * Stores the keyword, description and completion status of a task.
      * Sets the initial completion status of a task to be incomplete.
      *
-     * @param keyword a string that shows what type of task the task is
      * @param description the description of the task
      */
-    public Task(String keyword, String description) {
-        this.keyword = keyword;
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -54,15 +52,6 @@ public class Task {
      */
     public boolean isDone() {
         return isDone;
-    }
-
-    /**
-     * Returns in lowercase the keyword of a task. For example: todo, deadline or event.
-     *
-     * @return the keyword of the task in lowercase
-     */
-    public String getKeyword() {
-        return keyword;
     }
 
     /**
