@@ -200,7 +200,7 @@ public class TaskManager {
 
     public void findTasks (String text) {
         try {
-            String position = Parser.parseFind(text);
+            String find = Parser.parseFind(text);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Find?!! Find what?!");
             return;
@@ -208,8 +208,9 @@ public class TaskManager {
         UI.printLine();
         System.out.println("Look what I found:");
         int count = 1;
+        String find = Parser.parseFind(text);
         for (Task task : Tasks) {
-            if (task.getDescription().contains(text)){
+            if (task.getDescription().contains(find)){
                 System.out.println(count + "." + task);
                 count++;
             }
