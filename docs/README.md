@@ -3,12 +3,12 @@
 ## Table of contents
 
 * [Features](#features)
-    * [Viewing help: `help`](#viewing-help---help-)
-    * [Listing all tasks: `list`](#listing-all-tasks---list-)
-    * [Adding a todo task: `todo`](#adding-a-todo-task---todo-)
-    * [Adding a deadline task: `deadline`](#adding-a-deadline-task---deadline-)
-    * [Adding an event task: `event`](#adding-an-event-task---event-)
-    * [Marking a task as done: `mark`](#marking-a-task-as-done---mark-)
+    * [Viewing help: `help`](#viewing-help-help)
+    * [Listing all tasks: `list`](#listing-all-tasks-list)
+    * [Adding a todo task: `todo`](#adding-a-todo-task-todo)
+    * [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
+    * [Adding an event task: `event`](#adding-an-event-task-event)
+    * [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
 
 ## Features
 
