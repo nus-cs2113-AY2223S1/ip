@@ -11,6 +11,11 @@ import duke.exception.MissingListIndexException;
 import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.MissingDeadlineDateTimeReferenceException;
 import duke.exception.MissingEventDateTimeReferenceException;
+import duke.exception.MissingEventTimeException;
+import duke.exception.InvalidTimeFormatException;
+import java.text.ParseException;
+import java.time.format.DateTimeParseException;
+
 
 public class Duke {
     private static Ui ui;
@@ -86,6 +91,12 @@ public class Duke {
                 ui.showMissingDeadlineDateTimeReferenceExceptionMessage();
             } catch (MissingEventDateTimeReferenceException e) {
                 ui.showMissingEventDateTimeReferenceExceptionMessage();
+            } catch (ParseException | DateTimeParseException e) {
+                ui.showInvalidDateExceptionMessage();
+            } catch (MissingEventTimeException e) {
+                ui.showMissingEventTimeMessage();
+            } catch (InvalidTimeFormatException e) {
+                ui.showInvalidTimeExceptionMessage();
             }
         } while (!isBye);
     }
