@@ -3,7 +3,6 @@ package duke;
 public class Parser {
 
     public Command parseCommand(String userInput) {
-        Ui ui = new Ui();
         String[] details = userInput.split(" ");
         String command = details[0];
         switch (command) {
@@ -40,39 +39,39 @@ public class Parser {
         return Command.INVALID;
     }
 
-    private static Command prepareToExit() {
+    private Command prepareToExit() {
         return Command.EXIT;
     }
 
-    private static Command prepareDeleteTask() {
+    private Command prepareDeleteTask() {
         return Command.DELETE;
     }
 
-    private static Command preparePrintTaskList() {
+    private Command preparePrintTaskList() {
         return Command.LIST;
     }
 
-    private static Command prepareUnmarkTask() {
+    private Command prepareUnmarkTask() {
         return Command.UNMARK;
     }
 
-    private static Command prepareMarkTask() {
+    private Command prepareMarkTask() {
         return Command.MARK;
     }
 
-    private static Command prepareInsertEventTask() {
+    private Command prepareInsertEventTask() {
         return Command.EVENT;
     }
 
-    private static Command prepareInsertToDoTask() {
+    private Command prepareInsertToDoTask() {
         return Command.TODO;
     }
 
-    private static Command prepareInsertDeadlineTask() {
+    private Command prepareInsertDeadlineTask() {
         return Command.DEADLINE;
     }
 
-    private static Command prepareGoodbye() {
+    private Command prepareGoodbye() {
         return Command.EXIT;
     }
 
