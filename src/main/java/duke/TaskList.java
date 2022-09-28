@@ -155,4 +155,26 @@ public class TaskList {
         }
     }
 
+    public void find(String line) {
+        String[] words = line.split("\\s+", 2);
+        if (words.length == 2 && words[1].trim().length() > 0) {
+            ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getDescription().toLowerCase().contains(words[1].toLowerCase())) {
+                    matchingIndexes.add(i);
+                }
+            }
+            if (matchingIndexes.size() > 0) {
+                ui.showMatchListSuccess();
+                for (int i : matchingIndexes) {
+                    ui.showListItem(i + 1, taskList.get(i).print());
+                }
+            } else {
+                ui.showMatchListError();
+            }
+        } else {
+            ui.showFindUsage();
+        }
+    }
+
 }

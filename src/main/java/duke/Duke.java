@@ -63,6 +63,9 @@ public class Duke {
             case DELETE:
                 taskList.delete(line);
                 break;
+            case FIND:
+                taskList.find(line);
+                break;
             case INVALID:
                 ui.showInvalidCommand();
                 break;
