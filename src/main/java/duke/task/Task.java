@@ -13,11 +13,7 @@ public class Task extends TaskManager {
     }
 
     public String getStatusIcon() {
-        if (isDone) { // mark done task with X
-            return "[X] ";
-        } else {
-            return "[ ] ";
-        }
+            return isDone ? "[X] " : "[ ] ";
     }
 
 
