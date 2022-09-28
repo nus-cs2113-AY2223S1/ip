@@ -13,5 +13,14 @@ src/main/resources/docs/
 *.iml
 bin/
 
+save/duke.txt
+
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
+
+# No class files
+*.class
+*.MF
+src/main/java/duke/save/duke.txt
+src/main/java/duke/out/
+src/main/java/duke/.idea/
