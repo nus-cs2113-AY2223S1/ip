@@ -21,6 +21,8 @@ public class Parser {
             return new event(fullCommand);
         } else if (fullCommand.contains("delete")) {
             return new delete(fullCommand);
+        } else if (fullCommand.contains("find")) {
+            return new find(fullCommand);
         } else {
             return new Command();
         }
