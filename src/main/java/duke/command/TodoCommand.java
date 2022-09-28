@@ -5,7 +5,11 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static duke.task.TaskList.tryAddTodo;
@@ -21,7 +25,9 @@ public class TodoCommand extends Command {
         try {
             storage.write(tasks);
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            createDirectory(ui, storage, tasks);
         }
     }
+
+
 }

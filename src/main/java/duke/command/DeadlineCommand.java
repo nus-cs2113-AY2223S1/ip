@@ -21,7 +21,7 @@ public class DeadlineCommand extends Command {
         try {
             storage.write(tasks);
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            createDirectory(ui, storage, tasks);
         }
     }
 }
