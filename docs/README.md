@@ -26,19 +26,19 @@ Duke is a chat-bot that allows users to:
 1. Ensure you have Java 11 or above installed in your Computer.
 
 
-2. Download the latest CS2113T_iP.jar from [here](https://github.com/LokQiJun/ip/releases)
+2. Download the latest CS2113T_IP.jar from [here](https://github.com/LokQiJun/ip/releases)
 
 
-3. Copy the CS2113T_iP.jar file to an empty folder.
+3. Copy the CS2113T_IP.jar file to an empty folder.
 
 
-4. **If you are using Windows**, click the Windows Start button and type in 'cmd' to open your command prompt. Then, navigate to the directory where CS2113T_iP.jar file is located.
+4. **If you are using Windows**, click the Windows Start button and type in 'cmd' to open your command prompt. Then, navigate to the directory where CS2113T_IP.jar file is located.
 
 
-5. **If you are using Mac or Linux or other systems**, open the terminal of your respective system and navigate to the directory where CS2113T_iP.jar file is located.
+5. **If you are using Mac or Linux or other systems**, open the terminal of your respective system and navigate to the directory where CS2113T_IP.jar file is located.
 
 
-6. Run the command "java -jar CS2113T_ip.jar".
+6. Run the command "java -jar CS2113T_IP.jar".
 
 
 7. If the aforementioned steps are done properly, you should see the following.
@@ -248,7 +248,7 @@ e.g. "deadline" and "DeadLiNE" both works
 
 Q: How do I transfer my list of tasks and all associated data to another computer?
 
-A: Transfer the text file named "Tasks.txt", located in the same directory as your iP.jar file, over to your other computer. Place it in the same directory as the CS2113T_iP.jar file on your other computer. Your tasks will then be loaded from this text file when you run CS2113T_iP.jar on your new computer.
+A: Transfer the text file named "Tasks.txt", located in the same directory as your iP.jar file, over to your other computer. Place it in the same directory as the CS2113T_IP.jar file on your other computer. Your tasks will then be loaded from this text file when you run CS2113T_IP.jar on your new computer.
 
 --------------------------------------
 
