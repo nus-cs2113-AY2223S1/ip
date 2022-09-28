@@ -1,0 +1,149 @@
+package duke;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class TaskList {
+    public static ArrayList<Task> tasks = new ArrayList<>();
+
+    public TaskList(ArrayList<Task> tasks) {
+        TaskList.tasks = tasks;
+    }
+
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
+
+    public void runTaskCommand(Command command, String inputLine) {
+        Ui ui = new Ui();
+        switch (command) {
+        case DEADLINE:
+            insertDeadlineTask(inputLine,tasks);
+            break;
+        case TODO:
+            insertToDoTask(inputLine,tasks);
+            break;
+        case EVENT:
+            insertEventTask(inputLine,tasks);
+            break;
+        case LIST:
+            ui.printTaskList(tasks);
+            break;
+        case MARK:
+            markTask(inputLine,tasks);
+            break;
+        case UNMARK:
+            unmarkTask(inputLine,tasks);
+            break;
+        case DELETE:
+            deleteTask(inputLine,tasks);
+            break;
+        case EXIT:
+            ui.printExitingMessage();
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void insertDeadlineTask(String inputLine, ArrayList<Task> tasks) {
+        Ui ui = new Ui();
+        try {
+            String deadlineSpecifics = findTaskSpecifics(inputLine);
+            String deadline = inputLine.substring(inputLine.indexOf("/by") + 3);
+            addTask(new Deadline(deadlineSpecifics, false, deadline));
+            ui.printDefaultTaskResponseMessage(tasks.size(), tasks);
+        } catch (IllegalTaskException exception) {
+            ui.printEmptyTaskDescriptionMessage();
+        }
+    }
+
+    public void insertToDoTask(String inputLine, ArrayList<Task> tasks) {
+        Ui ui = new Ui();
+        try {
+            String todoSpecifics = inputLine.substring(inputLine.indexOf(" "));
+            addTask(new Todo(todoSpecifics, false));
+            ui.printDefaultTaskResponseMessage(tasks.size(), tasks);
+        } catch (StringIndexOutOfBoundsException exception) {
+            ui.printEmptyTaskDescriptionMessage();
+        }
+    }
+
+    public void insertEventTask(String inputLine, ArrayList<Task> tasks) {
+        Ui ui = new Ui();
+        try {
+            String eventSpecifics = findTaskSpecifics(inputLine);
+            String eventDate = inputLine.substring(inputLine.indexOf("/at") + 3);
+            addTask(new Event(eventSpecifics, false, eventDate));
+            ui.printDefaultTaskResponseMessage(tasks.size(), tasks);
+        } catch (IllegalTaskException exception) {
+            ui.printEmptyTaskDescriptionMessage();
+        }
+    }
+
+    public void markTask(String inputLine, ArrayList<Task> tasks) {
+        Storage storage = new Storage();
+        Ui ui = new Ui();
+        try {
+            String[] taskDescriptions = inputLine.split(" ");
+            int taskToMark = Integer.parseInt(taskDescriptions[1]) - 1;
+            ui.printTaskMarkedMessage();
+            tasks.get(taskToMark).markAsDone();
+            storage.insertIntoFile(tasks);
+            System.out.println(tasks.get(taskToMark).toString());
+        } catch (IOException ioException) {
+            ui.printMarkingTaskErrorMessage();
+        }
+    }
+
+    public void unmarkTask(String inputLine, ArrayList<Task> tasks) {
+        Storage storage = new Storage();
+        Ui ui = new Ui();
+        try {
+            String[] taskDescriptions = inputLine.split(" ");
+            int taskToUnmark = Integer.parseInt(taskDescriptions[1]) - 1;
+            ui.printUnmarkTaskMessage();
+            tasks.get(taskToUnmark).unmark();
+            storage.insertIntoFile(tasks);
+            System.out.println(tasks.get(taskToUnmark).toString());
+        } catch (IOException ioException) {
+            ui.printUnmarkingTaskErrorMessage();
+        }
+    }
+
+    public static void addTask(Task task) {
+        tasks.add(task);
+        Storage storage = new Storage();
+        Ui ui = new Ui();
+        try {
+            storage.insertIntoFile(tasks);
+        } catch (IOException ioexception) {
+            ui.printFileUpdatingErrorMessage();
+        }
+    }
+
+    public static void deleteTask(String inputLine, ArrayList<Task> tasks) {
+        Storage storage = new Storage();
+        Ui ui = new Ui();
+        try {
+            String[] taskDescriptions = inputLine.split(" ");
+            int taskToDelete = Integer.parseInt(taskDescriptions[1]);
+            ui.printDeleteTaskMessage(tasks, taskToDelete);
+            tasks.remove(taskToDelete-1);
+            storage.insertIntoFile(tasks);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            ui.printInvalidTaskMessage();
+        } catch (IOException ioException) {
+            ui.printDeletingTaskErrorMessage();
+        }
+    }
+
+    public static String findTaskSpecifics(String details) throws IllegalTaskException {
+        String[] taskDetails = details.split(" ");
+        if (taskDetails.length < 2) {
+            throw new IllegalTaskException();
+        }
+        String typeOfTask = details.substring(details.indexOf(" "), details.indexOf("/"));
+        return typeOfTask;
+    }
+}
