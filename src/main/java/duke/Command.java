@@ -9,5 +9,6 @@ enum Command {
     MARK,
     UNMARK,
     DELETE,
+    FIND,
     INVALID
 }
