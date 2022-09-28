@@ -1,7 +1,17 @@
 package duke;
 
+/**
+ * The class which contains methods which serve
+ * to interpret the inputs given by the user.
+ */
 public class Parser {
 
+    /**
+     * Takes in the user's input and interprets it to determine which command to execute.
+     *
+     * @param userInput input that is keyed into the program by the user.
+     * @return Command a specified command interpreted from the user's input.
+     */
     public Command parseCommand(String userInput) {
         String[] details = userInput.split(" ");
         String command = details[0];

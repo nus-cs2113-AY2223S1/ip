@@ -3,6 +3,10 @@ package duke;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Contains the task list and the methods used to
+ * insert, add, mark, unmark, delete and find tasks.
+ */
 public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
@@ -14,6 +18,13 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Executes the command given by the user to update the list of tasks.
+     * The specific command is interpreted by the Parser class beforehand.
+     *
+     * @param command The specific command to be executed.
+     * @param inputLine The user input containing specifics related to the task.
+     */
     public void runTaskCommand(Command command, String inputLine) {
         Ui ui = new Ui();
         switch (command) {

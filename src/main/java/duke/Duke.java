@@ -2,6 +2,10 @@ package duke;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Entry point of the Duke application
+ * Initialises the application and starts the interaction with the user.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -11,10 +15,12 @@ public class Duke {
         new Duke().run();
     }
 
-
+    /**
+     * Runs the program until termination.
+     */
     public void run() {
         start();
-        runProgrammeUntilExitCommand();
+        runProgramUntilExitCommand();
         exit();
     }
 
@@ -26,12 +32,15 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            ui.showLoadingError();
+            ui.printLoadingError();
             tasks = new TaskList();
         }
     }
 
-    private void runProgrammeUntilExitCommand() {
+    /**
+     * Reads the user command and executes it, until the user issues the exit command.
+     */
+    private void runProgramUntilExitCommand() {
         Command command;
         do {
             Parser parser = new Parser();
@@ -41,6 +50,9 @@ public class Duke {
         } while (command != Command.EXIT);
     }
 
+    /**
+     * Prints the Goodbye message and exits the program.
+     */
     private void exit() {
         ui.printGoodbyeMessage();
         System.exit(0);
