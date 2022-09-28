@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     public static void loadInputFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File("data/duke.txt");
         Scanner s = new Scanner(f);
@@ -22,7 +22,7 @@ public class FileManager {
             switch (task[0]) {
             case "T":
                 try {
-                    FileManager.addInputFileTodo(tasks, task);
+                    Storage.addInputFileTodo(tasks, task);
                 } catch (DukeException e) {
                     System.out.println("Todo not added");
                 }

@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.TaskManager;
+import duke.TaskList;
 
-public class Task extends TaskManager {
+public class Task extends TaskList {
     public String description;
     public boolean isDone;
     

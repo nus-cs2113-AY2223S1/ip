@@ -1,6 +1,5 @@
 D | 1 | return book  |  Sunday
 E | 0 | project meeting  |  Mon 2-3pm
 E | 0 | group work  |  CLB
-T | 0 | borrow new book
-E | 1 | borrow book | clb
-E | 0 | lunch with bryan     | YIH
+T | 1 | borrow new book
+E | 0 | borrow book | clb

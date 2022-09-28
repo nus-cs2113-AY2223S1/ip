@@ -5,10 +5,12 @@ import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTodoInputException;
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+// import duke.ui.Ui;
 
 import static duke.ui.Ui.*;
 
@@ -16,7 +18,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.storage.FileManager.*;
+import static duke.storage.Storage.*;
 
 public class Duke {
 
@@ -37,22 +39,23 @@ public class Duke {
 
         do {
             line = in.nextLine();
-            String type = TaskManager.getTaskType(line);
+            // String type = Task.getTaskType(line);
+            String type = Parser.parseCommand(line);
 
             if (type.equals("bye")) {
                 // System.out.println("\tBye. Hope to see you again soon!");
-                System.out.println(BYE_MESSAGE);
+                printByeMessage();
                 clearCurrentFile();
                 saveNewList(tasks);
                 return;
             }
             switch (type) {
             case "list":
-                TaskManager.printTaskList(tasks);
+                printTaskList(tasks);
                 break;
             case "delete":
                 try {
-                    TaskManager.deleteTask(tasks, line);
+                    Task.deleteTask(tasks, line);
                 } 
                 catch (NumberFormatException e) {
                     System.out.println(WRONG_NUMBER_INPUT_FORMAT);
@@ -63,7 +66,7 @@ public class Duke {
                 break;
             case "mark":
                 try {
-                    TaskManager.markTask(tasks, line);
+                    Task.markTask(tasks, line);
                 } catch (NumberFormatException e) {
                     System.out.println(WRONG_NUMBER_INPUT_FORMAT);
                 } catch (IndexOutOfBoundsException e) {
@@ -72,7 +75,7 @@ public class Duke {
                 break;
             case "unmark":
                 try {
-                    TaskManager.unmarkTask(tasks, line);
+                    Task.unmarkTask(tasks, line);
                 } catch (NumberFormatException e) {
                     System.out.println(WRONG_NUMBER_INPUT_FORMAT);
                 } catch (IndexOutOfBoundsException e) {
@@ -80,11 +83,11 @@ public class Duke {
                 }
                 break;
             case "total":
-                    TaskManager.printTotalNumberOfItems(tasks);
+                    printTotalNumberOfItems(tasks);
                 break;
             case "todo":
                 try {
-                    String details = TaskManager.getTaskDetails(line);
+                    String details = Parser.parseTaskDetails(line);
                     Task t = new Todo(details);
                     tasks.add(t);
                     printSuccessfulAdd(tasks);
@@ -94,7 +97,7 @@ public class Duke {
                 break;
             case "deadline":
                 try {
-                    String details = TaskManager.getTaskDetails(line);
+                    String details = Parser.parseTaskDetails(line);
                     String[] split = Deadline.splitDeadlineDescription(details);
                     Task d = new Deadline(split[0], split[1]);
                     tasks.add(d);
@@ -107,7 +110,7 @@ public class Duke {
                 break;
             case "event":
                 try {
-                    String details = TaskManager.getTaskDetails(line);
+                    String details = Parser.parseTaskDetails(line);
                     String[] split = Event.splitEventDescription(details);
                     Task e = new Event(split[0], split[1]);
                     tasks.add(e);
@@ -119,10 +122,12 @@ public class Duke {
                 }
                 break;
             default:
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    printUnknownCommand();
             }
         } while (!line.equals("bye"));
     }
+
+
 }
 
 
