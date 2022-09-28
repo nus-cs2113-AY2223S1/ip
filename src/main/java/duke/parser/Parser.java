@@ -22,6 +22,13 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parses input and returns a command to be executed
+     *
+     * @param taskList taskList to execute command on
+     * @param input Input from the user to extract command from
+     * @return Command to be executed
+     */
     public static Command parsedCommand(TaskList taskList, String input) {
 
         final String[] splitLine = input.split(" ", 2);
@@ -50,9 +57,8 @@ public class Parser {
             return new MarkAsDoneCommand(taskList, commandArguments);
         }
         if (command.equals(FIND)) {
-            return new MarkAsDoneCommand(taskList, commandArguments);
+            return new FindCommand(taskList, commandArguments);
         }
-
         return new DoNothingCommand(taskList);
 
     }

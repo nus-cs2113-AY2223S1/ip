@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.tasks.TaskList;
 
+/** Delete command where an existing task is deleted from taskList */
 public class DeleteCommand extends Command {
     public DeleteCommand(TaskList taskList, String input) {
         super(taskList, input);
