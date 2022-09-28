@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    String filePath;
+    static String filePath;
     static String FILE_SEPARATOR = "-";
 
     public Storage(String filePath) {
@@ -19,7 +19,6 @@ public class Storage {
             Scanner fileReader = new Scanner(data);
             return fileReader;
         } catch (FileNotFoundException e) {
-            Ui.showLoadingError();
             throw new FileNotFoundException();
         }
     }
@@ -33,7 +32,7 @@ public class Storage {
         return text;
     }
 
-    public void save() {
+    public static void save() {
         try {
             ArrayList<Task> tasks = TaskList.tasks;
             String text = "";

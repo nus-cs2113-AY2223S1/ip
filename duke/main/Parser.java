@@ -24,7 +24,7 @@ public class Parser {
 
     public static String findTaskDate(String line) {
         int dateIndex = line.indexOf(LINE_DIVIDER);
-        String taskDate = line.substring(dateIndex + 2);
+        String taskDate = line.substring(dateIndex + 4);
         return taskDate;
     }
 
@@ -32,7 +32,7 @@ public class Parser {
         int dateIndex = line.indexOf(LINE_DIVIDER);
         int spaceIndex = line.indexOf(" ");
         String taskName = "";
-        if (dateIndex != -1) {
+        if (dateIndex == -1) {
             taskName += line.substring(spaceIndex);
         } else {
             taskName += line.substring(spaceIndex, dateIndex);
@@ -40,9 +40,8 @@ public class Parser {
         return taskName;
     }
 
-        // todo finish other commands
     public static void parse(String line) {
-        String[] words = line.split("");
+        String[] words = line.split(" ");
         String command = words[COMMAND_INDEX];
         if (command.matches(COMMAND_WORD_LIST)) {
             TaskList.list();
@@ -67,9 +66,15 @@ public class Parser {
     public static boolean taskSpaceCheck(String line) {
         try {
             Ui.checkSpace(line);
-            Ui.checkDivider(line);
         } catch (IllegalArgumentException e) {
             System.out.println("Don't forget to include your task!");
+        }
+        return true;
+    }
+
+    public static boolean taskDividerCheck(String line) {
+        try {
+            Ui.checkDivider(line);
         } catch (DukeException e) {
             System.out.println("Don't forget to include the deadline!");
         }
@@ -80,16 +85,23 @@ public class Parser {
         if (taskSpaceCheck(line)) {
             switch (command) {
             case "deadline":
-                String taskName = findTaskName(line);
-                String taskDate = findTaskDate(line);
-                TaskList.addDeadline(taskName, taskDate);
+                if (taskDividerCheck(line)) {
+                    String taskName = findTaskName(line);
+                    String taskDate = findTaskDate(line);
+                    TaskList.addDeadline(taskName, taskDate);
+                }
+                break;
             case "event":
-                taskName = findTaskName(line);
-                taskDate = findTaskDate(line);
-                TaskList.addEvent(taskName, taskDate);
+                if (taskDividerCheck(line)) {
+                    String taskName = findTaskName(line);
+                    String taskDate = findTaskDate(line);
+                    TaskList.addEvent(taskName, taskDate);
+                }
+                break;
             case "todo":
-                taskName = findTaskName(line);
+                String taskName = findTaskName(line);
                 TaskList.addTodo(taskName);
+                break;
             }
         }
     }

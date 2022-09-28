@@ -19,23 +19,30 @@ public class TaskList {
         }
     }
 
+    public TaskList() {
+
+    }
+
     public static void addDeadline(String name, String date) {
         Deadline task = new Deadline(name, date);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
+        Storage.save();
     }
     public static void addEvent(String name, String date) {
         Event task = new Event(name, date);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
+        Storage.save();
     }
     public static void addTodo(String name) {
         Todo task = new Todo(name);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
+        Storage.save();
     }
 
     public static void delete(int index) {
