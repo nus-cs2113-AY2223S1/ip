@@ -34,14 +34,16 @@ public class TaskManager extends ArrayList<Tasks> {
     }
 
     public int checkTaskNumber(int input) throws WrongArgumentException {
-        if (input < 0 || input > numOfTasks) {
+        if (input > 0 && input <= taskList.size()) {
+            return input;
+        } else {
             throw new WrongArgumentException();
         }
-        return input;
+
     }
 
-    private static int getTaskNumber(String command) {
-        return Integer.parseInt(command.substring(command.length() - 1));
+    private static int getTaskNumber(String command, String action) {
+        return Integer.parseInt(command.substring(action.length(), command.length()));
     }
 
     /**
@@ -125,7 +127,7 @@ public class TaskManager extends ArrayList<Tasks> {
     public void markTask(String input) {
         try {
             checkCommandLength(input.substring("mark".length()));
-            int taskNum = getTaskNumber(input);
+            int taskNum = getTaskNumber(input, "mark ");
             checkTaskNumber(taskNum);
             taskList.get(taskNum - 1).markAsDone();
         } catch (ArguementNotFoundException e) {
@@ -143,7 +145,7 @@ public class TaskManager extends ArrayList<Tasks> {
     public void unmarkTask(String input) {
         try {
             checkCommandLength(input.substring("unmark".length()));
-            int taskNum = getTaskNumber(input);
+            int taskNum = getTaskNumber(input, "unmark ");
             checkTaskNumber(taskNum);
             taskList.get(taskNum - 1).markAsNotDone();
         } catch (ArguementNotFoundException e) {
@@ -157,16 +159,16 @@ public class TaskManager extends ArrayList<Tasks> {
 //        int taskNum = getTaskNumber(input);
 
         try {
-            checkCommandLength(input.substring("unmark".length()));
-            int taskNum = getTaskNumber(input);
+            checkCommandLength(input.substring("delete".length()));
+            int taskNum = getTaskNumber(input, "delete ");
             checkTaskNumber(taskNum);
             numOfTasks -= 1;
             System.out.println(
                     Duke.PRINT_LINE
-                    +  "Noted. I've removed this task:\n"
-                    + taskList.get(taskNum - 1) + "\n"
-                    + "Now you have " + numOfTasks + " tasks in the list.\n"
-                    + Duke.PRINT_LINE
+                            + "Noted. I've removed this task:\n"
+                            + taskList.get(taskNum - 1) + "\n"
+                            + "Now you have " + numOfTasks + " tasks in the list.\n"
+                            + Duke.PRINT_LINE
             );
             taskList.remove(taskNum - 1);
 
@@ -176,6 +178,10 @@ public class TaskManager extends ArrayList<Tasks> {
             e.WrongArguementMessage();
         }
     }
+
+
+
+
     /**
      * Print List in chronological order
      */

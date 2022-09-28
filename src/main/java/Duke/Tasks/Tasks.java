@@ -27,6 +27,10 @@ public abstract class Tasks {
         ); // mark done task with X
     }
 
+    public String getTaskDescription() {
+        return this.description;
+    }
+
 
     /**
      * Mark an item as not done
@@ -65,4 +69,6 @@ public abstract class Tasks {
     }
 
     public abstract String toFile();
+
+
 };
