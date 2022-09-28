@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.FileManager;
+import duke.Storage;
 
 public class Event extends Task {
     private String atDate;
@@ -22,7 +22,7 @@ public class Event extends Task {
     }
     @Override
     public String getFileFormat() {
-        return "E" +super.getFileFormat() + FileManager.divider + atDate;
+        return "E" +super.getFileFormat() + Storage.divider + atDate;
     }
 
 }

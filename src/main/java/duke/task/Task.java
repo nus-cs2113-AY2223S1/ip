@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.FileManager;
+import duke.Storage;
 
 public class Task {
     private String description;
@@ -51,8 +51,8 @@ public class Task {
     }
 
     public String getFileFormat() {
-        return FileManager.divider + isDoneFileFormat()
-                + FileManager.divider + getDescription();
+        return Storage.divider + isDoneFileFormat()
+                + Storage.divider + getDescription();
     }
 
 }

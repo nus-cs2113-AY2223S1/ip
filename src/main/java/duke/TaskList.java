@@ -4,7 +4,7 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>();
     public static final String deadline = "deadline";
     public static final String todo = "todo";

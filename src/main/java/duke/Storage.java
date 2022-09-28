@@ -6,11 +6,12 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileWriter;
 
+// Todo : check if need to add folder ?
 
-
-public class FileManager {
-    public static final String filename = "duke.txt";
+public class Storage extends Duke {
     public static final String event = "E";
+    public static final String one = "1";
+    public static final String zero = "0";
     public static final String todo = "T";
     public static final String deadline = "D";
     public static final String divider = " | ";
@@ -18,68 +19,68 @@ public class FileManager {
     private static final File file = new File(filename);
 
 
-    public static void OpenOrCreateFile() throws DukeException {
+    public static void openOrCreateFile() throws DukeException {
         try {
             file.createNewFile();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new DukeException();
         }
     }
 
-    public static void uploadDataToList(List list) throws DukeException {
-        try{
+    public static void uploadDataToList() throws DukeException {
+        try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
-                translateLineFromFile(data,list);
+                translateLineFromFile(data);
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             throw new DukeException();
         }
     }
 
-    private static void markIfDone(List list,String isDone) throws DukeException {
-        if (isDone.equals("1")){
-            list.markItemDone(list.getListSize());
+    private static void markIfDone(String isDone) throws DukeException {
+        if (isDone.equals(one)) {
+            dukeList.markItemDone(dukeList.getListSize());
         }
-        if (!isDone.equals("1") && !isDone.equals("0")){
+        if (!isDone.equals(one) && !isDone.equals(zero)) {
             throw new DukeException();
         }
 
     }
-    public static void translateLineFromFile(String line, List list) throws DukeException {
+
+    public static void translateLineFromFile(String line) throws DukeException {
         String[] words = line.split(dividerSplit);
-        switch (words[0]){
-            case todo:{
-                List.AddTodo(words[2]);
+        switch (words[0]) {
+            case todo: {
+                TaskList.AddTodo(words[2]);
                 break;
             }
             case event: {
-                List.AddEvent(words[2], words[3]);
+                TaskList.AddEvent(words[2], words[3]);
                 break;
             }
             case deadline: {
-                List.AddDeadline(words[2],words[3]);
+                TaskList.AddDeadline(words[2], words[3]);
                 break;
             }
             default: {
                 throw new DukeException();
             }
         }
-        markIfDone(list,words[1]);
+        markIfDone(words[1]);
     }
 
-    public static void saveListToFile(List list) throws DukeException {
+    public static void saveListToFile() throws DukeException {
         try {
             FileWriter fw = new FileWriter(filename);
-            for (int i = 0; i < list.getListSize(); i++) {
-                fw.write(list.getTaskFromList(i).getFileFormat()+System.lineSeparator());
+            for (int i = 0; i < dukeList.getListSize(); i++) {
+                fw.write(dukeList.getTaskFromList(i).getFileFormat() + System.lineSeparator());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new DukeException();
         }
-
     }
 
 }

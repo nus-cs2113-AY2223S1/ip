@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.FileManager;
-
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

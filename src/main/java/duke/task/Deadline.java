@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.FileManager;
+import duke.Storage;
 
 public class Deadline extends Task {
     private String byDate;
@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String getFileFormat() {
-        return "D" +super.getFileFormat() + FileManager.divider + byDate;
+        return "D" +super.getFileFormat() + Storage.divider + byDate;
     }
 
 }
