@@ -16,15 +16,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Duke {
     public static final int DEADLINE_STRING_LENGTH = 9;     // "deadline "
-    public static final int BY_SEPARATOR_LENGTH = 4;        // "/by  "
     public static final int EVENT_STRING_LENGTH = 6;        // "event "
-    public static final int AT_SEPARATOR_LENGTH = 4;        // "/at  "
+    public static final int SEPARATOR_LENGTH = 4;        // "/at  " and "/by "
+    public static final int TODO_STRING_LENGTH = 5;        // "todo  "
     public static final String DATA_FILE_PATH = "data.txt";
+    private static final String LS = System.lineSeparator();
+    private static final String DIVIDER = "        ____________________________________________";
     public static ArrayList<Task> list = new ArrayList<Task>();
 
     public static void initializeFile() {
@@ -39,7 +40,41 @@ public class Duke {
     }
 
     public static void populateInitialList(String filePath) {
-        File f = new File(DATA_FILE_PATH);
+        File f = new File(filePath);
+        Scanner s = getInitialListScanner(f);
+
+        while (s.hasNext()) {
+            String nextTask = s.next();
+            String[] taskParameters = nextTask.split(" \\| ");
+
+            parseInitialList(taskParameters);
+        }
+    }
+
+    private static void parseInitialList(String[] taskParameters) {
+        boolean isTaskDone;
+        switch (taskParameters[0]) {
+        case "T":
+            isTaskDone = Objects.equals(taskParameters[1], "1");
+            list.add(new ToDo(taskParameters[2], isTaskDone));
+            break;
+
+        case "D":
+            isTaskDone = Objects.equals(taskParameters[1], "1");
+            list.add(new Deadline(taskParameters[2], isTaskDone, taskParameters[3]));
+            break;
+
+        case "E":
+            isTaskDone = Objects.equals(taskParameters[1], "1");
+            list.add(new Event(taskParameters[2], isTaskDone, taskParameters[3]));
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    private static Scanner getInitialListScanner(File f) {
         Scanner s = null;
         try {
             s = new Scanner(f);
@@ -47,55 +82,12 @@ public class Duke {
         } catch (FileNotFoundException e) {
             System.out.println("'data.txt' not found");
         }
-
-        while (s.hasNext()) {
-            String nextTask = s.next();
-            String[] taskParameters = nextTask.split(" \\| ");
-            Boolean taskStatus = null;
-
-            switch (taskParameters[0]) {
-            case "T":
-                if (Objects.equals(taskParameters[1], "1")) {
-                    taskStatus = true;
-                } else if ((Objects.equals(taskParameters[1], "0"))) {
-                    taskStatus = false;
-                }
-                list.add(new ToDo(taskParameters[2], taskStatus));
-                break;
-
-            case "D":
-                if (Objects.equals(taskParameters[1], "1")) {
-                    taskStatus = true;
-                } else if ((Objects.equals(taskParameters[1], "0"))) {
-                    taskStatus = false;
-                }
-                list.add(new Deadline(taskParameters[2], taskStatus, taskParameters[3]));
-                break;
-
-            case "E":
-                if (Objects.equals(taskParameters[1], "1")) {
-                    taskStatus = true;
-                } else if ((Objects.equals(taskParameters[1], "0"))) {
-                    taskStatus = false;
-                }
-                list.add(new Event(taskParameters[2], taskStatus, taskParameters[3]));
-                break;
-
-            default:
-                break;
-            }
-        }
+        return s;
     }
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
-        fw.close();
-    }
-
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
         fw.close();
     }
 
@@ -209,18 +201,17 @@ public class Duke {
     }
 
     public static void handleInput() {
-        String input = "";
         Scanner in = new Scanner(System.in);
-        input = in.nextLine();
+        String input = in.nextLine();
         String[] line = input.split(" ");
-        boolean checkedInitialLine = false;
+        boolean isFirstLineProcessed = false;
 
         while (!line[0].equals("bye")) {
-            if (checkedInitialLine) {
+            if (isFirstLineProcessed) {
                 input = in.nextLine();
                 line = input.split(" ");
             } else {
-                checkedInitialLine = true;
+                isFirstLineProcessed = true;
             }
 
             switch (line[0]) {
@@ -229,187 +220,27 @@ public class Duke {
                 break;
 
             case "mark":
-                try {
-                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
-                        throw new InvalidListItemNumberException();
-                    }
-
-                    list.get(Integer.parseInt(line[1]) - 1).setDone(true);
-
-                    String taskIndicator = getTaskIndicator(line);
-                    String markDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Nice! I've marked this task as done:");
-                    System.out.println("            " + taskIndicator + markDone + " " +
-                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
-                    System.out.println("        ____________________________________________");
-
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (InvalidListItemNumberException | NumberFormatException e) {
-                    System.out.println("OOPS!!! The list item number given is invalid.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                markTask(line, "mark");
                 break;
 
             case "unmark":
-                try {
-                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
-                        throw new InvalidListItemNumberException();
-                    }
-
-                    list.get(Integer.parseInt(line[1]) - 1).setDone(false);
-
-                    String taskIndicator = getTaskIndicator(line);
-                    String unmarkDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Ok. I've marked this task as not done yet:");
-                    System.out.println("            " + taskIndicator + unmarkDone + " " +
-                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
-                    System.out.println("        ____________________________________________");
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (InvalidListItemNumberException | NumberFormatException e) {
-                    System.out.println("OOPS!!! The list item number given is invalid.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                markTask(line, "unmark");
                 break;
 
             case "todo":
-                try {
-                    if (line.length == 1) {
-                        throw new InvalidTodoCommandException();
-                    }
-
-                    String[] todoName = Arrays.copyOfRange(line, 1, line.length);
-                    list.add(new ToDo(Arrays.toString(todoName).replace(",", "")
-                            .replace("[", "").replace("]", "")));
-
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Got it. I've added this task:");
-                    System.out.println("        [T][ ] " + Arrays.toString(todoName).replace(",", "")
-                            .replace("[", "").replace("]", ""));
-                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                    System.out.println("        ____________________________________________");
-
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (InvalidTodoCommandException e) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                addTodo(input, line);
                 break;
 
             case "deadline":
-                try {
-                    int byIndex = input.indexOf("/by");
-                    if (byIndex == -1) {
-                        throw new MissingKeywordException();
-                    } else if (byIndex == DEADLINE_STRING_LENGTH) {
-                        throw new MissingTaskException();
-                    } else if (byIndex + 2 == input.length() - 1) {
-                        throw new MissingDateException();
-                    }
-
-                    String deadlineName = String.copyValueOf(input.toCharArray(), DEADLINE_STRING_LENGTH,
-                            byIndex - 1 - DEADLINE_STRING_LENGTH);
-                    String taskDeadline = String.copyValueOf(input.toCharArray(), byIndex + BY_SEPARATOR_LENGTH,
-                            input.length() - byIndex - BY_SEPARATOR_LENGTH);
-                    list.add(new Deadline(deadlineName, taskDeadline));
-
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Got it. I've added this task:");
-                    System.out.println("        [D][ ] " + deadlineName + " (by: " + taskDeadline + ")");
-                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                    System.out.println("        ____________________________________________");
-
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (MissingKeywordException e) {
-                    System.out.println("OOPS!!! You did not include '/by'.");
-                } catch (MissingTaskException e) {
-                    System.out.println("OOPS!!! You did not indicate the task.");
-                } catch (MissingDateException e) {
-                    System.out.println("OOPS!!! You did not indicate the deadline.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                addDeadline(input);
                 break;
 
             case "event":
-                try {
-                    int atIndex = input.indexOf("/at");
-                    if (atIndex == -1) {
-                        throw new MissingKeywordException();
-                    } else if (atIndex == EVENT_STRING_LENGTH) {
-                        throw new MissingTaskException();
-                    } else if (atIndex + 2 == input.length() - 1) {
-                        throw new MissingDateException();
-                    }
-
-                    String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
-                            atIndex - 1 - EVENT_STRING_LENGTH);
-                    String eventTime = String.copyValueOf(input.toCharArray(), atIndex + AT_SEPARATOR_LENGTH,
-                            input.length() - atIndex - AT_SEPARATOR_LENGTH);
-                    list.add(new Event(eventName, eventTime));
-
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Got it. I've added this task:");
-                    System.out.println("        [E][ ] " + eventName + " (at: " + eventTime + ")");
-                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                    System.out.println("        ____________________________________________");
-
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (MissingKeywordException e) {
-                    System.out.println("OOPS!!! You did not include '/at'.");
-                } catch (MissingTaskException e) {
-                    System.out.println("OOPS!!! You did not indicate the task.");
-                } catch (MissingDateException e) {
-                    System.out.println("OOPS!!! You did not indicate the event date.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                addEvent(input);
                 break;
 
             case "delete":
-                try {
-                    if ((Integer.parseInt(line[1])) > list.size() || (Integer.parseInt(line[1])) < 1) {
-                        throw new InvalidListItemNumberException();
-                    }
-
-                    String taskIndicator = getTaskIndicator(line);
-                    String taskStatus = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
-                    System.out.println("        ____________________________________________");
-                    System.out.println("        Noted. I've removed this task:");
-                    System.out.println("            " + taskIndicator + taskStatus + " " +
-                            list.get(Integer.parseInt(line[1]) - 1).getTaskName());
-                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                    System.out.println("        ____________________________________________");
-
-                    list.remove(Integer.parseInt(line[1]) - 1);
-
-                    String file = DATA_FILE_PATH;
-                    String newListText = taskListToString(list);
-                    writeToFile(file, newListText);
-                } catch (InvalidListItemNumberException | NumberFormatException e) {
-                    System.out.println("OOPS!!! The list item number given is invalid.");
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
+                deleteTask(line);
                 break;
 
             case "bye":
@@ -423,7 +254,155 @@ public class Duke {
                 }
             }
         }
-        return;
+    }
+
+    private static void deleteTask(String[] line) { //parser
+        try {
+            boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
+            boolean isListNumberTooLarge = (Integer.parseInt(line[1])) < 1;
+            if (isListNumberTooSmall || isListNumberTooLarge) {
+                throw new InvalidListItemNumberException();
+            }
+
+            String taskName = list.get(Integer.parseInt(line[1]) - 1).getTaskName();
+            String taskIndicator = getTaskIndicator(line);
+            String taskStatus = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
+
+            list.remove(Integer.parseInt(line[1]) - 1);
+
+            System.out.println(DIVIDER + LS + "        Noted. I've removed this task:" + LS + "            "
+                    + taskIndicator + taskStatus + " " + taskName + LS + "        Now you have " + list.size()
+                    + " tasks in the list." + LS + DIVIDER);
+
+            String newListText = taskListToString(list);
+            writeToFile(DATA_FILE_PATH, newListText);
+        } catch (InvalidListItemNumberException | NumberFormatException e) {
+            System.out.println("OOPS!!! The list item number given is invalid.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void addEvent(String input) {    //parser
+        try {
+            int separatorIndex = datedEventErrorChecker(input, "/at");
+
+            String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
+                    separatorIndex - 1 - EVENT_STRING_LENGTH);
+            String eventTime = String.copyValueOf(input.toCharArray(), separatorIndex + SEPARATOR_LENGTH,
+                    input.length() - separatorIndex - SEPARATOR_LENGTH);
+            list.add(new Event(eventName, eventTime));
+
+            System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [E][ ] "
+                    + eventName + " (at: " + eventTime + ")" + LS + "        Now you have " + list.size()
+                    + " tasks in the list." + LS + DIVIDER);
+
+
+            String newListText = taskListToString(list);
+            writeToFile(DATA_FILE_PATH, newListText);
+        } catch (MissingKeywordException e) {
+            System.out.println("OOPS!!! You did not include '/at'.");
+        } catch (MissingTaskException e) {
+            System.out.println("OOPS!!! You did not indicate the task.");
+        } catch (MissingDateException e) {
+            System.out.println("OOPS!!! You did not indicate the event date.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static int datedEventErrorChecker(String input, String separator) throws MissingKeywordException,
+            MissingTaskException, MissingDateException {    //parser
+        int separatorIndex = input.indexOf(separator);
+        if (separatorIndex == -1) {
+            throw new MissingKeywordException();
+        } else if (separatorIndex == EVENT_STRING_LENGTH) {
+            throw new MissingTaskException();
+        } else if (separatorIndex + 2 == input.length() - 1) {
+            throw new MissingDateException();
+        }
+        return separatorIndex;
+    }
+
+    private static void addDeadline(String input) { //parser
+        try {
+            int separatorIndex = datedEventErrorChecker(input, "/by");
+
+            String taskName = String.copyValueOf(input.toCharArray(), DEADLINE_STRING_LENGTH,
+                    separatorIndex - 1 - DEADLINE_STRING_LENGTH);
+            String taskDate = String.copyValueOf(input.toCharArray(), separatorIndex + SEPARATOR_LENGTH,
+                    input.length() - separatorIndex - SEPARATOR_LENGTH);
+            list.add(new Deadline(taskName, taskDate));
+
+            System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [D][ ] "
+                    + taskName + " (by: " + taskDate + ")" + LS + "        Now you have " + list.size()
+                    + " tasks in the list." + LS + DIVIDER);
+
+            String newListText = taskListToString(list);
+            writeToFile(DATA_FILE_PATH, newListText);
+        } catch (MissingKeywordException e) {
+            System.out.println("OOPS!!! You did not include '/by'.");
+        } catch (MissingTaskException e) {
+            System.out.println("OOPS!!! You did not indicate the task.");
+        } catch (MissingDateException e) {
+            System.out.println("OOPS!!! You did not indicate the deadline.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void addTodo(String input, String[] line) {  //parser
+        try {
+            if (line.length == 1) {
+                throw new InvalidTodoCommandException();
+            }
+
+            String todoName = String.copyValueOf(input.toCharArray(), TODO_STRING_LENGTH,
+                    input.length() - TODO_STRING_LENGTH);
+            list.add(new ToDo(todoName));
+
+            System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [T][ ] "
+                    + todoName + LS + "        Now you have " + list.size() + " tasks in the list." + LS
+                    + DIVIDER);
+
+            String newListText = taskListToString(list);
+            writeToFile(DATA_FILE_PATH, newListText);
+        } catch (InvalidTodoCommandException e) {
+            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void markTask(String[] line, String command) {   //parser
+        try {
+            boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
+            boolean isListNumberTooLarge = (Integer.parseInt(line[1])) < 1;
+            if (isListNumberTooSmall || isListNumberTooLarge) {
+                throw new InvalidListItemNumberException();
+            }
+
+            String editRemark = "";
+            if (command.equals("mark")) {
+                list.get(Integer.parseInt(line[1]) - 1).setDone(true);
+                editRemark = "        Nice! I've marked this task as done:";
+            } else if (command.equals("unmark")) {
+                list.get(Integer.parseInt(line[1]) - 1).setDone(false);
+                editRemark = "        Ok. I've marked this task as not done yet:";
+            }
+
+            String taskIndicator = getTaskIndicator(line);
+            String markDone = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
+            System.out.println(DIVIDER + LS + editRemark + LS + "            " + taskIndicator + markDone + " "
+                    + list.get(Integer.parseInt(line[1]) - 1).getTaskName() + LS + DIVIDER);
+
+            String newListText = taskListToString(list);
+            writeToFile(DATA_FILE_PATH, newListText);
+        } catch (InvalidListItemNumberException | NumberFormatException e) {
+            System.out.println("OOPS!!! The list item number given is invalid.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
 
@@ -431,8 +410,7 @@ public class Duke {
         printWelcomeMessage();
 
         initializeFile();
-        String filePath = DATA_FILE_PATH;
-        populateInitialList(filePath);
+        populateInitialList(DATA_FILE_PATH);
 
         handleInput();
         printGoodbyeMessage();
