@@ -1,5 +1,7 @@
+package TaskManager;
+
 public class Task {
-    public String description;
+    protected String description;
     protected String taskType;
     protected boolean isDone;
 
@@ -21,6 +23,10 @@ public class Task {
 
     public void markAsNotDone(){
         if (isDone==true) this.isDone = false;
+    }
+
+    public String getDescription(){
+        return description;
     }
 
     public String getDueDate(){

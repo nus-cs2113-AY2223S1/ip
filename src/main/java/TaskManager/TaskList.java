@@ -1,39 +1,41 @@
+package TaskManager;
 import java.util.ArrayList;
 
 public class TaskList{
 
-    public int size = 0;
-    protected ArrayList<Task> list = new ArrayList<Task>();
-    public TaskList(){}
+    protected static int size = 0;
+    protected static ArrayList<Task> list = new ArrayList<Task>();
 
-    public void addToDo(String description){
+    public static void addToDo(String description){
         ToDo toDo = new ToDo(description);
-        FileHandler.addTask(toDo);
         list.add(toDo);
-        this.size++;
+        size++;
     }
 
-    public void addDeadline(String description, String dueDate){
+    public static void addDeadline(String description, String dueDate){
         Deadline deadline = new Deadline(description, dueDate);
-        FileHandler.addTask(deadline);
         list.add(deadline);
-        this.size++;
+        size++;
     }
 
-    public void addEvent(String description, String dateTime){
+    public static void addEvent(String description, String dateTime){
         Event event = new Event(description, dateTime);
-        FileHandler.addTask(event);
         list.add(event);
-        this.size++;
+        size++;
     }
 
-    public Task getTask(int index){
+    public static Task getTaskAtIndex(int index){
         return (Task)list.get(index);
     }
 
-    public void printList(){
+    public static void printList(){
+        if (size == 0){
+            System.out.println("Yay you have no tasks!");
+            return;
+        }
+        System.out.println("Tasks:");
         for (int i=0; i<size; i++){
-            Task tempTask = this.getTask(i);
+            Task tempTask = getTaskAtIndex(i);
             String taskType = tempTask.getTaskType();
             if (taskType == "T"){
                 tempTask = (ToDo)tempTask;
@@ -54,35 +56,41 @@ public class TaskList{
                 System.out.print("[" + tempTask.getTaskType() + "]");
                 System.out.print("[" + tempTask.getStatusIcon() + "] ");
                 System.out.print(tempTask.description);
-                System.out.println(" (by: " + tempTask.getDateTime() + ")"); 
+                System.out.println(" (at: " + tempTask.getDateTime() + ")"); 
             }
         }
     }
 
-    public Task searchTask(String task_description){
+    public static Task searchTask(String task_description){
         for (int i=0; i<size; i++){
-            Task tempTask = this.getTask(i);
+            Task tempTask = getTaskAtIndex(i);
             if (tempTask.description.equals(task_description)) return tempTask;
         }
         return null;
     }
 
-    public int getTaskIndex(String task_description){
+    public static int getTaskIndex(String task_description){
         int index;
         for (int i=0; i<size; i++){
             index = i;
-            Task tempTask = this.getTask(i);
+            Task tempTask = getTaskAtIndex(i);
             if (tempTask.description.equals(task_description)) return index;
         }
         return -1;
     }
 
-    public int getSize(){
+    public static int getSize(){
         return size;
     }
 
-    public void deleteTask(int index){
+    public static void deleteTask(int index){
         list.remove(index);
-        this.size--;
+        size--;
+    }
+
+    public static void deleteTask(String description){
+        int index = getTaskIndex(description);
+        list.remove(index);
+        size--;
     }
 }
