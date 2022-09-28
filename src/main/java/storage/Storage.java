@@ -1,4 +1,4 @@
-package file;
+package storage;
 
 import task.*;
 
@@ -6,18 +6,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileManager {
+public class Storage {
 
     private static Path taskDataPath = Paths.get(System.getProperty("user.dir"), "data", "tasks.txt");
-
     private static Path dataDirPath = Paths.get(System.getProperty("user.dir"), "data");
+    private ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void writeToFile(Task task) throws IOException {
+    public void writeToFile(Task task) throws IOException {
         FileWriter fw = new FileWriter(taskDataPath.toString(), true);
         String textToAdd = taskToText(task);
         fw.write(textToAdd);
@@ -25,7 +25,7 @@ public class FileManager {
     }
 
 
-    public static void startReading() {
+    public ArrayList<Task> startReading() {
         try {
             makeMissingDirectory();
             readFile();
@@ -34,23 +34,24 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println("Some IO error has occurred");
         }
+        return tasks;
     }
 
-    private static void readFile() throws FileNotFoundException {
+    private void readFile() throws FileNotFoundException {
         String filePath = taskDataPath.toString();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            String[] input = s.nextLine().split(" | ");
+            String[] input = s.nextLine().split(" \\| ");
             switch (input[0]) {
             case ("T"):
-                insertTodo(input);
+                insertTodo(input, tasks);
                 break;
             case ("D"):
-                insertDeadline(input);
+                insertDeadline(input, tasks);
                 break;
             case ("E"):
-                insertEvent(input);
+                insertEvent(input, tasks);
                 break;
             }
         }
@@ -66,37 +67,37 @@ public class FileManager {
         FileWriter fw = new FileWriter(taskDataPath.toString());
     }
 
-    private static void insertTodo(String[] input) {
+    private void insertTodo(String[] input, ArrayList<Task> tasks) {
         Todo todo = new Todo(input[2]);
         if (input[1].equals("1")) {
             todo.setDone(true);
         } else {
             todo.setDone(false);
         }
-        TaskList.addTodo(todo);
+        tasks.add(todo);
     }
 
-    private static void insertDeadline(String[] input) {
+    private void insertDeadline(String[] input, ArrayList<Task> tasks) {
         Deadline deadline = new Deadline(input[2], input[3]);
         if (input[1].equals("1")) {
             deadline.setDone(true);
         } else {
             deadline.setDone(false);
         }
-        TaskList.addDeadLine(deadline);
+        tasks.add(deadline);
     }
 
-    private static void insertEvent(String[] input) {
+    private void insertEvent(String[] input, ArrayList<Task> tasks) {
         Event event = new Event(input[2], input[3]);
         if (input[1].equals("1")) {
             event.setDone(true);
         } else {
             event.setDone(false);
         }
-        TaskList.addEvent(event);
+        tasks.add(event);
     }
 
-    private static String taskToText(Task task) {
+    private String taskToText(Task task) {
         if (task.getClass() == Todo.class) {
             return "T | " + task.getStatusInNumber() + " | " + task.getDescription() + "\n";
         } else if (task.getClass() == Deadline.class) {
@@ -106,5 +107,9 @@ public class FileManager {
             return "E | " + task.getStatusInNumber() + " | "
                     + task.getDescription() + " | " + ((Event) task).getAt() + "\n";
         }
+    }
+
+    public void deleteContent() throws IOException {
+        new FileWriter(taskDataPath.toString()).close();
     }
 }
