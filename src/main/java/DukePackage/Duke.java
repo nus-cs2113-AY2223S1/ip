@@ -8,7 +8,8 @@ import UiPackage.Ui;
 import ParserPackage.Parser;
 
 /*
-A Command-Line interface task manager app.
+A Command-Line interface task manager app, which is able to read and write tasks
+to and from a .txt file
  */
 public class Duke {
     private Storage storage;
