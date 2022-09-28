@@ -46,6 +46,9 @@ public abstract class Task {
 
     public String toSaveString() {
         return (isDone ? "1" : "0") + "|" + description;
+    }
 
+    public String getDescription() {
+        return this.description;
     }
 }
