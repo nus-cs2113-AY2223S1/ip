@@ -1,17 +1,16 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
- * A class that represents a bye command
+ * A class that represents an invalid command.
  */
-public class ByeCommand extends Command {
-
+public class InvalidCommand extends Command {
     /**
-     * Executes the bye command by displaying the exit message
-     * when the user quits the program.
+     * Executes this invalid command by displaying a message telling the user
+     * that their command is invalid.
      *
      * @param ui Object that handles all user interaction.
      * @param tasks Object that handles and tracks all tasks that the user has added.
@@ -19,6 +18,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.byeMessage();
+        ui.invalidCommand();
     }
 }

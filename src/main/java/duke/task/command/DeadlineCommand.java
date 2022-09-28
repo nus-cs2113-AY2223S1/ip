@@ -1,9 +1,9 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.Deadline;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * A class that represents a deadline command.
@@ -22,7 +22,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the deadline command by adding a deadline in the list
+     * Executes this deadline command by adding a deadline in the list
      * and storing it in the local storage.
      * Displays a message telling user that the task has been added.
      *

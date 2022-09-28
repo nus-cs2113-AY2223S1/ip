@@ -1,10 +1,10 @@
-package parser;
+package duke.parser;
 
-import storage.Storage;
-import task.*;
-import task.command.*;
-import ui.UI;
-import exception.DukeException;
+import duke.storage.Storage;
+import duke.task.*;
+import duke.task.command.*;
+import duke.ui.UI;
+import duke.exception.DukeException;
 
 /**
  * An object that deals with anything that the user inputs so that logic

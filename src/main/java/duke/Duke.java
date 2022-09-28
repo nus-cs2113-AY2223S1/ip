@@ -1,7 +1,9 @@
-import storage.Storage;
-import parser.Parser;
-import task.TaskList;
-import ui.UI;
+package duke;
+
+import duke.storage.Storage;
+import duke.parser.Parser;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 public class Duke {
 

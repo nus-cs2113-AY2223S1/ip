@@ -1,9 +1,9 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command by displaying the list of all tasks current
+     * Executes this list command by displaying the list of all tasks current
      * in the list, or tells user that the list is empty.
      *
      * @param ui Object that handles all user interaction.

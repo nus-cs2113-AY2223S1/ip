@@ -1,8 +1,8 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * A class representing an unmark command.
@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the mark command by unmarking the tasks of the index.
+     * Executes this unmark command by unmarking the tasks of the index.
      * Displays a message telling the user that the task has been unmarked.
      *
      * @param ui Object that handles all user interaction.

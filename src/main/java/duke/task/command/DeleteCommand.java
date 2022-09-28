@@ -1,8 +1,8 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * A class that represents a delete command.
@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the delete command by removing the task from the list
+     * Executes this delete command by removing the task from the list
      * and the local storage.
      * Displays a message telling user that the task has been deleted.
      *
