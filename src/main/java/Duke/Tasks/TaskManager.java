@@ -179,7 +179,51 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
+    public void findTask(String input) {
+        try {
+            ArrayList<Tasks> matchingTasks = new ArrayList<>();
+            int numOfMatchingTasks = 0;
 
+            checkCommandLength(input.substring("find".length()));
+            String keyword = input.substring("find".length(), input.length());
+            keyword = keyword.toLowerCase();
+
+            for (Tasks task : taskList) {
+                if (task.getTaskDescription().toLowerCase().contains(keyword)) {
+                    matchingTasks.add((task));
+                    numOfMatchingTasks += 1;
+                }
+            }
+            if (numOfMatchingTasks == 0) {
+                System.out.println(
+                        Duke.PRINT_LINE
+                                + "No matching tasks found in list.\n"
+                                + Duke.PRINT_LINE
+                );
+            } else {
+                printMatchedTasks(matchingTasks);
+            }
+
+        } catch (ArguementNotFoundException e) {
+            e.ArgumentNotFoundMessage();
+        }
+    }
+
+    public void printMatchedTasks(ArrayList<Tasks> matchingTasks) {
+        System.out.println(
+                Duke.PRINT_LINE
+                        + "Here are the matching tasks in your list:"
+        );
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(
+                    (i + 1) + "."
+                            + matchingTasks.get(i)
+            );
+        }
+        System.out.println(
+                        Duke.PRINT_LINE
+        );
+    }
 
 
     /**
