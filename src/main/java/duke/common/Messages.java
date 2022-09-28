@@ -86,5 +86,5 @@ public class Messages {
 
     public static final String MESSAGE_EMPTY_KEYWORD = "OOPS!!! Please provide a keyword to find tasks.";
 
-    public static final String MESSAGE_NO_MATCHING_TASK = "OOP!!! No matching task is found in your list.";
+    public static final String MESSAGE_NO_MATCHING_TASK = "OOPS!!! No matching task is found in your list.";
 }
