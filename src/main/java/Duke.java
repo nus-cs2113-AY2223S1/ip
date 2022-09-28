@@ -24,6 +24,8 @@ public class Duke {
                 DukeManager.createDeadline(line);
             } else if (line.startsWith("delete")) {
                 DukeManager.delete(line);
+            } else if (line.startsWith("find")) {
+                DukeManager.find(line);
             } else {
                 DukeManager.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 continue;

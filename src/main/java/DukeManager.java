@@ -15,25 +15,11 @@ public class DukeManager {
     private static final Path filePath = Paths.get(".","data", "duke.txt");
     private static ArrayList<Task> inputs = new ArrayList<>();
 
-    /**
-     * Returns a string with formatted user inputs.
-     *
-     * @return Formatted string to print
-     */
-
-    public static String formatList() {
-        String formattedString = HORIZONTAL_LINE;
-        for (int i = 0; i < inputs.size(); i++) {
-            if (inputs.get(i) == null) {
-                break;
-            }
-            formattedString += (i+1) + "." + inputs.get(i).toString() + "\n";
-        }
-        formattedString += HORIZONTAL_LINE;
-        return formattedString;
+    public static void print(String string) {
+        System.out.println(HORIZONTAL_LINE + string + "\n" + HORIZONTAL_LINE);
     }
 
-    public static String saveList() {
+    private static String saveList() {
         String formattedString = "";
         for (int i = 0; i < inputs.size(); i++) {
             if (inputs.get(i) == null) {
@@ -44,7 +30,7 @@ public class DukeManager {
         return formattedString;
     }
 
-    public static void checkExists() throws IOException {
+    private static void checkExists() throws IOException {
         boolean directoryExists = Files.exists(directoryPath);
         boolean fileExists = Files.exists(filePath);
         if (!directoryExists) {
@@ -113,17 +99,28 @@ public class DukeManager {
             }
         }
     }
-
-    public static void print(String string) {
-        System.out.println(HORIZONTAL_LINE + string + "\n" + HORIZONTAL_LINE);
+    private static String formatList(ArrayList inputList) {
+        String formattedString = "";
+        for (int i = 0; i < inputList.size(); i++) {
+            if (inputList.get(i) == null) {
+                break;
+            }
+            formattedString += (i+1) + "." + inputList.get(i).toString() + "\n";
+        }
+        return formattedString;
     }
+    /**
+     * Returns a string with formatted user inputs.
+     *
+     * @return Formatted string to print
+     */
 
     public static void list() {
-        System.out.println(formatList());
+        System.out.println(HORIZONTAL_LINE + formatList(inputs) + HORIZONTAL_LINE);
     }
 
     public static void delete(String line) {
-        int input = -1;
+        int input;
         try {
             input = Integer.valueOf(line.replace("delete", "").strip());
         } catch (NumberFormatException e) {
@@ -141,7 +138,7 @@ public class DukeManager {
         }
     }
     public static void unmark(String line) {
-        int input = -1;
+        int input;
         try {
             input = Integer.valueOf(line.replace("unmark", "").strip());
         } catch (NumberFormatException e) {
@@ -158,7 +155,7 @@ public class DukeManager {
     }
 
     public static void mark(String line) {
-        int input = -1;
+        int input;
         try {
             input = Integer.valueOf(line.replace("mark", "").strip());
         } catch (NumberFormatException e) {
@@ -176,7 +173,7 @@ public class DukeManager {
 
     public static void createTodo(String line) {
         String description = line.replace("todo", "").strip();
-        Todo todo = null;
+        Todo todo;
         try {
             todo = new Todo(description);
         } catch (DukeException e) {
@@ -190,7 +187,7 @@ public class DukeManager {
     public static void createEvent(String line) {
         String removedCommand = line.replace("event", "");
         int timeIndex = removedCommand.indexOf("/at");
-        String description = "";
+        String description;
         try {
             description = removedCommand.substring(0, timeIndex).strip();
         } catch (StringIndexOutOfBoundsException e) {
@@ -199,7 +196,7 @@ public class DukeManager {
         }
 
         String date = removedCommand.substring(timeIndex + "/at".length()).strip();
-        Event event = null;
+        Event event;
         try {
             event = new Event(description, date);
         } catch (DukeException e) {
@@ -225,7 +222,7 @@ public class DukeManager {
             return;
         }
         String date = removedCommand.substring(timeIndex + "/by".length()).strip();
-        Deadline deadline = null;
+        Deadline deadline;
         try {
             deadline = new Deadline(description, date);
         } catch (DukeException e) {
@@ -234,5 +231,16 @@ public class DukeManager {
         }
         inputs.add(deadline);
         print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ inputs.size() + " tasks in the list.");
+    }
+
+    public static void find(String line) {
+        ArrayList<Task> matchedTerms = new ArrayList<>();
+        String searchTerm = line.replace("find", "").strip();
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i).getDescription().contains(searchTerm)) {
+                matchedTerms.add(inputs.get(i));
+            }
+        }
+        System.out.println(HORIZONTAL_LINE + "Here are the matching tasks in your list:\n" + formatList(matchedTerms) + HORIZONTAL_LINE);
     }
 }
