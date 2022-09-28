@@ -11,17 +11,36 @@ import duke.task.Todo;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+/**
+ * The Parser class takes user input from the UI and interprets it to run operations on the TaskList and Storage
+ * objects, and provides output to the UI. Much of the logic for the commands is interpreted here.
+ */
+
 public class Parser {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
 
+    /**
+     * Creates a new Parser object.
+     *
+     * @param ui An instance of {@link Ui}
+     * @param storage An instance of {@link Storage}
+     * @param tasks An instance of {@link TaskList}
+     */
     public Parser(Ui ui, Storage storage, TaskList tasks) {
         this.ui = ui;
         this.storage = storage;
         this.tasks = tasks;
     }
 
+    /**
+     * Interprets and runs a command provided by the user. This is the main entry point for Parser objects; all user
+     * commands will first go through this function, which will then interpret the command and execute other functions
+     * based on the input.
+     *
+     * @param command Command provided by the user.
+     */
     public void runCommand(String command) {
         String[] args = command.split(" ", 2);
         String action = args[0];
@@ -89,6 +108,15 @@ public class Parser {
         ui.printLine(tasks.findTasks(searchTerm));
     }
 
+    /**
+     * Creates a task depending on user input and adds it to the task list. This function should only be called by
+     * {@link Parser#runCommand(String)}.
+     *
+     * @param taskType The type of task the user wants to add; the possible values of this function are determined by
+     *                 {@link Parser#runCommand(String)}
+     * @param taskData The data provided by the user after the command; this includes the task description and date/time,
+     *                 if any.
+     */
     private void addTask(String taskType, String taskData) {
         Task task;
         try {
@@ -155,6 +183,13 @@ public class Parser {
         storage.save(tasks);
     }
 
+    /**
+     * Verifies whether an index points to a valid entry in the {@link TaskList}. Returns true if the index is valid
+     * and false otherwise.
+     *
+     * @param taskIndex Index of a task in a {@link TaskList}.
+     * @return Whether the index points to a valid task in the {@link TaskList}.
+     */
     private boolean isValidIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }

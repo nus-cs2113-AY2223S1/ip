@@ -20,10 +20,20 @@ import duke.tasklist.TaskList;
 public class Storage {
     private final File file;
 
+    /**
+     * Creates a new storage object that reads from the specified relative filename.
+     *
+     * @param filename Relative file path to load database from.
+     */
     public Storage(String filename) {
         this.file = new File(filename);
     }
 
+    /**
+     * Reads from the file containing the task information and returns a new {@link TaskList} containing the tasks.
+     *
+     * @return TaskList consisting of the tasks read from the file.
+     */
     public TaskList load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -59,6 +69,12 @@ public class Storage {
         return new TaskList(tasks);
     }
 
+    /**
+     * Reads from the file containing the task information and returns a new {@link TaskList} containing the tasks.
+     * If the file does not exist, creates an empty file with the filename and returns an empty {@link TaskList}.
+     *
+     * @return TaskList consisting of the tasks read from the file.
+     */
     public TaskList createOrLoad() {
         try {
             if (file.createNewFile()) { // false if file exists
@@ -70,6 +86,11 @@ public class Storage {
         return load();
     }
 
+    /**
+     * Encodes and saves the provided TaskList to the file.
+     *
+     * @param tasks TaskList containing the tasks to save.
+     */
     public void save(TaskList tasks) {
         List<Task> taskList = tasks.asList();
         try {
