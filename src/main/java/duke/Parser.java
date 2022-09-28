@@ -1,7 +1,18 @@
 package duke;
 
+/**
+ * Represents a parser that parses user input.
+ * Returns a Command.
+ */
+
 public class Parser {
 
+    /**
+     * Returns a Command based on the first word of the user input.
+     *
+     * @param input Full user command.
+     * @return Command.
+     */
     public Command parseString(String input) {
         Command command;
         if (input.equals("bye")) {

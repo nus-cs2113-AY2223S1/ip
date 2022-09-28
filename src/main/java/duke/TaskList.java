@@ -3,12 +3,14 @@ package duke;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 
 public class TaskList {
 
     private Storage storage;
     private Ui ui;
-
     protected static ArrayList<Task> taskList;
 
     public TaskList(Storage storage) {
@@ -17,14 +19,32 @@ public class TaskList {
         ui = new Ui();
     }
 
+    /**
+     * Returns the current size of the task list.
+     *
+     * @return Current size of task list.
+     */
     public int getSize() {
         return taskList.size();
     }
 
+    /**
+     * Returns the task located at the specified position in the task list.
+     *
+     * @param index Index of task to be retrieved.
+     * @return Task.
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
+    /**
+     * Adds a new task to the task list.
+     * Optionally, print the task that was added.
+     *
+     * @param task Task to be added.
+     * @param isPrint Set true to print added task.
+     */
     public void addTask(Task task, boolean isPrint) {
         taskList.add(task);
         try {
@@ -38,6 +58,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified position in the task list.
+     * If invalid syntax of user command, prints correct syntax.
+     * If index is out of range, prints allowed range of index.
+     *
+     * @param line Full user command.
+     */
     public void delete(String line) {
         String[] words = line.split("\\s+");
         if (words.length == 2) {
@@ -64,6 +91,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructs and adds a Todo task to the task list.
+     *
+     * @param line Full user command.
+     */
     public void todo(String line) {
         String[] words = line.split("\\s+");
         if (words.length >= 2) {
@@ -75,6 +107,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructs and adds a Deadline task to the task list.
+     *
+     * @param line Full user command.
+     */
     public void deadline(String line) {
         try {
             String task = line.substring(line.indexOf(' ') + 1, line.indexOf("/by") - 1);
@@ -86,6 +123,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructs and adds a Event task to the task list.
+     *
+     * @param line Full user command.
+     */
     public void event(String line) {
         try {
             String task = line.substring(line.indexOf(' ') + 1, line.indexOf("/at") - 1);
@@ -97,6 +139,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all tasks in the task list.
+     * If list is empty, an error message is printed.
+     */
     public void list() {
         if (taskList.size() > 0) {
             ui.showList();
@@ -108,6 +154,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks/unmarks tasks at the specified position in the task list as done.
+     * If invalid syntax of user command, prints correct syntax.
+     * If index is out of range, prints allowed range of index.
+     * Notifies user if task is already marked/unmarked.
+     *
+     * @param isMark True to mark. False to unmark.
+     * @param line Full user command.
+     */
     public void mark(boolean isMark, String line) {
         String[] words = line.split("\\s+");
         if (words.length == 2) {
