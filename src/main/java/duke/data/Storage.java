@@ -22,15 +22,21 @@ public class Storage {
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Save the tasks in the existing arraylist to a .txt file duke in the data folder
+     *
+     * @param tasks The tasks currently in the list in the program
+     * @throws IOException If errors occur during file operations
+     */
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        Path fileDir= Paths.get(FILE_DIRECTORY);
+        Path fileDir = Paths.get(FILE_DIRECTORY);
 
         if (Files.notExists(fileDir)) {
             Files.createDirectories(fileDir);
             System.out.println("Creating save file location!");
         }
 
-        Path file= Paths.get(FILE_PATH);
+        Path file = Paths.get(FILE_PATH);
 
         if (Files.notExists(file)) {
             Files.createFile(file);
@@ -40,11 +46,11 @@ public class Storage {
 
         FileWriter writer = new FileWriter(FILE_PATH);
 
-        for (Task task:tasks) {
+        for (Task task : tasks) {
             String type = task.getType();
             try {
                 writer.write(task.toSaveString() + "\n");
-            }  catch (IOException e) {
+            } catch (IOException e) {
                 // Error when writing to the file
                 e.printStackTrace();
             }
@@ -52,28 +58,31 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Write the tasks stored in the duke.txt file in folder data into the current list of tasks in the program
+     *
+     * @param tasks The tasks currently in the list
+     */
     public static void loadTasks(ArrayList<Task> tasks) {
-        Path fileDir= Paths.get(FILE_DIRECTORY);
+        Path fileDir = Paths.get(FILE_DIRECTORY);
         if (Files.notExists(fileDir)) {
             System.out.println("You have no save folder!");
         }
-        Path file= Paths.get(FILE_PATH);
+        Path file = Paths.get(FILE_PATH);
         if (Files.notExists(file)) {
             System.out.println("You have no save file! Hardcore mode?");
-        }
-
-        else {
+        } else {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
                 String line = "";
-                while((line =reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     String taskType = Parser.parseSaveTaskType(line);
                     Boolean isDone = Parser.parseSaveTaskStatus(line);
                     switch (taskType) {
                     case "T":
                         String taskDescription = Parser.parseSaveTodo(line);
                         Todo todo = new Todo(taskDescription);
-                        if (isDone){
+                        if (isDone) {
                             todo.setDone();
                         }
                         TaskManager.addFromStorage(todo);
@@ -82,8 +91,8 @@ public class Storage {
                     case "D":
                         String deadlineDescription = Parser.parseSaveDeadline(line);
                         String dateDeadline = Parser.parseDeadlineDate(line);
-                        Deadline deadline = new Deadline(deadlineDescription,dateDeadline);
-                        if (isDone){
+                        Deadline deadline = new Deadline(deadlineDescription, dateDeadline);
+                        if (isDone) {
                             deadline.setDone();
                         }
                         TaskManager.addFromStorage(deadline);
@@ -91,8 +100,8 @@ public class Storage {
                     case "E":
                         String eventDescription = Parser.parseSaveEvent(line);
                         String dateEvent = Parser.parseEventDate(line);
-                        Event event = new Event(eventDescription,dateEvent);
-                        if (isDone){
+                        Event event = new Event(eventDescription, dateEvent);
+                        if (isDone) {
                             event.setDone();
                         }
                         TaskManager.addFromStorage(event);
@@ -103,7 +112,7 @@ public class Storage {
                     }
                 }
                 System.out.println("Lock and Loaded your save!");
-            }   catch (IOException e) {
+            } catch (IOException e) {
                 // Error when reading the file
                 e.printStackTrace();
             }

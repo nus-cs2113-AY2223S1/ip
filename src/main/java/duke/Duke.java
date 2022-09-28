@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Duke {
     static TaskManager Manager = new TaskManager();
 
+    /**
+     * Prints the User Interface associated with the start of the program
+     */
     static void startSession() {
         UI.printLogo();
         UI.printLine();
@@ -18,13 +21,19 @@ public class Duke {
         UI.printLine();
     }
 
+    /**
+     * Prints the User Interface associated with the end of the program
+     */
     static void endSession() {
         UI.printLine();
         System.out.println("Bye. Hope to see you again soon! Groovy!");
         UI.printLine();
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    /**
+     * Initializes the program
+     */
+    public static void main(String[] args) {
 
         startSession();
 
@@ -33,7 +42,7 @@ public class Duke {
         line = in.nextLine();
 
         while (!Parser.checkBye(line)) {
-            Parser.parse(Manager,line);
+            Parser.parse(Manager, line);
             line = in.nextLine();
         }
 
