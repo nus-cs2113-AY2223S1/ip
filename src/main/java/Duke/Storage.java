@@ -27,13 +27,6 @@ public class Storage {
     public static void writeToFile(String filePath, ArrayList<Task> list) {
         try {
             File storedFile = new File(filePath);
-            File parent = storedFile.getParentFile();
-            if (!parent.exists()) {
-                parent.mkdirs();
-            }
-            if (!storedFile.exists()) {
-                storedFile.createNewFile();
-            }
             FileWriter writeFile = new FileWriter(storedFile);
             for (Task task : list) {
                 Boolean isDone = task.isDone;
@@ -53,6 +46,17 @@ public class Storage {
      * @throws FileNotFoundException Error if file is not found in the specified location
      */
     public static void getFileContents(String filePath, ArrayList<Task> list) throws FileNotFoundException {
+        File storedFile = new File(filePath);
+        if (!storedFile.getParentFile().exists()) {
+            storedFile.getParentFile().mkdirs();
+        }
+        try {
+            if (!storedFile.exists()) {
+                storedFile.createNewFile();
+            }
+        } catch (IOException e) {
+            Ui.showFileWriteError();
+        }
         Scanner s = new Scanner(new FileInputStream((filePath)));
         while (s.hasNext()) {
             String command = s.nextLine();
