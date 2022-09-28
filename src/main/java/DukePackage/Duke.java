@@ -16,7 +16,7 @@ public class Duke {
     private Ui ui;
 
     /*
-    Initialisation is done here
+    Initialisation of Ui, Storage and TaskList is done here
      */
     public Duke(String filePath) {
         ui = new Ui();
