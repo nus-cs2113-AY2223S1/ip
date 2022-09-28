@@ -7,16 +7,11 @@ import java.util.Scanner;
  */
 public class UI {
     private static Scanner in = null;
-    public static final String greetingArt = "───▄▄▄\n" +
+    public static final String snailArt = "───▄▄▄\n" +
             "─▄▀░▄░▀▄\n" +
             "─█░█▄▀░█\n" +
             "─█░▀▄▄▀█▄█▄▀\n" +
             "▄▄█▄▄▄▄███▀\n\n";
-    public static final String goodbyeArt = "───▄▄▄\n" +
-            "─▄▀░▄░▀▄\n" +
-            "─█░█▄▀░█\n" +
-            "─█░▀▄▄▀█▄█▄▀\n" +
-            "▄▄█▄▄▄▄███▀\n";
 
     /**
      * greeting and goodbye messages
@@ -25,10 +20,10 @@ public class UI {
     public static final String DIVIDER = "______________________________________";
     public static final String greetingMessage =
             "Hello! I'm Duke!\n" +
-                    greetingArt +
+                    snailArt +
                     "How can I help you?";
 
-    public static final String goodbyeMessage = "Bye. Hope to see you again soon!\n" + goodbyeArt;
+    public static final String goodbyeMessage = "Bye. Hope to see you again soon!\n" + snailArt;
 
 
     /**
