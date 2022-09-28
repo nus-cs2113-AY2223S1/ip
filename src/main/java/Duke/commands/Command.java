@@ -116,7 +116,7 @@ public class Command {
             } catch(DukeException e) {
                 System.out.println(ExceptionMessage.EMPTY_HANDLER);
             } catch(NumberFormatException e) {
-                System.out.println(ExceptionMessage.EMPTY_MARK_INDEX);
+                System.out.println(ExceptionMessage.EMPTY_DELETE_INDEX);
             }
             break;
         case COMMAND_DATE_SEARCH:

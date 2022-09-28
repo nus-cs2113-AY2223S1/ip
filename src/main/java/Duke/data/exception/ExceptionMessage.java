@@ -19,4 +19,5 @@ public class ExceptionMessage {
     public static final String UNKNOWN_INPUTS_LOAD = "There is an unknown command in your load file :(\n " +
             "Please check that you have uploaded the correct file";
     public static final String DATE_PARSE_ERROR = "The date specified is wrong.\nPlease give your date in the form of yyyy-mm-dd";
+    public static final String EMPTY_DELETE_INDEX = "No index given to delete:(\nPlease key in a valid integer :)";
 }

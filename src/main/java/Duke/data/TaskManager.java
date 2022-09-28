@@ -27,8 +27,8 @@ public class TaskManager {
         if(tasks.size() == 0) {
             throw new DukeException();
         }
-        System.out.println("Deleted ");
         printTask(taskNumber);
+        System.out.println("-- Deleted --");
         tasks.remove(taskNumber);
     }
 
