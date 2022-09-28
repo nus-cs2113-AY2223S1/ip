@@ -45,8 +45,7 @@ Running of commands is done here
     }
 
     public static void main(String[] args) {
-        String home = System.getProperty("user.home");
-        String path = home + "/Desktop/tasks.txt";
+        String path = "tasks.txt";
         new Duke(path).run();
     }
 }
