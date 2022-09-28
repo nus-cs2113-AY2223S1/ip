@@ -43,6 +43,10 @@ public class Parser {
             Storage.updateTaskInDataFile(taskList, "delete");
             break;
 
+        case "find":
+            taskList.findTask(commandAndParams);
+            break;
+
         default:
             System.out.println("Please provide a correct command!");
         }
