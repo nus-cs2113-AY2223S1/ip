@@ -1,13 +1,23 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String at;
+    protected LocalDate at;
 
     public Event(String description, String at) throws DukeException {
         super(description);
         if (at.isBlank()) {
             throw new DukeException();
         }
-        this.at = at;
+        LocalDate date;
+        try {
+             date = LocalDate.parse(at);
+        } catch(DateTimeParseException e) {
+            throw new DukeException();
+        }
+        this.at = date;
     }
 
     /**
@@ -17,7 +27,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + this.at + ")";
+        return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
