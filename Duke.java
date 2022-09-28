@@ -1,13 +1,7 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import duke.error.DukeException;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
+import duke.tasks.*;
 import java.util.ArrayList;
 
 public class Duke {
@@ -15,7 +9,7 @@ public class Duke {
     private static int taskCounter = 0;
 
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
-    static String FILE_PATH = "./data/duke.txt";
+    static String FILE_PATH = "./duke.txt";
     static String FILE_SEPARATOR = "-";
     static String LINE_DIVIDER = "/";
 
