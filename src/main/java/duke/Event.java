@@ -44,8 +44,8 @@ public class Event extends Task{
     @Override
     public String printToFile() {
         String isDoneStr = new String((this.isDone) ? "1" : "0");
-        String s = new String(SYMBOL + "|" + isDoneStr + "|" + this.description + "|" + this.date + "\n");
-        return s;
+        String string = new String(SYMBOL + "|" + isDoneStr + "|" + this.description + "|" + this.date + "\n");
+        return string;
     }
 
     /**
@@ -56,5 +56,4 @@ public class Event extends Task{
     public String getDate() {
         return this.date;
     }
-
 }

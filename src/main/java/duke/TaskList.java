@@ -70,9 +70,9 @@ public class TaskList {
         if (words.length == 2) {
             if (taskList.size() > 0) {
                 try {
-                    int d = Integer.parseInt(words[1]);
-                    Task tempTask = taskList.get(d - 1);
-                    taskList.remove(d - 1);
+                    int input = Integer.parseInt(words[1]);
+                    Task tempTask = taskList.get(input - 1);
+                    taskList.remove(input - 1);
                     ui.showDeleteSuccess(tempTask.print());
                     ui.showSizeOfList(taskList.size());
                     storage.writeToFile(this);
@@ -167,21 +167,21 @@ public class TaskList {
         String[] words = line.split("\\s+");
         if (words.length == 2) {
             try {
-                int d = Integer.parseInt(words[1]);
-                if (d > 0 && d <= taskList.size()) { // Valid
-                    if (taskList.get(d-1).getStatus()) { // Task is done
+                int input = Integer.parseInt(words[1]);
+                if (input > 0 && input <= taskList.size()) { // Valid
+                    if (taskList.get(input - 1).getStatus()) { // Task is done
                         if (isMark) {
-                            ui.showTaskAlreadyDoneError(taskList.get(d - 1).print());
+                            ui.showTaskAlreadyDoneError(taskList.get(input - 1).print());
                         } else {
-                            taskList.get(d - 1).setDone(false);
-                            ui.showUnmarkSuccess(taskList.get(d - 1).print());
+                            taskList.get(input - 1).setDone(false);
+                            ui.showUnmarkSuccess(taskList.get(input - 1).print());
                         }
                     } else { // Task is not done
                         if (isMark) {
-                            taskList.get(d - 1).setDone(true);
-                            ui.showMarkSuccess(taskList.get(d - 1).print());
+                            taskList.get(input - 1).setDone(true);
+                            ui.showMarkSuccess(taskList.get(input - 1).print());
                         } else {
-                            ui.showTaskAlreadyNotDoneError(taskList.get(d - 1).print());
+                            ui.showTaskAlreadyNotDoneError(taskList.get(input - 1).print());
                         }
                     }
                     storage.writeToFile(this);
@@ -236,5 +236,4 @@ public class TaskList {
             ui.showFindUsage();
         }
     }
-
 }

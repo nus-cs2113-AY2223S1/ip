@@ -70,7 +70,6 @@ public class Storage {
      * Creates folders and files if needed.
      */
     public void openFile() {
-        // Read file
         try {
             scanFile();
         } catch (FileNotFoundException | InvalidFormatException exception) {
@@ -104,5 +103,4 @@ public class Storage {
         }
         fw.close();
     }
-
 }

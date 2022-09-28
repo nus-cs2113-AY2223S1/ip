@@ -57,8 +57,8 @@ public class Task {
      * @return String to be printed.
      */
     public String print() {
-        String s = new String("[" + this.getStatusIcon() + "] " + this.getDescription());
-        return s;
+        String string = new String("[" + this.getStatusIcon() + "] " + this.getDescription());
+        return string;
     }
 
     /**
@@ -70,8 +70,7 @@ public class Task {
      */
     public String printToFile() {
         String isDoneStr = new String((this.isDone) ? "1" : "0");
-        String s = new String("T|" + isDoneStr + "|" + this.description + "\n");
-        return s;
+        String string = new String("T|" + isDoneStr + "|" + this.description + "\n");
+        return string;
     }
-
 }

@@ -3,7 +3,7 @@ package duke;
 import java.util.Scanner;
 
 /**
- * Main class for Duke - a Personal Assistant Chatbot that helps you keep track of various things
+ * Main class for Duke - a Personal Assistant Chatbot that helps you keep track of various things.
  */
 
 public class Duke {
