@@ -9,28 +9,49 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private static String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    public static void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
-        File storedFile = new File(filePath);
-        File parent = storedFile.getParentFile();
-        if (!parent.exists()) {
-            parent.mkdirs();
+
+    /**
+     * Saves the given task list to a specified local file
+     * @param filePath Location of file for task list to be saved to
+     * @param list Task list to be saved
+     * @throws IOException Error
+     */
+    public static void writeToFile(String filePath, ArrayList<Task> list) {
+        try {
+            File storedFile = new File(filePath);
+            File parent = storedFile.getParentFile();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
+            if (!storedFile.exists()) {
+                storedFile.createNewFile();
+            }
+            FileWriter writeFile = new FileWriter(storedFile);
+            for (Task task : list) {
+                Boolean isDone = task.isDone;
+                writeFile.write(task.type + "|" + isDone + "|" + task.description +
+                        "|" + task.by + System.lineSeparator());
+            }
+            writeFile.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while saving to file:" + e.getMessage());
         }
-        if (!storedFile.exists()) {
-            storedFile.createNewFile();
-        }
-        FileWriter writeFile = new FileWriter(storedFile);
-        for (Task task: list) {
-            Boolean isDone = task.isDone;
-            writeFile.write(task.type + "|" + isDone + "|" + task.description +
-                    "|" + task.by + System.lineSeparator());
-        }
-        writeFile.close();
     }
+
+    /**
+     * Loads task list saved in specified local file to the task list
+     * @param filePath Location of file with the saved list
+     * @param list Target ArrayList to load task list
+     * @throws FileNotFoundException Error if file is not found in the specified location
+     */
     public static void getFileContents(String filePath, ArrayList<Task> list) throws FileNotFoundException {
         Scanner s = new Scanner(new FileInputStream((filePath)));
         while (s.hasNext()) {
@@ -39,17 +60,17 @@ public class Storage {
             switch (inputCommands[0]) {
             case "T":
                 Todo addTodo = new Todo(inputCommands[2]);
-                Ui.checkMarked(addTodo,inputCommands[1]);
+                TaskList.checkMarked(addTodo,inputCommands[1]);
                 list.add(addTodo);
                 break;
             case "D":
                 Deadline addDeadline = new Deadline(inputCommands[2], inputCommands[3]);
-                Ui.checkMarked(addDeadline,inputCommands[1]);
+                TaskList.checkMarked(addDeadline,inputCommands[1]);
                 list.add(addDeadline);
                 break;
             case "E":
                 Event addEvent = new Event(inputCommands[2], inputCommands[3]);
-                Ui.checkMarked(addEvent,inputCommands[1]);
+                TaskList.checkMarked(addEvent,inputCommands[1]);
                 list.add(addEvent);
                 break;
             default:
