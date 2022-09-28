@@ -11,7 +11,7 @@ public class Parser {
             Ui.printGoodbye();
             System.exit(0);
         case "list":
-            taskList.printTaskList();
+            Ui.printTaskList();
             break;
         case "todo":
             taskList.addTodoTask(commandAndParams);

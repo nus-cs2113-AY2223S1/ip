@@ -12,26 +12,15 @@ import Duke.Tasks.Todo;
 import java.util.ArrayList;
 
 public class TaskList {
-    protected static ArrayList<Task> tasksList = new ArrayList<>();
+    public static ArrayList<Task> tasksList = new ArrayList<>();
     protected static int taskNumberOfInterest;
 
-    public int getTasksListSize() {
+    public static int getTasksListSize() {
         return tasksList.size();
     }
 
-    public int getTaskNumberOfInterest() {
+    public static int getTaskNumberOfInterest() {
         return taskNumberOfInterest;
-    }
-
-    public void printHorizontalLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public void printAddTaskText(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.taskStatusWithDescriptionText());
-        System.out.println("Now you have " + getTasksListSize() + " tasks in the list.");
-        printHorizontalLine();
     }
 
     public void addToTasksList(Task task) {
@@ -45,10 +34,10 @@ public class TaskList {
             }
             Todo newTodo = new Todo(toDoInput[1], 'T');
             tasksList.add(newTodo);
-            printAddTaskText(newTodo);
             taskNumberOfInterest = getTasksListSize() - 1;
+            Ui.printAddTaskText(newTodo);
         } catch (InvalidCommandFormatException e) {
-            System.out.println("The command should be 'todo (task name)'.");
+            Ui.printCorrectFormatText("todo");
         }
     }
 
@@ -57,11 +46,10 @@ public class TaskList {
             String[] DescriptionWithTime = deadlineInput[1].split("/by ", 2);
             Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
             tasksList.add(newDeadlineTask);
-            printAddTaskText(newDeadlineTask);
+            Ui.printAddTaskText(newDeadlineTask);
             taskNumberOfInterest = getTasksListSize() - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            String correctFormatMessage = "The command should be 'deadline (task name) /by (deadline)'.";
-            System.out.println(correctFormatMessage);
+            Ui.printCorrectFormatText("deadline");
         }
     }
 
@@ -70,31 +58,17 @@ public class TaskList {
             String[] DescriptionWithTime = eventInput[1].split("/at ", 2);
             Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
             tasksList.add(newEvent);
-            printAddTaskText(newEvent);
+            Ui.printAddTaskText(newEvent);
             taskNumberOfInterest = getTasksListSize() - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            String correctFormatMessage = "The command should be 'event (task name) /by (event date)'.";
-            System.out.println(correctFormatMessage);
+            Ui.printCorrectFormatText("event");
         }
     }
 
 
-    public void checkMarkTask(int taskNumber, boolean newMark) throws TaskNumberOutOfBoundsException, TaskNumberNotNumberException {
+    public void checkMarkTask(boolean newMark) throws TaskNumberOutOfBoundsException, TaskNumberNotNumberException {
         try {
-            String previousIcon = tasksList.get(taskNumber).getStatusIcon();
-            if (previousIcon == "X") {
-                if (newMark) {
-                    System.out.println("This task has already been marked!");
-                } else {
-                    System.out.println("OK, I've marked this task as not done yet:");
-                }
-            } else {
-                if (!newMark) {
-                    System.out.println("This task has already been unmarked!");
-                } else {
-                    System.out.println("Nice! I've marked this task as done:");
-                }
-            }
+            Ui.printMarkTaskText(newMark);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNumberOutOfBoundsException();
         }
@@ -112,16 +86,14 @@ public class TaskList {
             if (taskNumber >= getTasksListSize()) {
                 throw new TaskNumberOutOfBoundsException();
             }
-            checkMarkTask(taskNumber, true);
+            checkMarkTask(true);
             setTaskDoneStatus(taskNumber, true);
-            String newIcon = tasksList.get(taskNumber).getStatusIcon();
-            System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
-            printHorizontalLine();
+            Ui.printUpdatedTaskMarkAndDescription();
+            Ui.printHorizontalLine();
         } catch (NumberFormatException e) {
-            System.out.println("Task Number should be an integer!");
+            Ui.printTaskNumberNotIntegerError();
         } catch (InvalidCommandFormatException e) {
-            String correctFormatMessage = "The command should be 'mark (task number)'.";
-            System.out.println(correctFormatMessage);
+            Ui.printCorrectFormatText("mark");
         } catch (TaskNumberNotNumberException | TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -140,16 +112,14 @@ public class TaskList {
             if (taskNumber >= getTasksListSize()) {
                 throw new TaskNumberOutOfBoundsException();
             }
-            checkMarkTask(taskNumber, false);
+            checkMarkTask(false);
             setTaskDoneStatus(taskNumber, false);
-            String newIcon = tasksList.get(taskNumber).getStatusIcon();
-            System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
-            printHorizontalLine();
+            Ui.printUpdatedTaskMarkAndDescription();
+            Ui.printHorizontalLine();
         } catch (NumberFormatException e) {
-            System.out.println("Task Number should be an integer!");
+            Ui.printTaskNumberNotIntegerError();
         } catch(InvalidCommandFormatException e) {
-            String correctFormatMessage = "The command should be 'unmark (task number)'.";
-            System.out.println(correctFormatMessage);
+            Ui.printCorrectFormatText("unmark");
         } catch (TaskNumberNotNumberException | TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -170,11 +140,11 @@ public class TaskList {
             }
             Task taskToBeRemoved = tasksList.get(taskNumber);
             tasksList.remove(taskNumber);
-            printDeleteTaskText(taskToBeRemoved);
+            Ui.printDeleteTaskText(taskToBeRemoved);
         } catch (NumberFormatException e) {
-            System.out.println("Task Number should be an integer!");
+            Ui.printTaskNumberNotIntegerError();
         } catch (InvalidCommandFormatException e) {
-            System.out.println("The command should be 'delete (task number)'.");
+            Ui.printCorrectFormatText("delete");
         } catch (TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -188,50 +158,17 @@ public class TaskList {
             if (getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             }
-            String taskToFind = findInput[1];
-            int count = 1;
-            for (Task task : tasksList) {
-                if (task.description.contains(taskToFind)) {
-                    System.out.println(count + ". " + task.taskStatusWithDescriptionText());
-                    count += 1;
-                }
-            }
-            if (count == 1 ) {
-                System.out.println("There is no related task in your list.");
-            }
-            printHorizontalLine();
+            String keyword = findInput[1];
+            Ui.printTasksWithKeyword(keyword);
+            Ui.printHorizontalLine();
         } catch (InvalidCommandFormatException e) {
-            System.out.println("The command should be 'find (task)'.");
+            Ui.printCorrectFormatText("find");
         } catch (TaskListEmptyException e) {
             System.out.println(e);
         }
     }
 
-    public void printTaskList() {
-        try {
-            if (getTasksListSize() == 0) {
-                throw new TaskListEmptyException();
-            } else {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < getTasksListSize(); i++) {
-                    System.out.println((i + 1) + "." + tasksList.get(i).taskStatusWithDescriptionText());
-                }
-            }
-            printHorizontalLine();
-        } catch (TaskListEmptyException e) {
-            System.out.println(e);
-        }
-    }
-
-
-    public void printDeleteTaskText(Task task) {
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(task.taskStatusWithDescriptionText());
-        System.out.println("Now you have " + getTasksListSize() + " tasks in the list.");
-        printHorizontalLine();
-    }
-
-    public String printTaskToDataFile(int taskNumber) {
+    public String loadTaskToDataFile(int taskNumber) {
         return tasksList.get(taskNumber).taskDataFileText() + "\n";
     }
 

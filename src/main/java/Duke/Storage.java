@@ -80,10 +80,10 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
             int taskNumber = taskList.getTaskNumberOfInterest();
-            fw.write(taskList.printTaskToDataFile(taskNumber));
+            fw.write(taskList.loadTaskToDataFile(taskNumber));
             fw.close();
         } catch (IOException ioException) {
-            System.out.printf("Error has occured when loading the task to data file.");
+            System.out.printf("Error has occurred when loading the task to data file.");
             ioException.printStackTrace();
         }
     }
@@ -94,7 +94,7 @@ public class Storage {
             int taskNumber = taskList.getTaskNumberOfInterest();
             String updatedTaskToLoadInDataFile = "";
             if (commandType.equals("edit")) {
-                updatedTaskToLoadInDataFile = taskList.printTaskToDataFile(taskNumber).replace("\n", "");
+                updatedTaskToLoadInDataFile = taskList.loadTaskToDataFile(taskNumber).replace("\n", "");
             }
             lines.set(taskNumber, updatedTaskToLoadInDataFile);
             lines.removeIf(String::isEmpty);
