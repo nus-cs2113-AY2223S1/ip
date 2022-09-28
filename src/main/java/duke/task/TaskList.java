@@ -9,6 +9,10 @@ import duke.Storage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a TaskList in the Duke system.
+ * A TaskList provides operations on tasks (e.g. addTask).
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static final String DEADLINE_FLAG = "/by";
@@ -22,6 +26,11 @@ public class TaskList {
         tasks = taskList;
     }
 
+    /**
+     * Adds one task into taskList.
+     * @param taskDescription
+     * @throws IllegalArgsTypeException
+     */
     public static void addTask(String taskDescription) throws IllegalArgsTypeException {
         if (Arrays.asList(ILLEGAL_ARGS).contains(taskDescription)) {
             throw new IllegalArgsTypeException();
@@ -32,6 +41,9 @@ public class TaskList {
         showTaskCount();
     }
 
+    /**
+     * Lists all tasks in the taskList.
+     */
     public static void listTask() {
         if (tasks.size() == 0) {
             System.out.println(">>>No Current Tasks.");
@@ -44,6 +56,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done, if setMark is true,
+     * or notDone, if setMark is false.
+     * @param taskId
+     * @param setMark
+     */
     public static void markTask(int taskId, boolean setMark) {
         if (taskId <= 0 || taskId > tasks.size()) {
             System.out.println(">>>Pls Enter the Right TaskId!");
@@ -60,6 +78,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the specified task from task list.
+     * @param num
+     */
     public static void deleteTask(int num) {
         if (num <= 0 || num > tasks.size()) return;
         Task tmp_task = tasks.get(num - 1);
@@ -69,6 +91,11 @@ public class TaskList {
         showTaskCount();
     }
 
+    /**
+     * Add a todo object in taskList with description todoDescription
+     * @param todoDescription
+     * @throws IllegalArgsNumException
+     */
     public static void addTodo(String todoDescription) throws IllegalArgsNumException {
         if (todoDescription.equals("")) {
             throw new IllegalArgsNumException();
@@ -79,6 +106,11 @@ public class TaskList {
         showTaskCount();
     }
 
+    /**
+     * Add a deadLine object in taskList with description and due time.
+     * @param str
+     * @throws DukeException
+     */
     public static void addDeadline(String str) throws DukeException {
         if ("".equals(str)) {
             throw new IllegalArgsNumException();
@@ -96,6 +128,11 @@ public class TaskList {
         showTaskCount();
     }
 
+    /**
+     * Add an event object in taskList with description and happening time.
+     * @param str
+     * @throws DukeException
+     */
     public static void addEvent(String str) throws DukeException {
         if (str.equals("")) {
             throw new IllegalArgsNumException();
@@ -113,10 +150,17 @@ public class TaskList {
         showTaskCount();
     }
 
+    /**
+     * Show the number of tasks currently in the taskList.
+     */
     public static void showTaskCount() {
         System.out.printf("Now we have %d tasks in the list.\n", tasks.size());
     }
 
+    /**
+     * Find the tasks whose description contain the keyword.
+     * @param keyword
+     */
     public static void findTask(String keyword) {
         ArrayList<Task> task_list_contain_keyword = new ArrayList<>();
         for (Task task : tasks) {

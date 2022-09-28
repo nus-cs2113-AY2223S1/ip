@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represents a task in the Duke system.
+ * A task object corresponds to a description and a isMarked boolean.
+ */
 public class Task {
 
     protected String description;
@@ -23,6 +27,11 @@ public class Task {
     public void setMarked(boolean isMarked) {
         this.isMarked = isMarked;
     }
+
+    /**
+     * Returns formatted string of this task.
+     * @return task string.
+     */
 
     @Override
     public String toString() {
