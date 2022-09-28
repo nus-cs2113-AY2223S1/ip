@@ -1,0 +1,6 @@
+T | 0 | one
+T | 1 | two
+T | 1 | three
+D | 1 | now | now
+T | 0 | now
+T | 0 | last
