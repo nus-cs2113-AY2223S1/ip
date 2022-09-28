@@ -1,4 +1,0 @@
-T | 0 | read book
-D | 0 | buy book | Aug 12 2022 | 6.05pm
-E | 0 | christmas party | Dec 25 2022 | 11.05am-7.30pm
-E | 0 | final test | Aug 12 2022 | 8am-10am
