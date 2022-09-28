@@ -18,10 +18,14 @@ public class UI {
     /**
      * prints the LINEBREAK String
      */
-    static void printLine(){System.out.println(LINEBREAK); }
+    static void printLine() {
+        System.out.println(LINEBREAK);
+    }
 
     /**
      * prints the LOGO string preceded by a Hello from greeting
      */
-    static void printLogo(){System.out.println("Hello from\n" + LOGO);}
+    static void printLogo() {
+        System.out.println("Hello from\n" + LOGO);
+    }
 }

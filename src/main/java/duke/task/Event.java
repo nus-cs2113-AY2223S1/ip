@@ -6,8 +6,9 @@ public class Event extends Task {
 
     /**
      * Initializes aa Event class
+     *
      * @param description What the event is about
-     * @param at Time or Date the event is stated to start
+     * @param at          Time or Date the event is stated to start
      */
     public Event(String description, String at) {
         super(description);
@@ -19,9 +20,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + "(at: " + at + ")";
     }
 
-    public String toSaveString(){return "[E]" + super.toString() + "/at " + at;}
+    public String toSaveString() {
+        return "[E]" + super.toString() + "/at " + at;
+    }
 
-    public String getType(){
+    public String getType() {
         return "E";
     }
 }

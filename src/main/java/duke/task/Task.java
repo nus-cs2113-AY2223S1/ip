@@ -9,6 +9,7 @@ public class Task {
 
     /**
      * Initializes a Task class
+     *
      * @param description What the task is about
      */
     public Task(String description) {
@@ -53,6 +54,7 @@ public class Task {
 
     /**
      * Changes the description value of a task to a new description
+     *
      * @param description What the task is about
      */
     public void setDescription(String description) {
@@ -61,6 +63,7 @@ public class Task {
 
     /**
      * Concatenates the isDone and description value and square brackets
+     *
      * @return a String with the isDone value enclosed by two square brackets followed by its description
      */
     public String toString() {
@@ -69,6 +72,7 @@ public class Task {
 
     /**
      * Similar to toString in the Task class however is overrided in a different way in its children classes
+     *
      * @return a String with the isDone value enclosed by two square brackets followed by its description
      */
     public String toSaveString() {
@@ -78,7 +82,7 @@ public class Task {
     /**
      * @return type of the Task
      */
-    public String getType(){
+    public String getType() {
         return "";
     }
 }

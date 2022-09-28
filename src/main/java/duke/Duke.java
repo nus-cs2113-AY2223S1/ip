@@ -42,7 +42,7 @@ public class Duke {
         line = in.nextLine();
 
         while (!Parser.checkBye(line)) {
-            Parser.parse(Manager,line);
+            Parser.parse(Manager, line);
             line = in.nextLine();
         }
 

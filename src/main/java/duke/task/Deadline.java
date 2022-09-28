@@ -6,8 +6,9 @@ public class Deadline extends Task {
 
     /**
      * Initializes a Deadline class
+     *
      * @param description What the deadline is about
-     * @param by Time or Date the deadline is stated to be finished by
+     * @param by          Time or Date the deadline is stated to be finished by
      */
     public Deadline(String description, String by) {
         super(description);
@@ -19,9 +20,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + "(by: " + by + ")";
     }
 
-    public String toSaveString(){return "[D]" + super.toString() + "/by " + by;}
+    public String toSaveString() {
+        return "[D]" + super.toString() + "/by " + by;
+    }
 
-    public String getType(){
+    public String getType() {
         return "D";
     }
 }

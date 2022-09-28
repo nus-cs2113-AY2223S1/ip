@@ -30,6 +30,7 @@ public class TaskManager {
     /**
      * Prints out texts, other UI and the task to signify that the task has been
      * successfully added
+     *
      * @param task the task to be signified to the user that it has been successfully
      *             added
      */
@@ -42,6 +43,7 @@ public class TaskManager {
 
     /**
      * stores the task represented in the text into the Tasks list
+     *
      * @param text the text that contains a string which names the task to
      *             be stored in the list
      */
@@ -52,8 +54,7 @@ public class TaskManager {
             Tasks.add(newTodo);
             Storage.saveTasks(Tasks);
             printCompletion(newTodo);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Much ado about nothing");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -62,6 +63,7 @@ public class TaskManager {
 
     /**
      * stores the deadline represented in the text into the Tasks list
+     *
      * @param text the text that contains a string which names the deadline to
      *             be stored in the list and the deadline time associated with it
      */
@@ -72,8 +74,7 @@ public class TaskManager {
             Tasks.add(newDeadline);
             Storage.saveTasks(Tasks);
             printCompletion(newDeadline);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Deadlines, that's all life's about, but you gotta tell me which!");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -83,6 +84,7 @@ public class TaskManager {
 
     /**
      * stores the Event represented in the text into the Tasks list
+     *
      * @param text the text that contains a string which names the event to
      *             be stored in the list and the event time associated with it
      */
@@ -93,8 +95,7 @@ public class TaskManager {
             Tasks.add(newEvent);
             Storage.saveTasks(Tasks);
             printCompletion(newEvent);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Which event? An uneventful life is the key to longevity!");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -113,7 +114,7 @@ public class TaskManager {
             System.out.println(count + "." + task);
             count++;
         }
-        if (count==1) {
+        if (count == 1) {
             System.out.println("Maybe find something else to do?");
         }
         UI.printLine();
@@ -121,6 +122,7 @@ public class TaskManager {
 
     /**
      * Gets the Task at the position(1 based indexing) in the Tasks list
+     *
      * @param position the index (1 based indexing) of the task in the Tasks list
      * @return the task specified at the position
      */
@@ -130,38 +132,36 @@ public class TaskManager {
 
     /**
      * Marks the task specified at the position in the list as done
+     *
      * @param text contains the command mark and the position of the task to be marked
      * @throws IOException
      */
     public void markTasks(String text) throws IOException {
         try {
-            String position=Parser.parseMark(text);
-        }
-        catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseMark(text);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Mark?!! Mark what?!");
             return;
         }
         try {
-            String position=Parser.parseMark(text);
+            String position = Parser.parseMark(text);
             Integer.parseInt(position);
-        }
-        catch (NumberFormatException e) {
-            String position=Parser.parseMark(text);
-            System.out.println(position+"?! You know I only take numbers!");
+        } catch (NumberFormatException e) {
+            String position = Parser.parseMark(text);
+            System.out.println(position + "?! You know I only take numbers!");
             return;
         }
         try {
-            String position=Parser.parseMark(text);
-            Task task=getTask(position);
-        }
-        catch (IndexOutOfBoundsException e) {
-            String position=Parser.parseMark(text);
-            System.out.println("You got no task at "+position+" you bozo!");
+            String position = Parser.parseMark(text);
+            Task task = getTask(position);
+        } catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseMark(text);
+            System.out.println("You got no task at " + position + " you bozo!");
             return;
         }
         UI.printLine();
         System.out.println("I've marked this task as done, now go do something else!:");
-        String position=Parser.parseMark(text);
+        String position = Parser.parseMark(text);
         getTask(position).setDone();
         Storage.saveTasks(Tasks);
         System.out.println(getTask(position));
@@ -170,34 +170,31 @@ public class TaskManager {
 
     public void unmarkTasks(String text) throws IOException {
         try {
-            String position=Parser.parseUnmark(text);
-        }
-        catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseUnmark(text);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Unmark?!! Unark what?!");
             return;
         }
         try {
-            String position=Parser.parseUnmark(text);
+            String position = Parser.parseUnmark(text);
             Integer.parseInt(position);
-        }
-        catch (NumberFormatException e) {
-            String position=Parser.parseUnmark(text);
-            System.out.println(position+"?! You know I only take numbers!");
+        } catch (NumberFormatException e) {
+            String position = Parser.parseUnmark(text);
+            System.out.println(position + "?! You know I only take numbers!");
             return;
         }
         try {
-            String position=Parser.parseUnmark(text);
-            Task task=getTask(position);
-        }
-        catch (IndexOutOfBoundsException e) {
-            String position=Parser.parseUnmark(text);
-            System.out.println("You got no task at "+position+" you bozo!");
+            String position = Parser.parseUnmark(text);
+            Task task = getTask(position);
+        } catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseUnmark(text);
+            System.out.println("You got no task at " + position + " you bozo!");
             return;
         }
 
         UI.printLine();
         System.out.println("I've marked this task as not done, get working!:");
-        String position=Parser.parseUnmark(text);
+        String position = Parser.parseUnmark(text);
         getTask(position).setNotDone();
         Storage.saveTasks(Tasks);
         System.out.println(getTask(position));
@@ -206,37 +203,34 @@ public class TaskManager {
 
     public void deleteTasks(String text) throws IOException {
         try {
-            String position=Parser.parseDelete(text);
-        }
-        catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseDelete(text);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Delete?!! Delete what?!");
             return;
         }
         try {
-            String position=Parser.parseDelete(text);
+            String position = Parser.parseDelete(text);
             Integer.parseInt(position);
-        }
-        catch (NumberFormatException e) {
-            String position=Parser.parseDelete(text);
-            System.out.println(position+"?! You know I only take numbers!");
+        } catch (NumberFormatException e) {
+            String position = Parser.parseDelete(text);
+            System.out.println(position + "?! You know I only take numbers!");
             return;
         }
         try {
-            String position=Parser.parseDelete(text);
-            Task task=getTask(position);
-        }
-        catch (IndexOutOfBoundsException e) {
-            String position=Parser.parseDelete(text);
-            System.out.println("You got no task at "+position+" you bozo!");
+            String position = Parser.parseDelete(text);
+            Task task = getTask(position);
+        } catch (IndexOutOfBoundsException e) {
+            String position = Parser.parseDelete(text);
+            System.out.println("You got no task at " + position + " you bozo!");
             return;
         }
 
         UI.printLine();
         System.out.println("I've deleted this task, lucky!:");
-        String position=Parser.parseDelete(text);
+        String position = Parser.parseDelete(text);
         Tasks.remove(Integer.valueOf(position) - 1);
         Storage.saveTasks(Tasks);
-        System.out.println("You now have "+Tasks.size()+" tasks left. Yay!");
+        System.out.println("You now have " + Tasks.size() + " tasks left. Yay!");
         UI.printLine();
     }
 
@@ -244,7 +238,7 @@ public class TaskManager {
         Tasks.add(task);
     }
 
-    public void findTasks (String text) {
+    public void findTasks(String text) {
         try {
             String find = Parser.parseFind(text);
         } catch (IndexOutOfBoundsException e) {
@@ -256,12 +250,12 @@ public class TaskManager {
         int count = 1;
         String find = Parser.parseFind(text);
         for (Task task : Tasks) {
-            if (task.getDescription().contains(find)){
+            if (task.getDescription().contains(find)) {
                 System.out.println(count + "." + task);
                 count++;
             }
         }
-        if (count==1) {
+        if (count == 1) {
             System.out.println("Just about nothin'");
         }
         UI.printLine();
