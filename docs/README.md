@@ -269,7 +269,7 @@ Note: Storage refers to data text file
 ---
 
 ## Getting Started
-1. Click on the link to download the latest version of Duke.
+1. Click on the [link](https://github.com/OVReader/ip/releases) to download the latest version of Duke.
 2. Open command line local to duke.jar.
 3. Run the command `java -jar duke.jar`.
 
