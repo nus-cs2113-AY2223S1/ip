@@ -6,6 +6,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents a file storage system.
+ * Reads and writes a TaskList from a file.
+ *
+ * File format:
+ * {task type}|{status of task}|{description}(|{time})
+ * Items in () brackets are optional, dependent on task type
+ */
+
 public class Storage {
 
     protected String filepath;
@@ -17,10 +26,21 @@ public class Storage {
         ui = new Ui();
     }
 
+    /**
+     * Setter method for TaskList.
+     *
+     * @param taskList TaskList to be set.
+     */
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Reads the input file and loads tasks into a TaskList.
+     *
+     * @throws FileNotFoundException If specified input file is not found.
+     * @throws InvalidFormatException If specified input file is incorrectly formatted.
+     */
     public void scanFile() throws FileNotFoundException, InvalidFormatException {
         File f = new File(this.filepath);
         Scanner s = new Scanner(f);
@@ -45,6 +65,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Opens the reads input file.
+     * Creates folders and files if needed.
+     */
     public void openFile() {
         // Read file
         try {
@@ -67,6 +91,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes all tasks in the task list to the file.
+     *
+     * @param taskList TaskList containing tasks to be written.
+     * @throws IOException If unable to write to file.
+     */
     public void writeToFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(this.filepath);
         for (int i = 0; i < taskList.getSize(); i++) {
