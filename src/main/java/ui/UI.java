@@ -75,6 +75,24 @@ public class UI {
                 + " tasks.");
     }
 
+    public void printFound(ArrayList<Task> found) {
+        String message = "Here are the matching tasks in your list:\n";
+        int size = found.size();
+        if (size == 0) {
+            message = "Found no matching tasks in your list.";
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (i == size - 1)
+                {
+                    message += (i + 1) + ". " + found.get(i);
+                } else {
+                    message += (i + 1) + ". " + found.get(i) + "\n";
+                }
+            }
+        }
+        formatMessage(message);
+    }
+
     public String getInput() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
