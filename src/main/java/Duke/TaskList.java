@@ -180,6 +180,33 @@ public class TaskList {
         }
     }
 
+    public void findTask(String[] findInput) {
+        try {
+            if (findInput.length < 2) {
+                throw new InvalidCommandFormatException();
+            }
+            if (getTasksListSize() == 0) {
+                throw new TaskListEmptyException();
+            }
+            String taskToFind = findInput[1];
+            int count = 1;
+            for (Task task : tasksList) {
+                if (task.description.contains(taskToFind)) {
+                    System.out.println(count + ". " + task.taskStatusWithDescriptionText());
+                    count += 1;
+                }
+            }
+            if (count == 1 ) {
+                System.out.println("There is no related task in your list.");
+            }
+            printHorizontalLine();
+        } catch (InvalidCommandFormatException e) {
+            System.out.println("The command should be 'find (task)'.");
+        } catch (TaskListEmptyException e) {
+            System.out.println(e);
+        }
+    }
+
     public void printTaskList() {
         try {
             if (getTasksListSize() == 0) {
