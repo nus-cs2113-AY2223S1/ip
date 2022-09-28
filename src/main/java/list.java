@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
 public class list extends Command {
-
+    String fullCommand;
     list(String fullCommand) {
+        this.fullCommand = fullCommand;
     }
 
     public void execute(ArrayList<String> type, ArrayList<String> marks, ArrayList<String> tasks, Ui ui, Storage storage) {
