@@ -1,3 +1,3 @@
-public class DukeException {
+public class DukeException extends Throwable {
 
 }
