@@ -2,7 +2,6 @@ package Duke;
 
 import Duke.Exceptions.*;
 
-import java.util.Scanner;
 import java.io.IOException;
 
 public class Duke {
@@ -11,10 +10,9 @@ public class Duke {
     public static void run() throws IOException {
         Storage.loadTasksToTasksList(taskList);
         Ui.printGreeting();
-        Scanner in = new Scanner(System.in);
-        String input;
-        while (true) {
-            input = in.nextLine();
+        boolean isExit = false;
+        while (!isExit) {
+            String input = Ui.readInput();
             Parser.parseCommand(input, taskList);
         }
     }
