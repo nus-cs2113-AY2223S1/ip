@@ -33,7 +33,7 @@ public class Duke {
     /**
      * Initializes the program
      */
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) {
 
         startSession();
 

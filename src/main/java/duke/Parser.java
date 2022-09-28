@@ -32,35 +32,43 @@ public class Parser {
      * @throws IOException An exception thrown when there is an error during the read and write to
      * file during the handling of commands from user
      */
-    static void parse(TaskManager Manager,String line) throws DukeException, IOException {
+    static void parse(TaskManager Manager,String line) {
         String action = getAction(line);
-        switch (action) {
-        case "mark":
-            Manager.markTasks(line);
-            break;
-        case "unmark":
-            Manager.unmarkTasks(line);
-            break;
-        case "list":
-            Manager.printTasks();
-            break;
-        case "todo":
-            Manager.storeTodo(line);
-            break;
-        case "deadline":
-            Manager.storeDeadline(line);
-            break;
-        case "event":
-            Manager.storeEvent(line);
-            break;
-        case "delete":
-            Manager.deleteTasks(line);
-            break;
-        case "find":
-            Manager.findTasks(line);
-            break;
-        default:
-            throw new DukeException();
+        try {
+            switch (action) {
+                case "mark":
+                    Manager.markTasks(line);
+                    break;
+                case "unmark":
+                    Manager.unmarkTasks(line);
+                    break;
+                case "list":
+                    Manager.printTasks();
+                    break;
+                case "todo":
+                    Manager.storeTodo(line);
+                    break;
+                case "deadline":
+                    Manager.storeDeadline(line);
+                    break;
+                case "event":
+                    Manager.storeEvent(line);
+                    break;
+                case "delete":
+                    Manager.deleteTasks(line);
+                    break;
+                case "find":
+                    Manager.findTasks(line);
+                    break;
+                default:
+                    throw new DukeException();
+            }
+        }
+        catch (DukeException e) {
+            System.out.println("Nothing makes any sense");
+        }
+        catch (IOException e) {
+            System.out.println("Save file corrupted! Abort mission!");
         }
     }
 

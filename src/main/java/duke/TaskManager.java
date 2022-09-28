@@ -9,20 +9,42 @@ import duke.task.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class that contains an ArrayList of tasks and that contains methods to handle
+ * operations of the different task and the list
+ */
 public class TaskManager {
 
     public static ArrayList<Task> Tasks;
+
+    /**
+     * Initializes the TaskManager class which has an ArrayList of tasks and
+     * also calls the method from Storage class to load tasks saved to the
+     * save file onto the current list
+     */
     public TaskManager() {
         this.Tasks = new ArrayList<Task>();
         Storage.loadTasks(Tasks);
     }
 
+    /**
+     * Prints out texts, other UI and the task to signify that the task has been
+     * successfully added
+     * @param task the task to be signified to the user that it has been successfully
+     *             added
+     */
     public void printCompletion(Task task) {
         System.out.println("I have added this task!");
         System.out.println(task);
         System.out.println("Okay loser! You now have " + Tasks.size() + " in the list. Get to work!");
         UI.printLine();
     }
+
+    /**
+     * stores the task represented in the text into the Tasks list
+     * @param text the text that contains a string which names the task to
+     *             be stored in the list
+     */
     public void storeTodo(String text) {
         UI.printLine();
         try {
@@ -38,6 +60,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * stores the deadline represented in the text into the Tasks list
+     * @param text the text that contains a string which names the deadline to
+     *             be stored in the list and the deadline time associated with it
+     */
     public void storeDeadline(String text) {
         UI.printLine();
         try {
@@ -54,6 +81,11 @@ public class TaskManager {
 
     }
 
+    /**
+     * stores the Event represented in the text into the Tasks list
+     * @param text the text that contains a string which names the event to
+     *             be stored in the list and the event time associated with it
+     */
     public void storeEvent(String text) {
         UI.printLine();
         try {
@@ -69,6 +101,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints the task currently contained in the Tasks list, numbered with
+     * 1 based indexing
+     */
     public void printTasks() {
         UI.printLine();
         System.out.println("It just keeps piling up");
@@ -83,10 +119,20 @@ public class TaskManager {
         UI.printLine();
     }
 
+    /**
+     * Gets the Task at the position(1 based indexing) in the Tasks list
+     * @param position the index (1 based indexing) of the task in the Tasks list
+     * @return the task specified at the position
+     */
     public Task getTask(String position) {
         return Tasks.get(Integer.valueOf(position) - 1);
     }
 
+    /**
+     * Marks the task specified at the position in the list as done
+     * @param text contains the command mark and the position of the task to be marked
+     * @throws IOException
+     */
     public void markTasks(String text) throws IOException {
         try {
             String position=Parser.parseMark(text);
