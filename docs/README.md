@@ -6,7 +6,7 @@
 
 Add a todo task when needed.
 
-Format of input:
+#### Format of input:
 `todo`
 
 #### Example of Input and Output:
@@ -23,9 +23,35 @@ Now you have 1 tasks in the list.
 
 Add an event task with date and/or time when needed.
 
+#### Format of input:
+`event {Event Name} /at {Event date/time}`
+
+#### Example of Input and Output:
+Input : `event NUS Hall Event /at Sunday 5pm`
+
+Output:
+```
+Got it. I've added this task
+  [E][ ] NUS Hall Event (at: Sunday 5pm)
+Now you have 1 tasks in the list.
+```
+
 ### Feature #3 : Add a deadline task - deadline
 
 Add a deadline task with date and/or time when needed.
+
+#### Format of input:
+`deadline {deadline Name} /by {deadline date/time}`
+
+#### Example of Input and Output:
+Input : `deadline Complete CS Homework /by Thursday 23:59`
+
+Output:
+```
+Got it. I've added this task
+  [D][ ] Complete CS Homework (by: Thursday 23:59)
+Now you have 1 tasks in the list.
+```
 
 ### Feature #4 : List all task(s) - list
 
