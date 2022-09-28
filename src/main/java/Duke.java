@@ -1,207 +1,65 @@
-import java.util.Scanner;
-import java.util.Arrays;
+import UI.FileHandler;
+import UI.Parser;
+import UI.UI;
 
 public class Duke {
-    private static void printLine(){
-        System.out.println("---------------------------------------------------");
-    }
-
-    private static String getStringFromList(String[] inputList, int fromIndex, int toIndex) throws IllegalArgumentException{
-        if (fromIndex >= toIndex){
-            throw new IllegalArgumentException();
-        }
-        return String.join(" ", Arrays.copyOfRange(inputList, fromIndex, toIndex));
-    }
 
     public static void main(String[] args) {
         FileHandler.initFiles();
-        boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        FileHandler.loadList();
+        boolean isExitting = false;
 
-        String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-        //Greet
-        printLine();
-        System.out.println("Duke: Hello! What can I do for you today?");
-
+        UI.greetUser();
         
-        while (isExit == false){
-            //Getting Input
-            printLine();
+        while (isExitting == false){
+            //Prompt for Input
+            UI.printLine();
             System.out.print("You: ");
-            String rawInput = scanner.nextLine();
-            String[] inputList = rawInput.split(" ");
-            String cmd = inputList[0];
-            String description;
+
+            //Getting Input
+            Parser.readUserInput();
+            String cmd = Parser.getCommand();
 
             //Responding
             switch (cmd) {
-                case ("list"):
-                    printLine();
-
-                    //Printing result
-                    System.out.println("Tasks: ");
-                    taskList.printList();
+                case ("list"): //List all tasks
+                    Commands.runList();
                     break;
 
-                case ("bye"):
-                    printLine();
-                    isExit = true;
-
-                    //Printing result
-                    System.out.println("Duke: Goodbye!");
-                    printLine();
+                case ("bye"): //Exit program
+                    isExitting = true;
+                    Commands.runExit();
                     break;
 
-                case ("mark"):
-                    printLine();
-                    
-                    //Handle empty task
-                    try{
-                        description = getStringFromList(inputList, 1, inputList.length);
-                        taskList.searchTask(description).markAsDone();
-                        FileHandler.markAsDone(taskList.getTaskIndex(description));
-                    } catch (NullPointerException e){ //invalid 
-                        System.out.println("Please enter a valid task! ");
-                        break;
-                    } catch (IllegalArgumentException e){ //empty
-                        System.out.println("Task cannot be empty!");
-                        break;
-                    }
-
-                    //Printing result
-                    System.out.println("Marked as done:");
-                    System.out.print("[X] ");
-                    System.out.println(description);
+                case ("mark"): //Mark task as done
+                    Commands.runMark();
                     break;
 
-                case ("unmark"):
-                    printLine();
-                    
-                    //Handle empty/invalid task
-                    try{
-                        description = getStringFromList(inputList, 1, inputList.length);
-                        taskList.searchTask(description).markAsNotDone();
-                        FileHandler.markAsNotDone(taskList.getTaskIndex(description));
-                    } catch (NullPointerException e){
-                        System.out.println("Please enter a valid task! ");
-                        break;
-                    } catch (IllegalArgumentException e){ //empty
-                        System.out.println("Task cannot be empty!");
-                        break;
-                    }
-                    
-                    //Printing result
-                    System.out.println("Marked as not completed:");
-                    System.out.print("[ ] ");
-                    System.out.println(description);
+                case ("unmark"): //Mark task as not done
+                    Commands.runUnmark();
                     break;
 
-                case ("todo"): //Add to list
-                    printLine();
+                case ("todo"): //Add todo to list
+                    Commands.runToDo();
+                    break;
 
-                    try{
-                        description = getStringFromList(inputList, 1, inputList.length);
-                    } catch (IllegalArgumentException e){
-                        System.out.println("Task cannot be empty!");
-                        break;
-                    }
+                case ("deadline"): //Add deadline to list
+                    Commands.runDeadline();
+                    break;
 
-                    //Printing result
-                    if (taskList.searchTask(description) == null){
-                        System.out.println("Added:");
-                        System.out.println(" [T][ ] " + description);
-                        taskList.addToDo(description);
-                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                        break;
-                    } else {
-                        System.out.println("Sorry, seems like you already have a task with the same name!");
-                        break;
-                    }   
-
-                case ("deadline"):
-                    printLine();
-                    int byPosition = 0;
-                    String dueDate;
-                    for (int i=0; i<inputList.length; i++){
-                        if (inputList[i].equals("by")) {
-                            byPosition = i;
-                            break;
-                        }
-                    }
-                    
-                    // Handle invalid input
-                    try {
-                        description = getStringFromList(inputList, 1, byPosition);
-                        dueDate = getStringFromList(inputList, byPosition+1, inputList.length);
-                    } catch (IllegalArgumentException e){
-                        System.out.println("Invalid input: task/date not given!");
-                        break;
-                    }
-
-                    //Printing result
-                    if (taskList.searchTask(description) == null){
-                        System.out.println("Added:");
-                        System.out.println(" [D][ ] " + description + " (by: " + dueDate + ")");
-                        taskList.addDeadline(description, dueDate);
-                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                        break;
-                    } else {
-                        System.out.println("Sorry, seems like you already have a task with the same name!");
-                        break;
-                    }
-
-                case ("event"):
-                    printLine();
-                    int atPosition = 0;
-                    String dateTime;
-                    for (int i=0; i<inputList.length; i++){
-                        if (inputList[i].equals("at")){
-                            atPosition = i;
-                            break;
-                        }
-                    }
-
-                    //Handle invalid input
-                    try{
-                        description = getStringFromList(inputList, 1, atPosition);
-                        dateTime = getStringFromList(inputList, atPosition+1, inputList.length);
-                    } catch (IllegalArgumentException e){
-                        System.out.println("Invalid input: task/date not given!");
-                        break;
-                    }
-
-                    if (taskList.searchTask(description) == null){
-                        System.out.println("Added:");
-                        System.out.println(" [E][ ] " + description + " (at: " + dateTime + ")");
-                        taskList.addEvent(description, dateTime);
-                        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-                        break;
-                    } else {
-                        System.out.println("Sorry, seems like you already have a task with the same name!");
-                        break;
-                    }
+                case ("event"): //Add event to list
+                    Commands.runEvent();
+                    break;
                 
-                case ("delete"):
-                    printLine();
-                    int tasknumber = Integer.parseInt(inputList[1]);
-                    Task temp = taskList.getTask(tasknumber-1);
-                    taskList.deleteTask(tasknumber-1);
-                    System.out.println("Removed:");
-                    System.out.println(" [E][ ] " + temp.description);
-                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+                case ("delete"): //Remove task from list
+                    Commands.runDelete();
                     break;
 
                 default: //unknown command
-                    printLine();
-                    System.out.println("Sorry, I don't understand what that means :( ");
-                break;
+                    UI.printLine();
+                    System.out.println("Sorry, I don't understand what that means :(\n "
+                                        + "Please refer to command list! ");
+                    break;
             }
         }
     }
