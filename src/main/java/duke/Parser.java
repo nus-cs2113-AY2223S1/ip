@@ -25,10 +25,15 @@ public class Parser {
             return prepareDeleteTask();
         case "exit":
             return prepareToExit();
+        case "find":
+            return prepareToFind();
         default:
-            ui.printInvalidCommandMessage();
             return prepareInvalidCommand();
         }
+    }
+
+    private Command prepareToFind() {
+        return Command.FIND;
     }
 
     private Command prepareInvalidCommand() {
