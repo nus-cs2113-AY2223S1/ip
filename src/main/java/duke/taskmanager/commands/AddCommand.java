@@ -41,6 +41,11 @@ public class AddCommand extends Command {
 
     private void addDeadlineOrEvent(TaskList tasks, UI ui, String command, String firstWord) {
         if (command.contains("/")){
+            int dateTimeLength = command.substring(command.indexOf('/')).length();
+            int minLength = "/at _".length();
+            if (dateTimeLength < minLength) {
+                command += "error";
+            }
             switch (firstWord) {
             case "deadline":
                 tasks.add(new Deadline(command, '/'));
@@ -51,7 +56,7 @@ public class AddCommand extends Command {
             }
             ui.printTask(tasks.get(tasks.size()-1));
         } else {
-            ui.printNoBackslashException();
+            addDeadlineOrEvent(tasks, ui, command + "/at error", firstWord);
         }
     }
 }

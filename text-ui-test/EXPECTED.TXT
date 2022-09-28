@@ -81,8 +81,11 @@ Here are the tasks in your list:
 ☹ OOPS!!! You did not enter a number.
 ------------------------------------------------------------
 
+Sorry. Date and Time cannot be parsed
 ------------------------------------------------------------
-☹ OOPS!!! You did not specify a deadline OR event datetime.
+Got it. I've added this task:
+[D][ ] hello (by: Oct 5 2022 1:11 PM)//should be 1 week from current time
+Now you have 3 tasks in the list.
 ------------------------------------------------------------
 
 ------------------------------------------------------------

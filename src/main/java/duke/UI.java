@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class UI {
     public final String DASH_SEPARATOR = "------------------------------------------------------------\n";
     public static int oneBasedIndex = 1;
+
     public void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
     }
@@ -55,7 +56,7 @@ public class UI {
         Pattern pattern = Pattern.compile(description, Pattern.CASE_INSENSITIVE);
         StringBuilder s = new StringBuilder();
         int count = 0;
-        s.append("Here are the tasks matching \"" + description + "\" in your list:").append(System.lineSeparator());
+        s.append("Here are the tasks matching \"").append(description).append("\" in your list:").append(System.lineSeparator());
         for (int i = 1; i < oneBasedIndex; i++) {
             if (pattern.matcher(tasks.get(i).getDescription()).find()) {
                 s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
@@ -73,27 +74,28 @@ public class UI {
     public void printEmptyException(String command) {
         formatOutput("☹ OOPS!!! The description of a " + command + " cannot be empty.");
     }
+
     public void printWrongCommandException() {
         formatOutput("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
+
     public void printTaskOutOfBoundsException() {
         formatOutput("☹ OOPS!!! The task number you specified does not exist.");
     }
-    public void printNoBackslashException() {
-        formatOutput("☹ OOPS!!! You did not specify a deadline OR event datetime.");
-    }
+
     public void printFileNotFoundException() {
         formatOutput("File not found sorry.");
     }
+
     public void printNumberFormatException() {
         formatOutput("☹ OOPS!!! You did not enter a number.");
     }
+
     public void showLoadingError() {
         formatOutput("☹ OOPS!!! There was no previously saved tasks.");
     }
+
     public void printExitMessage() {
         formatOutput("Bye. Hope to see you again soon!");
     }
-
-
 }

@@ -3,6 +3,7 @@ package duke.taskmanager.tasks;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -37,11 +38,18 @@ public class Todo extends Task {
             time = new SimpleDateFormat("h:mm aa").format(dateTime);
         } catch (ParseException e) {
             System.out.println("Sorry. Date and Time cannot be parsed");
+            date = LocalDate.now().plusWeeks(1);
+            time = String.valueOf(new SimpleDateFormat("h:mm aa").format(new Date()));
         }
     }
 
     public String formatDate() {
-        return this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        if (date != null){
+            return this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } else {
+            return "";
+        }
+
     }
 
 }
