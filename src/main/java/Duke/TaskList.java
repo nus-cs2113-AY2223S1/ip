@@ -145,6 +145,25 @@ public class TaskList {
     }
 
     /**
+     * Find tasks containing a specified keyword
+     * @param list List of tasks to search
+     * @param keyWord Keyword to search
+     */
+    public static void findTasks (ArrayList<Task> list, String keyWord) {
+        int size = list.size();
+        int numberOfTasks = 1;
+        Ui.drawLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < size; i++) {
+            Task currTask = list.get(i);
+            if (currTask.description.contains(keyWord)) {
+                System.out.println(numberOfTasks + "." + list.get(i).toString());
+                numberOfTasks++;
+            }
+        }
+    }
+
+    /**
      * Modifies the task list according to the user command given
      * @param commandType Type of command to be executed
      * @param commandActual Description and deadline of command, if any
@@ -174,6 +193,9 @@ public class TaskList {
                 break;
             case "delete":
                 deleteTask(list, commandActual);
+                break;
+            case "find":
+                findTasks(list, commandActual);
                 break;
             case "bye":
                 isLast = true;

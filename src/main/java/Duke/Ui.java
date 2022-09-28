@@ -53,8 +53,6 @@ public class Ui {
         return input;
     }
 
-
-
     /**
      * Displays specified errors
      */
