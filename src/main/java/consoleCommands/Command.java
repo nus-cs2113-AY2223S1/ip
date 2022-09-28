@@ -30,7 +30,7 @@ public class Command {
      * @param command is the string that determines the command executed
      * @param arguments is the string that supplements the executed command with data (e.g date, descriptions)
      */
-    public Command (String command, String arguments) {
+    public Command(String command, String arguments) {
         this.command = command;
         this.arguments = arguments;
     }
@@ -50,7 +50,7 @@ public class Command {
      * @throws InvalidArgumentsException if the arguments provided is incorrect for the corresponding commands
      * @throws InvalidCommandException if command provided does not exist
      */
-    public void execute (ArrayList<Task> taskList)
+    public void execute(ArrayList<Task> taskList)
             throws NotEnoughArgumentsException, TaskDoesNotExistException, InvalidArgumentsException,
             InvalidCommandException {
         try {
@@ -87,7 +87,7 @@ public class Command {
     /**
      * Method determines if programme exits or not
      */
-    public boolean isExit () {
+    public boolean isExit() {
         return isExit;
     }
 

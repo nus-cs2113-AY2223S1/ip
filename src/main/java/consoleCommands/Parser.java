@@ -11,7 +11,7 @@ public class Parser {
      * @param input is the input string from command line
      * @return command class object to Duke.java for execution
      */
-    public Command Parse (String input) {
+    public Command Parse(String input) {
         String[] tempInput = input.split(" ", 2);
         if (tempInput.length == 2) {
             String command = tempInput[0];

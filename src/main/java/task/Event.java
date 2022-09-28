@@ -24,10 +24,10 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] DateTime = at.split(" ");
         if (DateTime.length == 2) {
-            this.date = LocalDate.parse(DateTime[0],formatter);
+            this.date = LocalDate.parse(DateTime[0], formatter);
             this.time = " " + DateTime[1];
         } else {
-            this.date = LocalDate.parse(at,formatter);
+            this.date = LocalDate.parse(at, formatter);
             this.time = "";
         }
     }
@@ -41,7 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return ("[E][" + super.getStatusIcon() + "] " + super.description + " (at: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + time + ")");
+        return ("[E][" + super.getStatusIcon() + "] " + super.description
+                    + " (at: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + time + ")");
     }
     /**
      * @return type of child, which is "E"

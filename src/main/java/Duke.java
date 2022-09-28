@@ -1,4 +1,8 @@
-import consoleCommands.*;
+
+import consoleCommands.Command;
+import consoleCommands.Parser;
+import consoleCommands.Storage;
+import consoleCommands.Ui;
 import exception.TaskDoesNotExistException;
 import exception.InvalidCommandException;
 import exception.InvalidFileDataException;
@@ -15,13 +19,11 @@ import java.util.ArrayList;
  * It is also the base of the programme, where other classes are called from here.
  */
 public class Duke {
-    static String dir = System.getProperty("user.dir");
-    public static final java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "duke.txt");
-    public static final java.nio.file.Path tempFilePath = java.nio.file.Paths.get(dir, "data", "temp.txt");
-
+    private static final String userDirectory = System.getProperty("user.dir");
+    private static final java.nio.file.Path filePath = java.nio.file.Paths.get(userDirectory, "data", "duke.txt");
+    private static final java.nio.file.Path tempFilePath = java.nio.file.Paths.get(userDirectory, "data", "temp.txt");
     private Ui ui;
     private Storage storage;
-    //private TaskList tasks;
     private Parser parser;
     private ArrayList<Task> taskList = new ArrayList<>();
     private Command c;
@@ -30,7 +32,7 @@ public class Duke {
      * @throws InvalidFileDataException if the file contains data that is wrong or not formatted correctly
      * @throws IOException if filePath is invalid or file cannot be found
     */
-    public Duke () throws InvalidFileDataException, IOException{
+    public Duke() throws InvalidFileDataException, IOException {
         ui = new Ui();
         storage = new Storage();
         parser = new Parser();
@@ -49,7 +51,7 @@ public class Duke {
      * Calls .end() to send goodbye message and end programme
      * @throws IOException if filePath is invalid or file cannot be found
      */
-    public void run () throws IOException {
+    public void run() throws IOException {
         ui.start();
         boolean isExit = false;
         while (!isExit) {
@@ -66,7 +68,7 @@ public class Duke {
             }
         }
         try {
-            storage.writeToFile(filePath,tempFilePath,taskList);
+            storage.writeToFile(filePath, tempFilePath, taskList);
         } catch (FileNotFoundException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -76,7 +78,7 @@ public class Duke {
     /**
      * @throws IOException if filePath is invalid or file cannot be found
      */
-    public static void main (String[] args) throws IOException, InvalidFileDataException {
+    public static void main(String[] args) throws IOException, InvalidFileDataException {
         new Duke().run();
     }
 }

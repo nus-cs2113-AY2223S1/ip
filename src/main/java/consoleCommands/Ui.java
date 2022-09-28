@@ -8,6 +8,11 @@ import java.util.Scanner;
 public class Ui {
     public static final String HELLO_MESSAGE = "Hello! I'm Duke\n" + "What can I do for you?";
     public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String LOGO = " ____        _        \n"
+                                + "|  _ \\ _   _| | _____ \n"
+                                + "| | | | | | | |/ / _ \\\n"
+                                + "| |_| | |_| |   <  __/\n"
+                                + "|____/ \\__,_|_|\\_\\___|\n";
 
     /**
      * Method prints a line across, to demarcate between consecutive inputs and outputs
@@ -21,6 +26,7 @@ public class Ui {
      */
     public void start() {
         printLine();
+        System.out.println(LOGO);
         System.out.println(HELLO_MESSAGE);
         printLine();
     }
@@ -33,7 +39,7 @@ public class Ui {
         System.out.println(BYE_MESSAGE);
         printLine();
     }
-    public Ui () {
+    public Ui() {
     }
 
     /**

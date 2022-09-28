@@ -29,7 +29,7 @@ public class Task {
     /**
      * @return the full details of each task as a string in child
      */
-    public String toString () {
+    public String toString() {
         return toString();
     }
 
@@ -37,21 +37,21 @@ public class Task {
      * @return the corresponding letter of the type of task in child
      * "D" if deadline, "E" if event, "T" if todo
      */
-    public String getTaskClass () {
+    public String getTaskClass() {
         return getTaskClass();
     }
 
     /**
      * @return description of task, regardless of child type
      */
-    public String getDescription () {
+    public String getDescription() {
         return description;
     }
 
     /**
      * @return date + time of task, in string format, regardless of child type
      */
-    public String getDetails () {
+    public String getDetails() {
         return getDetails();
     }
 }

@@ -24,10 +24,10 @@ public class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] DateTime = by.split(" ");
         if (DateTime.length == 2) {
-            this.date = LocalDate.parse(DateTime[0],formatter);
+            this.date = LocalDate.parse(DateTime[0], formatter);
             this.time = " " + DateTime[1];
         } else {
-            this.date = LocalDate.parse(by,formatter);
+            this.date = LocalDate.parse(by, formatter);
             this.time = "";
         }
     }
@@ -41,8 +41,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[D][" + super.getStatusIcon() + "] " + super.description +
-                " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + time + ")");
+        return ("[D][" + super.getStatusIcon() + "] " + super.description
+                    + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + time + ")");
     }
     /**
      * @return type of child, which is "D"

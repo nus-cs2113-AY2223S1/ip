@@ -6,7 +6,10 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,10 +31,11 @@ public class Storage {
 
     /**
      * Method is used to read string from text file, and convert it into task objects to be inputted into ArrayList
+     * If text file cannot be found in filePath, a new text file of the same name will be created
      * @param filePath is the relative filePath of the file to be read
      * @param taskList is the ArrayList of tasks, to read data from text file
      */
-    public void readFromFile (Path filePath, ArrayList<Task> taskList)
+    public void readFromFile(Path filePath, ArrayList<Task> taskList)
             throws IOException, InvalidFileDataException {
         File f = new File(filePath.toString());
         if (f.exists()) {
@@ -66,13 +70,13 @@ public class Storage {
      * @param tempFilePath is the relative filePath of the temporary file to be written to
      * @param taskList is the ArrayList of tasks, to write data to text file
      */
-    public static void arrayToText (Path tempFilePath, ArrayList<Task> taskList) throws IOException {
+    public static void arrayToText(Path tempFilePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(tempFilePath.toString(), true);
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             String textToAppend = currentTask.getTaskClass();
             if (currentTask.isDone) {
-                textToAppend += LINE_SEPARATOR + IS_MARKED ;
+                textToAppend += LINE_SEPARATOR + IS_MARKED;
             } else {
                 textToAppend += LINE_SEPARATOR + IS_UNMARKED;
             }
@@ -88,12 +92,12 @@ public class Storage {
     /**
      * Method is used to write data from ArrayList to text file
      * Method calls .arrayToText() to create a temporary text file, with data from ArrayList written to it
-     * Method then copies data from the temporary file to the main text file, then deletes the temporary file
+     * Method then copies data from the temporary text file to the main text file, then deletes the temporary file
      * @param filePath is the relative filePath of the file to be written to
      * @param taskList is the ArrayList of tasks, to write data to text file
      * @param tempFilePath is the relative filePath of the temporary file to be written to
      */
-    public void writeToFile (Path filePath, Path tempFilePath, ArrayList<Task> taskList)
+    public void writeToFile(Path filePath, Path tempFilePath, ArrayList<Task> taskList)
             throws IOException {
         try {
             arrayToText(tempFilePath, taskList);

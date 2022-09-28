@@ -16,6 +16,20 @@ A `deadline` task which contains:
 
 ## Features of Duke
 
+### Starting the programme
+
+When you start the programme, you should see the following message. 
+```
+ ____        _        
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+Hello! I'm Duke
+What can I do for you?
+```
+
 ### Task List of Todos, Events and Deadlines
 
 A collated Task List of tasks that you can view.
@@ -24,7 +38,7 @@ A collated Task List of tasks that you can view.
 
 `list`
 
-Expected output:
+#### Expected output:
 ```
 Here are the tasks in your list:
 1.[T][X] read book
@@ -161,6 +175,8 @@ Bye. Hope to see you again soon!
 `[project_root]/data/duke.txt`
 ### Retrieving data from file
 **Duke** automatically reads data from `duke.txt` at the start of the programme, and loads your Task List with the data stored. 
+
+If `duke.txt` is not found in the relative path, **Duke** will create a new `duke.txt` in the relative file path. 
 ### Writing data to file
 **Duke** appends the current Task List as `String` to another text file, `temp.txt`. The programme is made to create this temporary text file in the relative path:
 `[project_root]/data/temp.txt`. **Duke** then copies the contents of `temp.txt` into `duke.txt`, and deletes `temp.txt`. Hence, `duke.txt` now stores the updated 

@@ -18,6 +18,7 @@ import static consoleCommands.Ui.printLine;
  */
 public class TaskList {
     public static final String COMMAND_MARKED = "mark";
+    public static final String COMMAND_UNMARKED = "unmark";
     public static final String COMMAND_DEADLINE_BY = "/by";
     public static final String COMMAND_EVENT_AT = "/at";
     public static final String ADDED_MESSAGE = "Got it. I've added this task:";
@@ -52,7 +53,7 @@ public class TaskList {
         if (command.equalsIgnoreCase(COMMAND_MARKED)) {
             taskList.get(index-1).isDone = true;
             System.out.println(MARKED_MESSAGE);
-        } else {
+        } else if (command.equalsIgnoreCase(COMMAND_UNMARKED)) {
             taskList.get(index-1).isDone = false;
             System.out.println(UNMARKED_MESSAGE);
         }
@@ -118,7 +119,7 @@ public class TaskList {
     }
 
     /**
-     * Method adds a event task to taskList
+     * Method adds an event task to taskList
      * Method will print an ADDED_MESSAGE after successfully adding task to taskList, as a
      * confirmation.
      * @param arguments is a string of the name of event, and date and time of the event. Date
@@ -178,7 +179,7 @@ public class TaskList {
      * @throws NotEnoughArgumentsException if arguments is an empty string
      */
     public static void findTask (String arguments, ArrayList<Task> taskList)
-            throws NotEnoughArgumentsException{
+            throws NotEnoughArgumentsException {
         printLine();
         if (arguments.equals(EMPTY)) {
             throw new NotEnoughArgumentsException();
