@@ -11,63 +11,41 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Storage implements Utilities{
+public class Storage {
 
     private static String filePath = "data/userData.txt";
-    private static ArrayList<String> dataHistory = new ArrayList<>();
+    private ArrayList<String> commandHistory;
 
-    //need to refactor to not record redundant input
-    private static ArrayList<String> dataSession = new ArrayList<>();
-
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        commandHistory = new ArrayList<>();
+    }
 
     public Storage() {
+        this.filePath = "data/userData.txt";
+        commandHistory = new ArrayList<>();
     }
 
-    public static void init() {
-        dataHistory = new ArrayList<>();
-        dataSession = new ArrayList<>();
-    }
-
-    public static void close() {
-        dataHistory = new ArrayList<>();
-        dataSession = new ArrayList<>();
-    }
-
-    public static void setPath(String path) {
-        filePath = path;
-    }
-
-    public static void loadData() {
+    public void loadData() {
 
         try {
             Scanner sc = new Scanner(new FileInputStream(filePath));
 
             while (sc.hasNextLine()) {
                 String pastCommand = sc.nextLine();
-                dataHistory.add(pastCommand);
+                commandHistory.add(pastCommand);
             }
 
         } catch (FileNotFoundException e) {
             System.out.println("no past data.....welcome new user!!");
         }
-
     }
 
-    public static ArrayList<String> getHistory() {
-        return dataHistory;
+    public ArrayList<String> getData() {
+        return commandHistory;
     }
 
-    public static void addSessionCommand(String command) {
-        dataSession.add(command);
-    }
-
-    public static void addSessionCommands(List<String> commands) {
-        for(String command: commands){
-            addSessionCommand(command);
-        }
-    }
-
-    public static void writeData() {
+    public void writeData(List<String> commands) {
         try {
             File dataFile = new File(filePath);
 
@@ -78,8 +56,8 @@ public class Storage implements Utilities{
 
             FileWriter writer = new FileWriter(dataFile);
 
-            for (String pastCommand : dataSession) {
-                writer.append(pastCommand);
+            for (String command : commands) {
+                writer.append(command);
                 writer.append("\n");
             }
 

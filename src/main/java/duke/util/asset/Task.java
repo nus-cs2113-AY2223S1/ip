@@ -1,8 +1,13 @@
 package duke.util.asset;
 
+import duke.exception.DukeException;
+import duke.exception.UnknownCommandException;
+
 public class Task {
     private boolean isDone;
     private String taskDescription;
+    protected String addMessage;
+    protected String command;
 
     private final String STATUS_DONE_ICON = "X";
     private final String STATUS_NOTDONE_ICON = " ";
@@ -11,9 +16,11 @@ public class Task {
         this("");
     }
 
-    public Task(String description) {
-        this.taskDescription = description;
+    public Task(String taskDescription) {
+        this.taskDescription = taskDescription;
         this.isDone = false;
+        this.addMessage = "";
+        this.command = "";
     }
 
     public String getTask() {
@@ -40,6 +47,14 @@ public class Task {
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskDescription;
+    }
+
+    public String serialize() throws DukeException {
+        throw new UnknownCommandException("Cannot serialize Task");
+    }
+
+    public String getAddMessage() throws DukeException {
+        throw new UnknownCommandException("Cannot add Task");
     }
 }
 

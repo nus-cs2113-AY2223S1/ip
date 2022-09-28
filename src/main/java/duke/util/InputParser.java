@@ -3,7 +3,10 @@ package duke.util;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyArgumentException;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class InputParser implements Utilities{
 
@@ -12,6 +15,9 @@ public class InputParser implements Utilities{
     private static Scanner scanner;
 
     public InputParser() {
+        inputBuffer = "";
+        userCommand = "";
+        scanner = new Scanner(System.in);
     }
 
     public static void init() {
@@ -36,6 +42,7 @@ public class InputParser implements Utilities{
             case ("list"):
             case ("mark"):
             case ("unmark"):
+            case ("marked"):
             case ("todo"):
             case ("deadline"):
             case ("event"): //Fallthrough
@@ -46,29 +53,34 @@ public class InputParser implements Utilities{
         }
     }
 
-    private static boolean isCorrectInput(String[] parsed ) {
-        if (userCommand.equals("list")){
+    private static boolean isCorrectInput(List<String> parsed) {
+        if (userCommand.equals("list") || userCommand.equals("marked")){
             return true;
         }
-        return (parsed.length > 1);
+        return (parsed.size() > 1);
     }
 
-    private static String[] parseParameter(String inputString, String optionFlag){
+    private static ArrayList<String> parseParameter(String inputString, String optionFlag){
         int optionLen = 4;
         int optionIndex = inputString.indexOf(optionFlag);
 
         String descriptionMain = inputString.substring(0, optionIndex);
         String descriptionOption = inputString.substring(optionIndex + optionLen);
 
-        return new String[]{ descriptionMain , descriptionOption };
+        return new ArrayList<>() {
+            {
+                add(descriptionMain);
+                add(descriptionOption);
+            }
+        };
     }
 
     public static void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
         final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
-        String[] inputSplitBySpace = userInput.split(" ", NUM_CMD_SPLIT);
+        List<String> inputSplitBySpace = Arrays.asList( userInput.split(" ", NUM_CMD_SPLIT) );
 
-        userCommand = inputSplitBySpace[0];
+        userCommand = inputSplitBySpace.get(0);
 
         if (!isValidCommand()) {
             throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -79,8 +91,8 @@ public class InputParser implements Utilities{
         }
 
         //if the particular command requires arguments
-        if ( inputSplitBySpace.length > 1) {
-            inputBuffer = inputSplitBySpace[1];
+        if ( inputSplitBySpace.size() > 1) {
+            inputBuffer = inputSplitBySpace.get(1);
         }
 
     }
@@ -93,15 +105,19 @@ public class InputParser implements Utilities{
         return userCommand;
     }
 
-    public static String[] getTaskParameters() {
-        String[] parameters;
+    public static ArrayList<String> getTaskParameters() {
+        ArrayList<String> parameters;
 
         switch (userCommand) {
             case ("todo"):
             case ("mark"):
             case ("delete"): //Fallthrough
             case ("unmark"):
-                parameters = new String[]{ inputBuffer };
+                parameters = new ArrayList<>(){
+                    {
+                        add(inputBuffer);
+                    }
+                };
                 break;
             case ("deadline"):
                 parameters = parseParameter(inputBuffer, "/by");

@@ -21,7 +21,7 @@ public class Ui implements Utilities {
             + "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ \n"
             + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
 
-    private static final String MESSAGE_GREET = "Hello! I'm Duke\n What can I do for you?";
+    private static final String MESSAGE_GREET = "Hello! I'm Duke\nWhat can I do for you?";
 
     private static final String MESSAGE_BYE = "BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>";
 
@@ -33,20 +33,16 @@ public class Ui implements Utilities {
         uiBuffer = new ArrayList<>();
     }
 
-    public static void init() {
-        uiBuffer = new ArrayList<>();
+    public void close() {
+        uiBuffer.clear();
     }
 
-    public static void close() {
-        uiBuffer = new ArrayList<>();
-    }
-
-    public static void printUi() {
+    public void printUi() {
         //print line divider by default
         printUi(true);
     }
 
-    public static void printUi(boolean hasLineDivider) {
+    public void printUi(boolean hasLineDivider) {
         if (hasLineDivider){
             showLine();
         }
@@ -62,30 +58,30 @@ public class Ui implements Utilities {
         uiBuffer.clear();
     }
 
-    public static void addLine(String message) {
+    public void addLine(String message) {
         uiBuffer.add(message);
     }
 
-    public static void addLines(String[] messages) {
+    public void addLine(String[] messages) {
         for(String message: messages) {
             addLine(message);
         }
     }
 
-    public static void displayMessage(String message) {
+    public void displayMessage(String message) {
         System.out.println(message);
     }
 
-    public static void showLine() {
+    public void showLine() {
         System.out.println(LINE_DIVIDER);
     }
 
-    public static void greetUser() {
+    public void greetUser() {
         System.out.println(LOGO);
         System.out.println(MESSAGE_GREET);
     }
 
-    public static void endMessage() {
+    public void endMessage() {
         System.out.println(MESSAGE_BYE);
     }
 
