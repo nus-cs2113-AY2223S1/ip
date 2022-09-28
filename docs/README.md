@@ -9,7 +9,7 @@ Add a todo task when needed.
 Format of input:
 `todo`
 
-### Example of Input and Output:
+#### Example of Input and Output:
 Input : `todo Do Homework`
 
 Output:
