@@ -72,7 +72,7 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:\n");
     }
 
-    public void printUnmarkingTaskErrorMessage() {
+    public void printUnmarkTaskErrorMessage() {
         System.out.println("Error: Could not unmark task.");
     }
 
@@ -82,7 +82,7 @@ public class Ui {
 
     public void printDeleteTaskMessage(ArrayList<Task> tasks, int taskToDelete) {
         System.out.printf("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list."
-                , tasks.get(taskToDelete - 1).toString(),tasks.size()-1);
+                , tasks.get(taskToDelete - 1).toString(), tasks.size() - 1);
 
     }
 
@@ -92,5 +92,12 @@ public class Ui {
 
     public void printDeletingTaskErrorMessage() {
         System.out.println("Error: Task could not be deleted.");
+    }
+
+    public void printFilteredTaskList(ArrayList<Task> filteredTasks) {
+        System.out.println("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            System.out.println(i + 1 + "." + filteredTasks.get(i).toString());
+        }
     }
 }

@@ -28,7 +28,7 @@ public class Task {
     }
 
     public String toString() {
-       return "[" + getStatusIcon() + "]" + task;
+        return "[" + getStatusIcon() + "]" + task;
     }
 
     public String convertToFileFormat() {
