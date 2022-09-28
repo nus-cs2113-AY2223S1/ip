@@ -1,13 +1,17 @@
-package Duke.Tasks;
+package Duke;
 
 import Duke.Exceptions.InvalidCommandFormatException;
 import Duke.Exceptions.TaskListEmptyException;
 import Duke.Exceptions.TaskNumberOutOfBoundsException;
 import Duke.Exceptions.TaskNumberNotNumberException;
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Event;
+import Duke.Tasks.Task;
+import Duke.Tasks.Todo;
 
 import java.util.ArrayList;
 
-public class TasksList {
+public class TaskList {
     protected static ArrayList<Task> tasksList = new ArrayList<>();
     protected static int taskNumberOfInterest;
 
@@ -141,7 +145,6 @@ public class TasksList {
             String newIcon = tasksList.get(taskNumber).getStatusIcon();
             System.out.println("[" + newIcon + "] " + tasksList.get(taskNumber).description);
             printHorizontalLine();
-//            updateTaskDoneInDataFile(taskNumber,"edit");
         } catch (NumberFormatException e) {
             System.out.println("Task Number should be an integer!");
         } catch(InvalidCommandFormatException e) {
@@ -168,7 +171,6 @@ public class TasksList {
             Task taskToBeRemoved = tasksList.get(taskNumber);
             tasksList.remove(taskNumber);
             printDeleteTaskText(taskToBeRemoved);
-//            updateTaskDoneInDataFile(taskNumber,"delete");
         } catch (NumberFormatException e) {
             System.out.println("Task Number should be an integer!");
         } catch (InvalidCommandFormatException e) {

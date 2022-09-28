@@ -2,7 +2,6 @@ package Duke;
 
 import Duke.Tasks.Deadline;
 import Duke.Tasks.Event;
-import Duke.Tasks.TasksList;
 import Duke.Tasks.Todo;
 
 import java.io.File;
@@ -33,7 +32,7 @@ public class Storage {
         }
     }
 
-    public static void loadTasksToTasksList(TasksList tasksList) {
+    public static void loadTasksToTasksList(TaskList taskList) {
         try {
             File dataFile = new File(DATA_FILE_PATH);
             Scanner s = new Scanner(dataFile);
@@ -44,26 +43,26 @@ public class Storage {
                 switch (fileWords[0].charAt(0)) {
                 case 'T':
                     Todo todoTask = new Todo(fileWords[2], 'T');
-                    tasksList.addToTasksList(todoTask);
+                    taskList.addToTasksList(todoTask);
                     String isMarked = fileWords[1].replaceAll("\\s+","");
                     if (isMarked.equals("1")){
-                        tasksList.setTaskDoneStatus(taskNumber, true);
+                        taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;
                 case 'D':
                     Deadline deadlineTask = new Deadline(fileWords[2], 'D', fileWords[ 3 ]);
-                    tasksList.addToTasksList(deadlineTask);
+                    taskList.addToTasksList(deadlineTask);
                     isMarked = fileWords[1].replaceAll("\\s+","");
                     if (isMarked.equals("1")){
-                        tasksList.setTaskDoneStatus(taskNumber, true);
+                        taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;
                 case 'E':
                     Event eventTask = new Event(fileWords[ 2 ], 'E', fileWords[ 3 ]);
-                    tasksList.addToTasksList(eventTask);
+                    taskList.addToTasksList(eventTask);
                     isMarked = fileWords[1].replaceAll("\\s+","");
                     if (isMarked.equals("1")){
-                        tasksList.setTaskDoneStatus(taskNumber, true);
+                        taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;
                 default:
@@ -77,11 +76,11 @@ public class Storage {
         }
     }
 
-    public static void loadTasktoDataFile(TasksList tasksList) throws IOException {
+    public static void loadTasktoDataFile(TaskList taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
-            int taskNumber = tasksList.getTaskNumberOfInterest();
-            fw.write(tasksList.printTaskToDataFile(taskNumber));
+            int taskNumber = taskList.getTaskNumberOfInterest();
+            fw.write(taskList.printTaskToDataFile(taskNumber));
             fw.close();
         } catch (IOException ioException) {
             System.out.printf("Error has occured when loading the task to data file.");
@@ -89,13 +88,13 @@ public class Storage {
         }
     }
 
-    public static void updateTaskInDataFile(TasksList tasksList, String commandType) {
+    public static void updateTaskInDataFile(TaskList taskList, String commandType) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));
-            int taskNumber = tasksList.getTaskNumberOfInterest();
+            int taskNumber = taskList.getTaskNumberOfInterest();
             String updatedTaskToLoadInDataFile = "";
             if (commandType.equals("edit")) {
-                updatedTaskToLoadInDataFile = tasksList.printTaskToDataFile(taskNumber).replace("\n", "");
+                updatedTaskToLoadInDataFile = taskList.printTaskToDataFile(taskNumber).replace("\n", "");
             }
             lines.set(taskNumber, updatedTaskToLoadInDataFile);
             lines.removeIf(String::isEmpty);
