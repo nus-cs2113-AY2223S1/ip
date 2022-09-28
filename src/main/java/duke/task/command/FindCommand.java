@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
 
-    private String target;
+    private final String target;
 
     /**
      * Constructor for FindCommand.
@@ -29,8 +29,8 @@ public class FindCommand extends Command {
      * Displays the list of matching items or shows a message that no matching
      * items are found.
      *
-     * @param ui Object that handles all user interaction.
-     * @param tasks Object that handles and tracks all tasks that the user has added.
+     * @param ui      Object that handles all user interaction.
+     * @param tasks   Object that handles and tracks all tasks that the user has added.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     @Override

@@ -23,8 +23,8 @@ public class MarkCommand extends Command {
      * Executes this mark command by marking the tasks of the index.
      * Displays a message telling the user that the task has been marked.
      *
-     * @param ui Object that handles all user interaction.
-     * @param tasks Object that handles and tracks all tasks that the user has added.
+     * @param ui      Object that handles all user interaction.
+     * @param tasks   Object that handles and tracks all tasks that the user has added.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     @Override

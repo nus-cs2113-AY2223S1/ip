@@ -37,7 +37,7 @@ public class Parser {
                 Command command = handleCommand(ui);
                 command.execute(tasks, ui, storage);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.printErrorMessage(e);
             }
         }
     }
@@ -104,13 +104,22 @@ public class Parser {
     private String getArgument(String input) throws DukeException {
         String[] splitInput = input.split(" ", SPLIT_AMOUNT);
         if (splitInput.length != SPLIT_AMOUNT) {
-            if (splitInput[0].equals(TODO) || splitInput[0].equals(DEADLINE) || splitInput[0].equals(EVENT)
-                    || splitInput[0].equals(FIND)) {
-                throw new DukeException("Missing input for command, input the command in this format: " +
-                        splitInput[0] + " {TASK}");
-            } else {
-                throw new DukeException("Missing input for command, input the command in this format: " +
-                        splitInput[0] + " {ID}");
+            switch(splitInput[0]) {
+            case (TODO):
+                throw new DukeException("Missing input for command, input the command in this format:\n"
+                        + TODO + " taskname");
+            case (DEADLINE):
+                throw new DukeException("Missing input for command, input the command in this format:\n"
+                        + DEADLINE + " taskname /by date");
+            case (EVENT):
+                throw new DukeException("Missing input for command, input the command in this format:\n"
+                        + EVENT + " taskname /at date");
+            case (FIND):
+                throw new DukeException("Missing input for command, input the command in this format:\n"
+                        + FIND + " something");
+            default:
+                throw new DukeException("Missing input for command, input the command in this format:\n"
+                        + splitInput[0] + " id");
             }
         }
         return splitInput[1];

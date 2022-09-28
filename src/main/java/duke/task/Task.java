@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     *  Sets the done state of this task.
+     * Sets the done state of this task.
      *
      * @param isDone Whether this task is to be marked as done.
      */

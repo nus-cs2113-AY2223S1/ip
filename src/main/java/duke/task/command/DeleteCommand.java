@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
      * and the local storage.
      * Displays a message telling user that the task has been deleted.
      *
-     * @param ui Object that handles all user interaction.
-     * @param tasks Object that handles and tracks all tasks that the user has added.
+     * @param ui      Object that handles all user interaction.
+     * @param tasks   Object that handles and tracks all tasks that the user has added.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     @Override

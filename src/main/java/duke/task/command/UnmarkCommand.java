@@ -23,12 +23,12 @@ public class UnmarkCommand extends Command {
      * Executes this unmark command by unmarking the tasks of the index.
      * Displays a message telling the user that the task has been unmarked.
      *
-     * @param ui Object that handles all user interaction.
-     * @param tasks Object that handles and tracks all tasks that the user has added.
+     * @param ui      Object that handles all user interaction.
+     * @param tasks   Object that handles and tracks all tasks that the user has added.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage)  {
+    public void execute(TaskList tasks, UI ui, Storage storage) {
         tasks.unmarkTarget(index);
         ui.markMessage(tasks, index);
         storage.rewriteFile(storage);

@@ -169,7 +169,7 @@ public class Storage {
     /**
      * Stores a task into the local text file.
      *
-     * @param task The task to be stored.
+     * @param task    The task to be stored.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     public void storeTask(Task task, Storage storage) {

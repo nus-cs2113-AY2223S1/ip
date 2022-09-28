@@ -17,13 +17,13 @@ public class Duke {
         Duke.tasks = new TaskList(storage.startReading());
     }
 
-    public void start() {
+    public void run() {
         ui.welcomeUser();
         Parser parser = new Parser();
         parser.executeCommands(ui, tasks, storage);
     }
 
     public static void main(String[] args) {
-        new Duke().start();
+        new Duke().run();
     }
 }

@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -17,6 +18,7 @@ public class UI {
             + "delete {index} : Deletes a task\n"
             + "list : List all current tasks\n"
             + "bye : Exits the program";
+
     public final String BYE_MESSAGE = "Goodbye, hope to see you again.";
 
     public void welcomeUser() {
@@ -33,7 +35,7 @@ public class UI {
 
     public void addMessage(Task task, TaskList tasks) {
         formatMessage("Got it. I have added this task:\n" + task
-                + "\nYou now have " + tasks.getTaskCount() + " tasks.");
+                + "\nYou now have " + TaskList.getTaskCount() + " tasks.");
     }
 
     public void printList(ArrayList<Task> tasks) {
@@ -71,7 +73,7 @@ public class UI {
     public void deleteMessage(TaskList tasks, int index) {
         Task deletedTask = tasks.getTask(index - 1);
         formatMessage("The following task has been deleted: \n"
-                + deletedTask + "\nYou now have " + (tasks.getTaskCount() - 1)
+                + deletedTask + "\nYou now have " + (TaskList.getTaskCount() - 1)
                 + " tasks.");
     }
 
@@ -82,8 +84,7 @@ public class UI {
             message = "Found no matching tasks in your list.";
         } else {
             for (int i = 0; i < size; i++) {
-                if (i == size - 1)
-                {
+                if (i == size - 1) {
                     message += (i + 1) + ". " + found.get(i);
                 } else {
                     message += (i + 1) + ". " + found.get(i) + "\n";
@@ -91,6 +92,10 @@ public class UI {
             }
         }
         formatMessage(message);
+    }
+
+    public void printErrorMessage(DukeException e) {
+        formatMessage(e.getMessage());
     }
 
     public String getInput() {

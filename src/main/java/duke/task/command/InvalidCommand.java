@@ -12,8 +12,8 @@ public class InvalidCommand extends Command {
      * Executes this invalid command by displaying a message telling the user
      * that their command is invalid.
      *
-     * @param ui Object that handles all user interaction.
-     * @param tasks Object that handles and tracks all tasks that the user has added.
+     * @param ui      Object that handles all user interaction.
+     * @param tasks   Object that handles and tracks all tasks that the user has added.
      * @param storage Object that handles saving the user's task into the local storage.
      */
     @Override

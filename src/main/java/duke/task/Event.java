@@ -10,7 +10,7 @@ public class Event extends Task {
      * Constructor for Event.
      *
      * @param description Description of this event.
-     * @param at When this event is at.
+     * @param at          When this event is at.
      */
     public Event(String description, String at) {
         super(description);
@@ -25,6 +25,7 @@ public class Event extends Task {
     public String getAt() {
         return at;
     }
+
     /**
      * Fixes how this deadline would look like if it were to be converted into a string
      * based on its description and occurring date
