@@ -22,6 +22,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
+    // paths are not based on root location
     private static final String DEFAULT_FOLDER = "./data";
     private static final String DEFAULT_FILE_PATH = "./data/duke.txt";
     private static final String SEPARATOR_LINE = "|";
@@ -120,7 +121,7 @@ public class Storage {
         Scanner storedData = new Scanner(file);
         while (storedData.hasNext()) {
             newLine = storedData.nextLine();
-            keyword = CommandParser.getKeyword(newLine);
+            keyword = CommandParser.getType(newLine);
             isDone = FileParser.getStoredBoolean(newLine);
             // get the parts of newLine that is not retrieved yet
             // firstly cut the part with the keyword: "T,D,E"
@@ -134,6 +135,8 @@ public class Storage {
             currentTask.setDone(isDone);
             storedTasks.addTask(currentTask, false);
         }
+        TaskExecutor.runList(storedTasks.getSize());
+        UserInterface.printBorderLines();
         return storedTasks;
     }
 
@@ -159,9 +162,6 @@ public class Storage {
         String saveMessage;
         FileWriter storingData = new FileWriter(DEFAULT_FILE_PATH);
         int taskNumber = TaskList.getSize();
-        if (taskNumber == 0) { // Guard Clause
-            throw new NoTasksException();
-        }
 
         for (int i = 0; i < taskNumber; i++) {
             Task task = TaskList.get(i);

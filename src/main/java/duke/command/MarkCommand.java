@@ -30,12 +30,12 @@ public class MarkCommand extends Command {
     /**
      * Get parts of user input necessary for command execution.
      *
-     * @param type boolean value that dictates which element of an array containing the parameters should
+     * @param isFirstIndex boolean value that dictates which element of an array containing the parameters should
      *          be returned. Useful only for the Deadline and Event command.
      * @return the position of the task to be marked as done
      */
     @Override
-    public String getArgument(boolean type) {
+    public String getArgument(boolean isFirstIndex) {
         return taskPosition;
     }
 }

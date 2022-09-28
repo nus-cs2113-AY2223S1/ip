@@ -36,13 +36,13 @@ public class DeadlineCommand extends Command{
      * If <code>type</code> is true, return the description of the deadline command. If false,
      * return the due time of the deadline command.
      *
-     * @param type boolean value that dictates which element of an array containing the parameters should
+     * @param isFirstIndex boolean value that dictates which element of an array containing the parameters should
      *          be returned.
      * @return either the description or due time of deadline depending on <code>type</code>
      */
     @Override
-    public String getArgument(boolean type) {
-        if (type) {
+    public String getArgument(boolean isFirstIndex) {
+        if (isFirstIndex) {
             return argument[DESCRIPTION_INT];
         }   else {
             return argument[TIME_INT];

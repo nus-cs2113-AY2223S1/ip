@@ -36,13 +36,13 @@ public class EventCommand extends Command {
      * If <code>type</code> is true, return the description of the event command. If false,
      * return the starting time of the event command.
      *
-     * @param type boolean value that dictates which element of an array containing the parameters should
+     * @param isFirstIndex boolean value that dictates which element of an array containing the parameters should
      *          be returned.
      * @return either the description or starting time of event depending on <code>type</code>
      */
     @Override
-    public String getArgument(boolean type) {
-        if (type) {
+    public String getArgument(boolean isFirstIndex) {
+        if (isFirstIndex) {
             return argument[DESCRIPTION_INT];
         }   else {
             return argument[TIME_INT];

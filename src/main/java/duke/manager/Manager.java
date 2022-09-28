@@ -1,11 +1,21 @@
 package duke.manager;
 
 import duke.Storage.Storage;
-import duke.command.*;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.MissingArgumentException;
 import duke.exception.NoSuchCommandException;
 import duke.exception.TooManyArgumentsException;
 import duke.task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -21,9 +31,9 @@ public class Manager {
      * @throws NoSuchCommandException If the command provided is not recognised by Duke
      */
     private static Command commandCreator(String input) throws NoSuchCommandException {
-        String keyword = CommandParser.getKeyword(input);
+        String commandType = CommandParser.getType(input);
         Command newCommand;
-        switch (keyword) {
+        switch (commandType) {
         case "bye":
             newCommand = new ByeCommand();
             break;
@@ -70,23 +80,20 @@ public class Manager {
                 String input = in.nextLine();
                 // initialise Command
                 UserInterface.printBorderLines();
-                Command c = commandCreator(input);
+                Command command = commandCreator(input);
                 // parse
-                CommandParser.parse(c, input);
+                CommandParser.parse(command, input);
                 // execute
-                if (c.isLegal()) {
-                    TaskExecutor.execute(taskList, c);
-                }
+                TaskExecutor.execute(taskList, command);
                 // print goodbye if command is bye
-                if (c.isBye()) {
+                if (command.isBye()) {
                     UserInterface.printGoodbye();
                 }
                 Storage.saveManager();
-                UserInterface.printBorderLines();
             } catch (NoSuchCommandException | TooManyArgumentsException | MissingArgumentException e) {
                 System.out.println(e.getMessage());
-                UserInterface.printBorderLines();
             }
+            UserInterface.printBorderLines();
         }
     }
 

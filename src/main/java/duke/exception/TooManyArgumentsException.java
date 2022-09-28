@@ -19,6 +19,6 @@ public class TooManyArgumentsException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! You have provided too many arguments.";
+        return "OOPS!!! You have provided too many arguments.";
     }
 }

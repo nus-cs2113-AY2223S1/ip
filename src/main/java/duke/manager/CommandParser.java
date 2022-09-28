@@ -2,6 +2,7 @@ package duke.manager;
 
 import duke.command.Command;
 import duke.exception.MissingArgumentException;
+import duke.exception.NoSuchCommandException;
 import duke.exception.TooManyArgumentsException;
 
 import java.util.Arrays;
@@ -15,12 +16,12 @@ public class CommandParser {
     private static final String SPACES_BETWEEN_WORDS = " ";
 
     /**
-     * Returns the keyword of the command in lowercase.
+     * Returns the type of the command in lowercase.
      *
      * @param input the user command that was loaded or read by the scanner
-     * @return the keyword of the command in lowercase
+     * @return the type of the command in lowercase
      */
-    public static String getKeyword(String input) {
+    public static String getType(String input) {
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         return splitInput[0].toLowerCase();
     }
@@ -45,6 +46,27 @@ public class CommandParser {
     }
 
     /**
+     * Finds "/by" or "/at" flag in the user command depending on the type of command
+     * and returns the index position of the flag.
+     *
+     * @param commandType the type of command
+     * @param input the user command read in by the scanner
+     * @return the index position of the flag in the command
+     */
+    private static int getFlagPosition(String commandType, String input) {
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
+        switch (commandType) {
+        case "deadline":
+            return searchArray(splitInput, "/by");
+        case "event":
+            return searchArray(splitInput, "/at");
+        default:
+            // if not found
+            return -1;
+        }
+    }
+
+    /**
      * Parses the time in the user command and returns it.
      *
      * @param input the user command read in by the scanner
@@ -52,11 +74,10 @@ public class CommandParser {
      * @return the parsed time of the command
      * @throws MissingArgumentException If the user gave a command with missing time field
      */
-    public static String getTime(String input, int flagPosition) throws MissingArgumentException {
+    private static String getTime(String input, int flagPosition) throws MissingArgumentException {
         if (flagPosition < 1) {
             throw new MissingArgumentException("correct time flag");
         }
-
         String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
         String[] splitTime = Arrays.copyOfRange(splitInput, flagPosition + 1, splitInput.length);
         return String.join(SPACES_BETWEEN_WORDS, splitTime);
@@ -94,7 +115,7 @@ public class CommandParser {
      * @throws NumberFormatException If the user did not provide an integer when they should
      */
     public static int returnAsInt(String argument) throws MissingArgumentException, NumberFormatException {
-        if (isStringEmpty(argument)) {
+        if (isStringEmpty(argument)) { // guard clause
             throw new MissingArgumentException("task position");
         }
         return Integer.parseInt(argument);
@@ -118,49 +139,29 @@ public class CommandParser {
     }
 
     /**
-     * Finds "/by" or "/at" flag in the user command depending on the type of command
-     * and returns the index position of the flag.
-     *
-     * @param keyword the type of command
-     * @param input the user command read in by the scanner
-     * @return the index position of the flag in the command
-     */
-    public static int getFlagPosition(String keyword, String input) {
-        String[] splitInput = input.split(SPACES_BETWEEN_WORDS);
-        switch (keyword) {
-        case "deadline":
-            return searchArray(splitInput, "/by");
-        case "event":
-            return searchArray(splitInput, "/at");
-        default:
-            // if not found
-            return -1;
-        }
-    }
-
-    /**
      * Parse a command for information and stores it in the command object.
      *
      * @param command command object that is being parsed
      * @param input the user command read in by the scanner
      * @throws TooManyArgumentsException If the user provided too many arguments
      * @throws MissingArgumentException If the user did not provide enough arguments
+     * @throws NoSuchCommandException If the user provided a command not recognised by Duke
      */
     public static void parse(Command command, String input) throws TooManyArgumentsException,
-            MissingArgumentException {
-        // parse keyword portion
-        String[] splitInput = input.split(SPACES_BETWEEN_WORDS); // for command length testing
-        String keyword = getKeyword(input);
-        command.setKeyword(keyword);
+            MissingArgumentException, NoSuchCommandException {
+        // parse command type portion
+        String commandType = getType(input);
+        command.setCommandType(commandType);
         String time;
         /* description represents description for todo, deadline, event and task position for
-        mark, unmark, delete and the word to search for find
+        mark, unmark, delete and the keyword to search for find
          */
+        int flagPosition;
         String description;
         String taskArgument;
-        int flagPosition;
+        String[] splitInput = input.split(SPACES_BETWEEN_WORDS); // for command length testing
 
-        switch (keyword) {
+        switch (commandType) {
         case "bye":
         case "list":
             if (splitInput.length > 1) {
@@ -184,7 +185,7 @@ public class CommandParser {
             break;
         case "event":
         case "deadline":
-            flagPosition = getFlagPosition(keyword, input);
+            flagPosition = getFlagPosition(commandType, input);
             description = getDescription(input, flagPosition);
             time = getTime(input, flagPosition);
             command.setArgument(description, 0);
@@ -200,7 +201,7 @@ public class CommandParser {
             command.setArgument(taskArgument, 0);
             break;
         default:
-            command.setLegal(false);
+            throw new NoSuchCommandException();
         }
     }
 }

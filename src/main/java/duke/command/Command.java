@@ -5,9 +5,8 @@ package duke.command;
  */
 public abstract class Command {
 
-    private String keyword;
+    private String commandType;
     private boolean isBye;
-    private boolean isLegal = true;
 
     /**
      * Constructor of super class <code>Command</code>.
@@ -16,26 +15,25 @@ public abstract class Command {
     }
 
     /**
-     * Returns the keyword of the command. Keywords are the words that dictate what type
-     * of command did the user input. E.g. list, bye...
+     * Returns the type of the command. E.g. list, bye,...
      *
      * @return the string representing the type of the command
      */
-    public String getKeyword() {
-        return keyword;
+    public String getType() {
+        return commandType;
     }
 
     /**
-     * Stores the type of command in the keyword string.
+     * Stores the type of command in the commandType string.
      *
-     * @param keyword the string representing the type of command
+     * @param commandType the string representing the type of command
      */
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setCommandType(String commandType) {
+        this.commandType = commandType;
     }
 
     /**
-     * Returns the boolean isBye that shows whether the recent command is bye.
+     * Returns the boolean <code>isBye</code> that shows whether the recent command is bye.
      *
      * @return a boolean variable that shows whether a command is bye
      */
@@ -55,27 +53,6 @@ public abstract class Command {
     }
 
     /**
-     * Returns boolean value showing whether user input is free of exceptions.
-     * True if input is free of exceptions.
-     * False if input has exceptions.
-     *
-     * @return a boolean value to show whether user input has exceptions
-     */
-    public boolean isLegal() {
-        return isLegal;
-    }
-
-    /**
-     * Sets the boolean <code>isLegal</code> status based on the existence of possible exceptions
-     * in user input. True if the command could cause an exception and false if not.
-     *
-     * @param legal boolean that represents the existence of possible exceptions
-     */
-    public void setLegal(boolean legal) {
-        isLegal = legal;
-    }
-
-    /**
      * Method to store the parameters of a command.
      *
      * @param argument parsed part of user input
@@ -87,9 +64,9 @@ public abstract class Command {
     /**
      * Get parts of user input necessary for command execution.
      *
-     * @param type boolean value that dictates which element of an array containing the parameters should
+     * @param isFirstIndex boolean value that dictates which element of an array containing the parameters should
      *          be returned. Useful only for the Deadline and Event command.
      * @return the arguments needed for command execution
      */
-    public abstract String getArgument(boolean type);
+    public abstract String getArgument(boolean isFirstIndex);
 }

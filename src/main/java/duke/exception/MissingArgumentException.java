@@ -26,7 +26,7 @@ public class MissingArgumentException extends DukeException {
      */
     @Override
     public String getMessage() {
-        String messagePartOne = "☹ OOPS!!! Your command is missing the ";
+        String messagePartOne = "OOPS!!! Your command is missing the ";
         String messagePartTwo = " argument!";
         return messagePartOne + missingArgument + messagePartTwo;
     }

@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String getArgument(boolean type) {
+    public String getArgument(boolean isFirstIndex) {
         return "";
     }
 }

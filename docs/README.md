@@ -18,7 +18,7 @@ Describe the action and its outcome.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`commandType (optional arguments)`
 
 Expected outcome:
 

@@ -20,6 +20,6 @@ public class NoSuchCommandException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! You did not provide a valid command.";
+        return "OOPS!!! You did not provide a valid command.";
     }
 }
