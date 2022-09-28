@@ -7,10 +7,11 @@
 Add a todo task when needed.
 
 Format of input:
-'todo'
+`todo`
 
 ### Example of Input and Output:
-Input : 'todo Do Homework'
+Input : `todo Do Homework`
+
 Output:
 ```
 Got it. I've added this task
