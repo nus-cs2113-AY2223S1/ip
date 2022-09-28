@@ -11,7 +11,7 @@ import Duke.Tasks.Todo;
 
 import java.util.ArrayList;
 
-public class TaskList {
+public class TaskList extends ArrayList<Task> {
     public static ArrayList<Task> tasksList = new ArrayList<>();
     protected static int taskNumberOfInterest;
 
@@ -27,7 +27,7 @@ public class TaskList {
         tasksList.add(task);
     }
 
-    public void addTodoTask(String[] toDoInput) {
+    public static void addTodoTask(String[] toDoInput) {
         try {
             if (toDoInput.length < 2) {
                 throw new InvalidCommandFormatException();
@@ -41,7 +41,7 @@ public class TaskList {
         }
     }
 
-    public void addDeadlineTask(String[] deadlineInput) {
+    public static void addDeadlineTask(String[] deadlineInput) {
         try {
             String[] DescriptionWithTime = deadlineInput[1].split("/by ", 2);
             Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
@@ -53,7 +53,7 @@ public class TaskList {
         }
     }
 
-    public void addEventTask(String[] eventInput) {
+    public static void addEventTask(String[] eventInput) {
         try {
             String[] DescriptionWithTime = eventInput[1].split("/at ", 2);
             Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);

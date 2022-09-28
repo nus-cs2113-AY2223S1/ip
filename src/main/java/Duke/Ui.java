@@ -94,7 +94,7 @@ public class Ui {
             System.out.println("The command should be 'find (task)'.");
             break;
         default:
-            System.out.println("Unknown command!");
+            System.out.println("Bob doesn't understand this command :<");
         }
     }
 

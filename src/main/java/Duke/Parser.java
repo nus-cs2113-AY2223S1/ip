@@ -1,54 +1,37 @@
 package Duke;
 
+import Duke.Commands.AddTodoCommand;
+import Duke.Commands.ByeCommand;
+import Duke.Commands.Command;
+import Duke.Commands.*;
+
 import java.io.IOException;
 
 public class Parser {
-    public static void parseCommand(String input, TaskList taskList) throws IOException {
+    public static Command parseCommand(String input, TaskList taskList) throws IOException {
         String[] commandAndParams = input.split(" ", 2);
-        String command = commandAndParams[0];
+        String command = commandAndParams[ 0 ];
         switch (command) {
         case "bye":
-            Ui.printGoodbye();
-            System.exit(0);
+            return new ByeCommand();
         case "list":
-            Ui.printTaskList();
-            break;
+            return new ListCommand();
         case "todo":
-            taskList.addTodoTask(commandAndParams);
-            Storage.loadTasktoDataFile(taskList);
-            break;
-
+            return new AddTodoCommand(commandAndParams[1], taskList);
         case "deadline":
-            taskList.addDeadlineTask(commandAndParams);
-            Storage.loadTasktoDataFile(taskList);
-            break;
-
+            return new AddDeadlineCommand(commandAndParams[1], taskList);
         case "event":
-            taskList.addEventTask(commandAndParams);
-            Storage.loadTasktoDataFile(taskList);
-            break;
-
+            return new AddEventCommand(commandAndParams[1], taskList);
         case "mark":
-            taskList.doMarkTask(commandAndParams);
-            Storage.updateTaskInDataFile(taskList, "edit");
-            break;
-
+            return new MarkTaskCommand(commandAndParams, taskList);
         case "unmark":
-            taskList.doUnmarkTask(commandAndParams);
-            Storage.updateTaskInDataFile(taskList, "edit");
-            break;
-
+            return new UnmarkTaskCommand(commandAndParams, taskList);
         case "delete":
-            taskList.doDeleteTask(commandAndParams);
-            Storage.updateTaskInDataFile(taskList, "delete");
-            break;
-
+            return new DeleteCommand(commandAndParams, taskList);
         case "find":
-            taskList.findTask(commandAndParams);
-            break;
-
+            return new FindCommand(commandAndParams, taskList);
         default:
-            System.out.println("Please provide a correct command!");
+            return new InvalidCommand();
         }
     }
 }
