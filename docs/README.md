@@ -4,9 +4,9 @@ Duke is a CLI task manager app.
 
 ## Setting up
 
-1. Download Duke.jar
-2. Open a terminal and cd into the folder that contains Duke.jar
-3. Run "java -jar Duke.jar"
+1. Download duke.jar
+2. Open a terminal and cd into the folder that contains duke.jar
+3. Run "java -jar duke.jar"
 
 If successful, you should be greeted with something like this:
 
@@ -27,6 +27,13 @@ __________________________________________________
 You might be wondering why is your task manager called Bloom, when it was introduced as Duke?
 This is because everyone uses Duke. Since you are special, Bloom is your special assistant.
 (Do not be confused. All files/folders will be named as Duke for the purpose of this project.)
+
+## Loading and Saving Task List
+
+1. Your task list will be saved in a .txt file called duke.txt and it is contained in a folder called data.
+2. The data folder is stored in the directory where you run the program ie. (JAR File Location/data/duke.txt).
+3. The task list data will be constantly updated when you pass in the various commands.
+4. Upon running the program, the contents of duke.txt will be retrieved and loaded into the program.
 
 ## Features
 
