@@ -11,7 +11,6 @@ public class deadline extends Command {
 
         // Modify text according to deadline
         String editedCommand = fullCommand.substring(9, fullCommand.length());
-        System.out.println(editedCommand);
         int indexOfSlash = editedCommand.indexOf("/", 9);
         String day = editedCommand.substring(indexOfSlash + 4, editedCommand.length());
         String task = editedCommand.substring(0, indexOfSlash);
