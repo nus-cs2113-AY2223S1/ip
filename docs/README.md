@@ -145,20 +145,15 @@ Exits the application. _Bob_ greets goodbye :<
 
 
 
-## Usage
+## Command Summary
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+Command | Format | Example
+------ | ------ | -------
+Add Todo task |  `todo TASK_DESCRIPTION` | `revise CS2113`
+Add Deadline task | `deadline TASK_DESCRIPTION /by DATE` | `deadline CS2113 /by 30/09/2022`
+Add Event task | `event TASK_DESCRIPTION /at DATE` |  `event RC4 Open House /at 11/11/2021`
+List tasks | `list` | `list`
+Mark task | `mark TASK_NUMBER` | `mark 2`
+Delete task | `delete TASK_NUMBER` | `delete 1`
+Search a task | `find KEYWORD` | `search CS2113`
+Exit application | `bye` | `bye`
