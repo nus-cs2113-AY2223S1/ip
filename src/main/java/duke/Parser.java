@@ -70,66 +70,132 @@ public class Parser {
         }
     }
 
+    /**
+     * parses user input line to get description of todo
+     * @param line the user inputted
+     * @return the description of the todo
+     */
     public static String parseTodo(String line) {
         String[] result = line.split(" ");
         return result[1];
     }
 
+    /**
+     * parses user input line to get description of deadline
+     * @param line the user inputted
+     * @return the description of the deadline
+     */
     public static String parseDeadline(String line) {
         String[] result = line.split("/by ");
         return result[0].substring(9);
     }
 
+    /**
+     * parses user input line to get time of deadline
+     * @param line the user inputted
+     * @return the time of the deadline
+     */
     public static String parseDeadlineDate(String line) {
         String[] result = line.split("/by ");
         return result[1];
     }
 
+    /**
+     * parses user input line to get description of event
+     * @param line the user inputted
+     * @return the description of the event
+     */
     public static String parseEvent(String line) {
         String[] result = line.split("/at ");
         return result[0].substring(6);
     }
 
-    public static String parseMark(String line) {
-        String[] result = line.split(" ");
-        return result[1];
-    }
-
-    public static String parseUnmark(String line) {
-        String[] result = line.split(" ");
-        return result[1];
-    }
-
-    public static String parseDelete(String line) {
-        String[] result = line.split(" ");
-        return result[1];
-    }
-
-    public static String parseFind(String line) {
-        String[] result = line.split(" ");
-        return result[1];
-    }
-
+    /**
+     * parses user input line to get time of event
+     * @param line the user inputted
+     * @return the time of the event
+     */
     public static String parseEventDate(String line) {
         String[] result = line.split("/at ");
         return result[1];
     }
 
+    /**
+     * parses user input line to get position of task to be marked
+     * @param line the user inputted
+     * @return the position
+     */
+    public static String parseMark(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    /**
+     * parses user input line to get position of task to be unmarked
+     * @param line the user inputted
+     * @return the position
+     */
+    public static String parseUnmark(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    /**
+     * parses user input line to get position of task to be deleted
+     * @param line the user inputted
+     * @return the position
+     */
+    public static String parseDelete(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+    /**
+     * parses user input line to get text that the user wants to search among the existing tasks
+     * @param line the user inputted
+     * @return the search text
+     */
+    public static String parseFind(String line) {
+        String[] result = line.split(" ");
+        return result[1];
+    }
+
+
+    /**
+     * parses line in save file to get description of deadline
+     * @param line the saved line
+     * @return the description of the deadline
+     */
     public static String parseSaveDeadline(String line) {
         String[] result = line.split("/by ");
         return result[0].substring(7);
     }
 
+    /**
+     * parses line in save file to get description of event
+     * @param line the saved line
+     * @return the description of the event
+     */
     public static String parseSaveEvent(String line) {
         String[] result = line.split("/at ");
         return result[0].substring(7);
     }
 
+    /**
+     * parses line in save file to get description of todo
+     * @param line the saved line
+     * @return the description of the todo
+     */
     public static String parseSaveTodo(String line) {
         String taskDescription = line.substring(7);
         return taskDescription;
     }
 
+    /**
+     * parses line in save file to get type of saved task
+     * @param line the saved line
+     * @return the task type of the task
+     */
     public static String parseSaveTaskType(String line) {
         String taskType = line.substring(0, 2);
         taskType = taskType.replace("[", "");
@@ -137,6 +203,11 @@ public class Parser {
         return taskType;
     }
 
+    /**
+     * parses line in save file to get status of saved task
+     * @param line the saved line
+     * @return the status of the task
+     */
     public static Boolean parseSaveTaskStatus(String line) {
         String taskStatus = line.substring(3, 5);
         taskStatus = taskStatus.replace("[", "");

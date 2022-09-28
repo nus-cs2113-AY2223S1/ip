@@ -134,7 +134,7 @@ public class TaskManager {
      * Marks the task specified at the position in the list as done
      *
      * @param text contains the command mark and the position of the task to be marked
-     * @throws IOException
+     * @throws IOException if there is an error during the read/write processes to the save file
      */
     public void markTasks(String text) throws IOException {
         try {
@@ -168,6 +168,12 @@ public class TaskManager {
         UI.printLine();
     }
 
+    /**
+     * Unmarks the task specified at the position in the list as done
+     *
+     * @param text contains the command unmark and the position of the task to be marked
+     * @throws IOException if there is an error during the read/write processes to the save file
+     */
     public void unmarkTasks(String text) throws IOException {
         try {
             String position = Parser.parseUnmark(text);
@@ -200,6 +206,13 @@ public class TaskManager {
         System.out.println(getTask(position));
         UI.printLine();
     }
+
+    /**
+     * Deletes the task specified at the position in the list
+     *
+     * @param text contains the command delete and the position of the task
+     * @throws IOException if there is an error during the read/write processes to the save file
+     */
 
     public void deleteTasks(String text) throws IOException {
         try {
@@ -234,10 +247,20 @@ public class TaskManager {
         UI.printLine();
     }
 
+    /**
+     * adds a task that was found from the save file
+     *
+     * @param task  to be added
+     */
     public static void addFromStorage(Task task) {
         Tasks.add(task);
     }
 
+    /**
+     * Finds a Task in the current Tasks list whose description contains the text provided
+     *
+     * @param text that is to be searched
+     */
     public void findTasks(String text) {
         try {
             String find = Parser.parseFind(text);
