@@ -1,6 +1,7 @@
 package UI;
 import TaskManager.Task;
 import TaskManager.TaskList;
+import java.util.ArrayList;
 
 public class UI {
     private static String logo = " ____        _        \n"
@@ -16,19 +17,21 @@ public class UI {
         + "deadline <deadline task_name by task_deadline>: adds a new deadline task\n"
         + "mark <mark task_name>: marks a task as done\n"
         + "unmark <unmark task_name>: marks a task as not done\n"
-        + "delete <delete task_index>: removes task from list\n"
+        + "delete <delete task_index/task_name>: removes task from list\n"
+        + "find <find keyword>: searches for all tasks that includes keyword"
         + "bye <bye>: exits program\n";
 
     public static void printLine(){
         System.out.println("---------------------------------------------------");
     }
 
-    public static void printTaskInfo(Task task){
+    public static void printTaskInfo(Task task){ 
         String description = task.getDescription();
         String taskType = task.getTaskType();
         String statusIcon = task.getStatusIcon();
+        int taskIndex = TaskList.getTaskIndex(description)+1;
 
-        System.out.print(" [" + taskType + "][" + statusIcon + "] " + description);
+        System.out.print(taskIndex +") [" + taskType + "][" + statusIcon + "] " + description);
 
         if (taskType.equals("T")){
             System.out.println(" ");
@@ -43,8 +46,9 @@ public class UI {
         Task task = TaskList.searchTask(description);
         String taskType = task.getTaskType();
         String statusIcon = task.getStatusIcon();
+        int taskIndex = TaskList.getTaskIndex(description)+1;
 
-        System.out.print(" [" + taskType + "][" + statusIcon + "] " + description);
+        System.out.print(taskIndex +") [" + taskType + "][" + statusIcon + "] " + description);
 
         if (taskType.equals("T")){
             System.out.println(" ");
@@ -82,9 +86,21 @@ public class UI {
         System.out.println("Now you have " + TaskList.getSize() + " tasks in your list!");
     }
 
-    public static void printTaskDeleted(Task temp){
+    public static void printTaskDeleted(Task tempTask){
         System.out.println("Removed:");
-        printTaskInfo(temp);
-        System.out.println("Now you have " + TaskList.getSize() + " tasks in your list!");
+        printTaskInfo(tempTask);
+        System.out.println("Now you have " + (TaskList.getSize()-1) + " tasks in your list!");
+    }
+
+    public static void printFind(ArrayList<Task> result){
+        if (result.size() == 0){
+            System.out.println("Sorry, there are no tasks matching your search!");
+        } else {
+            System.out.println("Here are the tasks matching your search: ");
+            for (int i=0; i<result.size(); i++){
+                Task tempTask = result.get(i);
+                printTaskInfo(tempTask);
+            }
+        }
     }
 }

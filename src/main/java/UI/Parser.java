@@ -36,7 +36,7 @@ public class Parser {
     }
 
     public static int getTaskIndex(){
-        return Integer.parseInt(inputList[1]);
+        return Integer.parseInt(inputList[1])-1;
     }
 
     public static int getByPosition(){

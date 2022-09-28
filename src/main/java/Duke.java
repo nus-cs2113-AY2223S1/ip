@@ -55,6 +55,10 @@ public class Duke {
                     Commands.runDelete();
                     break;
 
+                case ("find"):
+                    Commands.runFind();
+                    break;
+
                 default: //unknown command
                     UI.printLine();
                     System.out.println("Sorry, I don't understand what that means :(\n "

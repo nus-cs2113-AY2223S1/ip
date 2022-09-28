@@ -3,10 +3,10 @@ import TaskManager.TaskList;
 import UI.FileHandler;
 import UI.Parser;
 import UI.UI;
+import java.util.ArrayList;
 
 public class Commands {
     static String description;
-
 
     public static void runList(){
         UI.printLine();
@@ -20,39 +20,64 @@ public class Commands {
     }
 
     public static void runMark(){
-        UI.printLine();
-        try{
-            description = Parser.getDescription();
-            TaskList.searchTask(description).markAsDone();
-            FileHandler.markAsDone(TaskList.getTaskIndex(description));
-        } catch (NullPointerException e){ //invalid 
-            System.out.println("Please enter a valid task!");
-            return;
-        } catch (IllegalArgumentException e){ //empty
-            System.out.println("Task cannot be empty!");
-            return;
-        }
+        Task temp;
+        int taskIndex = -1;
 
-        UI.printMarkAsDone(description);
-    }
-
-    public static void runUnmark(){
         UI.printLine();
 
         //Handle empty/invalid task
         try{
+            taskIndex = Parser.getTaskIndex();
+            description = TaskList.getTaskAtIndex(taskIndex).getDescription();
+        } catch (NumberFormatException e){
             description = Parser.getDescription();
-            TaskList.searchTask(description).markAsNotDone();
-            FileHandler.markAsNotDone(TaskList.getTaskIndex(description));
-        } catch (NullPointerException e){
-            System.out.println("Please enter a valid task! ");
+            taskIndex = TaskList.getTaskIndex(description);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Task index/name cannot be empty!");
             return;
-        } catch (IllegalArgumentException e){ //empty
-            System.out.println("Task cannot be empty!");
+        }
+
+        try{
+            temp = TaskList.getTaskAtIndex(taskIndex);
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Task does not exist, please give a valid task index/name!");
             return;
         }
         
         //Printing result
+        TaskList.markTask(taskIndex);
+        FileHandler.markAsDone(taskIndex);
+        UI.printMarkAsDone(description);
+    }
+
+    public static void runUnmark(){
+        Task temp;
+        int taskIndex = -1;
+
+        UI.printLine();
+
+        //Handle empty/invalid task
+        try{
+            taskIndex = Parser.getTaskIndex();
+            description = TaskList.getTaskAtIndex(taskIndex).getDescription();
+        } catch (NumberFormatException e){
+            description = Parser.getDescription();
+            taskIndex = TaskList.getTaskIndex(description);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Task index/name cannot be empty!");
+            return;
+        }
+
+        try{
+            temp = TaskList.getTaskAtIndex(taskIndex);
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Task does not exist, please give a valid task index/name!");
+            return;
+        }
+        
+        //Printing result
+        TaskList.unmarkTask(taskIndex);
+        FileHandler.markAsNotDone(taskIndex);
         UI.printMarkAsNotDone(description);
     }
 
@@ -86,7 +111,7 @@ public class Commands {
             description = Parser.getDescription(byPosition);
             dueDate = Parser.getDate(byPosition);
         } catch (IllegalArgumentException e){
-            System.out.println("Invalid input: task/date not given!");
+            System.out.println("Task/date cannot be empty!");
             return;
         }
 
@@ -110,7 +135,7 @@ public class Commands {
             description = Parser.getDescription(atPosition);
             dateTime = Parser.getDate(atPosition);
         } catch (IllegalArgumentException e){
-            System.out.println("Invalid input: task/date not given!");
+            System.out.println("Task/date cannot be empty!");
             return;
         }
 
@@ -131,21 +156,38 @@ public class Commands {
         UI.printLine();
 
         try{
-            taskIndex = Parser.getTaskIndex()-1;
+            taskIndex = Parser.getTaskIndex();
         } catch (NumberFormatException e){
             description = Parser.getDescription();
             taskIndex = TaskList.getTaskIndex(description);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Task index/name cannot be empty!");
+            return;
         }
 
         try{
             temp = TaskList.getTaskAtIndex(taskIndex);
         } catch (IndexOutOfBoundsException e){
-            System.out.println("Sorry, index out of range!");
+            System.out.println("Task does not exist, please give a valid task index/name!");
             return;
         }
+        UI.printTaskDeleted(temp);
         TaskList.deleteTask(taskIndex);
         FileHandler.deleteTask(taskIndex);
-        UI.printTaskDeleted(temp);
+    }
+
+    public static void runFind(){
+        String keyword;
+
+        UI.printLine();
+        try{
+            keyword = Parser.getDescription();
+        } catch (IllegalArgumentException e){
+            System.out.println("Keyword cannot be empty!");
+            return;
+        }
+        ArrayList<Task> result = TaskList.find(keyword);
+        UI.printFind(result);
     }
 }
 

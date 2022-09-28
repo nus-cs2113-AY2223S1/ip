@@ -93,4 +93,36 @@ public class TaskList{
         list.remove(index);
         size--;
     }
+
+    public static void markTask(int index){
+        list.get(index).markAsDone();
+    }
+
+    public static void markTask(String description){
+        int index = getTaskIndex(description);
+        list.get(index).markAsDone();
+    }
+
+    public static void unmarkTask(int index){
+        list.get(index).markAsNotDone();
+    }
+
+    public static void unmarkTask(String description){
+        int index = getTaskIndex(description);
+        list.get(index).markAsNotDone();
+    }
+
+    public static ArrayList<Task> find(String keyword){
+        ArrayList<Task> result = new ArrayList<Task>();
+
+        for (int i=0; i<size; i++){
+            Task tempTask = getTaskAtIndex(i);
+            if (tempTask.getDescription().contains(keyword)
+                || tempTask.getDateTime().contains(keyword)
+                || tempTask.getDueDate().contains(keyword)){
+                result.add(tempTask);
+            }
+        }
+        return result;
+    }
 }

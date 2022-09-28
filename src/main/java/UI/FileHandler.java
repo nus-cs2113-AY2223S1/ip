@@ -42,8 +42,6 @@ public class FileHandler {
             br = new BufferedReader(fr);
 
             while ((currLine = br.readLine()) != null){
-                System.out.println(currLine);
-                
                 Lines.add(currLine + "\n");
                 currLineList = currLine.split(" - ");
 
