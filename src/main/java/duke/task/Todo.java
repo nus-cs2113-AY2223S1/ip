@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 /**
  * A clas representing a todo.

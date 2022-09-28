@@ -1,9 +1,9 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the find command by searching the list of tasks for any
+     * Executes this find command by searching the list of tasks for any
      * occurence of the target string.
      * Displays the list of matching items or shows a message that no matching
      * items are found.

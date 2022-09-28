@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 /**
  * A class that represents a deadline.

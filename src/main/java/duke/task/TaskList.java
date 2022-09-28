@@ -1,8 +1,5 @@
-package task;
+package duke.task;
 
-import storage.Storage;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**

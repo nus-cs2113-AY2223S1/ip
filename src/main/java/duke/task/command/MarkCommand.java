@@ -1,8 +1,8 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * A class that represents the mark command.
@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the mark command by marking the tasks of the index.
+     * Executes this mark command by marking the tasks of the index.
      * Displays a message telling the user that the task has been marked.
      *
      * @param ui Object that handles all user interaction.

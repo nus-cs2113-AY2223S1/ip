@@ -1,10 +1,9 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import task.Todo;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.UI;
 
 /**
  * A class that represents the todo command.
@@ -22,7 +21,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Executes the todo command by adding a task todo into the list
+     * Executes this todo command by adding a task todo into the list
      * and storing it in the local storage.
      * Displays a message telling user that the task has been added.
      *

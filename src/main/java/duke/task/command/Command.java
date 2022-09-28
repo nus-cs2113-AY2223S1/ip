@@ -1,8 +1,8 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * An abstract class that can represent all other commands within Duke.

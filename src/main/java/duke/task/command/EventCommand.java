@@ -1,9 +1,9 @@
-package task.command;
+package duke.task.command;
 
-import storage.Storage;
-import task.Event;
-import task.TaskList;
-import ui.UI;
+import duke.storage.Storage;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * A class that represents a event command.
@@ -20,7 +20,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Executes the event command by adding an event into the list
+     * Executes this event command by adding an event into the list
      * and storing it in the local storage.
      * Displays a message telling user that the task has been added.
      *
