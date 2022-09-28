@@ -23,7 +23,7 @@ To add a task, invoke the following commands followed by the required task descr
 <br/>
 
 
-### <span style = "background-color: #444444">todo</span> - Add a Todo Task
+### <span style = "background-color: #E9ECAB">todo</span> - Add a Todo Task
 Format:`todo Task_Description`
 <br>Example:
 ```
@@ -41,7 +41,7 @@ Note: A todo task is indicated by `[T]` as shown above
 
 
 
-### <span style = "background-color: #444444">deadline</span> - Add a Deadline Task
+### <span style = "background-color: #E9ECAB">deadline</span> - Add a Deadline Task
 Format:`deadline Task_Description /by Date Time(if any)`
 - Date Format: `dd/mm/yyyy`
 - Time Format (24-hour): `0000` to `2359`
@@ -72,7 +72,7 @@ Note: A deadline task is indicated by `[D]` as shown above
 
 <br/>
 
-### <span style = "background-color: #444444">event</span> - Add a Event Task
+### <span style = "background-color: #E9ECAB">event</span> - Add a Event Task
 Format:`event Task_Description /at Date StartTime-EndTime`
 - Date Format: `dd/mm/yyyy`
 - Time Format (24-hour): `0000` to `2359`;
@@ -96,7 +96,7 @@ Note: A event task is indicated by `[E]` as shown above
 
 ## List Operation
 This feature simply prints all the tasks found in the record list. If the list is empty, an empty list message will be printed instead.
-### <span style = "background-color: #444444">list</span> - List all Task
+### <span style = "background-color: #E9ECAB">list</span> - List all Task
 Format:`list`
 <br>Example:
 ```
@@ -128,7 +128,7 @@ Note: Demonstration of Find Operation is relative to Output 2 of List Operation
 
 <br/>
 
-### <span style = "background-color: #444444">find</span> - Find Task By Name
+### <span style = "background-color: #E9ECAB">find</span> - Find Task By Name
 Format:`find keyword`
 - Provide a keyword to be matched
 
@@ -154,7 +154,7 @@ Here are the matching tasks in your list:
 
 <br/>
 
-### <span style = "background-color: #444444">findd</span> - Find Task By Date (Deadline/Event Only)
+### <span style = "background-color: #E9ECAB">findd</span> - Find Task By Date (Deadline/Event Only)
 Format:`findd Date`
 - Date Format: dd/mm/yyyy
 
@@ -186,7 +186,7 @@ Note: Task is unmarked by default when first added
 
 <br/>
 
-### <span style = "background-color: #444444">mark</span> - Mark a Task (Non-Empty List)
+### <span style = "background-color: #E9ECAB">mark</span> - Mark a Task (Non-Empty List)
 Format:`mark Task_Index`
 - Task Index is relative to the current list
 - Use `list` to display all the tasks if unsure of Task Index
@@ -208,7 +208,7 @@ There is no task in your list.
 
 <br/>
 
-### <span style = "background-color: #444444">unmark</span> - Unmark a Task (Non-Empty List)
+### <span style = "background-color: #E9ECAB">unmark</span> - Unmark a Task (Non-Empty List)
 Format:`unmark Task_Index`
 - Task Index is relative to the current list
 - Use `list` to display all the tasks if unsure of Task Index
@@ -235,7 +235,7 @@ This feature simply removes a task specified by the user from the record list.
 
 <br/>
 
-### <span style = "background-color: #444444">delete</span> - Deletes a Task (Non-Empty List)
+### <span style = "background-color: #E9ECAB">delete</span> - Deletes a Task (Non-Empty List)
 Format:`delete Task_Index`
 - Task Index is relative to the current list
 - Use `list` to display all the tasks if unsure of Task Index
