@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Duke Class.
+ */
 public class Duke {
 
     private Storage storage;
@@ -11,6 +14,9 @@ public class Duke {
     private Ui ui;
     private Integer count;
 
+    /**
+     * Duke Class.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         //Create a new file if not created
@@ -30,7 +36,9 @@ public class Duke {
             count = 0;
         }
     }
-
+    /**
+     * Duke Run Method.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -49,7 +57,9 @@ public class Duke {
             }
         }
     }
-
+    /**
+     * Main Method.
+     */
     public static void main(String[] args) {
         new Duke("tasks.txt").run();
     }
