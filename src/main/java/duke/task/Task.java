@@ -16,24 +16,17 @@ public class Task extends TaskManager {
             return isDone ? "[X] " : "[ ] ";
     }
 
-
     public String getDescription() {
         return description;
     }
 
     public void setDone(boolean done) {
-        if (done == false) {
-            this.isDone = true;
-        } else {
-            this.isDone = false;
-        }
+        this.isDone = !done;
     }
 
     @Override
     public String toString() {
-
         return getStatusIcon() + description;
-//        return getStatusIcon() ;
     }
 
     public boolean isDone() {

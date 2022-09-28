@@ -1,18 +1,12 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.exception.EmptyDescriptionException;
 import duke.task.Task;
 
 import java.util.ArrayList;
 
 public class TaskManager {
-
-    public static void printSuccessfulAdd(ArrayList<Task> tasks) {
-        System.out.println("\t_____________________");
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + "added: " + tasks.get(tasks.size() - 1));
-        System.out.println("\t_____________________\n");
-    }
 
     public static int getTaskId(String line) {
         int inputId = Integer.parseInt(line.replaceAll("[^0-9]", ""));    // gets the id
@@ -26,10 +20,14 @@ public class TaskManager {
 
     public static String getTaskDetails(String line) throws DukeException {
         String[] breakLine = line.split(" ", 2);
+        // if there is no task description
+        if (breakLine.length == 1 || breakLine[1].isBlank()) {
+            throw new EmptyDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
+        }
         return breakLine[1];
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, String line) {
+    public static void deleteTask(ArrayList<Task> tasks, String line) throws DukeException {
         int taskId = getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);
         int taskSize = tasks.size() - 1;
@@ -49,7 +47,7 @@ public class TaskManager {
 
     public static void printMark(ArrayList<Task> tasks, int taskId) {
         if (tasks.get(taskId).isDone) {
-            System.out.println("\tThis task is already done!");
+            System.out.println("\tThis task is already marked!");
         } else {
             System.out.println("\tNice! I've marked this task as done:");
             tasks.get(taskId).setDone(tasks.get(taskId).isDone);
@@ -57,7 +55,7 @@ public class TaskManager {
         }
     }
 
-    public static void markTask(ArrayList<Task> tasks, String line) {
+    public static void markTask(ArrayList<Task> tasks, String line) throws DukeException {
         int taskId = getTaskId(line);
         printMark(tasks, taskId);
     }
@@ -72,7 +70,7 @@ public class TaskManager {
         }
     }
 
-    public static void unmarkTask(ArrayList<Task> tasks, String line) {
+    public static void unmarkTask(ArrayList<Task> tasks, String line) throws DukeException {
         int taskId = getTaskId(line);
         printUnmark(tasks, taskId);
     }
@@ -92,5 +90,12 @@ public class TaskManager {
         System.out.println("\t_____________________");
     }
 
-
+    public static void printTotalNumberOfItems(ArrayList<Task> tasks) {
+        int total = tasks.size();
+        if (total == 1) {
+            System.out.println("\tYou have 1 task");
+        } else {
+            System.out.println("\tYou have " + total + " tasks!!!");
+        }
+    }
 }
