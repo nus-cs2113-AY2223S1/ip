@@ -2,13 +2,18 @@ package Duke;
 
 import java.io.FileNotFoundException;
 
-
+/**
+ * Duke is a task tracking application using Command Line Interface.
+ */
 public class Duke {
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
     private String filePath = "data/duke.txt";
 
+    /**
+     * Initialises application and reads existing data from local file.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,11 +26,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the application, taking in user input until "bye" command is issued.
+     */
     public void run() {
-        Ui.sayHi();
+        ui.sayHi();
         while (!taskList.isLast) {
             try {
-                String userInput = Ui.readInputs();
+                String userInput = ui.readInputs();
                 String commandType = Parser.commandType(userInput);
                 String commandActual = Parser.commandActual(userInput);
                 taskList.executeTask(commandType, commandActual, filePath);
@@ -35,9 +43,13 @@ public class Duke {
                 ui.drawLine();
             }
         }
-        Ui.sayBye();
+        ui.sayBye();
     }
 
+    /**
+     * Main function to run application.
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
