@@ -27,11 +27,12 @@ public class Ui {
      * Greets the user with welcome message
      */
     public static void sayHi() {
+        drawLine();
         String tommyLogo =  " _____ ____  _______  _______  __ __  \n"
                 +   "  | | |   | || || || || || ||  |_ _|  \n"
                 +   "  | | |   | || || || || || ||   | |  \n"
                 +   "  |_| |___| || || || || || ||   | |  \n";
-        System.out.println(" Hello! I'm\n" + tommyLogo + "\n What can I do for you?\n");
+        System.out.println(" Hello! I'm\n" + tommyLogo + "\n What can I do for you?");
         drawLine();
     }
 
@@ -62,18 +63,18 @@ public class Ui {
     public static void showEmptyToDo() {
         drawLine();
         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-        drawLine();
     }
     public static void showIllegalCommand() {
         drawLine();
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        drawLine();
     }
-
     public static void showFileWriteError() {
         drawLine();
         System.out.println("☹ OOPS!!! I'm sorry, but I was unable to write to the file :-(");
+    }
+    public static void showIndexOutOfBounds() {
         drawLine();
+        System.out.println("☹ OOPS!!! The given task number does not exist!");
     }
 
 }

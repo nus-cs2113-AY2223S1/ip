@@ -42,7 +42,7 @@ public class Storage {
             }
             writeFile.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong while saving to file:" + e.getMessage());
+            Ui.showFileWriteError();
         }
     }
 

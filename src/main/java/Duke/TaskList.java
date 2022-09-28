@@ -53,13 +53,18 @@ public class TaskList {
      * @param index Index of task to be unmarked
      */
     public static void setUnmarked (ArrayList<Task> list, String index) {
-        int indexToUnmark = getIndex(index);
-        Task unmarking = list.get(indexToUnmark);
-        unmarking.setUnDone();
-        list.set(indexToUnmark, unmarking);
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println(list.get(indexToUnmark).toString());
-        Storage.writeToFile(fileLocation, list);
+        try {
+            int indexToUnmark = getIndex(index);
+            Task unmarking = list.get(indexToUnmark);
+            unmarking.setUnDone();
+            list.set(indexToUnmark, unmarking);
+            Ui.drawLine();
+            System.out.println(" OK, I've marked this task as not done yet:");
+            System.out.println("\t" + list.get(indexToUnmark).toString());
+            Storage.writeToFile(fileLocation, list);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showIndexOutOfBounds();
+        }
     }
 
     /**
@@ -68,13 +73,18 @@ public class TaskList {
      * @param index Index of task to be unmarked
      */
     public static void setMarked (ArrayList<Task> list, String index) {
-        int indexToMark = getIndex(index);
-        Task marking = list.get(indexToMark);
-        marking.setDone();
-        list.set(indexToMark, marking);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(list.get(indexToMark).toString());
-        Storage.writeToFile(fileLocation, list);
+        try {
+            int indexToMark = getIndex(index);
+            Task marking = list.get(indexToMark);
+            marking.setDone();
+            list.set(indexToMark, marking);
+            Ui.drawLine();
+            System.out.println(" Nice! I've marked this task as done:");
+            System.out.println("\t" + list.get(indexToMark).toString());
+            Storage.writeToFile(fileLocation, list);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showIndexOutOfBounds();
+        }
     }
 
     /**
@@ -84,6 +94,7 @@ public class TaskList {
      * @throws EmptyToDo Error if description of task is empty
      */
     public static void newToDo (ArrayList<Task> list, String description) throws EmptyToDo {
+        Ui.drawLine();
         if (description == null) {
             throw new EmptyToDo();
         }
@@ -101,6 +112,7 @@ public class TaskList {
      * @param commandActual User input containing description and deadline of task
      */
     public static void newDeadline (ArrayList<Task> list, String commandActual) {
+        Ui.drawLine();
         String arr2[] = commandActual.split("/by ", 2);
         String desc = arr2[0];
         String deadline = arr2[1];
@@ -118,6 +130,7 @@ public class TaskList {
      * @param commandActual User input containing description and date of event
      */
     public static void newEvent (ArrayList<Task> list, String commandActual) {
+        Ui.drawLine();
         String event[] = commandActual.split("/at ", 2);
         String name = event[0];
         String time = event[1];
@@ -135,13 +148,18 @@ public class TaskList {
      * @param index Index of task to delete
      */
     public static void deleteTask (ArrayList<Task> list, String index) {
-        Ui.drawLine();
-        System.out.println("Noted. I've removed this task:");
-        int indexToDelete = Integer.parseInt(index) - 1;
-        System.out.println("\t" + list.get(indexToDelete).toString());
-        list.remove(indexToDelete);
-        System.out.println(" Now you have " + list.size() + " tasks in the list.");
-        Storage.writeToFile(fileLocation, list);
+        try {
+            int indexToDelete = Integer.parseInt(index) - 1;
+            Task toDelete = list.get(indexToDelete);
+            Ui.drawLine();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("\t" + toDelete.toString());
+            list.remove(indexToDelete);
+            System.out.println(" Now you have " + list.size() + " tasks in the list.");
+            Storage.writeToFile(fileLocation, list);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showIndexOutOfBounds();
+        }
     }
 
     /**
