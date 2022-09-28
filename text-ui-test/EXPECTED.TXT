@@ -1,7 +1,140 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ________      ________ _____
+|  ____\ \    / /  ____|  __ \
+| |__   \ \  / /| |__  | |__) |
+|  __|   \ \/ / |  __| |  _  /
+| |____   \  /  | |____| | \ \
+|______|   \/   |______|_|  \_\
+Hello! I'm Ever
+What can I do for you?
+==================================================================
 
+Get help for the commands supported and their syntax
+    help
+
+View all tasks with their task number
+    list
+
+Add a todo task
+    todo <description>
+
+Add a task with its deadline
+    deadline <description> /by <deadline-datetime>
+
+Add an event with its date and time
+    event <description> /at <event-datetime>
+
+Mark a task as done
+    mark <task-number>
+
+Unmark a task from done
+    unmark <task-number>
+
+Delete a task from the list
+    delete <task-number>
+
+Find task(s) with keywords in the description
+    find <search-word>
+
+Exit the application
+    bye
+==================================================================
+There are no tasks added yet. Type 'help' if you need help.
+==================================================================
+Invalid input, todo task could not be added
+Syntax: todo <description>
+==================================================================
+Task added: [T][ ] read book
+==================================================================
+Task added: [T][ ] exercise
+==================================================================
+Invalid input, please provide the description and date time
+Syntax: event <description> /at <event-datetime>
+==================================================================
+Invalid input, please provide the description and date time
+Syntax: event <description> /at <event-datetime>
+==================================================================
+Task added: [E][ ] watch movie (at: Sep 30th 6pm)
+==================================================================
+Invalid input, please provide the description and deadline
+Syntax: deadline <description> /by <deadline-datetime>
+==================================================================
+Invalid input, please provide the description and deadline
+Syntax: deadline <description> /by <deadline-datetime>
+==================================================================
+Task added: [D][ ] submit quiz (by: Sep 6th 23:59)
+==================================================================
+Task added: [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+1. [T][ ] read book
+2. [T][ ] exercise
+3. [E][ ] watch movie (at: Sep 30th 6pm)
+4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+Sorry, you have not provide the task number.
+Syntax: mark <task-number>
+==================================================================
+Invalid input. Please type an integer for the task number.
+Syntax: mark <task-number>
+==================================================================
+Marked as done: [T][X] exercise
+==================================================================
+Marked as done: [E][X] watch movie (at: Sep 30th 6pm)
+==================================================================
+Sorry, the task number is out of range. Type "list" for viewing all the tasks.
+Syntax: mark <task-number>
+==================================================================
+1. [T][ ] read book
+2. [T][X] exercise
+3. [E][X] watch movie (at: Sep 30th 6pm)
+4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+Sorry, you have not provide the task number.
+Syntax: unmark <task-number>
+==================================================================
+Invalid input. Please type an integer for the task number.
+Syntax: unmark <task-number>
+==================================================================
+Unmarked done: [T][ ] exercise
+==================================================================
+Sorry, the task number is out of range. Type "list" for viewing all the tasks.
+Syntax: unmark <task-number>
+==================================================================
+1. [T][ ] read book
+2. [T][ ] exercise
+3. [E][X] watch movie (at: Sep 30th 6pm)
+4. [D][ ] submit quiz (by: Sep 6th 23:59)
+5. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+Sorry, you have not provide the task number.
+Syntax: delete <task-number>
+==================================================================
+Invalid input. Please type an integer for the task number.
+Syntax: delete <task-number>
+==================================================================
+Sorry, the task number is out of range. Type "list" for viewing all the tasks.
+Syntax: delete <task-number>
+==================================================================
+Task 2 deleted
+==================================================================
+1. [T][ ] read book
+2. [E][X] watch movie (at: Sep 30th 6pm)
+3. [D][ ] submit quiz (by: Sep 6th 23:59)
+4. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+Please provide a search word to find the task.
+Syntax: find <search-word>
+==================================================================
+No matching tasks for the given search word.
+==================================================================
+1. [T][ ] read book
+==================================================================
+1. [D][ ] submit quiz (by: Sep 6th 23:59)
+2. [D][ ] submit ip (by: Sep 30th 23:59)
+==================================================================
+I can't hear anything from you, can you say it again? Type 'help' if you need help.
+==================================================================
+Sorry, I don't get what you mean. Can you try again? Type 'help' if you need help.
+==================================================================
+Bye. Hope to see you again soon!

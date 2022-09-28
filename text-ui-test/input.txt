@@ -1,0 +1,36 @@
+help
+list
+todo
+todo read book
+todo exercise
+event
+event watch TV show
+event watch movie /at Sep 30th 6pm
+deadline
+deadline submit
+deadline submit quiz /by Sep 6th 23:59
+deadline submit ip /by Sep 30th 23:59
+list
+mark
+mark two
+mark 2
+mark 3
+mark 7
+list
+unmark
+unmark one
+unmark 2
+unmark 0
+list
+delete
+delete one
+delete 6
+delete 2
+list
+find
+find study
+find book
+find submit
+
+byebye
+bye
