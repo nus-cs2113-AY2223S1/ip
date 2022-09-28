@@ -7,6 +7,7 @@ import Duke.Duke;
 import Duke.Exceptions.ArguementNotFoundException;
 import Duke.Exceptions.WrongArgumentException;
 import Duke.Storage.Storage;
+import Duke.UI.UI;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -26,14 +27,14 @@ public class TaskManager extends ArrayList<Tasks> {
     }
 
 
-    public String checkCommandLength(String description) throws ArguementNotFoundException {
+    public static String checkCommandLength(String description) throws ArguementNotFoundException {
         if (description.isEmpty()) {
             throw new ArguementNotFoundException();
         }
         return description;
     }
 
-    public int checkTaskNumber(int input) throws WrongArgumentException {
+    public static int checkTaskNumber(int input) throws WrongArgumentException {
         if (input > 0 && input <= taskList.size()) {
             return input;
         } else {
@@ -51,15 +52,15 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param task task to add
      */
-    public void addTask(Tasks task) {
+    public static void addTask(Tasks task) {
 
         taskList.add(numOfTasks, task);
         numOfTasks++;
-        System.out.println(Duke.PRINT_LINE
+        System.out.println(UI.PRINT_LINE
                 + TASK_ADDED
                 + task + "\n"
                 + "Now you have " + numOfTasks + " in the list.\n"
-                + Duke.PRINT_LINE
+                + UI.PRINT_LINE
         );
     }
 
@@ -68,7 +69,7 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param input input of user
      */
-    public void addToDo(String input) {
+    public static void addToDo(String input) {
         String todoTask = input.substring("todo".length(), input.length());
         try {
             checkCommandLength(todoTask);
@@ -86,7 +87,7 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param input input of user
      */
-    public void addEvent(String input) {
+    public static void addEvent(String input) {
         try {
             checkCommandLength(input.substring("event".length()));
             String eventTask = input.substring("event".length(), input.indexOf("/") - 1);
@@ -105,7 +106,7 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param input input of user
      */
-    public void addDeadline(String input) {
+    public static void addDeadline(String input) {
         try {
             checkCommandLength(input.substring("deadline".length()));
             String deadlineTask = input.substring("deadline".length(), input.indexOf("/") - 1);
@@ -124,7 +125,7 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param input position of item to mark in the list
      */
-    public void markTask(String input) {
+    public static void markTask(String input) {
         try {
             checkCommandLength(input.substring("mark".length()));
             int taskNum = getTaskNumber(input, "mark ");
@@ -142,7 +143,7 @@ public class TaskManager extends ArrayList<Tasks> {
      *
      * @param input position of item to unmark in the list
      */
-    public void unmarkTask(String input) {
+    public static void unmarkTask(String input) {
         try {
             checkCommandLength(input.substring("unmark".length()));
             int taskNum = getTaskNumber(input, "unmark ");
@@ -155,7 +156,7 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
-    public void deleteTask(String input) {
+    public static void deleteTask(String input) {
 //        int taskNum = getTaskNumber(input);
 
         try {
@@ -164,11 +165,11 @@ public class TaskManager extends ArrayList<Tasks> {
             checkTaskNumber(taskNum);
             numOfTasks -= 1;
             System.out.println(
-                    Duke.PRINT_LINE
+                    UI.PRINT_LINE
                             + "Noted. I've removed this task:\n"
                             + taskList.get(taskNum - 1) + "\n"
                             + "Now you have " + numOfTasks + " tasks in the list.\n"
-                            + Duke.PRINT_LINE
+                            + UI.PRINT_LINE
             );
             taskList.remove(taskNum - 1);
 
@@ -179,7 +180,7 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
-    public void findTask(String input) {
+    public static void findTask(String input) {
         try {
             ArrayList<Tasks> matchingTasks = new ArrayList<>();
             int numOfMatchingTasks = 0;
@@ -196,9 +197,9 @@ public class TaskManager extends ArrayList<Tasks> {
             }
             if (numOfMatchingTasks == 0) {
                 System.out.println(
-                        Duke.PRINT_LINE
+                        UI.PRINT_LINE
                                 + "No matching tasks found in list.\n"
-                                + Duke.PRINT_LINE
+                                + UI.PRINT_LINE
                 );
             } else {
                 printMatchedTasks(matchingTasks);
@@ -209,9 +210,9 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
-    public void printMatchedTasks(ArrayList<Tasks> matchingTasks) {
+    public static void printMatchedTasks(ArrayList<Tasks> matchingTasks) {
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
                         + "Here are the matching tasks in your list:"
         );
         for (int i = 0; i < matchingTasks.size(); i++) {
@@ -221,7 +222,7 @@ public class TaskManager extends ArrayList<Tasks> {
             );
         }
         System.out.println(
-                        Duke.PRINT_LINE
+                        UI.PRINT_LINE
         );
     }
 
@@ -229,9 +230,9 @@ public class TaskManager extends ArrayList<Tasks> {
     /**
      * Print List in chronological order
      */
-    public void printList() {
+    public static void printList() {
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
                         + "Here are the tasks in your list:"
         );
         for (int i = 0; i < taskList.size(); i++) {
@@ -241,7 +242,7 @@ public class TaskManager extends ArrayList<Tasks> {
             );
         }
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
         );
     }
 

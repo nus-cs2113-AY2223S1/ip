@@ -1,11 +1,11 @@
 package Duke.Storage;
 
-import Duke.Duke;
 import Duke.Tasks.TaskManager;
 import Duke.Tasks.Tasks;
 import Duke.Tasks.ToDo;
 import Duke.Tasks.Event;
 import Duke.Tasks.Deadline;
+import Duke.UI.UI;
 
 import java.io.IOException;
 import java.io.File;
@@ -47,10 +47,10 @@ public class Storage {
 
     public void fileNotFoundMessage() {
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
                         + "File not Found.\n"
                         + "Creating " + FILEPATH + "\n"
-                        + Duke.PRINT_LINE
+                        + UI.PRINT_LINE
         );
     }
 

@@ -1,6 +1,7 @@
 package Duke.Tasks;
 
 import Duke.Duke;
+import Duke.UI.UI;
 
 public abstract class Tasks {
     protected String description;
@@ -38,11 +39,11 @@ public abstract class Tasks {
     public void markAsNotDone() {
         this.isDone = false;
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
                         + "OK, I've marked this task as not done:\n"
                         + "[ ] "
                         + description
-                        + "\n" + Duke.PRINT_LINE
+                        + "\n" + UI.PRINT_LINE
         );
     }
 
@@ -52,11 +53,11 @@ public abstract class Tasks {
     public void markAsDone() {
         this.isDone = true;
         System.out.println(
-                Duke.PRINT_LINE
+                UI.PRINT_LINE
                         + "Nice! I've marked this task as done:\n"
                         + "[X] "
                         + description
-                        + "\n" + Duke.PRINT_LINE
+                        + "\n" + UI.PRINT_LINE
         );
     }
 
