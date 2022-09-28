@@ -210,6 +210,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches task list and prints any tasks containing a specified substring.
+     *
+     * @param line Full user command.
+     */
     public void find(String line) {
         String[] words = line.split("\\s+", 2);
         if (words.length == 2 && words[1].trim().length() > 0) {
