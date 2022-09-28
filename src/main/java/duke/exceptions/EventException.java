@@ -1,5 +1,7 @@
 package duke.exceptions;
-
+/**
+ * Thrown when EventCommand does not follow the format: event [description] /at [time]
+ */
 public class EventException extends Exception {
     @Override
     public String getMessage() {

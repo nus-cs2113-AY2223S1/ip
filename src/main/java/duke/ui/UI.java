@@ -14,7 +14,7 @@ public class UI {
             "▄▄█▄▄▄▄███▀\n\n";
 
     /**
-     * greeting and goodbye messages
+     * Greeting and goodbye messages
      */
 
     public static final String DIVIDER = "______________________________________";
@@ -34,7 +34,7 @@ public class UI {
     }
 
     /**
-     * Reads input
+     * Reads input from command line
      *
      * @return String containing user input
      */

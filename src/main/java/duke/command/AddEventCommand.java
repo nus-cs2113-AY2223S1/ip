@@ -1,7 +1,9 @@
 package duke.command;
 
 import duke.tasks.TaskList;
-
+/**
+ * Represents an add command where an Event task is added to the taskList
+ */
 public class AddEventCommand extends Command {
     public AddEventCommand(TaskList taskList, String input) {
         super(taskList, input);

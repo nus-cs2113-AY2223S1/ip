@@ -8,36 +8,34 @@ import duke.parser.Parser;
 import duke.ui.UI;
 
 import java.io.IOException;
-import java.util.Scanner;
 
+
+/**
+ * <h1>Duke</h1>
+ * Duke is an application that helps users manage their tasks such as Events, To-dos and Deadlines through the CLI.
+ *
+ * @author Amit Rahman
+ */
 public class Duke {
 
 
     /**
-     * Commands
+     * Exit command literal
      */
     public static final String BYE = "bye";
-
-
     /**
-     * Helper function to format message to be printed
+     * Sets up the application state by creatine new instances of TaskList, Storage, UI and Parser.
      */
-    public static final String DIVIDER = "______________________________________";
-
-    public static void printFormattedMessage(String message) {
-        System.out.println(DIVIDER);
-        System.out.println(message);
-        System.out.println(DIVIDER);
-
-    }
-
     private TaskList taskList;
     private final Storage storage;
 
     private final UI ui;
     private final Parser parser;
 
-
+    /**
+     * Sets up the application state by creatine new instances of TaskList, Storage, UI and Parser.
+     * @param filePath file path of where taskList data is to be stored in and accessed from.
+     */
     public Duke(String filePath) {
         this.ui = new UI();
         storage = new Storage(filePath);
@@ -54,6 +52,12 @@ public class Duke {
         UI.printMessageWithLines(initializedTaskList.initialisationMessage);
     }
 
+    /**
+     * Helper function to execute the command and returns acknowledgement message of result of executed command
+     *
+     * @param command command extracted from parsed user input
+     * @return acknowledgement message from executing command
+     */
 
     public static ExecutedCommand executeCommand(Command command) {
         try {
@@ -63,11 +67,17 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * Method to continuously run on a loop while taking in userInput,
+     * parse the userInput into commands and command details via Parser, executing command,
+     * printing acknowledgement of results of running the command. Then a new taskList is written
+     * to storage if there are any updates to taskList data. The loop is exited when the userInput is "bye"
+     */
     public void run(){
         ui.printGreeting();
         System.out.println("Please enter your taskList command: (send 'bye' to exit)");
-        Scanner in = new Scanner(System.in);
-        String userInput = in.nextLine();
+        String userInput = ui.readInput();
 
         while (!userInput.equals(BYE)) {
 
@@ -85,12 +95,17 @@ public class Duke {
             }
 
             String executionMessage = executedCommand.getExecutionMessage();
-            printFormattedMessage(executionMessage);
-            userInput = in.nextLine();
+            ui.printMessageWithLines(executionMessage);
+            userInput = ui.readInput();
+
 
         }
         UI.printGoodbye();
     }
+
+    /**
+     * This is the main method which instantiates Duke and executes the run method.
+     */
     public static void main(String[] args) {
         new Duke("./data/data.txt").run();
     }

@@ -1,5 +1,7 @@
 package duke.exceptions;
-
+/**
+ * Thrown when DoneCommand does not follow the format: done [index]
+ */
 public class DoneFormatException extends Exception {
     @Override
     public String getMessage() {

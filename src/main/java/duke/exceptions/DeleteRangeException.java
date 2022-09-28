@@ -1,5 +1,6 @@
 package duke.exceptions;
 
+/** Thrown when the index given in the DeleteCommand is out of range */
 public class DeleteRangeException extends Exception {
     @Override
     public String getMessage() {
