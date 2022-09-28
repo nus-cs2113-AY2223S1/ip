@@ -4,6 +4,9 @@ import duke.exception.DukeException;
 
 import java.util.Collections;
 
+/**
+ * Interacts with user with prompts and messages.
+ */
 public class Ui {
     private static final int SEPARATOR_LEN = 50;
 
@@ -34,6 +37,10 @@ public class Ui {
         showSeparator();
     }
 
+    /**
+     * Shows the error message in Duke system of given exception e.
+     * @param e
+     */
     public static void showError(DukeException e) {
         System.out.println("OOPS!!! " + e.getMessage());
     }

@@ -5,9 +5,19 @@ import duke.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Parses the user input and executes corresponding command.
+ * A parser will keep on reading command from user until user type 'bye'.
+ */
 public class Parser {
     private static final String END_CMD = "bye";
 
+    /**
+     * Parses the user input line, with the first parameter indicating the command.
+     * And pass the other extracted parameters if necessary.
+     * @return
+     * @throws DukeException
+     */
     public static boolean readUserCmd() throws DukeException {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();

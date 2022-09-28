@@ -10,10 +10,13 @@ import java.io.FileReader;
 
 import java.util.ArrayList;
 
+/**
+ * Loads the duke system when starts,
+ * and dumps the tasks in the taskList to specified files when exits.
+ */
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
     private static String path = "";
-    private static File file_name;
 
     public Storage() {
         this(DEFAULT_STORAGE_FILEPATH);
@@ -60,6 +63,10 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Dumps the tasks in the taskList to specified files.
+     * @param tasks
+     */
     public static void dumpTask(ArrayList<Task> tasks) {
         File file_name = new File(path);
         try {
@@ -86,6 +93,11 @@ public class Storage {
 
     }
 
+    /**
+     * Returns a taskList,
+     * which is loaded from the previously stored tasks.
+     * @return Tasklist taskList.
+     */
     public static TaskList loadTask() {
         TaskList taskList = new TaskList();
         ArrayList<Task> tasks = new ArrayList<>();

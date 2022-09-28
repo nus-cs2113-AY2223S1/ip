@@ -7,7 +7,10 @@ import duke.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Main class of Duke system.
+ * In which, we execute main function to start the system.
+ */
 public class Duke {
 
     static private Ui ui;
@@ -18,6 +21,13 @@ public class Duke {
         new Duke().run(args);
     }
 
+    /**
+     * Runs duke system with args, indicating which file to load/dump tasks.
+     * It first runs start to set up,
+     * then read user command in a loop until end command.
+     * After that it executes exit function.
+     * @param args
+     */
     public void run(String[] args) {
         start(args);
         runCmdLoopTillExit();
