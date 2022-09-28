@@ -54,6 +54,14 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
     }
 
+    public void showMatchListSuccess() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public void showMatchListError() {
+        System.out.println("No matching tasks found");
+    }
+
     public void showListItem(int index, String string) {
         System.out.printf("%d. %s\n", index, string);
     }
@@ -96,6 +104,10 @@ public class Ui {
 
     public void showUnmarkUsage() {
         System.out.println("Usage: unmark <integer>");
+    }
+
+    public void showFindUsage() {
+        System.out.println("Usage: find <string>");
     }
 
     public void printLine() {

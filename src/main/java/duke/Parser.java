@@ -44,6 +44,9 @@ public class Parser {
                 case "delete":
                     command = Command.DELETE;
                     break;
+                case "find":
+                    command = Command.FIND;
+                    break;
                 default:
                     command = Command.INVALID;
                     break;
