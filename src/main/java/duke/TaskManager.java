@@ -1,7 +1,8 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.exception.EmptyDescriptionException;
+import duke.exception.EmptyTaskDescriptionException;
+import duke.exception.InvalidTodoInputException;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class TaskManager {
         String[] breakLine = line.split(" ", 2);
         // if there is no task description
         if (breakLine.length == 1 || breakLine[1].isBlank()) {
-            throw new EmptyDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
+            throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
         }
         return breakLine[1];
     }

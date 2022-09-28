@@ -1,10 +1,16 @@
 package duke.ui;
 
+// import duke.exception.DukeException;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
+
+    public Ui() {
+        Scanner scanner = new Scanner(System.in);
+    }
 
     private static final String TOP_HORIZONTAL_RULE = "\t_____________________";
     private static final String BOTTOM_HORIZONTAL_RULE = "\t_____________________\n";
@@ -16,12 +22,6 @@ public class Ui {
 
     // Item not present
     public static final String ITEM_NOT_PRESENT = "There is no such item in your Task List.";
-
-    // missing todo exception message
-    public static void missingTodoExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty. Please follow this format.");
-        System.out.println("\tExample: todo (return book)");
-    }
 
     public static void printSuccessfulAdd(ArrayList<Task> tasks) {
         System.out.println(TOP_HORIZONTAL_RULE);
@@ -45,20 +45,22 @@ public class Ui {
     }
 
     // print missing todo exception message
-    public static void showEmptyTodoInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty. Please follow this format.");
+    public static void showInvalidTodoInputExceptionMessage() {
+        System.out.println("\t☹ OOPS!!! The todo input is invalid. Please follow this format.");
         System.out.println("\tExample: todo <return book>");
+
     }
 
     // print missing deadline exception message
     public static void showInvalidDeadlineInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! Your input is invalid. Please follow this format.");
+        System.out.println("\t☹ OOPS!!! Your deadline input is invalid. Please follow this format.");
         System.out.println("\tExample: deadline <return book> /by <2020-12-12>");
+
     }
 
     // print missing event exception message
     public static void showInvalidEventInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! Your input is incomplete. Please follow this format.");
+        System.out.println("\t☹ OOPS!!! Your event input is incomplete. Please follow this format.");
         System.out.println("\tExample: event <borrow book> /at <library>");
     }
 

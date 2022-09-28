@@ -1,9 +1,10 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.exception.EmptyDescriptionException;
+import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
+import duke.exception.InvalidTodoInputException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -87,8 +88,8 @@ public class Duke {
                     Task t = new Todo(details);
                     tasks.add(t);
                     printSuccessfulAdd(tasks);
-                } catch (EmptyDescriptionException e) {
-                    showEmptyTodoInputExceptionMessage();
+                } catch (EmptyTaskDescriptionException | InvalidTodoInputException e) {
+                    showInvalidTodoInputExceptionMessage();
                 }
                 break;
             case "deadline":
@@ -98,12 +99,11 @@ public class Duke {
                     Task d = new Deadline(split[0], split[1]);
                     tasks.add(d);
                     printSuccessfulAdd(tasks);
-                } catch (EmptyDescriptionException e) {
+                } catch (EmptyTaskDescriptionException e) {
                     showInvalidDeadlineInputExceptionMessage();
                 } catch (InvalidDeadlineInputException e) {
                     showInvalidDeadlineInputExceptionMessage();
                 }
-
                 break;
             case "event":
                 try {
@@ -112,8 +112,8 @@ public class Duke {
                     Task e = new Event(split[0], split[1]);
                     tasks.add(e);
                     printSuccessfulAdd(tasks);
-                } catch (EmptyDescriptionException e) {
-                    showInvalidDeadlineInputExceptionMessage();
+                } catch (EmptyTaskDescriptionException e) {
+                    showInvalidEventInputExceptionMessage();
                 } catch (InvalidEventInputException e) {
                     showInvalidEventInputExceptionMessage();
                 }
