@@ -1,26 +1,81 @@
-# Duke project template
+# Project Duke
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Project Duke is a Personal Assistant Chatbot that helps you keep track of various things.
 
-You will use this as a baseline for the individual project, as well as the team project later in the semester.
+## Launching Duke
 
-## Setting up in Intellij
+Navigate to the directory containing 'Duke.jar' in a terminal, then enter the following command:
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+`java -jar Duke.jar`
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Tasks
+
+There are 3 types of tasks:
+
+1. Todo (tasks that simply needs to be done, no specific time period)
+2. Deadline (tasks that needs to be done by a certain time)
+3. Event (tasks that need to be done within a certain time period)
+
+## Commands
+
+### Add todo task to task list: `todo`
+
+Format: `todo <descripton>`
+
+- `<description>` is a String describing the task
+
+### Add deadline task to task list: `deadline`
+
+Format: `deadline <descripton> /by <time>`
+
+- `<description>` is a String describing the task
+- `<time>` is a String describing the time
+- `/by` is needed to separate `<description>` and `<time>`
+
+### Add event task to task list: `event`
+
+Format: `event <descripton> /at <time>`
+
+- `<description>` is a String describing the task
+- `<time>` is a String describing the time
+- `/at` is needed to separate `<description>` and `<time>`
+
+### List all tasks in task list: `list`
+
+Format: `list`
+
+- Prints every task in the task list
+
+### Delete task in task list: `delete`
+
+Format: `delete <index of item>`
+
+- `<index of item>` is an integer (one-based indexing)
+- A prompt will be shown if the index is out of range
+
+### Mark task as done in task list: `mark`
+
+Format: `mark <index of item>`
+
+- `<index of item>` is an integer (one-based indexing)
+- A prompt will be shown if the index is out of range, or if the task is already marked
+
+### Unmark task as done in task list: `unmark`
+
+Format: `unmark <index of item>`
+
+- `<index of item>` is an integer (one-based indexing)
+- A prompt will be shown if the index is out of range, or if the task is already unmarked
+
+### Find task in task list: `find`
+
+Format: `find <substring>`
+
+- `<substring>` is a String to search for
+- All tasks with description containing the substring will be listed
+
+### Exit the program: `bye`
+
+Format: `bye`
+
+- Tasks will be saved at `data/duke.txt` before exiting
