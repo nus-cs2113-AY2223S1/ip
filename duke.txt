@@ -1,4 +1,8 @@
 D M bbb tonight
 O U hello 
-E M calm down 1200
-O U reading materails  
+E M calm down
+O U reading 
+E U read 8
+E U read 9
+T U doing ur work 
+O U multi-task 

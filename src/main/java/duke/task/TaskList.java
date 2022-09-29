@@ -35,7 +35,7 @@ public class TaskList {
         if (Arrays.asList(ILLEGAL_ARGS).contains(taskDescription)) {
             throw new IllegalArgsTypeException();
         }
-        Task new_task = new Task(taskDescription);
+        Task new_task = new Task(taskDescription.trim());
         tasks.add(new_task);
         System.out.println(">>>Added: " + new_task);
         showTaskCount();
@@ -100,7 +100,7 @@ public class TaskList {
         if (todoDescription.equals("")) {
             throw new IllegalArgsNumException();
         }
-        Task new_todo = new Todo(todoDescription);
+        Task new_todo = new Todo(todoDescription.trim());
         tasks.add(new_todo);
         System.out.println(">>>Added: " + new_todo);
         showTaskCount();
