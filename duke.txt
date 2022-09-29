@@ -1,10 +1,5 @@
-D M bbb tonight
-O U hello 
-E U calm down
-O U reading 
-E U read 8
-E U read 9
-T U doing 
-T U lsit 
-E U bbb ddd
-D U bbb www
+D U submitjar tonight
+E U studywithSayuri 8:00-12:00
+T M findd a goal for life    
+O U have fun and relax    
+D U 55555555555 66666 7777777 now

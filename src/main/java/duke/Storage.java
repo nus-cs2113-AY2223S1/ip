@@ -2,11 +2,7 @@ package duke;
 
 import duke.task.*;
 
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
+import java.io.*;
 
 import java.util.ArrayList;
 
@@ -17,6 +13,7 @@ import java.util.ArrayList;
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
     private static String path = "";
+    private static int column_count = 3;
 
     public Storage() {
         this(DEFAULT_STORAGE_FILEPATH);
@@ -102,26 +99,42 @@ public class Storage {
         TaskList taskList = new TaskList();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            File file = new File(path);
+            if(!file.exists()){
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Fail to create the file!");
+                }
+            }
             BufferedReader in = new BufferedReader(new FileReader(path));
             String line;
             while ((line = in.readLine()) != null) {
-                String[] items = line.split(" ");
+                String[] items = line.split(" ", column_count);
                 Task task;
                 switch (items[0]) {
                 case "D":
-                    task = new Deadline(items[2], items[3]);
+                {
+                    String description = extractDescriptionAndTime(items[column_count-1])[0];
+                    String by = extractDescriptionAndTime(items[column_count-1])[1];
+                    task = new Deadline(description, by);
                     if (items[1].equals("M")) {
                         task.setMarked(true);
                     }
                     tasks.add(task);
                     break;
+                }
                 case "E":
-                    task = new Event(items[2], items[3]);
+                {
+                    String description = extractDescriptionAndTime(items[column_count-1])[0];
+                    String duration = extractDescriptionAndTime(items[column_count-1])[1];
+                    task = new Event(description, duration);
                     if (items[1].equals("M")) {
                         task.setMarked(true);
                     }
                     tasks.add(task);
                     break;
+                }
                 case "O":
                     task = new Todo(items[2]);
                     if (items[1].equals("M")) {
@@ -145,4 +158,21 @@ public class Storage {
 
         return taskList;
     }
+
+    private static String[] extractDescriptionAndTime(String words) {
+        String description = "";
+        String time = "";
+        String[] args = words.split(" ");
+        for (int i = 0; i < args.length - 1; ++i) {
+            description += args[i];
+            description += " ";
+        }
+        time = args[args.length-1];
+        String[] res = new String[2];
+        res[0] = description.trim();
+        res[1] = time;
+        return res;
+    }
 }
+
+
