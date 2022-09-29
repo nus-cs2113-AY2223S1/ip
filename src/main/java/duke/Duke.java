@@ -72,6 +72,7 @@ public class Duke {
                         break;
                     case CLEAR:
                         ui.clearTextFileMessage();
+                        taskList.clearTaskList();
                         storage.clearFile();
                         break;
                     case FIND:
