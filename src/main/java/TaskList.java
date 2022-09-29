@@ -121,6 +121,7 @@ public class TaskList {
             break;
         case DELETE:
             this.deleteTask(index);
+            break;
         case FIND:
             this.find(command.getKey());
             break;
