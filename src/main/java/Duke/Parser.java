@@ -7,7 +7,17 @@ import Duke.Commands.*;
 
 import java.io.IOException;
 
+/**
+ * Parses user input to execute the appropriate commands,
+ * and throws error when the command is invalid.
+ */
 public class Parser {
+
+    /**
+     * Returns the correct command to be executed depending on user's input command
+     * @param input user's input command
+     * @param taskList carries out user's command and stores user's tasks in a list
+     */
     public static Command parseCommand(String input, TaskList taskList) throws IOException {
         String[] commandAndParams = input.split(" ", 2);
         String command = commandAndParams[ 0 ];

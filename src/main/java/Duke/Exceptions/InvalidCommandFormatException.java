@@ -1,8 +1,10 @@
 package Duke.Exceptions;
 
+/**
+ * Represents an error when user inputs an invalid command.
+ */
 public class InvalidCommandFormatException extends Exception {
     private static final String ERROR_MESSAGE = "Invalid Command Format! ";
-    protected static String correctFormatMessage;
 
     public InvalidCommandFormatException() {
         super(ERROR_MESSAGE);

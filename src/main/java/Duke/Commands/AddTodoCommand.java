@@ -5,6 +5,9 @@ import Duke.TaskList;
 
 import java.io.IOException;
 
+/**
+ * When executed, it adds a todo task to taskList
+ */
 public class AddTodoCommand extends AddCommand {
     public static final String TODO_COMMAND = "todo";
     private String[] newTodoTask;

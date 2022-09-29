@@ -5,6 +5,9 @@ import Duke.TaskList;
 
 import java.io.IOException;
 
+/**
+ * When executed, it adds a event task to taskList
+ */
 public class AddEventCommand extends AddCommand {
     public static final String EVENT_COMMAND = "event";
     private String[] newEventTask;

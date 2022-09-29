@@ -1,5 +1,8 @@
 package Duke.Exceptions;
 
+/**
+ * Represents an error when the task number that user inputs is not within the taskList.
+ */
 public class TaskNumberOutOfBoundsException extends Exception {
     private static final String ERROR_MESSAGE = "Task Number specified is not in the list! ";
 

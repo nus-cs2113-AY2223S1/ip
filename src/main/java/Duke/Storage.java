@@ -13,8 +13,16 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of task list into the data file and
+ * the read/write operations between data file and taskList.
+ */
 public class Storage {
     private static final String DATA_FILE_PATH = "data/data.txt";
+
+    /**
+     * Creates the data file if it does not exist.
+     */
     public static void createDataFile() {
         try {
             File file = new File(DATA_FILE_PATH);
@@ -27,10 +35,14 @@ public class Storage {
                 Ui.printFilePath(false, DATA_FILE_PATH);
             }
         } catch (IOException ioException) {
-            Ui.printCreateFileErrorText(DATA_FILE_PATH, ioException);
+            Ui.printCreateFileErrorText(DATA_FILE_PATH);
         }
     }
 
+    /**
+     * Loads the tasks from the data file to taskList
+     * @param taskList taskList that contains tasks stored in data file
+     */
     public static void loadTasksToTasksList(TaskList taskList) {
         try {
             File dataFile = new File(DATA_FILE_PATH);
@@ -75,6 +87,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the taskList to data file
+     * @param taskList taskList that contains tasks to be loaded into data file
+     */
     public static void loadTasktoDataFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
@@ -82,10 +98,15 @@ public class Storage {
             fw.write(taskList.loadTaskToDataFile(taskNumber));
             fw.close();
         } catch (IOException ioException) {
-            Ui.printLoadTaskToDataFileErrorText(ioException);
+            Ui.printLoadTaskToDataFileErrorText();
         }
     }
 
+    /**
+     * Updates the task that is already in the data file
+     * @param taskList taskList that contains tasks
+     * @param commandType the command on how the task is to updated in the data file
+     */
     public static void updateTaskInDataFile(TaskList taskList, String commandType) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(DATA_FILE_PATH));

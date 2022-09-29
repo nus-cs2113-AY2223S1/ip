@@ -7,6 +7,10 @@ import Duke.Tasks.Task;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the interactions with the user,
+ * including all the text UI to be displayed to the use
+ */
 public class Ui {
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -18,11 +22,18 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Reads in input from the user
+     */
     public static String readInput() {
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
 
+    /**
+     * Prints text when new task has been added to the list
+     * @param task the newly added task
+     */
     public static void printAddTaskText(Task task) {
         System.out.println("Bob has added this task to your list:");
         System.out.println(task.taskStatusWithDescriptionText());
@@ -30,6 +41,9 @@ public class Ui {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints a list of all the tasks in the task list
+     */
     public static void printTaskList() {
         try {
             if (TaskList.getTasksListSize() == 0) {
@@ -46,6 +60,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints text when task has been newly mark or unmark
+     * @param newMark whether the task is newly mark or unmark
+     */
     public static void printMarkTaskText(boolean newMark) {
         int taskNumber = TaskList.getTaskNumberOfInterest();
         String previousIcon = TaskList.tasksList.get(taskNumber).getStatusIcon();
@@ -64,6 +82,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints text when a task is deleted from the task list
+     * @param task the task to be deleted
+     */
     public static void printDeleteTaskText(Task task) {
         System.out.println("Noted. Bob has removed this task: ");
         System.out.println(task.taskStatusWithDescriptionText());
@@ -71,6 +93,10 @@ public class Ui {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints the correct format text according to the wrongly input command
+     * @param command user's input command
+     */
     public static void printCorrectFormatText(String command) {
         switch(command) {
         case AddTodoCommand.TODO_COMMAND:
@@ -99,6 +125,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the updated mark and description of a task
+     */
     public static void printUpdatedTaskMarkAndDescription() {
         int taskNumber = TaskList.getTaskNumberOfInterest();
         String newIcon = TaskList.tasksList.get(taskNumber).getStatusIcon();
@@ -109,6 +138,10 @@ public class Ui {
         System.out.println("Task Number should be an integer!");
     }
 
+    /**
+     * Prints a list of tasks with the keyword from the task list
+     * @param keyword user's input keyword to find
+     */
     public static void printTasksWithKeyword(String keyword) {
         int count = 1;
         for (Task task : TaskList.tasksList) {
@@ -126,6 +159,12 @@ public class Ui {
         System.out.println("Error creating parent folder(s)");
     }
 
+    /**
+     * Prints text when the data file has been created
+     * or when the file already exists, along with the file path
+     * @param isNewlyCreated whether the file is newly created
+     * @param file_path file path of data file
+     */
     public static void printFilePath(boolean isNewlyCreated, String file_path) {
         if (isNewlyCreated) {
             System.out.printf("Bob has created the file at %s\n", file_path);
@@ -134,18 +173,20 @@ public class Ui {
         }
     }
 
-    public static void printCreateFileErrorText(String file_path, IOException e) {
+    /**
+     * Prints text when there is an error in creating the file
+     * @param file_path the file path in which there is an error
+     */
+    public static void printCreateFileErrorText(String file_path) {
         System.out.printf("Error creating file: Could not create file at %s\n", file_path);
-        e.printStackTrace();
     }
 
     public static void printReadFileErrorText() {
         System.out.println("Error reading data from file: Invalid format");
     }
 
-    public static void printLoadTaskToDataFileErrorText(IOException e) {
+    public static void printLoadTaskToDataFileErrorText() {
         System.out.println("Error has occurred when loading the task to data file.");
-        e.printStackTrace();
     }
 
     public static void printUpdateTaskToDataFileErrorText(IOException e) {

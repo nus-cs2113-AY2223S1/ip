@@ -3,6 +3,9 @@ package Duke.Commands;
 import Duke.Storage;
 import Duke.TaskList;
 
+/**
+ * When executed, it unmarks the specified task
+ */
 public class UnmarkTaskCommand extends Command {
     public static final String UNMARK_COMMAND = "unmark";
     protected TaskList taskList;

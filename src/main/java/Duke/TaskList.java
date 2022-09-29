@@ -12,22 +12,41 @@ import Duke.Tasks.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Stores user's tasks in a list and
+ * contains methods that can be executed on the list based on user's command.
+ */
 public class TaskList extends ArrayList<Task> {
     public static ArrayList<Task> tasksList = new ArrayList<>();
     protected static int taskNumberOfInterest;
 
+    /**
+     * Returns the number of tasks in the list
+     */
     public static int getTasksListSize() {
         return tasksList.size();
     }
 
+    /**
+     * Returns the task number of the task that user is looking at for that specific command
+     */
     public static int getTaskNumberOfInterest() {
         return taskNumberOfInterest;
     }
 
+    /**
+     * Adds user's specified task to the list
+     * @param task the task that user specified to be added to the list
+     */
     public void addToTasksList(Task task) {
         tasksList.add(task);
     }
 
+    /**
+     * Adds user's specified todo task to the list
+     * @param toDoInput user's input to add todo task (todo (task))
+     * @throws InvalidCommandFormatException if the command is invalid
+     */
     public static void addTodoTask(String[] toDoInput) {
         try {
             if (toDoInput.length < 2) {
@@ -42,6 +61,10 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Adds user's specified deadline task to the list
+     * @param deadlineInput user's input to add deadline task (deadline (task) /by (time))
+     */
     public static void addDeadlineTask(String[] deadlineInput) {
         try {
             String[] DescriptionWithTime = deadlineInput[1].split("/by ", 2);
@@ -54,6 +77,10 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Adds user's specified event task to the list
+     * @param eventInput user's input to add event task (event (task) /at (time))
+     */
     public static void addEventTask(String[] eventInput) {
         try {
             String[] DescriptionWithTime = eventInput[1].split("/at ", 2);
@@ -66,15 +93,23 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-
+    /**
+     * Checks whether the task has been marked or unmarked previously
+     * and prints the message accordingly to user's new input.
+     * @param newMark boolean value of whether the user wants to mark or unmark the task
+     * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
+     */
     public void checkMarkTask(boolean newMark) throws TaskNumberOutOfBoundsException, TaskNumberNotNumberException {
-        try {
-            Ui.printMarkTaskText(newMark);
-        } catch (IndexOutOfBoundsException e) {
-            throw new TaskNumberOutOfBoundsException();
-        }
+        Ui.printMarkTaskText(newMark);
     }
 
+    /**
+     * Marks the specified task of given task number that user inputs
+     * @param taskInput user's input to mark the specified task (mark (task number))
+     * @throws InvalidCommandFormatException if the command format is invalid
+     * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
+     * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
+     */
     public void doMarkTask(String[] taskInput) {
         try {
             if (taskInput.length == 1) {
@@ -100,6 +135,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Unmarks the specified task of given task number that user inputs
+     * @param taskInput user's input to unmark the specified task (unmark (task number))
+     * @throws InvalidCommandFormatException if the command format is invalid
+     * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
+     * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
+     */
     public void doUnmarkTask(String[] taskInput) {
         try {
             if (taskInput.length == 1) {
@@ -126,6 +168,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Deletes the specified task of given task number that user inputs
+     * @param deleteInput user's input to delete the specified task (delete (task number))
+     * @throws InvalidCommandFormatException if the command format is invalid
+     * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
+     * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
+     */
     public void doDeleteTask(String[] deleteInput) {
         try {
             if (deleteInput.length < 2) {
@@ -151,6 +200,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Finds tasks with relevant keyword that user inputs
+     * @param findInput user's keyword input to find tasks (find (keyword))
+     * @throws InvalidCommandFormatException if the command format is invalid
+     * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
+     * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
+     */
     public void findTask(String[] findInput) {
         try {
             if (findInput.length < 2) {
@@ -169,10 +225,19 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Loads task from task list to data file
+     * @param taskNumber task number of the task to be loaded to data file
+     */
     public String loadTaskToDataFile(int taskNumber) {
         return tasksList.get(taskNumber).taskDataFileText() + "\n";
     }
 
+    /**
+     * Sets the done status of the task
+     * @param taskNumber task number of the task to be set
+     * @param setDone boolean value of whether the task is to be set to done or not done
+     */
     public void setTaskDoneStatus(int taskNumber, boolean setDone) {
         tasksList.get(taskNumber).setDone(setDone);
     }

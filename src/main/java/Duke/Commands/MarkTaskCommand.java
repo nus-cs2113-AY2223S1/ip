@@ -3,6 +3,9 @@ package Duke.Commands;
 import Duke.Storage;
 import Duke.TaskList;
 
+/**
+ * When executed, it marks the specified task as done
+ */
 public class MarkTaskCommand extends Command {
     public static final String MARK_COMMAND = "mark";
     protected TaskList taskList;
