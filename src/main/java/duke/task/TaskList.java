@@ -19,7 +19,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, String line) throws DukeException {
+    public static void deleteTask(TaskList tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);
         int taskSize = tasks.size() - 1;
@@ -34,7 +34,9 @@ public class TaskList {
         }
 
         System.out.println("\t_____________________");
-        tasks.remove(taskId);
+        
+        // delete task from the list
+        tasks.removeTask(taskId);
     }
 
     public static void markTask(TaskList tasks, String line) throws DukeException {
@@ -42,9 +44,14 @@ public class TaskList {
         printMark(tasks, taskId);
     }
 
-    public static void unmarkTask(ArrayList<Task> tasks, String line) throws DukeException {
+    public static void unmarkTask(TaskList tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         printUnmark(tasks, taskId);
+    }
+    
+    public static void totalTask(TaskList tasks, String fullCommand) {
+        int taskSize = tasks.size();
+        printTotalNumberOfItems(tasks, taskSize);
     }
 
     // get size of task list
@@ -61,5 +68,10 @@ public class TaskList {
         tasks.add(task);
     }
 
-    // list out all the tasks in the task list
+    // remove task from task list
+    public void removeTask(int index) {
+        tasks.remove(index);
+    }
+
+    
 }

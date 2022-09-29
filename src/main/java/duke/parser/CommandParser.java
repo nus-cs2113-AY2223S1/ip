@@ -15,14 +15,14 @@ public class CommandParser extends Parser {
                 return new duke.command.ByeCommand(fullCommand);
             case "list":
                 return new duke.command.ListCommand(fullCommand);
-            // case "total":
-            //     return new duke.command.TotalCommand(fullCommand);
-            // case "delete":
-            //     return new duke.command.DeleteCommand(fullCommand);
+            case "total":
+                return new duke.command.TotalCommand(fullCommand);
+            case "delete":
+                return new duke.command.DeleteCommand(fullCommand);
             case "mark":
                 return new duke.command.MarkCommand(fullCommand);
-            // case "unmark": 
-            //     return new duke.command.UnmarkCommand(fullCommand);
+            case "unmark": 
+                return new duke.command.UnmarkCommand(fullCommand);
             case "todo":
                 return new duke.command.TodoCommand(fullCommand);
             // case "deadline":

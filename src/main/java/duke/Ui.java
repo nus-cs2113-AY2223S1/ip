@@ -78,7 +78,7 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-    public static void printUnmark(ArrayList<Task> tasks, int taskId) {
+    public static void printUnmark(TaskList tasks, int taskId) {
         System.out.println(TOP_HORIZONTAL_RULE);
         if (!tasks.get(taskId).isDone) {
             System.out.println("\tThis task is already unmarked!");
@@ -103,13 +103,12 @@ public class Ui {
         System.out.println("\t_____________________");
     }
 
-    public static void printTotalNumberOfItems(ArrayList<Task> tasks) {
-        int total = tasks.size();
+    public static void printTotalNumberOfItems(TaskList tasks, int taskSize) {
         System.out.println(TOP_HORIZONTAL_RULE);
-        if (total == 1) {
+        if (taskSize == 1) {
             System.out.println("\tYou have 1 task");
         } else {
-            System.out.println("\tYou have " + total + " tasks!!!");
+            System.out.println("\tYou have " + taskSize + " tasks!!!");
         }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
@@ -130,7 +129,6 @@ public class Ui {
     }
 
 	public static void IndexOutOfBoundsExceptionMessage() {
-        // System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\t☹ OOPS!!! The task number is invalid.");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
