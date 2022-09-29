@@ -131,7 +131,7 @@ OK, I've marked this task as not done yet:
 
 List task(s) that contains any particular keyword (Letter case is ignored).
 
-###### Format of input: `find {keywork}`
+###### Format of input: `find {keyword}`
 
 #### Example of Input and Output:
 Input : `find hall`
@@ -148,10 +148,10 @@ Here are the matching tasks in your list:
 
 End Program once done.
 
-###### Format of input: `find {keywork}`
+###### Format of input: `bye`
 
 #### Example of Input and Output:
-Input : `find hall`
+Input : `bye`
 
 Output:
 ```
