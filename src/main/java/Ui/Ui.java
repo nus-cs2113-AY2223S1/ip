@@ -1,5 +1,7 @@
 package Ui;
 
+import Tasks.TaskList;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.io.InputStream;
@@ -47,13 +49,13 @@ public class Ui {
         return userInput;
     }
 
-    private void printOutput(String message) {
+    public void printOutput(String message) {
         out.println(SEPARATOR);
         out.println(message);
         out.println(SEPARATOR);
     }
 
-    private void printError(String message) {
+    public void printError(String message) {
         out.print("\u001b[31m"); // red font ANSI
         out.println(SEPARATOR);
         out.println(message);
@@ -65,6 +67,10 @@ public class Ui {
         out.print("\u001b[32m"); // green font ANSI
         out.println("[Entered: " + message + " ]");
         out.println("\u001b[0m");
+    }
+
+    public void printToUser(String message) {
+        printOutput(message);
     }
 
     public void printFileNotFound() {

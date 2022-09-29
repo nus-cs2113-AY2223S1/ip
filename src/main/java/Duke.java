@@ -4,6 +4,7 @@ import Exception.WrongArgumentException;
 import Tasks.TaskType;
 import Tasks.TaskList;
 import Ui.Ui;
+import Storage.Storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class Duke {
     private static TaskList list = new TaskList();
     private static boolean toSave = true;
     private static Ui ui;
+    private static Storage storage;
 
     private static final String SEPARATOR = "____________________________________________________________";
 
@@ -29,34 +31,30 @@ public class Duke {
 //        new Duke().run();
 
         ui = new Ui();
+        storage = new Storage();
         ui.printWelcomeMessage();
-        boolean initialiseSuccessful = true;
+        boolean isInitialiseSuccessful = true;
 
         try {
-            list.initialiseTaskFromFile();
+            int itemLen = storage.initialiseTaskFromFile(list);
+            if (itemLen > 0) {
+                ui.printToUser(list.getCompleteList());
+            } else {
+                storage.createNewFile();
+            }
         } catch (FileNotFoundException e) {
             ui.printFileNotFound();
             toSave = false;
         } catch (DataCorruptedException e) {
             ui.printFileCorrupted();
-            initialiseSuccessful = false;
+            isInitialiseSuccessful = false;
+        } catch (IOException e) {
+            ui.printError("Something wrong happen, error data: " + e.getMessage());
+            isInitialiseSuccessful = false;
         }
 
-        Scanner in = new Scanner(System.in);
 
-        if (initialiseSuccessful) {
-            if (list.getTaskListSize() != 0) {
-                printOutput(list.getCompleteList());
-            } else if (toSave) {
-                try {
-                    list.addMarkdownHeader();
-                } catch (IOException e) {
-                    printError("Something wrong happen, error data: " + e.getMessage());
-                }
-            }
-        }
-
-        while (initialiseSuccessful) {
+        while (isInitialiseSuccessful) {
             String lineInput = ui.getUserInput();
             String[] inputSplitted = lineInput.split(" ",2);
 

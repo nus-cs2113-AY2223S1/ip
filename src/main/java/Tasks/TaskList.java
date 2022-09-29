@@ -13,34 +13,8 @@ public class TaskList {
     private final String FILE_PATH = "./data/data.md";
     private ArrayList<Task> inputLists = new ArrayList<Task>();
 
-    public void initialiseTaskFromFile()
-            throws FileNotFoundException, DataCorruptedException {
-        File f = new File(FILE_PATH);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String[] input = s.nextLine().split("\\|");
-            if (input[1].strip().equals("Task Type") || input[1].strip().equals("----------")) {
-                continue;
-            }
-
-            String type = input[1].strip();
-            boolean isCompleted = Boolean.parseBoolean(input[2].strip());
-            String description = input[3].strip();
-            String time = input[4].strip();
-            switch (type) {
-                case "Event":
-                    addTaskToList(description + "/at " + time, TaskType.EVENT, isCompleted, false);
-                    break;
-                case "Deadline":
-                    addTaskToList(description + " /by " + time, TaskType.DEADLINE, isCompleted, false);
-                    break;
-                case "Todo":
-                    addTaskToList(description, TaskType.TODO, isCompleted, false);
-                    break;
-                default:
-                    throw new DataCorruptedException();
-            }
-        }
+    public ArrayList<Task> getInputLists() {
+        return inputLists;
     }
 
     public String getItemFromList(int n) {
@@ -118,6 +92,7 @@ public class TaskList {
                 + "|----------|------|-------------|------|\n");
         fw.close();
     }
+
 
     public void updateWholeFile() throws IOException {
         addMarkdownHeader();
