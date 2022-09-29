@@ -8,9 +8,6 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command{
-
-    protected String[] splitCommand;
-
     public DeleteCommand(String[] splitCommand) {
         this.splitCommand = splitCommand;
     }
@@ -19,11 +16,7 @@ public class DeleteCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> assignments = tasks.getAssignments();
         tasks.deleteTask(splitCommand, assignments, ui);
-        updateTaskFromTasks(tasks);
+        updateCountFromTasks(tasks);
         storage.saveToFile(countTask, assignments);
-    }
-
-    public void updateTaskFromTasks(TaskList tasks) {
-        countTask = tasks.getCountTask();
     }
 }
