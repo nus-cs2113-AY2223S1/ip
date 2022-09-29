@@ -1,0 +1,5 @@
+[T][ ]  borrow book
+[D][X]  return book  (by: Sunday)
+[T][ ]  fish
+[E][ ]  project meeting  (at: Mon 2-4pm)
+[T][ ]  cheer
