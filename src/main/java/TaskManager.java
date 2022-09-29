@@ -59,6 +59,9 @@ public class TaskManager {
             Ui.printUnmarkResponse(response);
             updateRestorationFile();
             break;
+        case "find":
+            printTaskByKeyword(commandArgs);
+            break;
         case "bye":
             Ui.showExitMessage();
             return true;
@@ -122,6 +125,21 @@ public class TaskManager {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("     " + String.valueOf(i+1) + "." + taskList.get(i).getResponse());
+        }
+        Ui.printSplitLine();
+        System.out.println();
+    }
+
+    private void printTaskByKeyword(String keyword){
+        int taskCount = 0;
+        Ui.printSplitLine();
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                taskCount++;
+                System.out.println("     " + String.valueOf(taskCount) + "." + taskList.get(i).getResponse());
+            }
+            
         }
         Ui.printSplitLine();
         System.out.println();
