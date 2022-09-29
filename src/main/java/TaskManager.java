@@ -18,21 +18,21 @@ public class TaskManager {
             Todo todo = new Todo(commandArgs);
             taskList.add(todo);
             response = taskList.get(taskList.size()-1).getResponse();
-            Util.printTaskResponse(response, taskList.size());
+            Ui.printTaskResponse(response, taskList.size());
             updateRestorationFile();
             break;
         case "deadline":
             Deadline deadline = new Deadline(commandArgs);
             taskList.add(deadline);
             response = taskList.get(taskList.size()-1).getResponse();
-            Util.printTaskResponse(response, taskList.size());
+            Ui.printTaskResponse(response, taskList.size());
             updateRestorationFile();
             break;
         case "event":
             Event event = new Event(commandArgs);
             taskList.add(event);
             response = taskList.get(taskList.size()-1).getResponse();
-            Util.printTaskResponse(response, taskList.size());
+            Ui.printTaskResponse(response, taskList.size());
             updateRestorationFile();
             break;
         case "list":
@@ -42,25 +42,25 @@ public class TaskManager {
             index = Integer.valueOf(commandArgs);
             response = taskList.get(index-1).getResponse();
             taskList.remove(index-1);
-            Util.printDeleteResponse(response, taskList.size());
+            Ui.printDeleteResponse(response, taskList.size());
             updateRestorationFile();
             break;
         case "mark":
             index = Integer.valueOf(commandArgs);
             taskList.get(index-1).setStringState(true);
             response = taskList.get(index-1).getResponse();
-            Util.printMarkResponse(response);
+            Ui.printMarkResponse(response);
             updateRestorationFile();
             break;
         case "unmark":
             index = Integer.valueOf(commandArgs);
             taskList.get(index-1).setStringState(false);
             response = taskList.get(index-1).getResponse();
-            Util.printUnmarkResponse(response);
+            Ui.printUnmarkResponse(response);
             updateRestorationFile();
             break;
         case "bye":
-            Util.showExitMessage();
+            Ui.showExitMessage();
             return true;
         default:
             throw new DukeException("TaskTypeError");
@@ -103,7 +103,7 @@ public class TaskManager {
     private void updateRestorationFile(){
         String[] writeLines = this.getAllTasks();
         try {
-            Record.writeToFile(writeLines);
+            Storage.writeToFile(writeLines);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,12 +118,12 @@ public class TaskManager {
     }
 
     private void showAllTasks(){
-        Util.printSplitLine();
+        Ui.printSplitLine();
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("     " + String.valueOf(i+1) + "." + taskList.get(i).getResponse());
         }
-        Util.printSplitLine();
+        Ui.printSplitLine();
         System.out.println();
     }
 

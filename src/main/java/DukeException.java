@@ -27,6 +27,6 @@ public class DukeException extends Exception{
         default:
             errorMessage = "     OOPS!!! Some unknown errors happen.";
         }
-        Util.printErrorMessage(errorMessage);
+        Ui.printErrorMessage(errorMessage);
     }
 }

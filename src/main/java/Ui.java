@@ -1,4 +1,4 @@
-public class Util {
+public class Ui {
     public static void showWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
