@@ -1,5 +1,5 @@
 # User Guide
-___
+
 ## Introduction
 Duke is an assistant chat bot which helps you handle a list of tasks.
 ___
@@ -12,7 +12,6 @@ ___
 
 
 ## Commands
-___
 
 #### `todo` - Adds a Todo task to the task list
 Format:
