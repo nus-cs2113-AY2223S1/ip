@@ -12,7 +12,7 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadTasks());
+        tasks = new TaskList(storage.loadTasks(), ui);
         parser = new Parser(ui, tasks);
     }
 

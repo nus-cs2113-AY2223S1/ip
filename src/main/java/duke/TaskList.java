@@ -4,22 +4,21 @@ import java.util.Arrays;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    private Ui ui;
     private static final String DEADLINE_DELIMITER = "/by";
     private static final String EVENT_DELIMITER = "/at";
     private static final int RIGHT_SHIFT_INDEX = 1;
     private static final int TASK_START_INDEX = 1;
-    public TaskList (ArrayList<Task> tasks) {
+    public TaskList (ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
-    }
-    public TaskList () {
-        this(new ArrayList<Task>());
+        this.ui = ui;
     }
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
     public void addTask(Task task) {
         tasks.add(task);
-        Ui.showAddedTask(task, tasks.size());
+        ui.showAddedTask(task, tasks.size());
     }
     public void addDeadline(String[] inputWords) {
         try {
@@ -27,9 +26,9 @@ public class TaskList {
             Deadline deadline = getDeadline(inputWords);
             addTask(deadline);
         } catch (NoDescriptionException e) {
-            Ui.printEmptyDeadlineDescription();
+            ui.printEmptyDeadlineDescription();
         } catch (InvalidTaskFormatException e) {
-            Ui.printInvalidDeadline();
+            ui.printInvalidDeadline();
         }
     }
     public void addEvent(String[] inputWords) {
@@ -38,26 +37,37 @@ public class TaskList {
             Event event = getEvent(inputWords);
             addTask(event);
         } catch (NoDescriptionException e) {
-            Ui.printEmptyEventDescription();
+            ui.printEmptyEventDescription();
         } catch (InvalidTaskFormatException e) {
-            Ui.printInvalidEvent();
+            ui.printInvalidEvent();
         }
     }
     public void addToDo(String[] inputWords) {
         try {
             ToDo toDo = getToDo(inputWords);
             tasks.add(toDo);
-            Ui.showAddedTask(toDo, tasks.size());
+            ui.showAddedTask(toDo, tasks.size());
         } catch (NoDescriptionException e) {
-            Ui.printInvalidToDo();
+            ui.printInvalidToDo();
         }
     }
 
     public void deleteTask(String[] inputWords) {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task deletedTask = tasks.get(listIndex);
-        Ui.showDeletedTask(deletedTask, tasks.size());
+        ui.showDeletedTask(deletedTask, tasks.size());
         tasks.remove(listIndex);
+    }
+    public void findTasks(String[] inputWords) {
+        String[] keywordsArray = Arrays.copyOfRange(inputWords, RIGHT_SHIFT_INDEX, inputWords.length);
+        String keywords = String.join(" ", keywordsArray);
+        ArrayList<Task> tasksFound = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if(task.getName().contains(keywords)) {
+                tasksFound.add(task);
+            }
+        }
+        ui.showFoundTasks(tasksFound);
     }
 
     private String getTaskName(String[] inputWords, int index) {
@@ -99,13 +109,13 @@ public class TaskList {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task markedTask = tasks.get(listIndex);
         markedTask.setIsCompleted(true);
-        Ui.showMarkedTask(markedTask);
+        ui.showMarkedTask(markedTask);
     }
     public void unmarkTask(String[] inputWords) {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task unmarkedTask = tasks.get(listIndex);
         unmarkedTask.setIsCompleted(false);
-        Ui.showUnmarkedTask(unmarkedTask);
+        ui.showUnmarkedTask(unmarkedTask);
     }
     private void checkForTaskExceptions(String[] inputWords, String delimiter) throws NoDescriptionException, InvalidTaskFormatException {
         if (inputWords.length == 1) {
