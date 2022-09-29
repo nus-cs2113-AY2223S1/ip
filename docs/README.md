@@ -288,6 +288,8 @@ ______________________________________________________________________
 
 ### `bye` - Exit the program
 
+Exits the program.
+
 Expected format:
 
 `bye`
