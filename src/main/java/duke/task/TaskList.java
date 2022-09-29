@@ -4,6 +4,7 @@ import duke.Storage;
 import duke.Ui;
 import duke.exception.DukeException;
 import duke.exception.InvalidDeadlineInputException;
+import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.Parser;
 
@@ -23,7 +24,7 @@ public class TaskList {
     
     public static void addTodo(TaskList tasks, String fullCommand) throws DukeException {
         String description;
-        description = Parser.getTaskDescription(fullCommand);
+        description = Parser.getTaskDescription(fullCommand).trim();
         Task t = new Todo(description);
         tasks.addTask(t);
         Ui.printSuccessfulAdd(tasks);
@@ -42,6 +43,21 @@ public class TaskList {
         }
     }
 
+    public static void addEvent(TaskList tasks2, String fullCommand) {
+        try {
+            String[] description = Parser.parseEventDescription(fullCommand);
+            String eventName = description[0].trim();
+            String eventDetails = description[1].trim();
+            Task t = new Event(eventName, eventDetails);
+            tasks2.addTask(t);
+            Ui.printSuccessfulAdd(tasks2);
+        } catch (InvalidEventInputException e) {
+            Ui.showInvalidEventInputExceptionMessage();
+        }
+    }
+
+
+
     public static void deleteTask(TaskList tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);
@@ -55,10 +71,7 @@ public class TaskList {
         } else {
             System.out.println("\tNow you have " + taskSize + " tasks in the list.");
         }
-
         System.out.println("\t_____________________");
-        
-        // delete task from the list
         tasks.removeTask(taskId);
     }
 

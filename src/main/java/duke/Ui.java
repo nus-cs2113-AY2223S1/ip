@@ -50,20 +50,24 @@ public class Ui {
     }
 
     public static void showInvalidTodoInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! The todo input is invalid. Please follow this format.");
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! The todo input is invalid. Please follow this format.");
         System.out.println("\tExample: todo <return book>");
-
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void showInvalidDeadlineInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! Your deadline input is invalid. Please follow this format.");
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your deadline input is invalid. Please follow this format.");
         System.out.println("\tExample: deadline <return book> /by <2020-12-12>");
-
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void showInvalidEventInputExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! Your event input is incomplete. Please follow this format.");
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your event input is incomplete. Please follow this format.");
         System.out.println("\tExample: event <borrow book> /at <library>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printMark(TaskList tasks, int taskId) {
@@ -91,7 +95,7 @@ public class Ui {
     }
 
     public static void printTaskList(TaskList tasks) {
-        System.out.println("\t_____________________");
+        System.out.println(TOP_HORIZONTAL_RULE);
         if (tasks.size() == 0) {
             System.out.println("\tThere is no task!");
         } else {
@@ -100,7 +104,7 @@ public class Ui {
                 System.out.println("\t" + (i + 1) + "." + tasks.get(i));
             }
         }
-        System.out.println("\t_____________________");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printTotalNumberOfItems(TaskList tasks, int taskSize) {
@@ -115,7 +119,7 @@ public class Ui {
 
     public static void printUnknownCommand() {
         System.out.println(TOP_HORIZONTAL_RULE);
-        System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println("\tHere are the commands that you can use:");
         System.out.println("\t1. todo <task name>");
         System.out.println("\t2. deadline <task name> /by <yyyy-mm-dd>");
@@ -129,7 +133,12 @@ public class Ui {
     }
 
 	public static void IndexOutOfBoundsExceptionMessage() {
-        System.out.println("\t☹ OOPS!!! The task number is invalid.");
+        System.out.println("\tOOPS!!! This task is not in the list!");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+    public static void NumberFormatExceptionMessage() {
+        System.out.println("\tOOPS!!! Please only enter numbers!");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 }
