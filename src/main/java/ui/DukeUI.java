@@ -14,6 +14,7 @@ public class DukeUI {
     private static final String MESSAGE_UNDONE = "Duke: The task below has not been completed. Do it soon! \n";
     private static final String MESSAGE_FILE_SUCCESS = "The file has successfully been created!";
     private static final String MESSAGE_FILE_EXISTS = "The file already exists!";
+    private static final String MESSAGE_FIND = "Here are the matching tasks in your list: \n";
     private static final String INDENT = "    ";
     private static final Scanner in = new Scanner(System.in);
 
@@ -96,5 +97,12 @@ public class DukeUI {
      */
     public void listMessage() {
         System.out.print(MESSAGE_LIST);
+    }
+
+    /**
+     * show the message when the user wants to find an input
+     */
+    public void showFindMessage() {
+        System.out.print(MESSAGE_FIND);
     }
 }
