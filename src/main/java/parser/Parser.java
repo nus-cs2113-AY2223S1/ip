@@ -25,7 +25,13 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_CLEAR = "clear";
+    private static final String COMMAND_FIND = "find";
 
+    /**
+     * to convert user input into commands for Duke
+     * @param input user input
+     * @return command that user is telling Duke
+     */
     public Command parseInputString(String input) {
         Command command;
         if (input.equals(COMMAND_BYE)) {
@@ -56,6 +62,9 @@ public class Parser {
                 break;
             case COMMAND_CLEAR:
                 command = Command.CLEAR;
+                break;
+            case COMMAND_FIND:
+                command = Command.FIND;
                 break;
             default:
                 command = Command.UNRECOGNISED_INPUT;
