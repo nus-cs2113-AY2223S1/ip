@@ -1,3 +1,10 @@
+package duke;
+import duke.task.Task;
+import duke.exceptions.InvalidCommandException;
+import duke.task.Todo;
+import duke.task.Deadlines;
+import duke.task.Events;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -29,7 +36,7 @@ public class Duke {
                 Task marktask = tasklist.get(task_no - 1);
                 marktask.setisDone(true);
                 System.out.println("-------------------------------------------------------------------------------");
-                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("Nice! I've marked this duke.task as done:");
                 System.out.println(marktask);
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
@@ -38,7 +45,7 @@ public class Duke {
                 Task unmarktask = tasklist.get(task_no - 1);
                 unmarktask.setisDone(false);
                 System.out.println("-------------------------------------------------------------------------------");
-                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("OK, I've marked this duke.task as not done yet:");
                 System.out.println(unmarktask);
                 System.out.println("-------------------------------------------------------------------------------");
                 break;
@@ -47,7 +54,7 @@ public class Duke {
                     removeTask(input, inputArr);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Invalid task number.");
+                    System.out.println("Invalid duke.task number.");
                     System.out.println("-------------------------------------------------------------------------------");
                 }
                 break;
@@ -56,7 +63,7 @@ public class Duke {
                     task = createTodo(input, inputArr);
                     tasklist.add(task);
                     System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
                     System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
@@ -69,7 +76,7 @@ public class Duke {
                     task = createDeadline(input, inputArr);
                     tasklist.add(task);
                     System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
                     System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
@@ -86,7 +93,7 @@ public class Duke {
                     task = createEvent(input, inputArr);
                     tasklist.add(task);
                     System.out.println("-------------------------------------------------------------------------------");
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
                     System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
@@ -108,13 +115,13 @@ public class Duke {
 
 
 
-    public static Task createTodo(String input, String[] inputArr) throws InvalidCommandException{
+    public static Task createTodo(String input, String[] inputArr) throws InvalidCommandException {
         if (inputArr.length < 2){
             throw new InvalidCommandException("OOPS!!! The description of a todo cannot be empty.");
         }
         return new Todo(input.substring(5));
     }
-    public static Task createDeadline(String input, String[] inputArr) throws InvalidCommandException{
+    public static Task createDeadline(String input, String[] inputArr) throws InvalidCommandException {
         if (inputArr.length < 2){
             throw new InvalidCommandException("OOPS!!! The description of a deadline cannot be empty.");
         }
@@ -135,7 +142,7 @@ public class Duke {
         Task task = tasklist.get(task_index - 1);
         tasklist.remove(task_index - 1);
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this duke.task:");
         System.out.println(task);
         System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
         System.out.println("-------------------------------------------------------------------------------");
@@ -152,7 +159,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm duke.Duke");
         System.out.println("What can i do for you?");
         System.out.println("-------------------------------------------------------------------------------");
 
