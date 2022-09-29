@@ -21,7 +21,7 @@ public class AddCommand extends Command{
         isInitialEmpty = storage.isInitialEmpty();
         updateTaskFromStorage(storage);
         checkEmptyTask();
-        typeOfIncrement(tasks);
+        checkTypeOfIncrement(tasks);
         checkCommandType(splitCommand);
         addTypeOfTask(tasks, assignments);
         ui.showTypeOfTaskDetail(assignments, indexTask);
@@ -29,7 +29,7 @@ public class AddCommand extends Command{
         storage.saveToFile(countTask, assignments);
     }
 
-    public void typeOfIncrement(TaskList tasks) {
+    public void checkTypeOfIncrement(TaskList tasks) {
         if (isInitialEmpty || isCountTaskEmpty) {
             indexTask = tasks.getIndexTask();
         } else {
@@ -43,7 +43,7 @@ public class AddCommand extends Command{
         }
     }
 
-    private void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
+    public void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
         if (isEvent) {
             tasks.addEventTask(splitCommand, assignments, indexTask);
         } else if (isDeadline) {
