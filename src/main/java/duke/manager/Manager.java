@@ -88,6 +88,7 @@ public class Manager {
                 // print goodbye if command is bye
                 if (command.isBye()) {
                     UserInterface.printGoodbye();
+                    System.exit(0);
                 }
                 Storage.saveManager();
             } catch (NoSuchCommandException | TooManyArgumentsException | MissingArgumentException e) {

@@ -42,6 +42,7 @@ public class UserInterface {
      */
     public static void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
+        printBorderLines();
     }
 
     /**

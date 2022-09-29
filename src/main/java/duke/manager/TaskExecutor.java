@@ -118,6 +118,10 @@ public class TaskExecutor {
      * @param argument string that contains the task position of task to act on
      */
     private static void runTypeAndIntegerCommands(String commandType, String argument) {
+        if (TaskList.getSize() == 0) { // Guard Clause
+            System.out.println("There are no tasks stored. Why not try creating some?");
+            return;
+        }
         try {
             switch (commandType) {
             case "mark":
@@ -137,10 +141,11 @@ public class TaskExecutor {
         } catch (MissingArgumentException e) {
             System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! You did not give me an integer.");
+            System.out.println("OOPS!!! You did not give me an integer.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! You did not give me an integer i that is more than zero and less than" +
-                    " the number of tasks");
+            String errorMessage = "OOPS!!! You did not give me an integer i that is more than zero and" +
+                    System.lineSeparator() + "less than the number of tasks";
+            System.out.println(errorMessage);
         }
     }
 
@@ -265,7 +270,7 @@ public class TaskExecutor {
             }
         }
         if (tasksFound == 0) {
-            System.out.println("I did not find any matching tasks in your list. ☹");
+            System.out.println("I did not find any matching tasks in your list.");
         }
     }
 
