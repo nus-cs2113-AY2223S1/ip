@@ -16,7 +16,7 @@ public class Duke {
     static void startSession() {
         UI.printLogo();
         UI.printLine();
-        System.out.println("Hello! I'm duke.Duke Nukem");
+        System.out.println("Hello! I'm Duke Nukem");
         System.out.println("What can I do for you today? Let's rock!");
         UI.printLine();
     }

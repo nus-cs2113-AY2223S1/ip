@@ -241,6 +241,7 @@ public class TaskManager {
         UI.printLine();
         System.out.println("I've deleted this task, lucky!:");
         String position = Parser.parseDelete(text);
+        System.out.println(getTask(position));
         Tasks.remove(Integer.valueOf(position) - 1);
         Storage.saveTasks(Tasks);
         System.out.println("You now have " + Tasks.size() + " tasks left. Yay!");

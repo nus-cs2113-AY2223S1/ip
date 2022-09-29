@@ -76,7 +76,7 @@ public class Parser {
      * @return the description of the todo
      */
     public static String parseTodo(String line) {
-        String[] result = line.split(" ");
+        String[] result = line.split(" ",2);
         return result[1];
     }
 
