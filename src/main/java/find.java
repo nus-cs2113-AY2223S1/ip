@@ -1,11 +1,20 @@
 import java.util.ArrayList;
 
+/**
+ * find class extend from Command Class.
+ */
 public class find extends Command {
     String fullCommand;
+    /**
+     * constructor for find.
+     */
     find(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * execute method finds keywords from task list and prints out the tasks.
+     */
     public void execute(ArrayList<String> type, ArrayList<String> marks, ArrayList<String> tasks, Ui ui, Storage storage) {
         System.out.println("Here are the matching tasks in your list:");
         int numbering = 1;
@@ -17,6 +26,10 @@ public class find extends Command {
             }
         }
     }
+
+    /**
+     * program does not exit after this class is called.
+     */
     boolean isExit() {
         return false;
     }
