@@ -4,13 +4,15 @@ import duke.exceptions.InvalidCommandException;
 import duke.task.Todo;
 import duke.task.Deadlines;
 import duke.task.Events;
+import duke.data.Storage;
+import java.io.IOException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
-    static ArrayList<Task> tasklist = new ArrayList<>();
+    public static ArrayList<Task> Tasks = new ArrayList<>();
 
-    public static void Echo(String input){
+    public static void Echo(String input) throws IOException {
         Task task;
         String[] inputArr = input.split(" ");
         int task_no;
@@ -24,7 +26,7 @@ public class Duke {
                 System.out.println("-------------------------------------------------------------------------------");
                 System.out.println("Here are the tasks in your list:");
                 int i = 1;
-                for (Task l: tasklist){
+                for (Task l: Tasks){
                     System.out.print(i + ".");
                     System.out.println(l);
                     i++;
@@ -33,8 +35,9 @@ public class Duke {
                 break;
             case "mark":
                 task_no = Integer.parseInt(inputArr[1]);
-                Task marktask = tasklist.get(task_no - 1);
+                Task marktask = Tasks.get(task_no - 1);
                 marktask.setisDone(true);
+                Storage.saveTask(Tasks);
                 System.out.println("-------------------------------------------------------------------------------");
                 System.out.println("Nice! I've marked this duke.task as done:");
                 System.out.println(marktask);
@@ -42,8 +45,9 @@ public class Duke {
                 break;
             case "unmark":
                 task_no = Integer.parseInt(inputArr[1]);
-                Task unmarktask = tasklist.get(task_no - 1);
+                Task unmarktask = Tasks.get(task_no - 1);
                 unmarktask.setisDone(false);
+                Storage.saveTask(Tasks);
                 System.out.println("-------------------------------------------------------------------------------");
                 System.out.println("OK, I've marked this duke.task as not done yet:");
                 System.out.println(unmarktask);
@@ -52,6 +56,7 @@ public class Duke {
             case "delete":
                 try {
                     removeTask(input, inputArr);
+                    Storage.saveTask(Tasks);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println("-------------------------------------------------------------------------------");
                     System.out.println("Invalid duke.task number.");
@@ -61,11 +66,12 @@ public class Duke {
             case "todo":
                 try {
                     task = createTodo(input, inputArr);
-                    tasklist.add(task);
+                    Tasks.add(task);
+                    Storage.saveTask(Tasks);
                     System.out.println("-------------------------------------------------------------------------------");
                     System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
                 } catch (InvalidCommandException e){
 
@@ -74,11 +80,12 @@ public class Duke {
             case "deadline":
                 try {
                     task = createDeadline(input, inputArr);
-                    tasklist.add(task);
+                    Tasks.add(task);
+                    Storage.saveTask(Tasks);
                     System.out.println("-------------------------------------------------------------------------------");
                     System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
                 } catch (InvalidCommandException e){
 
@@ -91,11 +98,12 @@ public class Duke {
             case "event":
                 try {
                     task = createEvent(input, inputArr);
-                    tasklist.add(task);
+                    Tasks.add(task);
+                    Storage.saveTask(Tasks);
                     System.out.println("-------------------------------------------------------------------------------");
                     System.out.println("Got it. I've added this duke.task:");
                     System.out.println(task);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+                    System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
                     System.out.println("-------------------------------------------------------------------------------");
                 } catch (InvalidCommandException e){
 
@@ -119,6 +127,7 @@ public class Duke {
         if (inputArr.length < 2){
             throw new InvalidCommandException("OOPS!!! The description of a todo cannot be empty.");
         }
+
         return new Todo(input.substring(5));
     }
     public static Task createDeadline(String input, String[] inputArr) throws InvalidCommandException {
@@ -139,17 +148,26 @@ public class Duke {
 
     public static void removeTask(String input, String[] inputArr){
         int task_index = Integer.parseInt(inputArr[1]);
-        Task task = tasklist.get(task_index - 1);
-        tasklist.remove(task_index - 1);
+        Task task = Tasks.get(task_index - 1);
+        Tasks.remove(task_index - 1);
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("Noted. I've removed this duke.task:");
         System.out.println(task);
-        System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+        System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
         System.out.println("-------------------------------------------------------------------------------");
 
     }
 
-    public static void main(String[] args) {
+    public static void storeTask(ArrayList<Task> tasklist) {
+        try {
+            Storage.saveTask(tasklist);
+        } catch (IOException e) {
+            System.out.println("file not found.");
+        }
+    }
+
+
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -164,7 +182,11 @@ public class Duke {
         System.out.println("-------------------------------------------------------------------------------");
 
         String input = new String("");
-
+        try {
+            Storage.loadTask(Tasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Something is wrong.");
+        }
 
         while(!input.startsWith("bye")){
             input = in.nextLine();

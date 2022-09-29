@@ -1,14 +1,18 @@
 package duke.task;
 
-public class Events extends Task{
+public class Events extends Task {
     protected String at;
 
-    public Events(String description, String at){
+    public Events(String description, String at) {
         super(description);
         this.at = at;
     }
 
-    public String toString(){
+    public String toString() {
         return "[E]" + super.toString() + "(at: " + at + ")";
+    }
+
+    public String SaveAsString() {
+        return "[E]" + super.SaveAsString() + "/at " + at;
     }
 }

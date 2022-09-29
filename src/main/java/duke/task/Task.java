@@ -13,15 +13,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
-    public void setisDone(boolean status){
+    public void setisDone(boolean status) {
         this.isDone = status;
     }
 
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
-
-
+    public String SaveAsString() {
+        return "[" + this.getStatusIcon() + "] " + description;
+    }
     //...
 }
