@@ -1,19 +1,11 @@
 package Duke.Tasks;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-import Duke.Duke;
 import Duke.Exceptions.ArguementNotFoundException;
 import Duke.Exceptions.WrongArgumentException;
-import Duke.Storage.Storage;
 import Duke.UI.UI;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 
 public class TaskManager extends ArrayList<Tasks> {
@@ -59,7 +51,7 @@ public class TaskManager extends ArrayList<Tasks> {
         System.out.println(UI.PRINT_LINE
                 + TASK_ADDED
                 + task + "\n"
-                + "Now you have " + numOfTasks + " in the list.\n"
+                + "Now you have " + numOfTasks + "task(s) in the list.\n"
                 + UI.PRINT_LINE
         );
     }
@@ -168,7 +160,7 @@ public class TaskManager extends ArrayList<Tasks> {
                     UI.PRINT_LINE
                             + "Noted. I've removed this task:\n"
                             + taskList.get(taskNum - 1) + "\n"
-                            + "Now you have " + numOfTasks + " tasks in the list.\n"
+                            + "Now you have " + numOfTasks + " task(s) in the list.\n"
                             + UI.PRINT_LINE
             );
             taskList.remove(taskNum - 1);
@@ -213,7 +205,7 @@ public class TaskManager extends ArrayList<Tasks> {
     public static void printMatchedTasks(ArrayList<Tasks> matchingTasks) {
         System.out.println(
                 UI.PRINT_LINE
-                        + "Here are the matching tasks in your list:"
+                        + "Here are the matching task(s) in your list:"
         );
         for (int i = 0; i < matchingTasks.size(); i++) {
             System.out.println(
@@ -233,7 +225,7 @@ public class TaskManager extends ArrayList<Tasks> {
     public static void printList() {
         System.out.println(
                 UI.PRINT_LINE
-                        + "Here are the tasks in your list:"
+                        + "Here are the task(s) in your list:"
         );
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(

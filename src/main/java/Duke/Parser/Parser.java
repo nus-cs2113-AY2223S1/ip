@@ -7,8 +7,7 @@ import Duke.Tasks.TaskManager;
 import java.io.IOException;
 
 public class Parser {
-    static final boolean EXIT = false;
-    static final boolean CONTINUE = true;
+    static boolean isFinished = true;
     public static boolean parseCommand(String command) {
 
         String[] splitCommand = command.split(" ");
@@ -19,7 +18,8 @@ public class Parser {
             } catch (IOException e) {
                 System.out.println("Error inputting data to file");
             }
-            return EXIT;
+            isFinished = false;
+            return isFinished;
         case "mark":
             TaskManager.markTask(command);
             break;
@@ -49,7 +49,7 @@ public class Parser {
             break;
         }
 
-        return CONTINUE;
+        return isFinished;
     }
 
     private static void UnknownCommandDetection() {
