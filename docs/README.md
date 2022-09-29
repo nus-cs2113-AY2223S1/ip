@@ -2,9 +2,9 @@
 
 ## Quick Start
 
-1. Copy the file "2113 iP.jar" from this repository into your folder of choice
+1. Copy the file "2113.iP.jar" from this repository into your folder of choice
 2. Open terminal and change the directory to that folder.
-3. Run the jar file by entering `java -jar "2113 iP.jar"` into the terminal.
+3. Run the jar file by entering `java -jar "2113.iP.jar"` into the terminal.
 
 You should be greeted by Duke as follows:
 ```
