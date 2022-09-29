@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles all types of task 
+ */
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
     public boolean handleTask(String inputText) throws DukeException {
