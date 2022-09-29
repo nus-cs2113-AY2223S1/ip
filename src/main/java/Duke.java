@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * The entrance of the program
+ */
 public class Duke {
     static TaskManager taskManager = new TaskManager();
     static Storage record = new Storage();

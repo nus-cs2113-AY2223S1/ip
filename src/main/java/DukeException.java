@@ -1,3 +1,6 @@
+/**
+ * Handles the possible exceptions in the program
+ */
 public class DukeException extends Exception{
     private String errorType;
 

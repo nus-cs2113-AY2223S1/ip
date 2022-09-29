@@ -1,3 +1,7 @@
+/**
+ * Handles UI-related work
+ */
+
 public class Ui {
     public static void showWelcomeMessage() {
         String logo = " ____        _        \n"

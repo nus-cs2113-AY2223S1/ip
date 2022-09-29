@@ -2,10 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    //private static final int MAX_LIST_NUM = 100;
-    //private static Task[] taskList = new Task[MAX_LIST_NUM];
     private static ArrayList<Task> taskList = new ArrayList<Task>();
-    //private static int listLength = 0;
     public boolean handleTask(String inputText) throws DukeException {
         final String[] splits = inputText.trim().split("\\s+", 2);
         final String[] commandTypeAndParams = splits.length == 2 ? splits : new String[] { splits[0], "" };
