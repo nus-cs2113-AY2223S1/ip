@@ -8,6 +8,9 @@ import duke.task.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the different operations that are able to be performed to the tasks list.
+ */
 public class TaskList {
     public String command;
     public String filePath;
@@ -19,6 +22,14 @@ public class TaskList {
 
     UI ui = new UI();
 
+    /**
+     * Initializes the TaskList object.
+     *
+     * @param command User's input.
+     * @param filePath Name of the file used to save tasks.
+     * @param tasks Array used to store all the tasks.
+     * @param numberOfTasks Number of tasks currently in the list.
+     */
     public TaskList(String command, String filePath, ArrayList<Task> tasks, int numberOfTasks) {
         this.command = command;
         this.filePath = filePath;
@@ -29,14 +40,32 @@ public class TaskList {
         firstWord = words[0];
     }
 
+    /**
+     * Get the updated tasks array used to store all the current tasks.
+     *
+     * @return Array used to store all the tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Get the updated number of tasks.
+     *
+     * @return Number of tasks currently in the list.
+     */
     public int getNumberOfTasks() {
         return numberOfTasks;
     }
 
+    /**
+     * Creates a Task object and gives it an instance of Todo, Event, or Deadline
+     * according to the user's input. Updates the text file to append a line corresponding to that Task object.
+     *
+     * @param command User's input.
+     * @return Task object corresponding to the task created.
+     * @throws DukeException If the description of the task is empty.
+     */
     public Task createTask(String command) throws DukeException{
         //Handle empty description exception
         if (words.length == 1) {
@@ -61,11 +90,19 @@ public class TaskList {
         return newTask;
     }
 
-    public void addTask(Task currentTask, boolean isFile) {
+    /**
+     * Adds a Task object to the list of current tasks.
+     *
+     * @param currentTask Task object to be added to the list.
+     * @param isReadFromFile Boolean to determine whether to print the UI message.
+     *                       True if Task is read from file.
+     *                       False if it has just been added by the user.
+     */
+    public void addTask(Task currentTask, boolean isReadFromFile) {
         tasks.add(currentTask);
         numberOfTasks++;
 
-        if (!isFile) {
+        if (!isReadFromFile) {
             ui.printDivider();
             System.out.println("\tGot it! (๑˃ᴗ˂)ﻭ I've added this task:");
             System.out.print("\t  ");
@@ -76,6 +113,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes a Task object corresponding to the specified index from the list of current tasks.
+     * Updates the text file to remove the line that corresponds to that Task object.
+     *
+     * @param index Position of the task to be removed from the list.
+     */
     public void removeTask(int index) {
         try {
             Task removedTask = tasks.get(index);
@@ -94,6 +137,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays the list of current tasks to the user.
+     */
     public void printList() {
         ui.printDivider();
         System.out.println("\tHere are the tasks in your list:");
@@ -105,7 +151,16 @@ public class TaskList {
         ui.printDivider();
     }
 
-    public void markAsDone(String index, boolean isFile) {
+    /**
+     * Marks a certain Task object as done. Updates the text file to flag the line corresponding to that Task
+     * object as done.
+     *
+     * @param index Position of the task to be marked as done.
+     * @param isReadFromFile Boolean to determine whether to print the UI message.
+     *                       True if Task is read from file.
+     *                       False if it has just been added by the user.
+     */
+    public void markAsDone(String index, boolean isReadFromFile) {
         Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
         try {
@@ -113,7 +168,7 @@ public class TaskList {
             currentTask.markAsDone();
             storage.rewriteFile();
 
-            if (!isFile) {
+            if (!isReadFromFile) {
                 ui.printDivider();
                 System.out.println("\tNice! (〃＾▽＾〃) I've marked this task as done:");
                 System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
@@ -128,7 +183,16 @@ public class TaskList {
         }
     }
 
-    public void markAsUndone(String index, boolean isFile) {
+    /**
+     * Marks a certain Task object as undone. Updates the text file to flag the line corresponding to that Task
+     * object as undone.
+     *
+     * @param index Position of the task to be marked as undone.
+     * @param isReadFromFile Boolean to determine whether to print the UI message.
+     *                       True if Task is read from file.
+     *                       False if it has just been added by the user.
+     */
+    public void markAsUndone(String index, boolean isReadFromFile) {
         Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
         try {
@@ -136,7 +200,7 @@ public class TaskList {
             currentTask.markAsUndone();
             storage.rewriteFile();
 
-            if (!isFile) {
+            if (!isReadFromFile) {
                 ui.printDivider();
                 System.out.println("\tOK, I've marked this task as not done yet:");
                 System.out.println("\t  [" + currentTask.getStatusIcon() + "] " + currentTask.description);
@@ -151,6 +215,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find a task in the current tasks list that contains the text specified by the user.
+     *
+     * @param taskSubstring Substring specified by user.
+     */
     public void findTask(String taskSubstring) {
         int currentIndex = 1;
 
