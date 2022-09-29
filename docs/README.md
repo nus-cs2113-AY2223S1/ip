@@ -55,7 +55,7 @@ Example of usage:
 `list`
 
 Expected outcome:
-```aidl
+```
 There are 2 tasks on the list now:
 1.[D][] assignment (by: today)
 2.[E][] celebration (at: Saturday)
@@ -80,7 +80,7 @@ Example of usage:
 `unmark 1`
 
 Expected outcome:
-```aidl
+```
 Task 1 is unmarked as not done~
 [D][] assignment (by: today)
 ```
@@ -111,7 +111,7 @@ Example of usage:
 `find assignment`
 
 Expected outcome:
-```aidl
+```
 1 matching tasks are found:
 1.[D][] assignment (by: today)
 ```
