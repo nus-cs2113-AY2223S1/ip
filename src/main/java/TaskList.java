@@ -32,6 +32,17 @@ public class TaskList {
         UI.markMessage("mark",tasks.get(position-1).description,tasks.get(position-1).getStatusIcon() );
     }
 
+    public static void findTask(ArrayList<Task> tasks , String word){
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        for(int i=0;i<tasks.size();i++){
+            String str = tasks.get(i).description;
+            if (str.contains(word)){
+                tasksFound.add(tasks.get(i));
+            }
+        }
+        UI.listMessage(tasksFound);
+    }
+
     public static void handleStoredTasks(ArrayList<String> storedTasks, ArrayList<Task> tasks){
         for (String str : storedTasks) {
             if (str.charAt(1) == 'T') {

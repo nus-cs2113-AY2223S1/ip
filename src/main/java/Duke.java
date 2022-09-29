@@ -53,6 +53,11 @@ public class Duke {
             TaskList.unmarkTask(position, tasks);
         }
     }
+
+    public static void handleFindMessage(){
+        String word = Parser.parseFindCommand(inputText);
+        TaskList.findTask(tasks,word);
+    }
     public static void handleUserInput() {
             while(isRunning){
                     inputText = UI.getInput();
@@ -66,8 +71,9 @@ public class Duke {
                         handleMarkMessage();
                     }else if(command.equals("delete")){
                         handleDeleteCommand(Parser.getDeletePosition(inputText));
-                    }
-                    else{
+                    } else if (command.equals("find")) {
+                       handleFindMessage();
+                   } else{
                         addNewTask(Parser.getTaskType(inputText));
                     }
             }

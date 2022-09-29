@@ -47,8 +47,12 @@ public class UI {
 
     public static void listMessage(ArrayList<Task> tasks){
         System.out.println(line );
-        for (Task task : tasks) {
-            System.out.println(task.toString());
+        if(tasks.size()==0){
+            System.out.println("No Tasks in list");
+        } else{
+            for (Task task : tasks) {
+                System.out.println(task.toString());
+            }
         }
         System.out.println(line );
     }
