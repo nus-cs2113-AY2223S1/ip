@@ -19,16 +19,15 @@ public class Storage {
         try {
             File file = new File(DATA_FILE_PATH);
             if (!file.getParentFile().mkdirs()) {
-                System.out.println("Error creating parent folder(s)");
+                Ui.printCreateParentFolderErrorText();
             }
             if (file.createNewFile()) {
-                System.out.printf("File created at %s\n", DATA_FILE_PATH);
+                Ui.printFilePath(true, DATA_FILE_PATH);
             } else {
-                System.out.printf("File already exists at %s\n", DATA_FILE_PATH);
+                Ui.printFilePath(false, DATA_FILE_PATH);
             }
         } catch (IOException ioException) {
-            System.out.printf("Error creating file: Could not create file at %s\n", DATA_FILE_PATH);
-            ioException.printStackTrace();
+            Ui.printCreateFileErrorText(DATA_FILE_PATH, ioException);
         }
     }
 
@@ -66,25 +65,24 @@ public class Storage {
                     }
                     break;
                 default:
-                    System.out.println("Error reading data from file: Invalid format");
+                    Ui.printReadFileErrorText();
                     break;
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File is not found! Give me a moment to create it!");
+            System.out.println(e);
             createDataFile();
         }
     }
 
-    public static void loadTasktoDataFile(TaskList taskList) throws IOException {
+    public static void loadTasktoDataFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
             int taskNumber = taskList.getTaskNumberOfInterest();
             fw.write(taskList.loadTaskToDataFile(taskNumber));
             fw.close();
         } catch (IOException ioException) {
-            System.out.printf("Error has occurred when loading the task to data file.");
-            ioException.printStackTrace();
+            Ui.printLoadTaskToDataFileErrorText(ioException);
         }
     }
 
@@ -100,8 +98,7 @@ public class Storage {
             lines.removeIf(String::isEmpty);
             Files.write(Paths.get(DATA_FILE_PATH), lines);
         } catch (IOException ioException) {
-            System.out.printf("Error occured when updating the task in data file.");
-            ioException.printStackTrace();
+            Ui.printUpdateTaskToDataFileErrorText(ioException);
         }
     }
 }

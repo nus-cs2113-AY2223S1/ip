@@ -3,7 +3,7 @@ package Duke;
 import Duke.Exceptions.TaskListEmptyException;
 import Duke.Tasks.Task;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -119,6 +119,37 @@ public class Ui {
         if (count == 1 ) {
             System.out.println("There is no related task in your list.");
         }
+    }
+
+    public static void printCreateParentFolderErrorText() {
+        System.out.println("Error creating parent folder(s)");
+    }
+
+    public static void printFilePath(boolean isNewlyCreated, String file_path) {
+        if (isNewlyCreated) {
+            System.out.printf("File created at %s\n", file_path);
+        } else {
+            System.out.printf("File already exists at %s\n", file_path);
+        }
+    }
+
+    public static void printCreateFileErrorText(String file_path, IOException e) {
+        System.out.printf("Error creating file: Could not create file at %s\n", file_path);
+        e.printStackTrace();
+    }
+
+    public static void printReadFileErrorText() {
+        System.out.println("Error reading data from file: Invalid format");
+    }
+
+    public static void printLoadTaskToDataFileErrorText(IOException e) {
+        System.out.printf("Error has occurred when loading the task to data file.");
+        e.printStackTrace();
+    }
+
+    public static void printUpdateTaskToDataFileErrorText(IOException e) {
+        System.out.printf("Error occured when updating the task in data file.");
+        e.printStackTrace();
     }
 
     public static void printGoodbye() {
