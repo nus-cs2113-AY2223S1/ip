@@ -1,7 +1,7 @@
 public class Deadline extends Task implements FormatChecker {
     private static final String DEADLINE_MARK = "[D]";
-    private static final String taskType = "D";
-    private String time;
+    private static final TaskType taskType = TaskType.DEADLINE;
+    private final String time;
 
     /**
      * Default constructor for Deadline instance
@@ -15,40 +15,43 @@ public class Deadline extends Task implements FormatChecker {
     }
 
     /**
-     * Constructor for a raw string input of deadline
+     * Construct a deadline object given additional status of completion
      *
-     * @param complexString raw string containing description and deadline
+     * @param description description of deadline
+     * @param isDone      whether the deadline is marked as done
+     * @param time        time of the deadline
      */
-    public Deadline(String complexString) throws WrongCommandFormatException {
-        super();
-        try {
-            int identifierIndex = FormatChecker.findIdentifierIndex(DEADLINE_IDENTIFIER, complexString);
-            this.description = complexString.substring(0, identifierIndex);
-            FormatChecker.checkNullString(this.description);
-            this.time = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
-            FormatChecker.checkNullString(this.time);
-            this.isDone = false;
-        } catch (WrongCommandFormatException e) {
-            throw new WrongCommandFormatException();
-        }
-    }
-
     public Deadline(String description, Boolean isDone, String time) {
         this.description = description;
         this.isDone = isDone;
         this.time = time;
     }
 
+    /**
+     * get the icon that indicates whether the deadline is marked
+     *
+     * @return string of icon for mark status
+     */
     @Override
     public String getStatusIcon() {
         return DEADLINE_MARK + super.getStatusIcon();
     }
 
+    /**
+     * get type of task, which is deadline
+     *
+     * @return type of task
+     */
     @Override
-    public String getTaskType() {
+    public TaskType getTaskType() {
         return taskType;
     }
 
+    /**
+     * get the time of deadline
+     *
+     * @return time of deadline
+     */
     @Override
     public String getTime() {
         return this.time;

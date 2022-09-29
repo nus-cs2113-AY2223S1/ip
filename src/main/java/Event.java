@@ -1,7 +1,7 @@
 public class Event extends Task implements FormatChecker {
     private static final String EVENT_MARK = "[E]";
-    private static final String taskType = "E";
-    private String time;
+    private static final TaskType taskType = TaskType.EVENT;
+    private final String time;
 
     /**
      * Default constructor for Event instance
@@ -15,40 +15,43 @@ public class Event extends Task implements FormatChecker {
     }
 
     /**
-     * Event constructor for a raw string input of event
+     * Construct a deadline object given additional status of completion
      *
-     * @param complexString raw string input containing time and description of event
+     * @param description description of event
+     * @param isDone      whether the event is marked as done
+     * @param time        time of the event
      */
-    public Event(String complexString) throws WrongCommandFormatException {
-        super();
-        try {
-            int identifierIndex = FormatChecker.findIdentifierIndex(EVENT_IDENTIFIER, complexString);
-            this.description = complexString.substring(0, identifierIndex);
-            FormatChecker.checkNullString(this.description);
-            this.time = complexString.substring(identifierIndex + TIME_IDENTIFIER_LENGTH);
-            FormatChecker.checkNullString(this.time);
-            this.isDone = false;
-        } catch (WrongCommandFormatException e) {
-            throw new WrongCommandFormatException();
-        }
-    }
-
     public Event(String description, Boolean isDone, String time) {
         this.description = description;
         this.isDone = isDone;
         this.time = time;
     }
 
+    /**
+     * get the icon that indicates whether the event is marked
+     *
+     * @return string of icon for mark status
+     */
     @Override
     public String getStatusIcon() {
         return EVENT_MARK + super.getStatusIcon();
     }
 
+    /**
+     * get type of task, which is event
+     *
+     * @return type of task
+     */
     @Override
-    public String getTaskType() {
+    public TaskType getTaskType() {
         return taskType;
     }
 
+    /**
+     * get the time of event
+     *
+     * @return time of event
+     */
     @Override
     public String getTime() {
         return this.time;

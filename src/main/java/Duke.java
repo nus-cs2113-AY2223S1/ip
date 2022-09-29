@@ -1,70 +1,53 @@
-import java.util.Scanner;
-
 public class Duke {
 
-    private static final String COMMAND_BYE = "bye";
-    private static final String BYE_MESSAGE = "Bye! Always there waiting for you!";
-    private static final String GREET_MESSAGE_1 = "Hello! I'm Rae.";
-    private static final String GREET_MESSAGE_2 = "How does everything progress now?";
-    private static final int LINE_SEPARATOR_LENGTH = 60;
-    private static final String LINE_SEPARATOR = "_";
-
-    public static void separateLine() {
-        System.out.println(LINE_SEPARATOR.repeat(LINE_SEPARATOR_LENGTH));
-    }
+    private static final String DEFAULT_FILE_PATH = "/Users/bromine/ip/Saves/Tasks";
+    private final UI ui;
+    private final TaskList tasks;
+    private final Storage storage;
 
     /**
-     * greet prints greet messages
-     */
-    public static void greet() {
-        separateLine();
-        System.out.println(GREET_MESSAGE_1);
-        System.out.println(GREET_MESSAGE_2);
-    }
-
-    /**
-     * bye prints farewell messages
-     */
-    public static void bye() {
-        separateLine();
-        System.out.println(BYE_MESSAGE);
-        separateLine();
-    }
-
-    /**
-     * echo print input string with line breaker after it
+     * construct a duke class that contain key functions of software
      *
-     * @param line the line of string input
+     * @param filePath path of saved data file
      */
-    public static void echo(String line) {
-        separateLine();
-        System.out.println(line);
-        separateLine();
+    public Duke(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadSave());
     }
 
+    /**
+     * This method illustrates the process of how duke run with each line of input
+     */
+    public void run() {
+        ui.greet();
+        boolean isExit = false;
 
-    public static void main(String[] args) {
-        greet();
-        Storage storage = new Storage();
-        storage.loadSave();
-        separateLine();
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-
-        while (!line.equalsIgnoreCase(COMMAND_BYE)) {
-            separateLine();
+        while (!isExit) {
+            String fullCommand = "";
             try {
-                storage.execute(line);
+                fullCommand = ui.readCommand();
+                ui.separateLine();
+                Command c = Parser.parseCommand(fullCommand);
+                isExit = tasks.execute(c);
+                storage.writeSave(tasks.getTasks());
+                if (isExit) {
+                    ui.bye();
+                }
             } catch (UnknownCommandException e) {
                 System.out.format("Exception: Unknown command%n" +
-                        "%s is not a valid command%n", line.split(" ")[0]);
+                        "%s is not a valid command%n", fullCommand.split(" ")[0]);
             } catch (NullCommandException e) {
                 System.out.format("Exception: Null command%n" +
                         "No command is entered%n");
+            } finally {
+                ui.separateLine();
             }
-            separateLine();
-            line = in.nextLine();
         }
-        bye();
+
+    }
+
+    public static void main(String[] args) {
+        new Duke(DEFAULT_FILE_PATH).run();
     }
 }
