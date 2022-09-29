@@ -41,6 +41,7 @@ public class Duke {
                 System.out.println();
             }
         }
+        ui.goodbyeMessage();
     }
 
     /**
