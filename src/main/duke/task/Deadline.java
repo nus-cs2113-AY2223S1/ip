@@ -1,5 +1,8 @@
 package main.duke.task;
 
+import main.duke.Utils;
+import main.duke.exception.DukeException;
+
 public class Deadline extends Task {
 
     private String dueDate;
@@ -25,4 +28,6 @@ public class Deadline extends Task {
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
+
+
 }
