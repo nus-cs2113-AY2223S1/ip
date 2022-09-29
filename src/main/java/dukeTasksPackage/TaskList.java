@@ -21,6 +21,12 @@ public class TaskList {
     }
 
     /**
+     * clear the task list
+     */
+    public void clearTaskList() {
+        tasks.clear();
+    }
+    /**
      * To add task into tasklist
      * @param t task to be added
      */
