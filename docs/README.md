@@ -3,6 +3,10 @@
 ## Introduction
 Duke is an assistant chat bot which helps you handle a list of tasks.
 
+## Launching Duke
+Navigate to the directory containing 'Duke.jar' in a terminal, then entering the following command:
+`java -jar Duke.jar`
+
 ## Tasks 
 
 ### Types of tasks:
@@ -104,7 +108,7 @@ Nice! I've marked this task as done:
 [D][X] homework (by: Friday 7pm)
 ```
 ___
-#### `unmark` - Un-marks the specified task to show its not done
+#### `unmark` - Un-marks the specified task to show that it is not done
 
 Format: `mark <number>`
 

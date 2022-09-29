@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Contains the methods used to manage the task list data in the file and the file itself.
  */
 public class Storage {
-    protected static final String PATHNAME = "data/duke.txt";
+    protected static final String PATHNAME = "./data/duke.txt";
 
     /**
      * Reads and loads the existing data from the file into the program.
