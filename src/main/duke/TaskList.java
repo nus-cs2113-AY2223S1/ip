@@ -17,7 +17,12 @@ public class TaskList {
 
     /** Print a list of the given tasks */
     public void printList() {
-        if (Utils.getListIndex() == 0) {
+        printList(taskList);
+    }
+
+    /* Print a list of the current tasks */
+    public void printList(ArrayList<Task> list) {
+        if (list.size() == 0) {
             System.out.print(Utils.INDENT + "Nothing to see here! Type to add to your list.");
             System.out.print(Utils.INDENT + "Here are the correct formats: "
                     + Utils.INDENT + "- todo [task]"
@@ -25,9 +30,9 @@ public class TaskList {
                     + Utils.INDENT + "- event [name] /at [date]");
             return;
         }
-        System.out.print(Utils.INDENT + "Here's your current task list:");
-        for (int i = 0; i < Utils.getListIndex(); i++) {
-            Task task = this.taskList.get(i);
+        System.out.print(Utils.INDENT + "Here's your task list:");
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
             System.out.print(Utils.INDENT + (i + 1) + "." + task);
         }
     }
@@ -110,5 +115,19 @@ public class TaskList {
         }
         System.out.println(Utils.H_LINE + "\n");
     }
+
+    /* Find tasks that line up with the keyword */
+    public void findTasksMatch(String keyword) {
+        System.out.print(Utils.H_LINE + Utils.INDENT + "Finding tasks related to " + keyword + " ...");
+        ArrayList<Task> relatedTasks = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.getDescription().contains(keyword)) {
+                relatedTasks.add(task);
+            }
+        }
+        printList(relatedTasks);
+        System.out.println(Utils.H_LINE + "\n");
+    }
+
 
 }
