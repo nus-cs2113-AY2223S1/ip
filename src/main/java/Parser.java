@@ -91,7 +91,16 @@ public class Parser implements FormatChecker {
                         "Try the command in correct format: delete <index of task>%n");
             }
             break;
-
+        case COMMAND_FIND:
+            try {
+                String key = input.substring(FIND_LENGTH);
+                FormatChecker.checkNullString(key);
+                return new FindCommand(key);
+            } catch (WrongCommandFormatException e) {
+                System.out.format("Exception: Wrong command Format%n" +
+                        "Keyword can not be null, try: find <keyword>%n");
+            }
+            break;
         case COMMAND_BYE:
             return new CommandBye();
         case COMMAND_NULL:
