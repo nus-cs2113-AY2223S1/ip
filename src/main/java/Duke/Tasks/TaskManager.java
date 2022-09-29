@@ -6,11 +6,11 @@ import Duke.UI.UI;
 
 import java.util.ArrayList;
 
-
-
+/**
+ * TaskManager handles all task operations ie. adding, deleting, finding etc.
+ */
 public class TaskManager extends ArrayList<Tasks> {
     public static final String TASK_ADDED = "Got it. I've added this task:\n";
-    public static final int MAX_NUMBER_OF_TASKS = 100;
     public static ArrayList<Tasks> taskList = new ArrayList<>();
     public static int numOfTasks = 0;
 
@@ -18,7 +18,13 @@ public class TaskManager extends ArrayList<Tasks> {
         return taskList;
     }
 
-
+    /**
+     * Checks if a task description has been specified in user input.
+     *
+     * @param description task description
+     * @return task description
+     * @throws ArguementNotFoundException no task description found
+     */
     public static String checkCommandLength(String description) throws ArguementNotFoundException {
         if (description.isEmpty()) {
             throw new ArguementNotFoundException();
@@ -26,6 +32,13 @@ public class TaskManager extends ArrayList<Tasks> {
         return description;
     }
 
+    /**
+     * Checks if task number specified is within the list's range.
+     *
+     * @param input task number
+     * @return task number
+     * @throws WrongArgumentException invalid task number outside of list
+     */
     public static int checkTaskNumber(int input) throws WrongArgumentException {
         if (input > 0 && input <= taskList.size()) {
             return input;
@@ -35,6 +48,13 @@ public class TaskManager extends ArrayList<Tasks> {
 
     }
 
+    /**
+     * Obtains specified task number from user input.
+     *
+     * @param command user input
+     * @param action  type of task
+     * @return task number
+     */
     private static int getTaskNumber(String command, String action) {
         return Integer.parseInt(command.substring(action.length(), command.length()));
     }
@@ -89,8 +109,6 @@ public class TaskManager extends ArrayList<Tasks> {
         } catch (ArguementNotFoundException e) {
             e.ArgumentNotFoundMessage();
         }
-
-
     }
 
     /**
@@ -108,14 +126,13 @@ public class TaskManager extends ArrayList<Tasks> {
         } catch (ArguementNotFoundException e) {
             e.ArgumentNotFoundMessage();
         }
-
     }
 
 
     /**
-     * mark a task in the list
+     * mark a task in the list.
      *
-     * @param input position of item to mark in the list
+     * @param input position of item to mark in the list.
      */
     public static void markTask(String input) {
         try {
@@ -131,9 +148,9 @@ public class TaskManager extends ArrayList<Tasks> {
     }
 
     /**
-     * unmark a task in the list
+     * unmark a task in the list.
      *
-     * @param input position of item to unmark in the list
+     * @param input user input position of item to unmark in the list.
      */
     public static void unmarkTask(String input) {
         try {
@@ -148,6 +165,11 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
+    /**
+     * Deletes a specific task in the list.
+     *
+     * @param input user input with position of item to delete in the list.
+     */
     public static void deleteTask(String input) {
 //        int taskNum = getTaskNumber(input);
 
@@ -172,6 +194,11 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
+    /**
+     * Finds a specific task in the list.
+     *
+     * @param input user input with keywords to look for in list.
+     */
     public static void findTask(String input) {
         try {
             ArrayList<Tasks> matchingTasks = new ArrayList<>();
@@ -202,6 +229,11 @@ public class TaskManager extends ArrayList<Tasks> {
         }
     }
 
+    /**
+     * Prints all tasks found in list after searching for keyword.
+     *
+     * @param matchingTasks array with matching tasks in chronological order.
+     */
     public static void printMatchedTasks(ArrayList<Tasks> matchingTasks) {
         System.out.println(
                 UI.PRINT_LINE
@@ -214,10 +246,9 @@ public class TaskManager extends ArrayList<Tasks> {
             );
         }
         System.out.println(
-                        UI.PRINT_LINE
+                UI.PRINT_LINE
         );
     }
-
 
     /**
      * Print List in chronological order
