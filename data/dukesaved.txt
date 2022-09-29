@@ -1,3 +1,0 @@
-T|1| add task 1
-D|0| return book  |  1 oct 2022
-E|0| check plumbing  |  2pm
