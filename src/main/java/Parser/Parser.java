@@ -2,19 +2,40 @@ package Parser;
 import Exception.EmptyArgumentException;
 import Exception.InvalidCommandException;
 
+/**
+ * Represents the class to decipher the user input to command and its arguments.
+ */
 public class Parser {
     private Command command;
     private String userArgs = "";
     private boolean hasArgument = true;
 
+    /**
+     * Return the command.
+     *
+     * @return Command entered.
+     */
     public Command getCommand() {
         return command;
     }
 
+    /**
+     * Return the user arguments.
+     *
+     * @return User arguments entered.
+     */
     public String getUserArgs() {
         return userArgs;
     }
 
+    /**
+     * Process the raw user input from ui to store the command and arguments to the members.
+     *
+     * @param userInput Raw user input.
+     * @throws ArrayIndexOutOfBoundsException if the raw input is empty.
+     * @throws EmptyArgumentException if the argument is empty.
+     * @throws InvalidCommandException if the command is invalid.
+     */
     public void parseCommand(String userInput)
             throws ArrayIndexOutOfBoundsException, EmptyArgumentException, InvalidCommandException {
         String[] inputSplit = userInput.split(" ", 2);
@@ -27,6 +48,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Return the command enum type based on the user input.
+     *
+     * @param input Command string input.
+     * @return Command enum type.
+     * @throws InvalidCommandException if the command is invalid.
+     */
     private Command decipherCommand(String input) throws InvalidCommandException {
         switch (input) {
         case "list":

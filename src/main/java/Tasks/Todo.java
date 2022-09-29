@@ -5,6 +5,13 @@ public class Todo extends Task {
         super(description, isCompleted);
     }
 
+    /**
+     * Returns the formatted description for the Todo.
+     * Format: [T][{Done}] {description}
+     * - Done: X or {emptySpace}
+     *
+     * @return Formatted String.
+     */
     @Override
     public String getCompleteDescription() {
         String output = "[T][";
