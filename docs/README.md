@@ -4,7 +4,7 @@ Duke is a Command Line Application for managing tasks.
 
 Tasks are automatically saved to the hard disk after any command that modifies the data.
 
-The location of this file will be at {JAR File Location}/data/duke.txt
+The location of this file will be at {directory where you are running the JAR file}/data/duke.txt
 
 ## Setup 
 1. Ensure you have Java 11 or above installed on your computer.
