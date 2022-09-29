@@ -48,6 +48,8 @@ ____________________________________________________________
 
 7. Refer to the [Features](#features) below for the details of commands you can execute.
 
+<br>
+
 ## Features
 
 ### Adding a Todo Task: `todo`
@@ -288,7 +290,7 @@ update the data directly by editing this text file.
 
 **Q**: I have forgotten to specify a `TASK_DESCRIPTION`! Will it add an empty task?
 
-**A**: If the `TASK_DESCRIPTION` is empty not to worry, King Bob will prompt you for one.
+**A**: If the `TASK_DESCRIPTION` is empty not to worry, King Bob will prompt you for one and you can retype your command.
 
 -----
 <br>
