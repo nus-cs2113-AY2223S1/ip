@@ -1,15 +1,57 @@
-
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
 public class Duke {
     static String inputText = "";
+
+    static ArrayList<String> storedTasks = new ArrayList<>();
     static Task[] tasks = new Task[100];
     static int taskCount = 0;
     static boolean isRunning = true;
-    public static void main(String[] args) throws NullCommandException {
-        showWelcomeMessage();
-        handleUserInput();
+    public static void main(String[] args) throws NullCommandException, IOException {
+        File f =  new File("src/main/java/data.txt");
+        if(f.exists()) {
+            Scanner s = new Scanner(f);
+            while(s.hasNext()) {
+                storedTasks.add(s.nextLine());
+            }
+            handleStoredTasks();
+        }
+            FileWriter fw = new FileWriter("src/main/java/data.txt");
+            showWelcomeMessage();
+            handleUserInput();
+            for(int i=0;i<taskCount;i++){
+                fw.write(tasks[i].toString()+"\n");
+            }
+            fw.close();
     }
 
+    public static void handleStoredTasks(){
+        for(int i=0;i< storedTasks.size();i++) {
+            String str = storedTasks.get(i);
+            if(str.charAt(1) == 'T' ) {
+                tasks[taskCount++] = new Todo(str.substring(7));
+                if(str.charAt(4)=='X') {
+                    tasks[taskCount - 1].markAsDone();
+                }
+            }
+            if(str.charAt(1) == 'D') {
+                tasks[taskCount++] = new Deadline(str.substring(7,str.indexOf('(')),str.substring(str.indexOf('(')+4,str.indexOf(')')));
+                if(str.charAt(4)=='X') {
+                    tasks[taskCount - 1].markAsDone();
+                }
+            }
+            if(str.charAt(1)=='E') {
+                tasks[taskCount++] = new Event(str.substring(7,str.indexOf('(')),str.substring(str.indexOf('(')+4,str.indexOf(')')));
+                if(str.charAt(4)=='X') {
+                    tasks[taskCount - 1].markAsDone();
+                }
+            }
+        }
+    }
     public static void showWelcomeMessage(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
