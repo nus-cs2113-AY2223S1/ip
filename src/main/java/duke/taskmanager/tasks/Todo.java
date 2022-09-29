@@ -30,6 +30,13 @@ public class Todo extends Task {
         setDone(false);
     }
 
+    /**
+     * Separates a date and time <code>String</code> of a specific format into a <code>date</code> date
+     * and a <code>String</code> time. If the <code>String</code> is not of the specified
+     * format, the date and time will be set to a week from current time.
+     *
+     * @param dateAndTime date and time of format "yyyy-MM-dd HHmm'
+     */
     public void findDateAndTime(String dateAndTime) {
         try {
             Date dateTime = new SimpleDateFormat("yyyy-MM-dd HHmm").parse(dateAndTime);

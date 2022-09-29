@@ -52,6 +52,12 @@ public class UI {
         formatOutput(listMessage.toString());
     }
 
+    /**
+     * Looks through the <code>TaskList</code> for <code>task</code>s that match the description and print it
+     *
+     * @param tasks       stores all the user's current tasks
+     * @param description user provided keyword
+     */
     public void printMatchList(TaskList tasks, String description) {
         Pattern pattern = Pattern.compile(description, Pattern.CASE_INSENSITIVE);
         StringBuilder s = new StringBuilder();
