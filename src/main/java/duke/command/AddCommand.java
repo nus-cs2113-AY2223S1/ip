@@ -17,7 +17,6 @@ public class AddCommand extends Command {
         tasks.addTask(task);
 
         if(storage.isLoaded()) {
-            System.out.println("loaded");
             ui.addLine(tasks.getMessages());
             ui.printUi();
         }

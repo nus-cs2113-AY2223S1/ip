@@ -1,5 +1,9 @@
 package duke.util.asset;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 
@@ -7,9 +11,11 @@ public class Task {
     private boolean isDone;
     private String taskDescription;
     protected String addMessage;
+    //protected Set<String> taskWords;
 
     private final String STATUS_DONE_ICON = "X";
     private final String STATUS_NOTDONE_ICON = " ";
+
 
     public Task() {
         this("");
@@ -19,6 +25,9 @@ public class Task {
         this.taskDescription = taskDescription;
         this.isDone = false;
         this.addMessage = "";
+
+        //store each word into a hash
+        //this.taskWords = new HashSet<>(Arrays.asList(taskDescription.split(" ")));
     }
 
     public String getTask() {
@@ -53,6 +62,10 @@ public class Task {
 
     public String getAddMessage() throws DukeException {
         throw new UnknownCommandException("Cannot add Task");
+    }
+
+    public boolean containsKeyword(String keyword) {
+        return taskDescription.contains(keyword);
     }
 }
 

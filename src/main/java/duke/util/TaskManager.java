@@ -53,6 +53,14 @@ public class TaskManager implements Utilities {
         }
     }
 
+    public void findTasksContain(String keyword) {
+        for (Task task: tasks) {
+            if (task.containsKeyword(keyword)) {
+                
+            }
+        }
+    }
+
     public void addTask(Task taskToAdd) {
         tasks.add(taskToAdd);
         taskCount += 1;
