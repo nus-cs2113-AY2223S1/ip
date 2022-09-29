@@ -45,7 +45,7 @@ Please enter your taskList command: (send 'bye' to exit)
 > Notes about the command format:
 > - Words in UPPER_CASE are the parameters to be supplied by the user.
     e.g. in `event NAME /at TIME`, `NAME` and `TIME` are parameters which can be used as `event basketball /at noon`.
-
+> - `TIME` will be stored as plain string. The onus is up to the user to save `TIME` data in a format that is meaningful to them.
 ### Listing all tasks: `list`
 
 Lists out all the tasks in the task list. 

@@ -75,9 +75,9 @@ public class Duke {
      * to storage if there are any updates to taskList data. The loop is exited when the userInput is "bye"
      */
     public void run(){
-        ui.printGreeting();
+        UI.printGreeting();
         System.out.println("Please enter your taskList command: (send 'bye' to exit)");
-        String userInput = ui.readInput();
+        String userInput = UI.readInput();
 
         while (!userInput.equals(BYE)) {
 
@@ -95,8 +95,8 @@ public class Duke {
             }
 
             String executionMessage = executedCommand.getExecutionMessage();
-            ui.printMessageWithLines(executionMessage);
-            userInput = ui.readInput();
+            UI.printMessageWithLines(executionMessage);
+            userInput = UI.readInput();
 
 
         }
