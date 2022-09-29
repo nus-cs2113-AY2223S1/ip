@@ -3,6 +3,10 @@ package Duke.Exceptions;
 import Duke.UI.UI;
 
 public class WrongArgumentException extends DukeException {
+
+    /**
+     * Prints error message when an invalid task number is entered.
+     */
     public void WrongArguementMessage() {
         System.out.println(
                 UI.PRINT_LINE

@@ -14,12 +14,6 @@ public abstract class Tasks {
         this.taskType = "T";
     }
 
-//    public Tasks(String description, boolean isDone) {
-//        this.description = description;
-//        this.isDone = isDone;
-//
-//    }
-
     /**
      * Get status of list item if it is done or undone
      */
@@ -28,6 +22,11 @@ public abstract class Tasks {
         ); // mark done task with X
     }
 
+    /**
+     * Gets task description of a list item
+     *
+     * @return
+     */
     public String getTaskDescription() {
         return this.description;
     }
@@ -61,14 +60,25 @@ public abstract class Tasks {
         );
     }
 
+    /**
+     * Marks a loaded item from file as done
+     */
     public void insertDone() {
         this.isDone = true;
     }
 
+    /**
+     * Unarks a loaded item from file as not done
+     */
     public void insertNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Allows writing to text file
+     *
+     * @return Respective task type String to store into text file
+     */
     public abstract String toFile();
 
 
