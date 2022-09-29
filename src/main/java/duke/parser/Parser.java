@@ -40,6 +40,7 @@ public class Parser {
     /**
      * parses the input to return a Todo task.
      * if input is not complete, prompt user for input again
+     *
      * @param input input of user to be parsed
      * @return Todo task
      * @throws DukeException if input is incomplete (input length is < 6)
@@ -54,6 +55,7 @@ public class Parser {
 
     /**
      * parses the input to return an Event task
+     *
      * @param input input of user to be parsed into Event
      * @return Event task
      * @throws DukeException if input is incomplete (input does not contain /)
@@ -83,6 +85,7 @@ public class Parser {
      * parses the input to return a Deadline task
      * checks if input date is of the correct format and will be treated as LocalDate
      * else input date will be treated as a String
+     *
      * @param input input of user to be parsed into Deadline
      * @return Deadline task
      * @throws DukeException if input is incomplete (input does not contain /)
@@ -92,7 +95,7 @@ public class Parser {
             throw new DukeException();
         }
         String[] command = input.split(" ", 2);
-        String[] deadlineInput= command[1].split("/by", 2);
+        String[] deadlineInput = command[1].split("/by", 2);
         String description = deadlineInput[0].trim();
         if (description.length() == 0) {
             throw new DukeException();
@@ -112,6 +115,7 @@ public class Parser {
 
     /**
      * parses the input to return index of task to be marked
+     *
      * @param input user input of task to be marked
      * @return index of task
      * @throws DukeException if task number is not given
@@ -126,6 +130,7 @@ public class Parser {
 
     /**
      * parses the input to return index of task to be unmarked
+     *
      * @param input user input of task to be unmarked
      * @return index of task
      * @throws DukeException if task number is not given
@@ -140,6 +145,7 @@ public class Parser {
 
     /**
      * parses input to return word to be searched
+     *
      * @param input user input of task to be found
      * @return keyword to be searched
      */
@@ -151,6 +157,7 @@ public class Parser {
 
     /**
      * parses the input to return index of task to be deleted
+     *
      * @param input user input of task to be deleted
      * @return index of task
      * @throws DukeException if task number is not given
@@ -285,6 +292,7 @@ public class Parser {
 
     /**
      * prints bye and exits the program by returning false to Duke
+     *
      * @return false to stop the program
      */
     public boolean exitCommand() {
@@ -300,6 +308,7 @@ public class Parser {
     /**
      * Function to handle the command input by user, parses the input and carries out command based on the user input
      * if case: BYE returns false to exit the program, else return true
+     *
      * @return a boolean isRun. False if case: bye, otherwise returns true
      */
     public boolean handleCommand() {
