@@ -232,7 +232,6 @@ The file used for storage is formatted as:
 |      D       |    U     |    submit assignment     |   23:59 p.m.   |
 |      E       |    U     | have dinner with friends | 6:00-7:00 p.m. |
 |      T       |    M     |   Look for a teammate    |                |
-Example of usage:
 
 `list`(after starting the system)
 
