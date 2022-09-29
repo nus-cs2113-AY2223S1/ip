@@ -6,8 +6,18 @@ import Duke.Tasks.TaskManager;
 
 import java.io.IOException;
 
+/**
+ * Parser class parses and processes the user inputs and implements the relevant objects.
+ */
 public class Parser {
     static boolean isFinished = true;
+
+    /**
+     * This function reads in and processes the user's input.
+     *
+     * @param command user input
+     * @return User chooses to exit the program
+     */
     public static boolean parseCommand(String command) {
 
         String[] splitCommand = command.split(" ");
@@ -52,6 +62,9 @@ public class Parser {
         return isFinished;
     }
 
+    /**
+     * Throws an unknown command error if user input is not in a valid format.
+     */
     private static void UnknownCommandDetection() {
         try {
             throw new UnknownCommandException();
