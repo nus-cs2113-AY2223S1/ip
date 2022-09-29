@@ -1,31 +1,30 @@
 package main.duke;
-
 import main.duke.exception.DukeException;
 import main.duke.task.Task;
-
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
+/** Controls the interaction between the user and the Duke task list */
 public class Ui {
 
     private static Scanner scanner;
     private TaskList taskList;
     private static Parser parser;
 
+    /** Creates an instance of UI with an intialized scanner and parser, given a task list */
     public Ui(TaskList taskList) {
         scanner = new Scanner(System.in);
         parser = new Parser();
         this.taskList = taskList;
     }
 
+    /** Runs a loop to collect and parse user input until the user leaves */
     public void userInput() {
         while (!parseUserInput()) {
 
         }
     }
 
-    /* Determine whether the user wants to create a task, exit, list, or mark */
+    /** Parse the user input to determine the right action (delete, mark, add, etc.)  */
     private boolean parseUserInput() {
         String input = scanner.nextLine();
         String inputType = input.toLowerCase();

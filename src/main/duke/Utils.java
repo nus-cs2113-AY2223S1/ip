@@ -1,17 +1,23 @@
 package main.duke;
-
 import main.duke.exception.DukeException;
 
+/** A utility class to store methods, constants, and variables for accessibility */
 public class Utils {
+
+    /** Spacing and formatting constants */
     public static final String INDENT = "\n    ";
     public static final String H_LINE = INDENT +
             "------------------------------------------------";
     public static final int TASK_LIMIT = 100;
+
+    /** List index variable for consistent access */
     private static int listIndex = 0;
+
+    /** Storage path constants */
     public static final String FOLDER_PATH = "./data";
     public static final String FILE_PATH = "./data/tasks.txt";
 
-    /* Print introduction to Duke */
+    /** Prints introduction to Duke */
     public static void introduction() {
         String logo = "     ____        _        \n"
                 + "    |  _ \\ _   _| | _____ \n"
@@ -23,12 +29,13 @@ public class Utils {
         System.out.println(introduction);
     }
 
-    /* Print a goodbye message from the Duke */
+    /** Print a goodbye message from the Duke */
     public static void goodBye() {
         String goodByeText = "    Bye. Hope to see you again soon!" + H_LINE;
         System.out.print(goodByeText);
     }
 
+    /** Getter and changing methods for the list index */
     public static int getListIndex() {
         return listIndex;
     }
@@ -40,6 +47,7 @@ public class Utils {
         listIndex--;
     }
 
+    /** Utility method to locate the index of the next letter */
     public static int findNextLetter(String word, String input) throws DukeException {
         if (word.length() == input.length()) {
             throw new DukeException("You only wrote " + word + "! Please follow the correct format.");

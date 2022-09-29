@@ -7,13 +7,14 @@ import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/** Stores methods for other classes to use to parse user input and stored Task lists */
 public class Parser {
 
+    /** Creates an instance of Parser class */
     public Parser() {
-
     }
 
-    /* Create a new Todo */
+    /** Creates a new Todo from user input */
     public Task createTodo(String input) throws DukeException {
         int startIndex = Utils.findNextLetter("todo", input);
         if (startIndex >= input.length()) {
@@ -22,7 +23,7 @@ public class Parser {
         return new Task(input.substring(startIndex));
     }
 
-    /* Create a new Event with the correct date */
+    /** Create a new Event with the given date from user input */
     public Task createEvent(String input) throws DukeException {
         int startIndex = Utils.findNextLetter("event", input);
         int dateIndex = input.indexOf("/at");
@@ -34,7 +35,7 @@ public class Parser {
         return new Event(input.substring(startIndex, dateIndex), date);
     }
 
-    /* Create a new Deadline with the correct due date */
+    /** Create a new Deadline with the given due date from user input */
     public Task createDeadline(String input) throws DukeException {
         int startIndex = Utils.findNextLetter("deadline", input);
         int dateIndex = input.indexOf("/by");
@@ -55,14 +56,17 @@ public class Parser {
         }
     }
 
+    /** Returns the pattern for a mark command */
     public Pattern getMarkPattern() {
         return Pattern.compile("^mark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
     }
 
+    /** Returns the pattern for a unmark command */
     public Pattern getUnmarkPattern() {
         return Pattern.compile("^unmark[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
     }
 
+    /** Returns the pattern for a delete command */
     public Pattern getDeletePattern() {
         return Pattern.compile("^delete[ ]*[0-9]+[ ]*", Pattern.CASE_INSENSITIVE);
     }
