@@ -97,6 +97,15 @@ public class Ui {
         System.out.println(error);
     }
 
+    public void showDeadlineTaskError() {
+        System.out.println("Please complete the input for deadline details."
+                + " \nDelete task and try again.");
+    }
+
+    public void showDeleteTaskError() {
+        System.out.println("\t Stop there! Please delete something that is within the list!");
+    }
+
     /**
      * Shows type of task detail to the user.
      * As a form of acknowledgment to let the user know that the task have been added.
@@ -148,7 +157,6 @@ public class Ui {
      * @param countTask used to track the number of task that have been added into the taskList.
      */
     public void showList(ArrayList<Task> assignments, int numberOrder, int countTask) {
-        System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < countTask; i++) {
             System.out.println("\t " + numberOrder + ".["
                     + assignments.get(i).getStatusOfTypeTask() + "]["
@@ -158,8 +166,20 @@ public class Ui {
         }
     }
 
+    public void showListMessage() {
+        System.out.println("\t Here are the tasks in your list:");
+    }
+
+    public void showMatchListMessage() {
+        System.out.println("\t Here are the matching tasks in your list:");
+    }
+
     public void showEmptyList() {
         System.out.println("\t There is no task in the list.");
+    }
+
+    public void showEmptyMatchList() {
+        System.out.println("\t There are no matching task as your TaskList is wiped clean!");
     }
 
     public static void showFileError() {

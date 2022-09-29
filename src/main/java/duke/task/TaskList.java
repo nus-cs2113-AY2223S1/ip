@@ -4,15 +4,25 @@ import duke.ui.Ui;
 import duke.errorhandling.DukeException;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TaskList {
-
+    protected Ui ui = new Ui();
+    protected final int INITIAL_INDEX = 0;
+    protected final int TASK_TITLE_INDEX = 0;
+    protected final int TASK_DETAIL_INDEX = 1;
+    protected final int OFFSET_TO_ARRAY_INDEX = 1;
+    protected final String DATE_PATTERN = "\\d{4}-\\d{1,2}-\\d{1,2}";
     protected ArrayList<Task> assignments;
     protected int indexTask;
     protected int countTask;
     protected int indexOfChoice = 0;
-    protected final int TASK_DETAIL_INDEX = 1;
-    protected final int OFFSET_TO_ARRAY_INDEX = 1;
+    protected String taskDetail;
+    protected String formatTaskDetail;
+    protected boolean isDate = false;
+
+
 
     /**
      * Initialises the class TaskList.
@@ -58,7 +68,8 @@ public class TaskList {
      * @param index which is the increment value in the loop to access the assignments.
      */
     public void addEventTask(String[] splitCommand, ArrayList<Task> assignments, int index) {
-        addTask(new Event(splitCommand[TASK_DETAIL_INDEX]), assignments);
+        taskDetail = splitCommand[TASK_DETAIL_INDEX];
+        addTask(new Event(taskDetail), assignments);
         assignments.get(index).markTypeTask();
         indexTask++;
     }
@@ -71,7 +82,9 @@ public class TaskList {
      * @param index which is the increment value in the loop to access the assignments.
      */
     public void addDeadlineTask(String[] splitCommand, ArrayList<Task> assignments, int index) {
-        addTask(new Deadline(splitCommand[TASK_DETAIL_INDEX]), assignments);
+        taskDetail = splitCommand[TASK_DETAIL_INDEX];
+        formatTaskDetail = formatDeadlineTaskDetail(taskDetail);
+        addTask(new Deadline(formatTaskDetail), assignments);
         assignments.get(index).markTypeTask();
         indexTask++;
     }
@@ -84,7 +97,7 @@ public class TaskList {
      * @param index which is the increment value in the loop to access the assignments.
      */
     public void addToDoTask(String[] splitCommand, ArrayList<Task> assignments, int index) {
-        String taskDetail = splitCommand[TASK_DETAIL_INDEX];
+        taskDetail = splitCommand[TASK_DETAIL_INDEX];
         addTask(new ToDo(taskDetail), assignments);
         assignments.get(index).markTypeTask();
         indexTask++;
@@ -95,16 +108,15 @@ public class TaskList {
      *
      * @param splitCommand command that have been separated into their respective words.
      * @param assignments that an array of tasks taken from the class TaskList.
-     * @param ui which is taken from the Ui class to display messages to the user.
      */
-    public void deleteTask(String[] splitCommand, ArrayList<Task> assignments, Ui ui) {
+    public void deleteTask(String[] splitCommand, ArrayList<Task> assignments) {
         countTask--;
         try {
             indexOfChoice = readIndexOfChoice(splitCommand);
             ui.showDeletedTask(assignments, indexOfChoice, countTask);
             assignments.remove(indexOfChoice);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t Stop there! Please delete something that is within the list!");
+            ui.showDeleteTaskError();
             countTask++;
             return;
         } catch (DukeException e) {
@@ -112,9 +124,13 @@ public class TaskList {
             countTask++;
             return;
         }
-        if (indexTask != 0) {
+        if (isNotInitialIndex()) {
             indexTask--;
         }
+    }
+
+    private boolean isNotInitialIndex() {
+        return indexTask != INITIAL_INDEX;
     }
 
     /**
@@ -162,8 +178,7 @@ public class TaskList {
      * @throws DukeException an error that is thrown if the user does not input a valid digit.
      */
     public int readIndexOfChoice(String[] splitCommand) throws DukeException {
-        boolean isNotPositiveDigit = !splitCommand[TASK_DETAIL_INDEX].matches("[0-9]+")
-                || splitCommand[TASK_DETAIL_INDEX].startsWith("-");
+        boolean isNotPositiveDigit = isNotPositiveDigit(splitCommand);
         if (isNotPositiveDigit) {
             throw new DukeException("\t Hey! Please choose a positive digit"
                     + " that correspondence to the list.");
@@ -172,4 +187,83 @@ public class TaskList {
         return indexOfTask - OFFSET_TO_ARRAY_INDEX;
     }
 
+    /**
+     * Checks that the user in inputting a positive digit. Else, the command would be invalid.
+     *
+     * @param splitCommand command that have been separated into their respective words.
+     * @return isNotPositiveDigit
+     */
+    public boolean isNotPositiveDigit(String[] splitCommand) {
+        boolean isNotPositiveDigit = !splitCommand[TASK_DETAIL_INDEX].matches("[0-9]+")
+                || splitCommand[TASK_DETAIL_INDEX].startsWith("-");
+        return isNotPositiveDigit;
+    }
+
+    /**
+     * Formats the deadline Task detail to display the data in a particular format.
+     *
+     * @param taskDetail which is taken from the TaskList
+     * @return formatDetail
+     */
+    public String formatDeadlineTaskDetail(String taskDetail) {
+        String formatDetail = taskDetail;
+        try {
+            String[] splitTaskDetail = getDeadlineDetails(taskDetail);
+            String taskTitle = splitTaskDetail[TASK_TITLE_INDEX].trim();
+            String detail = splitTaskDetail[TASK_DETAIL_INDEX].trim();
+            formatDetail = checkValidDate(detail, formatDetail, taskTitle);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showDeadlineTaskError();
+            return formatDetail;
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
+        return formatDetail;
+    }
+
+    /**
+     * Checks that the date is input in the correct format by the user.
+     *
+     * @param detail the detail of the TASK_TITLE_INDEX.
+     * @param formatDetail which is the formatted detail to display the date.
+     * @param taskTitle which is the name of the task.
+     * @return formatDetail
+     */
+    public String checkValidDate(String detail, String formatDetail, String taskTitle) {
+        isDate = detail.matches(DATE_PATTERN);
+        if (isDate) {
+            formatDetail = formatDate(detail, taskTitle);
+        }
+        return formatDetail;
+    }
+
+    /**
+     * Formats the input date to a specified format "MMM d YYYY".
+     *
+     * @param detail the detail of the TASK_TITLE_INDEX.
+     * @param taskTitle which is the name of the task.
+     * @return formatDate
+     */
+    public String formatDate(String detail, String taskTitle) {
+        LocalDate date = LocalDate.parse(detail);
+        detail = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formatDate = taskTitle + " /by " + detail;
+        return formatDate;
+    }
+
+    /**
+     *
+     * @param taskDetail which is the detail of the task that is obtained from taskList.
+     * @return splitTaskDetail
+     * @throws DukeException an error is made if the deadline details are not completely or
+     * correctly input by the user.
+     */
+    public String[] getDeadlineDetails(String taskDetail) throws DukeException {
+        String[] splitTaskDetail = taskDetail.split("/by");
+        if (splitTaskDetail[1].isBlank()) {
+            throw new DukeException("Please try again and include"
+                    + " complete Deadline details.");
+        }
+        return splitTaskDetail;
+    }
 }

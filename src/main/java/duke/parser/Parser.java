@@ -1,11 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.MarkOrUnmarkCommand;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
+import duke.command.*;
 import duke.errorhandling.DukeException;
 
 public class Parser {
@@ -23,6 +18,8 @@ public class Parser {
     protected static boolean isBye = false;
     protected static boolean isList = false;
     protected static boolean isAdd = false;
+    protected static boolean isFind = false;
+    protected static boolean isValidFind = false;
     protected static boolean isValidAdd = false;
 
     /**
@@ -33,6 +30,7 @@ public class Parser {
     public static void checkCommandType(String[] splitCommand) {
         isBye = splitCommand[COMMAND_INDEX].equals("bye");
         isList = splitCommand[COMMAND_INDEX].equals("list");
+        isFind = splitCommand[COMMAND_INDEX].equals("find");
         isToDo = splitCommand[COMMAND_INDEX].equals("todo");
         isDeadline = splitCommand[COMMAND_INDEX].equals("deadline");
         isEvent = splitCommand[COMMAND_INDEX].equals("event");
@@ -53,10 +51,12 @@ public class Parser {
             isValidAdd = isAdd;
             isValidDelete = isDelete;
             isValidMarkOrUnmark = isMarkOrUnmark;
+            isValidFind = isFind;
         } else {
             isValidAdd = RESET;
             isValidDelete = RESET;
             isValidMarkOrUnmark = RESET;
+            isValidFind = RESET;
         }
     }
 
@@ -116,6 +116,8 @@ public class Parser {
             command = new DeleteCommand(splitCommand);
         } else if (isValidMarkOrUnmark) {
             command = new MarkOrUnmarkCommand(splitCommand);
+        } else if (isValidFind) {
+            command = new FindCommand(splitCommand);
         } else {
             String error = showErrorMessage();
             throw new DukeException(error);
@@ -125,7 +127,7 @@ public class Parser {
 
     public static String showErrorMessage() {
         String error = "\t ☹ HMM?? I'm sorry, but I don't know what that means :-(";
-        if (isAdd || isDelete || isMarkOrUnmark) {
+        if (isAdd || isDelete || isMarkOrUnmark || isFind) {
             error = showCommandError();
         }
         return error;
@@ -148,6 +150,8 @@ public class Parser {
             error = "\t ☹ OH MAN!!! You did not tell me which to (un)mark.";
         } else if (isDelete) {
             error = "\t ☹ OH MAN!!! You did not tell me what to delete.";
+        } else if (isFind) {
+            error = "\t ☹ OH MAN!!! You did not tell me what to find.";
         }
         return error;
     }

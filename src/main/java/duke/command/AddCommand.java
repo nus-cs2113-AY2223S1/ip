@@ -11,8 +11,6 @@ public class AddCommand extends Command{
     protected final int NEW_TASK_INDEX = 1;
     protected boolean isInitialEmpty = false;
     protected boolean isCountTaskEmpty = false;
-    protected String[] splitCommand;
-
     public AddCommand(String[] splitCommand) {
         this.splitCommand = splitCommand;
     }
@@ -36,7 +34,7 @@ public class AddCommand extends Command{
         checkCommandType(splitCommand);
         addTypeOfTask(tasks, assignments);
         ui.showTypeOfTaskDetail(assignments, indexTask);
-        updateTaskFromTasks(tasks);
+        updateCountFromTasks(tasks);
         storage.saveToFile(countTask, assignments);
     }
 
@@ -52,14 +50,6 @@ public class AddCommand extends Command{
         } else {
             indexTask = tasks.getIndexTask() + NEW_TASK_INDEX;
         }
-    }
-
-    public void updateTaskFromTasks(TaskList tasks) {
-        countTask = tasks.getCountTask();
-    }
-
-    public void updateTaskFromStorage(Storage storage) {
-        countTask = storage.getCountTask();
     }
 
     public void checkEmptyTask() {
