@@ -3,14 +3,13 @@ package duke.util.asset;
 public class Deadline extends Task {
 
     protected String byWhen;
-    protected String optionFlag;
+    public static final String OPTIONFLAG = "by";
+    public static final String COMMAND = "deadline";
 
     public Deadline(String description, String byWhen) {
         super(description);
         this.byWhen = byWhen;
         this.addMessage = "OH NO BEEP BEEP, a new Deadline: " + description;
-        this.command = "deadline";
-        this.optionFlag = "by";
     }
 
     @Override
@@ -20,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String serialize() {
-        return command + " " + getTask() + "/" + optionFlag + " " + byWhen;
+        return COMMAND + " " + getTask() + "/" + OPTIONFLAG + " " + byWhen;
     }
 
     @Override

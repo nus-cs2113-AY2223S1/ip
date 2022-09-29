@@ -5,8 +5,6 @@ import duke.util.asset.Event;
 import duke.util.asset.Task;
 import duke.util.asset.Todo;
 
-import duke.util.Ui;
-
 import duke.exception.DukeException;
 import duke.exception.TaskNotFoundException;
 
@@ -14,111 +12,63 @@ import java.util.ArrayList;
 
 public class TaskManager implements Utilities {
 
-    private static final int RESIZE_FACTOR = 2;
-    private static int numTask;
-    private static int taskCount;
-
+    private int taskCount;
     private static ArrayList<Task> tasks;
-
-    private static boolean hasLoadHistory;
+    private final int INDEX_OFFSET = -1;
+    private ArrayList<String> messageBuffer;
 
     public TaskManager() {
-        numTask = 100;
         taskCount = 0;
-        tasks = new ArrayList<>(numTask);
-        hasLoadHistory = false;
+        tasks = new ArrayList<>();
+        messageBuffer = new ArrayList<>();
     }
 
     public void close() {
-        numTask = 100;
         taskCount = 0;
         tasks.clear();
-        hasLoadHistory = false;
+        messageBuffer.clear();
     }
 
-    private void resize() {
-        ArrayList<Task> buffer = new ArrayList<Task>(numTask * RESIZE_FACTOR);
-
-        if (taskCount >= 0) {
-            System.arraycopy(tasks, 0, buffer, 0, taskCount);
-        }
-
-        tasks = buffer;
-        numTask *= RESIZE_FACTOR;
-    }
-
-    private void printSummary() {
-        System.out.println("Beep boop, now you have " + taskCount + " tasks");
-
-        if(taskCount == numTask){
-            System.out.println("BEEP BEEP BEEEEEEP! LIST FULL!!! Increasing list capacity");
-            resize();
-        }
-
+    private void addSummary() {
+        messageBuffer.add("Beep boop, now you have " + taskCount + " tasks");
     }
 
     public void clearAllTask() {
         taskCount = 0;
-        tasks = new ArrayList<>(numTask);
+        tasks = new ArrayList<>();
     }
 
-    public void listAllTask() {
+    public ArrayList<Task> getAllTask() {
+        return tasks;
+    }
 
-        if(hasLoadHistory) {
-            System.out.println("Beep beep, listing out the tasks....Loading.....");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
-            }
+    public void generateTaskList() {
+        if (taskCount == 0) {
+            messageBuffer.add("You have no upcoming task! Wanna add some?");
+            return;
+        }
+
+        for (int i = 0; i < taskCount; i++) {
+            messageBuffer.add("\t" + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 
-    public void addTask(String descriptionTask) {
-        tasks.add( new Task(descriptionTask));
+    public void addTask(Task taskToAdd) {
+        tasks.add(taskToAdd);
         taskCount += 1;
 
-        if(hasLoadHistory) {
-            System.out.println("added: " + descriptionTask);
-            System.out.println("\t" + tasks.get(taskCount - 1).toString());
-            printSummary();
+        try {
+            messageBuffer.add(taskToAdd.getAddMessage());
+        } catch (DukeException e) {
+            messageBuffer.add(e.getErrorMessage());
         }
-    }
 
-    public void addTodo(String descriptionToDo) {
-        tasks.add( new Todo(descriptionToDo));
-        taskCount += 1;
+        messageBuffer.add("\t" + tasks.get(taskCount - 1).toString());
+        addSummary();
 
-        if(hasLoadHistory) {
-            System.out.println("HELLO BEEP, added a new ToDo: ");
-            System.out.println("\t" + tasks.get(taskCount - 1).toString());
-            printSummary();
-        }
-    }
-
-    public void addDeadline(String description, String deadlineBy) {
-        tasks.add( new Deadline(description, deadlineBy) );
-        taskCount += 1;
-
-        if(hasLoadHistory) {
-            System.out.println("OH NO BEEP BEEP, a new Deadline: " + description);
-            System.out.println("\t" + tasks.get(taskCount - 1).toString());
-            printSummary();
-        }
-    }
-
-    public void addEvent(String description, String eventAt) {
-        tasks.add( new Event(description, eventAt));
-        taskCount += 1;
-
-        if(hasLoadHistory) {
-            System.out.println("OH NO BEEP BEEP, a new Event: ");
-            System.out.println("\t" + tasks.get(taskCount - 1).toString());
-            printSummary();
-        }
     }
 
     public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
-        final String MESSAGE_DONE = "Nice! I've marked this task as done:";
-        final String MESSAGE_NOT_DONE = "OK, I've marked this task as not done yet:";
         final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
         if(taskIndex == -1){
@@ -126,36 +76,29 @@ public class TaskManager implements Utilities {
             return;
         }
 
+        if (taskIndex > taskCount || taskIndex < 0) {
+            throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
+        }
+
+        taskIndex += INDEX_OFFSET;
         tasks.get(taskIndex).setStatus(isDone);
 
-        if (hasLoadHistory) {
-            if (taskIndex > taskCount) { //to add exception here
-                throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
-            }
-
-            if (isDone) {
-                System.out.println(MESSAGE_DONE);
-                System.out.println("\t" + tasks.get(taskIndex).toString());
-            } else {
-                System.out.println(MESSAGE_NOT_DONE);
-                System.out.println("\t" + tasks.get(taskIndex).toString());
-            }
+        if (isDone) {
+            messageBuffer.add("\t" + tasks.get(taskIndex).toString());
+        } else {
+            messageBuffer.add("\t" + tasks.get(taskIndex).toString());
         }
+
     }
 
     public void deleteTask(int taskIndex) {
-        final String MESSAGE_DELETE = "Noted. I've removed this task: ";
 
-        System.out.println(MESSAGE_DELETE);
-        System.out.println("\t" + tasks.get(taskIndex).toString());
+        taskIndex += INDEX_OFFSET;
+        messageBuffer.add("\t" + tasks.get(taskIndex).toString());
         tasks.remove(taskIndex);
         taskCount -= 1;
 
-        printSummary();
-    }
-
-    public static void setHasLoaded(boolean hasLoad) {
-        hasLoadHistory = hasLoad;
+        addSummary();
     }
 
     public static ArrayList<String> serialize() throws DukeException{
@@ -177,4 +120,11 @@ public class TaskManager implements Utilities {
         return serializedTasks;
     }
 
+    public void clearBuffer() {
+        messageBuffer = new ArrayList<>();
+    }
+
+    public ArrayList<String> getMessages() {
+        return messageBuffer;
+    }
 }

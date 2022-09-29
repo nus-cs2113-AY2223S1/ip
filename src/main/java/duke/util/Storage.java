@@ -13,17 +13,20 @@ import java.util.List;
 
 public class Storage {
 
-    private static String filePath = "data/userData.txt";
+    private static String filePath;
     private ArrayList<String> commandHistory;
+    public boolean isLoaded;
 
     public Storage(String filePath) {
         this.filePath = filePath;
         commandHistory = new ArrayList<>();
+        isLoaded = false;
     }
 
     public Storage() {
         this.filePath = "data/userData.txt";
         commandHistory = new ArrayList<>();
+        isLoaded = false;
     }
 
     public void loadData() {
@@ -39,6 +42,15 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("no past data.....welcome new user!!");
         }
+
+    }
+
+    public void setLoadStatus(boolean isLoaded) {
+        this.isLoaded = isLoaded;
+    }
+
+    public boolean isLoaded() {
+        return isLoaded;
     }
 
     public ArrayList<String> getData() {

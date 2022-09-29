@@ -6,20 +6,15 @@ import duke.util.TaskManager;
 import duke.util.Ui;
 
 public abstract class Command {
-    private String userInput;
 
-    Command(String userInput) {
-        this.userInput = userInput;
-    }
+    Command() {
 
-    public String getInput() {
-        return userInput;
     }
 
     /**
      * Executes the command and returns the result
      */
-    public abstract TaskManager execute(TaskManager tasks, Ui ui, Storage storage)
+    public abstract void execute(TaskManager tasks, Ui ui, Storage storage)
             throws DukeException;
 
     public abstract boolean isExit();

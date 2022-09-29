@@ -3,14 +3,13 @@ package duke.util.asset;
 public class Event extends Task {
 
     protected String atTiming;
-    protected String optionFlag;
+    public static final String OPTIONFLAG = "at";
+    public static final String COMMAND = "event";
 
     public Event(String description, String atTiming) {
         super(description);
         this.atTiming = atTiming;
         this.addMessage = "OH NO BEEP BEEP, a new Event: " + description;
-        this.command = "event";
-        this.optionFlag = "at";
     }
 
     @Override
@@ -20,7 +19,7 @@ public class Event extends Task {
 
     @Override
     public String serialize() {
-        return command + " " + getTask() + "/" + optionFlag + " " + atTiming;
+        return COMMAND + " " + getTask() + "/" + OPTIONFLAG + " " + atTiming;
     }
 
     @Override

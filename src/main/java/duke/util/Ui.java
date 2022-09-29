@@ -1,6 +1,8 @@
 package duke.util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui implements Utilities {
 
@@ -22,24 +24,29 @@ public class Ui implements Utilities {
             + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
 
     private static final String MESSAGE_GREET = "Hello! I'm Duke\nWhat can I do for you?";
-
     private static final String MESSAGE_BYE = "BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>";
+    private static final String LINE_DIVIDER = "--------------------------------------";
 
-    private static final String LINE_DIVIDER = "-------------------";
-    private static ArrayList<String> uiBuffer = new ArrayList<>();
-
+    private ArrayList<String> uiBuffer;
+    private Scanner scanner;
 
     public Ui() {
         uiBuffer = new ArrayList<>();
+        scanner = new Scanner(System.in);
     }
 
     public void close() {
         uiBuffer.clear();
+        scanner.close();
+    }
+
+    public String readCommand() {
+        return scanner.nextLine().trim();
     }
 
     public void printUi() {
-        //print line divider by default
-        printUi(true);
+        //do not print line divider by default
+        printUi(false);
     }
 
     public void printUi(boolean hasLineDivider) {
@@ -62,7 +69,7 @@ public class Ui implements Utilities {
         uiBuffer.add(message);
     }
 
-    public void addLine(String[] messages) {
+    public void addLine(ArrayList<String> messages) {
         for(String message: messages) {
             addLine(message);
         }

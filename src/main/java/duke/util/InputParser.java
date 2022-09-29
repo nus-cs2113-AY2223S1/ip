@@ -1,67 +1,48 @@
 package duke.util;
 
+import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyArgumentException;
+
+import duke.util.asset.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+import duke.command.*;
+
 public class InputParser implements Utilities{
 
     private static String userCommand;
     private static String inputBuffer;
     private static Scanner scanner;
+    private static ArrayList<String> parameters;
 
     public InputParser() {
         inputBuffer = "";
         userCommand = "";
         scanner = new Scanner(System.in);
+        parameters = new ArrayList<>();
     }
 
     public static void init() {
         inputBuffer = "";
         userCommand = "";
         scanner = new Scanner(System.in);
+        parameters = new ArrayList<>();
     }
 
     public static void close() {
         inputBuffer = "";
         userCommand = "";
         scanner.close();
-    }
-
-    private static void clear() {
-        inputBuffer = "";
-        userCommand = "";
-    }
-
-    private static boolean isValidCommand() {
-        switch (userCommand) {
-            case ("list"):
-            case ("mark"):
-            case ("unmark"):
-            case ("marked"):
-            case ("todo"):
-            case ("deadline"):
-            case ("event"): //Fallthrough
-            case ("delete"):
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private static boolean isCorrectInput(List<String> parsed) {
-        if (userCommand.equals("list") || userCommand.equals("marked")){
-            return true;
-        }
-        return (parsed.size() > 1);
+        parameters.clear();
     }
 
     private static ArrayList<String> parseParameter(String inputString, String optionFlag){
-        int optionLen = 4;
+        int optionLen = optionFlag.length() + 1;
         int optionIndex = inputString.indexOf(optionFlag);
 
         String descriptionMain = inputString.substring(0, optionIndex);
@@ -82,55 +63,54 @@ public class InputParser implements Utilities{
 
         userCommand = inputSplitBySpace.get(0);
 
-        if (!isValidCommand()) {
+        if (!CommandProcessor.isValidCommand(userCommand)) {
             throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
-        if (!isCorrectInput(inputSplitBySpace) ) {
+        if (!CommandProcessor.isCorrectArgumentLength(userCommand,inputSplitBySpace)) {
             throw new EmptyArgumentException("☹ OOPS!!! The description cannot be empty.");
         }
 
-        //if the particular command requires arguments
+        //if the particular command has arguments
         if ( inputSplitBySpace.size() > 1) {
-            inputBuffer = inputSplitBySpace.get(1);
+            inputBuffer = inputSplitBySpace.get(1).trim();
         }
 
-    }
-
-    public static void readInput() {
-        userCommand = scanner.nextLine();
     }
 
     public static String getCommand() {
         return userCommand;
     }
 
-    public static ArrayList<String> getTaskParameters() {
-        ArrayList<String> parameters;
+    public static void getTaskParameters() {
 
         switch (userCommand) {
-            case ("todo"):
-            case ("mark"):
-            case ("delete"): //Fallthrough
-            case ("unmark"):
+            case (Deadline.COMMAND):
+                parameters = parseParameter(inputBuffer, "/" + Deadline.OPTIONFLAG);
+                break;
+            case (Event.COMMAND):
+                parameters = parseParameter(inputBuffer, "/" + Event.OPTIONFLAG);
+                break;
+            default:
                 parameters = new ArrayList<>(){
                     {
                         add(inputBuffer);
                     }
                 };
-                break;
-            case ("deadline"):
-                parameters = parseParameter(inputBuffer, "/by");
-                break;
-            case ("event"):
-                parameters = parseParameter(inputBuffer, "/at");
-                break;
-            default:
-                parameters = null;
         }
 
-        clear();
-        return parameters;
+    }
+
+    public static Command parse(String command) throws DukeException {
+        try {
+            //get the command keyword
+            parseUserInput(command);
+            getTaskParameters();
+        } catch (DukeException e) {
+            throw new DukeException(e.getErrorMessage());
+        }
+
+        return CommandProcessor.createCommand(userCommand, parameters);
     }
 
 }

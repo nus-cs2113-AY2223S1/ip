@@ -2,10 +2,12 @@ package duke.util.asset;
 
 public class Todo extends Task {
 
+    public static final String COMMAND = "todo";
+
     public Todo(String description) {
         super(description);
         this.addMessage = "HELLO BEEP, added a new ToDo: " + description;
-        this.command = "todo";
+
     }
 
     @Override
@@ -15,7 +17,7 @@ public class Todo extends Task {
 
     @Override
     public String serialize() {
-        return command + " " + getTask();
+        return COMMAND + " " + getTask();
     }
 
     @Override

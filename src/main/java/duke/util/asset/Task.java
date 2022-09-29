@@ -7,7 +7,6 @@ public class Task {
     private boolean isDone;
     private String taskDescription;
     protected String addMessage;
-    protected String command;
 
     private final String STATUS_DONE_ICON = "X";
     private final String STATUS_NOTDONE_ICON = " ";
@@ -20,7 +19,6 @@ public class Task {
         this.taskDescription = taskDescription;
         this.isDone = false;
         this.addMessage = "";
-        this.command = "";
     }
 
     public String getTask() {
