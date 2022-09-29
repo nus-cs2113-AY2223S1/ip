@@ -13,8 +13,8 @@ public class Ui {
     }
     public static void printGreeting() {
         printHorizontalLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! Bob is awake!!");
+        System.out.println("I'm here to give you the sanity check of the list of things that you need to keep track :>");
         printHorizontalLine();
     }
 
@@ -24,9 +24,9 @@ public class Ui {
     }
 
     public static void printAddTaskText(Task task) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Bob has added this task to your list:");
         System.out.println(task.taskStatusWithDescriptionText());
-        System.out.println("Now you have " + TaskList.getTasksListSize() + " tasks in the list.");
+        System.out.println("Now you have " + TaskList.getTasksListSize() + " tasks in the list. You can do it!!");
         Ui.printHorizontalLine();
     }
 
@@ -35,7 +35,7 @@ public class Ui {
             if (TaskList.getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             } else {
-                System.out.println("Here are the tasks in your list:");
+                System.out.println("Here are the list of tasks that you have:");
                 for (int i = 0; i < TaskList.getTasksListSize(); i++) {
                     System.out.println((i + 1) + "." + TaskList.tasksList.get(i).taskStatusWithDescriptionText());
                 }
@@ -51,23 +51,23 @@ public class Ui {
         String previousIcon = TaskList.tasksList.get(taskNumber).getStatusIcon();
         if (previousIcon == "X") {
             if (newMark) {
-                System.out.println("This task has already been marked!");
+                System.out.println("Bob has already marked this task!");
             } else {
-                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("Oh no... Bob has mark this task as UNdone:");
             }
         } else {
             if (!newMark) {
-                System.out.println("This task has already been unmarked!");
+                System.out.println("Bob has already unmarked this task!");
             } else {
-                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("Good job! Bob has marked this task as done:");
             }
         }
     }
 
     public static void printDeleteTaskText(Task task) {
-        System.out.println("Noted. I've removed this task: ");
+        System.out.println("Noted. Bob has removed this task: ");
         System.out.println(task.taskStatusWithDescriptionText());
-        System.out.println("Now you have " + TaskList.getTasksListSize() + " tasks in the list.");
+        System.out.println("Now you have " + TaskList.getTasksListSize() + " tasks in the list. All the best!");
         Ui.printHorizontalLine();
     }
 
@@ -118,7 +118,7 @@ public class Ui {
             }
         }
         if (count == 1 ) {
-            System.out.println("There is no related task in your list.");
+            System.out.println("Bob cannot find any related task in your list.");
         }
     }
 
@@ -128,7 +128,7 @@ public class Ui {
 
     public static void printFilePath(boolean isNewlyCreated, String file_path) {
         if (isNewlyCreated) {
-            System.out.printf("File created at %s\n", file_path);
+            System.out.printf("Bob has created the file at %s\n", file_path);
         } else {
             System.out.printf("File already exists at %s\n", file_path);
         }
@@ -144,17 +144,17 @@ public class Ui {
     }
 
     public static void printLoadTaskToDataFileErrorText(IOException e) {
-        System.out.printf("Error has occurred when loading the task to data file.");
+        System.out.println("Error has occurred when loading the task to data file.");
         e.printStackTrace();
     }
 
     public static void printUpdateTaskToDataFileErrorText(IOException e) {
-        System.out.printf("Error occured when updating the task in data file.");
+        System.out.println("Error occurred when updating the task in data file.");
         e.printStackTrace();
     }
 
     public static void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bob bids goodbye. Hope to see you again soon! :>");
         printHorizontalLine();
     }
 }
