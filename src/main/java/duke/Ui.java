@@ -1,19 +1,21 @@
-package duke.ui;
+package duke;
 
-// import duke.exception.DukeException;
+import duke.exception.DukeException;
 import duke.task.Task;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+// deals with interactions with the user
 public class Ui {
 
     private static final String TOP_HORIZONTAL_RULE = "\t_____________________";
     private static final String BOTTOM_HORIZONTAL_RULE = "\t_____________________\n";
 
-    // Wrong number input format
     public static final String WRONG_NUMBER_INPUT_FORMAT = "Please input the task number that you want to delete.";
 
-    // Item not present
     public static final String ITEM_NOT_PRESENT = "There is no such item in your Task List.";
 
     public static void printByeMessage() {
@@ -43,27 +45,38 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-    // print missing todo exception message
+    // print intro message with file
+    // public static void printIntroMessage(ArrayList<Task> tasks, File file) {
+    //     System.out.println("\tHello! I'm Duke, your personal task manager!");
+    //     System.out.println(TOP_HORIZONTAL_RULE);
+    //     if (tasks.size() > 0) {
+    //         System.out.println("\tHere are the current tasks in your list:");
+    //         for (int i = 0; i < tasks.size(); i++) {
+    //             System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+    //         }
+    //     } else {
+    //         System.out.println("You have no tasks in your list. Try adding some!");
+    //     }
+    //     System.out.println(BOTTOM_HORIZONTAL_RULE);
+    // }
+
     public static void showInvalidTodoInputExceptionMessage() {
         System.out.println("\t☹ OOPS!!! The todo input is invalid. Please follow this format.");
         System.out.println("\tExample: todo <return book>");
 
     }
 
-    // print missing deadline exception message
     public static void showInvalidDeadlineInputExceptionMessage() {
         System.out.println("\t☹ OOPS!!! Your deadline input is invalid. Please follow this format.");
         System.out.println("\tExample: deadline <return book> /by <2020-12-12>");
 
     }
 
-    // print missing event exception message
     public static void showInvalidEventInputExceptionMessage() {
         System.out.println("\t☹ OOPS!!! Your event input is incomplete. Please follow this format.");
         System.out.println("\tExample: event <borrow book> /at <library>");
     }
 
-    // print mark with horizontal rules
     public static void printMark(ArrayList<Task> tasks, int taskId) {
         System.out.println(TOP_HORIZONTAL_RULE);
         if (tasks.get(taskId).isDone) {
@@ -103,7 +116,6 @@ public class Ui {
         System.out.println("\t_____________________");
     }
 
-    // print total number of items with a horizontal rules
     public static void printTotalNumberOfItems(ArrayList<Task> tasks) {
         int total = tasks.size();
         System.out.println(TOP_HORIZONTAL_RULE);
@@ -115,11 +127,9 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-    // print unknown command with a horizontal rules
     public static void printUnknownCommand() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        // list out all the commands
         System.out.println("\tHere are the commands that you can use:");
         System.out.println("\t1. todo <task name>");
         System.out.println("\t2. deadline <task name> /by <yyyy-mm-dd>");
@@ -129,8 +139,11 @@ public class Ui {
         System.out.println("\t6. unmark <task number>");
         System.out.println("\t7. delete <task number>");
         System.out.println("\t8. bye");
-
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
+    public static String readCommand() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
+    }
 }

@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.EmptyTaskDescriptionException;
 import duke.exception.InvalidDeadlineInputException;
@@ -10,15 +11,13 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-// import duke.ui.Ui;
 
-import static duke.ui.Ui.*;
+import static duke.Storage.*;
+import static duke.Ui.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static duke.storage.Storage.*;
 
 public class Duke {
 
@@ -27,6 +26,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         ArrayList<Task> tasks = new ArrayList<>();
+
 
         // attempts to find file and add to list. if not found, creates a new file in a new directory
         try {
@@ -39,11 +39,9 @@ public class Duke {
 
         do {
             line = in.nextLine();
-            // String type = Task.getTaskType(line);
-            String type = Parser.parseCommand(line);
+            String type = Parser.getCommand(line);
 
             if (type.equals("bye")) {
-                // System.out.println("\tBye. Hope to see you again soon!");
                 printByeMessage();
                 clearCurrentFile();
                 saveNewList(tasks);
@@ -87,7 +85,7 @@ public class Duke {
                 break;
             case "todo":
                 try {
-                    String details = Parser.parseTaskDetails(line);
+                    String details = Parser.getTaskDetails(line);
                     Task t = new Todo(details);
                     tasks.add(t);
                     printSuccessfulAdd(tasks);
@@ -97,7 +95,7 @@ public class Duke {
                 break;
             case "deadline":
                 try {
-                    String details = Parser.parseTaskDetails(line);
+                    String details = Parser.getTaskDetails(line);
                     String[] split = Deadline.splitDeadlineDescription(details);
                     Task d = new Deadline(split[0], split[1]);
                     tasks.add(d);
@@ -110,7 +108,7 @@ public class Duke {
                 break;
             case "event":
                 try {
-                    String details = Parser.parseTaskDetails(line);
+                    String details = Parser.getTaskDetails(line);
                     String[] split = Event.splitEventDescription(details);
                     Task e = new Event(split[0], split[1]);
                     tasks.add(e);

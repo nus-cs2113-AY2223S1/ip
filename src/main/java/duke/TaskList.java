@@ -3,14 +3,18 @@ package duke;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.task.Task;
-import static duke.ui.Ui.*;
+
+import static duke.Ui.*;
 
 import java.util.ArrayList;
 
+// contains the task list e.g., it has operations to add/delete tasks in the list
 public class TaskList {
 
+    private ArrayList<Task> tasks;
+
     public static void deleteTask(ArrayList<Task> tasks, String line) throws DukeException {
-        int taskId = Parser.parseTaskId(line);
+        int taskId = Parser.getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);
         int taskSize = tasks.size() - 1;
         System.out.println("\t_____________________");
@@ -27,23 +31,18 @@ public class TaskList {
         tasks.remove(taskId);
     }
 
-    // public static void printMark(ArrayList<Task> tasks, int taskId) {
-    //     if (tasks.get(taskId).isDone) {
-    //         System.out.println("\tThis task is already marked!");
-    //     } else {
-    //         System.out.println("\tNice! I've marked this task as done:");
-    //         tasks.get(taskId).setDone(tasks.get(taskId).isDone);
-    //         System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
-    //     }
-    // }
-
     public static void markTask(ArrayList<Task> tasks, String line) throws DukeException {
-        int taskId = Parser.parseTaskId(line);
+        int taskId = Parser.getTaskId(line);
         printMark(tasks, taskId);
     }
 
     public static void unmarkTask(ArrayList<Task> tasks, String line) throws DukeException {
-        int taskId = Parser.parseTaskId(line);
+        int taskId = Parser.getTaskId(line);
         printUnmark(tasks, taskId);
+    }
+
+    // get the size of the task list
+    public static int getTaskListSize(ArrayList<Task> tasks) {
+        return tasks.size();
     }
 }
