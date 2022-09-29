@@ -11,7 +11,9 @@ import Tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import Ui.TextUi;
@@ -68,6 +70,9 @@ public class Parser {
             deleteTask(splitInput, list);
             break;
 
+        case "find":
+            findTask(splitInput, list);
+
         case "bye":
             break;
 
@@ -79,6 +84,32 @@ public class Parser {
             }
         }
     }
+
+    public void findTask(String[] input, ArrayList<Task> list) {
+        try {
+            ArrayList<Task> searchList = new ArrayList<Task>();
+
+            String searchTerm = Arrays.toString(Arrays.copyOfRange(input, 1, input.length))
+                    .replace("[", "").replace(",", "").replace("]", "");
+
+            for (Task task : list) {
+                if (task.getTaskName().contains(searchTerm)) {
+                    searchList.add(task);
+                }
+            }
+
+            if (searchList.size() > 0) {
+                System.out.println("        Here are the matching tasks in your list:");
+                ui.printList(searchList);
+            } else {
+                System.out.println(DIVIDER + LS + "        There were no tasks matching '" + searchTerm
+                        + "' found in your list." + LS + DIVIDER);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OOPS! You did not provide a valid search term.");
+        }
+    }
+
     public void parseInitialList(ArrayList<Task> list, String[] taskParameters) {
         boolean isTaskDone;
         switch (taskParameters[0]) {
@@ -161,7 +192,7 @@ public class Parser {
         return taskIndicator;
     }
 
-    private static void deleteTask(String[] line, ArrayList<Task> list) {
+    private void deleteTask(String[] line, ArrayList<Task> list) {
         try {
             boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
             boolean isListNumberTooLarge = (Integer.parseInt(line[1])) < 1;
