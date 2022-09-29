@@ -1,11 +1,20 @@
 import java.util.ArrayList;
 
+/**
+ * delete class extend from command class.
+ */
 public class delete extends Command {
     String fullCommand;
+    /**
+     * constructor for delete.
+     */
     delete(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * execute method prints deleted task and removes it from task list.
+     */
     public void execute(ArrayList<String> type, ArrayList<String> marks, ArrayList<String> tasks, Ui ui, Storage storage) {
         System.out.println("Noted. I've removed this task:");
 
@@ -24,6 +33,9 @@ public class delete extends Command {
         Integer actCount = storage.getCount() - 1;
         System.out.println("Now you have " + actCount + " tasks in the list.");
     }
+    /**
+     * program does not exit after this class is called.
+     */
     boolean isExit() {
         return false;
     }
