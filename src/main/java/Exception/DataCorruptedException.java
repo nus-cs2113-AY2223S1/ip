@@ -1,4 +1,4 @@
-package Duke.Exception;
+package Exception;
 
 public class DataCorruptedException extends Exception {
 }

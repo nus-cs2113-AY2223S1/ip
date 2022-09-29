@@ -1,46 +1,44 @@
-package Duke;
-
-import Duke.Exception.DataCorruptedException;
-import Duke.Exception.EmptyArgumentException;
-import Duke.Exception.WrongArgumentException;
-import Duke.Tasks.TaskType;
-import Duke.Tasks.TaskList;
+import Exception.DataCorruptedException;
+import Exception.EmptyArgumentException;
+import Exception.WrongArgumentException;
+import Tasks.TaskType;
+import Tasks.TaskList;
+import Ui.Ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 
 public class Duke {
     private static TaskList list = new TaskList();
     private static boolean toSave = true;
+    private static Ui ui;
 
     private static final String SEPARATOR = "____________________________________________________________";
 
+    public Duke() {
+        ui = new Ui();
+    }
+
+    public void run() {
+        ui.printWelcomeMessage();
+    }
+
     public static void main(String[] args) {
-        final String DUKE_LOGO =  " ____        _\n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        final String CONV_START = DUKE_LOGO + "Hello! I'm Duke";
-        final String CONV_END = "Bye. Hope to see you again soon!";
+//        new Duke().run();
 
-
-        printOutput(CONV_START);
-
+        ui = new Ui();
+        ui.printWelcomeMessage();
         boolean initialiseSuccessful = true;
 
         try {
             list.initialiseTaskFromFile();
         } catch (FileNotFoundException e) {
-            printError("File not found. Make sure the data file is located in './data/data.md'"
-            + "\nSaving services disabled.");
+            ui.printFileNotFound();
             toSave = false;
         } catch (DataCorruptedException e) {
-            printError("File data corrupted. Please check data file again or delete entire content."
-            + "\nExiting program.");
+            ui.printFileCorrupted();
             initialiseSuccessful = false;
         }
 
@@ -59,8 +57,7 @@ public class Duke {
         }
 
         while (initialiseSuccessful) {
-            System.out.println("What can I do for you?");
-            String lineInput = in.nextLine();
+            String lineInput = ui.getUserInput();
             String[] inputSplitted = lineInput.split(" ",2);
 
             if (inputSplitted[0].equals("bye")) {
@@ -75,57 +72,57 @@ public class Duke {
                     try {
                         doMarkAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printError("OOPS!!! Please input a number to mark as done.");
+                        ui.printEmptyMarkUnmarkArgs();
                     } catch (WrongArgumentException e) {
-                        printError("OOPS, that task is not in the list.");
+                        ui.printInvalidTaskNumber();
                     }
                     break;
                 case "unmark":
                     try {
                         doUnmarkAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printError("OOPS!!! Please input a number to unmark as done.");
+                        ui.printEmptyMarkUnmarkArgs();
                     } catch (WrongArgumentException e) {
-                        printError("OOPS, that task is not in the list.");
+                        ui.printInvalidTaskNumber();
                     }
                     break;
                 case "todo":
                     try {
                         doTodoAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e){
-                        printError("OOPS!!! The description of a todo cannot be empty.");
+                        ui.printEmptyActionArgs();
                     }
                     break;
                 case "deadline":
                     try {
                         doDeadlineAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printError("OOPS!!! The description of a deadline cannot be empty.");
+                        ui.printEmptyActionArgs();
                     }
                     break;
                 case "event":
                     try {
                         doEventAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printError("OOPS!!! The description of an event cannot be empty.");
+                        ui.printEmptyActionArgs();
                     }
                     break;
                 case "delete":
                     try {
                         deleteAction(inputSplitted[1]);
                     } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
-                        printError("OOPS!!! Please input a number to delete.");
+                        ui.printEmptyActionArgs();
                     } catch (WrongArgumentException e) {
-                        printError("OOPS, that task is not in the list.");
+                        ui.printInvalidTaskNumber();
                     }
                     break;
                 default:
-                    printError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    ui.printUnknownMessage();
                     break;
             }
 
         }
-        printOutput(CONV_END);
+        ui.printExitMessage();
     }
 
     private static void printOutput(String message) {

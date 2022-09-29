@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package Tasks;
 
 public class Todo extends Task {
     public Todo (String description, boolean isCompleted) {
