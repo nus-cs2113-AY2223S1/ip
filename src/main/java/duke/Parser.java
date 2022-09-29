@@ -25,6 +25,8 @@ public class Parser {
             tasks.addDeadline(inputWords);
         } else if (action.equalsIgnoreCase("delete")) {
             tasks.deleteTask(inputWords);
+        } else if (action.equalsIgnoreCase("find")) {
+            tasks.findTasks(inputWords);
         } else {
             ui.showInvalidCommand();
         }
