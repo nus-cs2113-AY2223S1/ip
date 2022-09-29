@@ -3,6 +3,7 @@ package duke.tasklist;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import duke.exceptions.MissingArgumentException;
 import duke.task.Deadlines;
 import duke.task.Events;
 import duke.task.Task;
@@ -84,6 +85,16 @@ public class Tasklist {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void findTasks(String keyword) throws MissingArgumentException {
+        ArrayList<Task> temp = new ArrayList<>();
+        for (Task task: tasks) {
+            if(task.getDescription().contains(keyword)) {
+                temp.add(task);
+            }
+        }
+        Ui.printFoundTask(temp);
     }
 
 }

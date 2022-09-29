@@ -33,13 +33,8 @@ public class Parser {
         return taskDescription.split("/by ")[0];
     }
 
-    public static String parseDeadlineDate(String taskDescription) {
-        try {
-            return taskDescription.split("/by ")[1];
-        } catch (MissingArgumentException e) {
-            Ui.showError(e.getMessage());
-        }
-        return "";
+    public static String parseDeadlineDate(String taskDescription) throws MissingArgumentException {
+        return taskDescription.split("/by ")[1];
     }
 
     public static String parseEvent(String taskDescription) {

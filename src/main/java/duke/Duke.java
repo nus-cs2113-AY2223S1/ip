@@ -37,8 +37,8 @@ public class Duke {
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (MissingArgumentException e) {
-                Ui.showError(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Wrong argument. Please type again.");
             } catch (InvalidCommandException e) {
                 Ui.showError(e.getMessage());
             }

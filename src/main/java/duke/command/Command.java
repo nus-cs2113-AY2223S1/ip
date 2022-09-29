@@ -15,8 +15,8 @@ public class Command {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
-
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     private String command;
     private String taskDescription;
@@ -52,6 +52,8 @@ public class Command {
             } else if (command.equalsIgnoreCase(COMMAND_DELETE)) {
                 int task_no = Parser.parseDelete(taskDescription) - 1;
                 Tasklist.deleteTask(task_no);
+            } else if (command.equalsIgnoreCase(COMMAND_FIND)) {
+                Tasklist.findTasks(taskDescription);
             } else {
                 throw new InvalidCommandException();
             }

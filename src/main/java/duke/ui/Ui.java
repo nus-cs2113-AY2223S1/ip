@@ -96,6 +96,17 @@ public class Ui {
         printLine();
     }
 
+    public static void printFoundTask(ArrayList<Task> tasks) {
+        int i = 1;
+        printLine();
+        System.out.println("Here are the matching tasks in your list: ");
+        for (Task task: tasks) {
+            System.out.println(i + "." + task);
+            i++;
+        }
+        printLine();
+    }
+
 
 }
 
