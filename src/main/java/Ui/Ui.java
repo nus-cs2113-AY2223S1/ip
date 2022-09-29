@@ -139,6 +139,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Print formatted output for any task find action. Will output differently for not found scenario.
+     *
+     * @param item Task(s) found description.
+     */
     public void printFindActionResult(String item) {
         String output = "";
         if (item.isEmpty()) {

@@ -148,6 +148,12 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Returns the task(s) description for keyword found in the task list.
+     *
+     * @param item keyword.
+     * @return tasks(s) description for the found keyword.
+     */
     private String doFindAction(String item) {
         String output = "";
         int count = 1;

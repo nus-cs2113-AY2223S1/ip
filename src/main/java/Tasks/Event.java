@@ -1,7 +1,7 @@
 package Tasks;
 
 /**
- * Represents a Event Task, extended from Task class.
+ * Represents an Event Task, extended from Task class.
  * Contains item description and completion status, as well as time description.
  */
 public class Event extends Task {
