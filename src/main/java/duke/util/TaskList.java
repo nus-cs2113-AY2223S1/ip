@@ -54,9 +54,11 @@ public class TaskManager implements Utilities {
     }
 
     public void findTasksContain(String keyword) {
+        int taskMatchCounter = 1;
+
         for (Task task: tasks) {
             if (task.containsKeyword(keyword)) {
-                
+                messageBuffer.add("\t" + (taskMatchCounter + 1) + "." + task.toString());
             }
         }
     }

@@ -4,40 +4,37 @@ import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyArgumentException;
 
-import duke.util.asset.*;
+import duke.util.asset.Deadline;
+import duke.util.asset.Event;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-import duke.command.*;
+import duke.command.Command;
 
 public class InputParser implements Utilities{
 
     private static String userCommand;
     private static String inputBuffer;
-    private static Scanner scanner;
     private static ArrayList<String> parameters;
 
     public InputParser() {
         inputBuffer = "";
         userCommand = "";
-        scanner = new Scanner(System.in);
         parameters = new ArrayList<>();
     }
 
     public static void init() {
         inputBuffer = "";
         userCommand = "";
-        scanner = new Scanner(System.in);
         parameters = new ArrayList<>();
     }
 
     public static void close() {
         inputBuffer = "";
         userCommand = "";
-        scanner.close();
         parameters.clear();
     }
 
@@ -59,7 +56,7 @@ public class InputParser implements Utilities{
     public static void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
         final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
-        List<String> inputSplitBySpace = Arrays.asList( userInput.split(" ", NUM_CMD_SPLIT) );
+        List<String> inputSplitBySpace = Arrays.asList(userInput.split(" ", NUM_CMD_SPLIT));
 
         userCommand = inputSplitBySpace.get(0);
 
@@ -102,6 +99,7 @@ public class InputParser implements Utilities{
     }
 
     public static Command parse(String command) throws DukeException {
+
         try {
             //get the command keyword
             parseUserInput(command);
