@@ -36,7 +36,7 @@ public class TaskList {
     private void mark(int i) {
         try {
             tasks.get(i).setIsDone(true);
-            System.out.format("Task %d is marked as done~%n%s%n", i + 1, tasks.get(i));
+            System.out.format("Task %d is marked as done~%n%s%n", i+1, tasks.get(i));
         } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to mark task %n" +
                     "There are only %d tasks now~%n", tasks.size());
@@ -51,7 +51,7 @@ public class TaskList {
     private void unmark(int i) {
         try {
             tasks.get(i).setIsDone(false);
-            System.out.format("Task %d is unmarked as not done~%n%s%n", i + 1, tasks.get(i));
+            System.out.format("Task %d is unmarked as not done~%n%s%n", i+1, tasks.get(i));
         } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to mark task %n" +
                     "There are only %d tasks now~%n", tasks.size());
@@ -67,7 +67,7 @@ public class TaskList {
         try {
             String removedTask = tasks.get(i).toString();
             tasks.remove(i);
-            System.out.format("Task %d: %s is removed~%n", i + 1, removedTask);
+            System.out.format("Task %d: %s is removed~%n", i+1, removedTask);
             this.listAll();
         } catch (IndexOutOfBoundsException e) {
             System.out.format("Exception: Unable to delete task %n" +
@@ -75,7 +75,28 @@ public class TaskList {
         }
     }
 
-    
+    /**
+     * find and list the tasks containing certain keyword
+     *
+     * @param key the keyword
+     */
+    private void find(String key) {
+
+        ArrayList<Task> tasksContainKey = new ArrayList<>();
+        for(Task task: tasks) {
+            if(task.toString().contains(key)) {
+                tasksContainKey.add(task);
+            }
+        }
+
+        System.out.format("%d matching tasks are found:%n", tasksContainKey.size());
+        int i = 1;
+        for(Task task: tasksContainKey) {
+            System.out.format("%d.%s%n", i++, task);
+        }
+
+    }
+
     /**
      * execute a command on the task list
      *
@@ -100,7 +121,9 @@ public class TaskList {
             break;
         case DELETE:
             this.deleteTask(index);
-
+        case FIND:
+            this.find(command.getKey());
+            break;
         case NULL:
         case ERROR:
             break;
