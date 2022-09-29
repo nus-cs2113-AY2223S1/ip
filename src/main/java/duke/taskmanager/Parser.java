@@ -7,7 +7,6 @@ import duke.taskmanager.commands.*;
 /**
  * Checks the user input to detect invalid inputs. If the input is valid it will proceed to detect
  * the type of command.
- *
  */
 public class Parser {
     /**
@@ -57,7 +56,6 @@ public class Parser {
                 return new WrongCommand(userInput,firstWord);
             }
         } catch (StringIndexOutOfBoundsException e) {
-            //isOneWord = true;
             try {
                 checkExceptions(userInput);
             } catch (EmptyException ee) {

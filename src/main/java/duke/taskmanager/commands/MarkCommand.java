@@ -22,16 +22,19 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        boolean isMarked = false;
+        boolean isMarked = false, isValid = true;
         switch (firstWord) {
         case "mark":
             isMarked = true;
             break;
         case "unmark":
-            isMarked = false;
             break;
+        default:
+            isValid = false;
         }
-        mark(tasks,ui,userInput,isMarked);
+        if (isValid) {
+            mark(tasks,ui,userInput,isMarked);
+        }
     }
 
     /**
@@ -45,8 +48,8 @@ public class MarkCommand extends Command {
     private void mark(TaskList tasks, UI ui, String userInput, boolean done) {
         try {
             int startIdx = userInput.substring(0, userInput.indexOf(' ') + 1).length();
-            int pos = Integer.parseInt(userInput.substring(startIdx));
-            if (pos > tasks.size()-1 || pos < 1) {
+            int pos = Integer.parseInt(userInput.substring(startIdx)) - 1;
+            if (pos > tasks.size() || pos < 0) {
                 throw new TaskOutOfBoundsException();
             }
             ui.printMark(tasks.get(pos), done);

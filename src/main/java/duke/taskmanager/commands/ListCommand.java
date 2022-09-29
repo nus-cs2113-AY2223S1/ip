@@ -5,7 +5,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * List out all current tasks
+ * List out all current <code>task</code>s
  */
 public class ListCommand extends Command {
     /**

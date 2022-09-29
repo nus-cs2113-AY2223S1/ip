@@ -5,55 +5,95 @@ import duke.taskmanager.tasks.Task;
 
 import java.util.regex.Pattern;
 
+/**
+ * Handles all the output that the user can see
+ */
 public class UI {
-    public final String DASH_SEPARATOR = "------------------------------------------------------------\n";
-    public static int oneBasedIndex = 1;
+    /**
+     * Demarcation to indicate system output
+     */
+    public final String DASH_SEPARATOR = "------------------------------------------------------------"
+            + System.lineSeparator();
 
+    /**
+     * How the user will see the system output
+     *
+     * @param stringToOutput message related to the command the user has input
+     */
     public void formatOutput(String stringToOutput) {
         System.out.println(DASH_SEPARATOR + stringToOutput + System.lineSeparator() + DASH_SEPARATOR);
     }
 
+    /**
+     * The greeting message which will only be shown once at the start of the programme
+     */
     public void printGreetingMessage() {
-        String LOGO = "     ____.  _____ ______________   ____.___  _________\n"
-                + "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/\n"
-                + "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\\n"
-                + "/\\__|    /    |    \\    |   \\ \\     /  |   |/        \\\n"
-                + "\\________\\____|__  /____|_  /  \\___/   |___/_______  /\n"
-                + "                 \\/       \\/                       \\/\n";
-        String greet = "Hello! I'm\n" + LOGO + "What can I do for you?\n"
-                + "Enter \"bye\" to exit.";
+        String LOGO = "     ____.  _____ ______________   ____.___  _________" + System.lineSeparator()
+                + "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/" + System.lineSeparator()
+                + "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\" + System.lineSeparator()
+                + "/\\__|    /    |    \\    |   \\ \\     /  |   |/        \\" + System.lineSeparator()
+                + "\\________\\____|__  /____|_  /  \\___/   |___/_______  /" + System.lineSeparator()
+                + "                 \\/       \\/                       \\/" + System.lineSeparator();
+        String greet = "Hello! I'm" + System.lineSeparator() + LOGO + "What can I do for you?"
+                + System.lineSeparator() + "Enter \"bye\" to exit.";
         formatOutput(greet);
     }
 
+    /**
+     * Output message to inform the user which <code>task</code> is successfully marked or unmarked
+     *
+     * @param task the task to be marked or unmarked
+     * @param done whether the task is done
+     */
     public void printMark(Task task, boolean done) {
         formatOutput(task.markDone(done));
     }
 
-    public void printTask(Task task) {
+    /**
+     * Output message to inform the user which new <code>task</code> is successfully added to the <code>TaskList</code>
+     * which is the last <code>task</code> in the <code>TaskList</code>.
+     *
+     * @param tasks stores all the user's current tasks
+     */
+    public void printTask(TaskList tasks) {
+        Task task = tasks.get(tasks.size() - 1);
         formatOutput("Got it. I've added this task:" + System.lineSeparator()
-                + task + System.lineSeparator() + "Now you have " + oneBasedIndex
+                + task + System.lineSeparator() + "Now you have " + tasks.size()
                 + " tasks in the list.");
-        oneBasedIndex++;
     }
 
-    public void printTaskAfterDelete(Task task) {
-        oneBasedIndex--;
+    /**
+     * Output message to inform the user which <code>task</code> is successfully deleted from the <code>TaskList</code>
+     *
+     * @param tasks stores all the user's current tasks
+     * @param pos   the position of the task to be deleted
+     */
+    public void printTaskAfterDelete(TaskList tasks, int pos) {
+        Task task = tasks.get(pos);
+        //account for deleted task
+        int numTasks = tasks.size() - 1;
         formatOutput("Noted. I've removed this task:" + System.lineSeparator()
-                + task + System.lineSeparator() + "Now you have " + (oneBasedIndex - 1)
+                + task + System.lineSeparator() + "Now you have " + numTasks
                 + " tasks in the list.");
     }
 
+    /**
+     * Outputs all the current <code>task</code>s in the <code>TaskList</code>
+     *
+     * @param tasks stores all the user's current tasks
+     */
     public void printList(TaskList tasks) {
         StringBuilder listMessage = new StringBuilder();
         listMessage.append("Here are the tasks in your list:").append(System.lineSeparator());
-        for (int i = 1; i < oneBasedIndex; i++) {
-            listMessage.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
+        for (int i = 0; i < tasks.size(); i++) {
+            listMessage.append(i+1).append(".").append(tasks.get(i)).append(System.lineSeparator());
         }
         formatOutput(listMessage.toString());
     }
 
     /**
-     * Looks through the <code>TaskList</code> for <code>task</code>s that match the description and print it
+     * Looks through the <code>TaskList</code> for <code>task</code>s that match the description and print it.
+     * The case of the description does not matter.
      *
      * @param tasks       stores all the user's current tasks
      * @param description user provided keyword
@@ -63,9 +103,9 @@ public class UI {
         StringBuilder s = new StringBuilder();
         int count = 0;
         s.append("Here are the tasks matching \"").append(description).append("\" in your list:").append(System.lineSeparator());
-        for (int i = 1; i < oneBasedIndex; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (pattern.matcher(tasks.get(i).getDescription()).find()) {
-                s.append(i).append(".").append(tasks.get(i)).append(System.lineSeparator());
+                s.append(i+1).append(".").append(tasks.get(i)).append(System.lineSeparator());
                 count++;
             }
         }

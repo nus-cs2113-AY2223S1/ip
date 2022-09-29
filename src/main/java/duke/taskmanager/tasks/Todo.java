@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * A <code>Todo task</code> that only has <code>description</code> and <code>isDone</code>.
+ * Does not have an associated <code>date</code> and <code>time</code>
+ */
 public class Todo extends Task {
     protected LocalDate date;
     protected String time;
@@ -27,7 +31,6 @@ public class Todo extends Task {
             description = command.substring(DescStartIdx, DescEndIdx);
         }
         setDescription(description);
-        setDone(false);
     }
 
     /**
@@ -63,6 +66,11 @@ public class Todo extends Task {
 
     }
 
+    /**
+     * <code>Todo</code> is associated with '<code>T</code>'
+     *
+     * @return the formatted type
+     */
     @Override
     protected String getTypeIcon() {
         return "[T]";

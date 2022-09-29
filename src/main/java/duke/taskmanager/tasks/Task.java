@@ -5,12 +5,18 @@ package duke.taskmanager.tasks;
  */
 public abstract class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     protected abstract String  getTypeIcon();
 
+    /**
+     * Getter for if <code>task</code> is done
+     *
+     * @return whether <code>task</code> is done
+     */
     public String getStatusIcon() {
-        return (this.isDone ? "[X] " : "[ ] "); // mark done task with X
+        // mark done task with X
+        return (this.isDone ? "[X] " : "[ ] ");
     }
 
     public String getDescription() {
@@ -25,6 +31,11 @@ public abstract class Task {
         this.isDone = done;
     }
 
+    /**
+     * Output in the format [type][done status] description
+     *
+     * @return formatted <code>String</code> representing this task
+     */
     @Override
     public String toString() {
         return this.getTypeIcon() + this.getStatusIcon()

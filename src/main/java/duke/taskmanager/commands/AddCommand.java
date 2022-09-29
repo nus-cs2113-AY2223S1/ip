@@ -10,7 +10,7 @@ import duke.taskmanager.tasks.Todo;
 import static duke.taskmanager.TaskManager.toSave;
 
 /**
- * Add a <code>task</code> to the <code>TaskList</code>
+ * Add a new <code>task</code> to the <code>TaskList</code>
  */
 public class AddCommand extends Command {
     public AddCommand(String userInput, String firstWord) {
@@ -29,7 +29,7 @@ public class AddCommand extends Command {
         switch (firstWord) {
         case "todo":
             tasks.add(new Todo(userInput, ' '));
-            ui.printTask(tasks.get(tasks.size()-1));
+            ui.printTask(tasks);
             toSave.append(userInput).append(System.lineSeparator());
             break;
         case "deadline":
@@ -68,7 +68,7 @@ public class AddCommand extends Command {
                 tasks.add(new Event(command, '/'));
                 break;
             }
-            ui.printTask(tasks.get(tasks.size()-1));
+            ui.printTask(tasks);
         } else {
             addDeadlineOrEvent(tasks, ui, command + "/at error", firstWord);
         }
