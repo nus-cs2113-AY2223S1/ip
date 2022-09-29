@@ -10,6 +10,12 @@ public class Task {
         System.out.println("Got it. I've added this task:");
     }
 
+    public Task(String description, boolean isDone){
+        this.description = description;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+    }
+
     public String toString(){
         String output = "[ ] ";
         if(isDone){
