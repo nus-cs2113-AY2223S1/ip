@@ -10,20 +10,7 @@ Reference for this User Guide was taken from https://se-education.org/addressboo
 2. Download the latest `Duke.jar` from this repository.
 3. Copy the file to the folder you want to use as the home folder for your task tracker.
 4. Open your terminal, navigate to your home folder from step 3 and run this command: `java -jar Duke.jar`
-5. You should see the following welcome message:
-```
-Hello from
- ____        _        
-|  _ \ _   _| | _____
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-____________________________________________
-Hello! I'm Duke.
-What can I do for you?
-____________________________________________
-```
+5. You should see a welcome message if the application successfully starts.
 6. Input a command and press 'Enter' to execute it. Some example commands you can try are:
    - `todo Read book` : Adds a todo task called 'Read book'.
    - `list` : Lists all tasks added by the user.
