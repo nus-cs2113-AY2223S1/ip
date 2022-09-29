@@ -17,13 +17,22 @@ public class AddCommand extends Command{
         this.splitCommand = splitCommand;
     }
 
+    /**
+     * Executes the action for add task command.
+     *
+     * @param tasks which is taken from the class TaskList to obtain
+     *              the list of assignments.
+     * @param ui which is taken from the class Ui to display messages.
+     * @param storage which is taken from the class storage which deals.
+     *                with the add and remove of data from the data file.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> assignments = tasks.getAssignments();
         isInitialEmpty = storage.isInitialEmpty();
         updateTaskFromStorage(storage);
         checkEmptyTask();
-        typeOfIncrement(tasks);
+        checkTypeOfIncrement(tasks);
         checkCommandType(splitCommand);
         addTypeOfTask(tasks, assignments);
         ui.showTypeOfTaskDetail(assignments, indexTask);
@@ -31,7 +40,13 @@ public class AddCommand extends Command{
         storage.saveToFile(countTask, assignments);
     }
 
-    public void typeOfIncrement(TaskList tasks) {
+    /**
+     *Checks the type of increment that it should be carried out based on the index task.
+     *
+     * @param tasks which is taken from the class TaskList to obtain
+     *              the list of assignments.
+     */
+    public void checkTypeOfIncrement(TaskList tasks) {
         if (isInitialEmpty || isCountTaskEmpty) {
             indexTask = tasks.getIndexTask();
         } else {
@@ -43,7 +58,7 @@ public class AddCommand extends Command{
         countTask = tasks.getCountTask();
     }
 
-    private void updateTaskFromStorage(Storage storage) {
+    public void updateTaskFromStorage(Storage storage) {
         countTask = storage.getCountTask();
     }
 
@@ -53,7 +68,14 @@ public class AddCommand extends Command{
         }
     }
 
-    private void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
+    /**
+     * Adds the type of task based on the user input command.
+     *
+     * @param tasks which is taken from the class TaskList to obtain
+     *              the list of assignments.
+     * @param assignments which is taken from the class TaskList.
+     */
+    public void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
         if (isEvent) {
             tasks.addEventTask(splitCommand, assignments, indexTask);
         } else if (isDeadline) {
