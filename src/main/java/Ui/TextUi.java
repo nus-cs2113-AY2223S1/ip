@@ -24,6 +24,7 @@ public class TextUi {
         this.out = out;
     }
 
+    /** Generates and prints a welcome message to the user upon the start of the application. **/
     public void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -35,10 +36,16 @@ public class TextUi {
                 + "What can I do for you?" + LS + FULL_LINE);
     }
 
+    /** Generates and prints a goodbye message to the user upon termination of the application. **/
     public void printGoodbyeMessage() {
         System.out.println(FULL_LINE + LS + "Bye. Hope to see you again soon!" + LS + FULL_LINE);
     }
 
+    /**
+     * Prints a given list of tasks, including the tasks' type, status, name and possible deadline.
+     *
+     * @param list the task list to be printed
+     */
     public void printList(ArrayList<Task> list) {
         System.out.println(DIVIDER);
 

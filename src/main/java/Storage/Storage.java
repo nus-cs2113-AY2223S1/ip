@@ -23,6 +23,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a task list from the storage file if it contains a task list from the application's previous use.
+     *
+     * @param list The task list to which previous tasks are loaded onto.
+     * @param filePath The file path of the storage file containing the user's previous task list.
+     */
     public void populateInitialList(ArrayList<Task> list, String filePath) {
         File f = new File(filePath);
         Scanner s = getInitialListScanner(f);
@@ -35,6 +41,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Initializes a scanner to read from a .txt file.
+     *
+     * @param f The .txt file to be read by the scanner.
+     * @return Returns the scanner which will read from the given file.
+     */
     private static Scanner getInitialListScanner(File f) {
         Scanner s = null;
         try {

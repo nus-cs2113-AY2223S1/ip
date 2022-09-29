@@ -32,12 +32,27 @@ public class Parser {
 
     }
 
+    /**
+     * Writes text content to a storage file. This is used to store a task list in a storage file.
+     *
+     * @param filePath the path of the file to be written to.
+     * @param textToAdd the text content to be stored in the file.
+     * @throws IOException if there was an error writing to the given file
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Processes the given user input and executes the command given.
+     *
+     * @param input the String input given by the user
+     * @param splitInput the input given by the user split into words in an array
+     * @param command the task command given by the user
+     * @param list the task list to execute the command on
+     */
     public void parseCommand(String input, String[] splitInput, String command, ArrayList<Task> list) {
         switch (command) {
         case "list":
@@ -79,6 +94,13 @@ public class Parser {
             }
         }
     }
+
+    /**
+     * Reads in line in the storage file, processes the task in that line and adds it to the task list.
+     *
+     * @param list the task list to add the task to
+     * @param taskParameters the line containing the task, split into an array by type, status, name and date
+     */
     public void parseInitialList(ArrayList<Task> list, String[] taskParameters) {
         boolean isTaskDone;
         switch (taskParameters[0]) {
@@ -102,6 +124,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts a task list into a string.
+     *
+     * @param list the task list to be converted into a string
+     * @return a string representation of the given task list
+     */
     public static String taskListToString(ArrayList<Task> list) {
         String outputList = "";
         String tempTaskString = "";
@@ -138,6 +166,13 @@ public class Parser {
         return outputList;
     }
 
+    /**
+     * Gets the task status from a processed user input.
+     *
+     * @param line the user input which has been split by command and task index
+     * @param list the task list containing the task to be checked
+     * @return returns a string indicator representing the task type
+     */
     private static String getTaskIndicator(String[] line, ArrayList<Task> list) {
         String taskType = list.get(Integer.parseInt(line[1]) - 1).getTaskType();
         String taskIndicator = "";
@@ -161,6 +196,12 @@ public class Parser {
         return taskIndicator;
     }
 
+    /**
+     * Deletes a task from a task list.
+     *
+     * @param line the user input which has been split by command and task index
+     * @param list the task list containing the task to be deleted
+     */
     private static void deleteTask(String[] line, ArrayList<Task> list) {
         try {
             boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
@@ -188,6 +229,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an event task to a task list, including the event name, status and date.
+     *
+     * @param input the user input
+     * @param list the task list to add the event to
+     */
     private static void addEvent(String input, ArrayList<Task> list) {
         try {
             int separatorIndex = datedEventErrorChecker(input, "/at");
@@ -216,6 +263,16 @@ public class Parser {
         }
     }
 
+    /**
+     * For events and deadline tasks, checks if the command parameters given are valid.
+     *
+     * @param input the user input
+     * @param separator refers to '/by' for deadline tasks, or '/at' for event tasks
+     * @return the index at which the separator is located
+     * @throws MissingKeywordException if no valid separator was given in the input
+     * @throws MissingTaskException if no valid event name was given in the input
+     * @throws MissingDateException if no valid event date was given in the input
+     */
     private static int datedEventErrorChecker(String input, String separator) throws MissingKeywordException,
             MissingTaskException, MissingDateException {
         int separatorIndex = input.indexOf(separator);
@@ -229,6 +286,12 @@ public class Parser {
         return separatorIndex;
     }
 
+    /**
+     * Adds a deadline task to a task list, including the deadline name, status and date.
+     *
+     * @param input the user input
+     * @param list the task list to add the deadline task to
+     */
     private static void addDeadline(String input, ArrayList<Task> list) {
         try {
             int separatorIndex = datedEventErrorChecker(input, "/by");
@@ -256,6 +319,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a todo task to a task list, including the todo name and status.
+     *
+     * @param input the user input
+     * @param line the user input after being processed into a String array
+     * @param list the task list to add the todo task to
+     */
     private void addTodo(String input, String[] line, ArrayList<Task> list) {
         try {
             if (line.length == 1) {
@@ -279,6 +349,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks an existing task in a task list as done or not done.
+     *
+     * @param line the user input after being processed into a String array
+     * @param command the user command to either 'mark' or 'unmark'
+     * @param list the task list containing the task to be modified
+     */
     private static void markTask(String[] line, String command, ArrayList<Task> list) {
         try {
             boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();

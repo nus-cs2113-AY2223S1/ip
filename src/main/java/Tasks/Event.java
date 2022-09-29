@@ -2,7 +2,6 @@ package Tasks;
 
 public class Event extends Task {
 
-
     public Event(String taskName, String eventTime) {
         super(taskName);
         super.setTaskType("Event");
