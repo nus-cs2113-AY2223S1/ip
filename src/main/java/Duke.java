@@ -1,4 +1,6 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Duke {
                 Command command = new Command(Parser.parse(commandInput));
                 isExit = command.executeCommand(tasks, commandInput);
             } catch (Exception e) {
-                // to catch errors later
+                System.out.println("Could not execute command! Try again");
             }
         }
         goodbyeMessage();
