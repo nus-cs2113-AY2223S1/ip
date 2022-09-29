@@ -20,11 +20,7 @@ public class TodoCommand extends Command {
 
     @Override
     public TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException {
-        String description;
-        description = Parser.getTaskDescription(fullCommand);
-        Task t = new Todo(description);
-        tasks.addTask(t);
-        Ui.printSuccessfulAdd(tasks);
+        TaskList.addTodo(tasks, fullCommand);
         return tasks;
     }
 

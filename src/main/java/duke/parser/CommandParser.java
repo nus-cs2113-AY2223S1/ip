@@ -25,8 +25,8 @@ public class CommandParser extends Parser {
                 return new duke.command.UnmarkCommand(fullCommand);
             case "todo":
                 return new duke.command.TodoCommand(fullCommand);
-            // case "deadline":
-            //     return new duke.command.DeadlineCommand(fullCommand);
+            case "deadline":
+                return new duke.command.DeadlineCommand(fullCommand);
             // case "event":
             //     return new duke.command.EventCommand(fullCommand);
             default:

@@ -3,6 +3,8 @@ package duke.task;
 import duke.Storage;
 import duke.Ui;
 import duke.exception.DukeException;
+import duke.exception.InvalidDeadlineInputException;
+import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.Parser;
 
 import static duke.Ui.*;
@@ -17,6 +19,27 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+    
+    public static void addTodo(TaskList tasks, String fullCommand) throws DukeException {
+        String description;
+        description = Parser.getTaskDescription(fullCommand);
+        Task t = new Todo(description);
+        tasks.addTask(t);
+        Ui.printSuccessfulAdd(tasks);
+    }
+
+    public static void addDeadline(TaskList tasks, String fullCommand) {
+        try {
+            String[] description = Parser.parseDeadlineDescription(fullCommand);
+            String deadlineName = description[0].trim();
+            String deadlineDetails = description[1].trim();
+            Task t = new Deadline(deadlineName, deadlineDetails);
+            tasks.addTask(t);
+            Ui.printSuccessfulAdd(tasks);
+        } catch (InvalidDeadlineInputException e) {
+            Ui.showInvalidDeadlineInputExceptionMessage();
+        }
     }
 
     public static void deleteTask(TaskList tasks, String line) throws DukeException {
@@ -72,6 +95,8 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
+
+
 
     
 }

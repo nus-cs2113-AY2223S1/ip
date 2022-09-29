@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.exception.DukeException;
+import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidTaskDescriptionException;
 
 public class Parser {
@@ -10,7 +11,7 @@ public class Parser {
         return words[0];
     }
 
-    public static String getTaskDescription (String line) throws DukeException {
+    public static String getTaskDescription (String line) throws InvalidTaskDescriptionException{
         String[] breakLine = line.trim().split(" ", 2);
         // // if there is no task description or the task description is empty
         if (breakLine.length == 1 || breakLine[1].equals("")) {
@@ -18,22 +19,27 @@ public class Parser {
         } return breakLine[1];
     }
 
-    // get Detail name before /
-    public static String getDetailName(String details) {
-        String[] splitInput = details.split("/");
-        return splitInput[0];
-    }
-
     // parse deadline description into details and by
-    public static String[] parseDeadlineDetails(String description) throws DukeException {
+    // public static String[] parseDeadlineDescription(String description) throws InvalidDeadlineInputException {
+    //     String[] split = description.split(" /by ");
+    //     if (split.length != 2 || split[1].equals("") || split[0].equals("")) {
+    //         throw new InvalidDeadlineInputException("Please enter a valid deadline");
+    //     } 
+    //     return split;
+    // }
+
+    public static String[] parseDeadlineDescription(String description) throws InvalidDeadlineInputException {
         String[] split = description.split(" /by ");
+        if (split.length != 2 || split[1].isBlank() || split[0].isBlank()) {
+            throw new InvalidDeadlineInputException("Please enter a valid deadline");
+        } 
         return split;
     }
 
     // parse event description into details and at
-    public static String[] parseEventDetails(String description) throws     DukeException {
+    public static String parseEventDetails(String description) throws     DukeException {
         String[] split = description.split(" /at ");
-        return split;
+        return split[1];
     }
 
     public static int getTaskId(String input) {
