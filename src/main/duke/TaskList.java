@@ -1,22 +1,21 @@
 package main.duke;
-
 import main.duke.exception.DukeException;
-import main.duke.task.Deadline;
-import main.duke.task.Event;
 import main.duke.task.Task;
-
 import java.util.ArrayList;
 
+/** Controls all interactions between the user, storage, and the task list
+ * Includes adding, deleting, marking, and otherwise editing the list */
 public class TaskList {
     private ArrayList<Task> taskList;
     private static Parser parser;
 
+    /** Initializes a new task list with an empty list */
     public TaskList() {
         taskList = new ArrayList<Task>();
         parser = new Parser();
     }
 
-    /* Print a list of the current tasks */
+    /** Print a list of the given tasks */
     public void printList() {
         if (Utils.getListIndex() == 0) {
             System.out.print(Utils.INDENT + "Nothing to see here! Type to add to your list.");
@@ -33,18 +32,22 @@ public class TaskList {
         }
     }
 
+    /** Adds a task to the task list */
     public void add(Task task) {
         taskList.add(task);
     }
 
+    /** Adds a task to the task list at a certain index */
     public void add(int index, Task task) {
         taskList.add(index, task);
     }
 
+    /** Get a task from the task list at a certain index */
     public Task get(int i) {
         return taskList.get(i);
     }
 
+    /** Create a task given an input from the user */
     public Task createTask(String input) throws DukeException {
         Task task;
         try {
@@ -65,12 +68,7 @@ public class TaskList {
         return task;
     }
 
-
-
-
-
-
-    /* Delete a task */
+    /** Delete a task given the user input with an index */
     public void deleteTask(String input) {
         System.out.println(Utils.H_LINE + Utils.INDENT + "Deleting...");
         int deleteIndex = "delete".length();
@@ -90,7 +88,7 @@ public class TaskList {
     }
 
 
-    /* Either mark or unmark a task */
+    /** Mark or unmark a task given a user input with an index */
     public void markOrUnmark(boolean toMark, String input) {
         String markString = toMark ? "Mark" : "Unmark";
         System.out.print(Utils.H_LINE + Utils.INDENT + markString + "ing...");

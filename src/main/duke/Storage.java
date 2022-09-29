@@ -1,28 +1,26 @@
 package main.duke;
-
 import main.duke.exception.DukeException;
-import main.duke.task.Deadline;
-import main.duke.task.Event;
 import main.duke.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/** Controls how tasks are saved into the data file and loaded out of the data file */
 public class Storage {
 
     private TaskList taskList;
     private boolean isFileLoaded = false;
     private static Parser parser;
 
+    /** Initializes a new instance of Storage */
     public Storage() {
         parser = new Parser();
     }
 
+    /** Executes loading tasks from a saved data file and handles error cases */
     public void loadTasksOrError() {
         try {
             loadTasks();
@@ -39,14 +37,17 @@ public class Storage {
         }
     }
 
+    /** Returns if a file was loaded in (i.e. there were existing tasks loaded into the program) */
     public boolean getIsFileLoaded() {
         return isFileLoaded;
     }
 
+    /** Returns the current task list after it is loaded */
     public TaskList getTaskList() {
         return taskList;
     }
 
+    /** Updates the current task list for saving purposes */
     public void updateTaskList(TaskList taskList) {
         this.taskList = taskList;
     }
@@ -134,6 +135,7 @@ public class Storage {
         return true;
     }
 
+    /** Executes saving tasks to a data file and handles error cases */
     public void saveTasksOrError() {
         try {
             saveTasks();
@@ -163,7 +165,6 @@ public class Storage {
     }
 
     private static File ensureExists() throws DukeException {
-
         File dataFolder = new File(Utils.FOLDER_PATH);
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
