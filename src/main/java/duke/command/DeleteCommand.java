@@ -15,8 +15,8 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> assignments = tasks.getAssignments();
-        tasks.deleteTask(splitCommand, assignments, ui);
-        updateCountFromTasks(tasks);
+        tasks.deleteTask(splitCommand, assignments);
+        updateTaskFromTasks(tasks);
         storage.saveToFile(countTask, assignments);
     }
 }

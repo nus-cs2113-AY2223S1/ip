@@ -73,6 +73,15 @@ public class Ui {
         System.out.println(error);
     }
 
+    public void showDeadlineTaskError() {
+        System.out.println("Please complete the input for deadline details."
+                + " \nDelete task and try again.");
+    }
+
+    public void showDeleteTaskError() {
+        System.out.println("\t Stop there! Please delete something that is within the list!");
+    }
+
     public void showTypeOfTaskDetail(ArrayList<Task> assignments, int index) {
         countTask = index;
         System.out.println("\t Roger that. I've added this task:");
