@@ -24,3 +24,5 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+IP User Guide: [User Guide](https://p0tatochips.github.io/ip/)
