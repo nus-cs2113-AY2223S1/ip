@@ -3,6 +3,7 @@ package main.duke;
 import main.duke.exception.DukeException;
 import main.duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -44,11 +45,13 @@ public class Ui {
             boolean matchesMark = parser.getMarkPattern().matcher(input).find();
             boolean matchesUnmark = parser.getUnmarkPattern().matcher(input).find();
             boolean matchesDelete = parser.getDeletePattern().matcher(input).find();
-            //if the item is to be marked or unmarked, follow the correct steps to extract the index
+            //if the item is to be marked, unmarked, or deleted follow the correct steps to extract the index
             if (matchesMark || matchesUnmark) {
                 taskList.markOrUnmark(matchesMark, input);
             } else if (matchesDelete) {
                 taskList.deleteTask(input);
+            } else if (input.startsWith("find")) {
+                taskList.findTasksMatch(input.substring(5));
 
              //Otherwise, create a new task
             } else {
