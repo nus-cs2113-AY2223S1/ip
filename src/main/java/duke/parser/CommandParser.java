@@ -2,9 +2,7 @@ package duke.parser;
 
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
-import duke.exception.InvalidTaskDescriptionException;
 
 public class CommandParser extends Parser {
 
@@ -30,7 +28,7 @@ public class CommandParser extends Parser {
             case "event":
                 return new duke.command.EventCommand(fullCommand);
             default:
-                throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }    
         } 
     }

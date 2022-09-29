@@ -1,12 +1,10 @@
 package duke.parser;
 
-import duke.exception.DukeException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
 
 public class Parser {
-    // parse keyword from user input
     public static String getKeyword(String input) {
         String[] words = input.split(" ");
         return words[0];
@@ -14,8 +12,7 @@ public class Parser {
 
     public static String getTaskDescription (String line) throws InvalidTaskDescriptionException{
         String[] breakLine = line.trim().split(" ", 2);
-        // // if there is no task description or the task description is empty
-        if (breakLine.length == 1 || breakLine[1].equals("")) {
+        if (breakLine.length == 1 || breakLine[1].isBlank()) {
             throw new InvalidTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
         } return breakLine[1];
     }

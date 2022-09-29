@@ -3,14 +3,14 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
+import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.CommandParser;
 import duke.task.TaskList;
 
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.Ui.printByeMessage;
 import static duke.Ui.printIntroMessage;
 
 public class Duke {
@@ -22,6 +22,7 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
+        // this.tasks = new TaskList(new ArrayList<>());
         this.tasks = new TaskList();
     }
 
@@ -50,11 +51,6 @@ public class Duke {
             }
         }
     }
-
-    // exit the program
-    // public void exit() {
-    //     System.exit(0);
-    // }
 
     public static void main(String[] args){
         new Duke().run();

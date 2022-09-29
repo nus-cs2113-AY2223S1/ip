@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.Storage;
+// import duke.Storage;
 import duke.Ui;
 import duke.exception.DukeException;
 import duke.exception.InvalidDeadlineInputException;
@@ -8,10 +9,10 @@ import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.Parser;
 
-import static duke.Ui.*;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import static duke.Ui.*;
 
 // contains the task list e.g., it has operations to add/delete tasks in the list
 public class TaskList {
@@ -21,8 +22,9 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    
-    public static void addTodo(TaskList tasks, String fullCommand) throws DukeException {
+
+
+    public static void addTodo(TaskList tasks, String fullCommand) throws InvalidTaskDescriptionException {
         String description;
         description = Parser.getTaskDescription(fullCommand).trim();
         Task t = new Todo(description);
@@ -31,32 +33,31 @@ public class TaskList {
     }
 
     public static void addDeadline(TaskList tasks, String fullCommand) {
-        try {
-            String[] description = Parser.parseDeadlineDescription(fullCommand);
-            String deadlineName = description[0].trim();
-            String deadlineDetails = description[1].trim();
-            Task t = new Deadline(deadlineName, deadlineDetails);
-            tasks.addTask(t);
-            Ui.printSuccessfulAdd(tasks);
-        } catch (InvalidDeadlineInputException e) {
-            Ui.showInvalidDeadlineInputExceptionMessage();
-        }
+            try {
+                String[] description = Parser.parseDeadlineDescription(fullCommand);
+                String deadlineName = description[0].trim();
+                String deadlineDetails = description[1].trim();
+                Task t = new Deadline(deadlineName, deadlineDetails);
+                tasks.addTask(t);
+                Ui.printSuccessfulAdd(tasks);
+            } catch (InvalidDeadlineInputException e) {
+                Ui.showInvalidDeadlineInputExceptionMessage();
+            }
+
     }
 
-    public static void addEvent(TaskList tasks2, String fullCommand) {
-        try {
-            String[] description = Parser.parseEventDescription(fullCommand);
-            String eventName = description[0].trim();
-            String eventDetails = description[1].trim();
-            Task t = new Event(eventName, eventDetails);
-            tasks2.addTask(t);
-            Ui.printSuccessfulAdd(tasks2);
-        } catch (InvalidEventInputException e) {
-            Ui.showInvalidEventInputExceptionMessage();
-        }
+    public static void addEvent(TaskList tasks, String fullCommand){
+            try {
+                String[] description = Parser.parseEventDescription(fullCommand);
+                String eventName = description[0].trim();
+                String eventDetails = description[1].trim();
+                Task t = new Event(eventName, eventDetails);
+                tasks.addTask(t);
+                Ui.printSuccessfulAdd(tasks);
+            } catch (InvalidEventInputException e) {
+                Ui.showInvalidEventInputExceptionMessage();
+            }
     }
-
-
 
     public static void deleteTask(TaskList tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
@@ -90,26 +91,28 @@ public class TaskList {
         printTotalNumberOfItems(tasks, taskSize);
     }
 
-    // get size of task list
+    // get size of tasks
     public int size() {
         return tasks.size();
     }
 
-    // get task from task list
+    // get task from tasks
     public Task get(int index) {
         return tasks.get(index);
     }
 
+    // add task to tasks
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    // remove task from task list
+    // remove task from tasks
     public void removeTask(int index) {
         tasks.remove(index);
     }
 
 
 
-    
+
+
 }
