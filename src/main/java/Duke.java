@@ -1,10 +1,66 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ * Duke Class.
+ */
 public class Duke {
+
+    private Storage storage;
+    private ArrayList<String> tasks;
+    private ArrayList<String> marks;
+    private ArrayList<String> types;
+
+    private Ui ui;
+    private Integer count;
+
+    /**
+     * Duke Class.
+     */
+    public Duke(String filePath) {
+        ui = new Ui();
+        //Create a new file if not created
+        storage = new Storage(filePath);
+        try {
+            // Load respective lists
+            storage.load();
+            types = storage.getTypes();
+            marks = storage.getMarks();
+            tasks = storage.getTasks();
+            count = storage.getCount();
+        } catch (Exception e) {
+            ui.showLoadingError();
+            types = new ArrayList<String>();
+            marks = new ArrayList<String>();
+            tasks = new ArrayList<String>();
+            count = 0;
+        }
+    }
+    /**
+     * Duke Run Method.
+     */
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(types, marks, tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (Exception e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+                storage.updateFile(storage.getCount(), tasks, marks, types);
+            }
+        }
+    }
+    /**
+     * Main Method.
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        new Duke("tasks.txt").run();
     }
 }
