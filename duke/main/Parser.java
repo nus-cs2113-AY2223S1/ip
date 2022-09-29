@@ -12,6 +12,7 @@ public class Parser {
 
     static int COMMAND_INDEX = 0;
     static int MARK_INDEX = 1;
+    static int KEYWORD_INDEX = 1;
     static String COMMAND_WORD_LIST = "list";
     static String COMMAND_WORD_MARK = "mark";
     static String COMMAND_WORD_UNMARK = "unmark";
@@ -19,7 +20,7 @@ public class Parser {
     static String COMMAND_WORD_DEADLINE = "deadline";
     static String COMMAND_WORD_EVENT = "event";
     static String COMMAND_WORD_DELETE = "delete";
-    static String COMMAND_WORD_EXIT = "bye";
+    static String COMMAND_WORD_FIND = "find";
     public Parser() {}
 
     public static String findTaskDate(String line) {
@@ -57,6 +58,9 @@ public class Parser {
             String markIndex = words[MARK_INDEX];
             int index = Integer.parseInt(markIndex);
             TaskList.delete(index);
+        } else if (command.matches(COMMAND_WORD_FIND)) {
+            String keyword = line.split(" ")[KEYWORD_INDEX];
+            TaskList.find(keyword);
         } else if (command.matches(COMMAND_WORD_DEADLINE) || command.matches(COMMAND_WORD_EVENT)
                 || command.matches(COMMAND_WORD_TODO)) {
             handleTask(line, command);
@@ -89,27 +93,27 @@ public class Parser {
                     String taskName = findTaskName(line);
                     String taskDate = findTaskDate(line);
                     TaskList.addDeadline(taskName, taskDate);
+                    break;
                 }
-                break;
             case "event":
                 if (taskDividerCheck(line)) {
                     String taskName = findTaskName(line);
                     String taskDate = findTaskDate(line);
                     TaskList.addEvent(taskName, taskDate);
+                    break;
                 }
-                break;
             case "todo":
                 String taskName = findTaskName(line);
                 TaskList.addTodo(taskName);
                 break;
             }
         }
+        Storage.save();
     }
     public static void handleFile(String line) {
         String[] words = line.split(FILE_SEPARATOR);
         String taskType = words[0];
         String taskName = words[1];
-        Task task = new Task("");
         if (taskType.matches("T")) {
             TaskList.addTodo(taskName);
         } else if (taskType.matches("E")) {

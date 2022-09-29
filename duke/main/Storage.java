@@ -34,9 +34,8 @@ public class Storage {
 
     public static void save() {
         try {
-            ArrayList<Task> tasks = TaskList.tasks;
             String text = "";
-            for (Task task : tasks) {
+            for (Task task : TaskList.tasks) {
                 text += formatText(task, text);
             }
             FileWriter fw = new FileWriter(filePath);

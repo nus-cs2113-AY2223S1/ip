@@ -9,40 +9,34 @@ import duke.tasks.*;
 public class TaskList {
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
     static int taskCounter = 0;
-    public static ArrayList<Task> tasks = new ArrayList<Task>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList(Scanner fileReader) {
-        Parser parser = new Parser();
         while(fileReader.hasNextLine()) {
             String line = fileReader.nextLine();
-            parser.handleFile(line);
+            Parser.handleFile(line);
         }
     }
 
-    public TaskList() {
-
-    }
+    public TaskList() {}
 
     public static void addDeadline(String name, String date) {
         Deadline task = new Deadline(name, date);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
-        Storage.save();
     }
     public static void addEvent(String name, String date) {
         Event task = new Event(name, date);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
-        Storage.save();
     }
     public static void addTodo(String name) {
         Todo task = new Todo(name);
         tasks.add(task);
         taskCounter += 1;
         Ui.addTaskMessage(task);
-        Storage.save();
     }
 
     public static void delete(int index) {
@@ -88,6 +82,18 @@ public class TaskList {
             type = "D";
         }
         return type;
+    }
+
+    public static void find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            String taskName = task.getName();
+            if (taskName.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        Ui.printTasks(matchingTasks);
     }
 
     // getters and setters

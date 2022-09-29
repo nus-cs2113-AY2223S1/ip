@@ -1,6 +1,9 @@
 package duke.main;
 import duke.error.DukeException;
 import duke.tasks.*;
+
+import java.util.ArrayList;
+
 public class Ui {
     static String HORIZONTAL_LINE = "------------------------------------------------------------";
     static String LINE_DIVIDER = "/";
@@ -67,6 +70,16 @@ public class Ui {
             throw new DukeException("Don't forget to add a date!");
         }
         return true;
+    }
+
+    public static void printTasks(ArrayList<Task> tasks) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the tasks in your list:");
+        int counter = 1;
+        for (Task task : tasks) {
+            System.out.println(counter + task.toString());
+        }
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void exit() {
