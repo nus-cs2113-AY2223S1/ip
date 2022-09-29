@@ -28,7 +28,7 @@ public class Ui {
         if (tasks.size() > 0) {
             System.out.println("\tHere are the current tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+                System.out.println("\t" + (i + 1) + "." + tasks.getTask(i));
             }
         } else {
             System.out.println("You have no tasks in your list. Try adding some!");
@@ -45,7 +45,7 @@ public class Ui {
     public static void printSuccessfulAdd(TaskList tasks) {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + "added: " + tasks.get(tasks.size() - 1));
+        System.out.println("\t" + "added: " + tasks.getTask(tasks.size() - 1));
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
@@ -72,24 +72,24 @@ public class Ui {
 
     public static void printMark(TaskList tasks, int taskId) {
         System.out.println(TOP_HORIZONTAL_RULE);
-        if (tasks.get(taskId).isDone) {
+        if (tasks.getTask(taskId).isDone) {
             System.out.println("\tThis task is already marked!");
         } else {
             System.out.println("\tNice! I've marked this task as done:");
-            tasks.get(taskId).setDone(tasks.get(taskId).isDone);
-            System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            tasks.getTask(taskId).setDone(tasks.getTask(taskId).isDone);
+            System.out.println("\t" + tasks.getTask(taskId).getStatusIcon() + tasks.getTask(taskId).getDescription());
         }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printUnmark(TaskList tasks, int taskId) {
         System.out.println(TOP_HORIZONTAL_RULE);
-        if (!tasks.get(taskId).isDone) {
+        if (!tasks.getTask(taskId).isDone) {
             System.out.println("\tThis task is already unmarked!");
         } else {
             System.out.println("\tOK, I've marked this task as not done yet:");
-            tasks.get(taskId).setDone(tasks.get(taskId).isDone);
-            System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            tasks.getTask(taskId).setDone(tasks.getTask(taskId).isDone);
+            System.out.println("\t" + tasks.getTask(taskId).getStatusIcon() + tasks.getTask(taskId).getDescription());
         }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
@@ -101,7 +101,7 @@ public class Ui {
         } else {
             System.out.println("\tHere are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+                System.out.println("\t" + (i + 1) + "." + tasks.getTask(i));
             }
         }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
@@ -133,11 +133,13 @@ public class Ui {
     }
 
 	public static void IndexOutOfBoundsExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! This task is not in the list!");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void NumberFormatExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Please only enter numbers!");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
