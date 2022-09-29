@@ -1,26 +1,161 @@
-# Duke project template
+# Albot v0.2 User Guide
+**Created by: Felicia Beatrice Budiawan :octocat:**
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Table of Contents
+- About
+- Features
+- Commands
 
-You will use this as a baseline for the individual project, as well as the team project later in the semester.
+## About
+Albot is your personal assistant Chatbot who will help you organize and keep track of your current tasks! :two_hearts:
 
-## Setting up in Intellij
+He will also become your new best friend! Learn more about what he can do down below ~
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features
+**Here are the things Albot can do for you: :shipit:**
+1. Add and delete tasks in the form of Todos, Deadlines, or Events
+2. Mark a task as done or undone
+3. Display a list containing all tasks
+4. Find a task corresponding to substring provided
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Commands
+### ```todo```
+creates a ToDo and adds this to the task list
+
+**Format:**
+>```todo <description>```
+
+**Example:**
+>```todo bake cookies```
+
+	----------------------------------------------------
+	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
+	  [T][ ] bake cookies
+	Now you have 1 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+
+### ```deadline```
+creates a Deadline and adds this to the task list
+
+**Format:**
+>```deadline <description> /by <deadline>```
+
+**Example:**
+>```deadline CS2113 iP /by Friday 30 September```
+
+	----------------------------------------------------
+	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
+	  [D][ ] CS2113 iP (by: Friday 30 September)
+	Now you have 2 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+
+### ```event```
+creates an Event and adds this to the task list
+
+**Format:**
+>```event <description> /at <time of event>```
+
+**Example:**
+>```event dance practice /at 1 October 2pm```
+
+	----------------------------------------------------
+	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
+	  [E][ ] dance practice (at: 1 October 2pm)
+	Now you have 3 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+
+### ```delete```
+removes a task from the task list
+
+**Format:**
+>```delete <index>```
+
+**Example:**
+>```delete 2```
+
+	----------------------------------------------------
+	Noted! (๑˃ᴗ˂)ﻭ I've removed this task:
+	  [D][ ] CS2113 iP (by: Friday 30 September)
+	Now you have 2 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+
+### ```mark```
+marks a task as done
+
+**Format:**
+>```mark <index>```
+
+**Example:**
+>```mark 1```
+
+	----------------------------------------------------
+	Nice! (〃＾▽＾〃) I've marked this task as done:
+	  [X] bake cookies
+	Well done completing your task, friend! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+
+	----------------------------------------------------
+
+### ```unmark```
+marks a task as undone
+
+**Format:**
+>```unmark <index>```
+
+**Example:**
+>```unmark 1```
+
+	----------------------------------------------------
+	OK, I've marked this task as not done yet:
+	  [ ] bake cookies
+	You better stop procrastinating, friend.. (╥﹏╥)
+
+	----------------------------------------------------
+
+### ```list```
+displays the list of current tasks
+
+**Format:**
+>```list```
+
+	----------------------------------------------------
+	Here are the tasks in your list:
+	1.[T][ ] bake cookies
+	2.[E][ ] dance practice (at: 1 October 2pm)
+
+	----------------------------------------------------
+
+### ```find```
+displays all the tasks containing the specified keyword(s)
+
+**Format:**
+>```find <substring>```
+
+**Example:**
+>```find cookies```
+
+	----------------------------------------------------
+	  Here are the matching tasks in your list:
+	  1.[T][ ] bake cookies
+	----------------------------------------------------
+
+### ```bye```
+exits the program
+
+**Format:**
+>```bye```
+
+	----------------------------------------------------
+	Aww, you're leaving already? I'm gonna miss you (╥﹏╥)
+	But anyways bye! Hope to see you again soon, friend! (ɔ◔‿◔)ɔ ♥
+
+	----------------------------------------------------
+
+## Note from Developer
+This chatbot is named after someone special to me who makes me happier and a better person every single day! :two_hearts:
+
+Love you Albert <3
+-Lish

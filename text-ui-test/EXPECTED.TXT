@@ -1,24 +1,19 @@
 	----------------------------------------------------
-	Hello! I'm Albot, your new best friend! ᕙ(`▿´)ᕗ
-	What can I do for you today, friend? ʕ•́ᴥ•̀ʔっ♡
-
-	----------------------------------------------------
-	----------------------------------------------------
 	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
 	  [T][ ] eat food
-	Now you have 1 tasks in the list! 凸(￣ヘ￣)
+	Now you have 1 task(s) in the list! 凸(￣ヘ￣)
 
 	----------------------------------------------------
 	----------------------------------------------------
 	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
 	  [D][ ] do assignment (by: tomorrow)
-	Now you have 2 tasks in the list! 凸(￣ヘ￣)
+	Now you have 2 task(s) in the list! 凸(￣ヘ￣)
 
 	----------------------------------------------------
 	----------------------------------------------------
 	Got it! (๑˃ᴗ˂)ﻭ I've added this task:
 	  [E][ ] cs1231 quiz (at: next week)
-	Now you have 3 tasks in the list! 凸(￣ヘ￣)
+	Now you have 3 task(s) in the list! 凸(￣ヘ￣)
 
 	----------------------------------------------------
 	----------------------------------------------------
@@ -52,6 +47,34 @@
 	1.[T][ ] eat food
 	2.[D][ ] do assignment (by: tomorrow)
 	3.[E][ ] cs1231 quiz (at: next week)
+
+	----------------------------------------------------
+	----------------------------------------------------
+	Noted! (๑˃ᴗ˂)ﻭ I've removed this task:
+	  [D][ ] do assignment (by: tomorrow)
+	Now you have 2 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+	----------------------------------------------------
+	Here are the tasks in your list:
+	1.[T][ ] eat food
+	2.[E][ ] cs1231 quiz (at: next week)
+
+	----------------------------------------------------
+	----------------------------------------------------
+	  Here are the matching tasks in your list:
+	  1.[T][ ] eat food
+	----------------------------------------------------
+	----------------------------------------------------
+	Noted! (๑˃ᴗ˂)ﻭ I've removed this task:
+	  [T][ ] eat food
+	Now you have 1 task(s) in the list! 凸(￣ヘ￣)
+
+	----------------------------------------------------
+	----------------------------------------------------
+	Noted! (๑˃ᴗ˂)ﻭ I've removed this task:
+	  [E][ ] cs1231 quiz (at: next week)
+	Now you have 0 task(s) in the list! 凸(￣ヘ￣)
 
 	----------------------------------------------------
 	----------------------------------------------------

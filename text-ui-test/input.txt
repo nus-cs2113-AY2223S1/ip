@@ -6,4 +6,9 @@ mark 2
 list
 unmark 2
 list
+delete 2
+list
+find food
+delete 1
+delete 1
 bye
