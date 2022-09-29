@@ -5,29 +5,28 @@ import java.util.ArrayList;
 import duke.Storage;
 import duke.Ui;
 import duke.exception.DukeException;
+import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
-public class ByeCommand extends Command {
-    public static final String KEYWORD = "bye";
-
-    /**
-     * Creates an exit command
-     * 
-     * @param input The user input string
-     */
-    public ByeCommand(String input) {
+public class MarkCommand extends Command {
+    public MarkCommand(String input) {
         super(input);
+        //TODO Auto-generated constructor stub
     }
+
+    public static final String KEYWORD = "mark";
 
     @Override
     public TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException {
-        Ui.printByeMessage();
+        TaskList.markTask(tasks, fullCommand);
         return tasks;
     }
 
     @Override
     public boolean isExit() {
-        return true;
+        // TODO Auto-generated method stub
+        return false;
     }
 }
+

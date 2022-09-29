@@ -7,13 +7,13 @@
 // import duke.task.Task;
 // import duke.task.TaskList;
 
-// public class DeadlineCommand extends Command {
-//     public DeadlineCommand(String input) {
+// public class UnmarkCommand extends Command {
+//     public UnmarkCommand(String input) {
 //         super(input);
 //         //TODO Auto-generated constructor stub
 //     }
 
-//     public static final String KEYWORD = "deadline";
+//     public static final String KEYWORD = "unmark";
 
 //     @Override
 //     public ArrayList<Task> execute(ArrayList<Task> tasks, Storage storage, Ui ui, String fullCommand) {

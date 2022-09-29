@@ -1,15 +1,24 @@
-package duke;
+package duke.task;
 
+import duke.Storage;
+import duke.Ui;
 import duke.exception.DukeException;
 import duke.parser.Parser;
-import duke.task.Task;
 
 import static duke.Ui.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 // contains the task list e.g., it has operations to add/delete tasks in the list
 public class TaskList {
+
+    ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
     public static void deleteTask(ArrayList<Task> tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);
@@ -28,7 +37,7 @@ public class TaskList {
         tasks.remove(taskId);
     }
 
-    public static void markTask(ArrayList<Task> tasks, String line) throws DukeException {
+    public static void markTask(TaskList tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         printMark(tasks, taskId);
     }
@@ -38,8 +47,19 @@ public class TaskList {
         printUnmark(tasks, taskId);
     }
 
-    // get the size of the task list
-    public static int getTaskListSize(ArrayList<Task> tasks) {
+    // get size of task list
+    public int size() {
         return tasks.size();
     }
+
+    // get task from task list
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    // list out all the tasks in the task list
 }

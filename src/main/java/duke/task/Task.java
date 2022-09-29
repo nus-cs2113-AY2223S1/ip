@@ -1,13 +1,14 @@
 package duke.task;
 
-import duke.TaskList;
+import java.io.FileNotFoundException;
+
+import duke.exception.DukeException;
 
 public class Task extends TaskList {
     public String description;
     public boolean isDone;
-    
 
-    public Task(String description) {
+    public Task (String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -24,7 +25,7 @@ public class Task extends TaskList {
         this.isDone = !done;
     }
 
-    @Override
+    // @Override
     public String toString() {
         return getStatusIcon() + description;
     }

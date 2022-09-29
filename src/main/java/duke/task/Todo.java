@@ -1,10 +1,12 @@
 package duke.task;
 
+import java.io.FileNotFoundException;
+
 import duke.exception.DukeException;
 
 public class Todo extends Task {
 
-    public Todo(String description) throws DukeException {
+    public Todo(String description) {
         super(description);
     }
 

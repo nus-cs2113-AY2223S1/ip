@@ -58,21 +58,21 @@ public class Storage {
         }
     }
 
-    public static void addInputFileEvent(ArrayList<Task> tasks, String[] task) throws DukeException {
+    public static void addInputFileEvent(ArrayList<Task> tasks, String[] task) throws DukeException, FileNotFoundException {
         tasks.add(new Event(task[2], task[3]));
         if (task[1].equals("1")) {
             tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
         }
     }
 
-    public static void addInputFileDeadline(ArrayList<Task> tasks, String[] task) throws DukeException {
+    public static void addInputFileDeadline(ArrayList<Task> tasks, String[] task) throws DukeException, FileNotFoundException {
         tasks.add(new Deadline(task[2], task[3]));
         if (task[1].equals("1")) {
             tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
         }
     }
 
-    public static void addInputFileTodo(ArrayList<Task> tasks, String[] task) throws DukeException {
+    public static void addInputFileTodo(ArrayList<Task> tasks, String[] task) throws DukeException, FileNotFoundException {
         tasks.add(new Todo(task[2]));
         if (task[1].equals("1")) {
             tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
