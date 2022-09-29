@@ -34,13 +34,13 @@ public class Storage {
             String time = input[4].strip();
             switch (type) {
                 case "Event":
-                    taskList.addTaskToList(description + "/at " + time, TaskType.EVENT, isCompleted, false);
+                    taskList.addTaskToList(description + "/at " + time, TaskType.EVENT, isCompleted);
                     break;
                 case "Deadline":
-                    taskList.addTaskToList(description + " /by " + time, TaskType.DEADLINE, isCompleted, false);
+                    taskList.addTaskToList(description + " /by " + time, TaskType.DEADLINE, isCompleted);
                     break;
                 case "Todo":
-                    taskList.addTaskToList(description, TaskType.TODO, isCompleted, false);
+                    taskList.addTaskToList(description, TaskType.TODO, isCompleted);
                     break;
                 default:
                     throw new DataCorruptedException();

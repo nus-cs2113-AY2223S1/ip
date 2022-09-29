@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Exception.DataCorruptedException;
+import Parser.Command;
+import Exception.WrongArgumentException;
 
 public class TaskList {
     private final String FILE_PATH = "./data/data.md";
@@ -31,7 +33,7 @@ public class TaskList {
         return output;
     }
 
-    public int addTaskToList(String input, TaskType type, boolean isCompleted, boolean toSave) {
+    public int addTaskToList(String input, TaskType type, boolean isCompleted) {
         Task newItem;
 
         if (type == TaskType.EVENT) {
@@ -39,34 +41,13 @@ public class TaskList {
             String description = input.substring(0, indexOfTime).strip();
             String time = input.substring(indexOfTime + "/at ".length()).strip();
             newItem = new Event(description, time, isCompleted);
-            if (toSave) {
-                try {
-                    appendTaskToFile(newItem);
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
-            }
         } else if (type == TaskType.DEADLINE) {
             int indexOfTime = input.indexOf("/by");
             String description = input.substring(0, indexOfTime).strip();
             String time = input.substring(indexOfTime + "/by ".length()).strip();
             newItem = new Deadline(description, time, isCompleted);
-            if (toSave) {
-                try {
-                    appendTaskToFile(newItem);
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
-            }
         } else if (type == TaskType.TODO) {
             newItem = new Todo(input, isCompleted);
-            if (toSave) {
-                try {
-                    appendTaskToFile(newItem);
-                } catch (IOException e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
-                }
-            }
         } else {
             newItem = new Task(input, isCompleted);
         }
@@ -86,35 +67,79 @@ public class TaskList {
         return inputLists.size();
     }
 
-    public void addMarkdownHeader() throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        fw.write("|Task Type | Done | Description | Time |\n"
-                + "|----------|------|-------------|------|\n");
-        fw.close();
-    }
-
-
-    public void updateWholeFile() throws IOException {
-        addMarkdownHeader();
-        for (Task task : inputLists) {
-            appendTaskToFile(task);
+    public String executeCommand(Command command, String userArgs)
+            throws WrongArgumentException{
+        String message;
+        switch(command) {
+            case TODO:
+                message = doTodoAction(userArgs);
+                break;
+            case DEADLINE:
+                message = doDeadlineAction(userArgs);
+                break;
+            case EVENT:
+                message = doEventAction(userArgs);
+                break;
+            case DELETE:
+                message = deleteAction(userArgs);
+                break;
+            case MARK:
+                message = doMarkAction(userArgs);
+                break;
+            case UNMARK:
+                message = doUnmarkAction(userArgs);
+                break;
+            default:
+                throw new WrongArgumentException();
         }
+        return message;
     }
 
-    public void appendTaskToFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
-        fw.write(toMarkdown(task));
-        fw.close();
+
+    private String doTodoAction(String lineInput){
+        int index = addTaskToList(lineInput, TaskType.TODO, false);
+        return getItemFromList(index + 1);
     }
 
-    private String toMarkdown(Task task) {
-        String type = task.getClass().getSimpleName();
-        boolean bool = task.hasCompleted();
-        String description = task.getTaskName();
-        String time = "";
-        if (!type.equals("Todo")) {
-            time = task.getTime();
+    private String doDeadlineAction(String lineInput) {
+        int index = addTaskToList(lineInput, TaskType.DEADLINE, false);
+        return getItemFromList(index + 1);
+    }
+
+    private String doEventAction(String lineInput) {
+        int index = addTaskToList(lineInput, TaskType.EVENT, false);
+        return getItemFromList(index + 1);
+    }
+
+    private String deleteAction(String lineInput)
+            throws WrongArgumentException {
+        int index = Integer.parseInt(lineInput);
+        if (index > getTaskListSize()) {
+            throw new WrongArgumentException();
         }
-        return "| " + type + " | " + String.valueOf(bool) + " | " + description + " | " + time + " |\n";
+        String taskDescription = getItemFromList(index);
+        deleteTaskFromList(index);
+        return taskDescription;
+    }
+
+    private String doMarkAction(String lineInput)
+            throws WrongArgumentException {
+        int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+        markCompleted(itemNumber, true);
+        return getItemFromList(itemNumber);
+    }
+
+    private String doUnmarkAction(String lineInput)
+            throws WrongArgumentException {
+        int itemNumber = Integer.parseInt(lineInput);
+        if (itemNumber > getTaskListSize()) {
+            throw new WrongArgumentException();
+        }
+
+        markCompleted(itemNumber, false);
+        return getItemFromList(itemNumber);
     }
 }
