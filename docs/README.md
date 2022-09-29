@@ -2,7 +2,7 @@
 
 ## Introduction
 Duke is an assistant chat bot which helps you handle a list of tasks.
-___
+
 ## Tasks 
 
 ### Types of tasks:
