@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -62,6 +63,7 @@ public class Storage {
         } catch (ArrayIndexOutOfBoundsException | DukeException | FileNotFoundException e) {
             throw new DukeException();
         }
+        Ui.showMessage("     Congrats! Your previous tasks have been loaded.");
         return tasks;
     }
 

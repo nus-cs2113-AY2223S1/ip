@@ -17,7 +17,7 @@ public class Ui {
      * Show the loading error of the file that stores the tasks, which may not exist.
      */
     public void showLoadingError() {
-        showMessage("     Sorry! Please put the formatted file in the path");
+        showMessage("     Load failed! Please put the formatted file \"tasks.txt\" in the path");
     }
 
 
