@@ -7,6 +7,6 @@ package duke.exception;
 public class IllegalArgsNumException extends DukeException {
     @Override
     public String getMessage() {
-        return "The description cannot be empty.";
+        return "The description/by/duration cannot be empty.";
     }
 }

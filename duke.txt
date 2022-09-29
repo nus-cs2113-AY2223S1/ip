@@ -6,3 +6,5 @@ E U read 8
 E U read 9
 T U doing 
 T U lsit 
+E U bbb ddd
+D U bbb www

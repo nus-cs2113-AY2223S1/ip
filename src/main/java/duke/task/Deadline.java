@@ -10,7 +10,8 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by.replace("by ", "");
+        this.by = by.replace("by", "").trim();
+
     }
 
     public String getBy() {

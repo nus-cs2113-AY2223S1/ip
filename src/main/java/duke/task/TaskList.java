@@ -116,12 +116,15 @@ public class TaskList {
             throw new IllegalArgsNumException();
         }
 
-        String description = str.split("/")[0].trim();
         if (!str.contains(DEADLINE_FLAG)) {
             throw new AbsentArgsFlagException();
         }
+        String description = str.split("/")[0].trim();
+        String by = str.split("/")[1].trim();
+        if (DEADLINE_FLAG.equals("/" + by)) {
+            throw new IllegalArgsNumException();
+        }
 
-        String by = str.split("/")[1];
         Task new_deadline = new Deadline(description, by);
         tasks.add(new_deadline);
         System.out.println(">>>Added: " + new_deadline);
@@ -138,12 +141,16 @@ public class TaskList {
             throw new IllegalArgsNumException();
         }
 
-        String description = str.split("/")[0].trim();
         if (!str.contains(EVENT_FLAG)) {
             throw new AbsentArgsFlagException();
         }
 
-        String duration = str.split("/")[1];
+        String description = str.split("/")[0].trim();
+        String duration = str.split("/")[1].trim();
+        if (EVENT_FLAG.equals("/" + duration)) {
+            throw new IllegalArgsNumException();
+        }
+
         Task new_event = new Event(description, duration);
         tasks.add(new_event);
         System.out.println(">>>Added: " + new_event);

@@ -10,7 +10,7 @@ public class Event extends Task {
 
     public Event(String description, String duration) {
         super(description);
-        this.duration = duration.replace("at ", "");
+        this.duration = duration.replace("at", "").trim();
     }
 
     public String getDuration() {
