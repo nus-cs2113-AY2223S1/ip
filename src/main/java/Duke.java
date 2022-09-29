@@ -19,245 +19,149 @@ public class Duke {
 
     private static final String SEPARATOR = "____________________________________________________________";
 
+    private static Storage storage;
+    private static ArrayList<Task> tasks;
+    private static Ui ui;
 
 
-    public static void main(String[] args){
-        //Task[] tasks = new Task[LENGTH];
-        //int length = 0;
-        ArrayList<Task> tasks = new ArrayList<>();
-        int length = 0;
+    public static void main(String[] args) {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        tasks = new ArrayList<Task>();
 
-        File f = new File(FILE_PATH);
-
-        readMsg();
+        Ui.readMsg(FILE_PATH);
         try {
-            length = loadFile(f,tasks, length);
+            tasks = Storage.loadFile(tasks, ui);
         } catch (FileNotFoundException e) {
-            System.out.println("File or folder not found");
+            ui.fileNotFoundMsg();
         }
-        finishReadMsg();
-        welcomeMsg();
+        Ui.finishReadMsg();
+        Ui.welcomeMsg();
 
         Scanner input = new Scanner(System.in);
         String val = input.nextLine();
 
 
-        while(!val.equals("bye")){
-            System.out.println(SEPARATOR);
-            if(val.equals("list")){
-                printList(tasks, length);
+        while (!val.equals("bye")) {
+            ui.separatorMsg();
+            if (val.equals("list")) {
+                ui.printList(tasks);
             } else if (val.contains("unmark")) {
-                markTask(val, tasks, false, "OK, I've marked this task as not done yet:");
-                try{
-                    saveTask(tasks);
-                } catch (IOException e){
-                    System.out.println("failed to save");
+                markTask(val, tasks, false);
+                try {
+                    storage.saveTask(tasks);
+                } catch (IOException e) {
+                    ui.failToSaveMsg();
                 }
-            } else if (val.contains("mark")){
-                markTask(val, tasks, true, "Nice! I've marked this task as done:");
-                try{
-                    saveTask(tasks);
-                } catch (IOException e){
-                    System.out.println("failed to save");
+            } else if (val.contains("mark")) {
+                markTask(val, tasks, true);
+                try {
+                    storage.saveTask(tasks);
+                } catch (IOException e) {
+                    ui.failToSaveMsg();
                 }
-            } else if(val.contains("delete")){
-                length -= deleteTask(val, tasks, length);
+            } else if (val.contains("delete")) {
+                deleteTask(val, tasks);
 
-                try{
-                    saveTask(tasks);
-                } catch (IOException e){
-                    System.out.println("failed to save");
+                try {
+                    storage.saveTask(tasks);
+                } catch (IOException e) {
+                    ui.failToSaveMsg();
                 }
-            } else{
-                length += addTask(val, tasks, length);
+            } else {
+                addTask(val, tasks);
             }
-            System.out.println(SEPARATOR);
+            ui.separatorMsg();
             val = input.nextLine();
         }
 
-        byeMsg();
+        Ui.byeMsg();
     }
 
 
-    private static void saveTask(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-
-        String textToAdd = "";
-        for(int i = 0; i < tasks.size(); i++){
-            textToAdd += tasks.get(i).toString() + "\n";
-        }
-
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-
-    private static void saveLine(String line) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH,true);
-        fw.write(line + "\n");
-        fw.close();
-    }
-
-    private static int addTask(String val, ArrayList<Task> tasks, int length) {
+    private static int addTask(String val, ArrayList<Task> tasks) {
         String description;
         String time;
-        if(val.contains(TODO)){
-            if(val.substring(TODO.length()).trim().isEmpty()){
-                emptyError(TODO);
+        if (val.contains(TODO)) {
+            if (val.substring(TODO.length()).trim().isEmpty()) {
+                Ui.emptyErrorMsg(TODO);
                 return 0;
             }
             description = val.substring(TODO.length());
             tasks.add(new Todo(description));
 
         } else if (val.contains(DEADLINE)) {
-            if(val.substring(DEADLINE.length()).trim().isEmpty()){
-                emptyError(DEADLINE);
+            if (val.substring(DEADLINE.length()).trim().isEmpty()) {
+                Ui.emptyErrorMsg(DEADLINE);
                 return 0;
             }
 
             description = val.substring(DEADLINE.length(), val.indexOf("/"));
-            time =  val.substring((val.indexOf("/") + 4));
+            time = val.substring((val.indexOf("/") + 4));
             tasks.add(new Deadline(description, time));
 
         } else if (val.contains(EVENT)) {
-            if(val.substring(EVENT.length()).trim().isEmpty()){
-                emptyError(EVENT);
+            if (val.substring(EVENT.length()).trim().isEmpty()) {
+                Ui.emptyErrorMsg(EVENT);
                 return 0;
             }
             description = val.substring(EVENT.length(), val.indexOf("/"));
-            time =  val.substring((val.indexOf("/") + 4));
+            time = val.substring((val.indexOf("/") + 4));
             tasks.add(new Event(description, time));
 
-        }else{
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } else {
+            ui.unKnownMsg();
             return 0;
         }
 
         try {
-            saveLine(tasks.get(length).toString());
-        }catch (IOException e){
-            System.out.println("failed to save: " + tasks.get(length));
+            Storage.saveLine(tasks.get(tasks.size() - 1).toString());
+        } catch (IOException e) {
+            ui.failToSaveMsg();
         }
 
-        length++;
-        System.out.println("Now you have " + length + " tasks in the list.");
+        ui.numOfTaskMsg(tasks.size());
         return 1;
     }
 
-    private static int deleteTask(String val, ArrayList<Task> tasks, int length){
+    private static int deleteTask(String val, ArrayList<Task> tasks) {
         int id = val.indexOf(" ");
-        if(id < 0){
-            System.out.println("☹ OOPS!!! The index of the task cannot be empty.");
+        if (id < 0) {
+            ui.invalidIndexMsg();
             return 0;
         }
         String ind = val.substring(id + 1);
         int index = Integer.parseInt(ind) - 1;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.remove(index));
-        length--;
-        System.out.println("Now you have " + length + " tasks in the list.");
+        ui.removeTaskMsg(tasks.get(index));
+        tasks.remove(index);
+        ui.numOfTaskMsg(tasks.size());
         try {
-            saveTask(tasks);
-        } catch (IOException e){
-            System.out.println("saving failed");
+            storage.saveTask(tasks);
+        } catch (IOException e) {
+            ui.failToSaveMsg();
         }
         return 1;
     }
 
-    private static void emptyError(String taskName){
-        System.out.println( "☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
-    }
 
-    private static void markTask(String val, ArrayList<Task> tasks, boolean status, String x) {
+    private static void markTask(String val, ArrayList<Task> tasks, boolean status) {
         int id = val.indexOf(" ");
-        if(id < 0){
-            System.out.println("☹ OOPS!!! The index of the task cannot be empty.");
+        if (id < 0) {
+            ui.indexEmptyMsg();
             return;
         }
         String ind = val.substring(id + 1);
         int index = Integer.parseInt(ind) - 1;
+
+        if (index >= tasks.size()) {
+            ui.indexOutOfBoundMsg();
+        }
+
         tasks.get(index).setDone(status);
-        System.out.println(x);
-        System.out.println(tasks.get(index));
-    }
-
-    private static void printList(ArrayList<Task> tasks, int length) {
-        System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < length; i++) {
-            System.out.println("  " + (i + 1) + "." + tasks.get(i));
-        }
-    }
-
-    private static int loadFile(File f, ArrayList<Task> tasks, int length) throws FileNotFoundException{
-        Scanner s = new Scanner(f);
-        String lineToRead;
-        while (s.hasNext()) {
-            lineToRead = s.nextLine();
-            length += loadTask(lineToRead,tasks);
-        }
-
-        return length;
-    }
-
-    private static int loadTask(String lineToRead, ArrayList<Task> tasks){
-        //index of the second ]
-        int idOf2nd = lineToRead.indexOf(']',lineToRead.indexOf(']') + 1);
-        int idOf3rd = lineToRead.indexOf('(');
-        String description, by;
-        boolean status = false;
-        if(lineToRead.length() > 5 && lineToRead.charAt(4) == 'X'){
-            status = true;
-        }
-
-
-        switch(lineToRead.substring(1,2)){
-        case "T":
-            description = lineToRead.substring(idOf2nd + 2);
-            tasks.add(new Todo(description, status));
-            break;
-        case "D":
-            description = lineToRead.substring(idOf2nd + 2,idOf3rd - 1);
-            by = lineToRead.substring(idOf3rd + 5, lineToRead.length() - 1);
-            tasks.add(new Deadline(description, by, status));
-            break;
-        case "E":
-            description = lineToRead.substring(idOf2nd + 2,idOf3rd - 1);
-            by = lineToRead.substring(idOf3rd + 5, lineToRead.length() - 1);
-            tasks.add(new Event(description,by, status));
-            break;
-        default:
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            return 0;
-        }
-
-
-        return 1;
+        ui.markTaskMsg(status, tasks.get(index));
     }
 
 
-    private static void byeMsg() {
-        System.out.println("____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
-    }
 
-    private static void welcomeMsg() {
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________");
-    }
-
-    private static void readMsg() {
-        System.out.println("____________________________________________________________\n" +
-                " Reading from " + FILE_PATH + "\n"+
-                " start loading\n" +
-                "____________________________________________________________");
-    }
-
-    private static void finishReadMsg() {
-        System.out.println("____________________________________________________________\n" +
-                " done loading.\n" +
-                "____________________________________________________________");
-    }
 }
+
