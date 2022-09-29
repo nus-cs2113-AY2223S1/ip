@@ -1,11 +1,20 @@
 import java.util.ArrayList;
 
+/**
+ * todo class extend from Command Class.
+ */
 public class todo extends Command {
     String fullCommand;
+    /**
+     * constructor for todo command.
+     */
     todo(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * execute method prints out todo task that has been newly added and add into task list.
+     */
     public void execute(ArrayList<String> type, ArrayList<String> marks, ArrayList<String> tasks, Ui ui, Storage storage) {
         if (fullCommand.equals("todo") || fullCommand.equals("todo ")) {
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -21,6 +30,10 @@ public class todo extends Command {
             storage.updateCount(count+1);
         }
     }
+
+    /**
+     * program does not exit after this class is called.
+     */
     boolean isExit() {
         return false;
     }
