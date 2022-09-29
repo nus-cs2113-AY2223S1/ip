@@ -13,6 +13,7 @@ _Bob_ will be your best buddy to give you your much needed sanity check when nee
   - [Delete task: `delete`](#delete-task-delete)
   - [Find task: `find`](#find-task-find)
   - [Exit application: `bye`](#exit-application-bye)
+- [Command Summary](#command-summary)
 
 ## Quick Start
 1. Download [Java 11](https://www.oracle.com/java/technologies/downloads/) on your computer.
@@ -39,9 +40,9 @@ Example: `todo revise CS2113`
 ````
 todo revise CS2113
 _________________________________________________________________________________
-More things to do? Bob has just added new Todo task to list:
+Bob has added this task to your list:
 [T][ ] revise CS2113
-Now you have 1 task in the list.
+Now you have 1 task in the list. You can do it!!
 _________________________________________________________________________________
 ````
 
@@ -54,9 +55,9 @@ Example: `deadline CS2113 IP /by 30/09/2022`
 ````
 deadline CS2113 IP /by 30/09/2022
 _________________________________________________________________________________
-More things to do? Bob has just added new Todo task to list:
+Bob has added this task to your list:
 [D][ ] CS2113 IP (by: 30/09/2022)
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list. You can do it!!
 _________________________________________________________________________________
 ````
 
@@ -69,9 +70,9 @@ Example: `event RC4 Open House /at 11/11/2021`
 ````
 event RC4 Open House /at 11/11/2021
 _________________________________________________________________________________
-More things to do? Bob has just added new Todo task to list:
+Bob has added this task to your list:
 [E][ ] RC4 Open House (at: Nov 11 2021)
-Now you have 3 tasks in the list.
+Now you have 3 tasks in the list. You can do it!!
 _________________________________________________________________________________
 ````
 
@@ -88,7 +89,7 @@ Example: `list`
 ````
 list
 _________________________________________________________________________________
-Here are the tasks in your list:
+Here are the list of tasks that you have:
 1.[T][ ] revise CS2113
 2.[D][ ] CS2113 IP (by: 30/09/2022)
 3.[E][ ] RC4 Open House (at: Nov 11 2021 1.00PM)
@@ -102,9 +103,23 @@ Marks the task of the given task number. Acts as a checklist to indicate that th
 
 Example: `mark 2`
 ````
-done 2
+mark 2
 _________________________________________________________________________________
-Nice! I've marked this task as done:
+Good job! Bob has marked this task as done:
+[D][X] CS2113 IP (by: 30/09/2022)
+__________________________________________________________________________________
+````
+
+### Unmark task: `unmark`
+Unmarks the task of the given task number. Acts as a checklist to indicate that the task has not been completed.
+
+> Format: `unmark TASK_NUMBER`
+
+Example: `unmark 2`
+````
+unmark 2
+_________________________________________________________________________________
+Oh no... Bob has mark this task as UNdone:
 [D][X] CS2113 IP (by: 30/09/2022)
 __________________________________________________________________________________
 ````
@@ -118,7 +133,7 @@ Example: `delete 1`
 ````
 delete 1
 _________________________________________________________________________________
-Noted. I've removed this task: 
+Noted. Bob has removed this task: 
 [T][ ] revise CS2113
 Current number of tasks: 2
 _________________________________________________________________________________
