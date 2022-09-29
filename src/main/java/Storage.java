@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * storage class.
+ */
 public class Storage {
     File file;
     ArrayList<String> tasks;
@@ -8,7 +11,9 @@ public class Storage {
     ArrayList<String> type;
     int count = 1;
 
-
+    /**
+     * storage constructor which takes in the filepath.
+     */
     Storage(String filePath){
         // Creates file if it is not created yet
         this.file = new File("duke.txt");
@@ -25,6 +30,10 @@ public class Storage {
         }
 
     }
+
+    /**
+     * load method helps to load the data from duke.txt file into the program.
+     */
     void load() {
         BufferedReader reader;
         try {
@@ -58,27 +67,44 @@ public class Storage {
         }
     }
 
+    /**
+     * getter for the task type list.
+     */
     ArrayList<String> getTypes() {
         return this.type;
     }
 
+    /**
+     * getter for the task name list.
+     */
     ArrayList<String> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * getter for the task mark list.
+     */
     ArrayList<String> getMarks() {
         return this.marks;
     }
 
+    /**
+     * getter for the number of task.
+     */
     int getCount(){
         return this.count;
     }
 
+    /**
+     * updateCount method to update the number of task.
+     */
     void updateCount(int newCount){
         this.count = newCount;
     }
 
-
+    /**
+     * updateFile method helps to update the task list after commands are being called.
+     */
     public void updateFile(Integer count, ArrayList<String> tasks, ArrayList<String> marks, ArrayList<String> type) {
         try{
             this.file.delete();
