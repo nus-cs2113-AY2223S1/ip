@@ -36,4 +36,6 @@ list
 delete
 delete -1
 delete 100
+find book
+find
 bye

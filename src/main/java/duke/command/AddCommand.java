@@ -11,8 +11,6 @@ public class AddCommand extends Command{
     protected final int NEW_TASK_INDEX = 1;
     protected boolean isInitialEmpty = false;
     protected boolean isCountTaskEmpty = false;
-    protected String[] splitCommand;
-
     public AddCommand(String[] splitCommand) {
         this.splitCommand = splitCommand;
     }
@@ -23,28 +21,20 @@ public class AddCommand extends Command{
         isInitialEmpty = storage.isInitialEmpty();
         updateTaskFromStorage(storage);
         checkEmptyTask();
-        typeOfIncrement(tasks);
+        checkTypeOfIncrement(tasks);
         checkCommandType(splitCommand);
         addTypeOfTask(tasks, assignments);
         ui.showTypeOfTaskDetail(assignments, indexTask);
-        updateTaskFromTasks(tasks);
+        updateCountFromTasks(tasks);
         storage.saveToFile(countTask, assignments);
     }
 
-    public void typeOfIncrement(TaskList tasks) {
+    public void checkTypeOfIncrement(TaskList tasks) {
         if (isInitialEmpty || isCountTaskEmpty) {
             indexTask = tasks.getIndexTask();
         } else {
             indexTask = tasks.getIndexTask() + NEW_TASK_INDEX;
         }
-    }
-
-    public void updateTaskFromTasks(TaskList tasks) {
-        countTask = tasks.getCountTask();
-    }
-
-    private void updateTaskFromStorage(Storage storage) {
-        countTask = storage.getCountTask();
     }
 
     public void checkEmptyTask() {
@@ -53,7 +43,7 @@ public class AddCommand extends Command{
         }
     }
 
-    private void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
+    public void addTypeOfTask(TaskList tasks, ArrayList<Task> assignments) {
         if (isEvent) {
             tasks.addEventTask(splitCommand, assignments, indexTask);
         } else if (isDeadline) {
