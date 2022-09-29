@@ -1,6 +1,7 @@
 import Exceptions.InvalidCommandException;
 
 import Storage.Storage;
+import TaskList.TaskList;
 import Tasks.Task;
 
 import java.util.Scanner;
@@ -11,8 +12,8 @@ import Parser.Parser;
 
 public class Duke {
     public static final String DATA_FILE_PATH = "data.txt";
-    public static ArrayList<Task> list = new ArrayList<Task>();
     private TextUi ui;
+    private TaskList taskList;
 
     public void handleInput() {
         String[] line;
@@ -21,7 +22,7 @@ public class Duke {
             String input = in.nextLine();
             line = input.split(" ");
 
-            new Parser().parseCommand(input, line, line[0], list);
+            new Parser().parseCommand(input, line, line[0], TaskList.list);
 
         } while (!line[0].equals("bye"));
     }
@@ -29,6 +30,8 @@ public class Duke {
     public void start() {
         this.ui = new TextUi();
         ui.printWelcomeMessage();
+
+        this.taskList = new TaskList();
     }
 
     public void exit() {
@@ -37,7 +40,7 @@ public class Duke {
 
     public void runCommandLoop() {
         Storage storage = new Storage();
-        storage.populateInitialList(list, DATA_FILE_PATH);
+        storage.populateInitialList(TaskList.list, DATA_FILE_PATH);
         handleInput();
     }
 

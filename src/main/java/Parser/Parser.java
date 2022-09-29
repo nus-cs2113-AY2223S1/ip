@@ -7,10 +7,7 @@ import Exceptions.MissingTaskException;
 import Exceptions.InvalidCommandException;
 import Exceptions.InvalidTodoCommandException;
 
-import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
-import Tasks.ToDo;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -87,17 +84,17 @@ public class Parser {
         switch (taskParameters[0]) {
         case "T":
             isTaskDone = Objects.equals(taskParameters[1], "1");
-            list.add(new ToDo(taskParameters[2], isTaskDone));
+            TaskList.addTodo(taskParameters[2], isTaskDone);
             break;
 
         case "D":
             isTaskDone = Objects.equals(taskParameters[1], "1");
-            list.add(new Deadline(taskParameters[2], isTaskDone, taskParameters[3]));
+            TaskList.addDeadline(taskParameters[2], isTaskDone, taskParameters[3]);
             break;
 
         case "E":
             isTaskDone = Objects.equals(taskParameters[1], "1");
-            list.add(new Event(taskParameters[2], isTaskDone, taskParameters[3]));
+            TaskList.addEvent(taskParameters[2], isTaskDone, taskParameters[3]);
             break;
 
         default:
@@ -164,7 +161,7 @@ public class Parser {
         return taskIndicator;
     }
 
-    private static void deleteTask(String[] line, ArrayList<Task> list) { //parser
+    private static void deleteTask(String[] line, ArrayList<Task> list) {
         try {
             boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
             boolean isListNumberTooLarge = (Integer.parseInt(line[1])) < 1;
@@ -176,7 +173,7 @@ public class Parser {
             String taskIndicator = getTaskIndicator(line, list);
             String taskStatus = list.get(Integer.parseInt(line[1]) - 1).isDone() ? "[X]" : "[ ]";
 
-            list.remove(Integer.parseInt(line[1]) - 1);
+            TaskList.deleteTask(Integer.parseInt(line[1]) - 1);
 
             System.out.println(DIVIDER + LS + "        Noted. I've removed this task:" + LS + "            "
                     + taskIndicator + taskStatus + " " + taskName + LS + "        Now you have " + list.size()
@@ -191,18 +188,18 @@ public class Parser {
         }
     }
 
-    private static void addEvent(String input, ArrayList<Task> list) {    //parser
+    private static void addEvent(String input, ArrayList<Task> list) {
         try {
             int separatorIndex = datedEventErrorChecker(input, "/at");
 
-            String eventName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
+            String taskName = String.copyValueOf(input.toCharArray(), EVENT_STRING_LENGTH,
                     separatorIndex - 1 - EVENT_STRING_LENGTH);
-            String eventTime = String.copyValueOf(input.toCharArray(), separatorIndex + SEPARATOR_LENGTH,
+            String taskDate = String.copyValueOf(input.toCharArray(), separatorIndex + SEPARATOR_LENGTH,
                     input.length() - separatorIndex - SEPARATOR_LENGTH);
-            list.add(new Event(eventName, eventTime));
+            TaskList.addEvent(taskName, taskDate);
 
             System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [E][ ] "
-                    + eventName + " (at: " + eventTime + ")" + LS + "        Now you have " + list.size()
+                    + taskName + " (at: " + taskDate + ")" + LS + "        Now you have " + list.size()
                     + " tasks in the list." + LS + DIVIDER);
 
 
@@ -220,7 +217,7 @@ public class Parser {
     }
 
     private static int datedEventErrorChecker(String input, String separator) throws MissingKeywordException,
-            MissingTaskException, MissingDateException {    //parser
+            MissingTaskException, MissingDateException {
         int separatorIndex = input.indexOf(separator);
         if (separatorIndex == -1) {
             throw new MissingKeywordException();
@@ -232,7 +229,7 @@ public class Parser {
         return separatorIndex;
     }
 
-    private static void addDeadline(String input, ArrayList<Task> list) { //parser
+    private static void addDeadline(String input, ArrayList<Task> list) {
         try {
             int separatorIndex = datedEventErrorChecker(input, "/by");
 
@@ -240,7 +237,7 @@ public class Parser {
                     separatorIndex - 1 - DEADLINE_STRING_LENGTH);
             String taskDate = String.copyValueOf(input.toCharArray(), separatorIndex + SEPARATOR_LENGTH,
                     input.length() - separatorIndex - SEPARATOR_LENGTH);
-            list.add(new Deadline(taskName, taskDate));
+            TaskList.addDeadline(taskName, taskDate);
 
             System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [D][ ] "
                     + taskName + " (by: " + taskDate + ")" + LS + "        Now you have " + list.size()
@@ -259,7 +256,7 @@ public class Parser {
         }
     }
 
-    private static void addTodo(String input, String[] line, ArrayList<Task> list) {  //parser
+    private void addTodo(String input, String[] line, ArrayList<Task> list) {
         try {
             if (line.length == 1) {
                 throw new InvalidTodoCommandException();
@@ -267,7 +264,7 @@ public class Parser {
 
             String todoName = String.copyValueOf(input.toCharArray(), TODO_STRING_LENGTH,
                     input.length() - TODO_STRING_LENGTH);
-            list.add(new ToDo(todoName));
+            TaskList.addTodo(todoName);
 
             System.out.println(DIVIDER + LS + "        Got it. I've added this task:" + LS + "        [T][ ] "
                     + todoName + LS + "        Now you have " + list.size() + " tasks in the list." + LS
@@ -282,7 +279,7 @@ public class Parser {
         }
     }
 
-    private static void markTask(String[] line, String command, ArrayList<Task> list) {   //parser
+    private static void markTask(String[] line, String command, ArrayList<Task> list) {
         try {
             boolean isListNumberTooSmall = (Integer.parseInt(line[1])) > list.size();
             boolean isListNumberTooLarge = (Integer.parseInt(line[1])) < 1;
