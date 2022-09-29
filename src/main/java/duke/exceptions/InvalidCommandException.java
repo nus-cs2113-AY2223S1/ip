@@ -1,10 +1,8 @@
 package duke.exceptions;
 
 public class InvalidCommandException extends Exception{
-
-    public InvalidCommandException(String error){
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println(error);
-        System.out.println("-------------------------------------------------------------------------------");
+    private static final String MESSAGE = "Invalid command.";
+    public String getMessage() {
+        return MESSAGE;
     }
 }

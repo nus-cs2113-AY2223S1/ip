@@ -5,12 +5,15 @@ import duke.task.Todo;
 import duke.task.Deadlines;
 import duke.task.Events;
 import duke.Duke;
+import duke.tasklist.Tasklist;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -20,6 +23,10 @@ import java.util.Scanner;
 public class Storage {
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
+
+    public Storage() {
+
+    }
 
     public static void saveTask(ArrayList<Task> Tasks) throws IOException {
         Path fileDirectory = Paths.get(FILE_DIRECTORY);
@@ -45,7 +52,8 @@ public class Storage {
         writer.close();
     }
 
-    public static void loadTask(ArrayList<Task> Tasks) {
+    public Tasklist loadTask() {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(FILE_PATH);
             Scanner myReader = new Scanner(file);
@@ -59,7 +67,7 @@ public class Storage {
                         if (data.charAt(4) == 'X') {
                             todo.setisDone(true);
                         }
-                        Duke.Tasks.add(todo);
+                        tasks.add(todo);
                         break;
                     case 'D':
                         String deadlineDescription = description.split("/by ")[0];
@@ -68,7 +76,7 @@ public class Storage {
                         if (data.charAt(4) == 'X') {
                             deadline.setisDone(true);
                         }
-                        Duke.Tasks.add(deadline);
+                        tasks.add(deadline);
                         break;
                     case 'E':
                         String EventDescription = description.split("/at ")[0];
@@ -77,14 +85,17 @@ public class Storage {
                         if (data.charAt(4) == 'X') {
                             event.setisDone(true);
                         }
-                        Duke.Tasks.add(event);
+                        tasks.add(event);
+                        break;
+                    default:
                         break;
                 }
 
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not Found.");
+            Ui.showError(e.getMessage());
         }
+        return new Tasklist(tasks);
     }
 
 }
