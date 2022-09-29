@@ -3,8 +3,6 @@ package Duke.Commands;
 import Duke.Storage;
 import Duke.TaskList;
 
-import java.io.IOException;
-
 /**
  * When executed, it adds a event task to taskList
  */

@@ -7,7 +7,7 @@ import Duke.Ui;
  */
 public class ByeCommand extends Command {
     public static final String BYE_COMMAND = "bye";
-    private final String BYE_MESSAGE = "\tBob says goodbye :<";
+    private final String BYE_MESSAGE = "Bob says goodbye :<";
 
     public ByeCommand() {
         System.out.println(BYE_MESSAGE);
