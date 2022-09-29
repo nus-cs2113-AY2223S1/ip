@@ -41,6 +41,9 @@ public class DukeManager {
         }
     }
 
+    /**
+     * Saves current inputs into file for future use
+     */
     public static void save() {
         try {
             checkExists();
@@ -58,7 +61,37 @@ public class DukeManager {
             return;
         }
     }
+    
+    private static Task loadTasks (String[]  line) {
+        Task newTask;
+        if (line[0].equals("T")) {
+            try {
+                newTask = new Todo(line[2]);
+            } catch (DukeException e) {
+                print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                return null;
+            }
+        } else if (line[0].equals("D")) {
+            try {
+                newTask = new Deadline(line[2], line[3]);
+            } catch (DukeException e) {
+                print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                return null;
+            }
+        } else {
+            try {
+                newTask = new Event(line[2], line[3]);
+            } catch (DukeException e) {
+                print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                return null;
+            }
+        }
+        return newTask;
+    }
 
+    /**
+     * Loads inputs from file when program is restarted
+     */
     public static void load() {
         if (Files.exists(directoryPath) && Files.exists(filePath)) {
             File f = new File(String.valueOf(filePath)); // create a File for the given file path
@@ -67,38 +100,25 @@ public class DukeManager {
                 s = new Scanner(f); // create a Scanner using the File as the source
             } catch (FileNotFoundException e) {
                 print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                return;
             }
             while (s.hasNext()) {
                 String[] line = s.nextLine().split("\\|");
-                Task newTask = null;
-                if (line[0].equals("T")) {
-                    try {
-                        newTask = new Todo(line[2]);
-                    } catch (DukeException e) {
-                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
+                Task newTask = loadTasks(line);
+                if (newTask != null) {
+                    if (line[1].equals("1")) {
+                        newTask.markAsDone();
+                    } else {
+                        newTask.markAsNotDone();
                     }
-                } else if (line[0].equals("D")) {
-                    try {
-                        newTask = new Deadline(line[2], line[3]);
-                    } catch (DukeException e) {
-                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
-                    }
+                    inputs.add(newTask);
                 } else {
-                    try {
-                        newTask = new Event(line[2], line[3]);
-                    } catch (DukeException e) {
-                        print("☹ OOPS!!! Something went wrong when trying to load: " + e.getMessage());
-                    }
+                    return;
                 }
-                if (line[1].equals("1")) {
-                    newTask.markAsDone();
-                } else {
-                    newTask.markAsNotDone();
-                }
-                inputs.add(newTask);
             }
         }
     }
+
     private static String formatList(ArrayList inputList) {
         String formattedString = "";
         for (int i = 0; i < inputList.size(); i++) {
@@ -109,16 +129,19 @@ public class DukeManager {
         }
         return formattedString;
     }
-    /**
-     * Returns a string with formatted user inputs.
-     *
-     * @return Formatted string to print
-     */
 
+    /**
+     * Outputs list with inputs
+     */
     public static void list() {
         System.out.println(HORIZONTAL_LINE + formatList(inputs) + HORIZONTAL_LINE);
     }
 
+    /**
+     * Deletes entry from list
+     *
+     * @param line integer that specifies the input to delete
+     */
     public static void delete(String line) {
         int input;
         try {
@@ -137,6 +160,12 @@ public class DukeManager {
             return;
         }
     }
+
+    /**
+     * Unmarks an entry from list
+     *
+     * @param line integer that specifies the input to unmark
+     */
     public static void unmark(String line) {
         int input;
         try {
@@ -154,6 +183,11 @@ public class DukeManager {
         print("OK, I've marked this task as not done yet: \n  " + task);
     }
 
+    /**
+     * Marks entry from list
+     *
+     * @param line integer that specifies the input to mark
+     */
     public static void mark(String line) {
         int input;
         try {
@@ -171,6 +205,11 @@ public class DukeManager {
         print("Nice! I've marked this task as done: \n  " + task);
     }
 
+    /**
+     * Creates a to-do
+     *
+     * @param line to-do (description)
+     */
     public static void createTodo(String line) {
         String description = line.replace("todo", "").strip();
         Todo todo;
@@ -184,6 +223,11 @@ public class DukeManager {
         print(ADD_CONFIRMATION_MESSAGE + "\n  " + todo + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
+    /**
+     * Creates an event
+     *
+     * @param line event (description) /at (date)
+     */
     public static void createEvent(String line) {
         String removedCommand = line.replace("event", "");
         int timeIndex = removedCommand.indexOf("/at");
@@ -207,6 +251,11 @@ public class DukeManager {
         print(ADD_CONFIRMATION_MESSAGE + "\n  " + event + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
+    /**
+     * Creates a deadline
+     *
+     * @param line deadline (description) /by (date)
+     */
     public static void createDeadline(String line) {
         String removedCommand = line.replace("deadline", "");
         int timeIndex = removedCommand.indexOf("/by");
@@ -233,6 +282,11 @@ public class DukeManager {
         print(ADD_CONFIRMATION_MESSAGE + "\n  " + deadline + "\nNow you have "+ inputs.size() + " tasks in the list.");
     }
 
+    /**
+     * Finds inputs that have the specified search term and outputs the list
+     *
+     * @param line the search term
+     */
     public static void find(String line) {
         ArrayList<Task> matchedTerms = new ArrayList<>();
         String searchTerm = line.replace("find", "").strip();
