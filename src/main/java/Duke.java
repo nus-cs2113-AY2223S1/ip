@@ -148,7 +148,7 @@ public class Duke {
                     todoList.remove(markedValue);
                     break;
                 case FIND:
-                    int counter = 0;
+                    int counter = 1;
                     System.out.println("I have found these tasks:");
                     for (Task currentTask: todoList){
                         String currentDescription = currentTask.getDescription();
