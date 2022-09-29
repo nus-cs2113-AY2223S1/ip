@@ -1,7 +1,111 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+$$$$$$$\                  $$\           
+$$  __$$\                 $$ |          
+$$ |  $$ |$$\   $$\  $$$$$$$ | $$$$$$\  
+$$ |  $$ |$$ |  $$ |$$  __$$ |$$  __$$\ 
+$$ |  $$ |$$ |  $$ |$$ /  $$ |$$$$$$$$ |
+$$ |  $$ |$$ |  $$ |$$ |  $$ |$$   ____|
+$$$$$$$  |\$$$$$$  |\$$$$$$$ |\$$$$$$$\ 
+\_______/  \______/  \_______| \_______|
 
+I am Dude.
+Type something in, dude.
+
+OK, dude, I've added this task: 
+[T][ ] valid todo 1
+You have 1 tasks in the list.
+OK, dude, I've added this task: 
+[D][ ] valid deadline 1 (by: due date)
+You have 2 tasks in the list.
+OK, dude, I've added this task: 
+[E][ ] valid event 2 (at: event time)
+You have 3 tasks in the list.
+OK, dude, I've added this task: 
+[T][ ] valid todo 2
+You have 4 tasks in the list.
+OK, dude, I've added this task: 
+[T][ ] valid todo 3
+You have 5 tasks in the list.
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[T][ ] valid todo 2
+5.[T][ ] valid todo 3
+
+OK, dude, I've added this task: 
+[D][ ] valid deadline 2 (by: due date 2)
+You have 6 tasks in the list.
+OK, dude, I've added this task: 
+[E][ ] valid event 2 (at: event time 2)
+You have 7 tasks in the list.
+Okay, dude, I've marked this task as done: 
+valid todo 2
+Okay, dude, I've marked this task as done: 
+valid todo 1
+1.[T][X] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[T][X] valid todo 2
+5.[T][ ] valid todo 3
+6.[D][ ] valid deadline 2 (by: due date 2)
+7.[E][ ] valid event 2 (at: event time 2)
+
+Okay, dude, I've marked this task as not done yet: 
+valid todo 1
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[T][X] valid todo 2
+5.[T][ ] valid todo 3
+6.[D][ ] valid deadline 2 (by: due date 2)
+7.[E][ ] valid event 2 (at: event time 2)
+
+Not enough arguments, dude.
+Not enough arguments, dude.
+Not enough arguments, dude.
+Missing /by parameter
+Missing /at parameter
+There's no task with that number, dude.
+There's no task with that number, dude.
+There's no task with that number, dude.
+There's no task with that number, dude.
+That's not even a number, dude.
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[T][X] valid todo 2
+5.[T][ ] valid todo 3
+6.[D][ ] valid deadline 2 (by: due date 2)
+7.[E][ ] valid event 2 (at: event time 2)
+
+Deleting task: valid todo 3
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[T][X] valid todo 2
+5.[D][ ] valid deadline 2 (by: due date 2)
+6.[E][ ] valid event 2 (at: event time 2)
+
+Deleting task: valid todo 2
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[D][ ] valid deadline 2 (by: due date 2)
+5.[E][ ] valid event 2 (at: event time 2)
+
+There's no task with that number, dude.
+1.[T][ ] valid todo 1
+2.[D][ ] valid deadline 1 (by: due date)
+3.[E][ ] valid event 2 (at: event time)
+4.[D][ ] valid deadline 2 (by: due date 2)
+5.[E][ ] valid event 2 (at: event time 2)
+
+Not enough arguments, dude.
+1.[T][ ] valid todo 1
+
+1.[D][ ] valid deadline 1 (by: due date)
+
+1.[E][ ] valid event 2 (at: event time)
+2.[D][ ] valid deadline 2 (by: due date 2)
+3.[E][ ] valid event 2 (at: event time 2)
+
+Catch you later, dude.
