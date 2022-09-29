@@ -22,6 +22,11 @@ public class Parser {
     protected static boolean isValidFind = false;
     protected static boolean isValidAdd = false;
 
+    /**
+     * Checks all the type of commands to classify them.
+     *
+     * @param splitCommand is a list of words that are separated by space.
+     */
     public static void checkCommandType(String[] splitCommand) {
         isBye = splitCommand[COMMAND_INDEX].equals("bye");
         isList = splitCommand[COMMAND_INDEX].equals("list");
@@ -36,7 +41,12 @@ public class Parser {
         isAdd = isToDo || isEvent || isDeadline;
     }
 
-    private static void validCommandDetail(boolean isBlankDetail) {
+    /**
+     * Verifies the command detail in so to proof that the type of command is valid.
+     *
+     * @param isBlankDetail which checks if the TASK_DETAIL_INDEX is empty or not.
+     */
+    public static void validCommandDetail(boolean isBlankDetail) {
         if (!isBlankDetail) {
             isValidAdd = isAdd;
             isValidDelete = isDelete;
@@ -55,6 +65,12 @@ public class Parser {
         validateCommandDetail(splitCommand, isTaskCommand);
     }
 
+    /**
+     * Verifies the command detail, to ensure that the TASK_DETAIL_INDEX has input.
+     *
+     * @param splitCommand is a list of words that are separated by space.
+     * @param isTaskCommand which check if the command as a task detail.
+     */
     public static void validateCommandDetail(String[] splitCommand, boolean isTaskCommand) {
         boolean isBlankDetail = true;
         if (isTaskCommand) {
@@ -64,45 +80,65 @@ public class Parser {
         validCommandDetail(isBlankDetail);
     }
 
+    /**
+     * Parse which deals with making sense of the user command.
+     *
+     * @param fullCommand which is the command that the user input.
+     * @return c
+     * @throws DukeException which display an error if there is an invalid command.
+     */
     public static Command parse(String fullCommand) throws DukeException {
-        Command c;
+        Command command;
         String[] splitCommand = fullCommand.split(" ", 2);
         checkCommandType(splitCommand);
         checkCommandDetail(splitCommand);
-        c = initializeTypeOfCommand(splitCommand);
-        return c;
+        command = initializeTypeOfCommand(splitCommand);
+        return command;
     }
 
+    /**
+     * Initialises the type of command base on what the user input. Else, presents
+     * an error if the type of command is not valid.
+     *
+     * @param splitCommand is a list of words that are separated by space.
+     * @return command based on the type of command to initialise type of Command class.
+     * @throws DukeException An error that will be generated if the command is not valid.
+     */
     public static Command initializeTypeOfCommand(String[] splitCommand) throws DukeException {
-        Command c;
+        Command command;
         if (isBye) {
-            c = new ExitCommand();
+            command = new ExitCommand();
         } else if (isList) {
-            c = new ListCommand();
+            command = new ListCommand();
         } else if (isValidAdd) {
-            c = new AddCommand(splitCommand);
+            command = new AddCommand(splitCommand);
         } else if (isValidDelete) {
-            c = new DeleteCommand(splitCommand);
+            command = new DeleteCommand(splitCommand);
         } else if (isValidMarkOrUnmark) {
-            c = new MarkOrUnmarkCommand(splitCommand);
+            command = new MarkOrUnmarkCommand(splitCommand);
         } else if (isValidFind) {
-            c = new FindCommand(splitCommand);
+            command = new FindCommand(splitCommand);
         } else {
-            String error = errorMessage();
+            String error = showErrorMessage();
             throw new DukeException(error);
         }
-        return c;
+        return command;
     }
 
-    public static String errorMessage() {
+    public static String showErrorMessage() {
         String error = "\t ☹ HMM?? I'm sorry, but I don't know what that means :-(";
         if (isAdd || isDelete || isMarkOrUnmark || isFind) {
-            error = taskError();
+            error = showCommandError();
         }
         return error;
     }
 
-    public static String taskError() {
+    /**
+     * Shows the type of command Error based on what the user input.
+     *
+     * @return error that shows the error message based on the type of command.
+     */
+    public static String showCommandError() {
         String error = null;
         if (isToDo) {
             error = "\t ☹ OH MAN!!! The description of a todo cannot be empty.";

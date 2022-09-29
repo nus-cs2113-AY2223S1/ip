@@ -14,6 +14,11 @@ public class Ui {
         this.lineDivider = "\t____________________________________________________________";
     }
 
+    /**
+     * Shows the DataFileStatus for the user to know if the dataFile exist or not.
+     *
+     * @param isFileCreated checks if the file has been created before the start of the program.
+     */
     public void showDataFileStatus(boolean isFileCreated) {
         if (isFileCreated) {
             System.out.println("\t --Data file was not found but"
@@ -24,6 +29,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the dataFolder status to the user.
+     */
     public void showDataFolderStatus() {
         System.out.println("\n\t --Data folder to store the data file does not exist "
                 + "but I have made one for you.--");
@@ -33,6 +41,9 @@ public class Ui {
         System.out.println(lineDivider);
     }
 
+    /**
+     * Shows the welcome message that the start of the program. For aesthetic purposes.
+     */
     public void showWelcomeMessage() {
         String logo = "___________.__                ___.\n"
                 + "\\_   _____/|  | _____    _____|  |__\n"
@@ -57,12 +68,25 @@ public class Ui {
         return userInput;
     }
 
+    /**
+     * Shows a specific task details for the user.
+     *
+     * @param assignments that an array of tasks taken from the class TaskList.
+     * @param index which is the increment value in the loop to access the assignments.
+     */
     public void showTaskDetail(ArrayList<Task> assignments, int index) {
         System.out.println("\t   [" + assignments.get(index).getStatusOfTypeTask()
                 + "]" + "[" + assignments.get(index).getStatusOfDone()
                 + "] " + assignments.get(index).displayTypeTaskDetails());
     }
 
+    /**
+     * Shows a specific task that have been deleted by the user.
+     *
+     * @param assignments that an array of tasks taken from the class TaskList.
+     * @param indexTask which is the index of the task.
+     * @param countTask which tracks the number of task that the user has added.
+     */
     public void showDeletedTask(ArrayList<Task> assignments, int indexTask, int countTask) {
         System.out.println("\t Noted. I've removed this task:");
         showTaskDetail(assignments, indexTask);
@@ -82,6 +106,13 @@ public class Ui {
         System.out.println("\t Stop there! Please delete something that is within the list!");
     }
 
+    /**
+     * Shows type of task detail to the user.
+     * As a form of acknowledgment to let the user know that the task have been added.
+     *
+     * @param assignments that an array of tasks taken from the class TaskList.
+     * @param index which is the increment value in the loop to access the assignments.
+     */
     public void showTypeOfTaskDetail(ArrayList<Task> assignments, int index) {
         countTask = index;
         System.out.println("\t Roger that. I've added this task:");
@@ -90,6 +121,12 @@ public class Ui {
         System.out.println("\t Now you have " + countTask + " in the list.");
     }
 
+    /**
+     * Shows the user if the task has been marked or unmarked.
+     * As a form of acknowledgment to let the user know that the task is marked or unmarked.
+     *
+     * @param isMark which checks to see if the task have been completed or not.
+     */
     public void showMarkOrUnmarkTask(boolean isMark) {
         if (isMark) {
             System.out.println("\t Awesome! I've marked this task as done:");
@@ -98,6 +135,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the error message if the user is trying to mark a task that is not within
+     * the taskList.
+     *
+     * @param isMark which checks to see if the task have been completed or not.
+     */
     public void showMarkOrUnmarkError(boolean isMark) {
         if (isMark) {
             System.out.println("\t You are trying to mark a task that has not been specified!");
@@ -106,6 +149,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows a list of tasks that the user has stored in the taskList.
+     *
+     * @param assignments that an array of tasks taken from the class TaskList.
+     * @param numberOrder which is to label the ordering of the task starting from 1.
+     * @param countTask used to track the number of task that have been added into the taskList.
+     */
     public void showList(ArrayList<Task> assignments, int numberOrder, int countTask) {
         for (int i = 0; i < countTask; i++) {
             System.out.println("\t " + numberOrder + ".["

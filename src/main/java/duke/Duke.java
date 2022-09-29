@@ -18,6 +18,9 @@ public class Duke {
         tasks = storage.loadTasksFromFile(ui);
     }
 
+    /**
+     * Main execution function to run flash.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
