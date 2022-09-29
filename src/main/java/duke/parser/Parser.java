@@ -12,10 +12,14 @@ public class Parser {
 
     public static String getTaskDetails (String line) throws DukeException {
         String[] breakLine = line.split(" ", 2);
-        // if there is no task description
-        if (breakLine[1].isBlank()) {
+        // // if there is no task description or the task description is empty
+        if (breakLine.length == 1 || breakLine[1].equals("")) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
         }
+
+        // if (breakLine[1].isBlank() || breakLine[1].isEmpty()) {
+        //     throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
+        // }
         return breakLine[1];
     }
 

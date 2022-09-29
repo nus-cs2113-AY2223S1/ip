@@ -10,9 +10,6 @@ import java.util.ArrayList;
 
 // contains the task list e.g., it has operations to add/delete tasks in the list
 public class TaskList {
-
-    private ArrayList<Task> tasks;
-
     public static void deleteTask(ArrayList<Task> tasks, String line) throws DukeException {
         int taskId = Parser.getTaskId(line);
         Task taskToBeDeleted = tasks.get(taskId);

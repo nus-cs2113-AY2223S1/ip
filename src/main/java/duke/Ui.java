@@ -2,7 +2,6 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,6 +9,12 @@ import java.util.Scanner;
 
 // deals with interactions with the user
 public class Ui {
+
+    public static String readInput() {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        return input;
+    }
 
     private static final String TOP_HORIZONTAL_RULE = "\t_____________________";
     private static final String BOTTOM_HORIZONTAL_RULE = "\t_____________________\n";
@@ -142,8 +147,5 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-    public static String readCommand() {
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
-    }
+
 }
