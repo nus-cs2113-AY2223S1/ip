@@ -71,30 +71,45 @@ public class TaskList {
             throws WrongArgumentException{
         String message;
         switch(command) {
-            case TODO:
-                message = doTodoAction(userArgs);
-                break;
-            case DEADLINE:
-                message = doDeadlineAction(userArgs);
-                break;
-            case EVENT:
-                message = doEventAction(userArgs);
-                break;
-            case DELETE:
-                message = deleteAction(userArgs);
-                break;
-            case MARK:
-                message = doMarkAction(userArgs);
-                break;
-            case UNMARK:
-                message = doUnmarkAction(userArgs);
-                break;
-            default:
-                throw new WrongArgumentException();
+        case TODO:
+            message = doTodoAction(userArgs);
+            break;
+        case DEADLINE:
+            message = doDeadlineAction(userArgs);
+            break;
+        case EVENT:
+            message = doEventAction(userArgs);
+            break;
+        case DELETE:
+            message = deleteAction(userArgs);
+            break;
+        case MARK:
+            message = doMarkAction(userArgs);
+            break;
+        case UNMARK:
+            message = doUnmarkAction(userArgs);
+            break;
+        case FIND:
+            message = doFindAction(userArgs);
+            break;
+        default:
+            throw new WrongArgumentException();
         }
         return message;
     }
 
+    private String doFindAction(String item) {
+        String output = "";
+        int count = 1;
+        for (Task task : inputLists) {
+            if(task.getTaskName().contains(item)) {
+                output += Integer.toString(count) + ". \t";
+                output += task.getCompleteDescription();
+                count += 1;
+            }
+        }
+        return output;
+    }
 
     private String doTodoAction(String lineInput){
         int index = addTaskToList(lineInput, TaskType.TODO, false);
