@@ -52,7 +52,6 @@ public class Duke {
                         storage.saveTasks(taskList);
                         break;
                     case EVENT:
-                        ui.addTaskMessage(line);
                         taskList.makeEvent(line);
                         storage.saveTasks(taskList);
                         break;
@@ -74,6 +73,9 @@ public class Duke {
                     case CLEAR:
                         ui.clearTextFileMessage();
                         storage.clearFile();
+                        break;
+                    case FIND:
+                        taskList.findWord(line);
                         break;
                     default:
                         try {

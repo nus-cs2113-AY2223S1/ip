@@ -1,16 +1,10 @@
 package dukeTasksPackage;
 
-import dukeExceptionsPackage.EmptyDescriptionException;
-import dukeExceptionsPackage.EmptyListException;
-import dukeExceptionsPackage.IllegalMarkingException;
-import dukeExceptionsPackage.IllegalUnmarkingException;
-import dukeExceptionsPackage.IllegalTaskNumber;
-import dukeExceptionsPackage.UnrecognisedDeadlineException;
-import dukeExceptionsPackage.UnrecognisedEventException;
-import dukeExceptionsPackage.UnrecognisedInput;
+import dukeExceptionsPackage.*;
 import ui.DukeUI;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -43,6 +37,10 @@ public class TaskList {
         return tasks.get(itemNumber);
     }
 
+    /**
+     * To get the size of the task list
+     * @return size of task list
+     */
     public int getTaskListSize() {
         return tasks.size();
     }
@@ -78,7 +76,6 @@ public class TaskList {
     /**
      * to convert input into deadline data type and adds the deadline into the task list
      * @param input user input
-     * @return the input that has been converted into deadline data type
      */
     public void makeDeadline(String input) {
         try {
@@ -129,7 +126,7 @@ public class TaskList {
     }
 
     /**
-     * To delete a task from Tasklist
+     * To delete a task from Task list
      * @param input user input
      */
     public void deleteTask(String input) {
@@ -225,5 +222,37 @@ public class TaskList {
         } catch (EmptyListException e) {
             System.out.println(e.getExceptionMessage());
         }
+    }
+
+    public void findWord(String input) {
+        try {
+            if (input.equals("find")) {
+                throw new EmptyKeywordException("no keyword");
+            } else {
+                String[] words = input.split("\\s");
+                ArrayList<Integer> results = new ArrayList<>();
+                String keyword = words[1].toLowerCase();
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task search = tasks.get(i);
+                    if (search.description.toLowerCase().contains(keyword)) {
+                        results.add(i);
+                    }
+                }
+                if (results.isEmpty()) {
+                    throw new NoSuchKeywordException(input);
+                } else {
+                    ui.showFindMessage();
+                    for (int taskNumber : results) {
+                        Task print = tasks.get(taskNumber);
+                        System.out.println(print.toString());
+                    }
+                }
+            }
+        } catch (EmptyKeywordException e) {
+            System.out.println(e.getExceptionMessage());
+        } catch (NoSuchKeywordException f) {
+            System.out.println(f.getExceptionMessage());
+        }
+
     }
 }

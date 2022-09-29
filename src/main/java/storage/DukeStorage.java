@@ -18,12 +18,23 @@ public class DukeStorage {
     public final Path path;
     public TaskList tasks;
 
+
+    /**
+     * Constructor for Duke Storage
+     * @param path path of file
+     */
     public DukeStorage(Path path) {
         this.path = Paths.get(FILE_PATH);
     }
+
+    /**
+     * Create a task list
+     * @param tasks task list
+     */
     public void initaliseTaskList(TaskList tasks) {
         this.tasks = tasks;
     }
+
     /**
      * saves the task list data into the text file
      * @param tasks task list
