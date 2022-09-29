@@ -29,19 +29,19 @@ public interface FileIO {
             }
             System.out.println();
 
-            String taskType = args[0];
+            TaskType taskType = TaskType.valueOf(args[0]);
             String description = args[2];
             String time = (args.length > 3 ? args[3] : "");
             Boolean isDone = (Integer.parseInt(args[1]) == 1);
 
             switch (taskType) {
-            case "T":
+            case TODO:
                 tasks.add(new Todo(description, isDone));
                 break;
-            case "D":
+            case DEADLINE:
                 tasks.add(new Deadline(description, isDone, time));
                 break;
-            case "E":
+            case EVENT:
                 tasks.add(new Event(description, isDone, time));
                 break;
             default:
@@ -66,7 +66,7 @@ public interface FileIO {
         for (Task task : Tasks) {
             taskFileFormat.append(task.getTaskType()).append("//")
                     .append(task.getIsDone() ? "1" : "0").append("//").append(task.getDescription());
-            if (!task.getTaskType().equals("T")) {
+            if (!task.getTaskType().equals(TaskType.TODO)) {
                 taskFileFormat.append("//").append(task.getTime());
             }
             taskFileFormat.append(String.format("%n"));

@@ -3,6 +3,7 @@ public class Parser implements FormatChecker {
     private static final int TODO_LENGTH = 5;
     private static final int DEADLINE_LENGTH = 9;
     private static final int EVENT_LENGTH = 6;
+    private static final int FIND_LENGTH = 4;
     private static final String COMMAND_SEPARATOR = " ";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
@@ -13,6 +14,7 @@ public class Parser implements FormatChecker {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_NULL = "";
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_FIND = "find";
 
     /**
      * Parse the full command input into different type of command
@@ -86,9 +88,10 @@ public class Parser implements FormatChecker {
                 return new DeleteCommand(index);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ExcessArgumentException e) {
                 System.out.format("Exception: Wrong command Format%n" +
-                        "Try the command in correct format: mark <index of task>%n");
+                        "Try the command in correct format: delete <index of task>%n");
             }
             break;
+
         case COMMAND_BYE:
             return new CommandBye();
         case COMMAND_NULL:

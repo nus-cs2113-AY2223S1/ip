@@ -27,4 +27,13 @@ public abstract class Command {
     public int getIndex() {
         return 0;
     }
+
+    /**
+     * get key associated with task, if there is any
+     *
+     * @return default is null
+     */
+    public String getKey() {
+        return "";
+    }
 }
