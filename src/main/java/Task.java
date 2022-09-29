@@ -2,6 +2,11 @@ public class Task {
 
     // can be todo, deadline, event
     protected String type;
+
+    public String getDescription() {
+        return description;
+    }
+
     protected String description;
     protected boolean isDone;
 

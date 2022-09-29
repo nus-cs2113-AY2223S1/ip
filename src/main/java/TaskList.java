@@ -15,6 +15,24 @@ public class TaskList{
     public TaskList(){
         tasks = new ArrayList<>(MAX);
     }
+
+    public void findMatching(String commandAction, String fullCommand) throws Exception {
+        String description = Parser.parseDescription(fullCommand);
+        int counter = 1;
+        for(int i=0; i<taskCounter; i++){
+            if (tasks.get(i).getDescription().contains(description)){
+                if (counter==1){
+                    System.out.println("Here are the matching tasks in your list:");
+                }
+                System.out.print((counter) + ".");
+                tasks.get(i).printTask();
+                counter++;
+            }
+        }
+        if (counter==1){
+            System.out.println("There are no matching tasks with " + description);
+        }
+    }
     public void addTodo(String commandAction, String fullCommand) throws Exception {
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, description));
@@ -99,4 +117,6 @@ public class TaskList{
         this.tasks.add(item);
         taskCounter++;
     }
+
+
 }

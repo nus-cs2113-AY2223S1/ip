@@ -14,6 +14,13 @@ public class Command {
                 //print the task list
                 tasks.printList();
                 break;
+            case "find":
+                if(commandAction.matches(fullCommand)){
+                    System.out.println("OOPS! The description of todo cannot be empty");
+                } else {
+                    tasks.findMatching(commandAction, fullCommand);
+                }
+                break;
             case "todo":
                 //add todo to task list, no date
                 if(commandAction.matches(fullCommand)){

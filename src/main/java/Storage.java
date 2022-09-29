@@ -3,12 +3,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private static String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the given task list to a specified local file
+     * @param filePath Location of file for task list to be saved to
+     * @param list Task list to be saved
+     * @throws IOException Error
+     */
     public static void writeToFile(String filePath, ArrayList<Task> list) {
         try {
             File storedFile = new File(filePath);
