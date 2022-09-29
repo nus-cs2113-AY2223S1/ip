@@ -1,7 +1,7 @@
 package duke.taskmanager;
 
 import duke.UI;
-import duke.exceptions.DukeException;
+import duke.exceptions.LoadException;
 import duke.taskmanager.commands.Command;
 
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ public class TaskManager {
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundException();
             storage = new Storage("no saved tasks");
-        } catch (DukeException e) {
+        } catch (LoadException e) {
             ui.showLoadingError();
         }
         ui.printGreetingMessage();

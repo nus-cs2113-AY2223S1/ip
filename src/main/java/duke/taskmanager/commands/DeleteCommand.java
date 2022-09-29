@@ -11,11 +11,12 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes the task specified by user. Checks if the user input an existing task.
+     * Deletes the <code>task</code> specified by user in the <code>TaskList</code>.
+     * Checks if the user input an existing task.
      *
-     * @param tasks   list that stores all the user's current tasks
+     * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs
-     * @param storage to store the tasks after the programme is closed
+     * @param storage stores the tasks after the programme closes
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {

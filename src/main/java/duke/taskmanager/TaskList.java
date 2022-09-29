@@ -1,7 +1,7 @@
 package duke.taskmanager;
 
 import duke.UI;
-import duke.exceptions.DukeException;
+import duke.exceptions.LoadException;
 import duke.taskmanager.commands.Command;
 import duke.taskmanager.tasks.Task;
 import duke.taskmanager.tasks.Todo;
@@ -14,9 +14,9 @@ public class TaskList extends ArrayList<Task> {
         this.add(new Todo("Todo buffer for one based input", ' '));
     }
 
-    public TaskList(Storage storage) throws DukeException {
+    public TaskList(Storage storage) throws LoadException {
         if (storage.storedTasks.isEmpty()) {
-            throw new DukeException();
+            throw new LoadException();
         }
         this.add(new Todo("Todo buffer for one based input", ' '));
         TaskList previousTasks = new TaskList();

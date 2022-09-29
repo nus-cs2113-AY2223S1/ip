@@ -7,14 +7,7 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-//    public Task() {
-//        setDescription(null);
-//        setDone(false);
-//    }
-
-    protected String getTypeIcon() {
-        return "[T]";
-    }
+    protected abstract String  getTypeIcon();
 
     public String getStatusIcon() {
         return (this.isDone ? "[X] " : "[ ] "); // mark done task with X
@@ -38,6 +31,12 @@ public abstract class Task {
                 + this.getDescription();
     }
 
+    /**
+     * Mark current task done or not done
+     *
+     * @param done whether task is done
+     * @return output message to be formatted
+     */
     public String markDone(boolean done) {
         setDone(done);
         StringBuilder markMessage = new StringBuilder();

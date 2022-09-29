@@ -5,11 +5,21 @@ import duke.exceptions.TaskOutOfBoundsException;
 import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
+/**
+ * Mark a specified <code>task</code>
+ */
 public class MarkCommand extends Command {
     public MarkCommand(String userInput, String firstWord) {
         super(userInput, firstWord);
     }
 
+    /**
+     * Mark or unmark a <code>task</code> based on the user input
+     *
+     * @param tasks   stores all the user's current tasks
+     * @param ui      contains the formatted outputs
+     * @param storage stores the tasks after the programme closes
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         boolean isMarked = false;
@@ -25,9 +35,9 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Mark whether the task specified by user is done. Checks if the user input an existing task.
+     * Mark whether the <code>task</code> specified by user is done. Checks if the user input an existing task.
      *
-     * @param tasks     list that stores all the user's current tasks
+     * @param tasks     stores all the user's current tasks
      * @param ui        contains the formatted outputs
      * @param userInput the <code>String</code> that the user input
      * @param done      whether the task is done

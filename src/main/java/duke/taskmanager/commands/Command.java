@@ -4,13 +4,16 @@ import duke.UI;
 import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
+/**
+ * Abstract base class for all the understood commands
+ */
 public abstract class Command {
     /**
      * Execute the <code>Command</code> base on the type.
      *
-     * @param tasks   list that stores all the user's current tasks
+     * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs
-     * @param storage to store the tasks after the programme is closed
+     * @param storage stores the tasks after the programme closes
      */
     public abstract void execute(TaskList tasks, UI ui, Storage storage);
     public boolean isExit = false;

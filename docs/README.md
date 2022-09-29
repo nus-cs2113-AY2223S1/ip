@@ -33,10 +33,13 @@ Enter "bye" to exit.
 4. [Common Error Messages](#common-error-messages)
 
 ## Getting Started
-Download the `jar` file.
-Copy the `jar` file into an empty folder
-Open a command window in that folder
-Run the command `java -jar {filename}.jar` e.g., `java -jar Duke.jar`
+1. Download the `jar` file.
+
+2. Copy the `jar` file into an empty folder
+
+3. Open a command window in that folder
+
+4. Run the command `java -jar {filename}.jar` e.g., `java -jar Duke.jar`
 
 ## Features 
 
@@ -61,11 +64,11 @@ Sorry. Date and Time cannot be parsed
 Adds a new todo task type in the task list in the format
 `todo (task name)`
 
-Example of usage: 
+**Example of usage:** 
 
 `todo read book`
 
-Expected outcome:
+**Expected outcome:**
 
 Output to confirm addition of todo task where 'X' is the number of tasks currently stored in the list
 ```
@@ -81,11 +84,11 @@ Now you have X tasks in the list.
 Adds a new deadline task type in the task list in the format
 `deadline (task name) /by (datetime)`
 
-Example of usage:
+**Example of usage:**
 
 `deadline return book /by 2025-05-12 1800`
 
-Expected outcome:
+**Expected outcome:**
 
 Output to confirm addition of deadline task where 'X' is the number of tasks currently stored in the list
 ```
@@ -101,11 +104,11 @@ Now you have X tasks in the list.
 Adds a new todo task type in the task list in the format
 `event (task name) /at (datetime)`
 
-Example of usage:
+**Example of usage:**
 
 `event book review /at 2025-04-01 1000`
 
-Expected outcome:
+**Expected outcome:**
 
 Output to confirm addition of event task where 'X' is the number of tasks currently stored in the list
 ```
@@ -120,11 +123,11 @@ Now you have X tasks in the list.
 
 Lists all the current tasks in the task list.
 
-Example of usage:
+**Example of usage:**
 
 `list`
 
-Expected outcome:
+**Expected outcome:**
 
 If there are no tasks currently in the task list
 ```
@@ -139,11 +142,11 @@ Here are the tasks in your list:
 Mark a current task as done in the task list in the format `mark X`
 where X is the index of the task to be marked.
 
-Example of usage:
+**Example of usage:**
 
 `mark 1`
 
-Expected outcome:
+**Expected outcome:**
 
 If the task indicated exist, for example the previous `read book` task
 ```
@@ -158,11 +161,11 @@ Nice! I've marked this task as done:
 Mark a current task as not done in the task list in the format `unmark X`
 where X is the index of the task to be unmarked.
 
-Example of usage:
+**Example of usage:**
 
 `unmark 1`
 
-Expected outcome:
+**Expected outcome:**
 
 If the task indicated exist, for example the previous `read book` task
 ```
@@ -177,11 +180,11 @@ OK, I've marked this task as not done yet:
 Delete a current task in the task list in the format `delete X`
 where X is the index of the task to be deleted.
 
-Example of usage:
+**Example of usage:**
 
 `delete 1`
 
-Expected outcome:
+**Expected outcome:**
 
 If the task indicated exist, for example the previous `read book` task,
 where X is the number of tasks left in the task list.
@@ -197,11 +200,11 @@ Now you have X tasks in the list.
 
 Find all tasks in the task list that has a user-specified keyword in the format `find (keyword)`
 
-Example of usage:
+**Example of usage:**
 
 `find book`
 
-Expected outcome:
+**Expected outcome:**
 
 If the keyword indicated exist, for example the keyword 'book' is part of the previous `read book` task.
 ```
@@ -216,11 +219,11 @@ Here are the tasks matching "book" in your list:
 
 Exits the programme and save all tasks to the hard-drive
 
-Example of usage:
+**Example of usage:**
 
 `bye`
 
-Expected outcome:
+**Expected outcome:**
 
 ```
 ------------------------------------------------------------

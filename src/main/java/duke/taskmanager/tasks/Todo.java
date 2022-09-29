@@ -3,7 +3,6 @@ package duke.taskmanager.tasks;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -14,7 +13,7 @@ public class Todo extends Task {
     /**
      * Parses the command base on type of task to set description
      *
-     * @param command  userInput in the form of "TASK_TYPE description ADDITIONAL_INFORMATION_FOR_DEADLINE_AND_EVENT"
+     * @param command  user input in the form of "TASK_TYPE description ADDITIONAL_INFORMATION_FOR_DEADLINE_AND_EVENT"
      * @param lastChar ' ' represents a <code>todo</code> command while
      *                 '/' represents a <code>event</code> or <code>deadline</code> command
      */
@@ -39,10 +38,15 @@ public class Todo extends Task {
         } catch (ParseException e) {
             System.out.println("Sorry. Date and Time cannot be parsed");
             date = LocalDate.now().plusWeeks(1);
-            time = String.valueOf(new SimpleDateFormat("h:mm aa").format(new Date()));
+            time = new SimpleDateFormat("h:mm aa").format(new Date());
         }
     }
 
+    /**
+     * Format the date to a specified format
+     *
+     * @return formatted date
+     */
     public String formatDate() {
         if (date != null){
             return this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
@@ -52,4 +56,8 @@ public class Todo extends Task {
 
     }
 
+    @Override
+    protected String getTypeIcon() {
+        return "[T]";
+    }
 }
