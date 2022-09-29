@@ -1,0 +1,21 @@
+unknown command
+todo borrow book
+todo
+event basketball /at noon
+event /at noon
+deadline return book /by noon
+deadline project /by
+list
+done 2
+list
+done three
+done 4
+event another Event /at 1234
+list
+done 4
+list
+delete return book
+delete 5
+delete 1
+list
+bye
