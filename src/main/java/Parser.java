@@ -1,5 +1,12 @@
+
+/**
+ * parser class.
+ */
 public class Parser {
 
+    /**
+     * relevant commands are being called based on the user's command.
+     */
     static Command parse(String fullCommand) {
         if (fullCommand.equals("bye")) {
             return new bye(fullCommand);
@@ -7,10 +14,8 @@ public class Parser {
             return new list(fullCommand);
         } else if(fullCommand.contains("mark")) {
             if (fullCommand.contains("unmark")) {
-                //Unmark
                 return new unmark(fullCommand);
             } else {
-                //Mark
                 return new mark(fullCommand);
             }
         } else if (fullCommand.contains("todo")) {
