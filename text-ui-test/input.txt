@@ -1,0 +1,9 @@
+todo Bian Rui: answer CS2113 tutorial quesitons
+event CS2113 lecture /at: Fri 4-6pm
+mark 1
+mark 2
+deadline CS2113 lab /by: Wednesday
+list
+unmark 2
+mark 3
+list
