@@ -123,7 +123,11 @@ public class TaskList {
             storage.insertIntoFile(tasks);
             System.out.println(tasks.get(taskToMark).toString());
         } catch (IOException ioException) {
-            ui.printMarkingTaskErrorMessage();
+            ui.printMarkingTaskInputErrorMessage();
+        } catch (NumberFormatException exception) {
+            ui.printMarkingTaskNumberErrorMessage();
+        } catch (ArrayIndexOutOfBoundsException indexOutOfBoundsException) {
+            ui.printInvalidTaskMessage();
         }
     }
 
@@ -138,7 +142,11 @@ public class TaskList {
             storage.insertIntoFile(tasks);
             System.out.println(tasks.get(taskToUnmark).toString());
         } catch (IOException ioException) {
-            ui.printUnmarkTaskErrorMessage();
+            ui.printUnmarkTaskInputErrorMessage();
+        } catch (NumberFormatException exception) {
+            ui.printUnmarkTaskNumberErrorMessage();
+        } catch (ArrayIndexOutOfBoundsException indexOutOfBoundsException) {
+            ui.printInvalidTaskMessage();
         }
     }
 

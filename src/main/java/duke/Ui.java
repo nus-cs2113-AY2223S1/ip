@@ -108,7 +108,7 @@ public class Ui {
      * Prints a message to inform the user that an error has occurred
      * while trying to mark the task.
      */
-    public void printMarkingTaskErrorMessage() {
+    public void printMarkingTaskInputErrorMessage() {
         System.out.println("Error: Could not mark task.");
     }
 
@@ -123,7 +123,7 @@ public class Ui {
      * Prints a message to inform the user that an error has occurred
      * while trying to unmark the task.
      */
-    public void printUnmarkTaskErrorMessage() {
+    public void printUnmarkTaskInputErrorMessage() {
         System.out.println("Error: Could not unmark task.");
     }
 
@@ -151,7 +151,8 @@ public class Ui {
      * Prints a message to inform the user that the task number given is invalid.
      */
     public void printInvalidTaskMessage() {
-        System.out.println("This task number is invalid, try again.");
+        System.out.println("An invalid task number is keyed in, or the task number is left empty." +
+                "Please try again.");
     }
 
     /**
@@ -172,5 +173,19 @@ public class Ui {
         for (int i = 0; i < filteredTasks.size(); i++) {
             System.out.println(i + 1 + "." + filteredTasks.get(i).toString());
         }
+    }
+
+    /**
+     * Prints a message to inform the user that the task to mark has to be an integer.
+     */
+    public void printMarkingTaskNumberErrorMessage() {
+        System.out.println("Error: the task to be marked has to be a valid number");
+    }
+
+    /**
+     * Prints a message to inform the user that the task to unmark has to be an integer.
+     */
+    public void printUnmarkTaskNumberErrorMessage() {
+        System.out.println("Error: the task to be unmarked has to be a valid number");
     }
 }
