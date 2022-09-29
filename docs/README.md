@@ -19,6 +19,7 @@ King Bob is a software which optimizes the use of the Command Line Interface (CL
 - [Command Summary](#command-summary)
 
 -----
+<br>
 
 ## Quick Start
 
@@ -280,7 +281,7 @@ update the data directly by editing this text file.
 <br>
 
 -----
-### FAQ
+## FAQ
 
 **Q**: How do I transfer data to another Computer?
 
@@ -295,7 +296,7 @@ update the data directly by editing this text file.
 -----
 <br>
 
-### Command Summary
+## Command Summary
 
 | Command        | Format                                     | Example                               |
 |----------------|--------------------------------------------|---------------------------------------|
