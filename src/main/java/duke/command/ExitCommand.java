@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.util.Storage;
-import duke.util.TaskManager;
+import duke.util.TaskList;
 import duke.util.Ui;
 
 public class ExitCommand extends Command {
@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
 
     }
 

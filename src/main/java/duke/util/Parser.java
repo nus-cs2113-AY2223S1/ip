@@ -1,6 +1,7 @@
 package duke.util;
 
 import duke.exception.DukeException;
+import duke.exception.InvalidArgumentException;
 import duke.exception.UnknownCommandException;
 import duke.exception.EmptyArgumentException;
 
@@ -8,19 +9,18 @@ import duke.util.asset.Deadline;
 import duke.util.asset.Event;
 
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
 import duke.command.Command;
 
-public class InputParser implements Utilities{
+public class Parser implements Utilities{
 
     private static String userCommand;
     private static String inputBuffer;
     private static ArrayList<String> parameters;
 
-    public InputParser() {
+    public Parser() {
         inputBuffer = "";
         userCommand = "";
         parameters = new ArrayList<>();
@@ -38,9 +38,13 @@ public class InputParser implements Utilities{
         parameters.clear();
     }
 
-    private static ArrayList<String> parseParameter(String inputString, String optionFlag){
+    private static ArrayList<String> parseParameter(String inputString, String optionFlag) throws InvalidArgumentException {
         int optionLen = optionFlag.length() + 1;
         int optionIndex = inputString.indexOf(optionFlag);
+
+        if (optionIndex == -1 ){
+            throw new InvalidArgumentException("Error: wrong option flag, try again");
+        }
 
         String descriptionMain = inputString.substring(0, optionIndex);
         String descriptionOption = inputString.substring(optionIndex + optionLen);
@@ -79,23 +83,25 @@ public class InputParser implements Utilities{
         return userCommand;
     }
 
-    public static void getTaskParameters() {
-
-        switch (userCommand) {
-            case (Deadline.COMMAND):
-                parameters = parseParameter(inputBuffer, "/" + Deadline.OPTIONFLAG);
-                break;
-            case (Event.COMMAND):
-                parameters = parseParameter(inputBuffer, "/" + Event.OPTIONFLAG);
-                break;
-            default:
-                parameters = new ArrayList<>(){
-                    {
-                        add(inputBuffer);
-                    }
-                };
+    public static void getTaskParameters() throws DukeException {
+        try {
+            switch (userCommand) {
+                case (Deadline.COMMAND):
+                    parameters = parseParameter(inputBuffer, "/" + Deadline.OPTIONFLAG);
+                    break;
+                case (Event.COMMAND):
+                    parameters = parseParameter(inputBuffer, "/" + Event.OPTIONFLAG);
+                    break;
+                default:
+                    parameters = new ArrayList<>() {
+                        {
+                            add(inputBuffer);
+                        }
+                    };
+            }
+        } catch (DukeException e) {
+            throw e;
         }
-
     }
 
     public static Command parse(String command) throws DukeException {
@@ -105,7 +111,7 @@ public class InputParser implements Utilities{
             parseUserInput(command);
             getTaskParameters();
         } catch (DukeException e) {
-            throw new DukeException(e.getErrorMessage());
+            throw e;
         }
 
         return CommandProcessor.createCommand(userCommand, parameters);

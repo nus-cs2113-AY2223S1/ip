@@ -1,12 +1,9 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.exception.UnknownCommandException;
 
 import duke.util.*;
-import duke.util.asset.*;
 import duke.command.Command;
-
 
 import java.util.List;
 
@@ -14,13 +11,13 @@ public class Duke {
 
     private Ui ui;
     private Storage storage;
-    private TaskManager taskList;
+    private TaskList taskList;
 
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = new TaskManager();
-        InputParser.init();
+        taskList = new TaskList();
+        Parser.init();
 
         loadPastSession();
     }
@@ -34,10 +31,10 @@ public class Duke {
         boolean isExit = false;
 
         while (!isExit) {
-            String command = ui.readCommand();
-
             try {
-                Command c = InputParser.parse(command);
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
@@ -51,12 +48,12 @@ public class Duke {
     }
 
     private void loadPastSession(){
-        storage.loadData();
+        storage.loadDataFromFile();
         List<String> pastData = storage.getData();
 
-        for(String userInput: pastData) {
+        for(String pastCommand: pastData) {
             try {
-                Command c = InputParser.parse(userInput);
+                Command c = Parser.parse(pastCommand);
                 c.execute(taskList, ui, storage);
             } catch (DukeException e) {
                 ui.displayMessage( e.getErrorMessage() );
@@ -70,7 +67,7 @@ public class Duke {
         ui.endMessage();
 
         try {
-            storage.writeData(TaskManager.serialize());
+            storage.writeData(TaskList.serialize());
         } catch (DukeException e) {
             ui.displayMessage(e.getErrorMessage());
         }
@@ -81,7 +78,7 @@ public class Duke {
     private void closeUtil() {
         ui.close();
         taskList.close();
-        InputParser.close();
+        Parser.close();
     }
 
 }

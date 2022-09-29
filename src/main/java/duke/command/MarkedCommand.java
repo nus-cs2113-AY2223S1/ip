@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.util.Storage;
-import duke.util.TaskManager;
+import duke.util.TaskList;
 import duke.util.Ui;
 
 public class MarkedCommand extends Command {
@@ -13,7 +13,7 @@ public class MarkedCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
 
         try {
             tasks.setTask(-1, true);

@@ -15,7 +15,7 @@ public class Storage {
 
     private static String filePath;
     private ArrayList<String> commandHistory;
-    public boolean isLoaded;
+    private boolean isLoaded;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -29,7 +29,7 @@ public class Storage {
         isLoaded = false;
     }
 
-    public void loadData() {
+    public void loadDataFromFile() {
 
         try {
             Scanner sc = new Scanner(new FileInputStream(filePath));
