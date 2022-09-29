@@ -6,12 +6,20 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class which contains the main method and runs Albot.
+ */
 public class Duke {
     private static final UI ui = new UI();
 
     public static ArrayList<Task> tasks = new ArrayList<>();
     public static int numberOfTasks = 0;
 
+    /**
+     * Reads the text file for saved tasks and starts up Albot.
+     *
+     * @param filePath Name of the file used to save tasks.
+     */
     public static void run(String filePath) {
         Storage storage = new Storage(filePath, tasks, numberOfTasks);
 
