@@ -7,9 +7,9 @@ _Bob_ will be your best buddy to give you your much needed sanity check when nee
   - [Add Todo task : `todo`](#add-todo-task-todo)
   - [Add Deadline task: `deadline`](#add-deadline-task-deadline)
   - [Add Event task: `event`](#add-event-task-event)
-  - [List tasks: `list`](#list-tasks-list)
   - [Mark task: `mark`](#mark-task-mark)
   - [Unmark task: `unmark`](#unmark-task-unmark)
+  - [List tasks: `list`](#list-tasks-list)
   - [Delete task: `delete`](#delete-task-delete)
   - [Find task: `find`](#find-task-find)
   - [Exit application: `bye`](#exit-application-bye)
@@ -66,33 +66,13 @@ Adds an Event task to the list. Event tasks takes in date that the task will occ
 
 > Format: `event TASK_DESCRIPTION /at DATE`
 
-Example: `event RC4 Open House /at 11/11/2021`
+Example: `event RC4 Open House /at 11 Nov 2021`
 ````
 event RC4 Open House /at 11/11/2021
 _________________________________________________________________________________
 Bob has added this task to your list:
-[E][ ] RC4 Open House (at: Nov 11 2021)
+[E][ ] RC4 Open House (at: 11 Nov 2021)
 Now you have 3 tasks in the list. You can do it!!
-_________________________________________________________________________________
-````
-
-### List all tasks: `list`
-Lists all the tasks in Bob's list. 
-
-`[T]` indicates the type of the task and `[X]` indicates that the task has been marked.
-1. [T] - todo task
-2. [D] - deadline task
-3. [E] - event task
->Format: `list`
-
-Example: `list`
-````
-list
-_________________________________________________________________________________
-Here are the list of tasks that you have:
-1.[T][ ] revise CS2113
-2.[D][ ] CS2113 IP (by: 30/09/2022)
-3.[E][ ] RC4 Open House (at: Nov 11 2021 1.00PM)
 _________________________________________________________________________________
 ````
 
@@ -122,6 +102,26 @@ ________________________________________________________________________________
 Oh no... Bob has mark this task as UNdone:
 [D][X] CS2113 IP (by: 30/09/2022)
 __________________________________________________________________________________
+````
+
+### List all tasks: `list`
+Lists all the tasks in Bob's list. 
+
+`[T]` indicates the type of the task and `[X]` indicates that the task has been marked.
+1. [T] - todo task
+2. [D] - deadline task
+3. [E] - event task
+>Format: `list`
+
+Example: `list`
+````
+list
+_________________________________________________________________________________
+Here are the list of tasks that you have:
+1.[T][ ] revise CS2113
+2.[D][ ] CS2113 IP (by: 30/09/2022)
+3.[E][ ] RC4 Open House (at: 11 Nov 2021)
+_________________________________________________________________________________
 ````
 
 ### Delete task: `delete`
