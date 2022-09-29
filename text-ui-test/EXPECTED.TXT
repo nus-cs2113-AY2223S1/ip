@@ -55,8 +55,13 @@ ___________.__                ___.
 	____________________________________________________________
 	____________________________________________________________
 	 Roger that. I've added this task:
-	   [E][ ] project meeting (at: Mon 2-4pm)
+	   [D][ ] swimming (by: Dec 1 2019)
 	 Now you have 7 in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Roger that. I've added this task:
+	   [E][ ] project meeting (at: Mon 2-4pm)
+	 Now you have 8 in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Awesome! I've marked this task as done:
@@ -81,6 +86,10 @@ ___________.__                ___.
 	____________________________________________________________
 	 Awesome! I've marked this task as done:
 	   [D][X] return book (by: Sunday)
+	____________________________________________________________
+	____________________________________________________________
+	 Awesome! I've marked this task as done:
+	   [D][X] swimming (by: Dec 1 2019)
 	____________________________________________________________
 	____________________________________________________________
 	 Awesome! I've marked this task as done:
@@ -115,6 +124,10 @@ ___________.__                ___.
 	____________________________________________________________
 	____________________________________________________________
 	 Awesome! I've marked this task as not done yet:
+	   [D][ ] swimming (by: Dec 1 2019)
+	____________________________________________________________
+	____________________________________________________________
+	 Awesome! I've marked this task as not done yet:
 	   [E][ ] project meeting (at: Mon 2-4pm)
 	____________________________________________________________
 	____________________________________________________________
@@ -128,7 +141,8 @@ ___________.__                ___.
 	 4.[T][ ] join sports club
 	 5.[T][ ] borrow book
 	 6.[D][ ] return book (by: Sunday)
-	 7.[E][ ] project meeting (at: Mon 2-4pm)
+	 7.[D][ ] swimming (by: Dec 1 2019)
+	 8.[E][ ] project meeting (at: Mon 2-4pm)
 	____________________________________________________________
 	____________________________________________________________
 	 ☹ HMM?? I'm sorry, but I don't know what that means :-(
@@ -145,12 +159,12 @@ ___________.__                ___.
 	____________________________________________________________
 	 Noted. I've removed this task:
 	   [E][ ] project meeting (at: Aug 6th 2-4pm)
-	 Now you have 6 tasks in the list.
+	 Now you have 7 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Noted. I've removed this task:
 	   [T][ ] read book
-	 Now you have 5 tasks in the list.
+	 Now you have 6 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
@@ -158,7 +172,8 @@ ___________.__                ___.
 	 2.[T][ ] join sports club
 	 3.[T][ ] borrow book
 	 4.[D][ ] return book (by: Sunday)
-	 5.[E][ ] project meeting (at: Mon 2-4pm)
+	 5.[D][ ] swimming (by: Dec 1 2019)
+	 6.[E][ ] project meeting (at: Mon 2-4pm)
 	____________________________________________________________
 	____________________________________________________________
 	 ☹ OH MAN!!! You did not tell me what to delete.
