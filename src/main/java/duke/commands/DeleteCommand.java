@@ -3,6 +3,10 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Represent a command with command word specified.
+ * Used when command word is 'bye' to exit the program.
+ */
 public class DeleteCommand extends Command {
 
     protected int index;

@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represent a printer that print out standardised messages and scan in inputs when requested.
+ */
 public class Ui {
     private String lineBreak = "  ____________________________________________________________";
 
