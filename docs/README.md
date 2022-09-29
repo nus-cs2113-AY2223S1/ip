@@ -10,21 +10,17 @@ Table of Contents
     4. [Add a ToDo: `todo`](#add-a-todo-todo)
     5. [Add an Event: `event`](#add-an-event-event)
     6. [Add a Deadline: `deadline`](#add-a-deadline-deadline)
-    7. [Mark a task as done: `done`](#mark-a-task-as-done-mark)
+    7. [Mark a task as done: `done`](#mark-a-task-as-done-done)
     8. [Delete a task: `delete`](#delete-a-task-delete)
-3. [Saving the Data](#saving-the-data)
-4. [Editing the data file](#editing-the-data-file)
-5. [FAQ](#faq)
-6. [Command summary](#command-summary)
+3. [Command summary](#command-summary)
+4. [Credits](#credits)
 
 ## Quick start
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest duke.jar from here.
-3. Copy the file to the folder you want to use as the *home folder* for your todo list.
+2. Download the latest duke.jar release.
+3. Copy the file to the folder you want to use as your *home folder* for Duke.
 4. Open the command line in that folder and run the command `java -jar duke.jar`.
-5. When you first run the application, a greeting will be displayed.
-
-
+5. When you first run the application, a Duke will greet you.
 ```
 ______________________________________
 
@@ -41,19 +37,26 @@ How can I help you?
 ______________________________________
 Please enter your taskList command: (send 'bye' to exit)
 ```
-6. Type a command and press Enter to execute it.
-7. Refer to the Features below for details of each command.
+1. Type a command and press Enter to execute it.
+2. Refer to the Features below for details of each command.
 
 ## Features
 
 > Notes about the command format:
 > - Words in UPPER_CASE are the parameters to be supplied by the user.
     e.g. in `event NAME /at TIME`, `NAME` and `TIME` are parameters which can be used as `event basketball /at noon`.
-> - Extraneous parameters for commands that do not take in parameters will be ignored.
 
 ### Listing all tasks: `list`
 
-Lists out the tasks in the task list. The letter in the first pair of [] refers to what type of task it is - T for a todo task, D for a deadline task and E for an event task. The letter in the second pair of [] refers to whether the task is done or not - \<space\> for a task that is not done and X for a task that is done. See [mark](#mark-a-task-as-done-mark).
+Lists out all the tasks in the task list. 
+Tasks types are displayed within the first square bracket, where the letter inside
+indicated what type of task it is - 
+- T for a todo task
+- D for a deadline task 
+- E for an event task
+
+The letter X in the second square bracket represents tasks that are marked as done
+and no letter indicates that the task is yet to be done.
 
 Format: `list`
 
@@ -63,7 +66,6 @@ ______________________________________
 1. [E][ ] basketball (at: noon)
 
 ______________________________________
-
 ```
 
 ### Exiting: `bye`
@@ -100,7 +102,6 @@ ______________________________________
 Here are the tasks in your list that contains 'basketball'
 1. [E][ ] basketball (at: noon)
 ______________________________________
-
 ```
 
 ### Add a ToDo: `todo`
@@ -117,13 +118,12 @@ Got it. I've added this task:
   [T][ ] read a book
 Now you have 2 tasks in the list
 ______________________________________
-
 ```
 
 
 ### Add an Event: `event`
 
-Use this command to keep track of events you need to attend. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
+Use this command to keep track of events you need to attend.
 
 Format: `event NAME /at TIME`
 
@@ -139,7 +139,7 @@ ______________________________________
 
 ### Add a Deadline: `deadline`
 
-Use this command to keep track of deadlines you need to meet. If a date or date and time is specified in a clear format, then Duke will be able to understand it and display it in a more helpful form. See more at [understanding dates and times](#understanding-dates-and-times).
+Use this command to keep track of deadlines you need to meet.
 
 Format: `deadline NAME /by TIME`
 
@@ -154,7 +154,7 @@ ______________________________________
 ```
 ### Mark a task as done: `done`
 
-Marks a task in your list as completed.
+Marks a task in your list as done.
 
 Format: `done INDEX`
 
@@ -216,19 +216,7 @@ ______________________________________
 ```
 ## Saving the Data
 
-Duke data is saved to the hard disk automatically after any command that modifies the data. There is no need to save manually.
-
-## Editing the data file
-
-Duke data is saved as a plaintext file at `[JAR file location]/data/duke.txt`. Advanced users are welcome tp update data directly by editing that data file.
-
-> Caution: If your changes to the data file makes it format invalid, there may be data loss.
-
-## FAQ
-
-Q: How do I transfer my data to another computer?
-
-A: Duke is designed for portability. Copy the JAR file and the data folder over to your other computer and you are good to go.
+Duke data is saved to the hard disk automatically after any command that modifies the data.
 
 ## Command summary
 
@@ -242,3 +230,6 @@ A: Duke is designed for portability. Copy the JAR file and the data folder over 
 | Add a deadline        | `deadline NAME /by TIME` | `deadline return book /by noon` |
 | Mark a task as done   | `done INDEX`             | `done 3`                        |
 | Delete a task         | `delete INDEX`           | `delete 2`                      |
+
+## Credits
+UserGuide formatting adapted from @owenl131
