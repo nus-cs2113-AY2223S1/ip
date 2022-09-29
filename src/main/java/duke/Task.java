@@ -18,7 +18,7 @@ public class Task {
      * Changes the status of the task to be done, so that users can tell that
      * they have finished the task when viewing the list of tasks.
      */
-    public void markAsDone() {
+    public void markTaskAsDone() {
         this.isDone = true;
     }
 
@@ -26,7 +26,7 @@ public class Task {
      * Changes the status of the task to be not done, so that users can tell that
      * they have not finished the task when viewing the list of tasks.
      */
-    public void unmark() {
+    public void unmarkTask() {
         this.isDone = false;
     }
 

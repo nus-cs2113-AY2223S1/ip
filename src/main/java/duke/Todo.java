@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Subclass of the Task class containing methods to classify a task as a Todo task.
+ * Subclass of the Task class containing methods that specifically handle the Todo task.
  */
 public class Todo extends Task {
 

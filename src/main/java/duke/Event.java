@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Subclass of the Task class containing methods to classify a task as an Event task.
+ * Subclass of the Task class containing methods that specifically handle the Event task.
  */
 public class Event extends Task {
     protected String at;

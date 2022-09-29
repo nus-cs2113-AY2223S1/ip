@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Subclass of the Task class containing methods to classify a task as a Deadline task.
+ * Subclass of the Task class containing methods that specifically handle the Deadline task.
  */
 public class Deadline extends Task {
 
