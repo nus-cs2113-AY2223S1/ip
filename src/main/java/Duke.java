@@ -2,7 +2,6 @@ import Exception.DataCorruptedException;
 import Exception.EmptyArgumentException;
 import Exception.WrongArgumentException;
 import Exception.InvalidCommandException;
-import Tasks.TaskType;
 import Tasks.TaskList;
 import Ui.Ui;
 import Storage.Storage;
@@ -11,7 +10,6 @@ import Parser.Command;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the main class for the task chat bot Duke

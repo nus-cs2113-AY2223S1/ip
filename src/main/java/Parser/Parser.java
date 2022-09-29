@@ -75,6 +75,8 @@ public class Parser {
         case "exit":
             hasArgument = false;
             return Command.EXIT;
+        case "find":
+            return Command.FIND;
         default:
             hasArgument = false;
             throw new InvalidCommandException();

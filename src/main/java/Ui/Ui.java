@@ -131,9 +131,23 @@ public class Ui {
             case DELETE:
                 printDeleteActionResult(item, size);
                 break;
+            case FIND:
+                printFindActionResult(item);
+                break;
             default:
                 break;
         }
+    }
+
+    public void printFindActionResult(String item) {
+        String output = "";
+        if (item.isEmpty()) {
+            output += "Oops, I can't seem to find that task.";
+        } else {
+            output += "Here are the matching tasks in your list: \n"
+                    + item;
+        }
+        printOutput(output);
     }
 
     /**
