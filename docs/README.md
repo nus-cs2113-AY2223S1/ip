@@ -13,8 +13,30 @@ What can I do for you?
 Enter "bye" to exit.
 ------------------------------------------------------------
 ```
+
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Features](#features)
+    1. [Storage of task-list on hard-disk](#storage-of-task-list-on-hard-disk)
+    2. [Datetime format understood by Duke](#datetime-format-understood-by-duke)
+3. [Usage](#usage)
+    1. [`todo`](#todo---adds-a-new-todo-task)
+   2. [`deadline`](#deadline---adds-a-new-deadline-task)
+   3. [`event`](#event---adds-a-new-event-task)
+   4. [`list`](#list---lists-all-current-tasks)
+   5. [`mark`](#mark---mark-a-current-task-as-done)
+   6. [`unmark`](#unmark---mark-a-current-task-as-not-done)
+   7. [`delete`](#find---find-tasks)
+   8. [`find`](#find---find-tasks)
+   9. [`bye`](#bye---exits-the-programme)
+4. [Common Error Messages](#common-error-messages)
+
 ## Getting Started
 Download the `jar` file.
+Copy the `jar` file into an empty folder
+Open a command window in that folder
+Run the command `java -jar {filename}.jar` e.g., `java -jar Duke.jar`
 
 ## Features 
 
@@ -157,7 +179,7 @@ where X is the index of the task to be deleted.
 
 Example of usage:
 
-`deleted 1`
+`delete 1`
 
 Expected outcome:
 
@@ -196,17 +218,13 @@ Exits the programme and save all tasks to the hard-drive
 
 Example of usage:
 
-`deleted 1`
+`bye`
 
 Expected outcome:
 
-If the task indicated exist, for example the previous `read book` task,
-where X is the number of tasks left in the task list.
 ```
 ------------------------------------------------------------
-Noted. I've removed this task:
-[T][ ] read book
-Now you have X tasks in the list.
+Bye. Hope to see you again soon!
 ------------------------------------------------------------
 ```
 
