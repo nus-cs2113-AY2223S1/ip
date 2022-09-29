@@ -27,7 +27,7 @@ public class TaskManager {
         tasks = new TaskList();
         try {
             storage = new Storage();
-            tasks = new TaskList(storage.storedTasks);
+            tasks = new TaskList(storage);
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundException();
             storage = new Storage("no saved tasks");

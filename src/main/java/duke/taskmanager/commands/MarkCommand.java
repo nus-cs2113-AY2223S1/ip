@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
         try {
             int startIdx = userInput.substring(0, userInput.indexOf(' ') + 1).length();
             int pos = Integer.parseInt(userInput.substring(startIdx));
-            if (pos > tasks.size() || pos < 1) {
+            if (pos > tasks.size()-1 || pos < 1) {
                 throw new TaskOutOfBoundsException();
             }
             ui.printMark(tasks.get(pos), done);

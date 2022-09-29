@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
         try {
             int startIdx = "delete ".length();
             int pos = Integer.parseInt(this.userInput.substring(startIdx));
-            if (pos > tasks.size() || pos < 1) {
+            if (pos > tasks.size()-1 || pos < 1) {
                 throw new TaskOutOfBoundsException();
             }
             ui.printTaskAfterDelete(tasks.get(pos));
