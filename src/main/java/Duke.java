@@ -10,7 +10,6 @@ public class Duke {
     private ArrayList<String> tasks;
     private ArrayList<String> marks;
     private ArrayList<String> types;
-
     private Ui ui;
     private Integer count;
 
