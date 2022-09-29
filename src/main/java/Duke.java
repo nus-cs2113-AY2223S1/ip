@@ -1,8 +1,11 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Duke {
 
-    private static final String DEFAULT_FILE_PATH = "/Users/bromine/ip/Saves/Tasks";
+    private static final String DEFAULT_FILE_PATH = System.getProperty("user.dir") + "/Saves/Tasks";
     private final UI ui;
-    private final TaskList tasks;
+    private TaskList tasks = new TaskList(new ArrayList<>());
     private final Storage storage;
 
     /**
@@ -13,7 +16,11 @@ public class Duke {
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadSave());
+        try {
+            tasks = new TaskList(storage.loadSave());
+        } catch (IOException e) {
+            System.out.format("Create new saved file failed!%n");
+        }
     }
 
     /**
