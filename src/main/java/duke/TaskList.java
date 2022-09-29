@@ -7,10 +7,20 @@ import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Represent the array list containing all the tasks inputted by the user and from historical inputs.
+ * Tasks can be either a Todo, Deadline, or Event object.
+ * Contains the possible actions to be done to the task list such as addition, deletion or edition of its status.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
+    /**
+     * To add the historical data into the task list when the program starts running.
+     *
+     * @param storage the file where data will be loaded from
+     */
     public void loadData(Storage storage) {
         storage.load(tasks);
         taskCount = tasks.size();
@@ -82,6 +92,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searching for tasks with description containing the wanted string by iterating through all tasks in task list.
+     * Printing out the task if the description contains the wanted string.
+     *
+     * @param content the wanted string in task description inputted by the user
+     */
     public void find(String content) {
         System.out.println("\tBelow are the tasks with the content specified:");
         for (Task t : tasks) {
@@ -92,6 +108,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returning a string in format of [TYPE][STATUS]DESCRIPTION+ADDED_INFO
+     *
+     * @param index the index of task in task list
+     * @return the task in standardised format
+     */
     private String standardFormatForEachTask(int index) {
         return tasks.get(index).getTaskType() + tasks.get(index).getStatus()
                 + tasks.get(index).getDescription() + tasks.get(index).getAddedInfo();

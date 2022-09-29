@@ -4,6 +4,11 @@ import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Event;
 
+/**
+ * Represent a command with command word, description and time of occurrence specified.
+ * There is also a Event initiated which is used in the execute method to be added to task list.
+ * Used when command word is 'event'.
+ */
 public class AddEventCommand extends AddCommand {
 
     protected String at;

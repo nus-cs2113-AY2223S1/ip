@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Represent a task with description, status, and time of occurrence specified.
+ */
 public class Event extends Task {
 
     protected String at;
