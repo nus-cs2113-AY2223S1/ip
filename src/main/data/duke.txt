@@ -3,3 +3,5 @@ E | 0 | project meeting | Aug 6th 2-4pm
 T | 0 | join sports club
 E | 1 | 234  |  34
 E | 0 | 2346 |  34
+T | 0 | some
+T | 0 | take the written exam

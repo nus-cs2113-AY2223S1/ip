@@ -2,28 +2,28 @@
 
 ## Features 
 
-### Feature-ABC
+### Feature-Todo Task
 
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
+User can define a todo task with a description and modifies its completion status
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Describe action
 
-Describe the action and its outcome.
+create a todo task
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo take the written exam`
 
 Expected outcome:
 
-Description of the outcome.
+It should shows the task type, the completion status and the description
 
 ```
-expected output
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] take the written exam
+     Now you have 7 tasks in the list.
+    ____________________________________________________________
 ```
