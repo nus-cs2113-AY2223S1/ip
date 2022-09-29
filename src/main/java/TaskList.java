@@ -4,35 +4,45 @@ public class TaskList{
     public static final int MAX = 100;
     protected ArrayList<Task> tasks;
     protected int taskCounter = 0;
+    public static String fileLocation = "data/tasks.txt";
 
-    public TaskList(int max){
-        tasks = new ArrayList<>(max);
+    public static void checkMarked (Task task, String isDone) {
+        if (isDone == "true") {
+            task.isDone = true;
+        }
     }
-    public void addTodo(String commandAction, String fullCommand) {
+
+    public TaskList(){
+        tasks = new ArrayList<>(MAX);
+    }
+    public void addTodo(String commandAction, String fullCommand) throws Exception {
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, description));
         System.out.println("Got it. I've added this task:");
         tasks.get(taskCounter).printTask();
         System.out.println("Now there are "+(taskCounter+1)+" tasks in the list.");
         taskCounter++;
+        Storage.writeToFile(fileLocation, tasks);
     }
 
-    public void addDeadline(String commandAction, String fullCommand) {
+    public void addDeadline(String commandAction, String fullCommand) throws Exception{
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, Parser.parseDeadline(description)));
         System.out.println("Got it. I've added this task:");
         tasks.get(taskCounter).printTask();
         System.out.println("Now there are "+(taskCounter+1)+" tasks in the list.");
         taskCounter++;
+        Storage.writeToFile(fileLocation, tasks);
     }
 
-    public void addEvent(String commandAction, String fullCommand) {
+    public void addEvent(String commandAction, String fullCommand) throws Exception{
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, Parser.parseEvent(description)));
         System.out.println("Got it. I've added this task:");
         tasks.get(taskCounter).printTask();
         System.out.println("Now there are "+(taskCounter+1)+" tasks in the list.");
         taskCounter++;
+        Storage.writeToFile(fileLocation, tasks);
     }
 
     public void printList() {
@@ -47,38 +57,46 @@ public class TaskList{
         }
     }
 
-    public void markDone(String fullCommand) {
+    public void markDone(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
             tasks.get(Integer.parseInt(itemNumber) - 1).markAsDone(true);
             System.out.println("Nice! I've marked this task as done:");
             tasks.get(Integer.parseInt(itemNumber) - 1).printTask();
+            Storage.writeToFile(fileLocation, tasks);
         } else {
             System.out.println("There is no task " + itemNumber + " in your list");
         }
     }
 
-    public void markUndone(String fullCommand) {
+    public void markUndone(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
             tasks.get(Integer.parseInt(itemNumber) - 1).markAsDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
             tasks.get(Integer.parseInt(itemNumber) - 1).printTask();
+            Storage.writeToFile(fileLocation, tasks);
         } else {
             System.out.println("There is no task " + itemNumber + " in your list");
         }
     }
 
-    public void deleteTask(String fullCommand) {
+    public void deleteTask(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
             System.out.println("Noted. I've removed this task:");
             tasks.get(Integer.parseInt(itemNumber) - 1).printTask();
             tasks.remove(Integer.parseInt(itemNumber) - 1);
             taskCounter--;
+            Storage.writeToFile(fileLocation, tasks);
         } else {
             System.out.println("There is no task " + itemNumber + " in your list");
         }
 
+    }
+
+    public void add(Task item) {
+        this.tasks.add(item);
+        taskCounter++;
     }
 }

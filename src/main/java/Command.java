@@ -6,7 +6,7 @@ public class Command {
         this.commandAction = commandAction;
     }
 
-    public boolean executeCommand(TaskList tasks, String fullCommand) {
+    public boolean executeCommand(TaskList tasks, String fullCommand) throws Exception {
         switch (commandAction.toLowerCase()) {
             case "bye":
                 return true;
