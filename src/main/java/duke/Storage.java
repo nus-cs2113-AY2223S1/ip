@@ -16,8 +16,12 @@ public class Storage extends Duke {
     public static final String deadline = "D";
     public static final String divider = " | ";
     public static final String dividerSplit = " \\| ";
-    private static final File file = new File(filename);
 
+    private static File file;
+    public Storage() throws DukeException {
+        file = new File(filename);
+        openOrCreateFile();
+    }
 
     public static void openOrCreateFile() throws DukeException {
         try {
@@ -42,8 +46,7 @@ public class Storage extends Duke {
     private static void markIfDone(String isDone) throws DukeException {
         if (isDone.equals(one)) {
             dukeList.markItemDone(dukeList.getListSize());
-        }
-        if (!isDone.equals(one) && !isDone.equals(zero)) {
+        } else if (!isDone.equals(zero)) {
             throw new DukeException();
         }
 

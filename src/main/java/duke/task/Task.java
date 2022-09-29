@@ -15,9 +15,13 @@ public class Task {
 
     public void markDone() {
         System.out.println("Nice! I've marked this task as done:");
-        isDone = true;
+        setMark();
         System.out.println(" [X] " + description);
     }
+
+     public void setMark(){
+         isDone = true;
+     }
 
     public void unmarkDone() {
         System.out.println(" OK, I've marked this task as not done yet:");

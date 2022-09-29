@@ -24,6 +24,20 @@ public class TaskList {
         return tasks.size();
     }
 
+    public void findTasks(String input){
+        Message.printHorizontalLine();
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(input)){
+                System.out.print(i + 1 + ". ");
+                System.out.println(tasks.get(i));
+            }
+        }
+    }
+
+
+
+
     public void addTask(String input) {
         try{
             translateTask(input);
@@ -44,9 +58,14 @@ public class TaskList {
     }
 
 
-    public void markItemDone(int i) {
+    public void markItemDonePrintDone(int i) {
         tasks.get(i - 1).markDone();
     }
+    public void markItemDone(int i) {
+        tasks.get(i - 1).setMark();
+    }
+
+
 
     public void unmarkItemDone(int i) {
         tasks.get(i - 1).unmarkDone();

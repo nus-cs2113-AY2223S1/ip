@@ -40,7 +40,14 @@ public class Parser extends Duke {
                 dukeList.unmarkItemDone(checkInteger(wordsInput));
                 break;
             case markDone:
-                dukeList.markItemDone(checkInteger(wordsInput));
+                dukeList.markItemDonePrintDone(checkInteger(wordsInput));
+                break;
+            case find:
+                String[] divideByFirstSpace = input.split(space, 2);
+                if (divideByFirstSpace.length < 2 || divideByFirstSpace[1].equals(emptyString)){
+                    throw new DukeException();
+                }
+                dukeList.findTasks(divideByFirstSpace[1]);
                 break;
             case delete:
                 dukeList.deleteTask(checkInteger(wordsInput));
