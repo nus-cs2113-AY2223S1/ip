@@ -33,12 +33,10 @@ public class Parser {
                 TaskList.listTask();
                 break;
             case "mark":
-                TaskList.markTask(Integer.parseInt(arg2),
-                        true);
+                TaskList.markTask(arg2, true);
                 break;
             case "unmark":
-                TaskList.markTask(Integer.parseInt(arg2),
-                        false);
+                TaskList.markTask(arg2, false);
                 break;
             case "todo":
                 TaskList.addTodo(arg2);
@@ -50,7 +48,7 @@ public class Parser {
                 TaskList.addEvent(arg2);
                 break;
             case "delete":
-                TaskList.deleteTask(Integer.valueOf(arg2));
+                TaskList.deleteTask(arg2);
                 break;
             case "find":
                 TaskList.findTask(arg2);

@@ -59,31 +59,31 @@ public class TaskList {
     /**
      * Marks a task as done, if setMark is true,
      * or notDone, if setMark is false.
-     * @param taskId
+     * @param num_str
      * @param setMark
      */
-    public static void markTask(int taskId, boolean setMark) {
-        if (taskId <= 0 || taskId > tasks.size()) {
-            System.out.println(">>>Pls Enter the Right TaskId!");
-        }
+    public static void markTask(String num_str, boolean setMark) {
+        int num;
+        if ((num = isLegalIndex(num_str)) == 0) return;
         else {
-            tasks.get(taskId-1).setMarked(setMark);
+            tasks.get(num-1).setMarked(setMark);
             if (setMark) {
                 System.out.println(">>>Nice! I've marked this task as done:");
             }
             else {
                 System.out.println(">>>OK, I've marked this task as not done yet:");
             }
-            System.out.println(tasks.get(taskId-1));
+            System.out.println(tasks.get(num-1));
         }
     }
 
     /**
      * Deletes the specified task from task list.
-     * @param num
+     * @param num_str
      */
-    public static void deleteTask(int num) {
-        if (num <= 0 || num > tasks.size()) return;
+    public static void deleteTask(String num_str) {
+        int num;
+        if ((num = isLegalIndex(num_str)) == 0) return;
         Task tmp_task = tasks.get(num - 1);
         tasks.remove(num - 1);
         System.out.println("Noted. I've removed this task:");
@@ -179,4 +179,18 @@ public class TaskList {
         }
     }
 
+    private static int isLegalIndex(String index_str) {
+        index_str = index_str.trim();
+        try {
+            int index = Integer.parseInt(index_str);
+            if (0 < index && index <= tasks.size()) {
+                return index;
+            }
+        } catch (NumberFormatException e) {
+                System.out.println(">>>Pls Enter the Correctly Formatted TaskId!");
+                return 0;
+            }
+        System.out.println(">>>TaskId out of Range!");
+        return 0;
+    }
 }
