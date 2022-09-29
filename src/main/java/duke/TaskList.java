@@ -119,7 +119,7 @@ public class TaskList {
             String[] taskDescriptions = inputLine.split(" ");
             int taskToMark = Integer.parseInt(taskDescriptions[1]) - 1;
             ui.printTaskMarkedMessage();
-            tasks.get(taskToMark).markAsDone();
+            tasks.get(taskToMark).markTaskAsDone();
             storage.insertIntoFile(tasks);
             System.out.println(tasks.get(taskToMark).toString());
         } catch (IOException ioException) {
@@ -134,7 +134,7 @@ public class TaskList {
             String[] taskDescriptions = inputLine.split(" ");
             int taskToUnmark = Integer.parseInt(taskDescriptions[1]) - 1;
             ui.printUnmarkTaskMessage();
-            tasks.get(taskToUnmark).unmark();
+            tasks.get(taskToUnmark).unmarkTask();
             storage.insertIntoFile(tasks);
             System.out.println(tasks.get(taskToUnmark).toString());
         } catch (IOException ioException) {
