@@ -27,11 +27,11 @@ public class Parser {
         case ListCommand.LIST_COMMAND:
             return new ListCommand();
         case AddTodoCommand.TODO_COMMAND:
-            return new AddTodoCommand(commandAndParams[1], taskList);
+            return new AddTodoCommand(commandAndParams, taskList);
         case AddDeadlineCommand.DEADLINE_COMMAND:
-            return new AddDeadlineCommand(commandAndParams[1], taskList);
+            return new AddDeadlineCommand(commandAndParams, taskList);
         case AddEventCommand.EVENT_COMMAND:
-            return new AddEventCommand(commandAndParams[1], taskList);
+            return new AddEventCommand(commandAndParams, taskList);
         case MarkTaskCommand.MARK_COMMAND:
             return new MarkTaskCommand(commandAndParams, taskList);
         case UnmarkTaskCommand.UNMARK_COMMAND:

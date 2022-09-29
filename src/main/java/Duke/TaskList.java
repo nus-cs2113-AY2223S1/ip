@@ -100,7 +100,7 @@ public class TaskList extends ArrayList<Task> {
      * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
      */
     public void checkMarkTask(boolean newMark) throws TaskNumberOutOfBoundsException, TaskNumberNotNumberException {
-        Ui.printMarkTaskText(newMark);
+            Ui.printMarkTaskText(newMark);
     }
 
     /**

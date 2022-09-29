@@ -2,6 +2,7 @@ package Duke;
 
 import Duke.Commands.*;
 import Duke.Exceptions.TaskListEmptyException;
+import Duke.Exceptions.TaskNumberOutOfBoundsException;
 import Duke.Tasks.Task;
 
 import java.io.IOException;
@@ -64,21 +65,25 @@ public class Ui {
      * Prints text when task has been newly mark or unmark
      * @param newMark whether the task is newly mark or unmark
      */
-    public static void printMarkTaskText(boolean newMark) {
-        int taskNumber = TaskList.getTaskNumberOfInterest();
-        String previousIcon = TaskList.tasksList.get(taskNumber).getStatusIcon();
-        if (previousIcon == "X") {
-            if (newMark) {
-                System.out.println("Bob has already marked this task!");
+    public static void printMarkTaskText(boolean newMark) throws TaskNumberOutOfBoundsException {
+        try {
+            int taskNumber = TaskList.getTaskNumberOfInterest();
+            String previousIcon = TaskList.tasksList.get(taskNumber).getStatusIcon();
+            if (previousIcon.equals("X")) {
+                if (newMark) {
+                    System.out.println("Bob has already marked this task!");
+                } else {
+                    System.out.println("Oh no... Bob has mark this task as UNdone:");
+                }
             } else {
-                System.out.println("Oh no... Bob has mark this task as UNdone:");
+                if (!newMark) {
+                    System.out.println("Bob has already unmarked this task!");
+                } else {
+                    System.out.println("Good job! Bob has marked this task as done:");
+                }
             }
-        } else {
-            if (!newMark) {
-                System.out.println("Bob has already unmarked this task!");
-            } else {
-                System.out.println("Good job! Bob has marked this task as done:");
-            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNumberOutOfBoundsException();
         }
     }
 

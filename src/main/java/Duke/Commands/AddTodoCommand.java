@@ -10,14 +10,11 @@ import java.io.IOException;
  */
 public class AddTodoCommand extends AddCommand {
     public static final String TODO_COMMAND = "todo";
-    private String[] newTodoTask;
     protected TaskList taskList;
 
-    public AddTodoCommand(String taskDescription, TaskList taskList) throws IOException {
+    public AddTodoCommand(String[] taskDescription, TaskList taskList) {
         super(taskDescription);
-        this.taskList = taskList;
-        this.newTodoTask = new String[] {TODO_COMMAND, taskDescription};
-        TaskList.addTodoTask(newTodoTask);
+        TaskList.addTodoTask(taskDescription);
         Storage.loadTasktoDataFile(taskList);
     }
 }

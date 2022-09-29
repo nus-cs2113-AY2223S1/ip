@@ -20,8 +20,12 @@ public class Duke {
         Ui.printGreeting();
         boolean isExit = false;
         while (!isExit) {
-            String input = Ui.readInput();
-            Parser.parseCommand(input, taskList);
+            try {
+                String input = Ui.readInput();
+                Parser.parseCommand(input, taskList);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please write your commands to Bob again.");
+            }
         }
     }
 
