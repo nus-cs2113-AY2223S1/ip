@@ -6,6 +6,7 @@ public abstract class Task {
     /** To check if the task is mark as done or not for each individual task */
     protected boolean isDone;
 
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
