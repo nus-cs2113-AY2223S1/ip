@@ -4,6 +4,7 @@ import Duke.Storage;
 import Duke.TaskList;
 
 public class MarkTaskCommand extends Command {
+    public static final String MARK_COMMAND = "mark";
     protected TaskList taskList;
     protected String[] commandDescription;
 

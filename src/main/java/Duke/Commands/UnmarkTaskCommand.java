@@ -4,6 +4,7 @@ import Duke.Storage;
 import Duke.TaskList;
 
 public class UnmarkTaskCommand extends Command {
+    public static final String UNMARK_COMMAND = "unmark";
     protected TaskList taskList;
     protected String[] commandDescription;
 

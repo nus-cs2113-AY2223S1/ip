@@ -12,23 +12,23 @@ public class Parser {
         String[] commandAndParams = input.split(" ", 2);
         String command = commandAndParams[ 0 ];
         switch (command) {
-        case "bye":
+        case ByeCommand.BYE_COMMAND:
             return new ByeCommand();
-        case "list":
+        case ListCommand.LIST_COMMAND:
             return new ListCommand();
-        case "todo":
+        case AddTodoCommand.TODO_COMMAND:
             return new AddTodoCommand(commandAndParams[1], taskList);
-        case "deadline":
+        case AddDeadlineCommand.DEADLINE_COMMAND:
             return new AddDeadlineCommand(commandAndParams[1], taskList);
-        case "event":
+        case AddEventCommand.EVENT_COMMAND:
             return new AddEventCommand(commandAndParams[1], taskList);
-        case "mark":
+        case MarkTaskCommand.MARK_COMMAND:
             return new MarkTaskCommand(commandAndParams, taskList);
-        case "unmark":
+        case UnmarkTaskCommand.UNMARK_COMMAND:
             return new UnmarkTaskCommand(commandAndParams, taskList);
-        case "delete":
+        case DeleteCommand.DELETE_COMMAND:
             return new DeleteCommand(commandAndParams, taskList);
-        case "find":
+        case FindCommand.FIND_COMMAND:
             return new FindCommand(commandAndParams, taskList);
         default:
             return new InvalidCommand();

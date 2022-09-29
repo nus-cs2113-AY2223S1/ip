@@ -1,5 +1,6 @@
 package Duke;
 
+import Duke.Commands.*;
 import Duke.Exceptions.TaskListEmptyException;
 import Duke.Tasks.Task;
 
@@ -72,25 +73,25 @@ public class Ui {
 
     public static void printCorrectFormatText(String command) {
         switch(command) {
-        case "todo":
+        case AddTodoCommand.TODO_COMMAND:
             System.out.println("The command should be 'todo (task name)'.");
             break;
-        case "deadline":
+        case AddDeadlineCommand.DEADLINE_COMMAND:
             System.out.println("The command should be 'deadline (task name) /by (deadline)'.");
             break;
-        case "event":
+        case AddEventCommand.EVENT_COMMAND:
             System.out.println("The command should be 'event (task name) /by (event date)'.");
             break;
-        case "mark":
+        case MarkTaskCommand.MARK_COMMAND:
             System.out.println("The command should be 'mark (task number)'.");
             break;
-        case "unmark":
+        case UnmarkTaskCommand.UNMARK_COMMAND:
             System.out.println("The command should be 'unmark (task number)'.");
             break;
-        case "delete":
+        case DeleteCommand.DELETE_COMMAND:
             System.out.println("The command should be 'delete (task number)'.");
             break;
-        case "find":
+        case FindCommand.FIND_COMMAND:
             System.out.println("The command should be 'find (task)'.");
             break;
         default:

@@ -1,5 +1,6 @@
 package Duke;
 
+import Duke.Commands.*;
 import Duke.Exceptions.InvalidCommandFormatException;
 import Duke.Exceptions.TaskListEmptyException;
 import Duke.Exceptions.TaskNumberOutOfBoundsException;
@@ -37,7 +38,7 @@ public class TaskList extends ArrayList<Task> {
             taskNumberOfInterest = getTasksListSize() - 1;
             Ui.printAddTaskText(newTodo);
         } catch (InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText("todo");
+            Ui.printCorrectFormatText(AddTodoCommand.TODO_COMMAND);
         }
     }
 
@@ -49,7 +50,7 @@ public class TaskList extends ArrayList<Task> {
             Ui.printAddTaskText(newDeadlineTask);
             taskNumberOfInterest = getTasksListSize() - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.printCorrectFormatText("deadline");
+            Ui.printCorrectFormatText(AddDeadlineCommand.DEADLINE_COMMAND);
         }
     }
 
@@ -61,7 +62,7 @@ public class TaskList extends ArrayList<Task> {
             Ui.printAddTaskText(newEvent);
             taskNumberOfInterest = getTasksListSize() - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.printCorrectFormatText("event");
+            Ui.printCorrectFormatText(AddEventCommand.EVENT_COMMAND);
         }
     }
 
@@ -93,7 +94,7 @@ public class TaskList extends ArrayList<Task> {
         } catch (NumberFormatException e) {
             Ui.printTaskNumberNotIntegerError();
         } catch (InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText("mark");
+            Ui.printCorrectFormatText(MarkTaskCommand.MARK_COMMAND);
         } catch (TaskNumberNotNumberException | TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -119,7 +120,7 @@ public class TaskList extends ArrayList<Task> {
         } catch (NumberFormatException e) {
             Ui.printTaskNumberNotIntegerError();
         } catch(InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText("unmark");
+            Ui.printCorrectFormatText(UnmarkTaskCommand.UNMARK_COMMAND);
         } catch (TaskNumberNotNumberException | TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -144,7 +145,7 @@ public class TaskList extends ArrayList<Task> {
         } catch (NumberFormatException e) {
             Ui.printTaskNumberNotIntegerError();
         } catch (InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText("delete");
+            Ui.printCorrectFormatText(DeleteCommand.DELETE_COMMAND);
         } catch (TaskListEmptyException | TaskNumberOutOfBoundsException e) {
             System.out.println(e);
         }
@@ -162,7 +163,7 @@ public class TaskList extends ArrayList<Task> {
             Ui.printTasksWithKeyword(keyword);
             Ui.printHorizontalLine();
         } catch (InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText("find");
+            Ui.printCorrectFormatText(FindCommand.FIND_COMMAND);
         } catch (TaskListEmptyException e) {
             System.out.println(e);
         }

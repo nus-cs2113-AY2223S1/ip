@@ -3,6 +3,7 @@ package Duke.Commands;
 import Duke.TaskList;
 
 public class FindCommand extends Command {
+    public static final String FIND_COMMAND = "find";
     protected String[] commandDescription;
     protected TaskList taskList;
 
