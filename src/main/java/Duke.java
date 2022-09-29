@@ -1,16 +1,61 @@
 
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.IOException;
+
 import java.util.Scanner;
+import java.io.FileWriter;
+
+
 public class Duke {
     static String inputText = "";
     static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<String> storedTasks = new ArrayList<>();
+
     static int taskCount = 0;
     static boolean isRunning = true;
-    public static void main(String[] args) throws NullCommandException {
-        showWelcomeMessage();
-        handleUserInput();
+    public static void main(String[] args) throws NullCommandException, IOException {
+        File f =  new File("src/main/java/data.txt");
+        if(f.exists()) {
+            Scanner s = new Scanner(f);
+            while(s.hasNext()) {
+                storedTasks.add(s.nextLine());
+            }
+            handleStoredTasks();
+        }
+            FileWriter fw = new FileWriter("src/main/java/data.txt");
+            showWelcomeMessage();
+            handleUserInput();
+            for(int i=0;i<tasks.size();i++){
+                fw.write(tasks.get(i).toString()+"\n");
+            }
+            fw.close();
     }
 
+    public static void handleStoredTasks(){
+        for(int i=0;i< storedTasks.size();i++) {
+            String str = storedTasks.get(i);
+            if(str.charAt(1) == 'T' ) {
+                tasks.add( new Todo(str.substring(7)));
+                if(str.charAt(4)=='X') {
+                    tasks.get(tasks.size() -1).markAsDone();
+                }
+            }
+            if(str.charAt(1) == 'D') {
+                tasks.add(new Deadline(str.substring(7,str.indexOf('(')),str.substring(str.indexOf('(')+4,str.indexOf(')'))));
+                if(str.charAt(4)=='X') {
+                    tasks.get(tasks.size() -1).markAsDone();
+                }
+            }
+            if(str.charAt(1)=='E') {
+                tasks.add( new Event(str.substring(7,str.indexOf('(')),str.substring(str.indexOf('(')+4,str.indexOf(')'))));
+                if(str.charAt(4)=='X') {
+                    tasks.get(tasks.size() -1).markAsDone();
+                }
+            }
+        }
+    }
     public static void showWelcomeMessage(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -30,7 +75,7 @@ public class Duke {
     
     public static void handleListMessage(){
         System.out.println("____________________________________________________________");
-        for(int i=0;i< taskCount;i++){
+        for(int i=0;i< tasks.size();i++){
             System.out.println(tasks.get(i).toString() );
         }
         System.out.println("____________________________________________________________");
@@ -40,18 +85,15 @@ public class Duke {
         try {
             if(command.equals("todo")){
                 tasks.add( new Todo(inputText.substring(5)));
-                taskCount++;
             } else if (command.equals("deadline")) {
                 tasks.add(new Deadline(inputText.substring(9,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4)));
-                taskCount++;
             }else if(command.equals("event")){
                 tasks.add(new Event(inputText.substring(6,inputText.indexOf('/')),inputText.substring(inputText.indexOf('/')+4)));
-                taskCount++;
             }else{
                 throw new InvalidCommandException();
             }
             System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task:\n"+inputText +"\n"+"Now you have "+taskCount+ " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n"+inputText +"\n"+"Now you have "+tasks.size()+ " tasks in the list.");
             System.out.println("____________________________________________________________");
 
         }catch (InvalidCommandException e) {
@@ -64,11 +106,10 @@ public class Duke {
     public static void handleDeleteMessage(int position) {
         String str = tasks.get(position-1).toString();
         tasks.remove(position-1);
-        taskCount--;
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println(str);
-        System.out.println("Now you have "+taskCount+ " tasks in the list.");
+        System.out.println("Now you have "+tasks.size()+ " tasks in the list.");
         System.out.println("____________________________________________________________");
 
 
