@@ -4,6 +4,11 @@ import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Deadline;
 
+/**
+ * Represent a command with command word, description and time due specified.
+ * There is also a Deadline initiated which is used in the execute method to be added to task list.
+ * Used when command word is 'deadline'.
+ */
 public class AddDeadlineCommand extends AddCommand {
 
     protected String by;

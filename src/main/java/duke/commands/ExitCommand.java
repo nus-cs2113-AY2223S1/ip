@@ -3,6 +3,10 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Represent a command with command word specified.
+ * Used when command word is 'bye' to exit the program.
+ */
 public class ExitCommand extends Command {
 
     private final String EXIT_MESSAGE = "\tThank you for choosing duke. Hope to see you again soon!!!";

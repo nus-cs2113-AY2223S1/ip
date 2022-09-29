@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Represent a task with description, status, and time of due specified.
+ */
 public class Deadline extends Task {
 
     protected String by;

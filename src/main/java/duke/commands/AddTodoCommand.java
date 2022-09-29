@@ -4,6 +4,11 @@ import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Todo;
 
+/**
+ * Represent a command with command word and description specified.
+ * There is also a Todo initiated which is used in execute method to be added to task list.
+ * Used when command word is 'todo'.
+ */
 public class AddTodoCommand extends AddCommand {
 
     protected Todo toAdd;

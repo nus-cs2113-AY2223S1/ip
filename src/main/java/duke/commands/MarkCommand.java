@@ -3,6 +3,10 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Represent a command with command word, index and completion status specified.
+ * Used when command word is 'mark' or 'unmark' to update the completion status of the task intended.
+ */
 public class MarkCommand extends Command {
 
     protected int index;
