@@ -2,7 +2,15 @@ import duke.Task;
 
 import java.util.Scanner;
 
+/**
+ * The class provide interface with user and the program. Allow user to key in their command
+ * and receive feedback from the program.
+ */
 public class Ui {
+    /**
+     * Get raw user command from the terminal .
+     * @return the raw user command.
+     */
     public String getUserInput(){
         String input;
         Scanner in = new Scanner(System.in);

@@ -7,13 +7,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The class allow an application to load data from hard dist into program and save data from
+ * program into hard disk.
+ * */
 public class Storage {
+    public static final int isDoneIndex = 1;
+    public static final int typeIndex = 0;
     public String filePath;
 
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
+    /**
+     * Load the tasks stored in the file into a new taskList.
+     * @return taskList which contains tasks stored in the file.
+     * @throws FileNotFoundException if the file can not be found.
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> newTaskList = new ArrayList<Task>();
         File f = new File(filePath);
@@ -22,8 +33,8 @@ public class Storage {
             String nextInstruction = s.nextLine();
             String[] instSplit = nextInstruction.split(" \\| ");
             String deformattedInst;
-            boolean isDone = instSplit[1].equals("0") ? false : true;
-            switch (instSplit[0]){
+            boolean isDone = instSplit[isDoneIndex].equals("0") ? false : true;
+            switch (instSplit[typeIndex]){
                 case "T":
                     deformattedInst = String.format("todo %s", instSplit[2]);
                     break;
@@ -43,6 +54,12 @@ public class Storage {
         return newTaskList;
     }
 
+    /**
+     * Save all tasks in the taskList into the file.
+     * @param taskList the taskList which the content is about to be stored into the file.
+     * @param filePath the relative path given the location of the file.
+     * @throws IOException if task can not be stored into the file.
+     */
     public static void saveTasks(ArrayList<Task> taskList, String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write("");

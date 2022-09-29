@@ -1,17 +1,11 @@
-import duke.Deadline;
-import duke.Event;
-import duke.Task;
-import duke.ToDo;
-
-import java.util.Scanner;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
+/**
+ * The Duke program take userinput as instruction and do the corresponding
+ * command. Duke can add, delete, mark, unmark tasks and save them into a file.
+ */
 public class Duke {
 
     public static final String BYE = "bye";
@@ -23,6 +17,7 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        // load data from the file into program.
         try {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
@@ -31,12 +26,22 @@ public class Duke {
         }
     }
 
+    /**
+     * Run the serverc
+     */
     public void run() {
-        Duke duke = new Duke("src/main/Contents");
         Ui.printWelcomeMessage();
         String userInput = ui.getUserInput();
         while(!userInput.equals(BYE)){
-            Parser.implementUserInstruction(duke.tasks.taskList, userInput, false);
+            // Implement user command.
+            Parser.implementUserInstruction(tasks.taskList, userInput, false);
+            // Store result into the file.
+            try {
+                Storage.saveTasks(tasks.taskList, "src/main/Contents");
+            }
+            catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
             userInput = ui.getUserInput();
         }
 
@@ -44,7 +49,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        Duke duke = new Duke("src/main/Contents");
+        duke.run();
     }
 
 }

@@ -6,7 +6,13 @@ import duke.ToDo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The class instantiate a parser object which translate user input so that the program can
+ * understand, and then invoke specific function in TaskList to implement the user command.
+ */
 public class Parser {
+    public static final int DONE = 1;
+    public static final int NOTDONE = 0;
     public String userInput;
     public ArrayList<Task> tasks;
 
@@ -15,11 +21,19 @@ public class Parser {
         this.tasks = tasks;
     }
 
+    /**
+     * Execute the user command. Translate the user command first and find out
+     * which specific command should be implemented, then allocate invoke correspond
+     * method to execute the task.
+     * @param taskList the target taskList to store the result of ececution.
+     * @param userInput the user command which is going to be executed.
+     * @param isDone if the target task is already done.
+     */
     public static void implementUserInstruction(ArrayList<Task> taskList, String userInput, boolean isDone) {
         String[] userInputSplit = userInput.split(" ");
         switch(userInputSplit[0]){
         case "list":
-            TaskList.printTaskList(taskList, Task.numOfTasks);
+            TaskList.printTaskList(taskList);
             break;
 
         case "mark":
@@ -40,13 +54,18 @@ public class Parser {
             try{
                 TaskList.addEvent(taskList, userInputSplit, isDone);
             }
-            catch(StringIndexOutOfBoundsException e){
-                System.out.println(e.toString());
+            catch(IndexOutOfBoundsException e){
+                System.out.println(e);
             };
             break;
 
         case "deadline":
-            TaskList.addDeadline(taskList, userInputSplit, isDone);
+            try {
+                TaskList.addDeadline(taskList, userInputSplit, isDone);
+            }
+            catch (IndexOutOfBoundsException e){
+                System.out.println(e);
+            }
             break;
 
 
@@ -66,17 +85,17 @@ public class Parser {
             Ui.printDontKnowMessage();
         }
 
-        try {
-            Storage.saveTasks(taskList, "src/main/Contents");
-        }
-        catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
+
     }
 
+    /**
+     * format the given task in order to store it in hard disk in a specified format.
+     * @param task the task which is about to be stored into hard disk.
+     * @return formatted result of the task.
+     */
     public static String formatTaskInfo(Task task){
         String type;
-        int isDone = task.getIsDone() ? 1 : 0;
+        int isDone = task.getIsDone() ? DONE : NOTDONE;
         String time;
         String description = task.getDescription();
         String fromattedResult;

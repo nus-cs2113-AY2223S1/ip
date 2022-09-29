@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Event class is an extension of task, it stores an additional attribute, the time of
+ * a task. Moreover, it also modifies the string representation of a event task.
+ */
 public class Event extends Task{
     protected String time;
 

@@ -1,6 +1,11 @@
 package duke;
 
-public class Task {
+/**
+ * Task is the abstract class base for all task subclasses which store the total
+ * number of tasks, the description of the task and if the task is done. The class
+ * can also generate the formatted overall information about a task object.
+ */
+public abstract class Task {
     private boolean isDone;
     String description;
     public static int numOfTasks = 0;
