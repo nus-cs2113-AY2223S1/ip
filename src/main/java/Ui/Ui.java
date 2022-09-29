@@ -1,5 +1,7 @@
 package Ui;
 
+import Tasks.TaskList;
+import Parser.Command;
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.io.InputStream;
@@ -14,7 +16,6 @@ public class Ui {
     private static final String CONV_START = "Hello! I'm Duke";
     private static final String CONV_END = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "OOPS, that task is not in the list.";
-    private static final String MESSAGE_EMPTY_MARK_UNMARK_ARGS = "OOPS!!! Please input a number to mark/unmark as done.";
     private static final String MESSAGE_EMPTY_ACTION_ARGS = "OOPS!!! The description of the action cannot be empty.";
     private static final String MESSAGE_UNKNOWN = "OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String FILE_NOT_FOUND = "File not found. "
@@ -47,13 +48,13 @@ public class Ui {
         return userInput;
     }
 
-    private void printOutput(String message) {
+    public void printOutput(String message) {
         out.println(SEPARATOR);
         out.println(message);
         out.println(SEPARATOR);
     }
 
-    private void printError(String message) {
+    public void printError(String message) {
         out.print("\u001b[31m"); // red font ANSI
         out.println(SEPARATOR);
         out.println(message);
@@ -65,6 +66,55 @@ public class Ui {
         out.print("\u001b[32m"); // green font ANSI
         out.println("[Entered: " + message + " ]");
         out.println("\u001b[0m");
+    }
+
+    public void printAllTask(TaskList taskList) {
+        printOutput(taskList.getCompleteList());
+    }
+
+    public void showResult(String item, Command command, int size) {
+        switch(command) {
+            case TODO:
+                printAddActionResult(item, size, "Todo");
+                break;
+            case EVENT:
+                printAddActionResult(item, size, "Event");
+                break;
+            case DEADLINE:
+                printAddActionResult(item, size, "Deadline");
+                break;
+            case MARK:
+                printMarkUnmarkActionResult(item, "done");
+                break;
+            case UNMARK:
+                printMarkUnmarkActionResult(item, "not done");
+                break;
+            case DELETE:
+                printDeleteActionResult(item, size);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void printAddActionResult(String item, int size, String command) {
+        String output = "I got you, added a "
+                + command + ":\n"+  item
+                + "\nNow you have " + size + " tasks in the list.";
+        printOutput(output);
+    }
+
+    public void printDeleteActionResult(String item, int size) {
+        String output = "Noted. I've removed this task:\n"
+                + item
+                + "\n Now you have " + size + " tasks in the list.";
+        printOutput(output);
+    }
+
+    public void printMarkUnmarkActionResult(String item, String status) {
+        String output = "Nice! I've marked this task as "
+                + status + ":\n" + item;
+        printOutput(output);
     }
 
     public void printFileNotFound() {
@@ -81,10 +131,6 @@ public class Ui {
 
     public void printExitMessage() {
         printOutput(CONV_END);
-    }
-
-    public void printEmptyMarkUnmarkArgs() {
-        printError(MESSAGE_EMPTY_MARK_UNMARK_ARGS);
     }
 
     public void printInvalidTaskNumber() {

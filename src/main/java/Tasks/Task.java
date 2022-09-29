@@ -6,28 +6,28 @@ public class Task {
     private String item;
     private boolean isCompleted;
 
-    protected Task(String item, boolean isCompleted) {
+    public Task(String item, boolean isCompleted) {
         this.item = item;
         this.isCompleted = isCompleted;
     }
 
-    protected void setCompleted(Boolean isCompleted) {
+    public void setCompleted(Boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 
-    protected boolean hasCompleted() {
+    public boolean hasCompleted() {
         return isCompleted;
     }
 
-    protected String getTaskName() {
+    public String getTaskName() {
         return item;
     }
 
-    protected String getTime() {
+    public String getTime() {
         return "";
     }
 
-    protected String getCompleteDescription() {
+    public String getCompleteDescription() {
         String output = "[ ][";
         output += (hasCompleted() ? "X] " : " ] ");
         output += getTaskName() + "\n";

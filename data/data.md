@@ -1,3 +1,4 @@
 |Task Type | Done | Description | Time |
 |----------|------|-------------|------|
-| Todo | false | 1 |  |
+| Todo | false | eat today |  |
+| Event | false | die | 2 |
