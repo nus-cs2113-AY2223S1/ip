@@ -13,19 +13,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-
+/**
+ * Represents the main class for the task chat bot Duke
+ */
 public class Duke {
     private static TaskList list = new TaskList();
     private static boolean toSave = true;
     private static Ui ui;
     private static Storage storage;
 
-    private static final String SEPARATOR = "____________________________________________________________";
-
-    public void run() {
-        ui.printWelcomeMessage();
-    }
-
+    /**
+     * Entry point of the program.
+     * Initialise the user interface and task list from file. It will continuously run until exit command is entered.
+     * Saving feature will be default on unless the file is not found.
+     * Program will exit immediately if user queried <code>exit</code> or have corrupted data file.
+     * @param args Program execution arguments (not utilised).
+     */
     public static void main(String[] args) {
         ui = new Ui();
         storage = new Storage();
@@ -50,10 +53,8 @@ public class Duke {
             isInitialiseSuccessful = false;
         }
 
-
         while (isInitialiseSuccessful) {
             String userInput = ui.getUserInput();
-
             try {
                 Parser parser = new Parser();
                 parser.parseCommand(userInput);
@@ -78,7 +79,6 @@ public class Duke {
             } catch (IOException e) {
                 ui.printError("Something went wrong, error data: " + e.getMessage());
             }
-
         }
         ui.printExitMessage();
     }

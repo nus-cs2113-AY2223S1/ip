@@ -6,7 +6,12 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import java.io.InputStream;
 
+/**
+ * Represents the interface class to interact with the user.
+ * Supports printing messages and errors(in red).
+ */
 public class Ui {
+    // Common Messages
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String DUKE_LOGO = " ____        _\n"
             + "|  _ \\ _   _| | _____ \n"
@@ -38,6 +43,11 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * Return the input entered by the user on the terminal.
+     *
+     * @return String user input.
+     */
     public String getUserInput() {
         out.println(USER_QUERY);
         String userInput = in.nextLine();
@@ -48,12 +58,22 @@ public class Ui {
         return userInput;
     }
 
+    /**
+     * Prints the message into the stream with Separator in between.
+     *
+     * @param message String to output.
+     */
     public void printOutput(String message) {
         out.println(SEPARATOR);
         out.println(message);
         out.println(SEPARATOR);
     }
 
+    /**
+     * Prints error messages (in red) into the stream with separator in between.
+     *
+     * @param message Error string to output.
+     */
     public void printError(String message) {
         out.print("\u001b[31m"); // red font ANSI
         out.println(SEPARATOR);
@@ -62,16 +82,35 @@ public class Ui {
         out.println("\u001b[0m"); // reset font ANSI
     }
 
+    /**
+     * Re-prints the user input to the stream in green.
+     *
+     * @param message String user input.
+     */
     private void reprintUserInput(String message) {
         out.print("\u001b[32m"); // green font ANSI
         out.println("[Entered: " + message + " ]");
         out.println("\u001b[0m");
     }
 
+    /**
+     * Prints the formatted string description of all the tasks in the task list.
+     *
+     * @param taskList The taskList to print.
+     */
     public void printAllTask(TaskList taskList) {
         printOutput(taskList.getCompleteList());
     }
 
+    /**
+     * Process the UI to show to the user based on the command entered.
+     * Depends on the specific command, it will output the action done as a visual feedback
+     * on successful operation.
+     *
+     * @param item Item description.
+     * @param command Command queried.
+     * @param size Size of the Task List.
+     */
     public void showResult(String item, Command command, int size) {
         switch(command) {
             case TODO:
@@ -97,6 +136,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Print formatted output for any task addition action (Todo, Deadline, Event).
+     *
+     * @param item Item description.
+     * @param size Size of the Task List after addition.
+     * @param command Type of Command.
+     */
     public void printAddActionResult(String item, int size, String command) {
         String output = "I got you, added a "
                 + command + ":\n"+  item
@@ -104,6 +150,12 @@ public class Ui {
         printOutput(output);
     }
 
+    /**
+     * Print formatted output for delete action.
+     *
+     * @param item Item Description.
+     * @param size Size of the Task List after deletion.
+     */
     public void printDeleteActionResult(String item, int size) {
         String output = "Noted. I've removed this task:\n"
                 + item
@@ -111,6 +163,12 @@ public class Ui {
         printOutput(output);
     }
 
+    /**
+     * Print formatted output for Mark and Unmark action.
+     *
+     * @param item Item description.
+     * @param status Completed or not completed.
+     */
     public void printMarkUnmarkActionResult(String item, String status) {
         String output = "Nice! I've marked this task as "
                 + status + ":\n" + item;
