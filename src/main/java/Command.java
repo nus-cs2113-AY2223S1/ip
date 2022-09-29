@@ -1,3 +1,7 @@
+
+/**
+ * Command takes care of the command input by user
+ */
 public class Command {
 
     String commandAction;
@@ -6,6 +10,9 @@ public class Command {
         this.commandAction = commandAction;
     }
 
+    /**
+     * Checks which command is being called and executes it
+     */
     public boolean executeCommand(TaskList tasks, String fullCommand) throws Exception {
         switch (commandAction.toLowerCase()) {
             case "bye":
@@ -18,7 +25,7 @@ public class Command {
                 if(commandAction.matches(fullCommand)){
                     System.out.println("OOPS! The description of todo cannot be empty");
                 } else {
-                    tasks.findMatching(commandAction, fullCommand);
+                    tasks.findMatching(fullCommand);
                 }
                 break;
             case "todo":

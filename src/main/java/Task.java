@@ -1,3 +1,7 @@
+
+/**
+ * Task stores the information of a task
+ */
 public class Task {
 
     // can be todo, deadline, event

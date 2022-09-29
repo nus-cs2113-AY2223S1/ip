@@ -1,3 +1,6 @@
+/**
+ * Parser parses user input to split up commands and its descriptions
+ */
 public class Parser {
 
     public static String parse(String command) throws Exception{

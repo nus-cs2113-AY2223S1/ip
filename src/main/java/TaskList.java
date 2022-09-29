@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * TaskList is an ArrayList of Task and stores the Tasks of users
+ */
 public class TaskList{
     public static final int MAX = 100;
     protected ArrayList<Task> tasks;
@@ -16,7 +19,10 @@ public class TaskList{
         tasks = new ArrayList<>(MAX);
     }
 
-    public void findMatching(String commandAction, String fullCommand) throws Exception {
+    /**
+     * Finds relevant tasks based on a keyword input by user
+     */
+    public void findMatching(String fullCommand) throws Exception {
         String description = Parser.parseDescription(fullCommand);
         int counter = 1;
         for(int i=0; i<taskCounter; i++){
@@ -33,6 +39,10 @@ public class TaskList{
             System.out.println("There are no matching tasks with " + description);
         }
     }
+
+    /**
+     * Adds a todo into TaskList
+     */
     public void addTodo(String commandAction, String fullCommand) throws Exception {
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, description));
@@ -43,6 +53,9 @@ public class TaskList{
         Storage.writeToFile(fileLocation, tasks);
     }
 
+    /**
+     * Adds a deadline into TaskList
+     */
     public void addDeadline(String commandAction, String fullCommand) throws Exception{
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, Parser.parseDeadline(description)));
@@ -53,6 +66,9 @@ public class TaskList{
         Storage.writeToFile(fileLocation, tasks);
     }
 
+    /**
+     * Adds an event into TaskList
+     */
     public void addEvent(String commandAction, String fullCommand) throws Exception{
         String description = Parser.parseDescription(fullCommand);
         tasks.add(taskCounter, new Task(commandAction, Parser.parseEvent(description)));
@@ -63,6 +79,9 @@ public class TaskList{
         Storage.writeToFile(fileLocation, tasks);
     }
 
+    /**
+     * Prints the list of tasks inside TaskList
+     */
     public void printList() {
         if(taskCounter==0){
             System.out.println("There are 0 tasks in your list!");
@@ -75,6 +94,9 @@ public class TaskList{
         }
     }
 
+    /**
+     * Marks a task as done
+     */
     public void markDone(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
@@ -87,6 +109,9 @@ public class TaskList{
         }
     }
 
+    /**
+     * Marks a task as undone
+     */
     public void markUndone(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
@@ -99,6 +124,9 @@ public class TaskList{
         }
     }
 
+    /**
+     * Deletes a task from TaskList
+     */
     public void deleteTask(String fullCommand) throws Exception {
         String itemNumber = Parser.parseDescription(fullCommand);
         if (Integer.parseInt(itemNumber) <= taskCounter){
@@ -113,6 +141,9 @@ public class TaskList{
 
     }
 
+    /**
+     * Adds a Task to TaskList - todo or deadline or event
+     */
     public void add(Task item) {
         this.tasks.add(item);
         taskCounter++;

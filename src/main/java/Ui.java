@@ -1,10 +1,8 @@
 import java.util.Scanner;
-
+/**
+ * Ui deals with user interface when using Duke
+ */
 public class Ui {
-
-    public static void showFileWriteError() {
-        System.out.println("Unable to write file :(");
-    }
 
     public void welcomeMessage(){
         String logo = " ____        _        \n"
@@ -31,5 +29,9 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println("Error: " + message);
+    }
+
+    public static void showFileWriteError() {
+        System.out.println("Unable to write file :(");
     }
 }

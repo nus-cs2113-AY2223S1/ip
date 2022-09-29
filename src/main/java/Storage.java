@@ -14,15 +14,12 @@ public class Storage {
 
     /**
      * Saves the given task list to a specified local file
-     * @param filePath Location of file for task list to be saved to
-     * @param list Task list to be saved
-     * @throws IOException Error
      */
-    public static void writeToFile(String filePath, ArrayList<Task> list) {
+    public static void writeToFile(String filePath, ArrayList<Task> tasks) {
         try {
             File storedFile = new File(filePath);
             FileWriter writeFile = new FileWriter(storedFile);
-            for (Task task : list) {
+            for (Task task : tasks) {
                 Boolean isDone = task.isDone;
                 writeFile.write(task.type + "|" + isDone + "|" + task.description + System.lineSeparator());
             }
@@ -32,6 +29,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Extracts the from the local file and puts the information into a task list
+     */
     public static void getFileContents(String filePath, TaskList tasks) throws FileNotFoundException {
         File storedFile = new File(filePath);
         if (!storedFile.getParentFile().exists()) {

@@ -1,11 +1,16 @@
 import java.io.FileNotFoundException;
 
+/**
+ * Duke is a task tracking application that can read user inputs and execute the commands
+ */
 public class Duke {
-    public static final int MAX = 100;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Reads from local txt file for existing TaskList, and creates a new file if it doesn't exist
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +23,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the application till user ends it by the input "bye"
+     */
     private void run() {
         ui.welcomeMessage();
         boolean isExit = false;
@@ -35,6 +43,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Entry point for Duke
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
