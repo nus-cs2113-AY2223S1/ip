@@ -12,7 +12,7 @@ public class todo extends Command {
         } else {
             System.out.println("Got it. I've added this task");
             String editedCommand = fullCommand.substring(5, fullCommand.length());
-            System.out.println("  [T][ ] " + fullCommand);
+            System.out.println("  [T][ ] " + editedCommand);
             System.out.println("Now you have " + storage.getCount() + " tasks in the list.");
             tasks.add(editedCommand);
             type.add("[T]");
