@@ -30,6 +30,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Returns formatted string for saved file
+     *
+     * @return string to save
+     */
     @Override
     public String toSaveString() {
         return "E|" + super.toSaveString() + "|" + at;

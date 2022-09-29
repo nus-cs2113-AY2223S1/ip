@@ -44,10 +44,20 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns formatted string for saved file
+     *
+     * @return string to save
+     */
     public String toSaveString() {
         return (isDone ? "1" : "0") + "|" + description;
     }
 
+    /**
+     * returns description
+     *
+     * @return description
+     */
     public String getDescription() {
         return this.description;
     }

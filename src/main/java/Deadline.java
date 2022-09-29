@@ -29,6 +29,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Returns formatted string for saved file
+     *
+     * @return string to save
+     */
     @Override
     public String toSaveString() {
         return "D|" + super.toSaveString() + "|" + by;
