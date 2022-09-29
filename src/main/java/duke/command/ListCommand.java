@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.util.Storage;
-import duke.util.TaskManager;
+import duke.util.TaskList;
 import duke.util.Ui;
 
 public class ListCommand extends Command {
@@ -9,7 +9,7 @@ public class ListCommand extends Command {
     private static final String MESSAGE_LIST = "Beep beep, listing out the tasks....Loading.....";
 
     @Override
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.displayMessage(MESSAGE_LIST);
         tasks.generateTaskList();
 

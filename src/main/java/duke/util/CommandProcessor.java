@@ -3,22 +3,14 @@ package duke.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.exception.DukeException;
-
-import duke.exception.UnknownCommandException;
 import duke.util.asset.Task;
 import duke.util.asset.Deadline;
 import duke.util.asset.Event;
 import duke.util.asset.Todo;
 
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.MarkedCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
+
+import duke.exception.UnknownCommandException;
 
 public class CommandProcessor {
 
@@ -29,6 +21,7 @@ public class CommandProcessor {
             case (Todo.COMMAND):
             case (DeleteCommand.COMMAND):
             case (ExitCommand.COMMAND):
+            case (FindCommand.COMMAND):
             case (ListCommand.COMMAND):
             case (MarkCommand.COMMAND):
             case (MarkedCommand.COMMAND): //Fallthrough
@@ -42,7 +35,7 @@ public class CommandProcessor {
     public static boolean isCorrectArgumentLength(String command, List<String> arguments) {
         switch (command) {
             case (ListCommand.COMMAND):
-            case (MarkedCommand.COMMAND):
+            case (MarkedCommand.COMMAND): //Fallthrough
             case (ExitCommand.COMMAND):
                 return true;
             default:
@@ -50,7 +43,7 @@ public class CommandProcessor {
         }
     }
 
-    public static Command createCommand(String command, ArrayList<String> parameters) throws DukeException {
+    public static Command createCommand(String command, ArrayList<String> parameters) throws UnknownCommandException {
         switch(command) {
         case (Deadline.COMMAND):
         case (Event.COMMAND): //Fallthrough
@@ -61,6 +54,8 @@ public class CommandProcessor {
             return new DeleteCommand( Integer.parseInt(parameters.get(0)));
         case (ExitCommand.COMMAND):
             return new ExitCommand();
+        case (FindCommand.COMMAND):
+            return new FindCommand(parameters.get(0));
         case (ListCommand.COMMAND):
             return new ListCommand();
         case (MarkCommand.COMMAND):
@@ -70,13 +65,13 @@ public class CommandProcessor {
         case (UnmarkCommand.COMMAND):
             return new UnmarkCommand( Integer.parseInt(parameters.get(0)) );
         default:
-            throw new DukeException("Error: unknown command");
+            throw new UnknownCommandException("Error: unknown command");
         }
     }
 
     //@author owenl131-reused
-    //Reused from his ip with slight modification
-    public static Task createTask(String command, ArrayList<String> parameters) throws DukeException {
+    //Reused from his ip TaskFactory class with slight modification
+    public static Task createTask(String command, ArrayList<String> parameters) throws UnknownCommandException {
 
         switch(command) {
             case (Deadline.COMMAND):

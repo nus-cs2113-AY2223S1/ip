@@ -1,23 +1,20 @@
 package duke.util;
 
-import duke.util.asset.Deadline;
-import duke.util.asset.Event;
 import duke.util.asset.Task;
-import duke.util.asset.Todo;
 
 import duke.exception.DukeException;
 import duke.exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
-public class TaskManager implements Utilities {
+public class TaskList implements Utilities {
 
     private int taskCount;
     private static ArrayList<Task> tasks;
     private final int INDEX_OFFSET = -1;
     private ArrayList<String> messageBuffer;
 
-    public TaskManager() {
+    public TaskList() {
         taskCount = 0;
         tasks = new ArrayList<>();
         messageBuffer = new ArrayList<>();
@@ -54,10 +51,13 @@ public class TaskManager implements Utilities {
     }
 
     public void findTasksContain(String keyword) {
+        int taskMatchCounter = 1;
+
         for (Task task: tasks) {
             if (task.containsKeyword(keyword)) {
-                
+                messageBuffer.add("\t" + (taskMatchCounter) + "." + task.toString());
             }
+            taskMatchCounter += 1;
         }
     }
 
@@ -91,12 +91,7 @@ public class TaskManager implements Utilities {
         taskIndex += INDEX_OFFSET;
         tasks.get(taskIndex).setStatus(isDone);
 
-        if (isDone) {
-            messageBuffer.add("\t" + tasks.get(taskIndex).toString());
-        } else {
-            messageBuffer.add("\t" + tasks.get(taskIndex).toString());
-        }
-
+        messageBuffer.add("\t" + tasks.get(taskIndex).toString());
     }
 
     public void deleteTask(int taskIndex) {
@@ -109,7 +104,7 @@ public class TaskManager implements Utilities {
         addSummary();
     }
 
-    public static ArrayList<String> serialize() throws DukeException{
+    public static ArrayList<String> serialize() throws DukeException {
         ArrayList<String> serializedTasks = new ArrayList<>();
 
         for(Task task: tasks) {
@@ -121,7 +116,7 @@ public class TaskManager implements Utilities {
                 }
 
             } catch (DukeException e) {
-                throw new DukeException("error in serializing task");
+                throw new DukeException("Error in serializing task");
             }
         }
 
