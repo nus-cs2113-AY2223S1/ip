@@ -43,10 +43,19 @@ public class Task {
 
     }
 
+    /**
+     * To format the task into human-readable form
+     * @return the formatted task string
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskDescription;
     }
 
+    /**
+     * To serialize the task back into the command format to be stored in storage file
+     * @return formatted serialize string
+     * @throws DukeException if the task parent class is being serialized
+     */
     public String serialize() throws DukeException {
         throw new UnknownCommandException("Cannot serialize Task");
     }
@@ -55,6 +64,11 @@ public class Task {
         throw new UnknownCommandException("Cannot add Task");
     }
 
+    /**
+     * Check if task contains a particular keyword
+     * @param keyword
+     * @return if the task contains the keyword
+     */
     public boolean containsKeyword(String keyword) {
         return taskDescription.toLowerCase().contains(keyword.toLowerCase());
     }

@@ -7,6 +7,9 @@ import duke.exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
+/**
+ * A collection to store the various tasks
+ */
 public class TaskList implements Utilities {
 
     private int taskCount;
@@ -50,6 +53,10 @@ public class TaskList implements Utilities {
         }
     }
 
+    /**
+     * Search for all the tasks that contains the search keyword and append to message buffer
+     * @param keyword the keyword to use for searching
+     */
     public void findTasksContain(String keyword) {
         int taskMatchCounter = 1;
 
@@ -61,6 +68,11 @@ public class TaskList implements Utilities {
         }
     }
 
+    /**
+     * Add a task by task index
+     *
+     * @param taskToAdd the task to be appended to the tasklist
+     */
     public void addTask(Task taskToAdd) {
         tasks.add(taskToAdd);
         taskCount += 1;
@@ -76,6 +88,15 @@ public class TaskList implements Utilities {
 
     }
 
+    /**
+     * Set a task as marked or unmarked by task index
+     *
+     * -1 is used to mark the last task, to be used by the "marked" command when restoring task history
+     *
+     * @param taskIndex the index for the task as seen by user.
+     * @param isDone the desired state to be marked for the task of interest
+     * @throws TaskNotFoundException if the taskIndex is outofbound
+     */
     public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
         final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
@@ -94,6 +115,11 @@ public class TaskList implements Utilities {
         messageBuffer.add("\t" + tasks.get(taskIndex).toString());
     }
 
+    /**
+     * Deletes a task by task index
+     *
+     * @param taskIndex the index for the task as seen by user.
+     */
     public void deleteTask(int taskIndex) {
 
         taskIndex += INDEX_OFFSET;
@@ -104,6 +130,13 @@ public class TaskList implements Utilities {
         addSummary();
     }
 
+    /**
+     * Returns a list of serialized tasks.
+     * Append "marked" to a task if the task is marked at programme exit so that it can be restored next session
+     *
+     * @return List of serialized tasks
+     * @throws DukeException If task parent class is being serialized.
+     */
     public static ArrayList<String> serialize() throws DukeException {
         ArrayList<String> serializedTasks = new ArrayList<>();
 
@@ -123,6 +156,9 @@ public class TaskList implements Utilities {
         return serializedTasks;
     }
 
+    /**
+     * Clear the messageBuffer before new messages from next commands are added
+     */
     public void clearBuffer() {
         messageBuffer = new ArrayList<>();
     }

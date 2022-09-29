@@ -14,6 +14,13 @@ import java.util.ArrayList;
 
 import duke.command.Command;
 
+/**
+ * A class to parse user input
+ * The Parser takes in the full user input and process it to extract the command, description, and argument (if any)
+ * The parsed results are stored in private variables within the Parser class
+ * Throws Exceptions when the input is invalid
+ * Assisted by Command Processor to check for validity of command and construct Command class
+ */
 public class Parser implements Utilities{
 
     private static String userCommand;
@@ -38,6 +45,14 @@ public class Parser implements Utilities{
         parameters.clear();
     }
 
+    /**
+     * Parse for the parameters
+     *
+     * @param inputString the user input without the command keyword
+     * @param optionFlag what option flag to parse for
+     * @return a list containing the task description and the timing (if any)
+     * @throws InvalidArgumentException if the option is entered wrongly by the user
+     */
     private static ArrayList<String> parseParameter(String inputString, String optionFlag) throws InvalidArgumentException {
         int optionLen = optionFlag.length() + 1;
         int optionIndex = inputString.indexOf(optionFlag);
@@ -57,6 +72,14 @@ public class Parser implements Utilities{
         };
     }
 
+    /**
+     * Parse for command keyword and check for its validity
+     * Populate the parser buffer if the command has descriptions, taskIndex or options
+     *
+     * @param userInput the full user command
+     * @throws UnknownCommandException if user entered an unknown command
+     * @throws EmptyArgumentException if user left some fields of the command empty
+     */
     public static void parseUserInput(String userInput) throws UnknownCommandException, EmptyArgumentException {
         final int NUM_CMD_SPLIT = 2;
         //assume first word input by user is the command
@@ -72,7 +95,7 @@ public class Parser implements Utilities{
             throw new EmptyArgumentException("☹ OOPS!!! The description cannot be empty.");
         }
 
-        //if the particular command has arguments
+        //if the commands require options (/by or /at)
         if ( inputSplitBySpace.size() > 1) {
             inputBuffer = inputSplitBySpace.get(1).trim();
         }
@@ -83,6 +106,11 @@ public class Parser implements Utilities{
         return userCommand;
     }
 
+    /**
+     * Get the parameters (description, taskindex, or options) as per specified by the command type
+     *
+     * @throws DukeException if encounter errors in parsing for parameter
+     */
     public static void getTaskParameters() throws DukeException {
         try {
             switch (userCommand) {
@@ -104,6 +132,14 @@ public class Parser implements Utilities{
         }
     }
 
+    /**
+     * Returns the command to be executed
+     * The raw user command will be parsed and stored within private variables of the parser.
+     *
+     * @param command the full user command
+     * @return command class as created by the CommandProcessor
+     * @throws DukeException if encounter error in parsing user input
+     */
     public static Command parse(String command) throws DukeException {
 
         try {

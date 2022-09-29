@@ -11,6 +11,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to read from userData file for commands from previous sessions
+ * and write to userData file at the end of programme to store the task list
+ */
 public class Storage {
 
     private static String filePath;
@@ -29,6 +33,11 @@ public class Storage {
         isLoaded = false;
     }
 
+    /**
+     * To load past user commands into the commandHistroy buffer
+     *
+     * @throws FileNotFoundException if file is not found
+     */
     public void loadDataFromFile() {
 
         try {
@@ -45,6 +54,11 @@ public class Storage {
 
     }
 
+    /**
+     * Help to set the loading status of the programme
+     * Help for messages to be displayed only after command history has been added
+     * @param isLoaded desired storage loading status
+     */
     public void setLoadStatus(boolean isLoaded) {
         this.isLoaded = isLoaded;
     }
@@ -57,6 +71,11 @@ public class Storage {
         return commandHistory;
     }
 
+    /**
+     * Write the commands onto the userData file
+     *
+     * @param commands the list of commands to be written onto the storage file
+     */
     public void writeData(List<String> commands) {
         try {
             File dataFile = new File(filePath);

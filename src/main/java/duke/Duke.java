@@ -26,6 +26,9 @@ public class Duke {
         new Duke("data/userData.txt").run();
     }
 
+    /**
+     *
+     */
     public void run() {
         ui.greetUser();
         boolean isExit = false;

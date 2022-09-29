@@ -3,6 +3,10 @@ package duke.util;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class to provide interface with the user
+ * Read from user and formats the output before printing to terminal
+ */
 public class Ui implements Utilities {
 
     private static final String LOGO = "\n"

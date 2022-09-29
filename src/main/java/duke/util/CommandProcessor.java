@@ -12,8 +12,18 @@ import duke.command.*;
 
 import duke.exception.UnknownCommandException;
 
+/**
+ * A class to process the commands
+ * Checks the validity of the commands and assist parser in constructing the corresponding command instance
+ * Throws UnknownCommandException when an unknown command is received
+ */
 public class CommandProcessor {
 
+    /**
+     * Check if a command is valid
+     * @param command the user command
+     * @return if the command is valid
+     */
     public static boolean isValidCommand(String command) {
         switch(command) {
             case (Deadline.COMMAND):
@@ -32,6 +42,15 @@ public class CommandProcessor {
         }
     }
 
+    /**
+     * Check if the command requires any description/ index/ option etc
+     *
+     * Commands such as "list" are standalone and do not require arguments
+     *
+     * @param command user command
+     * @param arguments list of arguments following the command
+     * @return if the command has the right accompanying number of argument
+     */
     public static boolean isCorrectArgumentLength(String command, List<String> arguments) {
         switch (command) {
             case (ListCommand.COMMAND):
@@ -43,6 +62,13 @@ public class CommandProcessor {
         }
     }
 
+    /**
+     * Construct the corresponding command class with parameters
+     * @param command the command to execute
+     * @param parameters parsed parameters
+     * @return command containing information to be executed
+     * @throws UnknownCommandException if the command is not found
+     */
     public static Command createCommand(String command, ArrayList<String> parameters) throws UnknownCommandException {
         switch(command) {
         case (Deadline.COMMAND):
