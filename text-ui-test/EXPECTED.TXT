@@ -10,42 +10,42 @@ Hello! I'm Duke.
 What can I do for you?
 ____________________________________________
         ____________________________________________
+        ____________________________________________
+        ____________________________________________
         Got it. I've added this task:
-        [T][ ] read book
+        [T][ ] one
         Now you have 1 tasks in the list.
         ____________________________________________
         ____________________________________________
         Got it. I've added this task:
-        [D][ ] homework (by: 3pm today)
+        [D][ ] two (by: two)
         Now you have 2 tasks in the list.
         ____________________________________________
         ____________________________________________
         Got it. I've added this task:
-        [E][ ] meeting (at: 4pm today)
+        [E][ ] three (at: three)
         Now you have 3 tasks in the list.
         ____________________________________________
         ____________________________________________
-        [T][ ] 1. read book
-        [D][ ] 2. homework (by: 3pm today)
-        [E][ ] 3. meeting (at: 4pm today)
+        Nice! I've marked this task as done:
+            [T][X] one
         ____________________________________________
         ____________________________________________
         Nice! I've marked this task as done:
-            [T][X] read book
+            [D][X] two
         ____________________________________________
         ____________________________________________
-        [T][X] 1. read book
-        [D][ ] 2. homework (by: 3pm today)
-        [E][ ] 3. meeting (at: 4pm today)
+        [T][X] 1. one
+        [D][X] 2. two (by: two)
+        [E][ ] 3. three (at: three)
         ____________________________________________
         ____________________________________________
         Ok. I've marked this task as not done yet:
-            [T][ ] read book
+            [D][ ] two
         ____________________________________________
-        ____________________________________________
-        [T][ ] 1. read book
-        [D][ ] 2. homework (by: 3pm today)
-        [E][ ] 3. meeting (at: 4pm today)
+        [T][X] 1. one
+        [D][ ] 2. two (by: two)
+        [E][ ] 3. three (at: three)
         ____________________________________________
 ____________________________________________
 Bye. Hope to see you again soon!

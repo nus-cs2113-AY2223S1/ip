@@ -1,9 +1,10 @@
-todo read book
-deadline homework /by 3pm today
-event meeting /at 4pm today
 list
+todo one
+deadline two /by two
+event three /at three
 mark 1
+mark 2
 list
-unmark 1
+unmark 2
 list
 bye
