@@ -1,0 +1,49 @@
+list
+todo borrow book
+list
+mark 1
+list
+unmark 1
+list
+deadline return book /by 2019-10-15
+list
+mark 2
+list
+unmark 2
+list
+event project meeting /at Mon 2-4pm
+list
+mark 3
+list
+unmark 3
+list
+test
+todo
+deadline
+event
+mark
+unmark
+mark -1
+unmark -1
+mark 999
+unmark 999
+mark this
+unmark this
+list
+find book
+list
+find
+find -1
+list
+delete 1
+list
+delete
+delete -1
+delete 999
+list
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+bye
