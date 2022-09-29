@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
     @Override
     public String toFileString() {
-        return "D |  " + status + " | " + description + " | " + by + System.lineSeparator();
+        return "D | " + status + " | " + description + " | " + by + System.lineSeparator();
     }
 }
 
