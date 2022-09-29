@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package Tasks;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Duke.Exception.DataCorruptedException;
-import Duke.Tasks.TaskType;
+import Exception.DataCorruptedException;
 
 public class TaskList {
     private final String FILE_PATH = "./data/data.md";
