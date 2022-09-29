@@ -4,6 +4,8 @@ import main.duke.task.Deadline;
 import main.duke.task.Event;
 import main.duke.task.Task;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /** Stores methods for other classes to use to parse user input and stored Task lists */
 public class Parser {
@@ -29,7 +31,8 @@ public class Parser {
             throw new DukeException("Unable to create an Event! Please follow the format: event [name] /at [date]");
         }
         int endIndex = dateIndex + Utils.findNextLetter("/at", input.substring(dateIndex));
-        return new Event(input.substring(startIndex, dateIndex), input.substring(endIndex));
+        String date = parseDate(input.substring(endIndex));
+        return new Event(input.substring(startIndex, dateIndex), date);
     }
 
     /** Create a new Deadline with the given due date from user input */
@@ -40,7 +43,17 @@ public class Parser {
             throw new DukeException("Unable to create a Deadline! Please follow the format: deadline [task] /by [date]");
         }
         int endIndex = dateIndex + Utils.findNextLetter("/by", input.substring(dateIndex));
-        return new Deadline(input.substring(startIndex, dateIndex), input.substring(endIndex));
+        String date = parseDate(input.substring(endIndex));
+        return new Deadline(input.substring(startIndex, dateIndex), date);
+    }
+
+    public String parseDate(String date) {
+        try {
+            LocalDate parsedDate = LocalDate.parse(date.replaceAll(" ", ""));
+            return parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (Exception e) {
+            return date;
+        }
     }
 
     /** Returns the pattern for a mark command */
