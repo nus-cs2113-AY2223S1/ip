@@ -17,7 +17,13 @@ public class Duke {
 
     public static void printError() {
         printLine();
-        System.out.println("    Unable to understand command. Please try again!");
+        System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        printLine();
+    }
+
+    public static void printTodoError() {
+        printLine();
+        System.out.println("    ☹ OOPS!!! The description of a todo cannot be empty.");
         printLine();
     }
     public static void marking(ArrayList<Task>tasks, String command, boolean isMarked) {
@@ -52,13 +58,17 @@ public class Duke {
     }
 
     public static void addTodo(ArrayList<Task> tasks, String command) {
-        printLine();
-        Todo newTask = new Todo(command.substring(5));
-        tasks.add(newTask);
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("    " + newTask.getTaskDetails());
-        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-        printLine();
+        String instruction = command.substring(5);
+        if (instruction.equals("todo")) {
+            printTodoError();
+        } else {
+            Todo newTask = new Todo(instruction);
+            tasks.add(newTask);
+            System.out.println("    Got it. I've added this task:");
+            System.out.println("    " + newTask.getTaskDetails());
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            printLine();
+        }
     }
 
     public static Command parseCommand(String input) {
