@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage location to save data in the task list locally as well as to access task list from
+ * local file path.
+ */
 public class Storage {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private String filePath;
@@ -96,7 +100,11 @@ public class Storage {
         }
         fileWriter.close();
     }
-
+    /**
+     * Saves the tasks in the task list locally using the file path class attribute.
+     *
+     * @param  tasks ArrayList of Tasks
+     */
     public void saveTasksData(ArrayList<Task> tasks) {
         try {
             writeTasksToFile(tasks);

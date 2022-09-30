@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Represents object to parse user input and decide on the appropriate action to be taken.
+ * Requires class attributes TaskList and Ui to carry out commands stated by the User.
+ */
 public class Parser {
     private TaskList tasks;
     private Ui ui;
@@ -8,6 +12,12 @@ public class Parser {
         this.ui = ui;
         this.tasks = tasks;
     }
+
+    /**
+     * Parses through the user input and decides on suitable action to take based on the first word of the user input.
+     *
+     * @param  lineInput String of user input obtained from the terminal
+     */
     public void parse(String lineInput) {
         String[] inputWords = lineInput.split("\\s+");
         String action = inputWords[0];

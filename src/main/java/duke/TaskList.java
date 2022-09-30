@@ -2,6 +2,11 @@ package duke;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * TaskList implements the collection ArrayList and is used for storing objects with type Task.
+ * TaskList contains Task-specific methods to add, delete, mark, unmark and find tasks. TaskList requires class
+ * attributes ArrayList<Task> to store tasks and Ui to interact with the user.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
@@ -20,6 +25,13 @@ public class TaskList {
         tasks.add(task);
         ui.showAddedTask(task, tasks.size());
     }
+
+    /**
+     * Handles adding a deadline task from user input to task list. Searches for possible exceptions
+     * caused by invalid user input.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void addDeadline(String[] inputWords) {
         try {
             checkForTaskExceptions(inputWords, DEADLINE_DELIMITER);
@@ -31,6 +43,13 @@ public class TaskList {
             ui.printInvalidDeadline();
         }
     }
+
+    /**
+     * Handles adding an event task from user input to task list. Searches for possible exceptions
+     * caused by invalid user input.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void addEvent(String[] inputWords) {
         try {
             checkForTaskExceptions(inputWords, EVENT_DELIMITER);
@@ -42,6 +61,13 @@ public class TaskList {
             ui.printInvalidEvent();
         }
     }
+
+    /**
+     * Handles adding a ToDo task from user input to task list. Catches exception when no description is provided
+     * for ToDo task.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void addToDo(String[] inputWords) {
         try {
             ToDo toDo = getToDo(inputWords);
@@ -52,12 +78,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes task from task list based on index of task in the list
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void deleteTask(String[] inputWords) {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task deletedTask = tasks.get(listIndex);
         ui.showDeletedTask(deletedTask, tasks.size());
         tasks.remove(listIndex);
     }
+
+    /**
+     * Finds tasks in the task list which contain the keywords provided by the user.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void findTasks(String[] inputWords) {
         String[] keywordsArray = Arrays.copyOfRange(inputWords, RIGHT_SHIFT_INDEX, inputWords.length);
         String keywords = String.join(" ", keywordsArray);
@@ -105,12 +142,23 @@ public class TaskList {
         return event;
     }
 
+    /**
+     * Marks task as done in the task list using the index of task in the list.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void markTask(String[] inputWords) {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task markedTask = tasks.get(listIndex);
         markedTask.setIsCompleted(true);
         ui.showMarkedTask(markedTask);
     }
+
+    /**
+     * Unmarks task as done in the task list using the index of task in the list.
+     *
+     * @param  inputWords Array of words extracted from user input
+     */
     public void unmarkTask(String[] inputWords) {
         int listIndex = Integer.parseInt(inputWords[1]) - 1;
         Task unmarkedTask = tasks.get(listIndex);
