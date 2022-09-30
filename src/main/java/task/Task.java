@@ -4,8 +4,8 @@ package task;
  * parent class of todo, deadline, and event
  */
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * used when only description is given
@@ -46,4 +46,13 @@ public class Task {
     public void setDone(boolean status){
         isDone = status;
     }
+
+    public boolean getDone(){
+        return isDone;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
 }

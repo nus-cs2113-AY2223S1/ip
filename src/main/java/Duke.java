@@ -80,6 +80,8 @@ public class Duke {
                 } catch (IOException e) {
                     ui.failToSaveMsg();
                 }
+            } else if(parser.is(val, "find ")){
+                taskList.find(val, tasks, parser, ui);
             } else {
                 taskList.addTask(val, tasks, ui, parser);
             }

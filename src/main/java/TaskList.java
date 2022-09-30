@@ -9,16 +9,10 @@ import java.util.ArrayList;
 /**
  * includes all the operations that can be done on tasks
  */
-
 public class TaskList {
     private final String EVENT = "event";
-    private static final String TODO = "todo";
-    private static final String DEADLINE = "deadline";
-
-    //test whether will tasks change if i don't return it
-    //didn't return here
-
-
+    private final String TODO = "todo";
+    private final String DEADLINE = "deadline";
 
     /**
      * add a Task base on the input of the user
@@ -54,11 +48,17 @@ public class TaskList {
             break;
         default:
             ui.unknownError();
+            return;
+        }
+
+        try {
+            Storage.saveLine(tasks.get(tasks.size() - 1).toString());
+        } catch (IOException e) {
+            ui.failToSaveMsg();
         }
 
         ui.numOfTaskMsg(tasks.size());
     }
-
 
     /**
      * Delete the task referred in val
@@ -108,5 +108,19 @@ public class TaskList {
         ui.markTaskMsg(status, tasks.get(index));
     }
 
+    public void find(String val, ArrayList<Task> tasks, Parser parser, Ui ui){
+        String key = parser.getKeyword(val,ui);
+        if(key == null){
+            return;
+        }
+
+
+        ui.findMsg();
+        for(int i = 0; i < tasks.size(); i++){
+            if(tasks.get(i).getDescription().contains(key)){
+                ui.printTask(tasks.get(i));
+            }
+        }
+    }
 
 }

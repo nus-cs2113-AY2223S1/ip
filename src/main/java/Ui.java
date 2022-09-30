@@ -91,20 +91,21 @@ public class Ui {
     public void emptyMsg(){
         System.out.println("☹ OOPS!!! your input ois empty");
     }
-
+    
     /**
      * printed when the index entered is out of bound
      */
     public void indexOutOfBoundMsg(){
         System.out.println("warning:index out of bound");
     }
-
+    
     /**
      * printed when there is no index inputted as required
      */
     public void indexEmptyMsg(){
         System.out.println("☹ OOPS!!! The index of the task cannot be empty.");
     }
+
 
     /**
      * prints all the tasks in the list
@@ -118,11 +119,17 @@ public class Ui {
         }
     }
 
+
     /**
      * prints the task that is going to be removed
      *
      * @param task the task to be removed
      */
+    public void printTask(Task task){
+        System.out.println("     " + task);
+    }
+
+
     public void removeTaskMsg(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
@@ -155,6 +162,10 @@ public class Ui {
 
     public void formatIncorrect(){
         System.out.println("format incorrect");
+    }
+
+    public void findMsg(){
+        System.out.println("     Here are the matching tasks in your list:");
     }
 
 

@@ -6,6 +6,16 @@ public class Parser {
     private final String TODO = "todo";
     private final String DEADLINE = "deadline";
 
+    private final String[] taskName = {"todo","event",  "deadline"};
+
+    public String commandParser(String val, Ui ui){
+        if(val == null || val.isEmpty()){
+            ui.emptyMsg();
+            return null;
+        }
+        return "";
+    }
+
     /**
      * check whether the user wants to quit  the program
      * If the user wants to quit, true is returned. Vice versa
@@ -197,6 +207,16 @@ public class Parser {
             return null;
         }
         return val.substring((val.indexOf("/") + 4));
+    }
+
+    public String getKeyword(String val, Ui ui){
+        String key = val.substring(4).trim();
+        if(key.isEmpty()){
+            ui.formatIncorrect();
+            return null;
+        }
+
+        return key;
     }
 
 
