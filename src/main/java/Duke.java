@@ -29,9 +29,12 @@ public class Duke {
             System.out.println("    OK, I've marked this task as not done yet:");
             command = command.replace("unmark ", "");
         }
+        //@@author {brian-vb}-reused
+        //{Inspiration taken from chydarren, reused with minor modifications}
         int index = Integer.parseInt(command) - 1;
         tasks.get(index).setAsDone(isMarked);
         System.out.println("    " + tasks.get(index).getTaskDetails());
+        //@@author
         printLine();
     }
 
@@ -39,9 +42,12 @@ public class Duke {
         int numOfTasks = tasks.size();
         printLine();
         System.out.println("    Here are the tasks in your list:");
+        //@@author {brian-vb}-reused
+        //{Reused from chydarren with minor modifications}
         for (int counter = 0; counter < numOfTasks; counter++) {
             System.out.println("    " + (counter + 1) + "." + tasks.get(counter).getTaskDetails());
         }
+        //@@author
         printLine();
     }
 
