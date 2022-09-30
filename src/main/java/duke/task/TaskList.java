@@ -25,7 +25,7 @@ public class TaskList {
 
     public static void addTodo(TaskList tasks, String fullCommand) throws InvalidTaskDescriptionException {
         String description;
-        description = Parser.getTaskDescription(fullCommand).trim();
+        description = Parser.getDescription(fullCommand).trim();
         Task t = new Todo(description);
         tasks.addTask(t);
         Ui.printSuccessfulAdd(tasks);
@@ -56,6 +56,22 @@ public class TaskList {
             } catch (InvalidEventInputException e) {
                 Ui.showInvalidEventInputExceptionMessage();
             }
+    }
+
+    public static void findMatchingTasks(TaskList tasks, String fullCommand) {
+        String keyword;
+        try {
+            keyword = Parser.getDescription(fullCommand).trim();
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            for (Task t : tasks.tasks) {
+                if (t.description.contains(keyword)) {
+                    matchingTasks.add(t);
+                }
+            }
+            Ui.printMatchingTasks(matchingTasks);
+        } catch (InvalidTaskDescriptionException e) {
+            Ui.showInvalidFindDescriptionExceptionMessage();
+        }
     }
 
     public static void deleteTask(TaskList tasks, String line) throws DukeException {

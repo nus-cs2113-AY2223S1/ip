@@ -10,7 +10,7 @@ public class Parser {
         return words[0];
     }
 
-    public static String getTaskDescription (String line) throws InvalidTaskDescriptionException{
+    public static String getDescription (String line) throws InvalidTaskDescriptionException{
         String[] breakLine = line.trim().split(" ", 2);
         if (breakLine.length == 1 || breakLine[1].isBlank()) {
             throw new InvalidTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");

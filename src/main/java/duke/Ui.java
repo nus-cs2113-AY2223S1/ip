@@ -128,7 +128,8 @@ public class Ui {
         System.out.println("\t5. mark <task number>");
         System.out.println("\t6. unmark <task number>");
         System.out.println("\t7. delete <task number>");
-        System.out.println("\t8. bye");
+        System.out.println("\t8. find <keyword>");
+        System.out.println("\t9. bye");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
@@ -143,4 +144,25 @@ public class Ui {
         System.out.println("\tOOPS!!! Please only enter numbers!");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
+
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        if (matchingTasks.size() == 0) {
+            System.out.println("\tThere is no matching task!");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+	public static void showInvalidFindDescriptionExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your find input is incomplete. Please follow this format.");
+        System.out.println("\tExample: find <book>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
 }
