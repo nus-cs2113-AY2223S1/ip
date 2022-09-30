@@ -1,4 +1,0 @@
-[T][X] read book
-[T][X] go to party
-[D][ ] reach home      (by:     6pm)
-[E][X] reach home   (at:  6pm)
