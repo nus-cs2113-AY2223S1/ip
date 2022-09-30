@@ -30,6 +30,12 @@ The user quit the program.
 ### Load
 The user can load tasks from the saved file.
 
+### Save
+Duke automatically save changes.
+
+### Create
+Duke can automatically create a file when one at the specific location doesn't exist
+
 ## Usage
 
 ### `deadline` - Add and save a deadline to the list of tasks
@@ -215,3 +221,6 @@ ____________________________________________________________
 ### `save` - save into a file
 The program will automatically save data into "data/duke.txt"
 when changes are made. No message will be displayed unless an error occur.
+
+### `create` - create a file
+The program will automatically create a file when the file at the path "data/duke.txt" doesn't exist.
