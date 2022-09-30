@@ -174,7 +174,7 @@ Exits the program with a goodbye message
 
 Example of usage:
 
-`keyword (optional arguments)`
+`bye`
 
 Expected outcome:
 
