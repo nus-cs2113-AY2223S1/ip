@@ -1,5 +1,6 @@
 package consoleCommands;
 
+import exception.DateParseException;
 import exception.InvalidArgumentsException;
 import exception.NotEnoughArgumentsException;
 import exception.TaskDoesNotExistException;
@@ -7,6 +8,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+
 import java.util.ArrayList;
 
 import static consoleCommands.Ui.printLine;
@@ -16,6 +18,7 @@ import static consoleCommands.Ui.printLine;
  * Class is used to modify taskList or print various excerpts (full or specific tasks) of taskList
  * All methods in this class takes in taskList as a parameter, which is an ArrayList of tasks
  */
+@SuppressWarnings("DuplicatedCode")
 public class TaskList {
     public static final String COMMAND_MARKED = "mark";
     public static final String COMMAND_UNMARKED = "unmark";
@@ -44,6 +47,7 @@ public class TaskList {
             throws TaskDoesNotExistException, NotEnoughArgumentsException {
         printLine();
         if (arguments.equals(EMPTY)) {
+            System.out.println("This command should be 'delete (task index number)'.");
             throw new NotEnoughArgumentsException();
         }
         int index = Integer.parseInt(arguments);
@@ -62,14 +66,18 @@ public class TaskList {
     }
 
     /**
-     * Method reads in taskList and prints the full list of tasks
+     * Method reads in taskList and prints the full list of tasks if taskList is not empty
      */
     public static void printList(ArrayList<Task> taskList) {
         printLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.print((i + 1) + ".");
-            System.out.println(taskList.get(i).toString());
+        if (taskList.isEmpty()) {
+            System.out.println("Your list is empty.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.print((i + 1) + ".");
+                System.out.println(taskList.get(i));
+            }
         }
         printLine();
     }
@@ -85,6 +93,7 @@ public class TaskList {
             throws TaskDoesNotExistException, NotEnoughArgumentsException {
         printLine();
         if (arguments.equals(EMPTY)) {
+            System.out.println("This command should be 'delete (task index number)'.");
             throw new NotEnoughArgumentsException();
         }
         int index = Integer.parseInt(arguments);
@@ -109,6 +118,7 @@ public class TaskList {
             throws NotEnoughArgumentsException {
         printLine();
         if (arguments.equals(EMPTY)) {
+            System.out.println("This command should be 'todo (task name)'.");
             throw new NotEnoughArgumentsException();
         }
         taskList.add(new Todo(arguments));
@@ -127,15 +137,18 @@ public class TaskList {
      * @throws InvalidArgumentsException if arguments does not contain a "/at"
      * @throws NotEnoughArgumentsException if arguments does not provide name or
      * date and time of the event
+     * @throws DateParseException if date is given in the wrong format
      */
     public static void addEvent (String arguments, ArrayList<Task> taskList)
-            throws InvalidArgumentsException, NotEnoughArgumentsException {
+            throws InvalidArgumentsException, NotEnoughArgumentsException, DateParseException {
         printLine();
         if (!arguments.contains(COMMAND_EVENT_AT)) {
+            System.out.println("This command should be 'event (task name) /at (YYYY-MM-DD time)'.");
             throw new InvalidArgumentsException();
         }
         String[] eventInstructions = arguments.split(" /at ");
         if (eventInstructions.length != 2) {
+            System.out.println("This command should be 'event (task name) /at (YYYY-MM-DD time)'.");
             throw new NotEnoughArgumentsException();
         }
         taskList.add(new Event(eventInstructions[0],eventInstructions[1]));
@@ -154,15 +167,18 @@ public class TaskList {
      * @throws InvalidArgumentsException if arguments does not contain a "/by"
      * @throws NotEnoughArgumentsException if arguments does not provide name or
      * date and time of the deadline
+     * @throws DateParseException if date is given in the wrong format
      */
     public static void addDeadline (String arguments, ArrayList<Task> taskList)
-            throws InvalidArgumentsException, NotEnoughArgumentsException {
+            throws InvalidArgumentsException, NotEnoughArgumentsException, DateParseException {
         printLine();
         if (!arguments.contains(COMMAND_DEADLINE_BY)) {
+            System.out.println("This command should be 'deadline (task name) /by (YYYY-MM-DD time)'.");
             throw new InvalidArgumentsException();
         }
         String[] deadlineInstructions = arguments.split(" /by ");
         if (deadlineInstructions.length != 2) {
+            System.out.println("This command should be 'deadline (task name) /by (YYYY-MM-DD time)'.");
             throw new NotEnoughArgumentsException();
         }
         taskList.add(new Deadline(deadlineInstructions[0],deadlineInstructions[1]));
@@ -173,24 +189,33 @@ public class TaskList {
     }
 
     /**
-     * Method uses a search input and iterates through the full list of tasks
-     * Method will print the task if Task.Description contains search input
-     * @param arguments is a string of the search input used to filter tasks
+     * Method uses keywords and iterates through the full list of tasks
+     * Method will print the task if Task.Description contains keywords
+     * @param arguments is a string of the keywords used to filter tasks
      * @throws NotEnoughArgumentsException if arguments is an empty string
      */
     public static void findTask (String arguments, ArrayList<Task> taskList)
             throws NotEnoughArgumentsException {
         printLine();
         if (arguments.equals(EMPTY)) {
+            System.out.println("This command should be 'find (keywords)'.");
             throw new NotEnoughArgumentsException();
         }
-        System.out.println("Here are the matching tasks in your list:");
-        int count = 1;
+        ArrayList<Task> tasksFound = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
             if (currTask.getDescription().contains(arguments)) {
+                tasksFound.add(currTask);
+            }
+        }
+        if (tasksFound.isEmpty()) {
+            System.out.println("There are no tasks found with the keyword: '" + arguments + "'.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            int count = 1;
+            for (int i = 0; i < tasksFound.size(); i++) {
                 System.out.print((count) + ".");
-                System.out.println(currTask.toString());
+                System.out.println(tasksFound.get(i));
                 count++;
             }
         }

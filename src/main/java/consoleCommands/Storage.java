@@ -1,5 +1,6 @@
 package consoleCommands;
 
+import exception.DateParseException;
 import exception.InvalidFileDataException;
 import task.Deadline;
 import task.Event;
@@ -36,7 +37,7 @@ public class Storage {
      * @param taskList is the ArrayList of tasks, to read data from text file
      */
     public void readFromFile(Path filePath, ArrayList<Task> taskList)
-            throws IOException, InvalidFileDataException {
+            throws IOException, InvalidFileDataException, DateParseException {
         File f = new File(filePath.toString());
         if (f.exists()) {
             FileReader fr = new FileReader(filePath.toString());
@@ -82,7 +83,7 @@ public class Storage {
             }
             textToAppend += LINE_SEPARATOR + currentTask.getDescription();
             if (currentTask.getTaskClass().equals(EVENT) || currentTask.getTaskClass().equals(DEADLINE)) {
-                textToAppend += LINE_SEPARATOR + currentTask.getDetails();
+                textToAppend += LINE_SEPARATOR + currentTask.getDateAndTime();
             }
             fw.write(textToAppend + System.lineSeparator());
         }

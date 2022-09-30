@@ -34,6 +34,7 @@ What can I do for you?
 
 A collated Task List of tasks that you can view.
 ### `list` - To view full list of tasks
+**Duke** will print your full list of tasks to the output. 
 #### Example of usage:
 
 `list`
@@ -47,6 +48,11 @@ Here are the tasks in your list:
 4.[T][X] join sports club
 ```
 
+If your list is empty, **Duke** will print the following message.
+```
+Your list is empty.
+```
+
 ### Add new tasks to Task List
 
 ### `Todo` - Add Todo to Task List
@@ -57,7 +63,8 @@ Here are the tasks in your list:
 
 #### Expected output:
 
-If your todo is added successfully, you should see following message below. **Duke** should also update you on the total number of tasks in your Task List. 
+If your todo is added successfully, you should see following message below. **Duke** should also update you on the 
+total number of tasks in your Task List. 
 
 ```
 Got it. I've added this task:
@@ -69,16 +76,17 @@ Now you have 5 tasks in the list.
 
 #### Example of usage:
 
-`event (task name) /at (task date and time)`
+`event (task name) /at (date time)`
 
 The input date must be given in the format: *YYYY-MM-DD*.
 
 #### Expected output:
 
-If your `event` is added successfully, you should see following details below. **Duke** should also update you on the total number of tasks in your Task List.
+If your `event` is added successfully, you should see following details below. **Duke** should also update you on the 
+total number of tasks in your Task List.
 ```
 Got it. I've added this task:
-  [E][ ] Name (at: Date Time)
+  [E][ ] Name (at: YYYY-MM-DD Time)
 Now you have 5 tasks in the list.
 ```
 
@@ -86,16 +94,17 @@ Now you have 5 tasks in the list.
 
 #### Example of usage:
 
-`deadline (task name) /by (task date and time)`
+`deadline (task name) /by (date time)`
 
 The input date must be given in the format: *YYYY-MM-DD*.
 
 #### Expected output:
 
-If your `deadline` is added successfully, you should see following details below. **Duke** should also update you on the total number of tasks in your Task List.
+If your `deadline` is added successfully, you should see following details below. **Duke** should also update you on 
+the total number of tasks in your Task List.
 ```
 Got it. I've added this task:
-  [D][ ] Name (by: Date Time)
+  [D][ ] Name (by: YYYY-MM-DD Time)
 Now you have 5 tasks in the list.
 ```
 
@@ -104,11 +113,12 @@ You can remove tasks from Task List using their index number. This works for all
 
 #### Example of usage:
 
-`delete (task index)`
+`delete (task index number)`
 
 #### Expected output:
 
-If your task is deleted successfully, you should see following details below. **Duke** should also update you on the total number of tasks in your Task List.
+If your task is deleted successfully, you should see following details below. **Duke** should also update you on the 
+total number of tasks in your Task List.
 ```
 Noted. I've removed this task:
   [E][ ] Event Name (at: Jan 21 2021 2100)
@@ -120,16 +130,21 @@ You can find specific tasks from Task List using keywords as search input. This 
 
 #### Example of usage:
 
-`find (search input)`
+`find (keywords)`
 
 #### Expected output:
 
-If a task contains the search input, **Duke** will print out the full details of the task. An example of the list of tasks that contains the keyword 
+If a task contains the keywords, **Duke** will print out the full details of the task. An example of the list of tasks 
+that contains the keyword 
 `"book"` is shown below. 
 ```
 Here are the matching tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: Oct 15 2019)
+```
+If no tasks in your list contains the keywords, **Duke** will print out the following message.
+```
+There are no tasks found with the keyword: 'keywords'.
 ```
 
 ### Marking/Unmarking tasks in Task List
@@ -137,13 +152,14 @@ You can mark/unmark specific tasks from Task List using their index number. This
 
 #### Example of usage:
 
-`mark (task index)`
+`mark (task index number)`
 
-`unmark (task index)`
+`unmark (task index number)`
 
 #### Expected output:
 
-If your task is marked/unmarked successfully, **Duke** will print out the full details of the task with the corresponding message. 
+If your task is marked/unmarked successfully, **Duke** will print out the full details of the task with the 
+corresponding message. 
 
 This is a successful example of marking a task as done. 
 ```
@@ -171,13 +187,18 @@ Bye. Hope to see you again soon!
 ```
 
 ## Storing your Task List
-**Duke** stores the data of the Task List as `String` in a text file, `duke.txt`. The programme is made to find this text file in the relative path:
+**Duke** stores the data of the Task List as `String` in a text file, `duke.txt`. The programme is made to find this 
+text file in the relative path:
 `[project_root]/data/duke.txt`
 ### Retrieving data from file
-**Duke** automatically reads data from `duke.txt` at the start of the programme, and loads your Task List with the data stored. 
+**Duke** automatically reads data from `duke.txt` at the start of the programme, and loads your Task List with the data 
+stored. 
 
 If `duke.txt` is not found in the relative path, **Duke** will create a new `duke.txt` in the relative file path. 
 ### Writing data to file
-**Duke** appends the current Task List as `String` to another text file, `temp.txt`. The programme is made to create this temporary text file in the relative path:
-`[project_root]/data/temp.txt`. **Duke** then copies the contents of `temp.txt` into `duke.txt`, and deletes `temp.txt`. Hence, `duke.txt` now stores the updated 
-Task List. 
+**Duke** appends the current Task List as `String` to another text file, `temp.txt`. The programme is made to create 
+this temporary text file in the relative path: `[project_root]/data/temp.txt`. 
+
+**Duke** then copies the contents of `temp.txt` into `duke.txt`, and deletes `temp.txt`. Hence, `duke.txt` now stores 
+the updated Task List. 
+

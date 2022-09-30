@@ -1,7 +1,11 @@
 package task;
 
+import exception.DateParseException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Child of parent class Task
  * Contains description which is the name of event, date and time which is the
@@ -18,16 +22,20 @@ public class Event extends Task {
      * Method splits date and time, and converts date from string to LocalDate
      * Date can only be read in "yyyy-MM-dd"
      * Time will be kept as string
+     * @throws DateParseException if date is given in the wrong format
      */
-    public Event(String description, String at) {
+    public Event(String description, String at) throws DateParseException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String[] DateTime = at.split(" ");
-        if (DateTime.length == 2) {
+        String[] DateTime = at.split(" ", 2);
+        try {
             this.date = LocalDate.parse(DateTime[0], formatter);
+        } catch (DateTimeParseException e) {
+            throw new DateParseException();
+        }
+        if (DateTime.length == 2) {
             this.time = " " + DateTime[1];
         } else {
-            this.date = LocalDate.parse(at, formatter);
             this.time = "";
         }
     }
@@ -55,7 +63,7 @@ public class Event extends Task {
      * @return date and time of event task as a full string
      */
     @Override
-    public String getDetails() {
+    public String getDateAndTime() {
         return (date.toString() + time);
     }
 }

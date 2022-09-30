@@ -1,9 +1,11 @@
 package consoleCommands;
 
-import exception.InvalidArgumentsException;
-import exception.InvalidCommandException;
 import exception.NotEnoughArgumentsException;
+import exception.DateParseException;
+import exception.InvalidArgumentsException;
 import exception.TaskDoesNotExistException;
+import exception.InvalidCommandException;
+
 import task.Task;
 
 import java.util.ArrayList;
@@ -49,10 +51,11 @@ public class Command {
      * @throws TaskDoesNotExistException if the index provided in certain commands is > size of taskList
      * @throws InvalidArgumentsException if the arguments provided is incorrect for the corresponding commands
      * @throws InvalidCommandException if command provided does not exist
+     * @throws DateParseException if date is given in the wrong format
      */
     public void execute(ArrayList<Task> taskList)
             throws NotEnoughArgumentsException, TaskDoesNotExistException, InvalidArgumentsException,
-            InvalidCommandException {
+            InvalidCommandException, DateParseException {
         try {
             if (command.equalsIgnoreCase(COMMAND_BYE)) {
                 isExit = true;
@@ -82,6 +85,8 @@ public class Command {
             throw new InvalidArgumentsException();
         } catch (InvalidCommandException e) {
             throw new InvalidCommandException();
+        } catch (DateParseException e) {
+            throw new DateParseException();
         }
     }
     /**

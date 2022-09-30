@@ -3,11 +3,12 @@ import consoleCommands.Command;
 import consoleCommands.Parser;
 import consoleCommands.Storage;
 import consoleCommands.Ui;
-import exception.TaskDoesNotExistException;
-import exception.InvalidCommandException;
-import exception.InvalidFileDataException;
-import exception.InvalidArgumentsException;
 import exception.NotEnoughArgumentsException;
+import exception.InvalidFileDataException;
+import exception.TaskDoesNotExistException;
+import exception.DateParseException;
+import exception.InvalidCommandException;
+import exception.InvalidArgumentsException;
 import task.Task;
 
 import java.io.FileNotFoundException;
@@ -39,7 +40,8 @@ public class Duke {
         try {
             storage.readFromFile(filePath, taskList);
         } catch (InvalidFileDataException |
-                 IOException e) {
+                 IOException |
+                 DateParseException e) {
             ui.showError(e.getMessage());
         }
     }
@@ -63,7 +65,8 @@ public class Duke {
             } catch (NotEnoughArgumentsException |
                      TaskDoesNotExistException |
                      InvalidCommandException |
-                     InvalidArgumentsException e) {
+                     InvalidArgumentsException |
+                     DateParseException e) {
                 ui.showError(e.getMessage());
             }
         }

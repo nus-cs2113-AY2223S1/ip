@@ -51,7 +51,7 @@ public class Task {
     /**
      * @return date + time of task, in string format, regardless of child type
      */
-    public String getDetails() {
-        return getDetails();
+    public String getDateAndTime() {
+        return getDateAndTime();
     }
 }
