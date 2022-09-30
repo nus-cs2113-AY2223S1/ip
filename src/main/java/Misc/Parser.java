@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
+
     /**
      * Parse the given command.
      * @param command Command string.

@@ -15,6 +15,12 @@ public class AddCommand extends Command {
         super(elements);
     }
 
+    /**
+     * Executes the command.
+     * @param tasks Tasks list.
+     * @param ui UI object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (elements.get(0)) {

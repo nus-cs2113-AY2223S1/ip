@@ -11,7 +11,13 @@ public class DeleteCommand extends Command {
     public DeleteCommand(ArrayList<String> elements) {
         super(elements);
     }
-
+    
+    /**
+     * Executes the command.
+     * @param tasks Tasks list.
+     * @param ui UI object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int index;
