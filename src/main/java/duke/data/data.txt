@@ -1,3 +1,3 @@
-[T][X] this
+[T][]    this
 [D][] this (by: tdy)
-[E][X] star (at: tdy 9 pm)
+[D][X]    star (by: tdy 9 pm)

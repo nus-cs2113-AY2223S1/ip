@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.DukeException;
+import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
@@ -15,6 +16,7 @@ public class Parser {
     public static final String DELETE = "delete ";
     public static final String MARK_UNDONE = "unmark ";
     public static final String MARK_DONE = "mark ";
+    public static final String FIND = "find ";
 
     public static Ui ui = new Ui ();
 
@@ -70,7 +72,15 @@ public class Parser {
             catch (DukeException e){
                 System.out.println("The event input is not valid! Might be missing description, '/at' or time !");
             }
-        } else if (input.equals(BYE)) {
+        } else if (input.contains(FIND)){
+            try{
+                prepFind(input);
+            }
+            catch (DukeException e){
+                System.out.println("Cannot find the task! Might be missing keyword!");
+            }
+        }
+        else if (input.equals(BYE)) {
             ui.printBye();
         }
         else {
@@ -141,6 +151,16 @@ public class Parser {
             tasks.deleteTask (TaskList.taskList, taskNumber);
         } else {
             throw new DukeException();
+        }
+    }
+
+
+    public void prepFind (String input) throws DukeException{
+        String keyword = input.substring(FIND.length());
+        if (keyword.equals("")){
+            throw new DukeException();
+        } else{
+            tasks.findTasks (TaskList.taskList, keyword);
         }
     }
 
