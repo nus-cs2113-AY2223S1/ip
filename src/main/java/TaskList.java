@@ -22,7 +22,7 @@ public class TaskList {
      * @param ui deals with interactions with the user
      * @param parser  deals with making sense of the user command
      */
-    public void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser) {
+    public void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser, Storage storage) {
         String taskType = parser.taskType(val, ui);
         if(taskType == null){
             return;
@@ -33,7 +33,7 @@ public class TaskList {
             return;
         }
 
-        String time = parser.time(val, ui, taskType);
+        String time = parser.time(val, taskType);
 
 
         switch(taskType){
@@ -52,7 +52,7 @@ public class TaskList {
         }
 
         try {
-            Storage.saveLine(tasks.get(tasks.size() - 1).toString());
+            storage.saveLine(tasks.get(tasks.size() - 1).toString());
         } catch (IOException e) {
             ui.failToSaveMsg();
         }

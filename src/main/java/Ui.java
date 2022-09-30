@@ -75,7 +75,8 @@ public class Ui {
      * print the message that said file or folder cannot be found
      */
     public void fileNotFoundMsg(){
-        System.out.println("File or folder not found");
+        System.out.println("File or folder not found. \n"
+                + "Please create a file named duke.txt under folder data and place the data folder under the same route as Duke");
     }
 
     /**

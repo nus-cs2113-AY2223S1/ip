@@ -6,16 +6,6 @@ public class Parser {
     private final String TODO = "todo";
     private final String DEADLINE = "deadline";
 
-    private final String[] taskName = {"todo","event",  "deadline"};
-
-    public String commandParser(String val, Ui ui){
-        if(val == null || val.isEmpty()){
-            ui.emptyMsg();
-            return null;
-        }
-        return "";
-    }
-
     /**
      * check whether the user wants to quit  the program
      * If the user wants to quit, true is returned. Vice versa
@@ -98,7 +88,7 @@ public class Parser {
      * @return whether is the number valid
      */
     public boolean isValidNumber(int val, int length){
-        if(val < 1 || val > length){
+        if(val < 0 || val >= length){
             return false;
         }
 
@@ -164,7 +154,7 @@ public class Parser {
             des = val.substring(TODO.length()).trim();
 
         } else if (taskType.equals(EVENT)) {
-            if(val.indexOf("/at ") == -1 || val.substring(val.indexOf("/at ") + 3).trim().isEmpty()){
+            if(!val.contains("/at ") || val.substring(val.indexOf("/at ") + 3).trim().isEmpty()){
                 ui.formatIncorrect();
                 return null;
             }
@@ -173,7 +163,7 @@ public class Parser {
 
         } else if (taskType.equals(DEADLINE)) {
 
-            if(val.indexOf("/by ") == -1 || val.substring(val.indexOf("/by ") + 3).trim().isEmpty()){
+            if(!val.contains("/by ") || val.substring(val.indexOf("/by ") + 3).trim().isEmpty()){
                 ui.formatIncorrect();
                 return null;
             }
@@ -194,12 +184,11 @@ public class Parser {
      * returns null when the time is invalid
      *
      * @param val input of user
-     * @param ui deals with interactions with the user
      * @param taskType the type of task entered
      * @return the time mentioned in user input
      */
-    public String time(String val, Ui ui, String taskType){
-        if(taskType == TODO) {
+    public String time(String val, String taskType){
+        if(taskType.equals(TODO)) {
             return null;
         }
 

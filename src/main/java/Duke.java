@@ -83,7 +83,7 @@ public class Duke {
             } else if(parser.is(val, "find ")){
                 taskList.find(val, tasks, parser, ui);
             } else {
-                taskList.addTask(val, tasks, ui, parser);
+                taskList.addTask(val, tasks, ui, parser, storage);
             }
             ui.separatorMsg();
             val = input.nextLine().trim();
