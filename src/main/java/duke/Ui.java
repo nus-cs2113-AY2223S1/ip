@@ -179,13 +179,20 @@ public class Ui {
      * Prints a message to inform the user that the task to mark has to be an integer.
      */
     public void printMarkingTaskNumberErrorMessage() {
-        System.out.println("Error: the task to be marked has to be a valid number");
+        System.out.println("Error: the task to be marked has to be a valid number.");
     }
 
     /**
      * Prints a message to inform the user that the task to unmark has to be an integer.
      */
     public void printUnmarkTaskNumberErrorMessage() {
-        System.out.println("Error: the task to be unmarked has to be a valid number");
+        System.out.println("Error: the task to be unmarked has to be a valid number.");
+    }
+
+    /**
+     * Prints a message to inform the user that the task to delete has to be an integer/
+     */
+    public void printDeletingTaskNumberErrorMessage() {
+        System.out.println("Error: the task to delete has to be a valid number.");
     }
 }

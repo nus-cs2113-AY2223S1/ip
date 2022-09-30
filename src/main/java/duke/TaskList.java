@@ -174,6 +174,8 @@ public class TaskList {
             ui.printInvalidTaskMessage();
         } catch (IOException ioException) {
             ui.printDeletingTaskErrorMessage();
+        } catch (NumberFormatException numberFormatException) {
+            ui.printDeletingTaskNumberErrorMessage();
         }
     }
 
