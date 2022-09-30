@@ -24,11 +24,11 @@ public class Storage {
     public static void listToFile(TaskList tasks){
         list = tasks.getAllTasks();
         try{
-            File f = new File("docs/duke.txt");
+            File f = new File("src/main/data/duke.txt");
             try{
                 if(!(f.createNewFile())){
                     f.delete();
-                    f = new File("docs/duke.txt");
+                    f = new File("src/main/data/duke.txt");
                 }
             }
             catch(IOException e){
@@ -71,7 +71,7 @@ public class Storage {
      * @return an arraylist of tasks that the file had info about
      */
     public ArrayList<Task> fileToList(){
-        File f = new File("docs/duke.txt");
+        File f = new File("src/main/data/duke.txt");
 
         try{
             if(!(f.createNewFile())){
