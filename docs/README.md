@@ -13,15 +13,17 @@ Duke is a personal task manager that helps you keep track of your tasks. It is o
 5. If the setup is correct, you should see the welcome screen as shown below.
 
 ```
-Hello from
  ____        _
 |  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+_____________________
+
 Hello! I'm Duke, your personal task manager!
 What can I do for you?
+_____________________
 ```
 
 ## Features
