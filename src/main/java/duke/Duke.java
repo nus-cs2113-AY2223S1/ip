@@ -8,33 +8,10 @@ import duke.task.Todo;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 import java.util.ArrayList;
-
+import duke.utilityfunctions.Ui;
 import duke.utilityfunctions.Filereader;
+import duke.utilityfunctions.Command;
 public class Duke {
-    public static void generateTaskStatus(String taskIcon, String statusIcon, String description) {
-        System.out.println("\t[" + taskIcon + "]" + "[" + statusIcon + "] " + description);
-    }
-    public static void drawLine() {
-        System.out.println("------------------------------------");
-    }
-    public static void addedMsg() {
-        System.out.println("Got it. I've added this task:");
-    }
-
-    public static void taskCountReminder(int noOfTasks) {
-        System.out.printf("Now you have %d tasks in the list.\n",noOfTasks);
-    }
-
-    public static boolean isValidCommand(String s){
-        String[] validCommandArray = {"bye", "list","unmark","mark","todo","deadline","event", "delete"};
-        for(int i = 0; i < validCommandArray.length; i++) {
-            if(s.equals(validCommandArray[i])){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static void loadTasksFromTextFile(String filepath, ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(filepath);
         Scanner s = new Scanner(f);
@@ -58,16 +35,12 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        drawLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        drawLine();
+        Ui ui = new Ui();
+        Command command = new Command();
+        ui.greet();
+        ui.drawLine();
+        ui.sayHello();
+        ui.drawLine();
         Scanner in = new Scanner(System.in);
         String input;
         ArrayList<Task> taskArray = new ArrayList<Task>();
@@ -89,122 +62,119 @@ public class Duke {
             input = in.nextLine();
             try {
                 String[] inputStrings = input.split(" ");
-                if(!isValidCommand(inputStrings[0])){
+                if(!command.isValidCommand(inputStrings[0])){
                     throw new InvalidCommandException();
                 }
-                if(inputStrings.length == 1 && !inputStrings[0].equals("list")){
+                if(inputStrings.length == 1 && !inputStrings[0].equals("list") && !inputStrings[0].equals("bye")){
                     throw new EmptyDescriptionException(inputStrings[0]);
                 }
             } catch (InvalidCommandException e){
-                drawLine();
+                ui.drawLine();
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                drawLine();
+                ui.drawLine();
                 continue;
             }
             catch(EmptyDescriptionException e) {
-                drawLine();
+                ui.drawLine();
                 System.out.println("OOPS!!! The description of a " + e.getMessage() + " cannot be empty.");
-                drawLine();
+                ui.drawLine();
                 continue;
             }
             if(input.equals("bye")){
-                drawLine();
-                System.out.println("Bye. Hope to see you again soon!");
-                drawLine();
+                ui.drawLine();
+                ui.sayBye();
+                ui.drawLine();
             } else if (input.equals("list")){
-                drawLine();
-                System.out.println("Here are the tasks in your list:");
+                ui.drawLine();
+                ui.notifyListHeader();
                 for (int i = 1; i <= taskArray.size(); i++){
-                    generateTaskStatus(taskArray.get(i-1).getTaskIcon(), taskArray.get(i-1).getStatusIcon(), taskArray.get(i-1).getDescription());
+                    ui.generateTaskStatus(taskArray.get(i-1).getTaskIcon(), taskArray.get(i-1).getStatusIcon(), taskArray.get(i-1).getDescription());
                 }
-                drawLine();
+                ui.drawLine();
             } else if (input.contains("unmark")){
-                String[] inputWords = input.split(" ");
-                int choiceToUnMark = Integer.parseInt(inputWords[1]);
+                int choiceToUnMark = command.choiceParser(input);
                 taskArray.get(choiceToUnMark - 1).unMarkTask();
-                System.out.println("OK, I've marked this task as not done yet:");
-                generateTaskStatus(taskArray.get(choiceToUnMark - 1).getTaskIcon(), taskArray.get(choiceToUnMark - 1).getStatusIcon(),taskArray.get(choiceToUnMark - 1).getDescription() );
+                ui.notifyUnmarkedHeader();
+                ui.generateTaskStatus(taskArray.get(choiceToUnMark - 1).getTaskIcon(), taskArray.get(choiceToUnMark - 1).getStatusIcon(),taskArray.get(choiceToUnMark - 1).getDescription() );
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             } else if (input.contains("mark")){
-                String[] inputWords = input.split(" ");
-                int choiceToMark = Integer.parseInt(inputWords[1]);
+                int choiceToMark = command.choiceParser(input);
                 taskArray.get(choiceToMark - 1).markTask();
-                System.out.println("Nice! I've marked this task as done:");
-                generateTaskStatus(taskArray.get(choiceToMark - 1).getTaskIcon(), taskArray.get(choiceToMark - 1).getStatusIcon(), taskArray.get(choiceToMark - 1).getDescription());
+                ui.notifyMarkedHeader();
+                ui.generateTaskStatus(taskArray.get(choiceToMark - 1).getTaskIcon(), taskArray.get(choiceToMark - 1).getStatusIcon(), taskArray.get(choiceToMark - 1).getDescription());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             } else if(input.contains("todo")) {
                 taskArray.add(new Todo(input));
-                drawLine();
-                addedMsg();
-                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
-                taskCountReminder(taskArray.size());
+                ui.drawLine();
+                ui.addedMsg();
+                ui.generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                ui.taskCountReminder(taskArray.size());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             } else if (input.contains("deadline")) {
                 taskArray.add(new Deadline(input));
-                drawLine();
-                addedMsg();
-                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
-                taskCountReminder(taskArray.size());
+                ui.drawLine();
+                ui.addedMsg();
+                ui.generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                ui.taskCountReminder(taskArray.size());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             } else if (input.contains("event")) {
                 taskArray.add(new Event(input));
-                drawLine();
-                addedMsg();
-                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
-                taskCountReminder(taskArray.size());
+                ui.drawLine();
+                ui.addedMsg();
+                ui.generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                ui.taskCountReminder(taskArray.size());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             } else if (input.contains("delete")) {
-                drawLine();
-                String[] inputWords = input.split(" ");
-                int choiceToRemove = Integer.parseInt(inputWords[1]);
-                System.out.println("Noted. I have removed this task:");
-                generateTaskStatus(taskArray.get(choiceToRemove-1).getTaskIcon(), taskArray.get(choiceToRemove-1).getStatusIcon(), taskArray.get(choiceToRemove-1).getDescription());
+                ui.drawLine();
+                int choiceToRemove = command.choiceParser(input);
+                ui.notifyRemovedHeader();
+                ui.generateTaskStatus(taskArray.get(choiceToRemove-1).getTaskIcon(), taskArray.get(choiceToRemove-1).getStatusIcon(), taskArray.get(choiceToRemove-1).getDescription());
                 taskArray.remove(choiceToRemove - 1);
-                taskCountReminder(taskArray.size());
+                ui.taskCountReminder(taskArray.size());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             }
             else {
                 taskArray.add(new Task(input));
-                drawLine();
-                addedMsg();
-                generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
-                taskCountReminder(taskArray.size());
+                ui.drawLine();
+                ui.addedMsg();
+                ui.generateTaskStatus(taskArray.get(taskArray.size() - 1).getTaskIcon(), taskArray.get(taskArray.size() - 1).getStatusIcon(), taskArray.get(taskArray.size() - 1).getDescription());
+                ui.taskCountReminder(taskArray.size());
                 try {
                     updateFile("data.txt", taskArray);
                 } catch (IOException e) {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
-                drawLine();
+                ui.drawLine();
             }
         } while (!input.equals("bye"));
     }
