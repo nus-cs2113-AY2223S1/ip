@@ -1,7 +1,4 @@
 |Task Type | Done | Description | Time |
 |----------|------|-------------|------|
-| Todo | false | eat today |  |
-| Deadline | false | go home | 2 |
-| Todo | true | go home |  |
-| Event | false | go die | 4 |
-| Deadline | false | eat food | 2 |
+| Deadline | false | submit CS2113 iP | friday 2359 |
+| Event | false | celebrate CS2113 iP submission | saturday 1100 |
