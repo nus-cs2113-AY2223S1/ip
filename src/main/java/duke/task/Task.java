@@ -22,9 +22,17 @@ public class Task {
      */
     public void markDone() {
         System.out.println("Nice! I've marked this task as done:");
-        isDone = true;
+        setMark();
         System.out.println(" [X] " + description);
     }
+
+    /**
+     * sets isDone to be true
+     */
+     public void setMark(){
+         isDone = true;
+     }
+
 
     /**
      * marks a task as undone and prints message informing the client

@@ -33,6 +33,24 @@ public class TaskList {
     }
 
     /**
+     * finds a task in list by input from user
+     * @param input
+     */
+    public void findTasks(String input){
+        Message.printHorizontalLine();
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(input)){
+                System.out.print(i + 1 + ". ");
+                System.out.println(tasks.get(i));
+            }
+        }
+    }
+
+
+
+
+    /**
      * adds a new task to the TaskList by translating
      * the users input
      * @param input
@@ -60,13 +78,21 @@ public class TaskList {
     }
 
 
+
+    public void markItemAsDoneAndPrintDone(int i) {
+        tasks.get(i - 1).markDone();
+    }
+
     /**
      * marks task at index i as done
      * @param i
      */
+
     public void markItemDone(int i) {
-        tasks.get(i - 1).markDone();
+        tasks.get(i - 1).setMark();
     }
+
+
 
     /**
      * marks task at index i as undone
