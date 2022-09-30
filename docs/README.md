@@ -68,7 +68,7 @@ Expected format:
 
 Example of usage: 
 
-`todo read CS2113t textbook`
+`todo read CS2113T textbook`
 
 Expected outcome:
 
@@ -232,7 +232,7 @@ OK, I've marked this task as not done yet:
 ______________________________________________________________________
 ```
 
-### `delete` - deletes task
+### `delete` - Deletes task
 
 Deletes task from the list of tasks.
 
@@ -265,7 +265,7 @@ Duke will search for any task that contains the substring provided by you.
 
 The list of tasks containing this substring will be printed for you.
 
-An argument is required after `find`. This argument should be the substring you want to search with.\
+An argument is required after `find`. This argument should be the substring you want to search with.
 
 Expected format:
 
