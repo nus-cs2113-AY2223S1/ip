@@ -170,7 +170,7 @@ ____________________________________________________________
 I got you, added a Deadline:
 	[D][ ] submit CS2113 iP (by: friday 2359)
 
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list. 
 ____________________________________________________________
 ```
 
@@ -318,7 +318,7 @@ Example of usage:
 `delete 1`
 
 Expected outcome:
-Task is removed from the list.
+Task is removed from the list and file.
 ```
 What can I do for you?
 delete 1
