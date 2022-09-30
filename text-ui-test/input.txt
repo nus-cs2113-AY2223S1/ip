@@ -1,0 +1,24 @@
+todo read book
+deadline return book /by Sunday
+event project meeting /at Mon 2-4pm
+deadline do homework
+deadline do homework /by
+deadline do homework /by tonight
+list
+find book
+find Homework
+mark 4
+mark 100000
+mark <3
+list
+unmark 4
+list
+delete 1
+list
+delete 3
+list
+delete 1
+list
+delete -123
+delete a
+bye
