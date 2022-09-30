@@ -21,6 +21,7 @@ Table of Contents
 3. Copy the file to the folder you want to use as your *home folder* for Duke.
 4. Open the command line in that folder and run the command `java -jar duke.jar`.
 5. When you first run the application, a Duke will greet you.
+
 ```
 ______________________________________
 
@@ -37,6 +38,7 @@ How can I help you?
 ______________________________________
 Please enter your taskList command: (send 'bye' to exit)
 ```
+
 1. Type a command and press Enter to execute it.
 2. Refer to the Features below for details of each command.
 
@@ -75,6 +77,7 @@ Exits the application.
 Format: `bye`
 
 Sample:
+
 ```
 bye
 ______________________________________
@@ -96,6 +99,7 @@ Finds all tasks with names containing a given search term.
 Format: `find KEYWORD`
 
 Sample:
+
 ```
 find basketball
 ______________________________________
@@ -111,6 +115,7 @@ Creates a ToDo item on the task list.
 Format: `todo TASK`
 
 Sample:
+
 ```
 todo read a book
 ______________________________________
@@ -120,7 +125,6 @@ Now you have 2 tasks in the list
 ______________________________________
 ```
 
-
 ### Add an Event: `event`
 
 Use this command to keep track of events you need to attend.
@@ -128,6 +132,7 @@ Use this command to keep track of events you need to attend.
 Format: `event NAME /at TIME`
 
 Sample:
+
 ```
 event another Event /at 1234
 ______________________________________
@@ -144,6 +149,7 @@ Use this command to keep track of deadlines you need to meet.
 Format: `deadline NAME /by TIME`
 
 Sample:
+
 ```
 deadline return book /by noon
 ______________________________________
@@ -152,6 +158,7 @@ Got it. I've added this task:
 Now you have 4 tasks in the list
 ______________________________________
 ```
+
 ### Mark a task as done: `done`
 
 Marks a task in your list as done.
@@ -159,6 +166,7 @@ Marks a task in your list as done.
 Format: `done INDEX`
 
 Sample:
+
 ```
 list
 ______________________________________
@@ -184,7 +192,6 @@ ______________________________________
 ______________________________________
 ```
 
-
 ### Delete a task: `delete`
 
 Deletes a task from your list.
@@ -192,6 +199,7 @@ Deletes a task from your list.
 Format: `delete INDEX`
 
 Sample:
+
 ```
 list
 ______________________________________
@@ -214,6 +222,7 @@ ______________________________________
 
 ______________________________________
 ```
+
 ## Saving the Data
 
 Duke data is saved to the hard disk automatically after any command that modifies the data.
