@@ -71,7 +71,7 @@ public class TaskManager extends ArrayList<Tasks> {
         System.out.println(UI.PRINT_LINE
                 + TASK_ADDED
                 + task + "\n"
-                + "Now you have " + numOfTasks + "task(s) in the list.\n"
+                + "Now you have " + numOfTasks + " task(s) in the list.\n"
                 + UI.PRINT_LINE
         );
     }
