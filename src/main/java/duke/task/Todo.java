@@ -7,12 +7,14 @@ public class Todo extends Task{
     public Todo(String description) {
         super(description);
     }
+
+    /**
+     * Retrieves the description of the task
+     * @return the description of task
+     */
     public String getDescription() {
         int firstDivider = description.indexOf("todo");
         String descTask = description.substring(firstDivider);
-//        int secondDivider = description.indexOf("/at");
-//        String descTask = description.substring(firstDivider + 5,secondDivider - 1);
-//        String duration = description.substring(secondDivider + 4);
         return descTask;
     }
 }
