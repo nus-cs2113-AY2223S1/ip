@@ -10,21 +10,29 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Cache {
+public class Storage {
     private final String filePath;
-    public Cache (String path){
+    /**
+     * Constructs a storage
+     * @param path The file path specified by the duke.Duke bot.
+     */
+    public Storage(String path){
         filePath = path;
     }
 
-
-    public ArrayList<Task> printPath() {
+    /**
+     * @return A recovered list of previous work or a blank list if no cache.
+     */
+    public ArrayList<TaskList> printPath() {
         try {
+            //create path if it did not exist
             File file = new File(System.getProperty("user.dir") + "/data");
             if (!file.exists()) {
                 Path path = Paths.get(System.getProperty("user.dir") + "/data");
                 Files.createDirectories(path);
                 assert (file.exists());
             }
+            //create file if it did not exist
             file = new File(filePath);
             if (file.exists()) {
                 return retrival(file);
@@ -40,9 +48,12 @@ public class Cache {
             throw new RuntimeException(ex);
         }
     }
-
-    public static ArrayList<Task> retrival(File f) {
-        ArrayList<Task> ListOfTasks = new ArrayList<>();
+    /**
+     * Returns an ArrayList of previously recorded tasks.
+     * @return A recovered list of previous work or a blank list if no cache.
+     */
+    public static ArrayList<TaskList> retrival(File f) {
+        ArrayList<TaskList> ListOfTasks = new ArrayList<>();
         String[] commands;
         String commandType;
         String description;
@@ -60,11 +71,11 @@ public class Cache {
 
 
                 if (commandType.equals("T")) {
-                    ListOfTasks.add(Communication.ToDos(description, isDone));
+                    ListOfTasks.add(ui.ToDos(description, isDone));
                 } else if (commandType.equals("D")) {
-                    ListOfTasks.add(Communication.Deadlines(description, isDone));
+                    ListOfTasks.add(ui.Deadlines(description, isDone));
                 } else if (commandType.equals("E")) {
-                    ListOfTasks.add(Communication.Events(description, isDone));
+                    ListOfTasks.add(ui.Events(description, isDone));
                 }
             }
             return ListOfTasks;
@@ -72,11 +83,15 @@ public class Cache {
             throw new RuntimeException(e);
         }
     }
-    public void update(ArrayList<Task> ListOfTasks){
+    /**
+     * Updates the records in cache file once for all before closing duke.Duke.
+     * @param ListOfTasks list to be recorded.
+     */
+    public void update(ArrayList<TaskList> ListOfTasks){
         try {
             FileWriter writer = new FileWriter(this.filePath);
             StringBuilder builder = new StringBuilder();
-            for (Task task : ListOfTasks) {
+            for (TaskList task : ListOfTasks) {
                 builder.append(task.recordString());
                 builder.append("\n");
             }
