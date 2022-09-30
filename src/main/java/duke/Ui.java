@@ -141,18 +141,6 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-	public static void IndexOutOfBoundsExceptionMessage() {
-        System.out.println(TOP_HORIZONTAL_RULE);
-        System.out.println("\tOOPS!!! This task is not in the list!");
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
-    }
-
-    public static void NumberFormatExceptionMessage() {
-        System.out.println(TOP_HORIZONTAL_RULE);
-        System.out.println("\tOOPS!!! Please only enter numbers!");
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
-    }
-
     public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(TOP_HORIZONTAL_RULE);
         if (matchingTasks.size() == 0) {
@@ -173,4 +161,27 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
+	public static void showInvalidDeleteInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: delete <1>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+	public static void showInvalidMarkTaskInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: mark <1>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+    public static void showInvalidUnmarkTaskInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: unmark <1>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+	
 }
+
+

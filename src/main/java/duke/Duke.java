@@ -44,11 +44,7 @@ public class Duke {
                 Ui.printUnknownCommand();
             } catch (DukeException e) {
                 Ui.printUnknownCommand();
-            } catch (IndexOutOfBoundsException e) {
-                Ui.IndexOutOfBoundsExceptionMessage();
-            } catch (NumberFormatException e) {
-                Ui.NumberFormatExceptionMessage();
-            }
+            } 
         }
     }
 
