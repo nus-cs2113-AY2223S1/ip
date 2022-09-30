@@ -82,7 +82,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            System.out.println("File not found :< Bob is creating your data file now...");
             createDataFile();
         }
     }

@@ -8,7 +8,7 @@ import java.io.IOException;
  * Main class of the Bob bot.
  * Initialises program, starts user interaction, and user can update taskList or data file.
  */
-public class Duke {
+public class Bob {
     private static TaskList taskList = new TaskList();
 
     /**
@@ -25,11 +25,12 @@ public class Duke {
                 Parser.parseCommand(input, taskList);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Please write your commands to Bob again.");
+                Ui.printHorizontalLine();
             }
         }
     }
 
     public static void main(String[] args) throws InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException, TaskNumberNotNumberException {
-        Duke.run();
+        Bob.run();
     }
 }

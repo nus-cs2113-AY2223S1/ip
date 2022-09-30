@@ -58,6 +58,7 @@ public class Ui {
             Ui.printHorizontalLine();
         } catch (TaskListEmptyException e) {
             System.out.println(e);
+            Ui.printHorizontalLine();
         }
     }
 
@@ -111,7 +112,7 @@ public class Ui {
             System.out.println("The command should be 'deadline (task name) /by (deadline)'.");
             break;
         case AddEventCommand.EVENT_COMMAND:
-            System.out.println("The command should be 'event (task name) /by (event date)'.");
+            System.out.println("The command should be 'event (task name) /at (event date)'.");
             break;
         case MarkTaskCommand.MARK_COMMAND:
             System.out.println("The command should be 'mark (task number)'.");
@@ -128,6 +129,7 @@ public class Ui {
         default:
             System.out.println("Bob doesn't understand this command :<");
         }
+        printHorizontalLine();
     }
 
     /**
