@@ -64,4 +64,15 @@ public class TaskList {
         ui.printDashLine();
     }
 
+    public void findTasks (ArrayList <Task> taskList, String keyword){
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        ui.printOutputs("Here are the matching tasks in your list");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).description.contains(keyword)){
+                ui.printOutputs(Integer.toString(i + 1) + " " + (taskList.get(i)).toString());
+            }
+        }
+        ui.printDashLine();
+    }
+
 }
