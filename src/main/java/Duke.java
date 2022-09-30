@@ -19,7 +19,6 @@ public class Duke {
         storage = new Storage(filepath, folderpath);
         try {
             // load the existing tasks from the storage and input it for construction
-            // the tasks array would be private to the particular object
             list = new TaskList(storage.getMakeFile());
         } catch (Exception e) {
             ui.showLoadingError();
