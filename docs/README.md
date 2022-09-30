@@ -4,6 +4,10 @@
 
 Duke is a personal task manager that helps you keep track of your tasks. It is optimized for use via a Command Line Interface (CLI). If you can type fast, Duke can help you manage your tasks faster than traditional GUI apps.
 
+## Acknowledgement(s)
+
+Certain parts of this project took reference from [Owen's repository](https://github.com/owenl131/ip).
+
 ## Setting up
 
 1. Ensure you have Java 11 or above installed in your Computer.
@@ -249,19 +253,19 @@ Bye. Hope to see you again soon!
 
 ## Command summary
 
-| Action       | Format, Examples                                                                                |
-| ------------ | ----------------------------------------------------------------------------------------------- |
-| **Help**     | `help`                                                                                          |
-| **Todo**     | `todo <name_of_todo>` <br> e.g., `todo read book`                                               |
-| **Deadline** | `deadline <name_of_deadline> /by <yyyy-mm-dd>` <br> e.g., `deadline return book /by 2020-09-15` |
-| **Event**    | `event <name_of_event> /at <location>` <br> e.g., `event project meeting /at NUS`               |
-| **List**     | `list`                                                                                          |
-| **Done**     | `done <existing_task_number>` <br> e.g., `done 2`                                               |
-| **Unmark**   | `unmark <existing_task_number>` <br> e.g., `unmark 2`                                           |
-| **Delete**   | `delete <existing_task_number>` <br> e.g., `delete 2`                                           |
-| **Find**     | `find <keyword>` <br> e.g., `find book`                                                         |
-| **Total**    | `total`                                                                                         |
-| **Bye**      | `bye`                                                                                           |
+| Action       | Format                                         | Examples                              |
+|--------------|------------------------------------------------|---------------------------------------|
+| **Help**     | `help`                                         | `help`                                |
+| **Todo**     | `todo <name_of_todo>`                          | `todo read book`                      |
+| **Deadline** | `deadline <name_of_deadline> /by <yyyy-mm-dd>` | `deadline return book /by 2020-09-15` |
+| **Event**    | `event <name_of_event> /at <location>`         | `event project meeting /at NUS`       |
+| **List**     | `list`                                         | `list`                                |
+| **Done**     | `done <existing_task_number>`                  | `done 2`                              |
+| **Unmark**   | `unmark <existing_task_number>`                | `unmark 2`                            |
+| **Delete**   | `delete <existing_task_number>`                | `delete 2`                            |
+| **Find**     | `find <keyword>`                               | `find book`                           |
+| **Total**    | `total`                                        | `total`                               |
+| **Bye**      | `bye`                                          | `bye`                                 |
 
 ## Saving data
 
