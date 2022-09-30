@@ -91,19 +91,13 @@ public class TaskList implements Utilities {
     /**
      * Set a task as marked or unmarked by task index
      *
-     * -1 is used to mark the last task, to be used by the "marked" command when restoring task history
-     *
      * @param taskIndex the index for the task as seen by user.
      * @param isDone the desired state to be marked for the task of interest
-     * @throws TaskNotFoundException if the taskIndex is outofbound
+     * @throws TaskNotFoundException if the taskIndex is out of bound
      */
     public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
         final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
-        if(taskIndex == -1){
-            tasks.get(taskCount - 1).setStatus(isDone);
-            return;
-        }
 
         if (taskIndex > taskCount || taskIndex < 0) {
             throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
@@ -113,6 +107,20 @@ public class TaskList implements Utilities {
         tasks.get(taskIndex).setStatus(isDone);
 
         messageBuffer.add("\t" + tasks.get(taskIndex).toString());
+    }
+
+    /**
+     * Set the last task in the list as complete or incomplete
+     *
+     * @param isDone the desired state to be marked for the task of interest
+     * @throws DukeException if setTask throws exception
+     */
+    public void setLastTask(boolean isDone) throws DukeException {
+        try {
+            setTask(taskCount, isDone);
+        } catch (DukeException e) {
+            throw e;
+        }
     }
 
     /**

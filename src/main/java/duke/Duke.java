@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.util.*;
 import duke.command.Command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Duke {
@@ -26,9 +27,6 @@ public class Duke {
         new Duke("data/userData.txt").run();
     }
 
-    /**
-     *
-     */
     public void run() {
         ui.greetUser();
         boolean isExit = false;
@@ -51,15 +49,21 @@ public class Duke {
     }
 
     private void loadPastSession(){
-        storage.loadDataFromFile();
-        List<String> pastData = storage.getData();
+        List<String> pastData = new ArrayList<>();
+
+        try {
+            storage.loadDataFromFile();
+            pastData = storage.getData();
+        } catch (DukeException e) {
+            ui.displayMessage(e.getErrorMessage());
+        }
 
         for(String pastCommand: pastData) {
             try {
                 Command c = Parser.parse(pastCommand);
                 c.execute(taskList, ui, storage);
             } catch (DukeException e) {
-                ui.displayMessage( e.getErrorMessage() );
+                ui.displayMessage(e.getErrorMessage());
             }
         }
 

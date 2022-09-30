@@ -5,6 +5,8 @@ public class Event extends Task {
     protected String atTiming;
     public static final String OPTIONFLAG = "at";
     public static final String COMMAND = "event";
+    public static final String MESSAGE_HELP = "event [TASK] /at [DATE]\t "
+            + "- add a task that start at a specific date and ends at a specific date";
 
     public Event(String description, String atTiming) {
         super(description);

@@ -8,6 +8,7 @@ import duke.util.Ui;
 public class MarkCommand extends Command {
     private final int taskIndex;
     public static final String COMMAND = "mark";
+    public static final String MESSAGE_HELP = "mark [INDEX]\t - mark a task as done by index shown on list";
     private static final String MESSAGE_MARK = "Nice! I've marked this task as done:";
 
     public MarkCommand(int taskIndex) {
@@ -36,4 +37,7 @@ public class MarkCommand extends Command {
         return false;
     }
 
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
+    }
 }

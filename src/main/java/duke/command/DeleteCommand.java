@@ -7,6 +7,7 @@ import duke.util.Ui;
 public class DeleteCommand extends Command {
     private final int taskIndex;
     public static final String COMMAND = "delete";
+    public static final String MESSAGE_HELP = "delete [INDEX]\t - delete a task from the list by index";
     private final String MESSAGE_DELETE = "Noted. I've removed this task: ";
 
     public DeleteCommand(int taskIndex) {
@@ -27,5 +28,9 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
     }
 }

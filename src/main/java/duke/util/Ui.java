@@ -93,6 +93,8 @@ public class Ui implements Utilities {
 
     public void endMessage() {
         System.out.println(MESSAGE_BYE);
+        showLine();
+        showLine();
     }
 
 }

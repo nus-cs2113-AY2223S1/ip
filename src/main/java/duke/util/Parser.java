@@ -114,18 +114,18 @@ public class Parser implements Utilities{
     public static void getTaskParameters() throws DukeException {
         try {
             switch (userCommand) {
-                case (Deadline.COMMAND):
-                    parameters = parseParameter(inputBuffer, "/" + Deadline.OPTIONFLAG);
-                    break;
-                case (Event.COMMAND):
-                    parameters = parseParameter(inputBuffer, "/" + Event.OPTIONFLAG);
-                    break;
-                default:
-                    parameters = new ArrayList<>() {
-                        {
-                            add(inputBuffer);
-                        }
-                    };
+            case (Deadline.COMMAND):
+                parameters = parseParameter(inputBuffer, "/" + Deadline.OPTIONFLAG);
+                break;
+            case (Event.COMMAND):
+                parameters = parseParameter(inputBuffer, "/" + Event.OPTIONFLAG);
+                break;
+            default:
+                parameters = new ArrayList<>() {
+                    {
+                        add(inputBuffer);
+                    }
+                };
             }
         } catch (DukeException e) {
             throw e;

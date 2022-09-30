@@ -8,6 +8,7 @@ import duke.util.Ui;
 public class UnmarkCommand extends Command {
     private final int taskIndex;
     public static final String COMMAND = "unmark";
+    public static final String MESSAGE_HELP = "unmark [INDEX]\t - mark a task as not done by index shown on list";
     private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
 
 
@@ -35,4 +36,7 @@ public class UnmarkCommand extends Command {
         return false;
     }
 
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
+    }
 }

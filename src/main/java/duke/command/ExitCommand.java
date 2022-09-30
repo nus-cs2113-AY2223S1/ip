@@ -6,6 +6,7 @@ import duke.util.Ui;
 
 public class ExitCommand extends Command {
     public static final String COMMAND = "bye";
+    public static final String MESSAGE_HELP = "bye\t - exits the application";
 
     public ExitCommand() {
 
@@ -19,5 +20,9 @@ public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
     }
 }

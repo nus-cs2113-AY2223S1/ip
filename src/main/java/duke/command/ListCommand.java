@@ -6,6 +6,7 @@ import duke.util.Ui;
 
 public class ListCommand extends Command {
     public static final String COMMAND = "list";
+    public static final String MESSAGE_HELP = "list\t - list out all the tasks added to list";
     private static final String MESSAGE_LIST = "Beep beep, listing out the tasks....Loading.....";
 
     @Override
@@ -23,4 +24,7 @@ public class ListCommand extends Command {
         return false;
     }
 
+    public static String getHelpMessage() {
+        return MESSAGE_HELP;
+    }
 }

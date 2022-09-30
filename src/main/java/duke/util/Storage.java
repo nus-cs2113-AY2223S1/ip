@@ -1,5 +1,7 @@
 package duke.util;
 
+import duke.exception.DukeException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -36,9 +38,9 @@ public class Storage {
     /**
      * To load past user commands into the commandHistroy buffer
      *
-     * @throws FileNotFoundException if file is not found
+     * @throws FileNotFoundException if user file is not found, indicating a new user
      */
-    public void loadDataFromFile() {
+    public void loadDataFromFile() throws DukeException {
 
         try {
             Scanner sc = new Scanner(new FileInputStream(filePath));
@@ -49,7 +51,7 @@ public class Storage {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("no past data.....welcome new user!!");
+            throw new DukeException("User file not found! New user!");
         }
 
     }
