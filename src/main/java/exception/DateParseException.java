@@ -5,7 +5,7 @@ package exception;
  */
 public class DateParseException extends Exception {
     private String MESSAGE =
-            "Invalid date detected. The input date must be given in the format: YYYY-MM-DD. Please try again.";
+            "The input date must be given in the format: YYYY-MM-DD. \nInvalid date detected. Please try again.";
     /**
      * Returns corresponding error message when called
      */
