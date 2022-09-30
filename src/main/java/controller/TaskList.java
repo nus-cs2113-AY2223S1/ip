@@ -14,47 +14,48 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        System.out.println("default constructor");
         tasks = new ArrayList<Task>();
     }
 
     public TaskList(File f) {
         tasks = new ArrayList<Task>();
+        final String SPLITTER = "\\|";
+        final String TODO_IDENTIFIER = "T";
+        final String EVENT_IDENTIFIER = "E";
+        final String DEADLINE_IDENTIFIER = "D";
+        final String YES = "Y";
 
+        // read in past saved data
         try {
             Scanner fileScanner = new Scanner(f);
         
             while (fileScanner.hasNext()) {
                 String lineInput = fileScanner.nextLine();
-                String[] words = lineInput.split("\\|", 4);
+                String[] words = lineInput.split(SPLITTER, 4);
+                Task newTask = new Task();
 
                 switch (words[0]) {
-                case "T":
-                    Todo newTodo = new Todo(words[2]);
-                    if (words[1].equals("Y")) {
-                        newTodo.markDone();
-                    }
-                    tasks.add(newTodo);
+                case TODO_IDENTIFIER:
+                    newTask = new Todo(words[2]);
+                    tasks.add(newTask);
                     break;
 
-                case "E":
-                    Event newEvent = new Event(words[2], words[3]);
-                    if (words[1].equals("Y")) {
-                        newEvent.markDone();
-                    }
-                    tasks.add(newEvent);
+                case EVENT_IDENTIFIER:
+                    newTask = new Event(words[2], words[3]);
+                    tasks.add(newTask);
                     break;
 
-                case "D":
-                    Deadline newDeadline = new Deadline(words[2], words[3]);
-                    if (words[1].equals("Y")) {
-                        newDeadline.markDone();
-                    }
-                    tasks.add(newDeadline);
+                case DEADLINE_IDENTIFIER:
+                    newTask = new Deadline(words[2], words[3]);
+                    tasks.add(newTask);
                     break;
 
                 default:
                     break;
+                }
+
+                if (words[1].equals(YES)) {
+                    newTask.markDone();
                 }
             }
             fileScanner.close();
@@ -86,4 +87,5 @@ public class TaskList {
     public void deleteTask(int index) {
         this.tasks.remove(index);
     }
+
 }

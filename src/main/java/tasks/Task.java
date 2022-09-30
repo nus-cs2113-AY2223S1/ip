@@ -9,6 +9,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task() {
+        this.isDone = false;
+    }
+
     public String getStatusIcon() {
         return (isDone ? " [X]" : " [ ]"); // mark done task with X
     }
@@ -24,7 +28,7 @@ public class Task {
 
     public String unmark() {
         this.isDone = false;
-        return "unamarked.";
+        return "unmarked.";
     }
 
     @Override
