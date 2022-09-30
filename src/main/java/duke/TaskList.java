@@ -24,7 +24,10 @@ import java.util.stream.Collectors;
 public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
     ArrayList<Task> tasksLastShown = new ArrayList<>();
-
+    private static final String EXIT_MESSAGE = "Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+    private static final String COMMAND_ERROR_MESSAGE =
+            "ERROR: Something went wrong with command execution.\n "
+            + "Congrats, you've broken DuckyMomo";
     /**
      * Default constructor
      */
@@ -212,7 +215,7 @@ public class TaskList {
 
         switch (command.getCommandType()) {
         case EXIT:
-            output = "Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+            output = EXIT_MESSAGE;
             break;
         case LIST:
             output = getAllTasks();
@@ -244,7 +247,7 @@ public class TaskList {
             break;
         default:
             // Program is not supposed to reach here
-            output = "ERROR: Something went wrong with command execution.\n Congrats, you've broken DuckyMomo";
+            output = COMMAND_ERROR_MESSAGE;
             break;
         }
         return output;

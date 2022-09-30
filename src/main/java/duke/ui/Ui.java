@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Ui {
     private Scanner sc = new Scanner(System.in);
     private static String LINE = "    ____________________________________________________________";
-
+    private static String WELCOME_MESSAGE = "Hello! I'm Duckymomo\n What can I do for you?";
     /**
      * Default Constructor
      */
@@ -17,11 +17,7 @@ public class Ui {
      * Prints welcome message to the command line
      */
     public void showWelcomeMessage() {
-        String output =
-                "Hello! I'm Duckymomo\n"
-                + "What can I do for you?";
-
-        formatAndPrint(output);
+        formatAndPrint(WELCOME_MESSAGE);
     }
 
     /**

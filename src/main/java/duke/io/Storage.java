@@ -18,10 +18,10 @@ import java.util.Scanner;
 
 
 public class Storage {
-    private final String dataFileName;
-    private final String dataDirectoryName;
-    private final Path dataFilePath;
-    private final Path dataDirectoryPath;
+    private String dataFileName;
+    private String dataDirectoryName;
+    private Path dataFilePath;
+    private Path dataDirectoryPath;
 
     /**
      * Constructor

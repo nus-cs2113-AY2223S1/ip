@@ -33,7 +33,7 @@ public abstract class Command {
      * and counts the number of tokens separated by whitespaces.
      * @throws DukeMissingArgumentException If there are not enough tokens
      * @throws DukeExtraArgumentException If there are too many tokens
-     * @throws DukeMissingDescriptionException If the task description
+     * @throws DukeMissingDescriptionException If the task description is missing
      */
     protected void checkArgumentLength() throws DukeMissingArgumentException, DukeExtraArgumentException,
             DukeMissingDescriptionException {
