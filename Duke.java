@@ -17,6 +17,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes Duke and handles if there has been no previous usage of Duke
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -28,6 +32,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Handles user input
+     * Exits Duke if user enters COMMAND_WORD_EXIT
+     */
     public void run() {
         Ui.greet();
         Scanner input = new Scanner(System.in);

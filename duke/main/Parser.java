@@ -23,12 +23,22 @@ public class Parser {
     static String COMMAND_WORD_FIND = "find";
     public Parser() {}
 
+    /**
+     * Finds the entered task date from the user
+     * @param line line of input from the user
+     * @return The date of the task
+     */
     public static String findTaskDate(String line) {
         int dateIndex = line.indexOf(LINE_DIVIDER);
         String taskDate = line.substring(dateIndex + 4);
         return taskDate;
     }
 
+    /**
+     * Finds the entered task name from the user
+     * @param line line of input from the user
+     * @return The name/description of the task
+     */
     public static String findTaskName(String line) {
         int dateIndex = line.indexOf(LINE_DIVIDER);
         int spaceIndex = line.indexOf(" ");
@@ -41,6 +51,12 @@ public class Parser {
         return taskName;
     }
 
+    /**
+     * Handles commands from the user and passes inputs to TaskList methods
+     * If the command involves tasks, passes it to the handleTask function
+     * If Duke does not recognize the command, returns an error
+     * @param line line of input from the user
+     */
     public static void parse(String line) {
         String[] words = line.split(" ");
         String command = words[COMMAND_INDEX];
@@ -71,24 +87,43 @@ public class Parser {
         }
     }
 
+    /**
+     * Passes input to checkSpace function
+     * Handles the error if one is thrown
+     * @param line line of input from the user
+     * @return True if there are no errors
+     */
     public static boolean taskSpaceCheck(String line) {
         try {
             Ui.checkSpace(line);
+            return true;
         } catch (IllegalArgumentException e) {
             System.out.println("Don't forget to include your task!");
+            return false;
         }
-        return true;
     }
 
+    /**
+     * Passes input to checkDivider function
+     * Handles the error if one is thrown
+     * @param line line of input from the user
+     * @return True if there are no errors
+     */
     public static boolean taskDividerCheck(String line) {
         try {
             Ui.checkDivider(line);
+            return true;
         } catch (DukeException e) {
             System.out.println("Don't forget to include the deadline!");
+            return false;
         }
-        return true;
     }
 
+    /**
+     * Handles task commands from the user
+     * @param line line of input from the user
+     * @param command
+     */
     public static void handleTask(String line, String command) {
         if (taskSpaceCheck(line)) {
             switch (command) {
