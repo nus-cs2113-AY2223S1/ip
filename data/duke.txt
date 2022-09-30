@@ -1,5 +1,0 @@
-[T][ ]  borrow book
-[T][ ]  fish
-[E][ ]  project meeting  (at: Mon 2-4pm)
-[T][ ]  cheer
-[T][ ]  big

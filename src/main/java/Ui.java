@@ -50,6 +50,11 @@ public class Ui {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    public static void emptyMsg(){
+        System.out.println("☹ OOPS!!! your input ois empty");
+    }
+
+
     public static void indexOutOfBoundMsg(){
         System.out.println("warning:index out of bound");
     }
@@ -70,10 +75,6 @@ public class Ui {
         System.out.println(task);
     }
 
-    public static void invalidIndexMsg(){
-        System.out.println("no index found");
-    }
-
     public void markTaskMsg(boolean status, Task task){
         if(status){
             System.out.println("Nice! I've marked this task as done:");
@@ -87,5 +88,15 @@ public class Ui {
     public void separatorMsg(){
         System.out.println("____________________________________________________________");
     }
+
+    public void unknownError(){
+        System.out.println("unknown error occurred");
+    }
+
+    public void formatIncorrect(){
+        System.out.println("format incorrect");
+    }
+
+
 
 }
