@@ -125,6 +125,16 @@ public class Duke {
                     System.out.println("Something went wrong: "+e.getMessage());
                 }
                 ui.drawLine();
+            } else if(input.contains("find")){
+                ui.drawLine();
+                String keyword = input.split(" ")[1];
+                System.out.println("Here are the matching tasks in your list:");
+                for(int i = 0; i < taskArray.size(); i++){
+                    if(taskArray.get(i).getDescription().contains(keyword)){
+                        ui.generateTaskStatus(taskArray.get(i).getTaskIcon(), taskArray.get(i).getStatusIcon(), taskArray.get(i).getDescription());
+                    }
+                }
+                ui.drawLine();
             } else if(input.contains("todo")) {
                 taskArray.add(new Todo(input));
                 ui.drawLine();
