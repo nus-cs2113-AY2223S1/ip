@@ -64,6 +64,10 @@ public class Parser {
         } else if (command.matches(COMMAND_WORD_DEADLINE) || command.matches(COMMAND_WORD_EVENT)
                 || command.matches(COMMAND_WORD_TODO)) {
             handleTask(line, command);
+        } else {
+            // Wrong command
+            Ui.showCommandError();
+            Ui.greet();
         }
     }
 

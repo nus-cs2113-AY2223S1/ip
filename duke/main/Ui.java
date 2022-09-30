@@ -1,6 +1,7 @@
 package duke.main;
 import duke.error.DukeException;
 import duke.tasks.*;
+import org.w3c.dom.html.HTMLObjectElement;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,12 @@ public class Ui {
     public static void showLoadingError() {
         System.out.println("No previous usage of Duke");
         System.out.println("Loading a new save");
+    }
+
+    public static void showCommandError() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oops! I don't understand that command!");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void addTaskMessage(Task task) {
