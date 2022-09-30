@@ -17,7 +17,6 @@ public class Ui {
     private final String NO_TASK_FOUND = "No task with description containing %s is found";
     private final String TASKS_FOUND = "Here are the search results for tasks with description containing %s";
     private final String GOODBYE = "Bye. Hope to see you again soon!";
-    private final String SAVED_FILE_LOCATION_MESSAGE = "Your saved file is located at";
 
     /**
      * Prints success message after adding task and the added task.
@@ -27,10 +26,6 @@ public class Ui {
     public void printAddTaskSuccess(Task task){
         System.out.println(TASK_ADDED_SUCCESSFULLY_MESSAGE);
         task.printTask();
-    }
-
-    public void printSavedFileLocation(String filePath){
-        System.out.println(SAVED_FILE_LOCATION_MESSAGE + " " +filePath);
     }
 
 

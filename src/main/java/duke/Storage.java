@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  */
 public class Storage {
     private final String DATA_DIRECTORY = "data";
+    private final String PROJECT_ROOT = ".";
     private final String SAVE_FILE_NAME = "duke.txt";
     private final String CREATE_DIRECTORY_FAILED = "Please create a directory named data before using duke!";
     private final int TASK_TYPE = 0;
@@ -27,12 +28,11 @@ public class Storage {
     private Path dataDirectoryPath;
 
     /**
-     * Initialise savedFilePath to desired file path and dataDirectoryPath to desired directory.
+     * Initialise savedFilePath to desired file path (./data/duke.txt) and dataDirectoryPath to desired directory (./data).
      */
     public void setHomePath(){
-        String home = System.getProperty("user.home");
-        savedFilePath = Paths.get(home,DATA_DIRECTORY,SAVE_FILE_NAME);
-        dataDirectoryPath = Paths.get(home,DATA_DIRECTORY);
+        savedFilePath = Paths.get(PROJECT_ROOT,DATA_DIRECTORY,SAVE_FILE_NAME);
+        dataDirectoryPath = Paths.get(PROJECT_ROOT,DATA_DIRECTORY);
     }
 
     public String getHomePath(){
