@@ -18,10 +18,6 @@ public class Ui {
     private static final String TOP_HORIZONTAL_RULE = "\t_____________________";
     private static final String BOTTOM_HORIZONTAL_RULE = "\t_____________________\n";
 
-    public static final String WRONG_NUMBER_INPUT_FORMAT = "Please input the task number that you want to delete.";
-
-    public static final String ITEM_NOT_PRESENT = "There is no such item in your Task List.";
-
     public static void printIntroMessage(TaskList tasks) {
         System.out.println("\tHello! I'm Duke, your personal task manager!");
         System.out.println(TOP_HORIZONTAL_RULE);
@@ -71,27 +67,31 @@ public class Ui {
     }
 
     public static void printMark(TaskList tasks, int taskId) {
-        System.out.println(TOP_HORIZONTAL_RULE);
         if (tasks.get(taskId).isDone) {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tThis task is already marked!");
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         } else {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tNice! I've marked this task as done:");
             tasks.get(taskId).setDone(tasks.get(taskId).isDone);
             System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         }
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printUnmark(TaskList tasks, int taskId) {
-        System.out.println(TOP_HORIZONTAL_RULE);
         if (!tasks.get(taskId).isDone) {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tThis task is already unmarked!");
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         } else {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tOK, I've marked this task as not done yet:");
             tasks.get(taskId).setDone(tasks.get(taskId).isDone);
             System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         }
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printTaskList(TaskList tasks) {
@@ -128,19 +128,51 @@ public class Ui {
         System.out.println("\t5. mark <task number>");
         System.out.println("\t6. unmark <task number>");
         System.out.println("\t7. delete <task number>");
-        System.out.println("\t8. bye");
+        System.out.println("\t8. find <keyword>");
+        System.out.println("\t9. bye");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-	public static void IndexOutOfBoundsExceptionMessage() {
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(TOP_HORIZONTAL_RULE);
-        System.out.println("\tOOPS!!! This task is not in the list!");
+        if (matchingTasks.size() == 0) {
+            System.out.println("\tThere is no matching task!");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + "." + matchingTasks.get(i));
+            }
+        }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-    public static void NumberFormatExceptionMessage() {
+	public static void showInvalidFindDescriptionExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
-        System.out.println("\tOOPS!!! Please only enter numbers!");
+        System.out.println("\tOOPS!!! Your find input is incomplete. Please follow this format.");
+        System.out.println("\tExample: find <book>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+	public static void showInvalidDeleteInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: delete <1>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+	public static void showInvalidMarkTaskInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: mark <1>");
+        System.out.println(BOTTOM_HORIZONTAL_RULE);
+    }
+
+    public static void showInvalidUnmarkTaskInputExceptionMessage() {
+        System.out.println(TOP_HORIZONTAL_RULE);
+        System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
+        System.out.println("\tExample: unmark <1>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 }
+
+

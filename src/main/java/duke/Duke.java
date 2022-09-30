@@ -38,17 +38,11 @@ public class Duke {
                 Command keyword = CommandParser.parseCommand(fullCommand);
                 keyword.execute(tasks, storage, ui, fullCommand);
                 isExit = keyword.isExit();
-            } catch (InvalidTaskDescriptionException e) {
-                Ui.showInvalidTodoInputExceptionMessage();
-            } catch (InvalidCommandException e) {
+            }  catch (InvalidCommandException e) {
                 Ui.printUnknownCommand();
             } catch (DukeException e) {
                 Ui.printUnknownCommand();
-            } catch (IndexOutOfBoundsException e) {
-                Ui.IndexOutOfBoundsExceptionMessage();
-            } catch (NumberFormatException e) {
-                Ui.NumberFormatExceptionMessage();
-            }
+            } 
         }
     }
 

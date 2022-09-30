@@ -1,5 +1,7 @@
 package duke.parser;
 
+import duke.exception.DukeException;
+import duke.exception.EmptyNumberInputException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
@@ -10,10 +12,10 @@ public class Parser {
         return words[0];
     }
 
-    public static String getTaskDescription (String line) throws InvalidTaskDescriptionException{
+    public static String getDescription (String line) throws InvalidTaskDescriptionException{
         String[] breakLine = line.trim().split(" ", 2);
         if (breakLine.length == 1 || breakLine[1].isBlank()) {
-            throw new InvalidTaskDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
+            throw new InvalidTaskDescriptionException("Please enter a valid todo description");
         } return breakLine[1];
     }
 
@@ -41,8 +43,9 @@ public class Parser {
         return split;
     }
 
-    public static int getTaskId(String input) {
-        int inputId = Integer.parseInt(input.replaceAll("[^0-9]", ""));    // gets the id
+    public static int getTaskId(String input) throws EmptyNumberInputException {
+        // int inputId = Integer.parseInt(input.replaceAll("[^0-9]", ""));    // gets the id
+        int inputId = Integer.parseInt(input.trim().split(" ")[1]);
         return (inputId - 1);
     }
 
