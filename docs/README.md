@@ -7,7 +7,7 @@ Duke is a personal task manager that helps you keep track of your tasks. It is o
 ## Setting up
 
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest `duke.jar` from [here](#download)
+2. Download the latest `duke.jar` from [here](https://github.com/deenliong/ip/releases/download/A-Release/Duke.jar)
 3. Copy the file to the folder you want to use as the home folder for your Duke.
 4. Open a command line and pass in the following command to run the jar file: `java -jar duke.jar`
 5. If the setup is correct, you should see the welcome screen as shown below.
