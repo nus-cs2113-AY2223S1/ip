@@ -1,0 +1,3 @@
+[T][ ] read book
+[D][X] return book    (by:   6pm)
+[E][ ] attend party    (at:   5pm)
