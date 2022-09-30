@@ -134,7 +134,8 @@ public class Ui {
         System.out.println("\t6. unmark <existing_task_number>");
         System.out.println("\t7. delete <existing_task_number>");
         System.out.println("\t8. find <keyword>");
-        System.out.println("\t9. bye");
+        System.out.println("\t9. total");
+        System.out.println("\t10. bye");
         System.out.println(HORIZONTAL_RULE);
     }
 
@@ -190,7 +191,8 @@ public class Ui {
         System.out.println("\t6. unmark <existing_task_number>");
         System.out.println("\t7. delete <existing_task_number>");
         System.out.println("\t8. find <keyword>");
-        System.out.println("\t9. bye");
+        System.out.println("\t9. total");
+        System.out.println("\t10. bye");
         System.out.println(HORIZONTAL_RULE);
     }
 

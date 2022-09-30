@@ -37,6 +37,7 @@ Here's a list of features available in Duke. Click on the links to jump to the r
 - [Unmarking a task as done: `unmark <existing_task_number>`](#unmarking-a-task-as-done-unmark)
 - [Deleting a task: `delete <existing_task_number>`](#deleting-a-task-delete)
 - [Finding a task: `find <keyword>`](#finding-a-task-find)
+- [Get total number of task: `total`](#getting-total-number-of-task)
 - [Exiting the program: `bye`](#exiting-the-program-bye)
 
 ### Getting help: `help`
@@ -211,6 +212,22 @@ Here are the matching tasks in your list:
 2. [D][ ] return book (by: Sep 15 2020)
 ```
 
+### Getting total number of task
+
+Gets the total number of tasks in the task list.
+
+Format: `total`
+
+Example of usage:
+
+`total`
+
+Expected outcome:
+
+```
+Now you have 2 tasks in the list.
+```
+
 ### Exiting the program: `bye`
 
 Exits the program.
@@ -240,6 +257,7 @@ Bye. Hope to see you again soon!
 | **Unmark**   | `unmark <existing_task_number>` <br> e.g., `unmark 2`                                           |
 | **Delete**   | `delete <existing_task_number>` <br> e.g., `delete 2`                                           |
 | **Find**     | `find <keyword>` <br> e.g., `find book`                                                         |
+| **Total**    | `total`                                                                                         |
 | **Bye**      | `bye`                                                                                           |
 
 ## Saving data
