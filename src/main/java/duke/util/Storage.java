@@ -36,9 +36,9 @@ public class Storage {
     }
 
     /**
-     * To load past user commands into the commandHistroy buffer
+     * To load past user commands into the command history buffer
      *
-     * @throws FileNotFoundException if user file is not found, indicating a new user
+     * @throws FileNotFoundException if user file is not found
      */
     public void loadDataFromFile() throws DukeException {
 
