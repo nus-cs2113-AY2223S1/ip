@@ -1,5 +1,6 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
@@ -45,6 +46,28 @@ public class Parser {
                 else{
                     tasks.delete(num);
                     Storage.listToFile(tasks);
+                }
+            }
+            else if(inp.contains("find")){
+
+                String temp = inp.substring(inp.indexOf("find")+5);
+                System.out.println(temp);
+                ArrayList<Integer> temps = new ArrayList<>();
+                int counter = 0;
+                for(int i = 0; i < tasks.size(); i++){
+                    if(tasks.getTask(i).getName().contains(temp)){
+                        counter++;
+                        temps.add(i);
+                    }
+                }
+                if(counter==0){
+                    System.out.println("There are no matching entries for that word");
+                }
+                else{
+                    System.out.println("Here are the matching tasks in your list");
+                    for(int j = 0; j < counter; j++){
+                        System.out.println((j+1)+". "+tasks.getTask(temps.get(j)));
+                    }
                 }
             }
             else {

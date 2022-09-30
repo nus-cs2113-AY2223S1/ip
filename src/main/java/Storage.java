@@ -68,10 +68,10 @@ public class Storage {
                         list.add(new Todo(lin[2], temp));
                     }
                     else if(lin[0].equals("D")){
-                        list.add(new Deadline(lin[2], temp, lin[4]));
+                        list.add(new Deadline(lin[2], temp, lin[3]));
                     }
                     else if(lin[0].equals("E")){
-                        list.add(new Event(lin[2], temp, lin[4]));
+                        list.add(new Event(lin[2], temp, lin[3]));
                     }
                 }
             }
