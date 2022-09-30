@@ -47,17 +47,19 @@ public class TaskList extends ArrayList<Task> {
      * @param toDoInputs user's input to add todo task (todo (task))
      * @throws InvalidCommandFormatException if the command is invalid
      */
-    public static void addTodoTask(String[] toDoInputs) {
+    public static void addTodoTask(String[] toDoInputs) throws InvalidCommandFormatException {
+        String[] taskDescriptionWords = toDoInputs[1].split(" ");
+        String firstTaskDescriptionWord = taskDescriptionWords[0].replace(" ", "");
+        if (toDoInputs.length < 2 | firstTaskDescriptionWord.length() == 0) {
+            throw new InvalidCommandFormatException();
+        }
         try {
-            if (toDoInputs.length < 2) {
-                throw new InvalidCommandFormatException();
-            }
             Todo newTodo = new Todo(toDoInputs[1], 'T');
             tasksList.add(newTodo);
             taskNumberOfInterest = getTasksListSize() - 1;
             Ui.printAddTaskText(newTodo);
-        } catch (InvalidCommandFormatException e) {
-            Ui.printCorrectFormatText(AddTodoCommand.TODO_COMMAND);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Ui.printCorrectFormatText(AddDeadlineCommand.DEADLINE_COMMAND);
         }
     }
 
@@ -65,9 +67,15 @@ public class TaskList extends ArrayList<Task> {
      * Adds user's specified deadline task to the list
      * @param deadlineInputs user's input to add deadline task (deadline (task) /by (time))
      */
-    public static void addDeadlineTask(String[] deadlineInputs) {
+    public static void addDeadlineTask(String[] deadlineInputs) throws InvalidCommandFormatException {
+        if (deadlineInputs.length < 2) {
+            throw new InvalidCommandFormatException();
+        }
         try {
             String[] DescriptionWithTime = deadlineInputs[1].split("/by ", 2);
+            if (DescriptionWithTime.length < 2) {
+                throw new InvalidCommandFormatException();
+            }
             Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
             tasksList.add(newDeadlineTask);
             Ui.printAddTaskText(newDeadlineTask);
@@ -81,9 +89,15 @@ public class TaskList extends ArrayList<Task> {
      * Adds user's specified event task to the list
      * @param eventInputs user's input to add event task (event (task) /at (time))
      */
-    public static void addEventTask(String[] eventInputs) {
+    public static void addEventTask(String[] eventInputs) throws InvalidCommandFormatException {
+        if (eventInputs.length < 2) {
+            throw new InvalidCommandFormatException();
+        }
         try {
             String[] DescriptionWithTime = eventInputs[1].split("/at ", 2);
+            if (DescriptionWithTime.length < 2) {
+                throw new InvalidCommandFormatException();
+            }
             Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
             tasksList.add(newEvent);
             Ui.printAddTaskText(newEvent);

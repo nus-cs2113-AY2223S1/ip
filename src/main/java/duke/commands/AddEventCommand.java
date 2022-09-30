@@ -2,6 +2,8 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.InvalidCommandFormatException;
 
 /**
  * When executed, it adds a event task to taskList
@@ -12,7 +14,11 @@ public class AddEventCommand extends AddCommand {
 
     public AddEventCommand(String[] taskDescription, TaskList taskList) {
         super(taskDescription);
-        TaskList.addEventTask(taskDescription);
-        Storage.loadTasktoDataFile(taskList);
+        try {
+            TaskList.addEventTask(taskDescription);
+            Storage.loadTasktoDataFile(taskList);
+        } catch (InvalidCommandFormatException e) {
+            Ui.printCorrectFormatText(AddEventCommand.EVENT_COMMAND);
+        }
     }
 }

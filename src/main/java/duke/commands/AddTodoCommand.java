@@ -2,6 +2,8 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.InvalidCommandFormatException;
 
 /**
  * When executed, it adds a todo task to taskList
@@ -12,7 +14,11 @@ public class AddTodoCommand extends AddCommand {
 
     public AddTodoCommand(String[] taskDescription, TaskList taskList) {
         super(taskDescription);
-        TaskList.addTodoTask(taskDescription);
-        Storage.loadTasktoDataFile(taskList);
+        try {
+            TaskList.addTodoTask(taskDescription);
+            Storage.loadTasktoDataFile(taskList);
+        } catch (InvalidCommandFormatException e) {
+            Ui.printCorrectFormatText(AddTodoCommand.TODO_COMMAND);
+        }
     }
 }
