@@ -31,7 +31,7 @@ public class Ui {
                 System.out.println("\t" + (i + 1) + "." + tasks.get(i));
             }
         } else {
-            System.out.println("You have no tasks in your list. Try adding some!");
+            System.out.println("\tYou have no tasks in your list. Try adding some!");
         }
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }

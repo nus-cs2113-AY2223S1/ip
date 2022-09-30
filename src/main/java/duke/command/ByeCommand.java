@@ -19,6 +19,8 @@ public class ByeCommand extends Command {
 
     @Override
     public TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException {
+        Storage.clearCurrentFile();
+        Storage.saveNewList(tasks);
         Ui.printByeMessage();
         return tasks;
     }
