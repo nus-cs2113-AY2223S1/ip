@@ -1,5 +1,9 @@
 package duke.tasks;
 
+
+/**
+ * Represents the task of type Deadline
+ */
 public class Deadline extends Task {
     protected String by;
 
@@ -8,13 +12,22 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Sets the time of the deadline
+     */
     public void setBy(String by) {
         this.by = by;
     }
 
+    /**
+     * Gets the time of the deadline
+     *
+     * @returns the time of the deadline.
+     */
     public String getBy() {
         return by;
     }
+
 
     @Override
     public String toString(){
