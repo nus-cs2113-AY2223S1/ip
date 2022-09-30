@@ -1,6 +1,5 @@
 package duke.tasks;
 
-import duke.DukeException;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ public class TaskList {
     public static Ui ui = new Ui ();
     public static ArrayList<Task> taskList = new ArrayList<>();
 
-    public void markDone (ArrayList<Task> taskList, int taskNumber) throws DukeException{
+    public void markDone (ArrayList<Task> taskList, int taskNumber){
 
         ui.printOutputs("Okiii... This task has been marked as done");
         taskList.get(taskNumber).markAsDone();
@@ -17,7 +16,7 @@ public class TaskList {
         ui.printDashLine();
     }
 
-    public void markUnDone(ArrayList<Task> taskList, int taskNumber) throws DukeException{
+    public void markUnDone(ArrayList<Task> taskList, int taskNumber){
         ui.printOutputs("Okiii... This task has been marked as not done yet");
         taskList.get(taskNumber).markAsUndone();
         ui.printOutputs((taskList.get(taskNumber)).description);
@@ -59,17 +58,16 @@ public class TaskList {
     public void listTasks (ArrayList<Task> taskList){
         ui.printOutputs("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            ui.printOutputs(Integer.toString(i + 1) + " " + (taskList.get(i)).toString());
+            ui.printOutputs((i + 1) + " " + (taskList.get(i)).toString());
         }
         ui.printDashLine();
     }
 
     public void findTasks (ArrayList <Task> taskList, String keyword){
-        ArrayList<Task> tasksFound = new ArrayList<>();
         ui.printOutputs("Here are the matching tasks in your list");
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).description.contains(keyword)){
-                ui.printOutputs(Integer.toString(i + 1) + " " + (taskList.get(i)).toString());
+                ui.printOutputs(i + 1 + " " + (taskList.get(i)).toString());
             }
         }
         ui.printDashLine();

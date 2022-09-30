@@ -70,7 +70,7 @@ public class Parser {
                 prepEvent(input);
             }
             catch (DukeException e){
-                System.out.println("The event input is not valid! Might be missing description, '/at' or time !");
+                System.out.println("The event input is not valid! Might be missing description, '/at' or time!");
             }
         } else if (input.contains(FIND)){
             try{
@@ -120,6 +120,16 @@ public class Parser {
         }
     }
 
+
+
+    /**
+     *
+     *
+     * @param input user input containing the name of the task and the deadline of the task.
+     * @throws DukeException if the task name is empty or the deadline is empty
+     *
+     *
+     */
 
     public void prepDeadline (String input) throws DukeException{
         String task = input.substring(DEADLINE.length(), input.indexOf(BY));
