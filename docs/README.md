@@ -47,16 +47,16 @@ ____________________________________________________________
 |____/ \__,_|_|\_\___|
 Hello! I'm Duke
 Possible commands are:
-`help` 								-> List possible commands.
-`bye` 								-> To exit the program.
-`list` 								-> List out all the current task in the list.
-`todo <description>` 				-> Add todo task.
+`help` 					-> List possible commands.
+`bye` 					-> To exit the program.
+`list` 					-> List out all the current task in the list.
+`todo <description>` 			-> Add todo task.
 `event <description> /at <time>` 	-> Add event task.
-`deadline <description> /by <time>` -> Add deadline task.
-`mark <task number>` 				-> Mark task as completed.
-`unmark <task number>` 				-> Mark task as not completed.
-`delete <task nummber>` 			-> Delete the task.
-`find <keyword>` 					-> Find the task(s) based on the keyword.
+`deadline <description> /by <time>`     -> Add deadline task.
+`mark <task number>` 		        -> Mark task as completed.
+`unmark <task number>` 		        -> Mark task as not completed.
+`delete <task nummber>` 		-> Delete the task.
+`find <keyword>` 			-> Find the task(s) based on the keyword.
 ____________________________________________________________
 What can I do for you?
 ```
