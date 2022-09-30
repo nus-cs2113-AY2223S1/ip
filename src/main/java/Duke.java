@@ -18,7 +18,7 @@ public class Duke {
     static boolean isRunning = true;
 
     public static void main(String[] args) throws NullCommandException, IOException {
-        File f =  new File("src/main/java/data.txt");
+        File f =  new File("data.txt");
         if(f.exists()) {
             Scanner s = new Scanner(f);
             while(s.hasNext()) {
@@ -26,7 +26,7 @@ public class Duke {
             }
             handleStoredTasks();
         }
-            FileWriter fw = new FileWriter("src/main/java/data.txt");
+            FileWriter fw = new FileWriter("data.txt");
             UI.welcomeMessage();
             handleUserInput();
         for (Task task : tasks) {
