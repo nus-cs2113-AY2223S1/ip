@@ -100,7 +100,7 @@ Example: `unmark 2`
 unmark 2
 _________________________________________________________________________________
 Oh no... Bob has mark this task as UNdone:
-[D][X] CS2113 IP (by: 30/09/2022)
+[D][ ] CS2113 IP (by: 30/09/2022)
 __________________________________________________________________________________
 ````
 
@@ -167,8 +167,9 @@ Command | Format | Example
 Add Todo task |  `todo TASK_DESCRIPTION` | `revise CS2113`
 Add Deadline task | `deadline TASK_DESCRIPTION /by DATE` | `deadline CS2113 /by 30/09/2022`
 Add Event task | `event TASK_DESCRIPTION /at DATE` |  `event RC4 Open House /at 11/11/2021`
-List tasks | `list` | `list`
 Mark task | `mark TASK_NUMBER` | `mark 2`
+Unmark task | `unmark TASK_NUMBER` | `unmark 2`
+List tasks | `list` | `list`
 Delete task | `delete TASK_NUMBER` | `delete 1`
 Search a task | `find KEYWORD` | `search CS2113`
 Exit application | `bye` | `bye`
