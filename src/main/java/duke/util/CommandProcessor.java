@@ -21,6 +21,7 @@ public class CommandProcessor {
 
     /**
      * Check if a command is valid
+     *
      * @param command the user command
      * @return if the command is valid
      */
@@ -66,6 +67,7 @@ public class CommandProcessor {
 
     /**
      * Construct the corresponding command class with parameters
+     *
      * @param command the command to execute
      * @param parameters parsed parameters
      * @return command containing information to be executed
@@ -101,8 +103,16 @@ public class CommandProcessor {
 
     //@author owenl131-reused
     //Reused from his ip TaskFactory class with slight modification
-    public static Task createTask(String command, ArrayList<String> parameters) throws UnknownCommandException {
 
+    /**
+     * Create the task instance to be added to the task list
+     *
+     * @param command the type to task to be created
+     * @param parameters the parameters for the task
+     * @return the Task subclass instance to be encapculated into the AddCommand instance
+     * @throws UnknownCommandException
+     */
+    public static Task createTask(String command, ArrayList<String> parameters) throws UnknownCommandException {
         switch(command) {
         case (Deadline.COMMAND):
             return new Deadline(parameters.get(0), parameters.get(1));

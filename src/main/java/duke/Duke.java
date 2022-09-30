@@ -27,6 +27,9 @@ public class Duke {
         new Duke("data/userData.txt").run();
     }
 
+    /**
+     * To run the Duke Application
+     */
     public void run() {
         ui.greetUser();
         boolean isExit = false;
@@ -48,6 +51,9 @@ public class Duke {
         endProgram();
     }
 
+    /**
+     * To load the command from data file
+     */
     private void loadPastSession(){
         List<String> pastData = new ArrayList<>();
 
@@ -58,7 +64,7 @@ public class Duke {
             ui.displayMessage(e.getErrorMessage());
         }
 
-        for(String pastCommand: pastData) {
+        for (String pastCommand: pastData) {
             try {
                 Command c = Parser.parse(pastCommand);
                 c.execute(taskList, ui, storage);
@@ -70,6 +76,9 @@ public class Duke {
         storage.setLoadStatus(true);
     }
 
+    /**
+     * To clean up the application and record the existing tasks in the task list onto data file
+     */
     private void endProgram() {
         ui.endMessage();
 
