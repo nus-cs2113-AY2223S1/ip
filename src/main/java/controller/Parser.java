@@ -10,6 +10,9 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
 
+/**
+ * Represents a parser object which processes a user's line inputs by its methods
+ */
 public class Parser {
 
     private Storage storage;
@@ -27,6 +30,12 @@ public class Parser {
         this.list = list;
     }
 
+    /**
+     * Determines whether user has entered todo command correctly
+     * If yes, adds the new todo and prints out list.
+     *
+     * @param words array consisting of the individual words typed by user
+     */
     public void addTodo(String[] words) {
         try {
             if (words.length == 1) {
@@ -41,6 +50,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines whether user has entered event command correctly
+     * If yes, adds the new event and prints out list.
+     *
+     * @param words array consisting of the individual words typed by user
+     */
     public void addEvent(String[] words) {
         try {
             dividerIndex = words[1].indexOf("/");
@@ -63,6 +78,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines whether user has entered deadline command correctly
+     * If yes, adds the new deadline and prints out list.
+     *
+     * @param words array consisting of the individual words typed by user
+     */
     public void addDeadline(String[] words) {
         try {
             dividerIndex = words[1].indexOf("/");
@@ -85,6 +106,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines whether user has entered mark command correctly
+     * If yes, marks the particular task and prints out list.
+     *
+     * @param words array consisting of the individual words typed by user
+     * @param userInput raw command string entered by the user
+     */
     public void markTask(String userInput, String[] words) {
         try {
             if (userInput.matches("mark [0-9]+")) {
@@ -102,6 +130,13 @@ public class Parser {
         } 
     }
 
+    /**
+     * Determines whether user has entered unmark command correctly
+     * If yes, unmarks the particular task and prints out list.
+     *
+     * @param words array consisting of the individual words typed by user
+     * @param userInput raw command string entered by the user
+     */
     public void unmarkTask(String userInput, String[] words) {
         try {
             if (userInput.matches("unmark [0-9]+")) {    
@@ -118,7 +153,14 @@ public class Parser {
             System.out.println("Can't unmark: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Determines whether user has entered delete command correctly
+     * If yes, removes the task and prints out remaining items
+     *
+     * @param words array consisting of the individual words typed by user
+     * @param userInput raw command string entered by the user
+     */
     public void deleteTask(String userInput, String[] words) {
         try {
             // making sure there is valid numerical input after mark/unmark
@@ -140,6 +182,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds all the tasks which have descriptions matching 
+     * keyword entered by user
+     *
+     * @param words array consisting of the individual words typed by user
+     * 
+     */
     public void findMatching(String[] words) {
         try {
             if (words.length == 1) {
@@ -159,6 +208,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the first keyword of the command entered by user
+     *
+     * @param words array consisting of the individual words typed by user
+     * @param userInput raw command string entered by the user
+     */
     public void processUserInput(String[] words, String userInput) {
         //CONSTANTS
         final String LIST_TRIGGER = "list";

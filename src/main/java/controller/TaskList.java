@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents an object that holds the list of tasks and methods that can manipulate the list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -65,11 +68,19 @@ public class TaskList {
         } 
     }
 
+    /**
+     * Obtains the tasks array.
+     * 
+     * @return the current tasks array
+     */
     public ArrayList<Task> getTaskArray(){
         // will pass by reference
         return this.tasks;
     }
 
+    /**
+     * Prints out the tasks currently in the tasks array
+     */
     public void listTasks() {
         String line = "\t------------------------\n";
         System.out.println(line);
@@ -80,10 +91,20 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Adds a new task to the tasks array
+     * 
+     * @param latest represents the task to be added
+     */
     public void addTask(Task latest) {
         this.tasks.add(latest);
     }
 
+    /**
+     * removes a task from the tasks array
+     * 
+     * @param index index of the task to be removed
+     */
     public void deleteTask(int index) {
         this.tasks.remove(index);
     }

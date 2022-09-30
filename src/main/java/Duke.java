@@ -3,6 +3,9 @@ import controller.Ui;
 import controller.TaskList;
 import controller.Storage;
 
+/**
+ * Main Duke class
+ */
 public class Duke {
 
     private Storage storage;
@@ -27,6 +30,11 @@ public class Duke {
         parser = new Parser(ui, storage, list);
     }
 
+    /**
+    * Runs the main routine for the program.
+    * Greets the user, loads previous data, and expects commands from user
+    * until user decides to terminate program with 'bye'. Changes are then saved.
+    */
     public void run() {
         ui.greetUser();
         ui.getContinuousInput(parser);

@@ -6,6 +6,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.io.FileWriter;
 
+/**
+ * Represents the storage of information relating to the tasklist
+ */
 public class Storage {
     private String filepath;
     private String folderpath;
@@ -15,6 +18,12 @@ public class Storage {
         this.folderpath = folderpath;
     }
 
+    /**
+     * Retreives the file storing user's tasks from the previous run
+     * of the program. If no such file is found, makes the appropriate file
+     * 
+     * @return File representing the saved information
+     */
     public File getMakeFile() {
         try {
             
@@ -40,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the information in the tasks array to the file
+     * in the specified location for storage
+     * 
+     * @param tasks the current list of tasks to be written into the file
+     */
     public void updateFile(ArrayList<Task> tasks) { 
         try {
             File f = new File(this.filepath);
