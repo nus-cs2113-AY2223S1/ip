@@ -3,12 +3,9 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
-import duke.exception.InvalidEventInputException;
-import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.CommandParser;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.Ui.printIntroMessage;
@@ -26,7 +23,7 @@ public class Duke {
         this.tasks = new TaskList();
     }
 
-    
+
     public void run() {
         printIntroMessage(tasks);
         Scanner sc = new Scanner(System.in);
@@ -38,15 +35,15 @@ public class Duke {
                 Command keyword = CommandParser.parseCommand(fullCommand);
                 keyword.execute(tasks, storage, ui, fullCommand);
                 isExit = keyword.isExit();
-            }  catch (InvalidCommandException e) {
+            } catch (InvalidCommandException e) {
                 Ui.printUnknownCommand();
             } catch (DukeException e) {
                 Ui.printUnknownCommand();
-            } 
+            }
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Duke().run();
     }
 }

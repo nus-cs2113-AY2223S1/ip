@@ -5,7 +5,7 @@ import duke.Ui;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     public DeleteCommand(String input) {
         super(input);
     }

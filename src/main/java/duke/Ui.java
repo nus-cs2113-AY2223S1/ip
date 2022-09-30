@@ -146,21 +146,21 @@ public class Ui {
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-	public static void showInvalidFindDescriptionExceptionMessage() {
+    public static void showInvalidFindDescriptionExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your find input is incomplete. Please follow this format.");
         System.out.println("\tExample: find <keyword>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-	public static void showInvalidDeleteInputExceptionMessage() {
+    public static void showInvalidDeleteInputExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
         System.out.println("\tExample: delete <existing_task_number>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
-	public static void showInvalidMarkTaskInputExceptionMessage() {
+    public static void showInvalidMarkTaskInputExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
         System.out.println("\tExample: mark <existing_task_number>");

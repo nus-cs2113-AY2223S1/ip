@@ -17,7 +17,7 @@ public abstract class Command {
     }
 
     // execute the command, store the result in the task list
-    public abstract TaskList execute (TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException;
+    public abstract TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException;
 
     // check if the command is an exit command
     public abstract boolean isExit();

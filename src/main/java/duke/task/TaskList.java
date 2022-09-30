@@ -35,34 +35,34 @@ public class TaskList {
     }
 
     public static void addDeadline(TaskList tasks, String fullCommand) {
-            try {
-                String[] description = Parser.parseDeadlineDescription(fullCommand);
-                String deadlineName = description[0].trim();
-                String deadlineDetails = description[1].trim();
-                Task t = new Deadline(deadlineName, deadlineDetails);
-                tasks.addTask(t);
-                printSuccessfulAdd(tasks);
-            } catch (InvalidDeadlineInputException e) {
-                showInvalidDeadlineInputExceptionMessage();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showInvalidDeadlineInputExceptionMessage();
-            }
+        try {
+            String[] description = Parser.parseDeadlineDescription(fullCommand);
+            String deadlineName = description[0].trim();
+            String deadlineDetails = description[1].trim();
+            Task t = new Deadline(deadlineName, deadlineDetails);
+            tasks.addTask(t);
+            printSuccessfulAdd(tasks);
+        } catch (InvalidDeadlineInputException e) {
+            showInvalidDeadlineInputExceptionMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            showInvalidDeadlineInputExceptionMessage();
+        }
 
     }
 
-    public static void addEvent(TaskList tasks, String fullCommand){
-            try {
-                String[] description = Parser.parseEventDescription(fullCommand);
-                String eventName = description[0].trim();
-                String eventDetails = description[1].trim();
-                Task t = new Event(eventName, eventDetails);
-                tasks.addTask(t);
-                printSuccessfulAdd(tasks);
-            } catch (InvalidEventInputException e) {
-                showInvalidEventInputExceptionMessage();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showInvalidEventInputExceptionMessage();
-            }
+    public static void addEvent(TaskList tasks, String fullCommand) {
+        try {
+            String[] description = Parser.parseEventDescription(fullCommand);
+            String eventName = description[0].trim();
+            String eventDetails = description[1].trim();
+            Task t = new Event(eventName, eventDetails);
+            tasks.addTask(t);
+            printSuccessfulAdd(tasks);
+        } catch (InvalidEventInputException e) {
+            showInvalidEventInputExceptionMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            showInvalidEventInputExceptionMessage();
+        }
     }
 
     public static void findMatchingTasks(TaskList tasks, String fullCommand) {
@@ -131,7 +131,7 @@ public class TaskList {
             showInvalidUnmarkTaskInputExceptionMessage();
         }
     }
-    
+
     public static void totalTask(TaskList tasks, String fullCommand) {
         int taskSize = tasks.size();
         printTotalNumberOfItems(tasks, taskSize);
@@ -156,9 +156,6 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
-
-
-
 
 
 }

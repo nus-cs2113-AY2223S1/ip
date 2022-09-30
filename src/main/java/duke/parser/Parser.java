@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.exception.DukeException;
 import duke.exception.EmptyNumberInputException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
@@ -12,14 +11,15 @@ public class Parser {
         return words[0];
     }
 
-    public static String getDescription (String line) throws InvalidTaskDescriptionException{
+    public static String getDescription(String line) throws InvalidTaskDescriptionException {
         String[] breakLine = line.trim().split(" ", 2);
         if (breakLine.length == 1 || breakLine[1].isBlank()) {
             throw new InvalidTaskDescriptionException("Please enter a valid todo description");
-        } return breakLine[1];
+        }
+        return breakLine[1];
     }
 
-    public static String removeCommand (String input){
+    public static String removeCommand(String input) {
         String[] words = input.split(" ", 2);
         return words[1];
     }
@@ -29,7 +29,7 @@ public class Parser {
         String[] split = description.split(" /by ");
         if (split.length != 2 || split[0].isBlank() || split[0].isEmpty() || split[1].isBlank() || split[1].isEmpty()) {
             throw new InvalidDeadlineInputException("Please enter a valid deadline");
-        } 
+        }
         return split;
     }
 
@@ -39,7 +39,7 @@ public class Parser {
         String[] split = description.split(" /at ");
         if (split.length != 2 || split[0].isBlank() || split[0].isEmpty() || split[1].isBlank() || split[1].isEmpty()) {
             throw new InvalidEventInputException("Please enter a valid event");
-        } 
+        }
         return split;
     }
 

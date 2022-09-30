@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
 
     /**
      * Creates an exit command
-     * 
+     *
      * @param input The user input string
      */
     public ByeCommand(String input) {
