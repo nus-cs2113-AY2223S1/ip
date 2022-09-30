@@ -3,11 +3,30 @@ package main.java;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Used to read in user input and parse through the instructions
+ * given in order to understand what sort of command to process
+ * and action needs to take place
+ */
 public class Parser {
     TaskList tasks;
+
+    /**
+     * Constructor for Parser that reads in list of tasks and stores it for future use
+     * @param tasks
+     */
     public Parser(TaskList tasks){
         this.tasks = tasks;
     }
+
+    /**
+     * The main method used within parser, the parse method reads in the next user inputted line
+     * determines what the command is based on the initial word of the input and performs
+     * corresponding tasks based off of it. When needing to add a new task to the TaskList
+     * it calls taskReader to take care of those various inputs, but it deals with marking and
+     * umarking tasks, removing tasks, exiting the program, finding a word, and listing the task
+     * list.
+     */
     public void parse(){
         Scanner in = new Scanner(System.in);
         String inp = in.nextLine();
@@ -49,7 +68,6 @@ public class Parser {
                 }
             }
             else if(inp.contains("find")){
-
                 String temp = inp.substring(inp.indexOf("find")+5);
                 System.out.println(temp);
                 ArrayList<Integer> temps = new ArrayList<>();
@@ -85,6 +103,14 @@ public class Parser {
         Storage.listToFile(tasks);
         System.out.println("Bye");
     }
+
+    /**
+     * Receives an input from the parse method in the form of the entire line of user input
+     * and uses the first word of the input to determine the type of task, and reads through
+     * the rest of the input in order to create the tasks requested adn add it to the task list
+     * @param inp input string from user
+     * @throws DukeException when the input is not formatted correctly
+     */
     public void taskReader(String inp) throws DukeException{
         String comm, tas, name, date, time;
         try{
