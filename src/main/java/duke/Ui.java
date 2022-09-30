@@ -121,13 +121,13 @@ public class Ui {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println("\tHere are the commands that you can use:");
-        System.out.println("\t1. todo <task name>");
-        System.out.println("\t2. deadline <task name> /by <yyyy-mm-dd>");
-        System.out.println("\t3. event <task name> /at <location>");
+        System.out.println("\t1. todo <name_of_todo>");
+        System.out.println("\t2. deadline <name_of_deadline> /by <yyyy-mm-dd>");
+        System.out.println("\t3. event <name_of_event> /at <location>");
         System.out.println("\t4. list");
-        System.out.println("\t5. mark <task number>");
-        System.out.println("\t6. unmark <task number>");
-        System.out.println("\t7. delete <task number>");
+        System.out.println("\t5. mark <existing_task_number>");
+        System.out.println("\t6. unmark <existing_task_number>");
+        System.out.println("\t7. delete <existing_task_number>");
         System.out.println("\t8. find <keyword>");
         System.out.println("\t9. bye");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
@@ -149,28 +149,28 @@ public class Ui {
 	public static void showInvalidFindDescriptionExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your find input is incomplete. Please follow this format.");
-        System.out.println("\tExample: find <book>");
+        System.out.println("\tExample: find <keyword>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
 	public static void showInvalidDeleteInputExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
-        System.out.println("\tExample: delete <1>");
+        System.out.println("\tExample: delete <existing_task_number>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
 	public static void showInvalidMarkTaskInputExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
-        System.out.println("\tExample: mark <1>");
+        System.out.println("\tExample: mark <existing_task_number>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void showInvalidUnmarkTaskInputExceptionMessage() {
         System.out.println(TOP_HORIZONTAL_RULE);
         System.out.println("\tOOPS!!! Your number input is invalid or not found. Please follow this format and make sure item is present in list.");
-        System.out.println("\tExample: unmark <1>");
+        System.out.println("\tExample: unmark <existing_task_number>");
         System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 }

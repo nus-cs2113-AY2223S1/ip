@@ -47,6 +47,4 @@ public class Parser {
         int inputId = Integer.parseInt(input.trim().split(" ")[1]);
         return (inputId - 1);
     }
-
-    
 }
