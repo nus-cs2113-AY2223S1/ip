@@ -23,6 +23,11 @@ public class Storage extends Duke {
         openOrCreateFile();
     }
 
+    /**
+     * checks if a duke file exists,
+     * if not, creates one and opens the file
+     * @throws DukeException
+     */
     public static void openOrCreateFile() throws DukeException {
         try {
             file.createNewFile();
@@ -31,6 +36,11 @@ public class Storage extends Duke {
         }
     }
 
+
+    /**
+     * uploads list from
+     * @throws DukeException
+     */
     public static void uploadDataToList() throws DukeException {
         try {
             Scanner reader = new Scanner(file);
@@ -43,6 +53,11 @@ public class Storage extends Duke {
         }
     }
 
+    /**
+     * marks isDone depending on the task in the file
+     * @param isDone
+     * @throws DukeException
+     */
     private static void markIfDone(String isDone) throws DukeException {
         if (isDone.equals(one)) {
             dukeList.markItemDone(dukeList.getListSize());
@@ -51,7 +66,11 @@ public class Storage extends Duke {
         }
 
     }
-
+    /**
+     * updates line by line from file to dukelist
+     * @param line
+     * @throws DukeException
+     */
     public static void translateLineFromFile(String line) throws DukeException {
         String[] words = line.split(dividerSplit);
         switch (words[0]) {
@@ -74,6 +93,10 @@ public class Storage extends Duke {
         markIfDone(words[1]);
     }
 
+    /**
+     * saves from dukelist to file
+     * @throws DukeException
+     */
     public static void saveListToFile() throws DukeException {
         try {
             FileWriter fw = new FileWriter(filename);
@@ -85,5 +108,4 @@ public class Storage extends Duke {
             throw new DukeException();
         }
     }
-
 }
