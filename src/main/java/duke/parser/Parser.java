@@ -12,7 +12,6 @@ import duke.exception.InvalidTaskDescriptionException;
 public class Parser {
     public static String getKeyword(String fullCommand) throws EmptyInputException {
         String[] words = fullCommand.split(" ");
-        // if input is empty or only contains spaces 
         if (words.length == 0) {
             throw new EmptyInputException("Input cannot be empty!");
         }
