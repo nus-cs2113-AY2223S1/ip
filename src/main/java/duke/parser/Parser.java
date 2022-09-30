@@ -44,7 +44,6 @@ public class Parser {
     }
 
     public static int getTaskId(String input) throws EmptyNumberInputException {
-        // int inputId = Integer.parseInt(input.replaceAll("[^0-9]", ""));    // gets the id
         int inputId = Integer.parseInt(input.trim().split(" ")[1]);
         return (inputId - 1);
     }
