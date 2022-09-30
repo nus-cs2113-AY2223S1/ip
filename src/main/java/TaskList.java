@@ -23,7 +23,8 @@ public class TaskList {
     /**
      * Deletes entry from list
      *
-     * @param line integer that specifies the input to delete
+     * @param line integer that specifies the input to delete.
+     * @return the expected output to display to user
      */
     public String delete(String line) throws DukeException {
         int input;
@@ -45,7 +46,8 @@ public class TaskList {
     /**
      * Unmarks an entry from list
      *
-     * @param line integer that specifies the input to unmark
+     * @param line integer that specifies the input to unmark.
+     * @return the expected output to display to user
      */
     public String unmark(String line) throws DukeException {
         int input;
@@ -66,6 +68,7 @@ public class TaskList {
      * Marks entry from list
      *
      * @param line integer that specifies the input to mark
+     * @return the expected output to display to user
      */
     public String mark(String line) throws DukeException {
         int input;
@@ -86,6 +89,7 @@ public class TaskList {
      * Creates a to-do
      *
      * @param line to-do (description)
+     * @return the expected output to display to user
      */
     public String createTodo(String line) throws DukeException {
         String description = line.replace("todo", "").strip();
@@ -99,6 +103,7 @@ public class TaskList {
      * Creates an event
      *
      * @param line event (description) /at (date)
+     * @return the expected output to display to user
      */
     public String createEvent(String line) throws DukeException {
         String removedCommand = line.replace("event", "");
@@ -122,6 +127,7 @@ public class TaskList {
      * Creates a deadline
      *
      * @param line deadline (description) /by (date)
+     * @return the expected output to display to user
      */
     public String createDeadline(String line) throws DukeException {
         String removedCommand = line.replace("deadline", "");
@@ -145,6 +151,7 @@ public class TaskList {
      * Finds inputs that have the specified search term and outputs the list
      *
      * @param line the search term
+     * @return the expected output to display to user
      */
     public String find(String line) {
         ArrayList<Task> matchedTerms = new ArrayList<>();
@@ -171,6 +178,7 @@ public class TaskList {
 
     /**
      * composes list of inputs for list command
+     * @return the expected output to display to user
      */
     public String list() {
         return formatList(inputs);

@@ -29,6 +29,7 @@ public class Storage {
 
     /**
      * Loads inputs from file when program is restarted
+     * @return the list of inputs loaded from file
      */
     public ArrayList<Task> load() throws DukeException {
         if (Files.exists(directoryPath) && Files.exists(filePath)) {
@@ -84,6 +85,8 @@ public class Storage {
 
     /**
      * Saves current inputs into file for future use
+     *
+     * @param list the input list to be saved
      */
     public void save(TaskList list) throws DukeException {
         try {
