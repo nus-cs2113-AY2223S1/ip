@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task extends TaskList {
+public class Task {
     public String description;
     public boolean isDone;
 

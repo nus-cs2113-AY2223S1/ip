@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.Storage;
-// import duke.Storage;
 import duke.Ui;
 import duke.exception.DukeException;
 import duke.exception.InvalidDeadlineInputException;
@@ -9,7 +8,6 @@ import duke.exception.InvalidEventInputException;
 import duke.exception.InvalidTaskDescriptionException;
 import duke.parser.Parser;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static duke.Ui.*;
@@ -21,6 +19,7 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+        Storage.loadInputFile(this.tasks);
     }
 
 
