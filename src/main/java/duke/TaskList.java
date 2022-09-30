@@ -1,8 +1,10 @@
 package duke;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Class to handle list of tasks input by user.
+ */
 public class TaskList {
     protected ArrayList<Task> taskList = new ArrayList<Task>(0);
     private final String ILLEGAL_INDEX_ERROR = ":( %d is out of bounds of the task list";
@@ -12,6 +14,13 @@ public class TaskList {
         taskList.add(task);
     }
 
+    /**
+     * Updates the task with index specified by user and according to user command.
+     *
+     * @param index Task index.
+     * @param userCommand Update action.
+     * @throws IllegalInputException If task index is out of bounds or if task cannot be updated.
+     */
     public void updateTaskStatus(int index, String userCommand) throws IllegalInputException{
         if (index > taskList.size() || index < 1){
             throw new IllegalInputException(String.format(ILLEGAL_INDEX_ERROR,index));
@@ -39,6 +48,13 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Returns a Task created and initialised with task information.
+     *
+     * @param taskType Type of task.
+     * @param details Task information.
+     * @return Task created.
+     */
     public Task generateTask(String taskType, String[] details){
         switch (taskType){
         case "todo":
@@ -52,6 +68,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns an ArrayList of Task consisting of search results.
+     *
+     * @param keyword Keyword to search for in task description.
+     * @return Search results.
+     */
     public ArrayList<Task> search(String keyword){
         ArrayList<Task> results = new ArrayList<>();
         for (Task task :taskList){

@@ -10,17 +10,41 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Class to handle storage of task lists locally.
+ */
 public class Storage {
     private final String DATA_DIRECTORY = "data";
     private final String SAVE_FILE_NAME = "duke.txt";
+    private final String CREATE_DIRECTORY_FAILED = "Please create a directory named data before using duke!";
     private final int TASK_TYPE = 0;
     private final int TASK_STATUS = 1;
     private final int TASK_DESCRIPTION = 2;
     private final int TASK_TIMING = 3;
+
+    /** Path to save and read files from */
     private Path savedFilePath;
+    private Path dataDirectoryPath;
+
+    /**
+     * Initialise savedFilePath to desired file path and dataDirectoryPath to desired directory.
+     */
     public void setHomePath(){
-        savedFilePath = Paths.get(DATA_DIRECTORY,SAVE_FILE_NAME);
+        String home = System.getProperty("user.home");
+        savedFilePath = Paths.get(home,DATA_DIRECTORY,SAVE_FILE_NAME);
+        dataDirectoryPath = Paths.get(home,DATA_DIRECTORY);
     }
+
+    public String getHomePath(){
+        return this.savedFilePath.toString();
+    }
+
+    /**
+     * Returns TaskList read from saved file.
+     *
+     * @return TaskList
+     * @throws FileNotFoundException if saved file is not found
+     */
     public TaskList readData() throws FileNotFoundException {
         File savedFile = savedFilePath.toFile();
         Scanner fileScanner = new Scanner(savedFile);
@@ -55,14 +79,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves task list information into a file.
+     *
+     * @param taskList List of tasks to save.
+     * @throws IOException If unable to create or modify a save file indicated at savedFilePath
+     */
     public void saveData(TaskList taskList) throws IOException {
-        File dataDirectory = new File(DATA_DIRECTORY);
-        if (!dataDirectory.exists()) {
-            boolean isDirectoryCreated = dataDirectory.mkdir();
-            if (!isDirectoryCreated) {
-                throw new NotDirectoryException(dataDirectory.toString());
-            }
-        }
         File saveFile = new File(savedFilePath.toString());
         FileWriter fileWriter = new FileWriter(saveFile);
         for (Task task:taskList.getTaskList()) {
@@ -71,5 +94,24 @@ public class Storage {
             fileWriter.write('\n');
         }
         fileWriter.close();
+    }
+
+    /**
+     * Makes data directory and duke.txt file if it does not already exist.
+     *
+     * @throws IOException If failed to create directory or text file
+     */
+    public void makeDirectory() throws IOException{
+        File dataDirectory = new File(dataDirectoryPath.toString());
+        if (!dataDirectory.exists()) {
+            boolean isDirectoryCreated = dataDirectory.mkdir();
+            if (isDirectoryCreated){
+                File saveFile = new File(savedFilePath.toString());
+                FileWriter fileWriter = new FileWriter(saveFile);
+                fileWriter.close();
+            } else {
+                throw new NotDirectoryException(CREATE_DIRECTORY_FAILED);
+            }
+        }
     }
 }

@@ -1,34 +1,45 @@
 package duke;
 
+/**
+ * Class representing a Deadline
+ */
 public class Deadline extends Task {
 
-    private String by;
+    /** Deadline inputted by user */
+    private String deadlineDate;
 
-    public String getBy(){
+    public String getDeadlineDate(){
 
-        return this.by;
+        return this.deadlineDate;
 
     }
 
-    public Deadline(String description, String by){
+    /**
+     * Constructor for Deadline to initialise it with description and deadlineDate passed in.
+     * Sets the task type.
+     *
+     * @param description Description of what deadline is for.
+     * @param deadlineDate Date of deadline.
+     */
+    public Deadline(String description, String deadlineDate){
         super(description);
-        this.by = by;
+        this.deadlineDate = deadlineDate;
         this.taskType = 'D';
     }
 
-    public void setBy(String by){
-        this.by = by;
+    public void setDeadlineDate(String deadlineDate){
+        this.deadlineDate = deadlineDate;
     }
 
     @Override
     public void printTask() {
         super.printTask();
-        System.out.println(" ("+this.by+")");
+        System.out.println(" ("+this.deadlineDate +")");
     }
 
     @Override
     public String getSaveString(){
-        return taskType + "|" + isDone +  "|" + description + "|" + by;
+        return taskType + "|" + isDone +  "|" + description + "|" + deadlineDate;
     }
 
 }
