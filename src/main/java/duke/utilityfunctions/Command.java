@@ -2,7 +2,7 @@ package duke.utilityfunctions;
 
 public class Command {
     public boolean isValidCommand(String s){
-        String[] validCommandArray = {"bye", "list","unmark","mark","todo","deadline","event", "delete"};
+        String[] validCommandArray = {"bye", "list","find","unmark","mark","todo","deadline","event", "delete"};
         for(int i = 0; i < validCommandArray.length; i++) {
             if(s.equals(validCommandArray[i])){
                 return true;
