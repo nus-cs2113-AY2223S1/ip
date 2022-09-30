@@ -1,0 +1,7 @@
+todo first task
+deadline homework /by tomorrow
+event cca /at friday
+list
+mark 2
+unmark 2
+bye
