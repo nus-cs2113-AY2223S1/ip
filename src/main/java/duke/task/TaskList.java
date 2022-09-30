@@ -1,8 +1,6 @@
 package duke.task;
 
 import duke.Storage;
-import duke.Ui;
-import duke.exception.DukeException;
 import duke.exception.EmptyNumberInputException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
@@ -30,9 +28,9 @@ public class TaskList {
             description = Parser.getDescription(fullCommand).trim();
             Task t = new Todo(description);
             tasks.addTask(t);
-            Ui.printSuccessfulAdd(tasks);
+            printSuccessfulAdd(tasks);
         } catch (InvalidTaskDescriptionException e) {
-            Ui.showInvalidTodoInputExceptionMessage();
+            showInvalidTodoInputExceptionMessage();
         }
     }
 
@@ -43,11 +41,11 @@ public class TaskList {
                 String deadlineDetails = description[1].trim();
                 Task t = new Deadline(deadlineName, deadlineDetails);
                 tasks.addTask(t);
-                Ui.printSuccessfulAdd(tasks);
+                printSuccessfulAdd(tasks);
             } catch (InvalidDeadlineInputException e) {
-                Ui.showInvalidDeadlineInputExceptionMessage();
+                showInvalidDeadlineInputExceptionMessage();
             } catch (ArrayIndexOutOfBoundsException e) {
-                Ui.showInvalidDeadlineInputExceptionMessage();
+                showInvalidDeadlineInputExceptionMessage();
             }
 
     }
@@ -59,11 +57,11 @@ public class TaskList {
                 String eventDetails = description[1].trim();
                 Task t = new Event(eventName, eventDetails);
                 tasks.addTask(t);
-                Ui.printSuccessfulAdd(tasks);
+                printSuccessfulAdd(tasks);
             } catch (InvalidEventInputException e) {
-                Ui.showInvalidEventInputExceptionMessage();
+                showInvalidEventInputExceptionMessage();
             } catch (ArrayIndexOutOfBoundsException e) {
-                Ui.showInvalidEventInputExceptionMessage();
+                showInvalidEventInputExceptionMessage();
             }
     }
 
@@ -77,9 +75,9 @@ public class TaskList {
                     matchingTasks.add(t);
                 }
             }
-            Ui.printMatchingTasks(matchingTasks);
+            printMatchingTasks(matchingTasks);
         } catch (InvalidTaskDescriptionException e) {
-            Ui.showInvalidFindDescriptionExceptionMessage();
+            showInvalidFindDescriptionExceptionMessage();
         }
     }
 
