@@ -12,6 +12,12 @@ import duke.utilityfunctions.Ui;
 import duke.utilityfunctions.Filereader;
 import duke.utilityfunctions.Command;
 public class Duke {
+    /**
+     * Loads tasks from the data.txt file stored locally.
+     * @param filepath the location in which the data.txt file is stored in
+     * @param tasks the ArrayList in which tasks retrieved from the data.txt file will be stored in
+     * @throws FileNotFoundException
+     */
     public static void loadTasksFromTextFile(String filepath, ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(filepath);
         Scanner s = new Scanner(f);
@@ -22,6 +28,12 @@ public class Duke {
         s.close();
     }
 
+    /**
+     * Updates the data.txt file with the new array of tasks
+     * @param filepath the location in which the data.txt file is stored in
+     * @param taskArray the ArrayList from which tasks will retrieved from, to update the data.txt file
+     * @throws IOException
+     */
     public static void updateFile(String filepath, ArrayList<Task> taskArray) throws IOException {
         FileWriter fw = new FileWriter(filepath);
         for(int i = 0; i < taskArray.size(); i++){

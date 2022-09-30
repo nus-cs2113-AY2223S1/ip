@@ -5,7 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * This class handles generation of tasks after user has keyed in inputs to create new todos/events/deadlines.
+ */
 public class Filereader {
+    /**
+     * Generates tasks of the Task datatype by taking in input strings
+     * @param input the input string provided by the user
+     * @return the task of Task datatype
+     */
     public Task generateTask(String input) {
         Task task = null;
         char taskIcon = input.charAt(1);

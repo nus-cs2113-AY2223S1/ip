@@ -1,4 +1,8 @@
 package duke.task;
+
+/**
+ * This class helps to store the information of a task
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -8,8 +12,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task, representing whether it is done or not
+     * @return the status icon, of String data type
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
     
     public String getTaskIcon() {
@@ -23,10 +31,17 @@ public class Task {
     public String getRawDescription() {
         return this.description;
     }
+
+    /**
+     * Marks task as done
+     */
     public void markTask() {
         this.isDone = true;
     }
 
+    /**
+     * Marks task as not done
+     */
     public void unMarkTask() {
         this.isDone = false;
     }
