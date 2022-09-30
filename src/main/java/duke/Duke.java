@@ -39,11 +39,9 @@ public class Duke {
                 Command keyword = CommandParser.parseCommand(fullCommand);
                 keyword.execute(tasks, storage, ui, fullCommand);
                 isExit = keyword.isExit();
-            } catch (InvalidCommandException e) {
-                Ui.printUnknownCommand();
             } catch (DukeException e) {
                 Ui.printUnknownCommand();
-            }
+            } 
         }
         sc.close();
     }
