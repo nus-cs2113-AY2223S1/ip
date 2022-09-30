@@ -1,24 +1,19 @@
 # User Guide
 
 ## Table of Contents
-1. [Features](#features)
-    1. [List all tasks: `List`](#List-all-tasks-list)
-    2. [Exit program: `bye`](#exit-program-bye)
-    3. [Find task: `find`](#find-task-find) 
-    4. [Add Todo task: `todo`](#add-todo-task-todo)
-    5. [Add Event task: `event`](#add-event-task-event)
-    6. [Add Deadline task: `deadline`](#add-deadline-task-deadline)
-    7. [Remove task: `delete`](#delete-task-delete)
-    8. [Mark task as done: `mark`](#mark-task-as-done)
-    9. [Mark task as not done: `unmark`](#mark-task-as-not-done-unmark)
+1. [Add Todo task: `todo`](#add-todo-task-todo)
+2. [Add Event task: `event`](#add-event-task-event)
+3. [Add Deadline task: `deadline`](#add-deadline-task-deadline)
+4. [Mark task as done: `mark`](#mark-task-as-done)
+5. [Mark task as not done: `unmark`](#mark-task-as-not-done-unmark)
+6. [List all tasks: `List`](#List-all-tasks-list)
+7. [Find task: `find`](#find-task-find) 
+8. [Remove task: `delete`](#delete-task-delete)
+9. [Exit program: `bye`](#exit-program-bye)
   
 ## Features
 > inputs by the user are shown in upper case
 > e.g `todo TASKNAME`,  `TASKNAME` is an input which the user decides
-
-### Exit program: `bye`
-Format: `bye`
-Exits program
 
 ### Add Todo task: `todo`
 Adds a todo task to your list  
@@ -67,7 +62,7 @@ Now you have 3 tasks in your list!
 
 
 ### Mark task as done: `mark`
-Marks an existing task in the task list as done
+Marks an existing task in the task list as done  
 Format: `mark TASKINDEX` or `mark TASKNAME`
 
 Sample output:
@@ -179,3 +174,15 @@ Now you have 1 tasks in your list!
 ---------------------------------------------------
 ```
 
+### Exit program: `bye`
+Exits program  
+Format: `bye`  
+
+Sample output:
+```
+---------------------------------------------------
+You: bye
+---------------------------------------------------
+Duke: Goodbye!
+---------------------------------------------------
+```
