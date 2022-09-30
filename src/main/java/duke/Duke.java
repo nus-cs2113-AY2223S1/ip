@@ -7,21 +7,13 @@ import duke.ui.Ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
- * Highest level of the program
- *
- */
+
 public class Duke {
 
     private static Ui ui = new Ui ();
     private static Parser parser = new Parser();
 
-    /**
-     * main function to run the program
-     *
-     * @param args user inputs
-     *
-     */
+
     public static void main(String[] args) throws IOException {
         ui.greet();
 

@@ -4,28 +4,16 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import duke.DukeException;
 import duke.tasks.TaskList;
 
 
 import duke.Duke;
 import duke.tasks.*;
 
-
-/**
- * Stores all the tasks that the user has inputted previously.
- *
- */
-
 public class Storage
 {
     public static final java.nio.file.Path DATA_STORAGE_PATH = java.nio.file.Paths.get(System.getProperty("user.dir"), "src", "main", "java", "duke", "data","data.txt");
 
-
-    /**
-     * Creates a text file to store all the tasks that user has inputted.
-     */
     public static void createDataFile (){
         if (!(java.nio.file.Files.exists(DATA_STORAGE_PATH))){
             File file = new File (DATA_STORAGE_PATH.toString());
@@ -34,12 +22,6 @@ public class Storage
         }
     }
 
-
-    /**
-     * Saves all the tasks in the TaskList permanently in a text file so that user can access the next time.
-     *
-     * @throws IOException if the file cannot be manipulated.
-     */
     public static void saveTasks () throws IOException {
         FileWriter fw = new FileWriter(DATA_STORAGE_PATH.toString());
         for (int i = 0; i < (TaskList.taskList).size(); i++){
@@ -50,15 +32,6 @@ public class Storage
 
     }
 
-
-    /**
-     * Loads the previously saved data into the TaskList so that user can access and update.
-     * Read the text file and classify the type of the task : todo/deadline/event
-     * Populate the TaskList with the classified tasks.
-     *
-     * @throws FileNotFoundException if the file does not exist.
-     *
-     */
     public static void loadTasks () throws FileNotFoundException {
         createDataFile();
         File f = new File(DATA_STORAGE_PATH.toString());
