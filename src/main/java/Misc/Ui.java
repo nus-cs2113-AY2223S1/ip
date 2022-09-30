@@ -121,6 +121,7 @@ public class Ui {
 
     /**
      * Prints find task notification.
+     * @param array Tasks list.
      * @param task The task.
      */
     public void showFindTaskNotification(ArrayList<Task> array, String task) {
