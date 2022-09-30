@@ -115,7 +115,11 @@ public class Ui {
      * @param taskList The taskList to print.
      */
     public void printAllTask(TaskList taskList) {
-        printOutput("Here are the tasks in the list\n" + taskList.getCompleteList());
+        if (taskList.getTaskListSize() == 0) {
+            printOutput("Oops, there are no available task in the list right now.");
+        } else {
+            printOutput("Here are the tasks in the list\n" + taskList.getCompleteList());
+        }
     }
 
     /**
@@ -129,29 +133,29 @@ public class Ui {
      */
     public void showResult(String item, Command command, int size) {
         switch(command) {
-            case TODO:
-                printAddActionResult(item, size, "Todo");
-                break;
-            case EVENT:
-                printAddActionResult(item, size, "Event");
-                break;
-            case DEADLINE:
-                printAddActionResult(item, size, "Deadline");
-                break;
-            case MARK:
-                printMarkUnmarkActionResult(item, "done");
-                break;
-            case UNMARK:
-                printMarkUnmarkActionResult(item, "not done");
-                break;
-            case DELETE:
-                printDeleteActionResult(item, size);
-                break;
-            case FIND:
-                printFindActionResult(item);
-                break;
-            default:
-                break;
+        case TODO:
+            printAddActionResult(item, size, "Todo");
+            break;
+        case EVENT:
+            printAddActionResult(item, size, "Event");
+            break;
+        case DEADLINE:
+            printAddActionResult(item, size, "Deadline");
+            break;
+        case MARK:
+            printMarkUnmarkActionResult(item, "done");
+            break;
+        case UNMARK:
+            printMarkUnmarkActionResult(item, "not done");
+            break;
+        case DELETE:
+            printDeleteActionResult(item, size);
+            break;
+        case FIND:
+            printFindActionResult(item);
+            break;
+        default:
+            break;
         }
     }
 
