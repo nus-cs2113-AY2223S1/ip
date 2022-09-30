@@ -16,13 +16,15 @@ import java.util.Scanner;
  */
 public class Storage {
     private String path;
+    private File f;
 
     /**
      * initialize the path
      *
      * @param path the path that the file is located at
      */
-    public Storage(String path){
+    public Storage(String path) {
+        this.f = new File(path);
         this.path = path;
     }
 
@@ -48,8 +50,8 @@ public class Storage {
      * read from the file and load all the tasks
      *
      * @param lineToRead a line in the file
-     * @param tasks list of existing tasks
-     * @param ui deals with interactions with the user
+     * @param tasks      list of existing tasks
+     * @param ui         deals with interactions with the user
      * @return a list of loaded tasks
      */
     public ArrayList<Task> loadTask(String lineToRead, ArrayList<Task> tasks, Ui ui) {
@@ -103,7 +105,7 @@ public class Storage {
      * load a file
      *
      * @param tasks list of existing tasks
-     * @param ui deals with interactions with the user
+     * @param ui    deals with interactions with the user
      * @throws FileNotFoundException when the file cannot be found through the given path
      */
     public ArrayList<Task> loadFile(ArrayList<Task> tasks, Ui ui) throws FileNotFoundException {
@@ -112,10 +114,20 @@ public class Storage {
         String lineToRead;
         while (s.hasNext()) {
             lineToRead = s.nextLine();
-            tasks = loadTask(lineToRead, tasks,ui);
+            tasks = loadTask(lineToRead, tasks, ui);
         }
 
         return tasks;
     }
 
+    /**
+     * create a folder and txt file
+     */
+    public void createFile() throws IOException {
+        File f2 = new File("data");
+        f2.mkdirs();
+        File f3 = new File("data/duke.txt");
+        f3.createNewFile();
+
+    }
 }

@@ -90,7 +90,7 @@ public class Ui {
      * printed when the input is empty
      */
     public void emptyMsg(){
-        System.out.println("☹ OOPS!!! your input ois empty");
+        System.out.println("☹ OOPS!!! your input is empty");
     }
     
     /**

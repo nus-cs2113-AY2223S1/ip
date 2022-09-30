@@ -36,16 +36,21 @@ public class Duke {
         ui.readMsg(FILE_PATH);
 
         try {
+            storage.createFile();
+        } catch (IOException e){
+        }
+
+        try {
             tasks = storage.loadFile(tasks, ui);
         } catch (FileNotFoundException e) {
             ui.fileNotFoundMsg();
         }
+
         ui.finishReadMsg();
         ui.welcomeMsg();
 
         Scanner input = new Scanner(System.in);
         String val = input.nextLine().trim();
-
 
 
         while (!parser.quit(val)) {
