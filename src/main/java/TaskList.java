@@ -6,15 +6,29 @@ import task.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * includes all the operations that can be done on tasks
+ */
+
 public class TaskList {
-    private static final String EVENT = "event";
+    private final String EVENT = "event";
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
 
     //test whether will tasks change if i don't return it
     //didn't return here
 
-    public static void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser) {
+
+
+    /**
+     * add a Task base on the input of the user
+     *
+     * @param val input of user
+     * @param tasks list of existing tasks
+     * @param ui deals with interactions with the user
+     * @param parser  deals with making sense of the user command
+     */
+    public void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser) {
         String taskType = parser.taskType(val, ui);
         if(taskType == null){
             return;
@@ -45,7 +59,17 @@ public class TaskList {
         ui.numOfTaskMsg(tasks.size());
     }
 
-    public static void deleteTask(String val, ArrayList<Task> tasks, Ui ui, Storage storage, Parser parser) {
+
+    /**
+     * Delete the task referred in val
+     *
+     * @param val input of user
+     * @param tasks list of existing tasks
+     * @param ui deals with interactions with the user
+     * @param storage deals with making sense of the user command
+     * @param parser  deals with making sense of the user command
+     */
+    public void deleteTask(String val, ArrayList<Task> tasks, Ui ui, Storage storage, Parser parser) {
         int index = parser.indexIs(val, ui, tasks.size());
 
         if(index == -1){
@@ -65,7 +89,16 @@ public class TaskList {
         }
     }
 
-    public static void markTask(String val, ArrayList<Task> tasks, boolean status, Ui ui, Parser parser) {
+    /**
+     * mark or unmark the task referred in val
+     *
+     * @param val input of user
+     * @param tasks list of existing tasks
+     * @param status true means mark the task, false means unmark the task
+     * @param ui deals with interactions with the user
+     * @param parser  deals with making sense of the user command
+     */
+    public void markTask(String val, ArrayList<Task> tasks, boolean status, Ui ui, Parser parser) {
         int index = parser.indexIs(val, ui, tasks.size());
 
         if(index == -1){
