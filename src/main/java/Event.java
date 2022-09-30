@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * Class that creates the Event object that is an extended class of Task

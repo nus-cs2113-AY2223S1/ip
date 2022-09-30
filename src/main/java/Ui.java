@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * Ui class, has the primary user output that main class prints out

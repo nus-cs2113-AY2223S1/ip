@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * Exception class for errors unique to duke that caught using this excpetion class

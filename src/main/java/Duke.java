@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * The Duke class is runs the overall program and is the main class that is run upon startup.

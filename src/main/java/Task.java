@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * Parent class for all the different task types, sets up the methods to be

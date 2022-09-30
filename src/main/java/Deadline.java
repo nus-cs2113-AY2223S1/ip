@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * The deadline class is used to hold the information about deadline objects.

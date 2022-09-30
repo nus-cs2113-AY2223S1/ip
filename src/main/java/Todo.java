@@ -1,4 +1,3 @@
-package main.java;
 
 /**
  * Creates the todo object that extends the Task class
