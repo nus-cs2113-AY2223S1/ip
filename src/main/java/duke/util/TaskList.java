@@ -14,8 +14,9 @@ public class TaskList implements Utilities {
 
     private int taskCount;
     private static ArrayList<Task> tasks;
-    private final int INDEX_OFFSET = -1;
     private ArrayList<String> messageBuffer;
+    private final int INDEX_OFFSET = -1;
+    private final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
     public TaskList() {
         taskCount = 0;
@@ -96,10 +97,8 @@ public class TaskList implements Utilities {
      * @throws TaskNotFoundException if the taskIndex is out of bound
      */
     public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
-        final String ERROR_OUT_OF_BOUND = "Sorry, the task does not seem to exist :<";
 
-
-        if (taskIndex > taskCount || taskIndex < 0) {
+        if (taskIndex > taskCount || taskIndex <= 0) {
             throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
         }
 
@@ -128,7 +127,11 @@ public class TaskList implements Utilities {
      *
      * @param taskIndex the index for the task as seen by user.
      */
-    public void deleteTask(int taskIndex) {
+    public void deleteTask(int taskIndex) throws TaskNotFoundException {
+
+        if (taskIndex > taskCount || taskIndex <= 0) {
+            throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
+        }
 
         taskIndex += INDEX_OFFSET;
         messageBuffer.add("\t" + tasks.get(taskIndex).toString());

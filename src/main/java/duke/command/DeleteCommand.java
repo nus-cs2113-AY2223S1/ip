@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -16,12 +17,15 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.displayMessage(MESSAGE_DELETE);
 
-        tasks.deleteTask(taskIndex);
-
-        ui.addLine(tasks.getMessages());
-        ui.printUi();
+        try {
+            tasks.deleteTask(taskIndex);
+            ui.addLine(MESSAGE_DELETE);
+            ui.addLine(tasks.getMessages());
+            ui.printUi();
+        } catch (DukeException e) {
+            ui.displayMessage(e.getErrorMessage());
+        }
         tasks.clearBuffer();
     }
 
