@@ -225,6 +225,7 @@ public class Parser {
         final String UNMARK_TRIGGER = "unmark";
         final String DELETE_TRIGGER = "delete";
         final String FIND_TRIGGER = "find";
+        final String DO_NOTHING = "";
         
         switch (words[0]) {
         case LIST_TRIGGER:
@@ -262,6 +263,9 @@ public class Parser {
             
         case FIND_TRIGGER:
             findMatching(words);
+            break;
+
+        case DO_NOTHING:
             break;
         
         default:
