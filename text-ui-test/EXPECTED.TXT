@@ -1,7 +1,47 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
+ ____        _
+|  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+==================================================
+Hello! I'm Duke ^_^
+What can I do for you?
+==================================================
+>>>No Current Tasks.
+==================================================
+>>>Added: [ ]read a book
+Now we have 1 tasks in the list.
+==================================================
+>>>Added: [T][ ]go to the lecture
+Now we have 2 tasks in the list.
+==================================================
+>>>Added: [D][ ]finish the quiz (by: tonight)
+Now we have 3 tasks in the list.
+==================================================
+>>>Added: [E][ ]watch the video game (at: 8:00-9:00 Sat)
+Now we have 4 tasks in the list.
+==================================================
+>>>Current Tasks:
+>>>1.[ ]read a book
+>>>2.[T][ ]go to the lecture
+>>>3.[D][ ]finish the quiz (by: tonight)
+>>>4.[E][ ]watch the video game (at: 8:00-9:00 Sat)
+==================================================
+>>>Nice! I've marked this task as done:
+[√]read a book
+==================================================
+>>>Nice! I've marked this task as done:
+[T][√]go to the lecture
+==================================================
+>>>OK, I've marked this task as not done yet:
+[ ]read a book
+==================================================
+>>>Current Tasks:
+>>>1.[ ]read a book
+>>>2.[T][√]go to the lecture
+>>>3.[D][ ]finish the quiz (by: tonight)
+>>>4.[E][ ]watch the video game (at: 8:00-9:00 Sat)
+==================================================
+Bye. Hope to see you again soon! qwq
+==================================================
