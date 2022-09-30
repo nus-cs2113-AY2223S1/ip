@@ -1,3 +1,2 @@
-[T][ ] read book
-[D][X] return book /by saturday
-[E][ ] project meeting /at friday 2-4pm
+[T][X] read book
+[D][ ] return book /by saturday

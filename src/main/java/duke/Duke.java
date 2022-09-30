@@ -2,13 +2,13 @@ package duke;
 
 
 import duke.data.Storage;
-import duke.exceptions.FileNotFoundException;
+import duke.exceptions.*;
+import duke.exceptions.NumberFormatException;
 import duke.ui.Ui;
 import duke.parser.Parser;
 import duke.tasklist.Tasklist;
 import duke.command.Command;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.MissingArgumentException;
+
 import java.io.IOException;
 
 import java.util.Scanner;
@@ -37,9 +37,13 @@ public class Duke {
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Wrong argument. Please type again.");
+            } catch (MissingArgumentException e) {
+                Ui.showError(e.getMessage());
             } catch (InvalidCommandException e) {
+                Ui.showError(e.getMessage());
+            } catch (NumberFormatException e) {
+                Ui.showError(e.getMessage());
+            } catch (MissingDateException e) {
                 Ui.showError(e.getMessage());
             }
         }
@@ -48,7 +52,7 @@ public class Duke {
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Duke().run();
 
     }

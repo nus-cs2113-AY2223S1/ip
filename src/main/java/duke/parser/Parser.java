@@ -1,8 +1,9 @@
 package duke.parser;
 
+import duke.exceptions.*;
+import duke.exceptions.NumberFormatException;
+import duke.tasklist.Tasklist;
 import duke.command.Command;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.MissingArgumentException;
 import duke.ui.Ui;
 
 public class Parser {
@@ -21,31 +22,71 @@ public class Parser {
        return new Command(fullCommand, "");
    }
 
-    public static int parseMark(String argument) {
-       return Integer.parseInt(argument);
+    public static int parseMark(String argument) throws InvalidTaskNoException {
+        int task_no = Integer.parseInt(argument) - 1;
+        if (task_no >= Tasklist.tasks.size()) {
+            throw new InvalidTaskNoException();
+        }
+       return task_no;
     }
 
-    public static int parseUnmark(String argument) {
-        return Integer.parseInt(argument);
+    public static int parseUnmark(String argument) throws InvalidTaskNoException {
+        int task_no = Integer.parseInt(argument) - 1;
+        if (task_no >= Tasklist.tasks.size()) {
+            throw new InvalidTaskNoException();
+        }
+        return task_no;
     }
 
-    public static String parseDeadline(String taskDescription) {
-        return taskDescription.split("/by ")[0];
+    public static int parseDelete(String argument) throws InvalidTaskNoException {
+        int task_no = Integer.parseInt(argument) - 1;
+        if (task_no >= Tasklist.tasks.size()) {
+            throw new InvalidTaskNoException();
+        }
+        return task_no;
+    }
+    public static String parseDeadline(String taskDescription) throws MissingArgumentException, InvalidArgumentException {
+        if (!taskDescription.contains("/by ")) {
+            throw new InvalidArgumentException();
+        }
+        String description = taskDescription.split("/by ")[0];
+        if (description == "") {
+            throw new MissingArgumentException();
+        }
+        return description;
     }
 
-    public static String parseDeadlineDate(String taskDescription) throws MissingArgumentException {
-        return taskDescription.split("/by ")[1];
+    public static String parseDeadlineDate(String taskDescription) throws MissingDateException, InvalidArgumentException {
+        if (!taskDescription.contains("/by ")) {
+            throw new InvalidArgumentException();
+        }
+        String date = taskDescription.split("/by ")[1];
+        if (date == "") {
+            throw new MissingDateException();
+        }
+        return date;
     }
 
-    public static String parseEvent(String taskDescription) {
-        return taskDescription.split("/at ")[0];
+    public static String parseEvent(String taskDescription) throws MissingArgumentException, InvalidArgumentException {
+        if (!taskDescription.contains("/by ")) {
+            throw new InvalidArgumentException();
+        }
+        String description = taskDescription.split("/by ")[0];
+        if (description == "") {
+            throw new MissingArgumentException();
+        }
+        return description;
     }
 
-    public static String parseEventDate(String taskDescription) {
-        return taskDescription.split("/at ")[1];
+    public static String parseEventDate(String taskDescription) throws MissingDateException, InvalidArgumentException {
+        if (!taskDescription.contains("/by ")) {
+            throw new InvalidArgumentException();
+        }
+        String date = taskDescription.split("/by ")[1];
+        if (date == "") {
+            throw new MissingDateException();
+        }
+        return date;
     }
 
-    public static int parseDelete(String argument) {
-        return Integer.parseInt(argument);
-    }
 }

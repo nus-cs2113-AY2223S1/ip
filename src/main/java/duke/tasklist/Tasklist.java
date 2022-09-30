@@ -3,6 +3,7 @@ package duke.tasklist;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.MissingArgumentException;
 import duke.task.Deadlines;
 import duke.task.Events;
@@ -43,7 +44,10 @@ public class Tasklist {
         }
     }
 
-    public static void createTodo(String taskDescription) {
+    public static void createTodo(String taskDescription) throws MissingArgumentException {
+        if (taskDescription == "") {
+            throw new MissingArgumentException();
+        }
         try {
             Task todo = new Todo(taskDescription);
             tasks.add(todo);
@@ -55,6 +59,7 @@ public class Tasklist {
     }
 
     public static void createDeadline(String description, String by) {
+
         try {
             Task deadline = new Deadlines(description, by);
             tasks.add(deadline);
@@ -87,11 +92,13 @@ public class Tasklist {
         }
     }
 
-    public static void findTasks(String keyword) throws MissingArgumentException {
+    public static void findTasks(String keyword) throws InvalidArgumentException {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task task: tasks) {
             if(task.getDescription().contains(keyword)) {
                 temp.add(task);
+            } else {
+                throw new InvalidArgumentException();
             }
         }
         Ui.printFoundTask(temp);

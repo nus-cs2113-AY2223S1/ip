@@ -91,7 +91,7 @@ public class Ui {
     public static void printDeletedTask(Task deleteTask) {
         printLine();
         System.out.println("Noted. I've removed this task: ");
-        printTask(deleteTask);
+        System.out.println(deleteTask);
         System.out.println("Now you have " + Tasklist.tasks.size() + " tasks in the list." );
         printLine();
     }

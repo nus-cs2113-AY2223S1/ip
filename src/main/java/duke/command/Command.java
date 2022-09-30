@@ -1,11 +1,12 @@
 package duke.command;
 
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.MissingArgumentException;
+import duke.exceptions.*;
 import duke.tasklist.Tasklist;
 import duke.ui.Ui;
 import duke.data.Storage;
 import duke.parser.Parser;
+
+import java.lang.NumberFormatException;
 
 public class Command {
     private static final String COMMAND_MARK = "mark";
@@ -27,17 +28,17 @@ public class Command {
         this.taskDescription = taskDescription;
     }
 
-    public void execute(Tasklist tasks, Ui ui, Storage storage ) throws InvalidCommandException, MissingArgumentException {
+    public void execute(Tasklist tasks, Ui ui, Storage storage ) throws duke.exceptions.NumberFormatException, MissingDateException {
         try {
             if (command.equalsIgnoreCase(COMMAND_BYE)) {
                 isExit = true;
             } else if (command.equalsIgnoreCase(COMMAND_LIST)) {
                 Ui.printList(tasks);
             } else if (command.equalsIgnoreCase(COMMAND_MARK)) {
-                int task_no = Parser.parseMark(taskDescription) - 1;
+                int task_no = Parser.parseMark(taskDescription);
                 Tasklist.markTask(task_no);
             } else if (command.equalsIgnoreCase(COMMAND_UNMARK)) {
-                int task_no = Parser.parseUnmark(taskDescription) - 1;
+                int task_no = Parser.parseUnmark(taskDescription);
                 Tasklist.UnmarkTask(task_no);
             } else if (command.equalsIgnoreCase(COMMAND_TODO)) {
                 Tasklist.createTodo(taskDescription);
@@ -50,7 +51,7 @@ public class Command {
                 String at = Parser.parseEventDate(taskDescription);
                 Tasklist.createEvent(description, at);
             } else if (command.equalsIgnoreCase(COMMAND_DELETE)) {
-                int task_no = Parser.parseDelete(taskDescription) - 1;
+                int task_no = Parser.parseDelete(taskDescription);
                 Tasklist.deleteTask(task_no);
             } else if (command.equalsIgnoreCase(COMMAND_FIND)) {
                 Tasklist.findTasks(taskDescription);
@@ -60,6 +61,14 @@ public class Command {
         } catch (InvalidCommandException e) {
             Ui.showError(e.getMessage());
         } catch (MissingArgumentException e) {
+            Ui.showError(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingDateException();
+        } catch (InvalidArgumentException e) {
+            Ui.showError(e.getMessage());
+        } catch (NumberFormatException e) {
+            throw new duke.exceptions.NumberFormatException();
+        } catch (InvalidTaskNoException e) {
             Ui.showError(e.getMessage());
         }
     }

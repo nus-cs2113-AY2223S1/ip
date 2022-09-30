@@ -46,7 +46,7 @@ public class Storage {
             try {
                 writer.write(task.SaveAsString() + "\n");
             } catch(IOException e) {
-                System.out.println("file not found.");
+                throw new RuntimeException(e);
             }
         }
         writer.close();
