@@ -13,6 +13,21 @@ public class Parser {
         String[] splitText = inputText.split(" ");
         return splitText[0];
     }
+
+    public static String parseFindCommand(String inputText){
+        String word = "";
+        String[] splitText = inputText.split(" ");
+        try {
+            if (splitText.length != 2 || splitText[1] == null || splitText[1] == "") {
+                throw new InvalidCommandException();
+            } else {
+                word =  splitText[1];
+            }
+        } catch (InvalidCommandException e) {
+            System.out.println("Please enter one valid word to find");
+        }
+        return word;
+    }
     public static String parseCommand(String inputText){
         String command = "";
         try {
@@ -29,6 +44,8 @@ public class Parser {
                 command = "unmark";
             }else if(splitText[0].equals("delete")){
                command = "delete";
+            }else if(splitText[0].equals("find")){
+                command = "find";
             }
             else{
                 command = "task";
