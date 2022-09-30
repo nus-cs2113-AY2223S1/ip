@@ -1,3 +1,5 @@
 [T][X] todo read book
-[D][ ] deadline return book /by June 6th
-[E][X] event project meeting /at Aug 6th 2-4pm
+[D][X] deadline return book /by June 6th
+[E][ ] event project meeting /at Aug 6th 2-4pm
+[T][ ] todo read manga
+[E][ ] event dance competition /at 23 june 2pm
