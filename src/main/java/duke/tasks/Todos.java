@@ -16,7 +16,8 @@ public class Todos extends Task {
     }
 
     /**
-     * Overrides <code>toString()</code> method for purpose of the program.
+     * Returns a string describing the event.
+     *
      * @return A string representing the todos task.
      */
     public String toString() {

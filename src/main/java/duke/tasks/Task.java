@@ -22,22 +22,34 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
+    /**
+     * Marks the task as done.
+     */
     public void setIsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void setIsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the name of the task.
+     *
+     * @return Name of the task.
+     */
     public String getTaskName() {
         return taskName;
     }
 
+    /**
+     * Returns a boolean for whether the task is marked as done.
+     *
+     * @return Boolean for if the task is done.
+     */
     public boolean getIsDone() {
         return isDone;
     }

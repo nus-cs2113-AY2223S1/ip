@@ -35,7 +35,8 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Overrides <code>toString()</code> method for purpose of the program.
+     * Returns a string describing the event.
+     *
      * @return A string representing the deadline task.
      */
     public String toString() {
