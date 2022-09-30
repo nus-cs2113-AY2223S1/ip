@@ -1,4 +1,4 @@
-package duke;
+package taskType;
 
 /**
  * Event class is an extension of task, it stores an additional attribute, the time of

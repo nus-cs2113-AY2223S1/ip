@@ -1,7 +1,12 @@
-import duke.Deadline;
-import duke.Event;
-import duke.Task;
-import duke.ToDo;
+package taskList;
+
+import exceptions.EmptyDescriptionException;
+import exceptions.IndexOutOfBoundsException;
+import taskType.Deadline;
+import taskType.Event;
+import taskType.Task;
+import taskType.ToDo;
+import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;

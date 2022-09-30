@@ -1,3 +1,5 @@
+package exceptions;
+
 public class IndexOutOfBoundsException extends Exception{
     public String toString(){
         String errorMessage = "    ____________________________________________________________\n"

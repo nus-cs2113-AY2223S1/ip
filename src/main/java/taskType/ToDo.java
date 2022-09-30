@@ -1,4 +1,4 @@
-package duke;
+package taskType;
 
 /**
  * Todo class is an extension of Task class, modify the string representation of an Todo task.

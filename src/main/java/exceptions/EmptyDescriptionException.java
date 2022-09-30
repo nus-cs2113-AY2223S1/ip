@@ -1,3 +1,5 @@
+package exceptions;
+
 public class EmptyDescriptionException extends Exception{
     public String toString(){
         String errorMessage = "    ____________________________________________________________\n"

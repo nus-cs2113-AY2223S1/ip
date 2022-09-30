@@ -1,3 +1,8 @@
+import parser.Parser;
+import storage.Storage;
+import taskList.TaskList;
+import ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -37,7 +42,7 @@ public class Duke {
             Parser.implementUserInstruction(tasks.taskList, userInput, false);
             // Store result into the file.
             try {
-                Storage.saveTasks(tasks.taskList, "src/main/Contents");
+                Storage.saveTasks(tasks.taskList, storage.filePath);
             }
             catch (IOException e){
                 System.out.println("Something went wrong: " + e.getMessage());
@@ -49,7 +54,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke("src/main/Contents");
+        Duke duke = new Duke("./Contents.txt");
         duke.run();
     }
 

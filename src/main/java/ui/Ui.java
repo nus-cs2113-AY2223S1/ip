@@ -1,4 +1,6 @@
-import duke.Task;
+package ui;
+
+import taskType.Task;
 
 import java.util.Scanner;
 
@@ -23,7 +25,8 @@ public class Ui {
     }
 
     public static void printDontKnowMessage(){
-        String dontKnowMessage = "    ____________________________________________________________\n"
+        String dontKnowMessage =
+                "    ____________________________________________________________\n"
                 + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                 + "    ____________________________________________________________";
         System.out.println(dontKnowMessage);

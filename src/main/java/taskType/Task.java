@@ -1,4 +1,4 @@
-package duke;
+package taskType;
 
 /**
  * Task is the abstract class base for all task subclasses which store the total

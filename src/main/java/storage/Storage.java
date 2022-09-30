@@ -1,4 +1,7 @@
-import duke.Task;
+package storage;
+
+import parser.Parser;
+import taskType.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +31,14 @@ public class Storage {
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> newTaskList = new ArrayList<Task>();
         File f = new File(filePath);
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch(IOException e) {
+            System.out.println("Can not create file");
+        }
+
         Scanner s = new Scanner(f);
         while (s.hasNext()){
             String nextInstruction = s.nextLine();
