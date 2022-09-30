@@ -1,0 +1,6 @@
+E | 1 | project meeting | 2020-09-11T14:30
+T | 0 | join sports club
+D | 1 | cs2113 assignment | 2009-12-31
+E | 0 | newEvent | 2022-09-30T14:14
+E | 0 | am-event | 2022-06-13T11:11
+D | 0 | fix battery | 2022-12-31
