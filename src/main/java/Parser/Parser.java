@@ -72,11 +72,14 @@ public class Parser {
             return Command.EVENT;
         case "delete":
             return Command.DELETE;
-        case "exit":
+        case "bye":
             hasArgument = false;
             return Command.EXIT;
         case "find":
             return Command.FIND;
+        case "help":
+            hasArgument = false;
+            return Command.HELP;
         default:
             hasArgument = false;
             throw new InvalidCommandException();

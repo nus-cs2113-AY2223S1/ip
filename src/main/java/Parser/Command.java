@@ -1,5 +1,5 @@
 package Parser;
 
 public enum Command {
-    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, EXIT, FIND
+    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, EXIT, FIND, HELP
 }

@@ -50,7 +50,8 @@ public class TaskList {
 
     /**
      * Returns the index-0 position of the newly added Task in the array list.
-     * It also initiates a new task and append it to the existing list.
+     * It also initiates a new task and append it to the existing list. If the
+     * user input is invalid, -1 will be returned.
      *
      * @param input User argument.
      * @param type Type of the command entered.
@@ -63,11 +64,17 @@ public class TaskList {
 
         if (type == TaskType.EVENT) {
             int indexOfTime = input.indexOf("/at");
+            if (indexOfTime < 0) {
+                return -1;
+            }
             String description = input.substring(0, indexOfTime).strip();
             String time = input.substring(indexOfTime + "/at ".length()).strip();
             newItem = new Event(description, time, isCompleted);
         } else if (type == TaskType.DEADLINE) {
             int indexOfTime = input.indexOf("/by");
+            if (indexOfTime < 0) {
+                return -1;
+            }
             String description = input.substring(0, indexOfTime).strip();
             String time = input.substring(indexOfTime + "/by ".length()).strip();
             newItem = new Deadline(description, time, isCompleted);
@@ -110,7 +117,8 @@ public class TaskList {
 
     /**
      * Return the task description done on the queried task, for the use of UI to output to user.
-     * It will execute the action by reading in the command and the user arguments.
+     * It will execute the action by reading in the command and the user arguments. If the user
+     * enter wrong format (for deadline and event) message will be <code>""</code>.
      *
      * @param command Type of Command queried.
      * @param userArgs User input arguments.
@@ -186,6 +194,9 @@ public class TaskList {
      */
     private String doDeadlineAction(String lineInput) {
         int index = addTaskToList(lineInput, TaskType.DEADLINE, false);
+        if (index < 0) {
+            return "";
+        }
         return getItemFromList(index + 1);
     }
 
@@ -197,6 +208,9 @@ public class TaskList {
      */
     private String doEventAction(String lineInput) {
         int index = addTaskToList(lineInput, TaskType.EVENT, false);
+        if (index < 0) {
+            return "";
+        }
         return getItemFromList(index + 1);
     }
 

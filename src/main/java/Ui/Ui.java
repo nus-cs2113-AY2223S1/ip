@@ -18,7 +18,18 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String CONV_START = "Hello! I'm Duke";
+    private static final String CONV_START = "Hello! I'm Duke\n";
+    private static final String HELP = "Possible commands are:\n"
+            + "`help` \t\t\t\t\t\t\t\t-> List possible commands.\n"
+            + "`bye` \t\t\t\t\t\t\t\t-> To exit the program.\n"
+            + "`list` \t\t\t\t\t\t\t\t-> List out all the current task in the list.\n"
+            + "`todo <description>` \t\t\t\t-> Add todo task.\n"
+            + "`event <description> /at <time>` \t-> Add event task.\n"
+            + "`deadline <description> /by <time>` -> Add deadline task.\n"
+            + "`mark <task number>` \t\t\t\t-> Mark task as completed.\n"
+            + "`unmark <task number>` \t\t\t\t-> Mark task as not completed.\n"
+            + "`delete <task nummber>` \t\t\t-> Delete the task.\n"
+            + "`find <keyword>` \t\t\t\t\t-> Find the task(s) based on the keyword.";
     private static final String CONV_END = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "OOPS, that task is not in the list.";
     private static final String MESSAGE_EMPTY_ACTION_ARGS = "OOPS!!! The description of the action cannot be empty.";
@@ -28,6 +39,10 @@ public class Ui {
     private static final String FILE_CORRUPTED = "File data corrupted. "
             + "File is overwritten with an empty task list.";
     private static final String USER_QUERY = "What can I do for you?";
+    private static final String INVALID_EVENT_FORMAT = "Oops, please enter the format as such:\n"
+            + "event <description> /at <time>";
+    private static final String INVALID_DEADLINE_FORMAT = "Oops, please enter the format as such:\n"
+            + "deadline <description> /by <time>";
 
     private final PrintStream out;
     private final Scanner in;
@@ -137,9 +152,17 @@ public class Ui {
             printAddActionResult(item, size, "Todo");
             break;
         case EVENT:
+            if (item.isEmpty()) {
+                printInvalidEventFormat();
+                break;
+            }
             printAddActionResult(item, size, "Event");
             break;
         case DEADLINE:
+            if (item.isEmpty()) {
+                printInvalidDeadlineFormat();
+                break;
+            }
             printAddActionResult(item, size, "Deadline");
             break;
         case MARK:
@@ -223,7 +246,7 @@ public class Ui {
     }
 
     public void printWelcomeMessage() {
-        printOutput(DUKE_LOGO + CONV_START);
+        printOutput(DUKE_LOGO + CONV_START + HELP);
     }
 
     public void printExitMessage() {
@@ -242,4 +265,15 @@ public class Ui {
         printError(MESSAGE_UNKNOWN);
     }
 
+    public void printInvalidEventFormat() {
+        printError(INVALID_EVENT_FORMAT);
+    }
+
+    public void printInvalidDeadlineFormat() {
+        printError(INVALID_DEADLINE_FORMAT);
+    }
+
+    public void printHelp() {
+        printOutput(HELP);
+    }
 }

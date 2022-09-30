@@ -64,6 +64,8 @@ public class Duke {
                 }
                 if (parser.getCommand() == Command.LIST) {
                     ui.printAllTask(list);
+                } else if(parser.getCommand() == Command.HELP){
+                    ui.printHelp();
                 } else {
                     String item = list.executeCommand(parser.getCommand(), parser.getUserArgs());
                     ui.showResult(item, parser.getCommand(), list.getTaskListSize());
