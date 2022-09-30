@@ -1,7 +1,6 @@
 package duke.main;
 import duke.error.DukeException;
 import duke.tasks.*;
-import org.w3c.dom.html.HTMLObjectElement;
 
 import java.util.ArrayList;
 
@@ -68,7 +67,7 @@ public class Ui {
     public static void markTaskMessage(Task task) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + task.getStatusIcon() + "] " + task.getName());
+        System.out.println(task.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -79,7 +78,7 @@ public class Ui {
     public static void unmarkTaskMessage(Task task) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + task.getStatusIcon() + "] " + task.getName());
+        System.out.println(task.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 

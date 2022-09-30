@@ -60,10 +60,12 @@ public class TaskList {
      * @param index index of the task in the array
      */
     public static void delete(int index) {
-        tasks.remove(index);
+        index -= 1;
         Task task = tasks.get(index);
+        tasks.remove(index);
         taskCounter -= 1;
         Ui.deleteTaskMessage(task);
+        Storage.save();
     }
 
     /**
@@ -92,6 +94,7 @@ public class TaskList {
         Task task = tasks.get(index - 1);
         task.isDone = true;
         Ui.markTaskMessage(task);
+        Storage.save();
     }
 
     /**
@@ -102,6 +105,7 @@ public class TaskList {
         Task task = tasks.get(index - 1);
         task.isDone = false;
         Ui.unmarkTaskMessage(task);
+        Storage.save();
     }
 
     /**

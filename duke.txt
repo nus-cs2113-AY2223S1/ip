@@ -1,4 +1,2 @@
-T- eat chicken-
-T- eat masala-
-E- sleep tomrrow -now
-E- eat chicken-nt eat chicken
+E- CS2113 Tutorial -Thuraday
+T- Individual Project ReadMe-

@@ -13,7 +13,7 @@ public class Event extends Task {
      * Returns all the information of the task as a string
      */
     public String toString() {
-        return "[" + this.initial + "]" + super.toString() + " (by: " + this.date + ")";
+        return "[" + this.initial + "]" + super.toString() + " (on: " + this.date + ")";
     }
     public String getDate() { return this.date; }
 }
