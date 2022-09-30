@@ -10,15 +10,15 @@ Duke(Jarvis) is a personalized task manager that handles your todo list using th
    2. [Datetime format understood by Duke](#datetime-format-understood-by-duke)
    3. [Sample command formats given](#sample-command-formats-given)
 3. [Usage](#usage)
-   1. [`todo`](#todo---adds-a-new-todo-task)
-   2. [`deadline`](#deadline---adds-a-new-deadline-task)
-   3. [`event`](#event---adds-a-new-event-task)
-   4. [`list`](#list---lists-all-current-tasks)
+   1. [`todo`](#todo---add-a-new-todo-task)
+   2. [`deadline`](#deadline---add-a-new-deadline-task)
+   3. [`event`](#event---add-a-new-event-task)
+   4. [`list`](#list---list-all-current-tasks)
    5. [`mark`](#mark---mark-a-current-task-as-done)
    6. [`unmark`](#unmark---mark-a-current-task-as-not-done)
-   7. [`delete`](#find---find-tasks)
-   8. [`find`](#find---find-tasks)
-   9. [`bye`](#bye---exits-the-programme)
+   7. [`delete`](#delete---delete-a-current-task)
+   8. [`find`](#find---find-tasks-by-keywords)
+   9. [`bye`](#bye---exit-the-programme)
 4. [Common Error Messages](#common-error-messages)
 5. [Command Summary](#command-summary)
 6. [Credits](#credits)
@@ -75,9 +75,9 @@ e.g. `todo (discription)` can be used as `todo buy a pen`
 
 ## Usage
 
-### `todo` - Adds a new todo task
+### `todo` - Add a new Todo task
 
-Adds a new todo task type in the task list in the format
+Add a new todo task type in the task list in the format
 `todo (discription)`
 
 **Example of usage:** 
@@ -95,9 +95,9 @@ Now you have X tasks in the list.
 ------------------------------------------------------------
 ```
 
-### `deadline` - Adds a new deadline task
+### `deadline` - Add a new Deadline task
 
-Adds a new deadline task type in the task list in the format
+Add a new deadline task type in the task list in the format
 `deadline (discription) /by (YYYY-MM-DD HHMM)`
 
 **Example of usage:**
@@ -115,9 +115,9 @@ Now you have X tasks in the list.
 ------------------------------------------------------------
 ```
 
-### `event` - Adds a new event task
+### `event` - Add a new Event task
 
-Adds a new todo task type in the task list in the format
+Add a new todo task type in the task list in the format
 `event (discription) /at (YYYY-MM-DD HHMM)`
 
 **Example of usage:**
@@ -135,9 +135,9 @@ Now you have X tasks in the list.
 ------------------------------------------------------------
 ```
 
-### `list` - Lists all current tasks
+### `list` - List all current tasks
 
-Lists all the current tasks in the task list.
+List all the current tasks in the task list.
 
 **Example of usage:**
 
@@ -209,7 +209,7 @@ Now you have X tasks in the list.
 ------------------------------------------------------------
 ```
 
-### `find` - Find tasks
+### `find` - Find tasks by keyword(s)
 
 Find all tasks in the task list that has a user-specified keyword in the format `find (keyword(s))`
 
@@ -228,9 +228,9 @@ Here are the tasks matching "book" in your list:
 ------------------------------------------------------------
 ```
 
-### `bye` - Exits the programme
+### `bye` - Exit the programme
 
-Exits the programme and save all tasks to the hard-drive
+Exit the programme and save all tasks to the hard-drive
 
 **Example of usage:**
 
@@ -252,12 +252,14 @@ If the task index does not exist
 ☹ OOPS!!! The task number you specified does not exist.
 ------------------------------------------------------------
 ```
+
 If the index provided is not a number
 ```
 ------------------------------------------------------------
 ☹ OOPS!!! You did not enter a number.
 ------------------------------------------------------------
 ```
+
 If no date or time or both is not provided, the date and time will be 
 automatically set to one week from current date
 ```
@@ -266,17 +268,17 @@ Sorry. Date and Time cannot be parsed
 
 ## Command summary
 
-| Action                | Format                                         | Example                                    |
-|-----------------------|------------------------------------------------|--------------------------------------------|
-| Add a Todo task       | `todo (discription)`                           | `todo read book`                           |
-| Add a Deadline task   | `deadline (discription) /by (YYYY-MM-DD HHMM)` | `deadline return book /by 2025-05-12 1800` |
-| Add an Event task     | `event (discription) /at (YYYY-MM-DD HHMM)`    | `event book review /at 2025-04-01 1000`    |
-| List all tasks        | `list`                                         | `list`                                     |
-| Mark a task as done   | `mark (index)`                                 | `mark 1`                                   |
-| Unmark a task as done | `unmark (index)`                               | `unmark 1`                                 |
-| Delete a task         | `delete (index)`                               | `delete 1`                                 |
-| Find tasks by keyword | `find (keyword(s))`                            | `find book`                                | 
-| Exit application      | `bye`                                          | `bye`                                      |
+| Action                   | Format                                         | Example                                    |
+|--------------------------|------------------------------------------------|--------------------------------------------|
+| Add a new Todo task      | `todo (discription)`                           | `todo read book`                           |
+| Add a new Deadline task  | `deadline (discription) /by (YYYY-MM-DD HHMM)` | `deadline return book /by 2025-05-12 1800` |
+| Add an new Event task    | `event (discription) /at (YYYY-MM-DD HHMM)`    | `event book review /at 2025-04-01 1000`    |
+| List all current tasks   | `list`                                         | `list`                                     |
+| Mark a task as done      | `mark (index)`                                 | `mark 1`                                   |
+| Mark a task as not done  | `unmark (index)`                               | `unmark 1`                                 |
+| Delete a current task    | `delete (index)`                               | `delete 1`                                 |
+| Find tasks by keyword(s) | `find (keyword(s))`                            | `find book`                                | 
+| Exits the programme      | `bye`                                          | `bye`                                      |
 
 ## Credits
 Credit to Owen Leong (@owenl131) for the inspiration and layout for the 
