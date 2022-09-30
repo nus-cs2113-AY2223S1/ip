@@ -5,5 +5,4 @@ E | 0 | group work  |  CLB
 T | 0 | eat medicine
 T | 0 | borrow new book
 E | 0 | borrow book | clb
-T | 0 | eat
 E | 1 | dinner with mum | home
