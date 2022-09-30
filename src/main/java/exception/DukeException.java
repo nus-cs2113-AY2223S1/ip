@@ -1,3 +1,7 @@
+package exception;
+
+import ui.Ui;
+
 /**
  * Handles the possible exceptions in the program
  */
@@ -9,7 +13,7 @@ public class DukeException extends Exception{
         errorType = str;
     }
 
-    void handleError(){
+    public void handleError(){
         String errorMessage;
         switch(errorType){
         case "TaskTypeError":

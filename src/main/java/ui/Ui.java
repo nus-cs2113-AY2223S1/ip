@@ -1,3 +1,5 @@
+package ui;
+
 /**
  * Handles UI-related work
  */

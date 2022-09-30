@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 /**
  * Defines The Event task, which has a description and a event time 
  */

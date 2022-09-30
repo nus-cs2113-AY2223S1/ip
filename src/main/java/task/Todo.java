@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 /**
  * Defines The todo task, which has a description
  */

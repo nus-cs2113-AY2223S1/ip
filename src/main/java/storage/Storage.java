@@ -1,9 +1,16 @@
+package storage;
+
+import process.TaskManager;
+import exception.DukeException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * manages the storage and restoration of task data
+ */
 public class Storage {
     static java.nio.file.Path path = java.nio.file.Paths.get("src","main", "data");
     static java.nio.file.Path filePath = java.nio.file.Paths.get("src","main", "data","duke.txt");

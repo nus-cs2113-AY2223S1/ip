@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 /**
  * Defines The deadline task, which has a description and a due time 
  */

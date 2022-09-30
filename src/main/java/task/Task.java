@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Defines The basic task type, which has a description and its completion status
  */
@@ -33,11 +35,11 @@ public class Task {
         return getTaskType()+" | "+status+" | "+getDescription();
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    protected String getResponse() {
+    public String getResponse() {
         return this.assembleResponse();
     }
 
