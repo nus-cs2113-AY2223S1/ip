@@ -1,6 +1,6 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Ui;
+import duke.Ui;
 
 /**
  * When executed, it lists all tasks in the taskList

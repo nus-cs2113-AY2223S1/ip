@@ -1,14 +1,14 @@
-package Duke;
+package duke;
 
-import Duke.Commands.*;
-import Duke.Exceptions.InvalidCommandFormatException;
-import Duke.Exceptions.TaskListEmptyException;
-import Duke.Exceptions.TaskNumberOutOfBoundsException;
-import Duke.Exceptions.TaskNumberNotNumberException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import duke.commands.*;
+import duke.exceptions.InvalidCommandFormatException;
+import duke.exceptions.TaskListEmptyException;
+import duke.exceptions.TaskNumberOutOfBoundsException;
+import duke.exceptions.TaskNumberNotNumberException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.util.ArrayList;
 
@@ -44,15 +44,15 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Adds user's specified todo task to the list
-     * @param toDoInput user's input to add todo task (todo (task))
+     * @param toDoInputs user's input to add todo task (todo (task))
      * @throws InvalidCommandFormatException if the command is invalid
      */
-    public static void addTodoTask(String[] toDoInput) {
+    public static void addTodoTask(String[] toDoInputs) {
         try {
-            if (toDoInput.length < 2) {
+            if (toDoInputs.length < 2) {
                 throw new InvalidCommandFormatException();
             }
-            Todo newTodo = new Todo(toDoInput[1], 'T');
+            Todo newTodo = new Todo(toDoInputs[1], 'T');
             tasksList.add(newTodo);
             taskNumberOfInterest = getTasksListSize() - 1;
             Ui.printAddTaskText(newTodo);
@@ -63,11 +63,11 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Adds user's specified deadline task to the list
-     * @param deadlineInput user's input to add deadline task (deadline (task) /by (time))
+     * @param deadlineInputs user's input to add deadline task (deadline (task) /by (time))
      */
-    public static void addDeadlineTask(String[] deadlineInput) {
+    public static void addDeadlineTask(String[] deadlineInputs) {
         try {
-            String[] DescriptionWithTime = deadlineInput[1].split("/by ", 2);
+            String[] DescriptionWithTime = deadlineInputs[1].split("/by ", 2);
             Deadline newDeadlineTask = new Deadline(DescriptionWithTime[0], 'D', DescriptionWithTime[1]);
             tasksList.add(newDeadlineTask);
             Ui.printAddTaskText(newDeadlineTask);
@@ -79,11 +79,11 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Adds user's specified event task to the list
-     * @param eventInput user's input to add event task (event (task) /at (time))
+     * @param eventInputs user's input to add event task (event (task) /at (time))
      */
-    public static void addEventTask(String[] eventInput) {
+    public static void addEventTask(String[] eventInputs) {
         try {
-            String[] DescriptionWithTime = eventInput[1].split("/at ", 2);
+            String[] DescriptionWithTime = eventInputs[1].split("/at ", 2);
             Event newEvent = new Event(DescriptionWithTime[0], 'E', DescriptionWithTime[1]);
             tasksList.add(newEvent);
             Ui.printAddTaskText(newEvent);
@@ -105,19 +105,19 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Marks the specified task of given task number that user inputs
-     * @param taskInput user's input to mark the specified task (mark (task number))
+     * @param taskInputs user's input to mark the specified task (mark (task number))
      * @throws InvalidCommandFormatException if the command format is invalid
      * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
      * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
      */
-    public void doMarkTask(String[] taskInput) {
+    public void doMarkTask(String[] taskInputs) {
         try {
-            if (taskInput.length == 1) {
+            if (taskInputs.length == 1) {
                 throw new InvalidCommandFormatException();
             } if (getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             }
-            int taskNumber =  Integer.parseInt(taskInput[1]) - 1;
+            int taskNumber =  Integer.parseInt(taskInputs[1]) - 1;
             taskNumberOfInterest = taskNumber;
             if (taskNumber >= getTasksListSize()) {
                 throw new TaskNumberOutOfBoundsException();
@@ -137,20 +137,20 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Unmarks the specified task of given task number that user inputs
-     * @param taskInput user's input to unmark the specified task (unmark (task number))
+     * @param taskInputs user's input to unmark the specified task (unmark (task number))
      * @throws InvalidCommandFormatException if the command format is invalid
      * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
      * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
      */
-    public void doUnmarkTask(String[] taskInput) {
+    public void doUnmarkTask(String[] taskInputs) {
         try {
-            if (taskInput.length == 1) {
+            if (taskInputs.length == 1) {
                 throw new InvalidCommandFormatException();
             }
             if (getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             }
-            int taskNumber = Integer.parseInt(taskInput[ 1 ]) - 1;
+            int taskNumber = Integer.parseInt(taskInputs[ 1 ]) - 1;
             taskNumberOfInterest = taskNumber;
             if (taskNumber >= getTasksListSize()) {
                 throw new TaskNumberOutOfBoundsException();
@@ -170,20 +170,20 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Deletes the specified task of given task number that user inputs
-     * @param deleteInput user's input to delete the specified task (delete (task number))
+     * @param deleteInputs user's input to delete the specified task (delete (task number))
      * @throws InvalidCommandFormatException if the command format is invalid
      * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
      * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
      */
-    public void doDeleteTask(String[] deleteInput) {
+    public void doDeleteTask(String[] deleteInputs) {
         try {
-            if (deleteInput.length < 2) {
+            if (deleteInputs.length < 2) {
                 throw new InvalidCommandFormatException();
             }
             if (getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             }
-            int taskNumber = Integer.parseInt(deleteInput[ 1 ]) - 1;
+            int taskNumber = Integer.parseInt(deleteInputs[ 1 ]) - 1;
             taskNumberOfInterest = taskNumber;
             if (taskNumber >= getTasksListSize()) {
                 throw new TaskNumberOutOfBoundsException();
@@ -202,20 +202,20 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Finds tasks with relevant keyword that user inputs
-     * @param findInput user's keyword input to find tasks (find (keyword))
+     * @param findInputs user's keyword input to find tasks (find (keyword))
      * @throws InvalidCommandFormatException if the command format is invalid
      * @throws TaskListEmptyException if the task list is empty, and hence no task to mark
      * @throws TaskNumberOutOfBoundsException if the task number specified is not in the list
      */
-    public void findTask(String[] findInput) {
+    public void findTask(String[] findInputs) {
         try {
-            if (findInput.length < 2) {
+            if (findInputs.length < 2) {
                 throw new InvalidCommandFormatException();
             }
             if (getTasksListSize() == 0) {
                 throw new TaskListEmptyException();
             }
-            String keyword = findInput[1];
+            String keyword = findInputs[1];
             Ui.printTasksWithKeyword(keyword);
             Ui.printHorizontalLine();
         } catch (InvalidCommandFormatException e) {

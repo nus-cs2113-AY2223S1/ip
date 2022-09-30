@@ -1,4 +1,4 @@
-package Duke.Commands;
+package duke.commands;
 
 /**
  * Represents all types of commands that involves the addition of task

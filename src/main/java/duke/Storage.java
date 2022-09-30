@@ -1,8 +1,8 @@
-package Duke;
+package duke;
 
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,23 +56,23 @@ public class Storage {
                     Todo todoTask = new Todo(fileWords[2], 'T');
                     taskList.addToTasksList(todoTask);
                     String isMarked = fileWords[1].replaceAll("\\s+","");
-                    if (isMarked.equals("1")){
+                    if (isMarked.equals("1")) {
                         taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;
                 case 'D':
-                    Deadline deadlineTask = new Deadline(fileWords[2], 'D', fileWords[ 3 ]);
+                    Deadline deadlineTask = new Deadline(fileWords[2], 'D', fileWords[3]);
                     taskList.addToTasksList(deadlineTask);
                     isMarked = fileWords[1].replaceAll("\\s+","");
-                    if (isMarked.equals("1")){
+                    if (isMarked.equals("1")) {
                         taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;
                 case 'E':
-                    Event eventTask = new Event(fileWords[ 2 ], 'E', fileWords[ 3 ]);
+                    Event eventTask = new Event(fileWords[2], 'E', fileWords[3]);
                     taskList.addToTasksList(eventTask);
                     isMarked = fileWords[1].replaceAll("\\s+","");
-                    if (isMarked.equals("1")){
+                    if (isMarked.equals("1")) {
                         taskList.setTaskDoneStatus(taskNumber, true);
                     }
                     break;

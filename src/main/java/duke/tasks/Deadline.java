@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.tasks;
 
 /**
  * This class is used for tasks that need to be done before a specific date/time.

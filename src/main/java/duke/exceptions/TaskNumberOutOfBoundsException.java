@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Represents an error when the task number that user inputs is not within the taskList.

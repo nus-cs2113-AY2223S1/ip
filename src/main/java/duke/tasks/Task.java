@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.tasks;
 
 /**
  * This class is used to create tasks.

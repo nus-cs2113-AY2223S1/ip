@@ -1,9 +1,9 @@
-package Duke;
+package duke;
 
-import Duke.Commands.*;
-import Duke.Exceptions.TaskListEmptyException;
-import Duke.Exceptions.TaskNumberOutOfBoundsException;
-import Duke.Tasks.Task;
+import duke.commands.*;
+import duke.exceptions.TaskListEmptyException;
+import duke.exceptions.TaskNumberOutOfBoundsException;
+import duke.tasks.Task;
 
 import java.io.IOException;
 import java.util.Scanner;

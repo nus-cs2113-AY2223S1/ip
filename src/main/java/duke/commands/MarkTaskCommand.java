@@ -1,7 +1,7 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Storage;
-import Duke.TaskList;
+import duke.Storage;
+import duke.TaskList;
 
 /**
  * When executed, it marks the specified task as done

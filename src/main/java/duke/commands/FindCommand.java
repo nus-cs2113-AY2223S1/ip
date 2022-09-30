@@ -1,6 +1,6 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.TaskList;
+import duke.TaskList;
 
 /**
  * When executed, it prints the list of tasks with description that match the keyword

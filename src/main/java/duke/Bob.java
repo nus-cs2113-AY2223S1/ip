@@ -1,6 +1,6 @@
-package Duke;
+package duke;
 
-import Duke.Exceptions.*;
+import duke.exceptions.*;
 
 import java.io.IOException;
 
@@ -30,7 +30,8 @@ public class Bob {
         }
     }
 
-    public static void main(String[] args) throws InvalidCommandFormatException, TaskListEmptyException, TaskNumberOutOfBoundsException, IOException, TaskNumberNotNumberException {
+    public static void main(String[] args) throws InvalidCommandFormatException, TaskListEmptyException,
+            TaskNumberOutOfBoundsException, IOException, TaskNumberNotNumberException {
         Bob.run();
     }
 }

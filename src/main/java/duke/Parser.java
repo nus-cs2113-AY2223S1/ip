@@ -1,11 +1,9 @@
-package Duke;
+package duke;
 
-import Duke.Commands.AddTodoCommand;
-import Duke.Commands.ByeCommand;
-import Duke.Commands.Command;
-import Duke.Commands.*;
-
-import java.io.IOException;
+import duke.commands.AddTodoCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.*;
 
 /**
  * Parses user input to execute the appropriate commands,
@@ -18,7 +16,7 @@ public class Parser {
      * @param input user's input command
      * @param taskList carries out user's command and stores user's tasks in a list
      */
-    public static Command parseCommand(String input, TaskList taskList) throws IOException {
+    public static Command parseCommand(String input, TaskList taskList) {
         String[] commandAndParams = input.split(" ", 2);
         String command = commandAndParams[ 0 ];
         switch (command) {

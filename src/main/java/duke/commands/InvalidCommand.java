@@ -1,6 +1,6 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Ui;
+import duke.Ui;
 
 /**
  * When executed, it prints an invalid command text
