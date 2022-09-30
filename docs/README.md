@@ -12,6 +12,7 @@
 2. Key in desired commands and press enter to execute each command.
 3. To exit Duke, simply key in "bye".
 ## Features
+
 List of commands supported by Duke:
 ### list
 To display all the tasks stored in task array
