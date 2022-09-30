@@ -20,6 +20,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class to load and save tasks into a file
+ *
+ * FILE_DIRECTORY refers to the data folder
+ * FILE_PATH refers to the duke.txt file
+ */
 public class Storage {
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
@@ -28,6 +34,12 @@ public class Storage {
 
     }
 
+    /**
+     * A method to save task to the file whenever there is changes to the ArrayList of tasks
+     *
+     * @param Tasks is an arraylist of tasks to be called to save the tasks into the file
+     * @throws IOException If error occurs during file operation
+     */
     public static void saveTask(ArrayList<Task> Tasks) throws IOException {
         Path fileDirectory = Paths.get(FILE_DIRECTORY);
 
@@ -52,6 +64,11 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Write the tasks stored in the duke.txt file into the Arraylist of tasks in the program
+     *
+     * @return The arraylist of tasks that is being updated after the loading from the duke.txt file
+     */
     public Tasklist loadTask() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

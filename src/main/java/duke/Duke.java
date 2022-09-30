@@ -9,10 +9,7 @@ import duke.parser.Parser;
 import duke.tasklist.Tasklist;
 import duke.command.Command;
 
-import java.io.IOException;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 public class Duke {
 
     private final Ui ui;
@@ -20,6 +17,10 @@ public class Duke {
     private final Storage storage;
     private final Parser parser;
 
+    /**
+     * Instantiates the classes required to run Duke.
+     * tasks is being initialised to existing task list stored in a file
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -28,6 +29,12 @@ public class Duke {
 
     }
 
+    /**
+     * .start() to start the Duke program
+     * Runs the program infinitely until isExit is true
+     * Catches exceptions thrown from .execute() and call .showError() to display the error message
+     * .end() to exit the Duke program
+     */
     public void run() {
         ui.start();
         boolean isExit = false;
@@ -35,7 +42,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks);
                 isExit = c.isExit();
             } catch (MissingArgumentException e) {
                 Ui.showError(e.getMessage());
@@ -49,8 +56,6 @@ public class Duke {
         }
         ui.end();
     }
-
-
 
     public static void main(String[] args) {
         new Duke().run();

@@ -8,6 +8,10 @@ import duke.parser.Parser;
 
 import java.lang.NumberFormatException;
 
+    /**
+     * Class to handle the different command calls
+     * Boolean isExit is controlled by COMMAND_BYE
+     */
 public class Command {
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
@@ -23,12 +27,23 @@ public class Command {
     private String taskDescription;
     private boolean isExit = false;
 
+        /**
+         *
+         * @param command is the command inputted by the user to control what command to be executed
+         * @param taskDescription is the description inputted by the user and be executed with the command
+         */
     public Command(String command, String taskDescription) {
         this.command = command;
         this.taskDescription = taskDescription;
     }
 
-    public void execute(Tasklist tasks, Ui ui, Storage storage ) throws duke.exceptions.NumberFormatException, MissingDateException {
+        /**
+         *execute() compares the input command and execute the correct command if matches
+         * @param tasks is an ArrayList of tasks that is passed and used in the method
+         * @throws duke.exceptions.NumberFormatException if the task number is not an integer value
+         * @throws MissingDateException if the deadline for either deadline or event is missing
+         */
+    public void execute(Tasklist tasks) throws duke.exceptions.NumberFormatException, MissingDateException {
         try {
             if (command.equalsIgnoreCase(COMMAND_BYE)) {
                 isExit = true;
