@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -6,20 +6,18 @@ import java.nio.file.Path;
 import java.util.*;
 public class Duke {
     public static ArrayList<Task> list = new ArrayList<>();
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
 
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you");
-        fileToList();
-        String inp = in.nextLine();
-        while(!inp.equals("bye")){
+    public static void main(String[] args) {
+        //Scanner in = new Scanner(System.in);
+        Storage storage = new Storage();
+        TaskList tasks = new TaskList(storage.fileToList());
+        Ui ui = new Ui();
+        ui.intro();
+        ui.parseInput(tasks);
+
+        //fileToList();
+        //String inp = in.nextLine();
+        /*while(!inp.equals("bye")){
             if(inp.equals("list")) {
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.print(i + ". ");
@@ -71,9 +69,10 @@ public class Duke {
         }
         System.out.println();
         listToFile();
-        System.out.println("Bye");
+        System.out.println("Bye");*/
     }
-    public static void taskReader(String inp) throws DukeException{
+
+    /*public static void taskReader(String inp) throws DukeException{
         String comm, tas, name, date, time;
         try{
             comm = inp.substring(0, inp.indexOf(" ")).toLowerCase();
@@ -202,5 +201,5 @@ public class Duke {
         catch (IOException e){
             System.out.println("Problem occurred with the file");
         }
-    }
+    }*/
 }
