@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.command.ByeCommand;
 import duke.command.Command;
+import duke.exception.EmptyInputException;
 import duke.exception.InvalidCommandException;
 
 public class CommandParser extends Parser {
@@ -11,8 +12,9 @@ public class CommandParser extends Parser {
      * @param fullCommand The full command entered by the user.
      * @return The corresponding Command object.
      * @throws InvalidCommandException If the command is invalid.
+     * @throws EmptyInputException
      */
-    public static Command parseCommand(String fullCommand) throws InvalidCommandException {
+    public static Command parseCommand(String fullCommand) throws InvalidCommandException, EmptyInputException {
         String keyword = Parser.getKeyword(fullCommand);
         switch (keyword) {
         case ByeCommand.KEYWORD:
@@ -35,6 +37,8 @@ public class CommandParser extends Parser {
             return new duke.command.EventCommand(fullCommand);
         case "find":
             return new duke.command.FindCommand(fullCommand);
+        case "help":
+            return new duke.command.HelpCommand(fullCommand);
         default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

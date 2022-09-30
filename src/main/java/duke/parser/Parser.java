@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.exception.EmptyInputException;
 import duke.exception.EmptyNumberInputException;
 import duke.exception.InvalidDeadlineInputException;
 import duke.exception.InvalidEventInputException;
@@ -9,8 +10,12 @@ import duke.exception.InvalidTaskDescriptionException;
  * Class contains methods to parse the user input.
  */
 public class Parser {
-    public static String getKeyword(String fullCommand) {
+    public static String getKeyword(String fullCommand) throws EmptyInputException {
         String[] words = fullCommand.split(" ");
+        // if input is empty or only contains spaces 
+        if (words.length == 0) {
+            throw new EmptyInputException("Input cannot be empty!");
+        }
         return words[0];
     }
 
