@@ -1,0 +1,49 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /at Mon 2-4pm
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+deadline do homework /by no idea :-p
+todo
+todo Test this program thoroughly
+deadline
+deadline /by
+deadline complete Level-5
+deadline complete Level-5 /by
+deadline /by Week 5 Tutorial
+deadline complete Level-5 /by Week 5 Tutorial
+deadline complete Level-5 /due Week 5 Tutorial
+event
+event /at
+event attend tutorials
+event attend tutorials /at
+event /at Wed 11-12pm
+event attend tutorials /at Wed 11-12pm
+event attend tutorials /during Wed 11-12pm
+list
+mark 4
+mark 5
+list
+mark 6
+mark 7
+list
+delete 6
+list
+delete 6
+list
+delete 6
+list
+mark 1337
+unmark 1337
+exit
+exit this program
+how do you quit this thing
+
+bye
