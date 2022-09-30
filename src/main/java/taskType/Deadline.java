@@ -1,4 +1,4 @@
-package duke;
+package taskType;
 
 /**
  * Deadline class is an extension of task, it stores an additional attribute, the deadline of
