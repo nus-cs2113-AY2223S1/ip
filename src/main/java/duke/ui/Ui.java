@@ -21,11 +21,11 @@ public class Ui {
      */
     public void showDataFileStatus(boolean isFileCreated) {
         if (isFileCreated) {
-            System.out.println("\t --Data file was not found but"
-                    + " I have made one for you.--\n");
+            System.out.println(" Data file was not found but"
+                    + " I have made one for you.\n");
         } else {
-            System.out.println("\n\t --Data file already exist"
-                    + " in your hard disk, you are ready to go!--\n");
+            System.out.println("\n Data file already exist"
+                    + " in your hard disk, you are ready to go!\n");
         }
     }
 
@@ -33,12 +33,16 @@ public class Ui {
      * Shows the dataFolder status to the user.
      */
     public void showDataFolderStatus() {
-        System.out.println("\n\t --Data folder to store the data file does not exist "
-                + "but I have made one for you.--");
+        System.out.println("\n Data folder to store the data file does not exist "
+                + "but I have made one for you.");
     }
 
     public void showLine() {
         System.out.println(lineDivider);
+    }
+
+    public void lineBreak() {
+        System.out.println("\n");
     }
 
     /**
@@ -179,15 +183,15 @@ public class Ui {
     }
 
     public void showEmptyMatchList() {
-        System.out.println("\t There are no matching task as your TaskList is wiped clean!");
+        System.out.println("\t There are no matching task in your list of task.");
     }
 
     public static void showFileError() {
-        System.out.println("\n\t --Error in trying to locate or make data file--");
+        System.out.println("\n --Error in trying to locate or make data file--");
     }
 
     public static void showDataToFileError() {
-        System.out.println("\n\t --Unable to save file.--");
+        System.out.println("\n --Unable to save file.--");
     }
 
 }
