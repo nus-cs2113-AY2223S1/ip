@@ -10,6 +10,7 @@ public class Task {
 
     /**
      * creates a new task
+     *
      * @param description
      */
     public Task(String description) {
@@ -29,9 +30,9 @@ public class Task {
     /**
      * sets isDone to be true
      */
-     public void setMark(){
-         isDone = true;
-     }
+    public void setMark() {
+        isDone = true;
+    }
 
 
     /**
@@ -57,9 +58,9 @@ public class Task {
     /**
      * returns string representing to print to in file format
      */
-    public String isDoneFileFormat(){
+    public String isDoneFileFormat() {
         String isDone = "0";
-        if (getIsDone()){
+        if (getIsDone()) {
             isDone = "1";
         }
         return isDone;
@@ -68,13 +69,14 @@ public class Task {
     /**
      * returns isDone status
      */
-    public boolean getIsDone(){
+    public boolean getIsDone() {
         return isDone;
     }
 
 
     /**
      * returns task description
+     *
      * @return
      */
     public String getDescription() {

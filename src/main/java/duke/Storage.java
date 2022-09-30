@@ -6,8 +6,6 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileWriter;
 
-// Todo : check if need to add folder ?
-
 public class Storage extends Duke {
     public static final String event = "E";
     public static final String one = "1";
@@ -19,7 +17,8 @@ public class Storage extends Duke {
 
     private static File file;
     public Storage() throws DukeException {
-        file = new File(filename);
+        String home = System.getProperty("user.home");
+        file = new File(home +filename);
         openOrCreateFile();
     }
 
@@ -28,7 +27,8 @@ public class Storage extends Duke {
      * if not, creates one and opens the file
      * @throws DukeException
      */
-    public static void openOrCreateFile() throws DukeException {
+    public void openOrCreateFile() throws DukeException {
+
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class Storage extends Duke {
      * uploads list from
      * @throws DukeException
      */
-    public static void uploadDataToList() throws DukeException {
+    public void uploadDataToList() throws DukeException {
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
@@ -98,8 +98,9 @@ public class Storage extends Duke {
      * @throws DukeException
      */
     public static void saveListToFile() throws DukeException {
+        String home = System.getProperty("user.home");
         try {
-            FileWriter fw = new FileWriter(filename);
+            FileWriter fw = new FileWriter(home+filename);
             for (int i = 0; i < dukeList.getListSize(); i++) {
                 fw.write(dukeList.getTaskFromList(i).getFileFormat() + System.lineSeparator());
             }

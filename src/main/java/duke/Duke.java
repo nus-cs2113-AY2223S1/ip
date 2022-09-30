@@ -8,9 +8,10 @@ public class Duke {
     public static final String bye = "bye";
     public static final String find = "find";
     public static final String list = "list";
+    public static final String help = "help";
     public static final String space = " ";
     public static final String unmarkDone = "unmark";
-    public static final String filename = "duke.txt";
+    public static final String filename = "/duke.txt";
     public static final String emptyString = "";
 
     /**
@@ -22,8 +23,8 @@ public class Duke {
     public static void run() throws DukeException {
         try {
             storage = new Storage();
-            Storage.openOrCreateFile();
-            Storage.uploadDataToList();
+            storage.openOrCreateFile();
+            storage.uploadDataToList();
         } catch (DukeException e){
             Message.printSystemError();
         }
