@@ -1,5 +1,8 @@
 package exceptions;
 
 public class InvalidDeadlineException extends Exception {
-    // no further code
+    @Override
+    public String getMessage() {
+        return "Missing /by field. Try again.";
+    }
 }

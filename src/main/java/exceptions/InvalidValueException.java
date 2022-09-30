@@ -1,5 +1,8 @@
 package exceptions;
 
 public class InvalidValueException extends Exception {
-    // no further code
+    @Override
+    public String getMessage() {
+        return "Out of bounds value entered!";
+    }
 }

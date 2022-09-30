@@ -1,5 +1,8 @@
 package exceptions;
 
 public class InvalidEventException extends Exception{
-     // no further code
+     @Override
+     public String getMessage() {
+          return "Please enter when this event is happening!";
+     }
 }

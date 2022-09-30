@@ -8,6 +8,7 @@ public class Duke {
     private Storage storage;
     private TaskList list;
     private Ui ui;
+    private Parser parser;
     private String filepath = "../../data/stored.txt";
     private String folderpath = "../../data/";
 
@@ -21,18 +22,18 @@ public class Duke {
             // the tasks array would be private to the particular object
             list = new TaskList(storage.getMakeFile());
         } catch (Exception e) {
-            //ui.showLoadingError();
+            ui.showLoadingError();
             list = new TaskList();
         }
+        parser = new Parser(ui, storage, list);
     }
 
     public void run() {
         ui.greetUser();
-        new Parser().processUserInput(ui, list, storage);
+        ui.getContinuousInput(parser);
         ui.printExitGreeting();
     }
 
-    // MAIN FUNCTION
     public static void main(String[] args) {
         new Duke().run();
     }

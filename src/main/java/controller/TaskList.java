@@ -65,7 +65,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> getTaskArray(){
-        // will pass by reference so the original one will be modified
+        // will pass by reference
         return this.tasks;
     }
 
@@ -77,5 +77,13 @@ public class TaskList {
             System.out.println("\t"+ j + ". " + this.tasks.get(i) + "\n");
         }
         System.out.println(line);
+    }
+
+    public void addTask(Task latest) {
+        this.tasks.add(latest);
+    }
+
+    public void deleteTask(int index) {
+        this.tasks.remove(index);
     }
 }

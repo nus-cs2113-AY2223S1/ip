@@ -1,5 +1,8 @@
 package exceptions;
 
 public class InvalidTodoException extends Exception {
-    // no further code
+    @Override
+    public String getMessage() {
+        return "The description of a todo cannot be empty";
+    }
 }

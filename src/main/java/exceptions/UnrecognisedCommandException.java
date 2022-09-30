@@ -1,5 +1,8 @@
 package exceptions;
 
 public class UnrecognisedCommandException extends Exception{
-    // no further code
+    @Override
+    public String getMessage() {
+        return "Unrecognised command!";
+    }
 }
