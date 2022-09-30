@@ -318,7 +318,8 @@ Example of usage:
 `delete 1`
 
 Expected outcome:
-Task is removed from the list and file.
+
+Task is removed from the list and local file.
 ```
 What can I do for you?
 delete 1
