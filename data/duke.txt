@@ -1,0 +1,3 @@
+T ; 0 ; Read a book
+D ; 0 ; Return book ; Monday
+D ; 0 ; do project ; tmr
