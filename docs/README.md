@@ -195,6 +195,22 @@ ____________________________________________________________
 Process finished with exit code 0
 ```
 
+### `quit` - quit the program
+The user can quit tasks by entering "quit".
+
+Example of usage:
+
+`quit`
+
+Expected outcome:
+The process safely finished.
+```
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+Process finished with exit code 0
+```
+
 ### `load` - load from a file
 The program will automatically read and load tasks from "data/duke.txt" 
 which is under the same folder as Duke.jar during the initialization stage.
