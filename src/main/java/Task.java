@@ -6,7 +6,7 @@ public abstract class Task {
 
     public Task(String description) throws DukeException {
         if (description.isBlank()) {
-            throw new DukeException();
+            throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
         }
         this.description = description;
         this.isDone = false;

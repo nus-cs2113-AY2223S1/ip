@@ -9,13 +9,13 @@ public class Deadline extends Task {
     public Deadline(String description, String by) throws DukeException {
         super(description);
         if (by.isBlank()) {
-            throw new DukeException();
+            throw new DukeException("☹ OOPS!!! The deadline date cannot be empty.");
         }
         LocalDate date;
         try {
             date = LocalDate.parse(by);
         } catch(DateTimeParseException e) {
-            throw new DukeException();
+            throw new DukeException("☹ OOPS!!! Cannot parse the date");
         }
         this.by = date;    }
 

@@ -1,37 +1,53 @@
 import java.util.Scanner;
 
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        DukeManager.print(" Hello! I'm Matthew\n" + " What can I do for you?");
-        DukeManager.load();
-        while (true) {
-            String line = in.nextLine();
-            if (line.equals("bye")) {
-                break;
-            } else if (line.equals("list")) {
-                DukeManager.list();
-            } else if (line.startsWith("mark")) {
-                DukeManager.mark(line);
-            } else if (line.startsWith("unmark")) {
-                DukeManager.unmark(line);
-            } else if (line.startsWith("todo")) {
-                DukeManager.createTodo(line);
-            } else if (line.startsWith("event")) {
-                DukeManager.createEvent(line);
-            } else if (line.startsWith("deadline")) {
-                DukeManager.createDeadline(line);
-            } else if (line.startsWith("delete")) {
-                DukeManager.delete(line);
-            } else if (line.startsWith("find")) {
-                DukeManager.find(line);
-            } else {
-                DukeManager.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                continue;
-            }
-            DukeManager.save();
+        new Duke().run();
+    }
+
+    /**
+     * Initializes the program
+     */
+    public Duke () {
+        ui = new Ui();
+        storage = new Storage();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList();
         }
-        DukeManager.print("Bye. Hope to see you again soon!");
+        ui.showWelcomeMessage();
+
+    }
+
+    /**
+     * Runs the program
+     */
+    public void run() {
+        Parser parser = new Parser();
+        while(true) {
+            String input = ui.getCommand();
+            try {
+                String output =  parser.parseCommand(input, tasks);
+                if (output != null) {
+                    ui.displayOutput(output);
+                } else {
+                    break;
+                }
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showGoodbyeMessage();
+        try {
+            storage.save(tasks);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

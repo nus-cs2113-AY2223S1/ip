@@ -9,13 +9,13 @@ public class Event extends Task {
     public Event(String description, String at) throws DukeException {
         super(description);
         if (at.isBlank()) {
-            throw new DukeException();
+            throw new DukeException("☹ OOPS!!! The event date cannot be empty.");
         }
         LocalDate date;
         try {
              date = LocalDate.parse(at);
         } catch(DateTimeParseException e) {
-            throw new DukeException();
+            throw new DukeException("☹ OOPS!!! Cannot parse the date");
         }
         this.at = date;
     }
