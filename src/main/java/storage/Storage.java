@@ -12,7 +12,8 @@ import java.util.Scanner;
 
 /**
  * The class allow an application to load data from hard dist into program and save data from
- * program into hard disk.
+ * program into hard disk. If the input file does not exist, create a new file to store the
+ * program result.
  * */
 public class Storage {
     public static final int isDoneIndex = 1;
