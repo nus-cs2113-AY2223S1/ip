@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String FILE_PATH = "C:/Users/cwxky/projects/cs2113-git/data/duke.txt";
+    public static final String FILE_PATH = "./data/duke.txt";
     private static DukeStorage storage;
     private static TaskList taskList;
     private static Parser parser;
