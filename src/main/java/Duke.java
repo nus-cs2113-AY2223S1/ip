@@ -15,6 +15,11 @@ public class Duke {
         printLine();
     }
 
+    public static void printError() {
+        printLine();
+        System.out.println("    Unable to understand command. Please try again!");
+        printLine();
+    }
     public static void marking(ArrayList<Task>tasks, String command, boolean isMarked) {
         printLine();
         if (isMarked) {
@@ -26,7 +31,7 @@ public class Duke {
         }
         int index = Integer.parseInt(command) - 1;
         tasks.get(index).setAsDone(isMarked);
-        System.out.println("    [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getTask());
+        System.out.println("    " + tasks.get(index).getTaskDetails());
         printLine();
     }
 
@@ -35,37 +40,113 @@ public class Duke {
         printLine();
         System.out.println("    Here are the tasks in your list:");
         for (int counter = 0; counter < numOfTasks; counter++) {
-            System.out.println("    " + (counter + 1) + ".[" + tasks.get(counter).getStatusIcon() + "] " + tasks.get(counter).getTask());
+            System.out.println("    " + (counter + 1) + "." + tasks.get(counter).getTaskDetails());
         }
         printLine();
     }
 
-    public static void addTask(ArrayList<Task> tasks, String command) {
+    public static void addTodo(ArrayList<Task> tasks, String command) {
         printLine();
-        Task newTask = new Task(command);
+        Todo newTask = new Todo(command.substring(5));
         tasks.add(newTask);
-        System.out.println("    Added task: " + command);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("    " + newTask.getTaskDetails());
+        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         printLine();
+    }
+
+    public static Command parseCommand(String input) {
+        Command mainCommand;
+        if (input.equals("list")) {
+            mainCommand = Command.LIST;
+        } else if (input.equals("bye")) {
+            mainCommand = Command.BYE;
+        } else if (input.startsWith("mark "))  {
+            mainCommand = Command.MARK;
+        } else if (input.startsWith("unmark ")) {
+            mainCommand = Command.UNMARK;
+        } else if (input.startsWith("todo ")) {
+            mainCommand = Command.TODO;
+        } else if (input.startsWith("deadline ")) {
+            mainCommand = Command.DEADLINE;
+        } else if (input.startsWith("event ")) {
+            mainCommand = Command.EVENT;
+        } else {
+            mainCommand = Command.EMPTY;
+        }
+        return mainCommand;
+    }
+
+    public static void addDeadline(ArrayList<Task> tasks, String command) {
+        printLine();
+        String instruction;
+        instruction = command.substring(9);
+        String description;
+        String deadline;
+        description = instruction.split(" /by ")[0];
+        deadline = instruction.split(" /by ")[1];
+        Deadline newDeadline = new Deadline(description, deadline);
+        tasks.add(newDeadline);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("    " + newDeadline.getTaskDetails());
+        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
+
+    }
+    public static void addEvent(ArrayList<Task> tasks, String command) {
+        printLine();
+        String instruction;
+        instruction = command.substring(6);
+        String description;
+        String timeline;
+        description = instruction.split(" /at ")[0];
+        timeline = instruction.split(" /at ")[1];
+        String startTime;
+        String endTime;
+        startTime = timeline.split("-")[0];
+        endTime = timeline.split("-")[1];
+        Event newEvent = new Event(description, startTime, endTime);
+        tasks.add(newEvent);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("    " + newEvent.getTaskDetails());
+        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
+
     }
     public static void main(String[] args) {
         printWelcome();
         Scanner input = new Scanner(System.in);
         String command;
         ArrayList<Task> tasks = new ArrayList<>();
-
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             command = input.nextLine();
-            if(command.equals("bye")) {
-                printGoodbye();
-                break;
-            } else if (command.equals("list")) {
-                printList(tasks);
-            } else if (command.startsWith("mark ")) {
-                marking(tasks, command, true);
-            } else if (command.startsWith("unmark ")) {
-                marking(tasks, command, false);
-            } else {
-                addTask(tasks, command);
+            Command order = parseCommand(command);
+            switch (order) {
+                case LIST:
+                    printList(tasks);
+                    break;
+                case BYE:
+                    printGoodbye();
+                    isRunning = false;
+                    break;
+                case MARK:
+                    marking(tasks, command, true);
+                    break;
+                case UNMARK:
+                    marking(tasks, command, false);
+                    break;
+                case TODO:
+                    addTodo(tasks, command);
+                    break;
+                case DEADLINE:
+                    addDeadline(tasks, command);
+                    break;
+                case EVENT:
+                    addEvent(tasks, command);
+                    break;
+                default:
+                    printError();
             }
         }
     }
