@@ -71,27 +71,35 @@ public class Ui {
     }
 
     public static void printMark(TaskList tasks, int taskId) {
-        System.out.println(TOP_HORIZONTAL_RULE);
+        // System.out.println(TOP_HORIZONTAL_RULE);
         if (tasks.get(taskId).isDone) {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tThis task is already marked!");
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         } else {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tNice! I've marked this task as done:");
             tasks.get(taskId).setDone(tasks.get(taskId).isDone);
             System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         }
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
+        // System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printUnmark(TaskList tasks, int taskId) {
-        System.out.println(TOP_HORIZONTAL_RULE);
+        // System.out.println(TOP_HORIZONTAL_RULE);
         if (!tasks.get(taskId).isDone) {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tThis task is already unmarked!");
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         } else {
+            System.out.println(TOP_HORIZONTAL_RULE);
             System.out.println("\tOK, I've marked this task as not done yet:");
             tasks.get(taskId).setDone(tasks.get(taskId).isDone);
             System.out.println("\t" + tasks.get(taskId).getStatusIcon() + tasks.get(taskId).getDescription());
+            System.out.println(BOTTOM_HORIZONTAL_RULE);
         }
-        System.out.println(BOTTOM_HORIZONTAL_RULE);
+        // System.out.println(BOTTOM_HORIZONTAL_RULE);
     }
 
     public static void printTaskList(TaskList tasks) {
