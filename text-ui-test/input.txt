@@ -1,7 +1,18 @@
+list
 todo Hao Yi: Answer CS2113 Tutorial questions
 deadline weekly CS2113 quiz /by Monday 9pm
 list
 event CS2113 Lecture /at Friday 4 to 6pm
 mark 1
+event CS2113 final /at Next Monday
+hello
+deadline
+deadline CS2113 iP /by tonight
+todo finals past year paper
+mark 3
 list
+unmark 1
+delete 2
+list
+mark 10
 bye
