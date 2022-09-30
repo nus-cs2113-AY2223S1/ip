@@ -1,10 +1,61 @@
+import parser.Parser;
+import storage.Storage;
+import taskList.TaskList;
+import ui.Ui;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
+/**
+ * The Duke program take userinput as instruction and do the corresponding
+ * command. Duke can add, delete, mark, unmark tasks and save them into a file.
+ */
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+    public static final String BYE = "bye";
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        // load data from the file into program.
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
+
+    /**
+     * Run the serverc
+     */
+    public void run() {
+        Ui.printWelcomeMessage();
+        String userInput = ui.getUserInput();
+        while(!userInput.equals(BYE)){
+            // Implement user command.
+            Parser.implementUserInstruction(tasks.taskList, userInput, false);
+            // Store result into the file.
+            try {
+                Storage.saveTasks(tasks.taskList, storage.filePath);
+            }
+            catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+            userInput = ui.getUserInput();
+        }
+
+        Ui.printByeMessage();
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke("./Contents.txt");
+        duke.run();
+    }
+
 }
