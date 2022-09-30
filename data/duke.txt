@@ -1,0 +1,5 @@
+[T][ ] cook
+[E][ ] project meeting (at: Mon 2-4pm)
+[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Sundaylist)
