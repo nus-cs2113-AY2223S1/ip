@@ -33,6 +33,7 @@ public class Duke {
         ui.printWelcomeMessage();
         boolean isInitialiseSuccessful = true;
 
+        // Initialising local data storage and populate the list.
         try {
             int itemLen = storage.initialiseTaskFromFile(list);
             if (itemLen > 0) {
@@ -51,20 +52,32 @@ public class Duke {
             isInitialiseSuccessful = false;
         }
 
-        while (isInitialiseSuccessful) {
+        if (isInitialiseSuccessful) {
+            runLoopUntilExit();
+        }
+
+        ui.printExitMessage();
+    }
+
+    /**
+     * Run the user input read in, parsing, executing and saving process in a loop.
+     * Will exit the loop when user entered <code>exit</code>.
+     */
+    public static void runLoopUntilExit() {
+        while (true) {
             String userInput = ui.getUserInput();
             try {
                 Parser parser = new Parser();
                 parser.parseCommand(userInput);
                 if (parser.getCommand() == Command.EXIT) {
-                    break;
+                    return;
                 }
                 if (parser.getCommand() == Command.LIST) {
                     ui.printAllTask(list);
                 } else {
                     String item = list.executeCommand(parser.getCommand(), parser.getUserArgs());
                     ui.showResult(item, parser.getCommand(), list.getTaskListSize());
-                    if (toSave){
+                    if (toSave) {
                         storage.updateWholeFile(list);
                     }
                 }
@@ -78,6 +91,5 @@ public class Duke {
                 ui.printError("Something went wrong, error data: " + e.getMessage());
             }
         }
-        ui.printExitMessage();
     }
 }

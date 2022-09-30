@@ -50,7 +50,7 @@ public class TaskList {
 
     /**
      * Returns the index-0 position of the newly added Task in the array list.
-     * It also initates a new task and append it to the existing list.
+     * It also initiates a new task and append it to the existing list.
      *
      * @param input User argument.
      * @param type Type of the command entered.

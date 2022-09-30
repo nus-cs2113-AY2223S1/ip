@@ -1,5 +1,9 @@
 package Tasks;
 
+/**
+ * Represents a Todo Task, extended from Task class.
+ * Contains item description and completion status.
+ */
 public class Todo extends Task {
     public Todo (String description, boolean isCompleted) {
         super(description, isCompleted);
