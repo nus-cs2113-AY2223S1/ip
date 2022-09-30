@@ -4,12 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import duke.DukeException;
 import duke.tasks.TaskList;
 
-
-import duke.Duke;
 import duke.tasks.*;
 
 

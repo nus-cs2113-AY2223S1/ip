@@ -22,7 +22,7 @@ public class Deadline extends Task {
     /**
      * Gets the time of the deadline
      *
-     * @returns the time of the deadline.
+     * @return the time of the deadline.
      */
     public String getBy() {
         return by;

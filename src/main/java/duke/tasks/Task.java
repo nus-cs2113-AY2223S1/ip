@@ -14,7 +14,7 @@ public class Task {
     /**
      * Gets the description of the task
      *
-     * @returns the task description string.
+     * @return the task description string.
      */
     public String getDescription() {
         return description;

@@ -1,7 +1,5 @@
 package duke.ui;
 
-import duke.DukeException;
-
 import java.util.Scanner;
 
 /**
@@ -14,7 +12,7 @@ public class Ui {
     /**
      * Receives user's input through the command line.
      *
-     * @returns the string that user have typed in the command line
+     * @return the string that user have typed in the command line
      */
     public String userInput(){
         return in.nextLine();

@@ -25,7 +25,7 @@ public class Event extends Task{
     /**
      * Gets the time of the event
      *
-     * @returns the time of the event.
+     * @return the time of the event.
      */
     public String getAt() {
         return at;
