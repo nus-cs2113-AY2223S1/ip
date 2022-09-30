@@ -1,6 +1,6 @@
 # User Guide
 
-King Bob is a software which optimizes the use of the Command Line Interface (CLI) to manage tasks. :computer:
+King Bob is a software which optimizes the use of the Command Line Interface (CLI) to manage tasks.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
