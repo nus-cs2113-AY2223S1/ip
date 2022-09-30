@@ -12,6 +12,10 @@ public class FileHandler {
 
     public static ArrayList<String> Lines = new ArrayList<String>();
 
+    /*
+     * Creates File and Directory if don't already exist
+     * Run at start of program
+     */
     public static void initFiles(){
         File dataDir = new File("./DataDir");
         if (!dataDir.exists()) dataDir.mkdir();
@@ -24,26 +28,46 @@ public class FileHandler {
         }
     }
 
+    /*
+     * Updates the taskList information based on previous entries into data file
+     * Run at start of program
+     */
     public static void loadList(){
+        /*
+         * Variables for iterating through data file
+         */
         String currLine;
         String[] currLineList;
         int currIndex = 0;
         
+        /*
+         * Variables for each task when updating taskList
+         */
         String taskType;
         String taskStatusIcon;
         String taskDescription;
 
+        /*
+         * Readers to read data file
+         */
         FileReader fr;
         BufferedReader br;
 
+        /*
+         * Data File
+         */
         File dataFile = new File("./DataDir/Data.txt");
+
         try{
             fr = new FileReader(dataFile);
             br = new BufferedReader(fr);
 
+            /*
+             * Reads all lines from data file
+             * Extract task information from line
+             * Inputs task into tasklist
+             */
             while ((currLine = br.readLine()) != null){
-                System.out.println(currLine);
-                
                 Lines.add(currLine + "\n");
                 currLineList = currLine.split(" - ");
 
@@ -66,7 +90,9 @@ public class FileHandler {
                 }
                 currIndex++;
             }
-
+            /*
+             * Close Readers
+             */
             fr.close();
             br.close();
         } catch (Exception e){
@@ -75,6 +101,9 @@ public class FileHandler {
 
     }
 
+    /*
+     * Writes task information as new line in data file
+     */
     public static void addTask(Task task){
         String taskType = task.getTaskType();
         try{
@@ -100,6 +129,9 @@ public class FileHandler {
         }
     }
 
+    /*
+     * Removes task from data file
+     */
     public static void deleteTask(int index){
         Lines.remove(index);
 
@@ -123,7 +155,12 @@ public class FileHandler {
         }
     }
 
+    /*
+     * Marks a task as done in data file
+     * Overwrites entire file
+     */
     public static void markAsDone(int index){
+        //Replace Data in Lines list
         String oldLine = Lines.get(index);
         String newLine = oldLine.substring(0,5) 
                         + "X" 
@@ -150,7 +187,12 @@ public class FileHandler {
         }
     }
 
+    /*
+     * Marks a task as not done in data file
+     * Overwrites entire file
+     */
     public static void markAsNotDone(int index){
+        //Replace Data in Lines list
         String oldLine = Lines.get(index);
         String newLine = oldLine.substring(0,5) 
                         + " " 
