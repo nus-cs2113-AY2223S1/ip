@@ -49,8 +49,10 @@ public class TaskList {
      */
 
     public void addTodo(ArrayList<Task> taskList, String task){
-        taskList.add(new Todo(task));
+        Todo t = new Todo(task);
+        taskList.add(t);
         ui.printOutputs("Got it. I have added this task:");
+        ui.printOutputs(t.toString());
         ui.printOutputs("Now you have " + taskList.size() + " tasks left");
         ui.printDashLine();
     }
@@ -64,8 +66,10 @@ public class TaskList {
      *
      */
     public void addDeadline(ArrayList<Task> taskList, String task, String deadline) {
-        taskList.add(new Deadline(task, deadline));
+        Deadline d = new Deadline(task, deadline);
+        taskList.add(d);
         ui.printOutputs("Got it. I have added this task:");
+        ui.printOutputs(d.toString());
         ui.printOutputs("Now you have " + taskList.size() + " tasks left");
         ui.printDashLine();
 
@@ -80,8 +84,10 @@ public class TaskList {
      *
      */
     public void addEvent(ArrayList<Task> taskList, String task, String time){
-        taskList.add(new Event(task, time));
+        Event e = new Event(task, time);
+        taskList.add(e);
         ui.printOutputs("Got it. I have added this task:");
+        ui.printOutputs(e.toString());
         ui.printOutputs("Now you have " + taskList.size() + " tasks left");
         ui.printDashLine();
     }
@@ -94,7 +100,7 @@ public class TaskList {
      */
     public void deleteTask(ArrayList<Task> taskList, int taskNumber){
         ui.printOutputs("Okiii... This task has been deleted: ");
-        ui.printOutputs((taskList.get(taskNumber)).description);
+        ui.printOutputs((taskList.get(taskNumber)).toString());
         taskList.remove(taskNumber);
         ui.printOutputs("Now you have " + taskList.size() + " tasks left");
         ui.printDashLine();
