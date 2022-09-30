@@ -1,26 +1,31 @@
-# Duke project template
+# Doraemon
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+***Duke (Doraemon)*** is a personal robot cat assistant that helps a person such as Nobita to keep track of his todos, deadlines and events. It provides an interactive way for the tasks to be inputted via a command-line interface. The development is based on the Duke project template which can be found [here](https://github.com/nus-cs2113-AY2223S1/ip). 
 
-You will use this as a baseline for the individual project, as well as the team project later in the semester.
+## Preview
 
-## Setting up in Intellij
+    ____________________________________________________________
+    *******     *******   *******       **
+    /**////**   **/////** /**////**     ****
+    /**    /** **     //**/**   /**    **//**
+    /**    /**/**      /**/*******    **  //**
+    /**    /**/**      /**/**///**   **********
+    /**    ** //**     ** /**  //** /**//////**
+    /*******   //*******  /**   //**/**     /**
+    ///////     ///////   //     // //      //
+    Kon'nichiwa! Doraemon desu. What can I do for you?
+    ____________________________________________________________
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## User Guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+[Read the User Guide](https://chydarren.github.io/ip/)
+
+## Acknowledgements 
+
+- **Darren Chua** | [@chydarren](https://github.com/chydarren)
+
+## Credits 
+
+This program was developed as an assignment for the National University of Singapore, CS2113 Software Engineering and Object-Oriented Programming module. I have uploaded the source files publicly as part of the module's requirement. Please refrain from [plagiarising](https://www.comp.nus.edu.sg/cug/plagiarism/) or passing it off as your own work. 
+
+Chua Han Yong Darren © 2022. Code released under the GNU Affero General Public License v3.0.

@@ -1,0 +1,21 @@
+todo buy a Dorayaki for Doraemon
+deadline Nobita marry Shizuka /by 3/09/2022 1500
+deadline Nobita marry Shizuka
+event Singing concert by Gian /by 20/12/2030 1200 - 20/12/2030 1400
+event Singing concert by Gian /at 20/12/2030 1200 - 20/12/2030 1400
+list
+deadline Nobita buys Dorayakis /by 25/12/2022
+todo
+todo complete all the tasks for Doraemon
+list
+mark 2
+unmark 1
+list
+mark 1
+list
+find Shizuka
+find Gian
+delete 10
+delete 1
+list
+bye
