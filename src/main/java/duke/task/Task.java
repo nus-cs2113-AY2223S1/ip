@@ -45,4 +45,8 @@ public class Task {
         }
         return boolValue;
     }
+
+    public String getName() {
+        return description;
+    }
 }

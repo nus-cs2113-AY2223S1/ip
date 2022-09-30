@@ -12,8 +12,14 @@ import java.util.ArrayList;
 public class Ui {
 
     private static final String HORIZONTAL_RULE = "\t_____________________\n";
+    private static final String DUKE_LOGO = "\t ____        _        \n"
+            + "\t|  _ \\ _   _| | _____ \n"
+            + "\t| | | | | | | |/ / _ \\\n"
+            + "\t| |_| | |_| |   <  __/\n"
+            + "\t|____/ \\__,_|_|\\_\\___|\n";
 
     public static void printIntroMessage(TaskList tasks) {
+        System.out.println(DUKE_LOGO);
         System.out.println(HORIZONTAL_RULE
                 + "\n\tHello! I'm Duke, your personal task manager!\n"
                 + "\tWhat can I do for you?\n"

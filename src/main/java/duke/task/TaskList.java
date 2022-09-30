@@ -85,17 +85,25 @@ public class TaskList {
 
     /**
      * Looks through the task list and prints out all the tasks that contain the keyword.
+     * The search is case-insensitive. e.g `book` will match `Book`
+     * The order of the keywords does not matter. e.g. `Book meeting` will match `meeting Book`
+     * Only the name is searched.
+     * Only full words will be matched e.g. `Book` will not match `Books`
+     * Tasks matching at least one keyword will be returned (i.e. `OR` search).
      * @param tasks The task list.
      * @param fullCommand The entire user input.
      */
     public static void findMatchingTasks(TaskList tasks, String fullCommand) {
-        String keyword;
         try {
-            keyword = Parser.getDescription(fullCommand).trim();
+            String description = Parser.getDescription(fullCommand);
+            String[] keywords = description.split(" ");
             ArrayList<Task> matchingTasks = new ArrayList<>();
-            for (Task t : tasks.tasks) {
-                if (t.description.contains(keyword)) {
-                    matchingTasks.add(t);
+            for (Task task : tasks.tasks) {
+                for (String keyword : keywords) {
+                    if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                        matchingTasks.add(task);
+                        break;
+                    }
                 }
             }
             printMatchingTasks(matchingTasks);
