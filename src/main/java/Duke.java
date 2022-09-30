@@ -1,3 +1,5 @@
+
+import UI.Commands;
 import UI.FileHandler;
 import UI.Parser;
 import UI.UI;
@@ -5,10 +7,17 @@ import UI.UI;
 public class Duke {
 
     public static void main(String[] args) {
+        /*
+         * Setting up data file and taskList
+         */
         FileHandler.initFiles();
         FileHandler.loadList();
+
         boolean isExitting = false;
 
+        /*
+         * Prints Logo, Welcome message, Command list
+         */
         UI.greetUser();
         
         while (isExitting == false){
@@ -55,7 +64,7 @@ public class Duke {
                     Commands.runDelete();
                     break;
 
-                case ("find"):
+                case ("find"): //finds tasks based on keyword
                     Commands.runFind();
                     break;
 

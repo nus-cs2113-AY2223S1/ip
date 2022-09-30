@@ -1,31 +1,43 @@
+package UI;
 import TaskManager.Task;
 import TaskManager.TaskList;
-import UI.FileHandler;
-import UI.Parser;
-import UI.UI;
+
 import java.util.ArrayList;
 
 public class Commands {
-    static String description;
+    static String description; //Represents name of tasks
+    static Task temp;
+    static int taskIndex = -1;
+    static String keyword;
 
+    /*
+     * List function:
+     * Lists all existing tasks
+     */
     public static void runList(){
         UI.printLine();
         TaskList.printList();
     }
 
+    /*
+     * Exit function:
+     * Exits program
+     */
     public static void runExit(){
         UI.printLine();
         System.out.println("Duke: Goodbye!");
         UI.printLine();
     }
 
+    /*
+     * Mark function:
+     * Marks a task as done
+     * Task specified by index/name
+     */
     public static void runMark(){
-        Task temp;
-        int taskIndex = -1;
-
         UI.printLine();
 
-        //Handle empty/invalid task
+        //Handle empty task
         try{
             taskIndex = Parser.getTaskIndex();
             description = TaskList.getTaskAtIndex(taskIndex).getDescription();
@@ -37,6 +49,7 @@ public class Commands {
             return;
         }
 
+        //Handle when a task not in list is given
         try{
             temp = TaskList.getTaskAtIndex(taskIndex);
         } catch (IndexOutOfBoundsException e){
@@ -50,10 +63,12 @@ public class Commands {
         UI.printMarkAsDone(description);
     }
 
+    /*
+     * Unmark function:
+     * Marks a task as not done
+     * Task specified by index/name
+     */
     public static void runUnmark(){
-        Task temp;
-        int taskIndex = -1;
-
         UI.printLine();
 
         //Handle empty/invalid task
@@ -81,6 +96,10 @@ public class Commands {
         UI.printMarkAsNotDone(description);
     }
 
+    /*
+     * ToDo function:
+     * Adds a ToDo task to list
+     */
     public static void runToDo(){
         UI.printLine();
 
@@ -96,17 +115,21 @@ public class Commands {
             TaskList.addToDo(description);
             FileHandler.addTask(TaskList.getTaskAtIndex(TaskList.getSize()-1));
             UI.printTaskAdded(description);
-        } else {
+        } else { //Handle duplicate task
             System.out.println("Sorry, seems like you already have a task with the same name!");
         }
     }
 
+    /*
+     * Deadline function:
+     * Adds a Deadline task to list
+     */
     public static void runDeadline(){
         UI.printLine();
         int byPosition = Parser.getByPosition();
         String dueDate;
         
-        // Handle invalid input
+        // Handle empty task/date
         try {
             description = Parser.getDescription(byPosition);
             dueDate = Parser.getDate(byPosition);
@@ -120,17 +143,21 @@ public class Commands {
             TaskList.addDeadline(description, dueDate);
             FileHandler.addTask(TaskList.getTaskAtIndex(TaskList.getSize()-1));
             UI.printTaskAdded(description);
-        } else {
+        } else { //Handle duplicate task
             System.out.println("Sorry, seems like you already have a task with the same name!");
         }
     }
 
+    /*
+     * Event function:
+     * Adds an Event task to list
+     */
     public static void runEvent(){
         UI.printLine();
         int atPosition = Parser.getAtPosition();
         String dateTime;
 
-        //Handle invalid input
+        // Handle empty task/date
         try{
             description = Parser.getDescription(atPosition);
             dateTime = Parser.getDate(atPosition);
@@ -144,15 +171,17 @@ public class Commands {
             TaskList.addEvent(description, dateTime);
             FileHandler.addTask(TaskList.getTaskAtIndex(TaskList.getSize()-1));
             UI.printTaskAdded(description);
-        } else {
+        } else { //Handle duplicate task
             System.out.println("Sorry, seems like you already have a task with the same name!");
         }
     }
 
+    /*
+     * Delete:
+     * Removes a task from list
+     * Task specified by name/index
+     */
     public static void runDelete(){
-        Task temp;
-        int taskIndex = -1;
-
         UI.printLine();
 
         try{
@@ -176,9 +205,11 @@ public class Commands {
         FileHandler.deleteTask(taskIndex);
     }
 
+    /*
+     * Find function
+     * Searches for all tasks containing the keyword within its name/duedate
+     */
     public static void runFind(){
-        String keyword;
-
         UI.printLine();
         try{
             keyword = Parser.getDescription();
