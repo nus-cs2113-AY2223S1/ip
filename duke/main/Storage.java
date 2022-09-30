@@ -23,11 +23,11 @@ public class Storage {
         }
     }
 
-    public static String formatText(Task task, String text) {
+    public static String formatText(Task task) {
         String type = TaskList.findTaskType(task);
         String date = task.getDate();
         String name = task.getName();
-        text += type + FILE_SEPARATOR + name + FILE_SEPARATOR + date
+        String text = type + FILE_SEPARATOR + name + FILE_SEPARATOR + date
                 + System.lineSeparator();
         return text;
     }
@@ -36,7 +36,7 @@ public class Storage {
         try {
             String text = "";
             for (Task task : TaskList.tasks) {
-                text += formatText(task, text);
+                text += formatText(task);
             }
             FileWriter fw = new FileWriter(filePath);
             fw.write(text);
