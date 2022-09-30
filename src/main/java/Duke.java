@@ -38,24 +38,14 @@ public class Duke {
             int itemLen = storage.initialiseTaskFromFile(list);
             if (itemLen > 0) {
                 ui.printAllTask(list);
-            } else {
-                storage.createNewFile();
             }
-        } catch (FileNotFoundException e) {
-            ui.printFileNotFound();
-            toSave = false;
         } catch (DataCorruptedException e) {
             ui.printFileCorrupted();
-            isInitialiseSuccessful = false;
         } catch (IOException e) {
-            ui.printError("Something wrong happen, error data: " + e.getMessage());
-            isInitialiseSuccessful = false;
+            ui.printFileNotFound();
         }
 
-        if (isInitialiseSuccessful) {
-            runLoopUntilExit();
-        }
-
+        runLoopUntilExit();
         ui.printExitMessage();
     }
 

@@ -24,15 +24,14 @@ public class Ui {
     private static final String MESSAGE_EMPTY_ACTION_ARGS = "OOPS!!! The description of the action cannot be empty.";
     private static final String MESSAGE_UNKNOWN = "OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String FILE_NOT_FOUND = "File not found. "
-            + "Make sure the data file is located in './data/data.md'"
-            + "\nSaving services disabled.";
+            + "Data file is automatically created in './data/data.md'";
     private static final String FILE_CORRUPTED = "File data corrupted. "
-            + "Please check data file again or delete entire content."
-            + "\nExiting program.";
+            + "File is overwritten with an empty task list.";
     private static final String USER_QUERY = "What can I do for you?";
 
     private final PrintStream out;
     private final Scanner in;
+    private final String systemOS;
 
     public Ui() {
         this(System.in, System.out);
@@ -41,8 +40,17 @@ public class Ui {
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
+        systemOS = System.getProperty("os.name").toLowerCase();
     }
 
+    /**
+     * Return true if OS is macintosh.
+     *
+     * @return true for macintosh systems.
+     */
+    public boolean isMac() {
+        return (systemOS.contains("mac"));
+    }
     /**
      * Return the input entered by the user on the terminal.
      *
@@ -75,6 +83,10 @@ public class Ui {
      * @param message Error string to output.
      */
     public void printError(String message) {
+        if (!isMac()) {
+            printOutput(message);
+            return;
+        }
         out.print("\u001b[31m"); // red font ANSI
         out.println(SEPARATOR);
         out.println(message);
@@ -88,6 +100,10 @@ public class Ui {
      * @param message String user input.
      */
     private void reprintUserInput(String message) {
+        if (!isMac()) {
+            out.println("[Entered: " + message + " ]");
+            return;
+        }
         out.print("\u001b[32m"); // green font ANSI
         out.println("[Entered: " + message + " ]");
         out.println("\u001b[0m");
@@ -99,7 +115,7 @@ public class Ui {
      * @param taskList The taskList to print.
      */
     public void printAllTask(TaskList taskList) {
-        printOutput(taskList.getCompleteList());
+        printOutput("Here are the tasks in the list\n" + taskList.getCompleteList());
     }
 
     /**
