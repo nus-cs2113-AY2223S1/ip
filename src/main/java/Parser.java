@@ -69,7 +69,14 @@ public class Parser {
             return -1;
         }
 
-        int index = Integer.parseInt(val.substring(startId + 1)) - 1;
+        String content = val.substring(startId + 1).trim();
+
+        if(!isInt(content)){
+            ui.formatIncorrect();
+            return -1;
+        }
+
+        int index = Integer.parseInt(content) - 1;
 
         if (isValidNumber(index, length)) {
             return index;
@@ -154,21 +161,21 @@ public class Parser {
             des = val.substring(TODO.length()).trim();
 
         } else if (taskType.equals(EVENT)) {
-            if(!val.contains("/at ") || val.substring(val.indexOf("/at ") + 3).trim().isEmpty()){
+            if(!val.contains(" /at ") || val.substring(val.indexOf(" /at ") + 4).trim().isEmpty()){
                 ui.formatIncorrect();
                 return null;
             }
 
-            des = val.substring(taskType.length(), val.indexOf("/at")).trim();
+            des = val.substring(taskType.length(), val.indexOf(" /at")).trim();
 
         } else if (taskType.equals(DEADLINE)) {
 
-            if(!val.contains("/by ") || val.substring(val.indexOf("/by ") + 3).trim().isEmpty()){
+            if(!val.contains(" /by ") || val.substring(val.indexOf(" /by ") + 4).trim().isEmpty()){
                 ui.formatIncorrect();
                 return null;
             }
 
-            des =  val.substring(DEADLINE.length(), val.indexOf("/by")).trim();
+            des =  val.substring(DEADLINE.length(), val.indexOf(" /by")).trim();
         }
 
         if(!des.isEmpty()){
@@ -206,6 +213,16 @@ public class Parser {
         }
 
         return key;
+    }
+
+    public boolean isInt(String val){
+
+        Boolean strResult = val.matches("-?\\d?");
+        if(strResult == true) {
+            return true;
+        }
+
+        return false;
     }
 
 

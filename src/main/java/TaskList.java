@@ -76,12 +76,12 @@ public class TaskList {
             return;
         }
 
-        //试一下能不能把task remove放进括号里
+
         ui.removeTaskMsg(tasks.get(index));
         tasks.remove(index);
         ui.numOfTaskMsg(tasks.size());
 
-        //要不要协调一点，把save都放在最外层
+
         try {
             storage.saveTask(tasks);
         } catch (IOException e) {

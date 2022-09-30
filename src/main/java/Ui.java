@@ -52,7 +52,7 @@ public class Ui {
      * @param taskName the name of the task
      */
     public void emptyErrorMsg(String taskName){
-        System.out.println( "☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
+        System.out.println( "OOPS!!! The description of a " + taskName + " cannot be empty.");
     }
 
     /**
@@ -83,14 +83,14 @@ public class Ui {
      * printed when the program cannot recognize the user's input
      */
     public void unKnownMsg(){
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
      * printed when the input is empty
      */
     public void emptyMsg(){
-        System.out.println("☹ OOPS!!! your input is empty");
+        System.out.println("OOPS!!! your input is empty");
     }
     
     /**
@@ -104,7 +104,7 @@ public class Ui {
      * printed when there is no index inputted as required
      */
     public void indexEmptyMsg(){
-        System.out.println("☹ OOPS!!! The index of the task cannot be empty.");
+        System.out.println("OOPS!!! The index of the task cannot be empty.");
     }
 
 
