@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Duke is a personal task manager that helps you keep track of your tasks. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Duke can help you manage your tasks faster than traditional GUI apps.
+Duke is a personal task manager that helps you keep track of your tasks. It is optimized for use via a Command Line Interface (CLI). If you can type fast, Duke can help you manage your tasks faster than traditional GUI apps.
 
 ## Setting up
 
