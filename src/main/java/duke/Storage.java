@@ -4,12 +4,10 @@ import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskList;
 import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,23 +17,34 @@ public class Storage {
     public static final String FILE_PATH = "data/duke.txt";
 
     public static void addInputFileEvent(ArrayList<Task> tasks, String[] task) throws DukeException {
-        tasks.add(new Event(task[2], task[3]));
+        // tasks.add(new Event(task[2], task[3]));
+        // if (task[1].equals("1")) {
+        //     tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
+        // }
+        Task t = new Event(task[2], task[3]);
+        tasks.add(t);
         if (task[1].equals("1")) {
-            tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
+            t.setDone(t.isDone);
         }
     }
 
     public static void addInputFileDeadline(ArrayList<Task> tasks, String[] task) throws DukeException {
-        tasks.add(new Deadline(task[2], task[3]));
+        // tasks.add(new Deadline(task[2], task[3]));
+        // if (task[1].equals("1")) {
+        //     tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
+        // }
+        Task t = new Deadline(task[2], task[3]);
+        tasks.add(t);
         if (task[1].equals("1")) {
-            tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
+            t.setDone(t.isDone);
         }
     }
 
     public static void addInputFileTodo(ArrayList<Task> tasks, String[] task) throws DukeException {
-        tasks.add(new Todo(task[2]));
+        Task t = new Todo(task[2]);
+        tasks.add(t);
         if (task[1].equals("1")) {
-            tasks.get(tasks.size() - 1).setDone(tasks.get(tasks.size() - 1).isDone);
+            t.setDone(true);
         }
     }
 
@@ -59,8 +68,9 @@ public class Storage {
                     break;
                 }
             }
+            s.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            createNewFile();
         } catch (DukeException e) {
             System.out.println("Task not added");
         }
