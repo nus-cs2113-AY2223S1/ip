@@ -1,13 +1,28 @@
 package duke;
-public class Deadline extends Task {
 
-    protected String by;
-
-    public Deadline(String description, String by) {
+/**
+ * Class representing a Deadline
+ */
+public class Deadline extends TaskList {
+    /** Deadline inputted by user */
+    protected String Deadline;
+    /**
+     * Constructor for Deadline to initialise it with description and Deadline passed in.
+     *
+     * @param description Description of what deadline is for.
+     * @param dateDeadline Date of deadline.
+     */
+    public Deadline(String description, String dateDeadline) {
         super(description);
-        this.by = by;
+        this.dateDeadline = dateDeadline;
     }
 
+    /**
+     * Adds a new Deadline task.
+     * @param name The name of task.
+     * @param by A date
+     * @return The generated Deadline Task.
+     */
     public static Deadline AddTask(String name , String by){
         Deadline newDeadline = new Deadline(name,by);
         System.out.println(""+newDeadline.toString());
@@ -16,10 +31,10 @@ public class Deadline extends Task {
 
     @Override
     public String recordString() {
-        return "D | " + super.recordString() + " | " + by;
+        return "D | " + super.recordString() + " | " + dateDeadline;
     }
     @Override
     public String toString() {
-        return this.index +"." + "[D]" + "["+this.getStatusIcon()+"] " + this.name + " (by: " + by + ")";
+        return  "[D]" + "["+this.getStatusIcon()+"] " + this.name + " (by: " + dateDeadline + ")";
     }
 }
