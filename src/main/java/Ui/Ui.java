@@ -21,16 +21,16 @@ public class Ui {
     private static final String CONV_START = "Hello! I'm Duke\n";
     private static final String USER_GUIDE_LINK = "https://pipipipi2002.github.io/ip/";
     private static final String HELP = "Possible commands are:\n"
-            + "`help` \t\t\t\t\t\t\t\t-> List possible commands.\n"
-            + "`bye` \t\t\t\t\t\t\t\t-> To exit the program.\n"
-            + "`list` \t\t\t\t\t\t\t\t-> List out all the current task in the list.\n"
-            + "`todo <description>` \t\t\t\t-> Add todo task.\n"
-            + "`event <description> /at <time>` \t-> Add event task.\n"
-            + "`deadline <description> /by <time>` -> Add deadline task.\n"
-            + "`mark <task number>` \t\t\t\t-> Mark task as completed.\n"
-            + "`unmark <task number>` \t\t\t\t-> Mark task as not completed.\n"
-            + "`delete <task nummber>` \t\t\t-> Delete the task.\n"
-            + "`find <keyword>` \t\t\t\t\t-> Find the task(s) based on the keyword.";
+            + "`help`\t-> List possible commands.\n"
+            + "`bye`\t-> To exit the program.\n"
+            + "`list`\t-> List out all the current task in the list.\n"
+            + "`todo <description>`\t-> Add todo task.\n"
+            + "`event <description> /at <time>`\t-> Add event task.\n"
+            + "`deadline <description> /by <time>`\t-> Add deadline task.\n"
+            + "`mark <task number>`\t-> Mark task as completed.\n"
+            + "`unmark <task number>`\t-> Mark task as not completed.\n"
+            + "`delete <task nummber>`\t-> Delete the task.\n"
+            + "`find <keyword>`\t-> Find the task(s) based on the keyword.";
     private static final String CONV_END = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "OOPS, that task is not in the list.";
     private static final String MESSAGE_EMPTY_ACTION_ARGS = "OOPS!!! The description of the action cannot be empty.";
@@ -275,6 +275,6 @@ public class Ui {
     }
 
     public void printHelp() {
-        printOutput(HELP);
+        printOutput(HELP+ "\nRead more on " + USER_GUIDE_LINK);
     }
 }
