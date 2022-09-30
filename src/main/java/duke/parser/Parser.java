@@ -11,17 +11,17 @@ import duke.ui.Ui;
  *
  */
 public class Parser {
-    public static final String BY = "/by ";
-    public static final String TODO = "todo ";
-    public static final String EVENT = "event ";
+    public static final String BY = "/by";
+    public static final String TODO = "todo";
+    public static final String EVENT = "event";
     public static final String LIST = "list";
     public static final String BYE = "bye";
-    public static final String DEADLINE = "deadline ";
-    public static final String AT = "/at ";
-    public static final String DELETE = "delete ";
-    public static final String MARK_UNDONE = "unmark ";
-    public static final String MARK_DONE = "mark ";
-    public static final String FIND = "find ";
+    public static final String DEADLINE = "deadline";
+    public static final String AT = "/at";
+    public static final String DELETE = "delete";
+    public static final String MARK_UNDONE = "unmark";
+    public static final String MARK_DONE = "mark";
+    public static final String FIND = "find";
 
     public static Ui ui = new Ui ();
 
@@ -36,68 +36,37 @@ public class Parser {
      *
      */
     public void parse (String input){
-
-        if (input.contains(LIST)) {
+        String command = input.split (" ", 2) [0];
+        switch (command) {
+        case LIST:
             tasks.listTasks(TaskList.taskList);
-        } else if (input.contains(MARK_UNDONE)) {
-            try {
-                prepMarkUnDone(input);
-            }
-            catch (DukeException e)
-            {
-                System.out.println("The task number is out of bound and therefore cannot be marked undone!");
-            }
-        } else if (input.contains(MARK_DONE)) {
-            try {
-                prepMarkDone(input);
-            } catch (DukeException e) {
-                System.out.println("The task number is out of bound and therefore cannot be marked done!");
-            }
-
-        } else if (input.contains(DELETE)) {
-            try {
-                prepDelete(input);
-            }
-            catch (DukeException e)
-            {
-                System.out.println("The task number is out of bound and therefore cannot be deleted!");
-            }
-        } else if (input.contains (TODO)) {
-            try {
-                prepToDo(input);
-            }
-            catch (DukeException e)
-            {
-                System.out.println("The todo input is not valid! Might be missing description!");
-            }
-        } else if (input.contains(DEADLINE)) {
-            try {
-                prepDeadline(input);
-            }
-            catch (DukeException e)
-            {
-                System.out.println("The deadline input is not valid! Might be missing description, '/by' or deadline!");
-            }
-        } else if (input.contains(EVENT)) {
-            try{
-                prepEvent(input);
-            }
-            catch (DukeException e){
-                System.out.println("The event input is not valid! Might be missing description, '/at' or time!");
-            }
-        } else if (input.contains(FIND)){
-            try{
-                prepFind(input);
-            }
-            catch (DukeException e){
-                System.out.println("Cannot find the task! Might be missing keyword!");
-            }
-        }
-        else if (input.equals(BYE)) {
+            break;
+        case MARK_DONE:
+            prepMarkDone(input);
+            break;
+        case MARK_UNDONE:
+            prepMarkUnDone(input);
+            break;
+        case TODO:
+            prepToDo(input);
+            break;
+        case DEADLINE:
+            prepDeadline(input);
+            break;
+        case EVENT:
+            prepEvent(input);
+            break;
+        case DELETE:
+            prepDelete(input);
+            break;
+        case FIND:
+            prepFind(input);
+            break;
+        case BYE:
             ui.printBye();
-        }
-        else {
-            System.out.println("Oops... cannot recognize the input command !");
+            break;
+        default:
+            ui.printOutputs("Oops... cannot recognize the input command !");
         }
 
     }
@@ -113,12 +82,16 @@ public class Parser {
      *
      */
 
-    public void prepMarkDone (String input) throws DukeException{
-        int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_DONE) + MARK_DONE.length()));
-        if (taskNumber < TaskList.taskList.size()) {
+    public void prepMarkDone (String input){
+        try {
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_DONE) + MARK_DONE.length() +1));
             tasks.markDone(TaskList.taskList, taskNumber);
-        } else {
-            throw new DukeException();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println ("Invalid mark done command!");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println ("Index out of bounds!");
+        } catch (NumberFormatException e){
+            System.out.println ("Invalid mark done command!");
         }
     }
 
@@ -133,13 +106,17 @@ public class Parser {
      *
      */
 
-    public void prepMarkUnDone (String input) throws DukeException{
-        int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_UNDONE) + MARK_UNDONE.length()));
-        if (taskNumber < TaskList.taskList.size()) {
+
+    public void prepMarkUnDone (String input){
+        try {
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_UNDONE) + MARK_UNDONE.length() +1));
             tasks.markUnDone(TaskList.taskList, taskNumber);
-        }
-        else{
-            throw new DukeException();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println ("Invalid mark undone command!");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println ("Index out of bounds!");
+        } catch (NumberFormatException e){
+            System.out.println ("Invalid mark undone command!");
         }
     }
 
@@ -155,13 +132,14 @@ public class Parser {
      *
      */
 
-    public void prepToDo(String input) throws DukeException{
-        String task = input.substring(TODO.length());
-        if (task.equals("")){
-            throw new DukeException();
-        } else{
+    public void prepToDo(String input){
+        try {
+            String task = input.substring(TODO.length() + 1);
             tasks.addTodo(TaskList.taskList, task);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println ("Invalid todo input!");
         }
+
     }
 
 
@@ -177,14 +155,13 @@ public class Parser {
      *
      */
 
-    public void prepDeadline (String input) throws DukeException{
-        String task = input.substring(DEADLINE.length(), input.indexOf(BY));
-        String deadline = input.substring(input.indexOf(BY) + BY.length());
-
-        if (task.equals("") || deadline.equals("")){
-            throw new DukeException();
-        } else{
+    public void prepDeadline (String input){
+        try{
+            String task = input.substring(DEADLINE.length(), input.indexOf(BY));
+            String deadline = input.substring(input.indexOf(BY) + BY.length() + 1);
             tasks.addDeadline(TaskList.taskList, task, deadline);
+        } catch (StringIndexOutOfBoundsException e){
+            System.out.println ("Invalid deadline input!");
         }
     }
 
@@ -198,16 +175,15 @@ public class Parser {
      * @throws DukeException if the task name is empty or the time is empty
      *
      */
-    public void prepEvent (String input) throws DukeException{
-        String task = input.substring(EVENT.length(), input.indexOf(AT));
-        String time = input.substring(input.indexOf(AT) + AT.length());
-
-        if (task.equals("") || (time.equals(""))){
-            throw new DukeException();
-        }
-        else{
+    public void prepEvent (String input){
+        try{
+            String task = input.substring(EVENT.length(), input.indexOf(AT));
+            String time = input.substring(input.indexOf(AT) + AT.length() + 1);
             tasks.addEvent(TaskList.taskList, task, time);
+        } catch (StringIndexOutOfBoundsException e){
+            System.out.println ("Invalid event input!");
         }
+
     }
 
     /**
@@ -220,12 +196,16 @@ public class Parser {
      *
      *
      */
-    public void prepDelete (String input) throws DukeException{
-        int taskNumber = Integer.parseInt(input.substring(input.indexOf(DELETE) + DELETE.length()));
-        if (taskNumber < TaskList.taskList.size()) {
+    public void prepDelete (String input){
+        try {
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(DELETE) + DELETE.length() +1));
             tasks.deleteTask (TaskList.taskList, taskNumber);
-        } else {
-            throw new DukeException();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println ("Invalid input for deletion!");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println ("Index out of bounds!");
+        } catch (NumberFormatException e){
+            System.out.println ("Invalid input for deletion!");
         }
     }
 
@@ -239,21 +219,14 @@ public class Parser {
      *
      *
      */
-    public void prepFind (String input) throws DukeException{
-        String keyword = input.substring(FIND.length());
-        if (keyword.equals("")){
-            throw new DukeException();
-        } else{
+    public void prepFind (String input){
+        try {
+            String keyword = input.substring(FIND.length() + 1);
             tasks.findTasks (TaskList.taskList, keyword);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println ("Invalid input for finding!");
         }
+
     }
-
-
-
-
-
-
-
-
 
 }
