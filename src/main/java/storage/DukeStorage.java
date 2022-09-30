@@ -3,6 +3,7 @@ package storage;
 import dukeExceptionsPackage.FileDoesNotExistException;
 import dukeTasksPackage.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,18 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class DukeStorage {
-    public static final String FILE_PATH = "C:\\Users\\cwxky\\projects\\cs2113-git\\data\\duke.txt";
-    public final Path path;
+    public Path path;
     public TaskList tasks;
+    protected String filePath;
 
 
     /**
      * Constructor for Duke Storage
-     * @param path path of file
+     * @param filePath path of file as a String
      */
-    public DukeStorage(Path path) {
-        this.path = Paths.get(FILE_PATH);
+    public DukeStorage(String filePath) {
+        this.path = Paths.get(filePath);
     }
 
     /**
@@ -48,6 +50,32 @@ public class DukeStorage {
         }
     }
 
+
+    /**
+     * Open the text file based on FILE_PATH.
+     * If text file does not exist, Duke will create a file based on FILE_PATH
+      */
+    public void openTextFile() {
+        System.out.println(path.toString());
+        try {
+            tasks = loadTextFile();
+        } catch (FileDoesNotExistException e){
+            //create new files if file does not exist
+            try {
+                String FILE_DOES_NOT_EXIST_MESSAGE = "DUKE: The path given cannot be found. \n" + "    Creating a new file...";
+                System.out.println(FILE_DOES_NOT_EXIST_MESSAGE);
+                File file = new File(path.toString());
+                if (!file.mkdir()) {
+                    String FILE_CREATE_SUCCESS_MESSAGE = "File has successfully been created.";
+                    System.out.println(FILE_CREATE_SUCCESS_MESSAGE);
+                } else {
+                    throw new FileDoesNotExistException("error");
+                }
+            } catch (FileDoesNotExistException f) {
+                System.out.println(f.getExceptionMessage());
+            }
+        }
+    }
     /**
      * load the data from the text file into Task List and return sit.
      * @return an empty Task List if the file does not exist.
@@ -87,10 +115,7 @@ public class DukeStorage {
      * @throws IOException
      */
     public  void clearFile() throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, false);
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();
-        pw.close();
-        fw.close();
+        FileWriter fw = new FileWriter(path.toString());
+        fw.write("");
     }
 }

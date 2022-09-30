@@ -11,14 +11,15 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+
 public class Duke {
-    public static final String FILE_PATH = "./data/duke.txt";
+    public static final String FILE_PATH = "./duke.txt";
     private static DukeStorage storage;
     private static TaskList taskList;
     private static Parser parser;
     private static DukeUI ui;
     public Duke() {
-        storage = new DukeStorage(Paths.get(FILE_PATH));
+        storage = new DukeStorage(FILE_PATH);
         taskList = new TaskList();
         storage.initaliseTaskList(taskList);
         parser = new Parser();
@@ -34,7 +35,7 @@ public class Duke {
 
         DukeUI.showWelcomeMessage();
         try {
-            storage.loadTextFile();
+            storage.openTextFile();
             while (true) {
                 String line = DukeUI.getInput();
                 Command command = parser.parseInputString(line);
@@ -87,10 +88,8 @@ public class Duke {
                         break;
                 }
             }
-        } catch (FileDoesNotExistException e) {
-            System.out.println(e.getExceptionMessage());
         } catch (IOException f) {
-            System.out.println("Something went wrong");
+            System.out.println("Something went wrong. We cannot run the code.");
         }
     }
 }

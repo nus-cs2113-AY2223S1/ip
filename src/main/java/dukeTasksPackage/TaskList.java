@@ -66,15 +66,13 @@ public class TaskList {
      */
     public void makeTodo(String input){
         try {
-            String[] words = input.split("\\s+");
-            if (words.length >= 2) {
+            if (input.equals("todo")) {
+                throw new EmptyDescriptionException(input);
+            } else {
                 String description = input.substring(input.indexOf(' ') + 1);
                 Todo todo = new Todo(description);
                 DukeUI.addTaskMessage(description);
-                addTask(todo);
-            } else {
-                throw new EmptyDescriptionException(input);
-            }
+                addTask(todo);            }
         } catch (EmptyDescriptionException e) {
             System.out.println(e.getExceptionMessage());
         }
