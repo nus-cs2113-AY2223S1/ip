@@ -155,7 +155,7 @@ public class TaskList implements Utilities {
             try {
                 serializedTasks.add(task.serialize());
 
-                if(task.getStatus()) {
+                if (task.getStatus()) {
                     serializedTasks.add("marked");
                 }
 

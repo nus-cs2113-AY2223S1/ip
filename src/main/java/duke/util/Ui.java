@@ -53,27 +53,32 @@ public class Ui implements Utilities {
     }
 
     public void printUi(boolean hasLineDivider) {
-        if (hasLineDivider){
+        if (hasLineDivider) {
             showLine();
         }
 
-        for(String line: uiBuffer) {
+        for (String line: uiBuffer) {
             System.out.println(line);
         }
 
-        if (hasLineDivider){
+        if (hasLineDivider) {
             showLine();
         }
 
         uiBuffer.clear();
     }
 
+    /**
+     * To store a message into the ui buffer
+     *
+     * @param message
+     */
     public void addLine(String message) {
         uiBuffer.add(message);
     }
 
     public void addLine(ArrayList<String> messages) {
-        for(String message: messages) {
+        for (String message: messages) {
             addLine(message);
         }
     }

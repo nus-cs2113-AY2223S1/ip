@@ -21,7 +21,7 @@ import duke.command.Command;
  * Throws Exceptions when the input is invalid
  * Assisted by Command Processor to check for validity of command and construct Command class
  */
-public class Parser implements Utilities{
+public class Parser implements Utilities {
 
     private static String userCommand;
     private static String inputBuffer;
@@ -57,7 +57,7 @@ public class Parser implements Utilities{
         int optionLen = optionFlag.length() + 1;
         int optionIndex = inputString.indexOf(optionFlag);
 
-        if (optionIndex == -1 ){
+        if (optionIndex == -1) {
             throw new InvalidArgumentException("Error: wrong option flag, try again");
         }
 
@@ -107,7 +107,7 @@ public class Parser implements Utilities{
     }
 
     /**
-     * Get the parameters (description, taskindex, or options) as per specified by the command type
+     * Get the parameters (description, task index, or options) as per specified by the command type
      *
      * @throws DukeException if encounter errors in parsing for parameter
      */

@@ -10,7 +10,6 @@ public class Todo extends Task {
         super(description);
         this.addMessage = "HELLO BEEP, added a new ToDo: " + description;
 
-
     }
 
     @Override
