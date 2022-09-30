@@ -4,16 +4,15 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadlines;
 import duke.task.Events;
-import duke.Duke;
 import duke.tasklist.Tasklist;
 import duke.ui.Ui;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -44,7 +43,7 @@ public class Storage {
         Path fileDirectory = Paths.get(FILE_DIRECTORY);
 
         if (Files.notExists(fileDirectory)) {
-            Files.createFile(fileDirectory);
+            Files.createDirectory(fileDirectory);
         }
 
         Path file = Paths.get(FILE_PATH);
@@ -58,7 +57,7 @@ public class Storage {
             try {
                 writer.write(task.SaveAsString() + "\n");
             } catch(IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
         writer.close();
