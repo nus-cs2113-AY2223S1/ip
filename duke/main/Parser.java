@@ -122,7 +122,7 @@ public class Parser {
     /**
      * Handles task commands from the user
      * @param line line of input from the user
-     * @param command
+     * @param command command extracted from the line of input
      */
     public static void handleTask(String line, String command) {
         if (taskSpaceCheck(line)) {
@@ -149,6 +149,11 @@ public class Parser {
         }
         Storage.save();
     }
+
+    /**
+     * Handles the saved data in duke.txt
+     * @param line line of saved input
+     */
     public static void handleFile(String line) {
         String[] words = line.split(FILE_SEPARATOR);
         String taskType = words[0];

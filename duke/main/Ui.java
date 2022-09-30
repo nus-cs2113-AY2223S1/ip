@@ -84,7 +84,8 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         int counter = 1;
         for (Task task : tasks) {
-            System.out.println(counter + task.toString());
+            System.out.println(counter + ". " + task.toString());
+            counter += 1;
         }
         System.out.println(HORIZONTAL_LINE);
     }

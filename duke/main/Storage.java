@@ -13,6 +13,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads duke.txt
+     * Throws error if file is not found
+     * @return Scanned input from duke.txt
+     * @throws FileNotFoundException if there is no duke.txt
+     */
     public Scanner load() throws FileNotFoundException {
         try {
             File data = new File(filePath);
@@ -23,6 +29,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats tasks into a common format to be saved in duke.txt
+     * @param task task from tasks array
+     * @return formatted text
+     */
     public static String formatText(Task task) {
         String type = TaskList.findTaskType(task);
         String date = task.getDate();
@@ -32,6 +43,9 @@ public class Storage {
         return text;
     }
 
+    /**
+     * Saves all tasks in tasks array into duke.txt
+     */
     public static void save() {
         try {
             String text = "";
