@@ -262,7 +262,6 @@ public class TaskList {
         if (itemNumber > getTaskListSize()) {
             throw new WrongArgumentException();
         }
-
         markCompleted(itemNumber, false);
         return getItemFromList(itemNumber);
     }

@@ -11,7 +11,9 @@ import java.io.InputStream;
  * Supports printing messages and errors(in red).
  */
 public class Ui {
-    // Common Messages
+    /**
+     * Common Messages
+     */
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String DUKE_LOGO = " ____        _\n"
             + "|  _ \\ _   _| | _____ \n"
@@ -99,15 +101,17 @@ public class Ui {
      * @param message Error string to output.
      */
     public void printError(String message) {
+        // If OS is not mac, print as per normal.
         if (!isMac()) {
             printOutput(message);
             return;
         }
-        out.print("\u001b[31m"); // red font ANSI
+        // If OS is mac, print with red font.
+        out.print("\u001b[31m");
         out.println(SEPARATOR);
         out.println(message);
         out.println(SEPARATOR);
-        out.println("\u001b[0m"); // reset font ANSI
+        out.println("\u001b[0m");
     }
 
     /**
@@ -116,10 +120,12 @@ public class Ui {
      * @param message String user input.
      */
     private void reprintUserInput(String message) {
+        // If OS is not mac, print as per normal.
         if (!isMac()) {
             out.println("[Entered: " + message + " ]");
             return;
         }
+        // If OS is mac, print with green font.
         out.print("\u001b[32m"); // green font ANSI
         out.println("[Entered: " + message + " ]");
         out.println("\u001b[0m");
@@ -207,8 +213,7 @@ public class Ui {
      * @param command Type of Command.
      */
     public void printAddActionResult(String item, int size, String command) {
-        String output = "I got you, added a "
-                + command + ":\n"+  item
+        String output = "I got you, added a " + command + ":\n"+  item
                 + "\nNow you have " + size + " tasks in the list.";
         printOutput(output);
     }
@@ -220,8 +225,7 @@ public class Ui {
      * @param size Size of the Task List after deletion.
      */
     public void printDeleteActionResult(String item, int size) {
-        String output = "Noted. I've removed this task:\n"
-                + item
+        String output = "Noted. I've removed this task:\n" + item
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(output);
     }

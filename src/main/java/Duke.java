@@ -16,7 +16,6 @@ import java.io.IOException;
  */
 public class Duke {
     private static TaskList list = new TaskList();
-    private static boolean toSave = true;
     private static Ui ui;
     private static Storage storage;
 
@@ -30,8 +29,9 @@ public class Duke {
     public static void main(String[] args) {
         ui = new Ui();
         storage = new Storage();
+
+        // Welcome screen message.
         ui.printWelcomeMessage();
-        boolean isInitialiseSuccessful = true;
 
         // Initialising local data storage and populate the list.
         try {
@@ -45,7 +45,10 @@ public class Duke {
             ui.printFileNotFound();
         }
 
+        // Main function that will process user input.
         runLoopUntilExit();
+
+        // Exit screen message.
         ui.printExitMessage();
     }
 
@@ -59,9 +62,11 @@ public class Duke {
             try {
                 Parser parser = new Parser();
                 parser.parseCommand(userInput);
+
                 if (parser.getCommand() == Command.EXIT) {
                     return;
                 }
+
                 if (parser.getCommand() == Command.LIST) {
                     ui.printAllTask(list);
                 } else if(parser.getCommand() == Command.HELP){
@@ -69,9 +74,7 @@ public class Duke {
                 } else {
                     String item = list.executeCommand(parser.getCommand(), parser.getUserArgs());
                     ui.showResult(item, parser.getCommand(), list.getTaskListSize());
-                    if (toSave) {
-                        storage.updateWholeFile(list);
-                    }
+                    storage.updateWholeFile(list);
                 }
             } catch (ArrayIndexOutOfBoundsException | EmptyArgumentException e) {
                 ui.printEmptyActionArgs();

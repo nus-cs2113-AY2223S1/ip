@@ -16,9 +16,8 @@ import java.nio.file.Paths;
  * It supports write and read operation.
  */
 public class Storage {
-    private static final String FILE_PATH1 =  "./data/data.md";
     private static final String DIRECTORY_PATH = Paths.get(".", "data").toString();
-    private static final String FILE_NAME =  "data.md";
+    private static final String FILE_NAME = "data.md";
     private static final String FILE_PATH = Paths.get(DIRECTORY_PATH, FILE_NAME).toString();
     private static final File f = new File(FILE_PATH);
 
@@ -144,6 +143,7 @@ public class Storage {
         if (!type.equals("Todo")) {
             time = task.getTime();
         }
-        return "| " + type + " | " + String.valueOf(bool) + " | " + description + " | " + time + " |\n";
+        return "| " + type + " | " + String.valueOf(bool)
+                + " | " + description + " | " + time + " |\n";
     }
 }
