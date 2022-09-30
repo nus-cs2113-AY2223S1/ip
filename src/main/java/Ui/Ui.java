@@ -19,6 +19,7 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String CONV_START = "Hello! I'm Duke\n";
+    private static final String USER_GUIDE_LINK = "https://pipipipi2002.github.io/ip/";
     private static final String HELP = "Possible commands are:\n"
             + "`help` \t\t\t\t\t\t\t\t-> List possible commands.\n"
             + "`bye` \t\t\t\t\t\t\t\t-> To exit the program.\n"
@@ -246,7 +247,7 @@ public class Ui {
     }
 
     public void printWelcomeMessage() {
-        printOutput(DUKE_LOGO + CONV_START + HELP);
+        printOutput(DUKE_LOGO + CONV_START + HELP + "\nRead more on " + USER_GUIDE_LINK);
     }
 
     public void printExitMessage() {
