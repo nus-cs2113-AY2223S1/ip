@@ -14,6 +14,39 @@ public class Duke {
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
     }
+
+    public static void marking(ArrayList<Task>tasks, String command, boolean isMarked) {
+        printLine();
+        if (isMarked) {
+            System.out.println("    Nice! I've marked this task as done:");
+            command = command.replace("mark ", "");
+        } else {
+            System.out.println("    OK, I've marked this task as not done yet:");
+            command = command.replace("unmark ", "");
+        }
+        int index = Integer.parseInt(command) - 1;
+        tasks.get(index).setAsDone(isMarked);
+        System.out.println("    [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getTask());
+        printLine();
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
+        int numOfTasks = tasks.size();
+        printLine();
+        System.out.println("    Here are the tasks in your list:");
+        for (int counter = 0; counter < numOfTasks; counter++) {
+            System.out.println("    " + (counter + 1) + ".[" + tasks.get(counter).getStatusIcon() + "] " + tasks.get(counter).getTask());
+        }
+        printLine();
+    }
+
+    public static void addTask(ArrayList<Task> tasks, String command) {
+        printLine();
+        Task newTask = new Task(command);
+        tasks.add(newTask);
+        System.out.println("    Added task: " + command);
+        printLine();
+    }
     public static void main(String[] args) {
         printWelcome();
         Scanner input = new Scanner(System.in);
@@ -26,34 +59,13 @@ public class Duke {
                 printGoodbye();
                 break;
             } else if (command.equals("list")) {
-                printLine();
-                System.out.println("    Here are the tasks in your list:");
-                for (int counter = 0; counter < tasks.size(); counter++) {
-                    System.out.println("    " + (counter + 1) + ".[" + tasks.get(counter).getStatusIcon() + "] " + tasks.get(counter).getTask());
-                }
-                printLine();
+                printList(tasks);
             } else if (command.startsWith("mark ")) {
-                printLine();
-                System.out.println("    Nice! I've marked this task as done:");
-                command = command.replace("mark ", "");
-                int index = Integer.parseInt(command) - 1;
-                tasks.get(index).setAsDone(true);
-                System.out.println("    [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getTask());
-                printLine();
+                marking(tasks, command, true);
             } else if (command.startsWith("unmark ")) {
-                printLine();
-                System.out.println("    OK, I've marked this task as not done yet:");
-                command = command.replace("unmark ", "");
-                int index = Integer.parseInt(command) - 1;
-                tasks.get(index).setAsDone(false);
-                System.out.println("    [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getTask());
-                printLine();
+                marking(tasks, command, false);
             } else {
-                printLine();
-                Task t = new Task(command);
-                tasks.add(t);
-                System.out.println("    Added task: " + command);
-                printLine();
+                addTask(tasks, command);
             }
         }
     }
