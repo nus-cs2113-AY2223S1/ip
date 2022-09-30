@@ -117,7 +117,7 @@ Now you have X tasks in the list.
 
 ### `event` - Add a new Event task
 
-Add a new todo task type in the task list in the format
+Add a new event task type in the task list in the format
 `event (discription) /at (YYYY-MM-DD HHMM)`
 
 **Example of usage:**
@@ -272,7 +272,7 @@ Sorry. Date and Time cannot be parsed
 |--------------------------|------------------------------------------------|--------------------------------------------|
 | Add a new Todo task      | `todo (discription)`                           | `todo read book`                           |
 | Add a new Deadline task  | `deadline (discription) /by (YYYY-MM-DD HHMM)` | `deadline return book /by 2025-05-12 1800` |
-| Add an new Event task    | `event (discription) /at (YYYY-MM-DD HHMM)`    | `event book review /at 2025-04-01 1000`    |
+| Add a new Event task     | `event (discription) /at (YYYY-MM-DD HHMM)`    | `event book review /at 2025-04-01 1000`    |
 | List all current tasks   | `list`                                         | `list`                                     |
 | Mark a task as done      | `mark (index)`                                 | `mark 1`                                   |
 | Mark a task as not done  | `unmark (index)`                               | `unmark 1`                                 |
