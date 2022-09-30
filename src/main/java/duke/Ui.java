@@ -69,6 +69,18 @@ public class Ui {
         }
         System.out.println();
     }
+    public void printSearchResults(ArrayList<Task> results, String keyword){
+        if (results.size() == 0){
+            System.out.println("No task with description containing " + keyword + " is found");
+            printNewLine();
+        } else {
+            System.out.println("Here are the search results for tasks with description containing " +keyword);
+            for (Task task: results){
+                task.printTask();
+            }
+            printNewLine();
+        }
+    }
     public void printGoodbye(){
         System.out.println(GOODBYE);
         printNewLine();
