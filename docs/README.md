@@ -1,4 +1,14 @@
 # User Guide
+```
+Hello from
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+```
+
+Duke is a chatbot that allows you to keep track of all your tasks!
 
 ## Table of Contents
 1. [Add Todo task: `todo`](#add-todo-task-todo)
