@@ -24,7 +24,7 @@ King Bob is a software which optimizes the use of the Command Line Interface (CL
 ## Quick Start
 
 1. Ensure you have Java `11` installed into your Computer.
-2. Download the latest `iP.jar` [here]()
+2. Download the latest `iP.jar` [here](https://github.com/Franky4566/iP/releases)
 3. Copy the file to the folder you want to use as the *homefolder* for your Duke
 4. If you are using Windows, open a command prompt terminal and navigate to the folder where your `iP.jar` is stored.
 5. For Mac or Linux users, execute step 4 with your respective system terminals.
