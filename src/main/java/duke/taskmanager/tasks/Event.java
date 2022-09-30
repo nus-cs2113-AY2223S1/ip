@@ -2,12 +2,12 @@ package duke.taskmanager.tasks;
 
 /**
  * A <code>Event task</code> that has a <code>description</code> and <code>isDone</code>.
- * This <code>Event</code> occurs at associated <code>date</code> and <code>time</code>
+ * This <code>Event</code> occurs at associated <code>date</code> and <code>time</code>.
  */
 public class Event extends Todo {
     /**
      * Instantiate a new <code>Event</code> and splits the <code>String</code>
-     * to find the associated date and time
+     * to find the associated date and time.
      *
      * @param command  user input in the form of "TASK_TYPE description ADDITIONAL_INFORMATION_FOR_DEADLINE_AND_EVENT"
      * @param lastChar '/' which represents a <code>event</code> or <code>deadline</code> command
@@ -24,7 +24,7 @@ public class Event extends Todo {
     }
 
     /**
-     * <code>Event</code> is associated with '<code>E</code>'
+     * <code>Event</code> is associated with '<code>E</code>`.
      *
      * @return the formatted type
      */
@@ -35,7 +35,7 @@ public class Event extends Todo {
 
     /**
      * Adds the formatted <code>date</code> and <code>time</code> that this
-     * <code>Event</code> occurs at
+     * <code>Event</code> occurs at.
      *
      * @return formatted <code>String</code> representing this task
      */

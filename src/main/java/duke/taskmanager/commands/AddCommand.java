@@ -10,7 +10,7 @@ import duke.taskmanager.tasks.Todo;
 import static duke.taskmanager.TaskManager.toSave;
 
 /**
- * Add a new <code>task</code> to the <code>TaskList</code>
+ * Add a new <code>task</code> to the <code>TaskList</code>.
  */
 public class AddCommand extends Command {
     public AddCommand(String userInput, String firstWord) {
@@ -18,7 +18,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Add a new <code>task</code> of the user specified type to the <code>TaskList</code>. Checks for incorrect input.
+     * Add a new <code>task</code> of the user specified type to the <code>TaskList</code>.
+     * Checks for incorrect input.
      *
      * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs
@@ -44,9 +45,9 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds a <code>deadline</code> or <code>event</code> task. If the date and time specified by the user is too short(not valid),
-     * append a string such that an IndexOutOfBoundsException will not be thrown when searching for valid
-     * date and time.
+     * Adds a <code>deadline</code> or <code>event</code> task. If the date and time specified
+     * by the user is too short(not valid), append a string such that an IndexOutOfBoundsException
+     * will not be thrown when searching for valid date and time.
      *
      * @param tasks     stores all the user's current tasks
      * @param ui        contains the formatted outputs

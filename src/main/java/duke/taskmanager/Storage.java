@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the saving and loading of <code>task</code>s.
+ */
 public class Storage {
     public final String FILE_PATH = "data/duke.txt";
     public ArrayList<String> storedTasks = new ArrayList<>();
 
     /**
-     * Loads previously saved tasks
+     * Loads previously saved tasks.
      *
      * @throws FileNotFoundException there was no previously saved tasks
      */
@@ -36,7 +39,7 @@ public class Storage {
     /**
      * Saves all current tasks by overriding the file.
      *
-     * @param toSave all current tasks formatted as commands
+     * @param toSave       all current tasks formatted as commands
      * @throws IOException failed or interrupted I/O operations
      */
     public void saveTasks(StringBuilder toSave) throws IOException {

@@ -5,7 +5,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Unknown user input
+ * Unknown user input.
  */
 public class WrongCommand extends Command {
     public WrongCommand(String userInput, String firstWord) {
@@ -13,7 +13,7 @@ public class WrongCommand extends Command {
     }
 
     /**
-     * Prints wrong user input message
+     * Prints wrong user input message.
      *
      * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs

@@ -6,7 +6,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Delete a specified <code>task</code>
+ * Delete a specified <code>task</code>.
  */
 public class DeleteCommand extends Command {
     public DeleteCommand(String userInput, String firstWord) {

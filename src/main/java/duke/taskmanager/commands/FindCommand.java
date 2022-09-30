@@ -5,7 +5,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Searches for <code>tasks</code> base on keyword
+ * Searches for <code>tasks</code> base on keyword.
  */
 public class FindCommand extends Command{
     public FindCommand(String userInput, String firstWord) {
@@ -13,7 +13,7 @@ public class FindCommand extends Command{
     }
 
     /**
-     * Finds all the tasks in the <code>TaskList</code> that contains the user specified keyword(s)
+     * Finds all the tasks in the <code>TaskList</code> that contains the user specified keyword(s).
      *
      * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs
@@ -22,7 +22,7 @@ public class FindCommand extends Command{
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         int DescStartIdx = userInput.indexOf(' ') + 1;
-        String description = userInput.substring(DescStartIdx);
-        ui.printMatchList(tasks, description);
+        String keywords = userInput.substring(DescStartIdx);
+        ui.printMatchList(tasks, keywords);
     }
 }

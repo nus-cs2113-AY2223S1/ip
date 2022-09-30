@@ -5,7 +5,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Abstract base class for all the understood commands
+ * Abstract base class for all the understood commands.
  */
 public abstract class Command {
     /**

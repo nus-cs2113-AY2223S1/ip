@@ -1,5 +1,42 @@
 # User Guide
 Duke(Jarvis) is a personalized task manager that handles your todo list using the Command Line Interface.
+
+
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Features](#features)
+   1. [Storage of task-list on hard-disk](#storage-of-task-list-on-hard-disk)
+   2. [Datetime format understood by Duke](#datetime-format-understood-by-duke)
+   3. [Sample command formats given](#sample-command-formats-given)
+3. [Usage](#usage)
+   1. [`todo`](#todo---adds-a-new-todo-task)
+   2. [`deadline`](#deadline---adds-a-new-deadline-task)
+   3. [`event`](#event---adds-a-new-event-task)
+   4. [`list`](#list---lists-all-current-tasks)
+   5. [`mark`](#mark---mark-a-current-task-as-done)
+   6. [`unmark`](#unmark---mark-a-current-task-as-not-done)
+   7. [`delete`](#find---find-tasks)
+   8. [`find`](#find---find-tasks)
+   9. [`bye`](#bye---exits-the-programme)
+4. [Common Error Messages](#common-error-messages)
+5. [Command Summary](#command-summary)
+6. [Credits](#credits)
+
+## Getting Started
+
+1. Ensure that you have `Java 11` or above installed on your computer
+
+2. Download the `jar` file from [here](https://github.com/kohnh/ip/releases/tag/A-Release-v0.2)
+
+3. Copy the `jar` file into an empty folder that you want to use as the base folder
+
+4. Open a command window in that same folder
+
+5. Run the command `java -jar {filename}.jar` e.g., `java -jar Duke.jar`
+
+6. If the programme is running correctly, this welcome message should be shown
+
 ```
 ------------------------------------------------------------
 Hello! I'm
@@ -14,33 +51,6 @@ Enter "bye" to exit.
 ------------------------------------------------------------
 ```
 
-## Table of Contents
-
-1. [Getting Started](#getting-started)
-2. [Features](#features)
-    1. [Storage of task-list on hard-disk](#storage-of-task-list-on-hard-disk)
-    2. [Datetime format understood by Duke](#datetime-format-understood-by-duke)
-3. [Usage](#usage)
-    1. [`todo`](#todo---adds-a-new-todo-task)
-   2. [`deadline`](#deadline---adds-a-new-deadline-task)
-   3. [`event`](#event---adds-a-new-event-task)
-   4. [`list`](#list---lists-all-current-tasks)
-   5. [`mark`](#mark---mark-a-current-task-as-done)
-   6. [`unmark`](#unmark---mark-a-current-task-as-not-done)
-   7. [`delete`](#find---find-tasks)
-   8. [`find`](#find---find-tasks)
-   9. [`bye`](#bye---exits-the-programme)
-4. [Common Error Messages](#common-error-messages)
-
-## Getting Started
-1. Download the `jar` file.
-
-2. Copy the `jar` file into an empty folder
-
-3. Open a command window in that folder
-
-4. Run the command `java -jar {filename}.jar` e.g., `java -jar Duke.jar`
-
 ## Features 
 
 ### Storage of task-list on hard-disk
@@ -48,8 +58,10 @@ Duke will automatically load previously added tasks from the hard-disk
 and also save all added tasks to the hard-disk when Duke is closed.
 
 ### Datetime format understood by Duke
-Currently, Duke only understands date in the format `YYYY-MM-DD` and time in the format `HHMM`.
+Currently, Duke only understands date in the format `YYYY-MM-DD` and time in the 24-hour format `HHMM`.
 Whenever date and time needs to be supplied by the user, the format should be `YYYY-MM-DD HHMM`.
+(`Y` stands for year, `M` stands for month, `D` stands for date, `H` stands for hour and `M` stands for minutes)
+
 If the date and time information provided cannot be understood by duke or no date or time or 
 both is not provided, the date and time will be automatically set to one week from current date. 
 Additionally, there will be another line output:
@@ -57,12 +69,16 @@ Additionally, there will be another line output:
 Sorry. Date and Time cannot be parsed
 ```
 
+### Sample command formats given
+Words in round brackets () represents parameters that you are supposed to supply to the programme.
+e.g. `todo (discription)` can be used as `todo buy a pen`
+
 ## Usage
 
 ### `todo` - Adds a new todo task
 
 Adds a new todo task type in the task list in the format
-`todo (task name)`
+`todo (discription)`
 
 **Example of usage:** 
 
@@ -82,7 +98,7 @@ Now you have X tasks in the list.
 ### `deadline` - Adds a new deadline task
 
 Adds a new deadline task type in the task list in the format
-`deadline (task name) /by (datetime)`
+`deadline (discription) /by (YYYY-MM-DD HHMM)`
 
 **Example of usage:**
 
@@ -102,7 +118,7 @@ Now you have X tasks in the list.
 ### `event` - Adds a new event task
 
 Adds a new todo task type in the task list in the format
-`event (task name) /at (datetime)`
+`event (discription) /at (YYYY-MM-DD HHMM)`
 
 **Example of usage:**
 
@@ -139,8 +155,7 @@ Here are the tasks in your list:
 
 ### `mark` - Mark a current task as done
 
-Mark a current task as done in the task list in the format `mark X`
-where X is the index of the task to be marked.
+Mark a current task as done in the task list in the format `mark (index)`
 
 **Example of usage:**
 
@@ -158,8 +173,7 @@ Nice! I've marked this task as done:
 
 ### `unmark` - Mark a current task as not done
 
-Mark a current task as not done in the task list in the format `unmark X`
-where X is the index of the task to be unmarked.
+Mark a current task as not done in the task list in the format `unmark (index)`
 
 **Example of usage:**
 
@@ -177,8 +191,7 @@ OK, I've marked this task as not done yet:
 
 ### `delete` - Delete a current task
 
-Delete a current task in the task list in the format `delete X`
-where X is the index of the task to be deleted.
+Delete a current task in the task list in the format `delete (index)`
 
 **Example of usage:**
 
@@ -198,7 +211,7 @@ Now you have X tasks in the list.
 
 ### `find` - Find tasks
 
-Find all tasks in the task list that has a user-specified keyword in the format `find (keyword)`
+Find all tasks in the task list that has a user-specified keyword in the format `find (keyword(s))`
 
 **Example of usage:**
 
@@ -245,7 +258,27 @@ If the index provided is not a number
 ☹ OOPS!!! You did not enter a number.
 ------------------------------------------------------------
 ```
-If no date or time or both is not provided, the date and time will be automatically set to one week from current date. Additional output:
+If no date or time or both is not provided, the date and time will be 
+automatically set to one week from current date
 ```
 Sorry. Date and Time cannot be parsed
 ```
+
+## Command summary
+
+| Action                | Format                                         | Example                                    |
+|-----------------------|------------------------------------------------|--------------------------------------------|
+| Add a Todo task       | `todo (discription)`                           | `todo read book`                           |
+| Add a Deadline task   | `deadline (discription) /by (YYYY-MM-DD HHMM)` | `deadline return book /by 2025-05-12 1800` |
+| Add an Event task     | `event (discription) /at (YYYY-MM-DD HHMM)`    | `event book review /at 2025-04-01 1000`    |
+| List all tasks        | `list`                                         | `list`                                     |
+| Mark a task as done   | `mark (index)`                                 | `mark 1`                                   |
+| Unmark a task as done | `unmark (index)`                               | `unmark 1`                                 |
+| Delete a task         | `delete (index)`                               | `delete 1`                                 |
+| Find tasks by keyword | `find (keyword(s))`                            | `find book`                                | 
+| Exit application      | `bye`                                          | `bye`                                      |
+
+## Credits
+Credit to Owen Leong (@owenl131) for the inspiration and layout for the 
+[Table of Contents](#table-of-contents), [Getting Started](#getting-started) and the [Command Summary](#command-summary) 
+in this UserGuide.

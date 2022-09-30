@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * A Task Manager to keep track of all the tasks that user supplies to it
+ * A Task Manager to keep track of all the tasks that user supplies to it.
  */
 public class TaskManager {
     public static StringBuilder toSave = new StringBuilder();
@@ -19,8 +19,8 @@ public class TaskManager {
     private TaskList tasks;
 
     /**
-     * Manages all the tasks in one <code>TaskList</code>. It will check if there is any previously saved tasks and enter those
-     * tasks into the <code>TaskList</code>.
+     * Manages all the tasks in one <code>TaskList</code>. It will check if there is any
+     * previously saved tasks and enter those tasks into the <code>TaskList</code>.
      */
     public TaskManager() {
         ui = new UI();
@@ -50,7 +50,6 @@ public class TaskManager {
             Command c = Parser.parser(userInput);
             c.execute(tasks,ui,storage);
             isExit = c.isExit;
-
         }
         try {
             storage.saveTasks(toSave);

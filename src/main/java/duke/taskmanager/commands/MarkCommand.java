@@ -6,7 +6,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Mark a specified <code>task</code>
+ * Mark a specified <code>task</code>.
  */
 public class MarkCommand extends Command {
     public MarkCommand(String userInput, String firstWord) {
@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Mark or unmark a <code>task</code> based on the user input
+     * Mark or unmark a <code>task</code> based on the user input.
      *
      * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs
@@ -38,7 +38,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Mark whether the <code>task</code> specified by user is done. Checks if the user input an existing task.
+     * Mark whether the <code>task</code> specified by user is done.
+     * Checks if the user input an existing task.
      *
      * @param tasks     stores all the user's current tasks
      * @param ui        contains the formatted outputs

@@ -6,17 +6,17 @@ import duke.taskmanager.tasks.Task;
 import java.util.regex.Pattern;
 
 /**
- * Handles all the output that the user can see
+ * Handles all the output that the user can see.
  */
 public class UI {
     /**
-     * Demarcation to indicate system output
+     * Demarcation to indicate system output.
      */
     public final String DASH_SEPARATOR = "------------------------------------------------------------"
             + System.lineSeparator();
 
     /**
-     * How the user will see the system output
+     * How the user will see the system output.
      *
      * @param stringToOutput message related to the command the user has input
      */
@@ -25,7 +25,7 @@ public class UI {
     }
 
     /**
-     * The greeting message which will only be shown once at the start of the programme
+     * The greeting message which will only be shown once at the start of the programme.
      */
     public void printGreetingMessage() {
         String LOGO = "     ____.  _____ ______________   ____.___  _________" + System.lineSeparator()
@@ -40,7 +40,7 @@ public class UI {
     }
 
     /**
-     * Output message to inform the user which <code>task</code> is successfully marked or unmarked
+     * Output message to inform the user which <code>task</code> is successfully marked or unmarked.
      *
      * @param task the task to be marked or unmarked
      * @param done whether the task is done
@@ -50,8 +50,8 @@ public class UI {
     }
 
     /**
-     * Output message to inform the user which new <code>task</code> is successfully added to the <code>TaskList</code>
-     * which is the last <code>task</code> in the <code>TaskList</code>.
+     * Output message to inform the user which new <code>task</code> is successfully added to the
+     * <code>TaskList</code> which is the last <code>task</code> in the <code>TaskList</code>.
      *
      * @param tasks stores all the user's current tasks
      */
@@ -63,7 +63,8 @@ public class UI {
     }
 
     /**
-     * Output message to inform the user which <code>task</code> is successfully deleted from the <code>TaskList</code>
+     * Output message to inform the user which <code>task</code> is successfully deleted from the
+     * <code>TaskList</code>.
      *
      * @param tasks stores all the user's current tasks
      * @param pos   the position of the task to be deleted
@@ -78,7 +79,7 @@ public class UI {
     }
 
     /**
-     * Outputs all the current <code>task</code>s in the <code>TaskList</code>
+     * Outputs all the current <code>task</code>s in the <code>TaskList</code>.
      *
      * @param tasks stores all the user's current tasks
      */
@@ -92,27 +93,28 @@ public class UI {
     }
 
     /**
-     * Looks through the <code>TaskList</code> for <code>task</code>s that match the description and print it.
-     * The case of the description does not matter.
+     * Looks through the <code>TaskList</code> for <code>task</code>s that match the keyword(s) and print it.
+     * The case of the keyword(s) does not matter.
      *
      * @param tasks       stores all the user's current tasks
-     * @param description user provided keyword
+     * @param keywords    user provided keyword
      */
-    public void printMatchList(TaskList tasks, String description) {
-        Pattern pattern = Pattern.compile(description, Pattern.CASE_INSENSITIVE);
-        StringBuilder s = new StringBuilder();
+    public void printMatchList(TaskList tasks, String keywords) {
+        Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
+        StringBuilder matchString = new StringBuilder();
         int count = 0;
-        s.append("Here are the tasks matching \"").append(description).append("\" in your list:").append(System.lineSeparator());
+        matchString.append("Here are the tasks matching \"").append(keywords);
+        matchString.append("\" in your list:").append(System.lineSeparator());
         for (int i = 0; i < tasks.size(); i++) {
             if (pattern.matcher(tasks.get(i).getDescription()).find()) {
-                s.append(i+1).append(".").append(tasks.get(i)).append(System.lineSeparator());
+                matchString.append(i+1).append(".").append(tasks.get(i)).append(System.lineSeparator());
                 count++;
             }
         }
         if (count > 0) {
-            formatOutput(s.toString());
+            formatOutput(matchString.toString());
         } else {
-            formatOutput("Sorry! There are no tasks matching your specified keyword");
+            formatOutput("Sorry! There are no tasks matching your specified keyword(s)");
         }
 
     }

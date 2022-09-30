@@ -14,7 +14,7 @@ public class Parser {
      * for multiple word commands.
      *
      * @param userInput the <code>String</code> that the user input
-     * @return <code>Command</code> class type representing the user's command
+     * @return          <code>Command</code> class type representing the user's command
      */
     public static Command parser(String userInput) {
         switch (userInput) {
@@ -28,10 +28,10 @@ public class Parser {
     }
 
     /**
-     * Checks the user input for valid multiple word commands
+     * Checks the user input for valid multiple word commands.
      *
      * @param userInput the multiple word <code>String</code> that the user input
-     * @return <code>Command</code> class type representing the user's command
+     * @return          <code>Command</code> class type representing the user's command
      */
     public static Command multiWordParser(String userInput) {
         String firstWord;
@@ -69,11 +69,11 @@ public class Parser {
 
 
     /**
-     * Checks if the user input is invalid
+     * Checks if the user input is invalid.
      *
-     * @param userInput              The <code>String</code> that the user input
-     * @throws EmptyException        The command must have multiple words
-     * @throws WrongCommandException The command does not exist and is not valid
+     * @param userInput              the <code>String</code> that the user input
+     * @throws EmptyException        the command must have multiple words
+     * @throws WrongCommandException the command does not exist and is not valid
      */
     private static void checkExceptions(String userInput) throws EmptyException, WrongCommandException {
         if (userInput.matches("mark|unmark|todo|deadline|event|delete|find")) {

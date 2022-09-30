@@ -8,14 +8,14 @@ import java.util.Date;
 
 /**
  * A <code>Todo task</code> that only has <code>description</code> and <code>isDone</code>.
- * Does not have an associated <code>date</code> and <code>time</code>
+ * Does not have an associated <code>date</code> and <code>time</code>.
  */
 public class Todo extends Task {
     protected LocalDate date;
     protected String time;
 
     /**
-     * Parses the command base on type of task to set description
+     * Parses the command base on type of task to set description.
      *
      * @param command  user input in the form of "TASK_TYPE description ADDITIONAL_INFORMATION_FOR_DEADLINE_AND_EVENT"
      * @param lastChar ' ' represents a <code>todo</code> command while
@@ -53,7 +53,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Format the date to a specified format
+     * Format the date to a specified format.
      *
      * @return formatted date
      */
@@ -67,7 +67,7 @@ public class Todo extends Task {
     }
 
     /**
-     * <code>Todo</code> is associated with '<code>T</code>'
+     * <code>Todo</code> is associated with '<code>T</code>'.
      *
      * @return the formatted type
      */

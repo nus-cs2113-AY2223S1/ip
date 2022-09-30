@@ -5,7 +5,7 @@ import duke.taskmanager.Storage;
 import duke.taskmanager.TaskList;
 
 /**
- * Indication to stop and exit the programme
+ * Indication to stop and exit the programme.
  */
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Prints exit message before exiting the programme
+     * Prints exit message before exiting the programme.
      *
      * @param tasks   stores all the user's current tasks
      * @param ui      contains the formatted outputs

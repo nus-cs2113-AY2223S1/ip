@@ -1,7 +1,7 @@
 package duke.taskmanager.tasks;
 
 /**
- * Represents the simplest task
+ * Represents the simplest task.
  */
 public abstract class Task {
     protected String description;
@@ -10,7 +10,7 @@ public abstract class Task {
     protected abstract String  getTypeIcon();
 
     /**
-     * Getter for if <code>task</code> is done
+     * Getter for if <code>task</code> is done.
      *
      * @return whether <code>task</code> is done
      */
@@ -32,7 +32,7 @@ public abstract class Task {
     }
 
     /**
-     * Output in the format [type][done status] description
+     * Output in the format [type][done status] description.
      *
      * @return formatted <code>String</code> representing this task
      */
@@ -43,9 +43,9 @@ public abstract class Task {
     }
 
     /**
-     * Mark current task done or not done
+     * Mark current task done or not done.
      *
-     * @param done whether task is done
+     * @param  done whether task is done
      * @return output message to be formatted
      */
     public String markDone(boolean done) {
