@@ -146,9 +146,9 @@ Shows a list of tasks with descriptions that match the given search input.
 
 > Format: `find KEYWORD`
 
-Example: `search CS2113`
+Example: `find CS2113`
 ````
-search CS2113
+find CS2113
 _________________________________________________________________________________
 1.[T][ ] revise CS2113
 2.[D][ ] CS2113 IP (by: 30/09/2022)
@@ -164,12 +164,12 @@ Exits the application. _Bob_ greets goodbye :<
 
 Command | Format | Example
 ------ | ------ | -------
-Add Todo task |  `todo TASK_DESCRIPTION` | `revise CS2113`
-Add Deadline task | `deadline TASK_DESCRIPTION /by DATE` | `deadline CS2113 /by 30/09/2022`
+Add Todo task |  `todo TASK_DESCRIPTION` | `todo revise CS2113`
+Add Deadline task | `deadline TASK_DESCRIPTION /by DATE` | `deadline CS2113 IP /by 30/09/2022`
 Add Event task | `event TASK_DESCRIPTION /at DATE` |  `event RC4 Open House /at 11/11/2021`
 Mark task | `mark TASK_NUMBER` | `mark 2`
 Unmark task | `unmark TASK_NUMBER` | `unmark 2`
 List tasks | `list` | `list`
 Delete task | `delete TASK_NUMBER` | `delete 1`
-Search a task | `find KEYWORD` | `search CS2113`
+Find task | `find KEYWORD` | `find CS2113`
 Exit application | `bye` | `bye`
