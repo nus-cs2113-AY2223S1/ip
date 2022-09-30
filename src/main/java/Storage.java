@@ -9,12 +9,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static final Path directoryPath = Paths.get(".","data");
-    private static final Path filePath = Paths.get(".","data", "duke.txt");
+    private static final Path DIRECTORY_PATH = Paths.get(".","data");
+    private static final Path FILE_PATH = Paths.get(".","data", "duke.txt");
 
     public Storage () {
     }
 
+    private static void checkExists() throws IOException {
+        boolean directoryExists = Files.exists(DIRECTORY_PATH);
+        boolean fileExists = Files.exists(FILE_PATH);
+        if (!directoryExists) {
+            Files.createDirectories(DIRECTORY_PATH);
+        }
+        if (!fileExists) {
+            Files.createFile(FILE_PATH);
+        }
+    }
     private Task loadTasks (String[]  line) throws DukeException {
         Task newTask;
         if (line[0].equals("T")) {
@@ -32,8 +42,9 @@ public class Storage {
      * @return the list of inputs loaded from file
      */
     public ArrayList<Task> load() throws DukeException {
-        if (Files.exists(directoryPath) && Files.exists(filePath)) {
-            File f = new File(String.valueOf(filePath)); // create a File for the given file path
+        File f = new File(String.valueOf(FILE_PATH)); // create a File for the given file path
+
+        if (Files.exists(DIRECTORY_PATH) && Files.exists(FILE_PATH)) {
             Scanner s;
             try {
                 s = new Scanner(f); // create a Scanner using the File as the source
@@ -57,7 +68,12 @@ public class Storage {
             }
             return inputs;
         } else {
-            throw new DukeException("☹ OOPS!!! Something went wrong when trying to load");
+            try {
+                checkExists();
+            } catch (IOException e) {
+                throw new DukeException("☹ OOPS!!! Something went wrong when trying to load");
+            }
+            return new ArrayList<>();
         }
     }
 
@@ -72,17 +88,6 @@ public class Storage {
         return formattedString;
     }
 
-    private static void checkExists() throws IOException {
-        boolean directoryExists = Files.exists(directoryPath);
-        boolean fileExists = Files.exists(filePath);
-        if (!directoryExists) {
-            Files.createDirectories(directoryPath);
-        }
-        if (!fileExists) {
-            Files.createFile(filePath);
-        }
-    }
-
     /**
      * Saves current inputs into file for future use
      *
@@ -94,9 +99,8 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Something went wrong when trying to save: " + e.getMessage());
         }
-        String pathName = "./data/duke.txt";
         try {
-            FileWriter fw = new FileWriter(pathName);
+            FileWriter fw = new FileWriter(FILE_PATH.toString());
             fw.write(saveList(list));
             fw.close();
         } catch (IOException e) {
