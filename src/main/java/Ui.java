@@ -55,22 +55,26 @@ public class Ui {
     }
 
 
-    public static void indexOutOfBoundMsg(){
+    public void indexOutOfBoundMsg(){
         System.out.println("warning:index out of bound");
     }
 
-    public static void indexEmptyMsg(){
+    public void indexEmptyMsg(){
         System.out.println("☹ OOPS!!! The index of the task cannot be empty.");
     }
 
-    public static void printList(ArrayList<Task> tasks) {
+    public void printList(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < tasks.size(); i++) {
             System.out.println("  " + (i + 1) + "." + tasks.get(i));
         }
     }
 
-    public static void removeTaskMsg(Task task) {
+    public void printTask(Task task){
+        System.out.println("     " + task);
+    }
+
+    public void removeTaskMsg(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
     }
@@ -95,6 +99,10 @@ public class Ui {
 
     public void formatIncorrect(){
         System.out.println("format incorrect");
+    }
+
+    public void findMsg(){
+        System.out.println("     Here are the matching tasks in your list:");
     }
 
 

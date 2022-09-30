@@ -11,14 +11,14 @@ import java.io.IOException;
 
 public class Duke {
 
-    private static final String FILE_PATH = "data/duke.txt";
+    private final String FILE_PATH = "data/duke.txt";
 
-    private static Storage storage;
-    private static ArrayList<Task> tasks;
-    private static Ui ui;
+    private Storage storage;
+    private ArrayList<Task> tasks;
+    private Ui ui;
 
     private Parser parser;
-    private static TaskList taskList;
+    private TaskList taskList;
 
     public Duke(){
         ui = new Ui();
@@ -76,14 +76,10 @@ public class Duke {
                 } catch (IOException e) {
                     ui.failToSaveMsg();
                 }
+            } else if(parser.is(val, "find ")){
+                taskList.find(val, tasks, parser, ui);
             } else {
                 taskList.addTask(val, tasks, ui, parser);
-
-                try {
-                    Storage.saveLine(tasks.get(tasks.size() - 1).toString());
-                } catch (IOException e) {
-                    ui.failToSaveMsg();
-                }
             }
             ui.separatorMsg();
             val = input.nextLine();

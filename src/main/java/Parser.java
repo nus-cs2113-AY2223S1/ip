@@ -3,13 +3,13 @@ import task.Event;
 import task.Todo;
 
 public class Parser {
-    private static final String EVENT = "event";
-    private static final String TODO = "todo";
-    private static final String DEADLINE = "deadline";
+    private final String EVENT = "event";
+    private final String TODO = "todo";
+    private final String DEADLINE = "deadline";
 
     private final String[] taskName = {"todo","event",  "deadline"};
 
-    public static String commandParser(String val, Ui ui){
+    public String commandParser(String val, Ui ui){
         if(val == null || val.isEmpty()){
             ui.emptyMsg();
             return null;
@@ -161,6 +161,16 @@ public class Parser {
             return null;
         }
         return val.substring((val.indexOf("/") + 4));
+    }
+
+    public String getKeyword(String val, Ui ui){
+        String key = val.substring(4).trim();
+        if(key.isEmpty()){
+            ui.formatIncorrect();
+            return null;
+        }
+
+        return key;
     }
 
 
