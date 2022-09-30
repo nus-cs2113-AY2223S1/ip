@@ -54,6 +54,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Set the filePath and activate run function.
+     */
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();
     }

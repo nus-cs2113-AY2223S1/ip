@@ -15,6 +15,13 @@ public class DeleteCommand extends Command {
         this.keyword = keyword;
         this.statement = statement;
     }
+
+    /**
+     * Execute user's "delete" command and change the storage file accordingly.
+     * @param taskList The list containing tasks.
+     * @param ui dealing with interactions with the user.
+     * @param storage The storage file of tasks.
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> tasks = taskList.getTasks();
         tryDeleteTask(tasks, statement);

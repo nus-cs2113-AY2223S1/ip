@@ -8,6 +8,11 @@ public class Parser {
 
     private static String keyword;
     private static String statement;
+
+    /**
+     * Parse the user's input into formatted command.
+     * @param fullCommand a single user's command line.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         fullCommand = fullCommand.trim();
         if (countWithSplit(fullCommand) == 0) throw new DukeException();
