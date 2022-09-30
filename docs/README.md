@@ -1,6 +1,6 @@
 # User Guide
 
-duke is a task tracker for all the user’s tasks,
+Duke is a task tracker for all the user’s tasks,
 the application allows the user to see and update all of his tasks divided into three categories - events, to-dos, and deadlines.
 For each task, there is adescriptionn and a mark if the task was done or not.
 Also, for events and deadlines there is a date description.
