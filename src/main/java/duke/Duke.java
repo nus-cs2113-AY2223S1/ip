@@ -10,6 +10,12 @@ public class Duke {
     public static final String unmarkDone = "unmark";
     public static final String filename = "duke.txt";
 
+    /**
+     * Start and runs the duke application,
+     * checks if the duke file exist if not creates one,
+     * parsers input from the user and update duke accordingly
+     * @throws DukeException
+     */
     public static void run() throws DukeException {
         Message.printLogo();
         Message.printGreeting();
@@ -22,6 +28,10 @@ public class Duke {
         Ui.input();
     }
 
+    /**
+     * calls the run function and starts the duke application
+     * @param args
+     */
     public static void main(String[] args)  {
         try {
             run();

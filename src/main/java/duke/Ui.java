@@ -5,6 +5,14 @@ import duke.task.Parser;
 import java.util.Scanner;
 
 public class Ui extends Duke{
+
+    /**
+     * takes input line by line from user,
+     * translate the input accordingly,
+     * when user exits the application
+     * saves updated list to file
+     * @throws DukeException
+     */
     public static void input() throws DukeException {
         String line;
         Scanner in = new Scanner(System.in);
