@@ -7,11 +7,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The storage class contains methods that converts the TaskList the user
+ * is currently working on to a file format and also converts it back
+ * from the file format into a workable TaskList form
+ */
 public class Storage {
     static ArrayList<Task> list = new ArrayList<>();
-    /*public Storage(TaskList tasks){
-        list = tasks.getAllTasks();
-    }*/
+
+    /**
+     * Gets the task list as an input, checks to see if the file already exists,
+     * if one exists it deletes it and creates a new one anyways and then reads
+     * the information from the task list into the file with the information
+     * about each task being separated by commas
+     * @param tasks list of tasks
+     */
     public static void listToFile(TaskList tasks){
         list = tasks.getAllTasks();
         try{
@@ -53,6 +63,14 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Called when the program starts up in order to work with saved task lists
+     * this function simply reads from the users file if it is in a workable format
+     * and turns it into an arraylist of tasks or just returns an empty array list
+     * if the file does not exist or is empty
+     * @return an arraylist of tasks that the file had info about
+     */
     public ArrayList<Task> fileToList(){
         File f = new File("docs/duke.txt");
 
