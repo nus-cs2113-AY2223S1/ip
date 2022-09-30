@@ -1,0 +1,3 @@
+T,True,study for midterm
+D,False,homework,2:30 PM
+E,False,midterm,6:00 PM

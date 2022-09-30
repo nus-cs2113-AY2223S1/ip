@@ -39,16 +39,20 @@ public class Parser {
             }
             else if (inp.contains("mark")){
                 int num = Integer.parseInt(inp.substring(inp.indexOf(" ")+1))-1;
-                if(num>tasks.size()){
+                if(num>(tasks.size())-1){
                     System.out.println("Out of bounds of the list");
                 }
                 else{
                     if(inp.contains("unmark")){
-                        System.out.println("I have marked this task as not done yet");
+                        if(tasks.getTask(num).getDone()) {
+                            System.out.println("I have marked this task as not done yet");
+                        }
                         tasks.getTask(num).setDone(false);
                     }
                     else{
-                        System.out.println("I have marked this task as complete");
+                        if(!tasks.getTask(num).getDone()){
+                            System.out.println("I have marked this task as complete");
+                        }
                         tasks.getTask(num).setDone(true);
                     }
                     System.out.println(tasks.getTask(num));
@@ -58,7 +62,7 @@ public class Parser {
             }
             else if(inp.contains("delete")){
                 int num = Integer.parseInt(inp.substring(inp.indexOf(" ")+1))-1;
-                if(num>tasks.size()){
+                if(num>(tasks.size()-1)){
                     System.out.println("Out of bounds of the list");
                 }
                 else{
@@ -68,7 +72,6 @@ public class Parser {
             }
             else if(inp.contains("find")){
                 String temp = inp.substring(inp.indexOf("find")+5);
-                System.out.println(temp);
                 ArrayList<Integer> temps = new ArrayList<>();
                 int counter = 0;
                 for(int i = 0; i < tasks.size(); i++){
@@ -127,7 +130,7 @@ public class Parser {
         //System.out.println(inp+"\n"+comm+"\n"+tas);
         if(comm.equals("deadline")) {
             try {
-                name = tas.substring(0, tas.indexOf("/"));
+                name = tas.substring(0, tas.indexOf("/")-1);
                 time = tas.substring(tas.indexOf("/"));
             }
             catch (StringIndexOutOfBoundsException e){
@@ -141,7 +144,7 @@ public class Parser {
         }
         else if(comm.equals("event")){
             try {
-                name = tas.substring(0, tas.indexOf("/"));
+                name = tas.substring(0, tas.indexOf("/")-1);
                 time = tas.substring(tas.indexOf("/"));
             }
             catch (StringIndexOutOfBoundsException e){
