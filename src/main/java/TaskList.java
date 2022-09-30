@@ -7,14 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final String EVENT = "event";
-    private static final String TODO = "todo";
-    private static final String DEADLINE = "deadline";
+    private final String EVENT = "event";
+    private final String TODO = "todo";
+    private final String DEADLINE = "deadline";
 
     //test whether will tasks change if i don't return it
     //didn't return here
 
-    public static void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser) {
+    public void addTask(String val, ArrayList<Task> tasks, Ui ui, Parser parser) {
         String taskType = parser.taskType(val, ui);
         if(taskType == null){
             return;
@@ -40,12 +40,19 @@ public class TaskList {
             break;
         default:
             ui.unknownError();
+            return;
+        }
+
+        try {
+            Storage.saveLine(tasks.get(tasks.size() - 1).toString());
+        } catch (IOException e) {
+            ui.failToSaveMsg();
         }
 
         ui.numOfTaskMsg(tasks.size());
     }
 
-    public static void deleteTask(String val, ArrayList<Task> tasks, Ui ui, Storage storage, Parser parser) {
+    public void deleteTask(String val, ArrayList<Task> tasks, Ui ui, Storage storage, Parser parser) {
         int index = parser.indexIs(val, ui, tasks.size());
 
         if(index == -1){
@@ -65,7 +72,7 @@ public class TaskList {
         }
     }
 
-    public static void markTask(String val, ArrayList<Task> tasks, boolean status, Ui ui, Parser parser) {
+    public void markTask(String val, ArrayList<Task> tasks, boolean status, Ui ui, Parser parser) {
         int index = parser.indexIs(val, ui, tasks.size());
 
         if(index == -1){
@@ -75,5 +82,19 @@ public class TaskList {
         ui.markTaskMsg(status, tasks.get(index));
     }
 
+    public void find(String val, ArrayList<Task> tasks, Parser parser, Ui ui){
+        String key = parser.getKeyword(val,ui);
+        if(key == null){
+            return;
+        }
+
+
+        ui.findMsg();
+        for(int i = 0; i < tasks.size(); i++){
+            if(tasks.get(i).getDescription().contains(key)){
+                ui.printTask(tasks.get(i));
+            }
+        }
+    }
 
 }

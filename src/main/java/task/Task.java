@@ -1,8 +1,8 @@
 package task;
 
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description){
         this.description = description;
@@ -29,8 +29,12 @@ public class Task {
         isDone = status;
     }
 
-    public boolean getDone(boolean status){
+    public boolean getDone(){
         return isDone;
+    }
+
+    public String getDescription(){
+        return description;
     }
 
 }
