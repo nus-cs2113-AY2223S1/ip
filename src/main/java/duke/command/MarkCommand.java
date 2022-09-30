@@ -6,11 +6,11 @@ import duke.exception.DukeException;
 import duke.task.TaskList;
 
 public class MarkCommand extends Command {
+    public static final String KEYWORD = "mark";
+    
     public MarkCommand(String input) {
         super(input);
     }
-
-    public static final String KEYWORD = "mark";
 
     @Override
     public TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException {

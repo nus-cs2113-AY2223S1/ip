@@ -5,6 +5,9 @@ import duke.Ui;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
+/**
+ * Represents a command that can be executed.
+ */
 public abstract class Command {
     private String input;
 
@@ -16,10 +19,10 @@ public abstract class Command {
         return input;
     }
 
-    // execute the command, store the result in the task list
+    // Execute the command, store the result in the task list
     public abstract TaskList execute(TaskList tasks, Storage storage, Ui ui, String fullCommand) throws DukeException;
 
-    // check if the command is an exit command
+    // Check if the command is an exit command
     public abstract boolean isExit();
 
 

@@ -16,14 +16,18 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Initialises the Duke object and loads the tasks from the default data file.
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
-        // this.tasks = new TaskList(new ArrayList<>());
         this.tasks = new TaskList();
     }
 
-
+    /**
+     * Runs the Duke program until keyword "bye" is entered.
+     */
     public void run() {
         printIntroMessage(tasks);
         Scanner sc = new Scanner(System.in);
@@ -41,6 +45,7 @@ public class Duke {
                 Ui.printUnknownCommand();
             }
         }
+        sc.close();
     }
 
     public static void main(String[] args) {

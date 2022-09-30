@@ -14,10 +14,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// deals with loading tasks from the file and saving tasks in the file
+/**
+ * Class contains methods to deal with any operations related to the storage of the tasks into a file.
+ */
 public class Storage {
     public static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Adds a Todo task to the task list.
+     * @param tasks The task list.
+     * @param task The Event task to be added.
+     * @throws DukeException If the task is not an Event task.
+     */
     public static void addInputFileEvent(ArrayList<Task> tasks, String[] task) throws DukeException {
         Task t = new Event(task[2], task[3]);
         tasks.add(t);
@@ -26,6 +34,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     * @param tasks The task list.
+     * @param task The Deadline task to be added.
+     * @throws DukeException If the task is not a Deadline task.
+     */
     public static void addInputFileDeadline(ArrayList<Task> tasks, String[] task) throws DukeException {
         Task t = new Deadline(task[2], task[3]);
         tasks.add(t);
@@ -34,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a Todo task to the task list.
+     * @param tasks The task list.
+     * @param task The Todo task to be added.
+     * @throws DukeException If the task is not a Todo task.
+     */
     public static void addInputFileTodo(ArrayList<Task> tasks, String[] task) throws DukeException {
         Task t = new Todo(task[2]);
         tasks.add(t);
@@ -42,6 +62,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the default input file and adds them to the task list.
+     * If the file does not exist, it will create a new file.
+     * If the tasks from the input file is invalid, it will throw DukeException and will not be added to task list.
+     */
     public static void loadInputFile(ArrayList<Task> tasks) {
         try {
             File f = new File(FILE_PATH);
@@ -70,6 +95,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file if the file does not exist.
+     */
     public static void createNewFile() {
         File dir = new File("data");
         dir.mkdir();
@@ -97,23 +125,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves the tasks in the task list to the default input file.
+     * @param tasks the task list
+     */
     public static void saveNewList(TaskList tasks) {
         try {
-            // for (Task task : tasks) {
-            //     // if task is Todo type, append to file T | 0/1 | task description
-            //     String boolValue = Task.getBoolValue(task);
-            //     if (task instanceof Todo) {
-            //         appendToFile("T | " + boolValue + " | " + task.description + System.lineSeparator());
-            //     }
-            //     // if task is Deadline type, append to file D | 0/1 | task description | by: deadline
-            //     if (task instanceof Deadline) {
-            //         appendToFile("D | " + boolValue + " | " + task.description + " | " + ((Deadline) task).by + System.lineSeparator());
-            //     }
-            //     // if task is Event type, append to file E | 0/1 | task description | at: event time
-            //     if (task instanceof Event) {
-            //         appendToFile("E | " + boolValue + " | " + task.description + " | " + ((Event) task).at + System.lineSeparator());
-            //     }
-            // }
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 String boolValue = Task.getBoolValue(task);

@@ -11,17 +11,26 @@ import java.util.ArrayList;
 
 import static duke.Ui.*;
 
-// contains the task list e.g., it has operations to add/delete tasks in the list
+/**
+ * Class contains methods to deal with any operations related to the task list and contains the task list.
+ */
 public class TaskList {
 
     ArrayList<Task> tasks;
 
+    /**
+     * Initialises the TaskList object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         Storage.loadInputFile(this.tasks);
     }
 
-
+    /**
+     * Adds a Todo task to the task list from the user input.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
     public static void addTodo(TaskList tasks, String fullCommand) {
         try {
             String description;
@@ -34,6 +43,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a Deadline task to the task list from the user input.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
     public static void addDeadline(TaskList tasks, String fullCommand) {
         try {
             String[] description = Parser.parseDeadlineDescription(fullCommand);
@@ -47,9 +61,13 @@ public class TaskList {
         } catch (ArrayIndexOutOfBoundsException e) {
             showInvalidDeadlineInputExceptionMessage();
         }
-
     }
 
+    /**
+     * Adds an Event task to the task list from the user input.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
     public static void addEvent(TaskList tasks, String fullCommand) {
         try {
             String[] description = Parser.parseEventDescription(fullCommand);
@@ -65,6 +83,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Looks through the task list and prints out all the tasks that contain the keyword.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
     public static void findMatchingTasks(TaskList tasks, String fullCommand) {
         String keyword;
         try {
@@ -81,9 +104,14 @@ public class TaskList {
         }
     }
 
-    public static void deleteTask(TaskList tasks, String line) {
+    /**
+     * Delete a task that is specified by the user. The task is specified by the index of the task in the task list.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
+    public static void deleteTask(TaskList tasks, String fullCommand) {
         try {
-            int taskId = Parser.getTaskId(line);
+            int taskId = Parser.getTaskId(fullCommand);
             Task taskToBeDeleted = tasks.get(taskId);
             int taskSize = tasks.size() - 1;
             System.out.println("\t_____________________");
@@ -106,9 +134,14 @@ public class TaskList {
         }
     }
 
-    public static void markTask(TaskList tasks, String line) {
+    /**
+     * Marks a task as done. The task is specified by the index of the task in the task list.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
+    public static void markTask(TaskList tasks, String fullCommand) {
         try {
-            int taskId = Parser.getTaskId(line);
+            int taskId = Parser.getTaskId(fullCommand);
             printMark(tasks, taskId);
         } catch (NumberFormatException e) {
             showInvalidMarkTaskInputExceptionMessage();
@@ -119,9 +152,14 @@ public class TaskList {
         }
     }
 
-    public static void unmarkTask(TaskList tasks, String line) {
+    /**
+     * Unmarks a task as undone. The task is specified by the index of the task in the task list.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
+    public static void unmarkTask(TaskList tasks, String fullCommand) {
         try {
-            int taskId = Parser.getTaskId(line);
+            int taskId = Parser.getTaskId(fullCommand);
             printUnmark(tasks, taskId);
         } catch (NumberFormatException e) {
             showInvalidUnmarkTaskInputExceptionMessage();
@@ -132,6 +170,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints out the total number of tasks in the task list.
+     * @param tasks The task list.
+     * @param fullCommand The entire user input.
+     */
     public static void totalTask(TaskList tasks, String fullCommand) {
         int taskSize = tasks.size();
         printTotalNumberOfItems(tasks, taskSize);
@@ -156,6 +199,4 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
-
-
 }

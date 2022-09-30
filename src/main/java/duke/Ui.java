@@ -4,16 +4,12 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-// deals with interactions with the user
+/**
+ * Deals with interactions with the user. 
+ * It contains methods to print messages to the user.
+ */
 public class Ui {
-
-    public static String readInput() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        return input;
-    }
 
     private static final String TOP_HORIZONTAL_RULE = "\t_____________________";
     private static final String BOTTOM_HORIZONTAL_RULE = "\t_____________________\n";

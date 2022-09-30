@@ -30,6 +30,12 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Returns the boolean value of the task being done.
+     * This value will be used to write to the data file.
+     * @param task The task to be checked.
+     * @return Returns the value for the boolean value of the task.
+     */
     public static String getBoolValue(Task task) {
         String boolValue;
         if (task.isDone()) {

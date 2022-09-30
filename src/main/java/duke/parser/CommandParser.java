@@ -5,7 +5,13 @@ import duke.command.Command;
 import duke.exception.InvalidCommandException;
 
 public class CommandParser extends Parser {
-
+    /**
+     * Parses the command and returns the corresponding Command object.
+     * If the command is invalid, an InvalidCommandException is thrown.
+     * @param fullCommand The full command entered by the user.
+     * @return The corresponding Command object.
+     * @throws InvalidCommandException If the command is invalid.
+     */
     public static Command parseCommand(String fullCommand) throws InvalidCommandException {
         String keyword = Parser.getKeyword(fullCommand);
         switch (keyword) {

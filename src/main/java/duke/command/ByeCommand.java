@@ -8,11 +8,6 @@ import duke.task.TaskList;
 public class ByeCommand extends Command {
     public static final String KEYWORD = "bye";
 
-    /**
-     * Creates an exit command
-     *
-     * @param input The user input string
-     */
     public ByeCommand(String input) {
         super(input);
     }
