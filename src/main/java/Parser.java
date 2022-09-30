@@ -1,7 +1,6 @@
-import task.Deadline;
-import task.Event;
-import task.Todo;
-
+/**
+ * understand user input
+ */
 public class Parser {
     private final String EVENT = "event";
     private final String TODO = "todo";
@@ -17,6 +16,13 @@ public class Parser {
         return "";
     }
 
+    /**
+     * check whether the user wants to quit  the program
+     * If the user wants to quit, true is returned. Vice versa
+     *
+     * @param val input of user
+     * @return whether the user wants to quit
+     */
     public boolean quit(String val){
         if(val.equals("quit") || val.equals("bye")){
             return true;
@@ -25,15 +31,29 @@ public class Parser {
         return false;
     }
 
-
+    /**
+     * check whether the input is "list"
+     * If its is list, true is returned. Vice versa
+     *
+     * @param val input of user
+     * @return whether val is list
+     */
     public boolean isList(String val){
-        if (val.length() >= 4 && val.equals("list")) {
+        if (val.equals("list")) {
             return true;
         }
 
         return false;
     }
 
+    /**
+     * check whether the input is the same as the content in check
+     * If they are the same, true is returned. Vice versa
+     *
+     * @param val input of user
+     * @param check the string compared too
+     * @return whether val is check
+     */
     public boolean is(String val, String check){
         if (val.length() >= check.length() && val.substring(0,check.length()).equals(check)) {
             return true;
@@ -42,24 +62,16 @@ public class Parser {
         return false;
     }
 
-    public boolean isUnmark(String val){
-        String check = "unmark";
-        if (val.length() >= check.length() && val.substring(0,check.length()).equals(check)) {
-            return true;
-        }
 
-        return false;
-    }
-
-    public boolean isDelete(String val){
-        String check = "delete";
-        if (val.length() >= check.length() && val.substring(0,check.length()).equals(check)) {
-            return true;
-        }
-
-        return false;
-    }
-
+    /**
+     * returns what is the index mentioned in user input
+     * returns -1 when the input or index is invalid
+     *
+     * @param val input of user
+     * @param ui deals with interactions with the user
+     * @param length the number of tasks in the list
+     * @return the index of task
+     */
     public int indexIs(String val, Ui ui, int length){
         int startId = val.indexOf(" ");
         if (startId < 0) {
@@ -77,6 +89,14 @@ public class Parser {
         return -1;
     }
 
+    /**
+     * check whether is the number valid
+     * returns false when the input is invalid. Vice versa
+     *
+     * @param val input of user
+     * @param length the number of tasks in the list
+     * @return whether is the number valid
+     */
     public boolean isValidNumber(int val, int length){
         if(val < 1 || val > length){
             return false;
@@ -85,8 +105,16 @@ public class Parser {
         return true;
     }
 
+    /**
+     * check what is task mentioned in user input
+     * returns null when the input is invalid
+     *
+     * @param val input of user
+     * @param ui deals with interactions with the user
+     * @return the task type
+     */
     public String taskType(String val, Ui ui){
-        if(val.indexOf(" ") == -1){
+        if(!val.contains(" ")){
             ui.unKnownMsg();
             return null;
         }
@@ -95,21 +123,21 @@ public class Parser {
 
         if (type.length() == TODO.length() + 1 && val.substring(0,TODO.length()).equals(TODO)) {
             if (val.substring(TODO.length()).trim().isEmpty()) {
-                Ui.emptyErrorMsg(TODO);
+                ui.emptyErrorMsg(TODO);
                 return null;
             }
 
             return  TODO;
         } else if (val.length() >= DEADLINE.length() + 1 && val.substring(0,DEADLINE.length()).equals(DEADLINE)) {
             if (val.substring(DEADLINE.length()).trim().isEmpty()) {
-                Ui.emptyErrorMsg(DEADLINE);
+                ui.emptyErrorMsg(DEADLINE);
                 return  null;
             }
 
             return  DEADLINE;
         } else if (val.length() >= EVENT.length() + 1&& val.substring(0,EVENT.length()).equals(EVENT)) {
             if (val.substring(EVENT.length()).trim().isEmpty()) {
-                Ui.emptyErrorMsg(EVENT);
+                ui.emptyErrorMsg(EVENT);
                 return null;
             }
 
@@ -120,6 +148,15 @@ public class Parser {
         return null;
     }
 
+    /**
+     * find the description of the task mentioned in the input
+     * returns null when the description is invalid
+     *
+     * @param val input of user
+     * @param ui deals with interactions with the user
+     * @param taskType the type of task entered
+     * @return the description
+     */
     public String description(String val, Ui ui, String taskType){
         String des = "";
         if(taskType.equals(TODO)){
@@ -152,6 +189,15 @@ public class Parser {
         return null;
     }
 
+    /**
+     * find the time mentioned in user input
+     * returns null when the time is invalid
+     *
+     * @param val input of user
+     * @param ui deals with interactions with the user
+     * @param taskType the type of task entered
+     * @return the time mentioned in user input
+     */
     public String time(String val, Ui ui, String taskType){
         if(taskType == TODO) {
             return null;

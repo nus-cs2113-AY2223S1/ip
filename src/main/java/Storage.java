@@ -10,13 +10,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
-    private static String path;
+    private String path;
+
+    /**
+     * initialize the path
+     *
+     * @param path the path that the file is located at
+     */
     public Storage(String path){
         this.path = path;
     }
 
-    public static void saveTask(ArrayList<Task> tasks) throws IOException {
+    /**
+     * save the tasks into the file by overwriting the original content in the file
+     *
+     * @param tasks list of existing tasks
+     * @throws IOException when saving failed
+     */
+    public void saveTask(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(path);
 
         String textToAdd = "";
@@ -28,7 +44,15 @@ public class Storage {
         fw.close();
     }
 
-    public static ArrayList<Task> loadTask(String lineToRead, ArrayList<Task> tasks, Ui ui) {
+    /**
+     * read from the file and load all the tasks
+     *
+     * @param lineToRead a line in the file
+     * @param tasks list of existing tasks
+     * @param ui deals with interactions with the user
+     * @return a list of loaded tasks
+     */
+    public ArrayList<Task> loadTask(String lineToRead, ArrayList<Task> tasks, Ui ui) {
 
         int idOf2nd = lineToRead.indexOf(']', lineToRead.indexOf(']') + 1);
         int idOf3rd = lineToRead.indexOf('(');
@@ -63,19 +87,32 @@ public class Storage {
         return tasks;
     }
 
-    public static void saveLine(String line) throws IOException {
+    /**
+     * append a line to the file
+     *
+     * @param line the line to be appended
+     * @throws IOException saving failed.
+     */
+    public void saveLine(String line) throws IOException {
         FileWriter fw = new FileWriter(path, true);
         fw.write(line + "\n");
         fw.close();
     }
 
-    public static ArrayList<Task> loadFile(ArrayList<Task> tasks, Ui ui) throws FileNotFoundException {
+    /**
+     * load a file
+     *
+     * @param tasks list of existing tasks
+     * @param ui deals with interactions with the user
+     * @throws FileNotFoundException when the file cannot be found through the given path
+     */
+    public ArrayList<Task> loadFile(ArrayList<Task> tasks, Ui ui) throws FileNotFoundException {
         File f = new File(path);
         Scanner s = new Scanner(f);
         String lineToRead;
         while (s.hasNext()) {
             lineToRead = s.nextLine();
-            tasks = Storage.loadTask(lineToRead, tasks,ui);
+            tasks = loadTask(lineToRead, tasks,ui);
         }
 
         return tasks;

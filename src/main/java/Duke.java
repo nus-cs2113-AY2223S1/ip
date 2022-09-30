@@ -1,14 +1,12 @@
-import task.Deadline;
-import task.Event;
 import task.Task;
-import task.Todo;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * the manager of the system
+ */
 public class Duke {
 
     private final String FILE_PATH = "data/duke.txt";
@@ -20,24 +18,30 @@ public class Duke {
     private Parser parser;
     private TaskList taskList;
 
+    /**
+     * initialize the parameters
+     */
     public Duke(){
         ui = new Ui();
         storage = new Storage(FILE_PATH);
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
         taskList = new TaskList();
         parser = new Parser();
     }
 
+    /**
+     * the main structure of the program.
+     */
     public void run(){
-        Ui.readMsg(FILE_PATH);
+        ui.readMsg(FILE_PATH);
 
         try {
-            tasks = Storage.loadFile(tasks, ui);
+            tasks = storage.loadFile(tasks, ui);
         } catch (FileNotFoundException e) {
             ui.fileNotFoundMsg();
         }
-        Ui.finishReadMsg();
-        Ui.welcomeMsg();
+        ui.finishReadMsg();
+        ui.welcomeMsg();
 
         Scanner input = new Scanner(System.in);
         String val = input.nextLine().trim();
@@ -46,7 +50,7 @@ public class Duke {
 
         while (!parser.quit(val)) {
             while(val.isEmpty()){
-                Ui.emptyMsg();
+                ui.emptyMsg();
                 val = input.nextLine().trim();
             }
 
@@ -82,15 +86,17 @@ public class Duke {
                 taskList.addTask(val, tasks, ui, parser);
             }
             ui.separatorMsg();
-            val = input.nextLine();
+            val = input.nextLine().trim();
         }
 
-        Ui.byeMsg();
+        ui.byeMsg();
     }
 
 
 
-
+    /**
+     * program begins by calling Duke().run()
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
