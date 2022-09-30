@@ -8,11 +8,19 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Converts task to string.
+     * @return Task in string.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Converts task to string to be saved.
+     * @return String to be saved.
+     */
     @Override
     public String toSave() {
         return "D," + super.toSave() + "," + by;

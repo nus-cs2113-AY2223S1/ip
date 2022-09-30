@@ -12,6 +12,12 @@ public class FindCommand extends Command {
         super(elements);
     }
 
+    /**
+     * Executes the command.
+     * @param tasks Tasks list.
+     * @param ui UI object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showFindTaskNotification(tasks.getTasks(), elements.get(1));
