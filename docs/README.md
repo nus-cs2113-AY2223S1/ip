@@ -53,13 +53,13 @@ A task list will be displayed
 <br />
 
 
-### `find` - searches for a keyword
+### `find (term)` - searches for a keyword
 
 Searches for the specified keyword within the added tasks.
 
 Example of usage:
 
-`find (term)`
+`find term`
 
 Expected outcome:
 
@@ -73,13 +73,13 @@ A task list will be displayed with tasks that match the search term
 <br />
 
 
-### `todo` - adds a todo into task list
+### `todo (description)` - adds a todo 
 
 Adds a todo with a description into the task list
 
 Example of usage:
 
-`todo (description)`
+`todo test`
 
 Expected outcome:
 
@@ -87,18 +87,18 @@ A confirmation will be outputted with the newly added todo.
 
 ```
 Got it. I've added this task:
-  [T][ ] todo
+  [T][ ] test
 Now you have 7 tasks in the list.
 ```  
 <br />
 
-### `deadline` - adds a deadline into task list
+### `deadline (description) /by (yyyy-mm-dd)` - adds a deadline 
 
 Adds a deadline with a description and date into the task list
 
 Example of usage:
 
-`deadline (description) /by (date in form of yyyy-mm-dd)`
+`deadline test /by 2022-01-01`
 
 Expected outcome:
 
@@ -106,18 +106,17 @@ A confirmation will be outputted with the newly added deadline.
 
 ```
 Got it. I've added this task:
-  [D][ ] deadline (by: Jan 1 2022)
+  [D][ ] test (by: Jan 1 2022)
 Now you have 8 tasks in the list.
 ```
 <br />
 
-### `event` - adds an event  into task list
-
+### `event (description) /at (yyyy-mm-dd)` - adds an event 
 Adds an event with a description and date into the task list
 
 Example of usage:
 
-`event (description) /at (date in form of yyyy-mm-dd)`
+`event test /at 2022-01-01`
 
 Expected outcome:
 
@@ -130,13 +129,13 @@ Now you have 9 tasks in the list.
 ```
 <br />
 
-### `delete` - delete a task 
+### `delete (# in list)` - delete a task 
 
 Deletes a task within the task list
 
 Example of usage:
 
-`delete (task # in list)`
+`delete 1`
 
 Expected outcome:
 
@@ -149,13 +148,13 @@ Now you have 8 tasks in the list.
 ```
 <br />
 
-### `mark` - marks a task as complete 
+### `mark (# in list)` - marks a task as complete 
 
 Marks a task complete within the task list
 
 Example of usage:
 
-`mark (task # in list)`
+`mark 1`
 
 Expected outcome:
 
@@ -167,13 +166,13 @@ Nice! I've marked this task as done:
 ```
 <br />
 
-### `unmark` - marks a task as incomplete
+### `unmark (# in list)` - marks a task as incomplete
 
 Unmarks a task within the task list
 
 Example of usage:
 
-`unmark (task # in list)`
+`unmark 1`
 
 Expected outcome:
 
