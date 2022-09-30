@@ -10,6 +10,9 @@ public class Deadline extends Task {
     }
 
     @Override
+    /**
+     * Returns all the information of the task as a string
+     */
     public String toString() {
         return "[" + this.initial + "]" + super.toString() + " (by: " + this.date + ")";
     }

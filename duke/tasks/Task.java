@@ -10,6 +10,10 @@ public class Task {
         this.type = "none";
     }
 
+    /**
+     * Returns the status of the task
+     * @return X if done, space if neither
+     */
     public String getStatusIcon() {
         if (this.isDone) {
             return "X";
@@ -30,6 +34,9 @@ public class Task {
     }
 
     @Override
+    /**
+     * Returns all the information of the task as a string
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.name; 
     }
