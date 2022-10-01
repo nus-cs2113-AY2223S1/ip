@@ -78,6 +78,7 @@ Now you have <value> tasks in the list.
 ```
 
 `<value>` the number of tasks currently in the list
+
 ___
 #### `list` - Lists the tasks which are in the task list
 
