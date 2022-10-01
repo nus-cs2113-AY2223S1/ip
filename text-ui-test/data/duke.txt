@@ -1,0 +1,8 @@
+deadline do homework /by no idea :-p O
+deadline return book /by Sunday O
+event project meeting /at Mon 2-4pm O
+deadline do homework /by no idea :-p O
+todo return book O
+deadline return book /by Sunday O
+event project meeting /at Mon 2-4pm O
+deadline do homework /by no idea :-p O
