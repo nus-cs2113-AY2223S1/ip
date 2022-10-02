@@ -22,6 +22,7 @@ public class Ui {
     }
 
     public static void showExitMessage(){
+        printSplitLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printSplitLine();
     }
