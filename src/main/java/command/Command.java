@@ -5,12 +5,8 @@ import task.Event;
 import task.Task;
 import task.Todo;
 import ui.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import exception.DukeException;
-import storage.Storage;
+import java.util.ArrayList;
 
 /**
  * Defines The command class, which has the command type and command arguments
@@ -34,7 +30,11 @@ public class Command {
     }
 
     /**
-     * Execute the command with the arguments
+     * Executes the command with the arguments
+     * 
+     * @param taskList the task list
+     * @return the flag whether the program should end
+     * @throws DukeException if something wrong happens in the execution
      */
     public boolean execute(ArrayList<Task> taskList) throws DukeException {
         int index;
@@ -46,21 +46,18 @@ public class Command {
             taskList.add(todo);
             response = taskList.get(taskList.size()-1).getResponse();
             Ui.printTaskResponse(response, taskList.size());
-            updateRestorationFile(taskList);
             break;
         case DEADLINE:
             Deadline deadline = new Deadline(commandArgs);
             taskList.add(deadline);
             response = taskList.get(taskList.size()-1).getResponse();
             Ui.printTaskResponse(response, taskList.size());
-            updateRestorationFile(taskList);
             break;
         case EVENT:
             Event event = new Event(commandArgs);
             taskList.add(event);
             response = taskList.get(taskList.size()-1).getResponse();
             Ui.printTaskResponse(response, taskList.size());
-            updateRestorationFile(taskList);
             break;
         case LIST:
             Ui.showAllTasks(taskList);
@@ -70,21 +67,18 @@ public class Command {
             response = taskList.get(index-1).getResponse();
             taskList.remove(index-1);
             Ui.printDeleteResponse(response, taskList.size());
-            updateRestorationFile(taskList);
             break;
         case MARK:
             index = getValidIndex(taskList.size(),commandArgs);
-            taskList.get(index-1).setStringState(true);
+            taskList.get(index-1).setTaskState(true);
             response = taskList.get(index-1).getResponse();
             Ui.printMarkResponse(response);
-            updateRestorationFile(taskList);
             break;
         case UNMARK:
             index = getValidIndex(taskList.size(),commandArgs);
-            taskList.get(index-1).setStringState(false);
+            taskList.get(index-1).setTaskState(false);
             response = taskList.get(index-1).getResponse();
             Ui.printUnmarkResponse(response);
-            updateRestorationFile(taskList);
             break;
         case FIND:
             Ui.printTaskByKeyword(taskList,commandArgs);
@@ -94,42 +88,33 @@ public class Command {
             isProgramEnd = true;
             break;
         default:
-            throw new DukeException("TaskTypeError");
+            throw new DukeException(DukeException.TASK_TYPE_ERROR);
         }
         return isProgramEnd;
     }
 
-    private void updateRestorationFile(ArrayList<Task> taskList){
-        String[] writeLines = this.getAllTasks(taskList);
-        try {
-            Storage.writeToFile(writeLines);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String[] getAllTasks(ArrayList<Task> taskList){
-        String[] tasks = new String[taskList.size()];
-        for (int i = 0; i < taskList.size(); i++) {
-            tasks[i] = taskList.get(i).getStorageFormat();
-        }
-        return tasks;
-    }
-
+    /**
+     * Gets the valid index as the parameter of some commands
+     * 
+     * @param taskListLength the length of the task list
+     * @param input the command arg where the index is fetched 
+     * @return the valid index
+     * @throws DukeException if index is invalid
+     */
     private int getValidIndex(int taskListLength, String input) throws DukeException{
         Integer index;
         try {
             index = Integer.valueOf(commandArgs);
         } catch (NumberFormatException e) {
-            throw new DukeException("IndexParseError");
+            throw new DukeException(DukeException.INDEX_PARSE_ERROR);
         }
-        if (!isValid(taskListLength,index)) {
-            throw new DukeException("IndexOutOfBound");
+        if (!isValidIndex(taskListLength,index)) {
+            throw new DukeException(DukeException.INDEX_OUT_OF_BOUND_ERROR);
         }
         return index;
     }
 
-    private boolean isValid(int taskListLength,int index){
+    private boolean isValidIndex(int taskListLength,int index){
         if (index <= taskListLength && index > 0){
             return true;
         }

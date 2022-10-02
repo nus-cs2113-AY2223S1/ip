@@ -23,6 +23,9 @@ public class Duke {
         handleUserInput();
     }
 
+    /**
+     * repeatedly receives the user input until program end flag becomes true
+     */
     private static void handleUserInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {

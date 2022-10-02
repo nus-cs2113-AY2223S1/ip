@@ -40,7 +40,7 @@ User can exit the program
 
 ### Save and Restore the tasks
 
-All tasks will be automatically saved and restored so user do not need to input anything
+All tasks will be automatically saved and restored so user does not need to input anything
 
 ## Usage
 
@@ -54,7 +54,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the task type('T' for Task), the completion status and the description
+It should show the task type ('T' for Task), the completion status and the description
 
 ```
     ____________________________________________________________
@@ -66,7 +66,7 @@ It should shows the task type('T' for Task), the completion status and the descr
 
 ### `deadline` - Create a deadline task
 
-Create a deadline task
+Create a deadline task with a '/by' in its decription
 
 Example of usage: 
 
@@ -74,7 +74,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the task type('D' for Deadline), the completion status, the due time and the description
+It should show the task type ('D' for Deadline), the completion status, the due time and the description
 
 ```
     ____________________________________________________________
@@ -84,9 +84,21 @@ It should shows the task type('D' for Deadline), the completion status, the due 
     ____________________________________________________________
 ```
 
-### `event` - Create a deadline task
+`deadline upload the written test at 5th of Oct`
 
-Create an event task
+Expected outcome:
+
+Task won't be created because of wrong input format
+
+```
+    ____________________________________________________________
+     OOPS!!! The description of a deadline is wrong.
+    ____________________________________________________________
+```
+
+### `event` - Create an event task
+
+Create an event task with a '/at' in its decription
 
 Example of usage: 
 
@@ -94,13 +106,27 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the task type, the completion status, the event time and the description
+It should show the task type ('E' for Event), the completion status, the event time and the description
 
 ```
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] dining hall party (at: 9pm)
      Now you have 10 tasks in the list.
+    ____________________________________________________________
+```
+
+Example of usage: 
+
+`event dining hall party from 9pm to 11pm`
+
+Expected outcome:
+
+Task won't be created because of wrong input format
+
+```
+    ____________________________________________________________
+     OOPS!!! The description of a event is wrong.
     ____________________________________________________________
 ```
 
@@ -114,7 +140,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows all the tasks in the task list
+It should show all the tasks, their task types, completion status and decriptions in the task list
 
 ```
     ____________________________________________________________
@@ -137,7 +163,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the information of the deleted task
+It should show the information of the deleted task
 
 ```
     ____________________________________________________________
@@ -153,7 +179,7 @@ Example of usage:
 
 Expected outcome:
 
-Invalid index
+No task is deleted because of invalid index
 
 ```
     ____________________________________________________________
@@ -172,7 +198,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the task and the modified completion status 
+It should show the task and the modified completion status 
 
 ```
     ____________________________________________________________
@@ -191,7 +217,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the task and the modified completion status 
+It should show the task and the modified completion status 
 
 ```
     ____________________________________________________________
@@ -210,7 +236,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows all the tasks that include the keywords
+It should show all the tasks that include the keywords
 
 ```
     ____________________________________________________________
@@ -230,7 +256,7 @@ Example of usage:
 
 Expected outcome:
 
-It should shows the goodbye message
+It should show the goodbye message and then exit the program
 
 ```
     ____________________________________________________________

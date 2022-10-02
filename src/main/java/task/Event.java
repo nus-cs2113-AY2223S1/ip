@@ -3,17 +3,18 @@ package task;
 import exception.DukeException;
 
 /**
- * Defines The Event task, which has a description and a event time 
+ * Defines The Event task, which has a description and a event time
  */
 public class Event extends Task {
     protected String[] descriptions;
     protected String eventTime;
 
     /**
-    * Initializes an event task with a user input
-    * @param commandArgs user Input
-    * @throws DukeException If user input is invalid 
-    */
+     * Initializes an event task with a user input
+     * 
+     * @param commandArgs user Input
+     * @throws DukeException If user input is invalid
+     */
     public Event(String commandArgs) throws DukeException {
         super(commandArgs);
         descriptions = this.parseDescriptions(commandArgs);
@@ -22,14 +23,15 @@ public class Event extends Task {
     }
 
     /**
-    * Initializes a deadline task with direct information
-    * (usually used when restoring task from disk)
-    * @param description the description of the task
-    * @param isDone the boolean var to state whether the task is done
-    * @param eventTime the event time of the task
-    */
+     * Initializes a deadline task with direct information
+     * (usually used when restoring task from disk)
+     * 
+     * @param description the description of the task
+     * @param isDone      the boolean var to state whether the task is done
+     * @param eventTime   the event time of the task
+     */
     public Event(String description, boolean isDone, String eventTime) {
-        super(description,isDone);
+        super(description, isDone);
         this.eventTime = eventTime;
     }
 
@@ -42,6 +44,11 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Assembles the information of the task to print it on screen
+     * 
+     * @return the assembled information
+     */
     @Override
     protected String assembleResponse() {
         String response = "[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + getDescription() + "(at:"
@@ -50,19 +57,27 @@ public class Event extends Task {
     }
 
     /**
-    * Assembles the information of the task to store it on disk
-    * @return the assembled information
-    */
+     * Assembles the information of the task to store it on disk
+     * 
+     * @return the assembled information
+     */
     @Override
-    public String getStorageFormat(){
+    public String getStorageFormat() {
         String status = isDone ? "1" : "0";
-        return getTaskType()+" | "+status+" | "+description+" | "+eventTime;
+        return getTaskType() + " | " + status + " | " + description + " | " + eventTime;
     }
 
+    /**
+     * Splits the descriptions by '/at'
+     * 
+     * @param commandArgs the command arguments
+     * @return the descriptions splited by '/at'
+     * @throws DukeException If the description is invalid
+     */
     protected String[] parseDescriptions(String commandArgs) throws DukeException {
         String[] descriptions = commandArgs.split("/at");
         if (descriptions.length != 2) {
-            throw new DukeException("EventDescriptionError");
+            throw new DukeException(DukeException.EVENT_DESCRIPTION_ERROR);
         }
         return descriptions;
     }
