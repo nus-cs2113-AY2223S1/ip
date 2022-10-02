@@ -1,5 +1,8 @@
 package ui;
 
+import task.Task;
+import java.util.ArrayList;
+
 /**
  * Handles UI-related work
  */
@@ -61,6 +64,30 @@ public class Ui {
         printSplitLine();
         System.out.println(errorMessage);
         printSplitLine();
+    }
+
+    public static void showAllTasks(ArrayList<Task> taskList){
+        Ui.printSplitLine();
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println("     " + String.valueOf(i+1) + "." + taskList.get(i).getResponse());
+        }
+        Ui.printSplitLine();
+        System.out.println();
+    }
+
+    public static void printTaskByKeyword(ArrayList<Task> taskList, String keyword){
+        int taskCount = 0;
+        Ui.printSplitLine();
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                taskCount++;
+                System.out.println("     " + String.valueOf(taskCount) + "." + taskList.get(i).getResponse());
+            }
+        }
+        Ui.printSplitLine();
+        System.out.println();
     }
 
 }

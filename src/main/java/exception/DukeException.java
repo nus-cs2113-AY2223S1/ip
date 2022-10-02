@@ -29,7 +29,19 @@ public class DukeException extends Exception{
             errorMessage = "     OOPS!!! The description of a deadline is wrong.";
             break;
         case "RestorationFileCorrupted":
-            errorMessage = "     OOPS!!! File Restoration Corrupted. Restoration Process Stopped.";
+            errorMessage = "     OOPS!!! File restoration corrupted. Restoration process stopped.";
+            break;
+        case "IndexParseError":
+            errorMessage = "     OOPS!!! Index parse failed.";
+            break;
+        case "IndexOutOfBound":
+            errorMessage = "     OOPS!!! Index out of bound.";
+            break;
+        case "CreateFileError":
+            errorMessage = "     OOPS!!! Create file error.";
+            break;
+        case "RestoreFileError":
+            errorMessage = "     OOPS!!! Restore file error.";
             break;
         default:
             errorMessage = "     OOPS!!! Some unknown errors happen.";

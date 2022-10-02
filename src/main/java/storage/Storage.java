@@ -16,25 +16,25 @@ public class Storage {
     static java.nio.file.Path filePath = java.nio.file.Paths.get("src","main", "data","duke.txt");
     TaskManager taskManager;
 
-    public void restoreFromDisk(TaskManager taskManager) {
+    public void restoreFromDisk(TaskManager taskManager) throws DukeException {
         this.taskManager = taskManager;
         boolean directoryExists = java.nio.file.Files.exists(path);
         boolean fileExists = java.nio.file.Files.exists(filePath);
         File file = new File(filePath.toString());
         if (!directoryExists) {
-            boolean isDirectoryCreated = file.getParentFile().mkdirs();
+            file.getParentFile().mkdirs();
         }
         if (!fileExists) {
             try {
-                boolean isFileCreated = file.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DukeException("CreatFileError");
             }
         } else {
             try {
                 readFileAndRestore(file);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                throw new DukeException("RestoreFileError");
             }
         }
     }

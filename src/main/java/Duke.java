@@ -14,7 +14,12 @@ public class Duke {
 
     public static void main(String[] args) {
         Ui.showWelcomeMessage();
-        record.restoreFromDisk(taskManager);
+        try {
+            record.restoreFromDisk(taskManager);
+        } catch (DukeException e) {
+            e.handleError();
+            System.exit(0);
+        }
         handleUserInput();
     }
 
