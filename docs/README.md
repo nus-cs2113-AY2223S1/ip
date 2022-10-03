@@ -30,6 +30,8 @@ Duke is optimised for users proficient in Command Line Interface (CLI).
 3. Copy the file to the folder you want to use as the *home folder* for the application.
 4. Open the command line in that folder and run the command `java -jar [filename].jar`.
 5. When you first run the application, a greeting will be displayed.
+
+
 ```
      _________________________________________
    /  _____________________________________   \ 
@@ -50,6 +52,7 @@ _-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_
 Hello! I'm Duke
 What can I do for you?
 ```
+
 6. Type the command and press Enter to execute it.
 7. Refer to the Features below for details of each command.
 
