@@ -177,13 +177,14 @@ public class Duke {
     }
 
     public static void processInput(){   
+        String inData = "";
         Scanner scan = new Scanner ( System.in ); 
-        String inData = scan.nextLine(); // user line of input
+        inData = scan.nextLine(); // user line of input
         String[] inLine = inData.split(" "); // code process line of input into an array
         
         boolean isFirstLine = false; 
 
-        while (!inData.equals("bye")){
+        while (!inLine[0].equals("bye")){
             if (isFirstLine) { // kick start the loop if first time
                 inData = scan.nextLine();
                 inLine = inData.split(" ");
