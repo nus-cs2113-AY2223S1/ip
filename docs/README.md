@@ -202,14 +202,12 @@ Format: `find <keyword>`
 
 - The search is case-insensitive. e.g `book` will match `Book`
 - The order of the keywords does not matter. e.g. `Book meeting` will match `meeting Book`
-- Only the name is searched.
-- Only full words will be matched e.g. `Book` will not match `Books`
-- Tasks matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Book meeting` will return `project meeting` and `return book`
+- Any number of keyword can be matched. e.g. `Book meeting` will return `project meeting` and `return book` 
+- Partial words will be matched as well. e.g. `Bo` will return `Book` and `return book`
 
 Example of usage:
 
-`find book`
+`find boo meeting`
 
 Expected outcome:
 
@@ -217,6 +215,7 @@ Expected outcome:
 Here are the matching tasks in your list:
 1. [T][ ] read book
 2. [D][ ] return book (by: Sep 15 2020)
+3. [E][ ] project meeting (at: NUS)
 ```
 
 ### Getting total number of task
