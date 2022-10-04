@@ -1,6 +1,7 @@
 package Duke.data;
 
-import Duke.data.exception.DukeException;
+import Duke.data.exception.EmptyListException;
+import Duke.data.exception.NoInputException;
 import Duke.data.tasks.Deadline;
 import Duke.data.tasks.Event;
 import java.io.*;
@@ -117,7 +118,7 @@ public class Memory {
         case TODO:
             try {
                 myTaskManager.addTask(new Todo(splitInputs[2]));
-            } catch(DukeException e) {
+            } catch(NoInputException e) {
                 System.out.println(ExceptionMessage.TODO_INPUT_ERROR);
             }
             break;

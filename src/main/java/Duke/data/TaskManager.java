@@ -1,7 +1,7 @@
 package Duke.data;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import Duke.data.exception.DukeException;
+import Duke.data.exception.EmptyListException;
 import Duke.data.tasks.Task;
 
 /**
@@ -21,11 +21,11 @@ public class TaskManager {
     /**
      * This method deletes a task specified by user
      * @param taskNumber index of task to be deleted
-     * @throws DukeException when there is no task
+     * @throws EmptyListException when there is no task
      */
-    public void deleteTask(int taskNumber) throws DukeException {
+    public void deleteTask(int taskNumber) throws EmptyListException {
         if(tasks.size() == 0) {
-            throw new DukeException();
+            throw new EmptyListException();
         }
         printTask(taskNumber);
         System.out.println("-- Deleted --");
@@ -50,12 +50,12 @@ public class TaskManager {
 
     /**
      * This method prints all task in list
-     * @throws DukeException when there is no task
+     * @throws EmptyListException when there is no task
      */
-    public void printList() throws DukeException {
+    public void printList() throws EmptyListException {
         int index = 1;
         if(tasks.size() == 0) {
-            throw new DukeException();
+            throw new EmptyListException();
         }
         System.out.println("Here are the tasks in your list:");
         for (Task element : tasks) {

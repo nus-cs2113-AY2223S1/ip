@@ -2,8 +2,9 @@ package Duke.commands;
 
 import Duke.data.Memory;
 import Duke.data.TaskManager;
-import Duke.data.exception.DukeException;
+import Duke.data.exception.EmptyListException;
 import Duke.data.exception.ExceptionMessage;
+import Duke.data.exception.NoInputException;
 import Duke.data.tasks.Deadline;
 import Duke.data.tasks.Event;
 import Duke.data.tasks.Todo;
@@ -45,7 +46,7 @@ public class Command {
         case COMMAND_LIST:
             try {
                 myTaskManager.printList();
-            } catch(DukeException e) {
+            } catch(EmptyListException e) {
                 System.out.println(ExceptionMessage.EMPTY_HANDLER);
             }
             break;
@@ -102,7 +103,7 @@ public class Command {
                 myTaskManager.printTask(myTaskManager.getSize() - 1);
                 myTaskManager.printSize();
                 myStorage.saveToFile(myTaskManager);
-            } catch(DukeException e) {
+            } catch(NoInputException e) {
                 System.out.println(ExceptionMessage.TODO_INPUT_ERROR);
             }
             break;
@@ -113,7 +114,7 @@ public class Command {
                 myStorage.saveToFile(myTaskManager);
             } catch(IndexOutOfBoundsException e) {
                 System.out.println(ExceptionMessage.INPUT_INDEX_OUT_OF_BOUNDS + userInput);
-            } catch(DukeException e) {
+            } catch(EmptyListException e) {
                 System.out.println(ExceptionMessage.EMPTY_HANDLER);
             } catch(NumberFormatException e) {
                 System.out.println(ExceptionMessage.EMPTY_DELETE_INDEX);
