@@ -7,7 +7,7 @@ Duke is a chat-bot that allows users to:
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-  * [List all tasks](#list-all-tasks-list)
+  * [List all tasks](#list-list-all-tasks)
   * [Add a deadline task](#add-a-deadline-task-deadline)
   * [Add an event task](#add-an-event-task-event)
   * [Add a todo task](#add-a-todo-task-todo)
@@ -60,7 +60,7 @@ If you have a load file, please check that the file is in the correct directory.
 
 
 --------------------------------------
-#Features:
+# Features
 
 ## `list` - List all tasks 
 Shows a list of all the user's tasks.
