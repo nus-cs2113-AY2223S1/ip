@@ -256,6 +256,7 @@ A: Transfer the text file named "Tasks.txt", located in the same directory as yo
 
 Description | Syntax | Examples
 ------------|--------|--------
+List all current task | `list` | `list` |
 Add a deadline task | `deadline {task description} /by {YYYY-MM-DD} OR {deadline description}` | `deadline submit cs2113T assignment /by 2022-10-01` `deadline submit cs2102 assignment /by two days later` 
 Add an event task | `event {task description} /at {YYYY-MM-DD} OR {deadline description}` | `event run marathon /at 2022-11-03` `event national day /at 1 month ago` 
 Add a todo task | `todo {task description}` | `todo buy new laptop`
