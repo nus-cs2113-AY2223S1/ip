@@ -248,7 +248,7 @@ e.g. "deadline" and "DeadLiNE" both works
 
 Q: How do I transfer my list of tasks and all associated data to another computer?
 
-A: Transfer the text file named "Tasks.txt", located in the same directory as your iP.jar file, over to your other computer. Place it in the same directory as the CS2113T_IP.jar file on your other computer. Your tasks will then be loaded from this text file when you run CS2113T_IP.jar on your new computer.
+A: Transfer the text file named "Tasks.txt", located in the same directory as your CS2113_IP.jar file, over to your other computer. Place it in the same directory as the CS2113T_IP.jar file on your other computer. Your tasks will then be loaded from this text file when you run CS2113T_IP.jar on your new computer.
 
 --------------------------------------
 
