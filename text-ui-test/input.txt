@@ -1,0 +1,16 @@
+hello
+todo play othello
+todo play chess
+todo play richi majan
+event ifg /at next sunday
+deadline finalise fixture /by this wek
+deadline work on op slides /by this week also
+todo rehearse for op
+event op1 /at this monday
+list
+mark 1
+mark 2
+mark 3
+mark 5
+unMaRK 5
+list
