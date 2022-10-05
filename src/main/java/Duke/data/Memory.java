@@ -15,7 +15,7 @@ import Duke.data.tasks.Todo;
  * Class to handle to storing and loading of data
  */
 public class Memory {
-    private final String filePath;
+    private final String FILE_PATH;
     private static final int MARK_STATUS_INDEX = 1;
     private static final String EVENT = "E";
     private static final String DEADLINE = "D";
@@ -26,7 +26,7 @@ public class Memory {
      * @param filePath path to file that program will load data from and save data to
      */
     public Memory(String filePath) {
-        this.filePath = filePath;
+        this.FILE_PATH = filePath;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Memory {
      */
     public void loadFromFile(TaskManager myTaskManager) {
         try {
-            String newFilePath = new File(filePath).getAbsolutePath();
+            String newFilePath = new File(FILE_PATH).getAbsolutePath();
             File f = new File(newFilePath);
             Scanner s = new Scanner(f);
             String textFromFile;
@@ -55,7 +55,7 @@ public class Memory {
     public void saveToFile(TaskManager myTaskManager) {
         try {
             ArrayList<String> compiledData = taskToStringArray(myTaskManager);
-            writeToFile(filePath, compiledData);
+            writeToFile(FILE_PATH, compiledData);
         } catch (IOException e) {
             System.out.println(ExceptionMessage.FILE_ERROR);
         }
