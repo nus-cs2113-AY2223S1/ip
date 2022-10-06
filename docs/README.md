@@ -26,7 +26,7 @@ using a Command Line Interface (CLI).
 1. Ensure `Java 11` is installed in your computer.
    * Find the platform you are running on your computer and click on the corresponding 
      download link [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
-2. Download the latest `duke.jar` [here](https://github.com//ip/releases/tag/A-Release).
+2. Download the latest `duke.jar` [here](https://github.com/ht-t/ip/releases/tag/A-Release).
 3. Save it into an empty folder. This will be your *home folder* for duke.
 4. For Windows user, type `cmd` into the location bar at the top of the window of your *home folder* and tap enter. 
 For Linux users, `cd` into your *home folder* on your terminal.
