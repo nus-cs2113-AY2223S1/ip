@@ -1,0 +1,10 @@
+todo borrow book
+list
+goodbye
+event gathering /at Friday 5-7pm
+deadline cs1231 tutorial /by Wednesday
+list
+mark 2
+bye
+
+
