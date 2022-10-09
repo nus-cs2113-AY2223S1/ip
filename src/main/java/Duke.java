@@ -12,8 +12,8 @@ public class Duke {
     private TaskList list;
     private Ui ui;
     private Parser parser;
-    private String filepath = "../data/stored.txt";
-    private String folderpath = "../data/";
+    private String filepath = "./data/stored.txt";
+    private String folderpath = "./data/";
 
     // CONSTRUCTOR
     public Duke() {
