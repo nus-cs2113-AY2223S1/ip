@@ -1,7 +1,129 @@
-Hello from
- ____        _        
+____________________________________________________________
+ ____        _
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
+Hello! I'm Duke
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a task:
+	[ ][ ] task1
+
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a todo:
+	[T][ ] task2
+
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a todo:
+	[T][ ] task3 and something else
+
+ Now you have 3 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+1. 	[ ][ ] task1
+2. 	[T][ ] task2
+3. 	[T][ ] task3 and something else
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a deadline:
+	[D][ ] task4 (by: tomorrow)
+
+ Now you have 4 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a deadline:
+	[D][ ] task5 and something other than the above (by: next week)
+
+ Now you have 5 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+1. 	[ ][ ] task1
+2. 	[T][ ] task2
+3. 	[T][ ] task3 and something else
+4. 	[D][ ] task4 (by: tomorrow)
+5. 	[D][ ] task5 and something other than the above (by: next week)
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+Nice! I've marked this task as done:
+	[ ][X] task1
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+Nice! I've marked this task as done:
+	[D][X] task4 (by: tomorrow)
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+1. 	[ ][X] task1
+2. 	[T][ ] task2
+3. 	[T][ ] task3 and something else
+4. 	[D][X] task4 (by: tomorrow)
+5. 	[D][ ] task5 and something other than the above (by: next week)
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+OK, I've marked this task as not done yet:
+	[ ][ ] task1
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+I got you, added a event:
+	[E][ ] task6 (at: 2-4pm)
+
+ Now you have 6 tasks in the list.
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+Nice! I've marked this task as done:
+	[E][X] task6 (at: 2-4pm)
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+1. 	[ ][ ] task1
+2. 	[T][ ] task2
+3. 	[T][ ] task3 and something else
+4. 	[D][X] task4 (by: tomorrow)
+5. 	[D][ ] task5 and something other than the above (by: next week)
+6. 	[E][X] task6 (at: 2-4pm)
+
+____________________________________________________________
+
+What can I do for you?
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
 
