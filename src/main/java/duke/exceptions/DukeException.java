@@ -5,9 +5,9 @@ package duke.exceptions;
  * not part of any acceptable command
  */
 public class DukeException extends Exception {
-    protected final String error_message = "Nothing makes any sense";
+    protected final String ERROR_MESSAGE = "Nothing makes any sense";
 
     public String getMessage() {
-        return error_message;
+        return ERROR_MESSAGE;
     }
 }

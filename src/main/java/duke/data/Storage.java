@@ -77,34 +77,15 @@ public class Storage {
                 String line = "";
                 while ((line = reader.readLine()) != null) {
                     String taskType = Parser.parseSaveTaskType(line);
-                    Boolean isDone = Parser.parseSaveTaskStatus(line);
                     switch (taskType) {
                     case "T":
-                        String taskDescription = Parser.parseSaveTodo(line);
-                        Todo todo = new Todo(taskDescription);
-                        if (isDone) {
-                            todo.setDone();
-                        }
-                        TaskManager.addFromStorage(todo);
-
+                        loadTodo(line);
                         break;
                     case "D":
-                        String deadlineDescription = Parser.parseSaveDeadline(line);
-                        String dateDeadline = Parser.parseDeadlineDate(line);
-                        Deadline deadline = new Deadline(deadlineDescription, dateDeadline);
-                        if (isDone) {
-                            deadline.setDone();
-                        }
-                        TaskManager.addFromStorage(deadline);
+                        loadDeadline(line);
                         break;
                     case "E":
-                        String eventDescription = Parser.parseSaveEvent(line);
-                        String dateEvent = Parser.parseEventDate(line);
-                        Event event = new Event(eventDescription, dateEvent);
-                        if (isDone) {
-                            event.setDone();
-                        }
-                        TaskManager.addFromStorage(event);
+                        loadEvent(line);
                         break;
                     default:
                         System.out.println("Alien encounter! Get a flamethrower or Ellen Ripley!");
@@ -119,5 +100,50 @@ public class Storage {
         }
     }
 
+    /**
+     * Write the todo stored in the duke.txt file in folder data into the current list of tasks in the program
+     *
+     * @param line The line in the save file that contains the pertinent information of the todo
+     */
+    private static void loadTodo(String line) {
+        Boolean isDone = Parser.parseSaveTaskStatus(line);
+        String taskDescription = Parser.parseSaveTodo(line);
+        Todo todo = new Todo(taskDescription);
+        if (isDone) {
+            todo.setDone();
+        }
+        TaskManager.addFromStorage(todo);
+    }
 
+    /**
+     * Write the deadline stored in the duke.txt file in folder data into the current list of tasks in the program
+     *
+     * @param line The line in the save file that contains the pertinent information of the deadline
+     */
+    private static void loadDeadline(String line) {
+        Boolean isDone = Parser.parseSaveTaskStatus(line);
+        String deadlineDescription = Parser.parseSaveDeadline(line);
+        String dateDeadline = Parser.parseDeadlineDate(line);
+        Deadline deadline = new Deadline(deadlineDescription, dateDeadline);
+        if (isDone) {
+            deadline.setDone();
+        }
+        TaskManager.addFromStorage(deadline);
+    }
+
+    /**
+     * Write the event stored in the duke.txt file in folder data into the current list of tasks in the program
+     *
+     * @param line The line in the save file that contains the pertinent information of the event
+     */
+    private static void loadEvent(String line) {
+        Boolean isDone = Parser.parseSaveTaskStatus(line);
+        String eventDescription = Parser.parseSaveEvent(line);
+        String dateEvent = Parser.parseEventDate(line);
+        Event event = new Event(eventDescription, dateEvent);
+        if (isDone) {
+            event.setDone();
+        }
+        TaskManager.addFromStorage(event);
+    }
 }
