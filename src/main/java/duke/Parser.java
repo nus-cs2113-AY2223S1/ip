@@ -156,7 +156,7 @@ public class Parser {
      * @return the search text
      */
     public static String parseFind(String line) {
-        String[] result = line.split(" ");
+        String[] result = line.split(" ",2);
         return result[1];
     }
 
