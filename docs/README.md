@@ -82,26 +82,7 @@ Prompt added message, abbreviate todo as 'O'.
 Now we have 3 tasks in the list.
 ==================================================
 ```
-### `task` - Add a task
 
-Add task with description.
-
-Example of usage:
-
-`Look for a teammate`
-> if user doesn't specify cmd, 
-> then the whole input is considered as the description of a task,
-> and the task would be added into the taskList.
-
-Expected outcome:
-
-Prompt added message, abbreviate task as 'T'.
-
-```
->>>Added: [T][ ]Look for a teammate
-Now we have 4 tasks in the list.
-==================================================
-```
 ### `list` - Show the list of tasks
 Show tasks currently in the list, and their details.
 
@@ -224,6 +205,7 @@ Load tasks from given file after starting the system.
 Dump tasks from the taskList before exiting the system.
 > The storage operations are executed automatically,
 > which means user does not need to enter any command for it.
+> To let it happen, user must exit in an expected way, that is, using 'bye' cmd.
 
 The file used for storage is formatted as:
 
