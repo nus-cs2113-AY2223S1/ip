@@ -115,39 +115,18 @@ public class Storage {
                 switch (items[0]) {
                 case "D":
                 {
-                    String description = extractDescriptionAndTime(items[column_count-1])[0];
-                    String by = extractDescriptionAndTime(items[column_count-1])[1];
-                    task = new Deadline(description, by);
-                    if (items[1].equals("M")) {
-                        task.setMarked(true);
-                    }
-                    tasks.add(task);
+                    loadDeadline(tasks, items);
                     break;
                 }
                 case "E":
                 {
-                    String description = extractDescriptionAndTime(items[column_count-1])[0];
-                    String duration = extractDescriptionAndTime(items[column_count-1])[1];
-                    task = new Event(description, duration);
-                    if (items[1].equals("M")) {
-                        task.setMarked(true);
-                    }
-                    tasks.add(task);
+                    loadEvent(tasks, items);
                     break;
                 }
                 case "O":
-                    task = new Todo(items[2]);
-                    if (items[1].equals("M")) {
-                        task.setMarked(true);
-                    }
-                    tasks.add(task);
+                    loadTodo(tasks, items);
                     break;
-                case "T":
-                    task = new Task(items[2]);
-                    if (items[1].equals("M")) {
-                        task.setMarked(true);
-                    }
-                    tasks.add(task);
+                default:
                     break;
                 }
             }
@@ -158,6 +137,38 @@ public class Storage {
 
         return taskList;
     }
+
+    private static void loadTodo(ArrayList<Task> tasks, String[] items) {
+        Task task;
+        task = new Todo(items[2]);
+        if (items[1].equals("M")) {
+            task.setMarked(true);
+        }
+        tasks.add(task);
+    }
+
+    private static void loadEvent(ArrayList<Task> tasks, String[] items) {
+        Task task;
+        String description = extractDescriptionAndTime(items[column_count-1])[0];
+        String duration = extractDescriptionAndTime(items[column_count-1])[1];
+        task = new Event(description, duration);
+        if (items[1].equals("M")) {
+            task.setMarked(true);
+        }
+        tasks.add(task);
+    }
+
+    private static void loadDeadline(ArrayList<Task> tasks, String[] items) {
+        Task task;
+        String description = extractDescriptionAndTime(items[column_count-1])[0];
+        String by = extractDescriptionAndTime(items[column_count-1])[1];
+        task = new Deadline(description, by);
+        if (items[1].equals("M")) {
+            task.setMarked(true);
+        }
+        tasks.add(task);
+    }
+
 
     private static String[] extractDescriptionAndTime(String words) {
         String description = "";

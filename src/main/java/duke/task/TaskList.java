@@ -119,6 +119,7 @@ public class TaskList {
         if (!str.contains(DEADLINE_FLAG)) {
             throw new AbsentArgsFlagException();
         }
+
         String description = str.split("/")[0].trim();
         String by = str.split("/")[1].trim();
         if (DEADLINE_FLAG.equals("/" + by)) {

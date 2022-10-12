@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.exception.IllegalArgsTypeException;
 import duke.task.TaskList;
 
 import java.util.Scanner;
@@ -54,7 +55,7 @@ public class Parser {
                 TaskList.findTask(arg2);
                 break;
             default:
-                TaskList.addTask(input);
+                throw new IllegalArgsTypeException();
             }
             Ui.showSeparator();
             input = sc.nextLine();
