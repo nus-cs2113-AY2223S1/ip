@@ -1,22 +1,22 @@
 /**
  * Creates an event of type task
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String date;
     public Event(String description) {
         super(description);
         setDate(description);
     }
 
-    public String getCommandIcon(){return "[E]";}
+    public String getCommandIcon() { return "[E]"; }
 
     /**
      * Sets the date of the event
      *
      * @param description
      */
-    public void setDate(String description){
-        int dateIndex = description.indexOf("/") + 3;
+    public void setDate(String description) {
+        int dateIndex = description.indexOf("/at") + 3;
         this.date = description.substring(dateIndex);
 
     }
@@ -24,10 +24,10 @@ public class Event extends Task{
      * Gets the date of the event
      *
      */
-    public String getDate(){return date;}
+    public String getDate() { return date; }
 
-    private String getDescriptionNoDate(){
-        int dateIndex = description.indexOf("/");
+    private String getDescriptionNoDate() {
+        int dateIndex = description.indexOf("/at");
         return (description.substring(0, dateIndex - 1));
     }
     @Override

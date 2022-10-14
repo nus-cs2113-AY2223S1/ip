@@ -1,3 +1,6 @@
+/**
+ * Task of type Todo and helps all the workings specific to task
+ */
 public class Todo extends Task{
     public Todo(String description) throws DukeExceptions {
         super(description);
@@ -5,7 +8,12 @@ public class Todo extends Task{
             throw new DukeExceptions();
         }
     }
-    public String getCommandIcon(){return "[T]";}
+
+    /**
+     * Gets the type of task it is
+     * @return String of T
+     */
+    public String getCommandIcon() { return "[T]"; }
     @Override
     public String toString() {
         return getCommandIcon() + getStatusIcon() + getDescription();
