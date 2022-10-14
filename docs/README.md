@@ -24,11 +24,11 @@ You can mark tasks as done and also mark them as undone
 
 You can see the list of all your tasks
 
-Example of usage: 
+***Example of usage: ***
 
 > list
 
-Expected outcome:
+***Expected outcome:***
 
 See the list of tasks
 
@@ -42,7 +42,7 @@ Here are the tasks in your list:
 
 Exit the programme
 
-Example of usage: 
+***Example of usage: ***
 
 > bye
 
@@ -59,11 +59,11 @@ Bye. Hope to see you soon!
 
 mark task as done
 
-Example of usage: 
+***xample of usage: ***
 
 > mark 1
 
-Expected outcome:
+***Expected outcome:***
 
 Task is now marked as done and can be seen so in list
 
@@ -77,11 +77,11 @@ Nice! I've marked this task as done:
 
 unmark task as not done
 
-Example of usage: 
+***Example of usage: ***
 
 > unmark 1
 
-Expected outcome:
+***Expected outcome:***
 
 Task is now marked as not done and can be seen so in list
 
@@ -95,11 +95,11 @@ OK, I've marked this task as not done yet:
 
 create new todo task to do
 
-Example of usage: 
+***Example of usage: ***
 
 > todo read book 
 
-Expected outcome:
+***Expected outcome:***
 
 New todo is added to list
 
@@ -113,11 +113,11 @@ Now you have 1 task in the list.
 
 create new deadline task to do
 
-Example of usage: 
+***Example of usage: ***
 
 > deadline return book /by Sunday
 
-Expected outcome:
+***Expected outcome:***
 
 New deadline is added to list
 
@@ -132,11 +132,11 @@ Now you have 2 tasks in the list.
 
 create new event 
 
-Example of usage: 
+***Example of usage: ***
 
 > event project meeting /at Mon 2-4pm
 
-Expected outcome:
+***Expected outcome:***
 
 New event is added to list
 
@@ -151,11 +151,11 @@ Now you have 3 tasks in the list.
 
 delete task from list
 
-Example of usage: 
+***Example of usage: ***
 
 > delete 2
 
-Expected outcome:
+***Expected outcome:***
 
 Corresponding task is deleted from list
 
@@ -171,11 +171,11 @@ Now you have 2 tasks in the list.
 
 find task from list based on description
 
-Example of usage: 
+***Example of usage: ***
 
 ```find book```
 
-Expected outcome:
+***Expected outcome:***
 
 Tasks with matching descriptions are returned
 
