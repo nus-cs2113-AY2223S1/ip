@@ -26,7 +26,7 @@ You can see the list of all your tasks
 
 Example of usage: 
 
-```list```
+> list
 
 Expected outcome:
 
@@ -44,7 +44,7 @@ Exit the programme
 
 Example of usage: 
 
-```bye```
+> bye
 
 Expected outcome:
 
@@ -61,7 +61,7 @@ mark task as done
 
 Example of usage: 
 
-```mark 1```
+> mark 1
 
 Expected outcome:
 
@@ -79,7 +79,7 @@ unmark task as not done
 
 Example of usage: 
 
-```unmark 1```
+> unmark 1
 
 Expected outcome:
 
@@ -97,7 +97,7 @@ create new todo task to do
 
 Example of usage: 
 
-```todo read book```
+> todo read book 
 
 Expected outcome:
 
@@ -115,7 +115,7 @@ create new deadline task to do
 
 Example of usage: 
 
-```deadline return book /by Sunday```
+> deadline return book /by Sunday
 
 Expected outcome:
 
@@ -134,7 +134,7 @@ create new event
 
 Example of usage: 
 
-```event project meeting /at Mon 2-4pm```
+> event project meeting /at Mon 2-4pm
 
 Expected outcome:
 
@@ -153,7 +153,7 @@ delete task from list
 
 Example of usage: 
 
-```delete 2```
+> delete 2
 
 Expected outcome:
 
