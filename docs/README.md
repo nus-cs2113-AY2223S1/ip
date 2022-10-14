@@ -24,7 +24,7 @@ You can mark tasks as done and also mark them as undone
 
 You can see the list of all your tasks
 
-***Example of usage: ***
+***Example of usage:***
 
 > list
 
@@ -42,7 +42,7 @@ Here are the tasks in your list:
 
 Exit the programme
 
-***Example of usage: ***
+***Example of usage:***
 
 > bye
 
@@ -59,7 +59,7 @@ Bye. Hope to see you soon!
 
 mark task as done
 
-***xample of usage: ***
+***Example of usage:***
 
 > mark 1
 
@@ -77,7 +77,7 @@ Nice! I've marked this task as done:
 
 unmark task as not done
 
-***Example of usage: ***
+***Example of usage:***
 
 > unmark 1
 
@@ -95,7 +95,7 @@ OK, I've marked this task as not done yet:
 
 create new todo task to do
 
-***Example of usage: ***
+***Example of usage:***
 
 > todo read book 
 
@@ -113,7 +113,7 @@ Now you have 1 task in the list.
 
 create new deadline task to do
 
-***Example of usage: ***
+***Example of usage:***
 
 > deadline return book /by Sunday
 
@@ -132,7 +132,7 @@ Now you have 2 tasks in the list.
 
 create new event 
 
-***Example of usage: ***
+***Example of usage:***
 
 > event project meeting /at Mon 2-4pm
 
@@ -151,7 +151,7 @@ Now you have 3 tasks in the list.
 
 delete task from list
 
-***Example of usage: ***
+***Example of usage:***
 
 > delete 2
 
@@ -171,7 +171,7 @@ Now you have 2 tasks in the list.
 
 find task from list based on description
 
-***Example of usage: ***
+***Example of usage:***
 
 ```find book```
 
