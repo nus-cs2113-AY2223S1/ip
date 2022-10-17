@@ -1,9 +1,10 @@
 package duke.parser;
 
 import duke.DukeException;
-import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+
+import java.util.Arrays;
 
 
 /**
@@ -23,6 +24,20 @@ public class Parser {
     public static final String MARK_DONE = "mark";
     public static final String FIND = "find";
 
+    public static final String INVALID_TODO_COMMAND = "Invalid todo command... Please try again";
+    public static final String INVALID_DEADLINE_COMMAND = "Invalid deadline command... Please try again";
+    public static final String INVALID_EVENT_COMMAND = "Invalid event command... Please try again";
+    public static final String INVALID_FIND_COMMAND = "Invalid find command... Please try again";
+    public static final String INVALID_MARK_COMMAND = "Invalid mark command... Please try again";
+    public static final String INVALID_UNMARK_COMMAND = "Invalid unmark command... Please try again";
+    public static final String INVALID_DELETE_COMMAND = "Invalid delete command... Please try again";
+    public static final String INVALID_DESCRIPTION_IN_COMMAND = "Please provide valid description for the task!";
+    public static final String INVALID_INDEX_INPUT = "Index needs to be an integer and please remove trailing spaces!";
+    public static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds!";
+    public static final String TWO_OR_MORE_CONSECUTIVE_WHITE_SPACES = "Invalid description name! There are " +
+            "two or more consecutive white spaces";
+    final String[] invalidDescriptions = { "", " ", "[]\\[;]" };
+
     public static Ui ui = new Ui ();
 
     public static TaskList tasks = new TaskList();
@@ -35,8 +50,9 @@ public class Parser {
      * @param input user input containing the command keyword.
      *
      */
-    public void parse (String input){
-        String command = input.split (" ", 2) [0];
+    public void parse(String input) throws DukeException {
+        String command = input.split(" ")[0];
+        String arguments = input.substring(command.length()).trim();
         switch (command) {
         case LIST:
             tasks.listTasks(TaskList.taskList);
@@ -66,7 +82,7 @@ public class Parser {
             ui.printBye();
             break;
         default:
-            ui.printOutputs("Oops... cannot recognize the input command !");
+            ui.printOutputs("Oops... cannot recognize the input command!");
         }
 
     }
@@ -82,16 +98,16 @@ public class Parser {
      *
      */
 
-    public void prepMarkDone (String input){
+    public void prepMarkDone(String input) throws DukeException {
         try {
-            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_DONE) + MARK_DONE.length() +1));
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_DONE) + MARK_DONE.length() + 1));
             tasks.markDone(TaskList.taskList, taskNumber);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println ("Invalid mark done command!");
+            throw new DukeException(INVALID_MARK_COMMAND);
         } catch (IndexOutOfBoundsException e){
-            System.out.println ("Index out of bounds!");
+            throw new DukeException(INDEX_OUT_OF_BOUNDS);
         } catch (NumberFormatException e){
-            System.out.println ("Invalid mark done command!");
+            throw new DukeException(INVALID_INDEX_INPUT);
         }
     }
 
@@ -107,16 +123,16 @@ public class Parser {
      */
 
 
-    public void prepMarkUnDone (String input){
+    public void prepMarkUnDone(String input) throws DukeException {
         try {
-            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_UNDONE) + MARK_UNDONE.length() +1));
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(MARK_UNDONE) + MARK_UNDONE.length() + 1));
             tasks.markUnDone(TaskList.taskList, taskNumber);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println ("Invalid mark undone command!");
+            throw new DukeException(INVALID_UNMARK_COMMAND);
         } catch (IndexOutOfBoundsException e){
-            System.out.println ("Index out of bounds!");
+            System.out.println (INDEX_OUT_OF_BOUNDS);
         } catch (NumberFormatException e){
-            System.out.println ("Invalid mark undone command!");
+            throw new DukeException(INVALID_INDEX_INPUT);
         }
     }
 
@@ -132,16 +148,21 @@ public class Parser {
      *
      */
 
-    public void prepToDo(String input){
+    public void prepToDo(String input) throws DukeException {
         try {
-            String task = input.substring(TODO.length() + 1);
-            tasks.addTodo(TaskList.taskList, task);
+            String description = input.substring(TODO.length() + 1);
+            if (description.contains("  ")){
+                throw new DukeException(TWO_OR_MORE_CONSECUTIVE_WHITE_SPACES);
+            }
+            if (Arrays.asList(invalidDescriptions).contains(description)) {
+                throw new DukeException(INVALID_DESCRIPTION_IN_COMMAND);
+            }
+            tasks.addTodo(TaskList.taskList, description);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println ("Invalid todo input!");
+            throw new DukeException(INVALID_TODO_COMMAND);
         }
 
     }
-
 
 
     /**
@@ -155,13 +176,19 @@ public class Parser {
      *
      */
 
-    public void prepDeadline (String input){
+    public void prepDeadline(String input) throws DukeException {
         try{
-            String task = input.substring(DEADLINE.length(), input.indexOf(BY));
+            String description = input.substring(DEADLINE.length(), input.indexOf(BY));
+            if (description.contains("  ")){
+                throw new DukeException(TWO_OR_MORE_CONSECUTIVE_WHITE_SPACES);
+            }
+            if (Arrays.asList(invalidDescriptions).contains(description)) {
+                throw new DukeException(INVALID_DESCRIPTION_IN_COMMAND);
+            }
             String deadline = input.substring(input.indexOf(BY) + BY.length() + 1);
-            tasks.addDeadline(TaskList.taskList, task, deadline);
+            tasks.addDeadline(TaskList.taskList, description, deadline);
         } catch (StringIndexOutOfBoundsException e){
-            System.out.println ("Invalid deadline input!");
+            throw new DukeException(INVALID_DEADLINE_COMMAND);
         }
     }
 
@@ -175,13 +202,19 @@ public class Parser {
      * @throws DukeException if the task name is empty or the time is empty
      *
      */
-    public void prepEvent (String input){
+    public void prepEvent(String input) throws DukeException {
         try{
-            String task = input.substring(EVENT.length(), input.indexOf(AT));
+            String description = input.substring(EVENT.length(), input.indexOf(AT));
+            if (description.contains("  ")){
+                throw new DukeException(TWO_OR_MORE_CONSECUTIVE_WHITE_SPACES);
+            }
+            if (Arrays.asList(invalidDescriptions).contains(description)) {
+                throw new DukeException(INVALID_DESCRIPTION_IN_COMMAND);
+            }
             String time = input.substring(input.indexOf(AT) + AT.length() + 1);
-            tasks.addEvent(TaskList.taskList, task, time);
+            tasks.addEvent(TaskList.taskList, description, time);
         } catch (StringIndexOutOfBoundsException e){
-            System.out.println ("Invalid event input!");
+            throw new DukeException(INVALID_EVENT_COMMAND);
         }
 
     }
@@ -196,16 +229,16 @@ public class Parser {
      *
      *
      */
-    public void prepDelete (String input){
+    public void prepDelete(String input) throws DukeException {
         try {
-            int taskNumber = Integer.parseInt(input.substring(input.indexOf(DELETE) + DELETE.length() +1));
-            tasks.deleteTask (TaskList.taskList, taskNumber);
+            int taskNumber = Integer.parseInt(input.substring(input.indexOf(DELETE) + DELETE.length() + 1));
+            tasks.deleteTask(TaskList.taskList, taskNumber);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println ("Invalid input for deletion!");
+            throw new DukeException(INVALID_DELETE_COMMAND);
         } catch (IndexOutOfBoundsException e){
-            System.out.println ("Index out of bounds!");
+            throw new DukeException(INDEX_OUT_OF_BOUNDS);
         } catch (NumberFormatException e){
-            System.out.println ("Invalid input for deletion!");
+            throw new DukeException(INVALID_INDEX_INPUT);
         }
     }
 
@@ -219,12 +252,18 @@ public class Parser {
      *
      *
      */
-    public void prepFind (String input){
+    public void prepFind(String input) throws DukeException {
         try {
             String keyword = input.substring(FIND.length() + 1);
-            tasks.findTasks (TaskList.taskList, keyword);
+            if (keyword.contains("  ")) {
+                throw new DukeException(TWO_OR_MORE_CONSECUTIVE_WHITE_SPACES);
+            }
+            if (Arrays.asList(invalidDescriptions).contains(keyword)) {
+                throw new DukeException(INVALID_DESCRIPTION_IN_COMMAND);
+            }
+            tasks.findTasks(TaskList.taskList, keyword);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println ("Invalid input for finding!");
+            throw new DukeException(INVALID_FIND_COMMAND);
         }
 
     }

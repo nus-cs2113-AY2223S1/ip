@@ -1,7 +1,4 @@
-[T][]      this
-[D][]    this (by: tdy)
-[D][]         star (by: tdy 9 pm)
-[D][]  musical (by: mr 9 pm)
-[T][] this 
-[T][] hello
-[E][]  this (at: )
+[T][] cook
+[T][] call
+[E][X]  attend ball (at: sunday)
+[D][]  finish this (by: tonight)
