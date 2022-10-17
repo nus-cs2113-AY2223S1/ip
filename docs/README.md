@@ -88,7 +88,7 @@ __________________________________________________
 Marks the task at the given index as done
 
 Example of usage:
-`mark 0`
+`mark 1`
 
 Expected outcome:
 The first task in the user's tasks list is marked as done.
@@ -105,7 +105,7 @@ __________________________________________________
 Marks the task at the given index as not done
 
 Example of usage:
-`unmark 0`
+`unmark 1`
 
 Expected outcome:
 The first task in the user's tasks list is marked as not done.
@@ -124,7 +124,7 @@ __________________________________________________
 Deletes the task at the given index from the user's tasks list
 
 Example of usage:
-`delete 0`
+`delete 1`
 
 Expected outcome:
 The first task in the user's tasks list is deleted.
