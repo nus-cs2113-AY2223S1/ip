@@ -1,5 +1,5 @@
 # User Guide
-Welcome to the user guide of Duke, a Personal Assistant Chatbot that helps users to manage and keep track of various tasks.
+Welcome to the user guide of Duke, a Personal Assistant Task Manager that helps users to manage and keep track of various tasks.
 
 Duke is optimised for users proficient in Command Line Interface (CLI).
 

@@ -81,7 +81,11 @@ public class CommandProcessor {
             Task taskToAdd = createTask(command, parameters);
             return new AddCommand(taskToAdd);
         case (DeleteCommand.COMMAND):
-            return new DeleteCommand(Integer.parseInt(parameters.get(0)));
+            try {
+                return new DeleteCommand(Integer.parseInt(parameters.get(0)));
+            } catch (NumberFormatException e) {
+                throw new UnknownCommandException("Error: Task to delete should be an index number");
+            }
         case (ExitCommand.COMMAND):
             return new ExitCommand();
         case (FindCommand.COMMAND):
@@ -91,11 +95,19 @@ public class CommandProcessor {
         case (ListCommand.COMMAND):
             return new ListCommand();
         case (MarkCommand.COMMAND):
-            return new MarkCommand(Integer.parseInt(parameters.get(0)));
+            try {
+                return new MarkCommand(Integer.parseInt(parameters.get(0)));
+            } catch (NumberFormatException e){
+                throw new UnknownCommandException("Error: Task to mark should be the index number");
+            }
         case (MarkedCommand.COMMAND):
             return new MarkedCommand();
         case (UnmarkCommand.COMMAND):
-            return new UnmarkCommand(Integer.parseInt(parameters.get(0)));
+            try {
+                return new UnmarkCommand(Integer.parseInt(parameters.get(0)));
+            } catch (NumberFormatException e){
+                throw new UnknownCommandException("Error: Task to unmark should be the index number");
+            }
         default:
             throw new UnknownCommandException("Error: unknown command");
         }

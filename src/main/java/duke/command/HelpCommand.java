@@ -7,8 +7,10 @@ import duke.util.Ui;
 public class HelpCommand extends Command {
     public static final String COMMAND = "help";
     public static final String MESSAGE_HELP = "help\t - provide a quick user guide";
-    public static final String MESSAGE_DUKE_DESCRIPTION = "\nDuke - your CLI based Personal Assistant Chatbot\n";
-    public static final String MESSAGE_AUTHOR = "\nFull Documentation at https://github.com/CheahHaoYi/ip\n";
+    public static final String MESSAGE_DUKE_DESCRIPTION = System.lineSeparator()
+            + "Duke - your CLI based Personal Assistant Task Manager" + System.lineSeparator();
+    public static final String MESSAGE_AUTHOR = System.lineSeparator()
+            + "Full Documentation at https://github.com/CheahHaoYi/ip" + System.lineSeparator();
 
     public HelpCommand() {
 

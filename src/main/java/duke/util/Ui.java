@@ -9,24 +9,25 @@ import java.util.Scanner;
  */
 public class Ui implements Utilities {
 
-    private static final String LOGO = "\n"
-            + "     _________________________________________\n"
-            + "   /  _____________________________________   \\ \n"
-            + "   | |                                     |  | \n"
-            + "   | |  C:\\> Initiating programme. .  .    |  | \n"
-            + "   | |                                     |  | \n"
-            + "   | |  C:\\> Creating Duke...              |  | \n"
-            + "   | |                                     |  | \n"
-            + "   | |                                     |  | \n"
-            + "   | |                                     |  | \n"
-            + "   | |_____________________________________|  | \n"
-            + "    \\_____________________________________/ \n"
-            + "       \\________________________________/ \n"
-            + "        _________________________________ \n"
-            + "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ \n"
-            + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
+    private static final String LOGO = System.lineSeparator()
+            + "     _________________________________________" + System.lineSeparator()
+            + "   /  _____________________________________   \\ " + System.lineSeparator()
+            + "   | |                                     |  | " + System.lineSeparator()
+            + "   | |  C:\\> Initiating programme. .  .    |  | " + System.lineSeparator()
+            + "   | |                                     |  | " + System.lineSeparator()
+            + "   | |  C:\\> Creating Duke...              |  | " + System.lineSeparator()
+            + "   | |                                     |  | " + System.lineSeparator()
+            + "   | |                                     |  | " + System.lineSeparator()
+            + "   | |                                     |  | " + System.lineSeparator()
+            + "   | |_____________________________________|  | " + System.lineSeparator()
+            + "    \\_____________________________________/ " + System.lineSeparator()
+            + "       \\________________________________/ " + System.lineSeparator()
+            + "        _________________________________ " + System.lineSeparator()
+            + "   _-'.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--- `-_ " + System.lineSeparator()
+            + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ " + System.lineSeparator();
 
-    private static final String MESSAGE_GREET = "Hello! I'm Duke\nWhat can I do for you?";
+    private static final String MESSAGE_GREET = "Hello! I'm Duke, your Personal Task Manager"
+            + System.lineSeparator() + "What can I do for you?";
     private static final String MESSAGE_HELP = "Enter \"help\" to get started!";
     private static final String MESSAGE_BYE = "BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>";
     private static final String LINE_DIVIDER = "--------------------------------------";

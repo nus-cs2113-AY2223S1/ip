@@ -58,11 +58,18 @@ public class Parser implements Utilities {
         int optionIndex = inputString.indexOf(optionFlag);
 
         if (optionIndex == -1) {
-            throw new InvalidArgumentException("Error: wrong option flag, try again");
+            throw new InvalidArgumentException("Error: Wrong option flag, try again");
         }
 
-        String descriptionMain = inputString.substring(0, optionIndex);
-        String descriptionOption = inputString.substring(optionIndex + optionLen);
+        int indexRightAfterOption = optionIndex + optionLen - 1;
+
+        //if user misentered the option such as "/bys" instead of "/by"
+        if (inputString.charAt(indexRightAfterOption) != ' '){
+            throw new InvalidArgumentException("Error: Wrong option format, please refer to help guide");
+        }
+
+        String descriptionMain = inputString.substring(0, optionIndex).trim();
+        String descriptionOption = inputString.substring(optionIndex + optionLen).trim();
 
         return new ArrayList<>() {
             {
