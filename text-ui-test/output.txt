@@ -14,8 +14,8 @@ Got it! I've added this task:
 E[ ]task 2 (at: 6pm)
 Now you have 2 tasks in the list.
 Please provide a valid description and deadline.
-Sorry! The given task does not exist
-Sorry! The given task does not exist
+Sorry! The given task number is out of bounds
+Sorry! The given task number is out of bounds
 OOPS!!! I'm sorry, but I don't know what that means :-(
 OOPS!!! I'm sorry, but I don't know what that means :-(
 OOPS!!! I'm sorry, but I don't know what that means :-(

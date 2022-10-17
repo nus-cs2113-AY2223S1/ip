@@ -1,0 +1,16 @@
+todo task 1
+event task 2 /at 6pm
+deadline task 3 /at 7pm tomorrow
+mark 3
+mark 4
+deadline
+event
+todo
+deadline at 6pm
+list
+find 1
+find task
+find boom
+delete 2
+list
+bye
