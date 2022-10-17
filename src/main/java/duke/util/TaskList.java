@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.exception.TaskCheckedException;
 import duke.util.asset.Task;
 
 import duke.exception.DukeException;
@@ -96,13 +97,22 @@ public class TaskList implements Utilities {
      * @param isDone the desired state to be marked for the task of interest
      * @throws TaskNotFoundException if the taskIndex is out of bound
      */
-    public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException {
+    public void setTask(int taskIndex, boolean isDone) throws TaskNotFoundException, TaskCheckedException {
 
         if (taskIndex > taskCount || taskIndex <= 0) {
             throw new TaskNotFoundException(ERROR_OUT_OF_BOUND);
         }
 
         taskIndex += INDEX_OFFSET;
+        if (tasks.get(taskIndex).getStatus() == isDone) {
+            String errorMessage;
+            if (isDone) {
+                errorMessage = "The task is already marked :O";
+            } else {
+                errorMessage = "The task is already unmarked :O";
+            }
+            throw new TaskCheckedException(errorMessage);
+        }
         tasks.get(taskIndex).setStatus(isDone);
 
         messageBuffer.add("\t" + tasks.get(taskIndex).toString());

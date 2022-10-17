@@ -27,6 +27,7 @@ public class Ui implements Utilities {
             + "_-'.-.-. .---.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.`-_ \n";
 
     private static final String MESSAGE_GREET = "Hello! I'm Duke\nWhat can I do for you?";
+    private static final String MESSAGE_HELP = "Enter \"help\" to get started!";
     private static final String MESSAGE_BYE = "BEEP BEEP >>>> SEE >>> YOU >>>> AGAIN >>> BEEP BEWWWWW >>>";
     private static final String LINE_DIVIDER = "--------------------------------------";
 
@@ -94,6 +95,7 @@ public class Ui implements Utilities {
     public void greetUser() {
         System.out.println(LOGO);
         System.out.println(MESSAGE_GREET);
+        System.out.println(MESSAGE_HELP);
     }
 
     public void endMessage() {
