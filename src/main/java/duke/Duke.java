@@ -22,23 +22,33 @@ public class Duke {
      * @param args user inputs
      *
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ui.greet();
 
         try {
             Storage.loadTasks();
         } catch (FileNotFoundException e){
-            System.out.println ("A new file just got created!");
+            System.out.println ("A new file just got created! \n");
         }
 
         boolean isFinished = false;
         while (!isFinished) {
-            String input = ui.userInput();
-            ui.printDashLine();
-            parser.parse(input);
-            isFinished = (input.equals(Parser.BYE));
+            try {
+                String input = ui.userInput();
+                ui.printDashLine();
+                parser.parse(input);
+                isFinished = (input.equals(Parser.BYE));
+            } catch (DukeException e){
+                ui.printOutputs(e.getMessage());
+            }
+
         }
-        Storage.saveTasks();
+        try {
+            Storage.saveTasks();
+        } catch (IOException e){
+            ui.printOutputs(e.getMessage());
+        }
+
 
     }
 

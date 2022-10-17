@@ -36,7 +36,7 @@ public class Task {
 
     public String toString() {
         String prefix = "[] ";
-        if (isDone){
+        if (isDone) {
             prefix = "[X] ";
         }
         return prefix + description;
