@@ -40,6 +40,8 @@ public class Duke {
                 isFinished = (input.equals(Parser.BYE));
             } catch (DukeException e){
                 ui.printOutputs(e.getMessage());
+            } catch (IndexOutOfBoundsException e){
+                ui.printOutputs(e.getMessage());
             }
 
         }
