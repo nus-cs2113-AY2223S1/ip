@@ -1,0 +1,7 @@
+T | 0 | borrow book
+E | 1 | project meeting  |  Mon 2-4pm
+E | 0 | group work  |  CLB
+T | 0 | eat medicine
+T | 0 | borrow new book
+E | 1 | borrow book | clb
+E | 1 | dinner with mum | home

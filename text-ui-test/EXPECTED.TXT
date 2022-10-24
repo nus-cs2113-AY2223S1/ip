@@ -1,7 +1,183 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	 ____        _
+	|  _ \ _   _| | _____
+	| | | | | | | |/ / _ \
+	| |_| | |_| |   <  __/
+	|____/ \__,_|_|\_\___|
+
+	_____________________
+
+	Hello! I'm Duke, your personal task manager!
+	What can I do for you?
+	_____________________
+
+	Here are the current tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	_____________________
+
+	Enter <help> if you need some!
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	_____________________
+
+	_____________________
+
+	Got it. I've added this task:
+	added: [T][ ] borrow book
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	9.[T][ ] borrow book
+	_____________________
+
+	_____________________
+
+	Got it. I've added this task:
+	added: [D][ ] return book (by: Sunday)
+	_____________________
+
+	_____________________
+
+	Got it. I've added this task:
+	added: [E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	9.[T][ ] borrow book
+	10.[D][ ] return book (by: Sunday)
+	11.[E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+
+	_____________________
+
+	Nice! I've marked this task as done:
+	[X] borrow book
+	_____________________
+
+	_____________________
+
+	Nice! I've marked this task as done:
+	[X] return book
+	_____________________
+
+	_____________________
+
+	Nice! I've marked this task as done:
+	[X] project meeting
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][X] borrow book
+	2.[D][X] return book  (by:  Sunday)
+	3.[E][X] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	9.[T][ ] borrow book
+	10.[D][ ] return book (by: Sunday)
+	11.[E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+
+	_____________________
+
+	OK, I've marked this task as not done yet:
+	[ ] borrow book
+	_____________________
+
+	_____________________
+
+	OK, I've marked this task as not done yet:
+	[ ] return book
+	_____________________
+
+	_____________________
+
+	OK, I've marked this task as not done yet:
+	[ ] project meeting
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	9.[T][ ] borrow book
+	10.[D][ ] return book (by: Sunday)
+	11.[E][ ] project meeting (at: Mon 2-4pm)
+	_____________________
+
+	_____________________
+
+	Got it. I've added this task:
+	added: [D][ ] do homework (by: no idea :-p)
+	_____________________
+
+	_____________________
+
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book  (by:  Sunday)
+	3.[E][ ] project meeting  (at:  Mon 2-4pm)
+	4.[D][ ] do homework  (by:  no idea :-p)
+	5.[T][ ] borrow book
+	6.[D][ ] return book  (by:  Sunday)
+	7.[E][ ] project meeting  (at:  Mon 2-4pm)
+	8.[D][ ] do homework  (by:  no idea :-p)
+	9.[T][ ] borrow book
+	10.[D][ ] return book (by: Sunday)
+	11.[E][ ] project meeting (at: Mon 2-4pm)
+	12.[D][ ] do homework (by: no idea :-p)
+	_____________________
+
+	_____________________
+
+	Bye. Hope to see you again soon!
+	_____________________
 
