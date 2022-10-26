@@ -15,5 +15,6 @@ public enum Command {
     UNMARK,
     DELETE,
     CLEAR,
-    FIND
+    FIND,
+    TEST
 }
