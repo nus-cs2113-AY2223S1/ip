@@ -16,5 +16,5 @@ public enum Command {
     DELETE,
     CLEAR,
     FIND,
-    TEST
+    TEST_test
 }
