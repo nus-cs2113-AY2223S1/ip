@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+
+/.vscode
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Class file
+/src/main/java/*.class
+# Storage
+storage
