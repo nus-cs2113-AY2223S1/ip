@@ -1,0 +1,40 @@
+help
+list
+find book
+mark -1
+mark 2
+deadline finish assignment /by 2023-19-31 10:00
+deadline finish assignment /by 2023-01-31
+deadline finish BOOK /by 2022-10-15 10:00
+mark 5
+list
+find book
+unmark 2
+mark 6
+event soccer match /at 2022-11-11 11:11
+mark 6
+unmark 2
+list
+deadline
+event
+todo
+abc
+mark abc
+deadline /by
+deadline abc /by
+deadline /by abc
+event /at
+event /at abc
+event acb /at
+list
+delete -1
+delete 7
+delete 6
+delete 5
+list
+todo study for exam
+list
+delete 5
+list
+remove 2
+bye
