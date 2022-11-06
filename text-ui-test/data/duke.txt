@@ -1,0 +1,5 @@
+T | 1 | Gao YunFan: Answer CS2113 tutorial questions
+E | 0 | CS2113 lecture | 2022-01-01 2314
+D | 0 | ip hw | 2011-12-12 2103
+T | 0 | borrow book
+E | 0 | ee hw | 2010-02-15 0415
