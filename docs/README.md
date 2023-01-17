@@ -1,7 +1,8 @@
 # Duke User Guide
 
 **Duke is a task manager application run on the command line interface  
-Duke is powered by Slave Kai, Zhou Zhou's 256 IQ bot**
+Duke is powered by Slave Kai, Zhou Zhou's 256 IQ bot  
+Download Duke [here](https://github.com/maanyos/ip/releases/tag/A-Release)**
 
 ## Features
 
