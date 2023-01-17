@@ -2,7 +2,9 @@
 
 **Duke is a task manager application run on the command line interface  
 Duke is powered by Slave Kai, Zhou Zhou's 256 IQ bot  
-Download Duke [here](https://github.com/maanyos/ip/releases/tag/A-Release)**
+Duke requires Java 11 or newer versions  
+Download Duke [here](https://github.com/maanyos/ip/releases/tag/A-Release)  
+Run the command `java -jar duke.jar` using the terminal, from the same directory where the downloaded file is located  **
 
 ## Features
 
